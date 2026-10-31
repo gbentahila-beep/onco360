@@ -27,9 +27,11 @@ const MODES_FACT = [["essai", "Essai gratuit"], ["mensuel", "Mensuel"], ["annuel
 const MOYENS = [["virement", "Virement"], ["cheque", "Chèque"], ["especes", "Espèces"], ["carte", "Carte"], ["autre", "Autre"]];
 // Prix proposés par Onco360 (DH TTC) : repères = logiciels de cabinet (100 à 140 € par mois en France), Onco360 étant spécialisé
 // (chimiothérapie, radiothérapie) ; annuel = 10 mois (2 mois offerts)
-const PRIX0 = { essentiel: { mois: 690, an: 6900 }, "onco-pro": { mois: 1190, an: 11900 }, "onco-clinique": { mois: 2490, an: 24900 },
-  radiotherapie: { mois: 690, an: 6900 }, "rt-pro": { mois: 1190, an: 11900 }, "rt-centre": { mois: 2490, an: 24900 },
-  "oncort-pro": { mois: 1490, an: 14900 }, complet: { mois: 2990, an: 29900 } };
+// L10 (31/10/2026) : prix marocains, TTC, à partir des prix publics relevés (Tbibclic 299 DH/mois ou 3 588 DH/an, Medic.ma 450 DH/mois, DabaDoc 475 DH/mois,
+// logiciels généralistes à un médecin) : Essentiel un peu au-dessus (logiciel de spécialité : doses, cures, radiothérapie), équipe et centres ensuite ; annuel = 10 mois
+const PRIX0 = { essentiel: { mois: 490, an: 4900 }, "onco-pro": { mois: 790, an: 7900 }, "onco-clinique": { mois: 1990, an: 19900 },
+  radiotherapie: { mois: 490, an: 4900 }, "rt-pro": { mois: 790, an: 7900 }, "rt-centre": { mois: 1990, an: 19900 },
+  "oncort-pro": { mois: 990, an: 9900 }, complet: { mois: 2490, an: 24900 } };
 const jourD = (s) => new Date(String(s).slice(0, 10) + "T12:00:00Z");
 const iso = (d) => d.toISOString().slice(0, 10);
 const ajouterJours = (s, n) => { const d = jourD(s); d.setUTCDate(d.getUTCDate() + n); return iso(d); };

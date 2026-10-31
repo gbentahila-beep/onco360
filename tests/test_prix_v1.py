@@ -29,7 +29,7 @@ async def main():
         print('1. Médecin')
         pg = await ouvrir(b, S2); ev = pg.evaluate; await pg.goto(U); await pg.wait_for_timeout(3000)
         v, t = await venu(pg, 'rX')
-        ok(v == '250' and 'Tarif HCK : 250 DH' in t, 'rendez-vous repris de l\'ancienne application (prix v1 225 = net) : 250 DH proposé', (v, t[:200]))
+        ok(v == '250' and 'tarif HCK (Paramètres › Finances) : 250 DH' in t, 'rendez-vous repris de l\'ancienne application (prix v1 225 = net) : 250 DH proposé', (v, t[:200]))
         await pg.click('#fOk'); await pg.wait_for_timeout(1500)
         M = json.loads((await ev("window.__fs"))[E + 'patientsFinances/' + P]['montantsJson'])['rdv']['rX']
         ok(M.get('brut') == 250 and not M.get('v1') and 'prix' not in M, 'enregistré en brut (250), plus en prix v1 (bilan : 225 net, comme avant)', M)

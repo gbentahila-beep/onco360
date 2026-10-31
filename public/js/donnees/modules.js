@@ -7,6 +7,7 @@
 export const MODULES = [
   ["chimio", "Chimiothérapie et protocoles", "Lignes, cures, doses, fiche chimio, bibliothèque de protocoles"],
   ["rt", "Radiothérapie", "Prescriptions, scanner, contourage, dosimétrie, séances"],
+  ["outils", "Outils cliniques", "Stadification TNM, échelles de toxicité (CTCAE), calculateurs (lot RT.13, 31/10/2026)"],
   ["agenda", "Agenda", "Page Agenda (jour, semaine, mois)"],
   ["salle", "Salle d'attente", "Arrivées, en salle, vus, absents"],
   ["taches", "Tâches", "Tâches de l'équipe, tâches automatiques"],
@@ -19,14 +20,14 @@ export const MODULES = [
 ];
 // Modules et menus par spécialité (10/10/2026) : un module sans famille sert à toutes les spécialités ; sinon il appartient à la
 // famille d'une bibliothèque (ex. Chimiothérapie et protocoles : Oncologie – Radiothérapie). Menu toujours présent : MENU_COMMUN.
-export const MODULE_FAMILLE = { chimio: "bib-oncologie", rt: "bib-oncologie" };
-export const MODULE_MENU = { chimio: "Menu « Protocoles » ; onglet Chimiothérapie du dossier", rt: "Onglet Radiothérapie du dossier", agenda: "Menu « Agenda / Rendez-vous »", salle: "Menu « Salle d'attente »", taches: "Menu « Tâches »", rcp: "Menu « RCP » (sous Tâches) ; bouton « + RCP » du dossier", prescriptions: "Boutons Médic., Examens compl., Ordo. type, Analyses, Courriers, Doc. du dossier", documents: "Onglet Documents du dossier ; pli, compte rendu", gagenda: "Paramètres › Google Agenda", listes: "Paramètres › Listes", bilan: "Menu « Bilan »" };
+export const MODULE_FAMILLE = { chimio: "bib-oncologie", rt: "bib-oncologie", outils: "bib-oncologie" };
+export const MODULE_MENU = { chimio: "Menu « Protocoles » ; onglet Chimiothérapie du dossier", rt: "Onglet Radiothérapie du dossier", outils: "Menu « Outils cliniques » (sous Radiothérapie)", agenda: "Menu « Agenda / Rendez-vous »", salle: "Menu « Salle d'attente »", taches: "Menu « Tâches »", rcp: "Menu « RCP » (sous Tâches) ; bouton « + RCP » du dossier", prescriptions: "Boutons Médic., Examens compl., Ordo. type, Analyses, Courriers, Doc. du dossier", documents: "Onglet Documents du dossier ; pli, compte rendu", gagenda: "Paramètres › Google Agenda", listes: "Paramètres › Listes", bilan: "Menu « Bilan »" };
 export const MENU_COMMUN = ["Tableau de bord", "Patients (dossiers, consultations, rendez-vous)", "Paramètres (icône de la barre du haut)", "Mon compte (nom ou photo)"];
 // Parties de base d'Onco360 (10/10/2026, onglet « Modules » de l'Administration) : toujours présentes dans chaque cabinet, quelle que
 // soit la spécialité ; [clé, nom, description, où dans Onco360, contenu]
 export const MODULES_BASE = [
   ["accueil", "Tableau de bord", "Page d'accueil du cabinet", "Menu « Tableau de bord »", "cartes"],
-  ["patients", "Patients et dossiers", "Liste, recherche, filtre par hôpital, dossier du patient", "Menu « Patients »", ["Liste et recherche", "Numéro de dossier (AAAAMM + rang)", "Fiche patient (réglée par spécialité)", "Rendez-vous et tâches à venir du dossier"]],
+  ["patients", "Patients et dossiers", "Liste, recherche, filtre par établissement, dossier du patient", "Menu « Patients »", ["Liste et recherche", "Numéro de dossier (AAAAMM + rang)", "Fiche patient (réglée par spécialité)", "Rendez-vous et tâches à venir du dossier"]],
   ["consultations", "Consultations", "Journal des consultations du dossier", "Onglet Consultation du dossier", ["Journal des consultations", "Formulaire de consultation (réglé par spécialité)", "Barre des prescriptions (module Prescriptions)"]],
   ["parametres", "Paramètres (paramétrage)", "Réglages du cabinet, onglet par onglet", "Icône « Paramètres » de la barre du haut", "sections"],
   ["equipe", "Équipe et droits", "Comptes de l'équipe, rôles et droits, lieux d'exercice", "Paramètres › Accès, Lieux d'exercice", ["Médecins", "Remplaçants", "Secrétaires", "Infirmières", "Comptables", "Droits par membre", "Lieux d'exercice (logos)"]],
@@ -56,14 +57,14 @@ const f = (specialite, lib, modules, max) => ({ lib, specialite, modules: MODULE
 const mx = (medecin, assistante, infirmiere, etablissements, patients, comptable = null, remplacant = 3) => ({ medecin, remplacant, assistante, infirmiere, comptable, etablissements, patients });
 import { PRIX0 } from "./facturation.js";
 export const FORMULES = {
-  essentiel: f("Oncologie – Radiothérapie", "Oncologie – Essentiel", ["chimio"].concat(COMMUNS), mx(1, 1, 0, 1, 300)),
-  "onco-pro": f("Oncologie – Radiothérapie", "Oncologie – Pro", ["chimio"].concat(COMMUNS, EQUIPE), mx(1, 2, 2, 2, 1000)),
-  "onco-clinique": f("Oncologie – Radiothérapie", "Oncologie – Clinique", ["chimio"].concat(COMMUNS, EQUIPE), mx(5, 5, 10, null, null)),
-  radiotherapie: f("Oncologie – Radiothérapie", "Radiothérapie – Essentiel", ["rt"].concat(COMMUNS), mx(1, 1, 0, 1, 300)),
-  "rt-pro": f("Oncologie – Radiothérapie", "Radiothérapie – Pro", ["rt"].concat(COMMUNS, EQUIPE), mx(1, 2, 1, 2, 1000)),
-  "rt-centre": f("Oncologie – Radiothérapie", "Radiothérapie – Centre", ["rt"].concat(COMMUNS, EQUIPE), mx(5, 5, 5, null, null)),
-  "oncort-pro": f("Oncologie – Radiothérapie", "Onco-radiothérapie – Pro", ["chimio", "rt"].concat(COMMUNS, EQUIPE), mx(1, 2, 2, 2, 1000)),
-  complet: f("Oncologie – Radiothérapie", "Onco-radiothérapie – Clinique", ["chimio", "rt"].concat(COMMUNS, EQUIPE), mx(5, 5, 10, null, null)),
+  essentiel: f("Oncologie – Radiothérapie", "Oncologie – Essentiel", ["chimio", "outils"].concat(COMMUNS), mx(1, 1, 0, 1, 300)),
+  "onco-pro": f("Oncologie – Radiothérapie", "Oncologie – Pro", ["chimio", "outils"].concat(COMMUNS, EQUIPE), mx(1, 2, 2, 2, 1000)),
+  "onco-clinique": f("Oncologie – Radiothérapie", "Oncologie – Clinique", ["chimio", "outils"].concat(COMMUNS, EQUIPE), mx(5, 5, 10, null, null)),
+  radiotherapie: f("Oncologie – Radiothérapie", "Radiothérapie – Essentiel", ["rt", "outils"].concat(COMMUNS), mx(1, 1, 0, 1, 300)),
+  "rt-pro": f("Oncologie – Radiothérapie", "Radiothérapie – Pro", ["rt", "outils"].concat(COMMUNS, EQUIPE), mx(1, 2, 1, 2, 1000)),
+  "rt-centre": f("Oncologie – Radiothérapie", "Radiothérapie – Centre", ["rt", "outils"].concat(COMMUNS, EQUIPE), mx(5, 5, 5, null, null)),
+  "oncort-pro": f("Oncologie – Radiothérapie", "Onco-radiothérapie – Pro", ["chimio", "rt", "outils"].concat(COMMUNS, EQUIPE), mx(1, 2, 2, 2, 1000)),
+  complet: f("Oncologie – Radiothérapie", "Onco-radiothérapie – Clinique", ["chimio", "rt", "outils"].concat(COMMUNS, EQUIPE), mx(5, 5, 10, null, null)),
 };
 Object.keys(FORMULES).forEach((k) => { FORMULES[k].prix = Object.assign({}, PRIX0[k]); }); // prix proposés (17.4), modifiables pack par pack
 // Abonnement tel qu'il s'applique : sans abonnement, tous les modules ; avec un abonnement, seulement les modules cochés (un module

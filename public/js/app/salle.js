@@ -107,6 +107,7 @@ async function actualiser(manuel) {
 }
 const majAJour = () => { const e = $("saAjour"); if (e) e.textContent = AJOUR ? "à jour à " + hm(AJOUR).replace(":", " h ") : ""; };
 window.saActualiser = () => actualiser(true);
+window.saNouveauRdv = () => window.nouveauRdv(JOUR || D().t, null, ETAB || null); // 31/10/2026 : nouveau rendez-vous le jour affiché, établissement filtré
 // Écran resté ouvert après minuit : Onco360 se recharge sur le nouveau jour (sauf fenêtre ou saisie en cours : message)
 function nouveauJour() {
   const j = jourMaroc(maintenant()); // minuit à l'heure du Maroc (S1)
@@ -137,6 +138,8 @@ async function lireJour(j) {
 }
 // Badge de salle d'attente (agenda, tableau de bord) : « En salle · 12 min », « En consultation · 5 min », « Vu 10:42 », « Absent » ;
 // cle = "r-RDV" ou "chimio" (première séance de chimio du patient ce jour-là). Mis à jour en direct (majBadges).
+// 4.5 (31/10/2026) : séances de chimio du jour dont la consultation est validée (« Vu ») : gardées sur le tableau de bord, marquées « Vu »
+export const chimiosVuesDuJour = () => lignes([D().t]).filter((l) => l.chimio && l.etat === "vu").map((l) => ({ pid: l.pid, n: l.chimio.n, j: l.chimio.j, lib: l.chimio.lib || "" }));
 export function badgeSalle(pid, cle) { return '<span class="sa-badge" data-sa="' + A.esc(pid + "|" + cle) + '">' + contenuBadge(lignes([D().t]), pid, cle) + "</span>"; }
 function contenuBadge(L, pid, cle) {
   const l = L.find((z) => z.pid === pid && (cle === "chimio" ? !!z.chimio : z.cle === cle)); if (!l) return "";
@@ -211,8 +214,8 @@ function prixDe(l) {
   const etab = l.x.doc.etablissementId || "", T = A.tarifsVus();
   if (l.etat === "vu") {
     const E = encDe(l.x); if (E === undefined) return { m: null, charge: true };
-    if (l.rdv) { const o = E && E.rdv && E.rdv[l.rdv.id]; if (o) return { m: o.tj != null ? o.tj * (joursH(l.rdv) || 1) : o.b != null ? o.b : o.m, ok: true, v1: !!o.v1, np: o.mode === "np" || o.mode === "ae", mode: o.mode }; if (l.rdv.type === T_RTC) return { m: 0, ok: true }; }
-    else { const v = E && E.cons && E.cons[l.chimio.lid + "|" + l.chimio.n + "|" + l.chimio.j]; if (v) return { m: v.m, ok: true, np: v.mode === "np" || v.mode === "ae", mode: v.mode }; }
+    if (l.rdv) { const o = E && E.rdv && E.rdv[l.rdv.id]; if (o) return { m: o.tj != null ? Math.max(0, o.tj * (joursH(l.rdv) || 1) - (o.rem || 0)) : o.b != null ? o.b : o.m, ok: true, v1: !!o.v1, np: o.mode === "np" || o.mode === "ae", ap: o.mode === "ap", mode: o.mode }; if (l.rdv.type === T_RTC) return { m: 0, ok: true }; }
+    else { const v = E && E.cons && E.cons[l.chimio.lid + "|" + l.chimio.n + "|" + l.chimio.j]; if (v) return { m: v.m, ok: true, np: v.mode === "np" || v.mode === "ae", ap: v.mode === "ap", mode: v.mode }; }
     return { m: null, nonValide: true };
   }
   if (l.doc.prix != null) return { m: l.doc.prix, convenu: true }; // prix convenu d'avance (patient qui paie avant la consultation)
@@ -471,13 +474,16 @@ export function pageSalle(j) {
     '<button class="b2" id="saAuj" onclick="saAller(\'' + D().t + '\')">Aujourd\'hui</button></div>' +
     '<div class="bp-act sa-etab">' +
     '<button class="b2 sa-ftr" id="saFtr" onclick="saFiltres()" aria-expanded="' + FILTRES + '" aria-controls="saOutils"><svg class="i"><use href="#i-loupe"/></svg>Filtres<span class="n" id="saFtrN"></span></button>' +
-    '<button class="b1 cache" id="saSuiv" onclick="saSuivant()"><svg class="i"><use href="#i-check"/></svg>Patient suivant</button>' +
+    '<button class="b2 cache" id="saSuiv" onclick="saSuivant()"><svg class="i"><use href="#i-check"/></svg>Patient suivant</button>' +
     '<span class="bp-maj"><button class="b2" id="saAct" onclick="saActualiser()" title="Relire la salle d\'attente, les dossiers du jour et les prix (fait aussi tout seul chaque minute)"><svg class="i"><use href="#i-actualiser"/></svg>Actualiser</button><span class="mesures sa-ajour" id="saAjour"></span></span>' +
     '<details class="m3 sa-plus" id="saPlus"><summary class="b3 sa-pts" title="Autres actions" aria-label="Autres actions">⋯<span class="sa-pts-n cache" id="saPtsN"></span></summary><div class="m3-l">' +
     '<button class="mini" data-fn="salle.colonnes" onclick="saColonnes()" title="Choisir les colonnes affichées"><svg class="i"><use href="#i-liste"/></svg>Colonnes</button>' +
     '<button class="mini" onclick="saImprimer()" title="Imprimer la liste du jour"><svg class="i"><use href="#i-imprimer"/></svg>Imprimer la liste du jour</button>' +
     (A.voit("traitements") ? '<button class="mini" data-mod="chimio" onclick="saPharmacie()" title="Séances de chimiothérapie du lendemain, doses et flacons, pour la pharmacie de la clinique"><svg class="i"><use href="#i-pilule"/></svg>Pharmacie</button>' : "") +
-    '<button class="mini cache" id="saClo" onclick="saCloturer()" title="Patients restés en salle, en consultation ou jamais arrivés"><svg class="i"><use href="#i-check"/></svg>Clôturer la journée</button></div></details></div></div>' +
+    '<button class="mini cache" id="saClo" onclick="saCloturer()" title="Patients restés en salle, en consultation ou jamais arrivés"><svg class="i"><use href="#i-check"/></svg>Clôturer la journée</button></div></details>' +
+    // 31/10/2026 (demande de Dr Bentahila) : « + Rendez-vous » = le bouton principal de la page, au bout de la ligne d'Actualiser et de « ⋯ » (même place
+    // que dans l'agenda) ; « Patient suivant » devient secondaire (un seul bouton principal par page)
+    (A.peut("rendezvous") ? '<button class="b1 sa-nouv" onclick="saNouveauRdv()"><svg class="i"><use href="#i-plus"/></svg>Rendez-vous</button>' : "") + '</div></div>' +
     '<div class="sa-outils barre-filtres" id="saOutils">' +
     '<div class="recherche"><svg class="i"><use href="#i-loupe"/></svg><input id="saQ" type="search" placeholder="Nom, n° de dossier, téléphone…" autocomplete="off" aria-label="Rechercher un patient"></div>' +
     '<div class="sa-per" role="group" aria-label="Période">' + [["matin", "Matinée"], ["am", "Après-midi"], ["jour", "Toute la journée"]].map(([k, t]) => '<button data-per="' + k + '" onclick="saPeriode(\'' + k + '\')">' + t + "</button>").join("") + "</div>" +
@@ -547,8 +553,8 @@ function dessiner() {
     // à encaisser (19.5, lieux « payé au cabinet ») : vu (validé par le médecin) mais pas encore encaissé, ou non payé : compté à part
     // lieux payés par l'établissement (virement, ex. HCK) : comptés dans les vus, pour que le médecin les voie, et montrés à part
     let enc = 0, prev = 0, nv = 0, np = 0, etb = 0;
-    L.forEach((z) => { const p = prixDe(z); if (!p) return; if (z.etat === "vu") { if (p.ok && p.np) np += p.m || 0; else if (p.ok) { enc += p.m || 0; if (!A.payeCabinet(z.x)) etb += p.m || 0; } else nv++; } else prev += p.m || 0; });
-    remplir($("saTot"), '<div class="sa-tot"><span>Encaissé (vus) : <b>' + A.fmtMil(enc) + " DH</b>" + (etb && etb < enc ? ' <span class="mesures">dont ' + A.fmtMil(etb) + " DH payés par l'établissement</span>" : etb ? ' <span class="mesures">(payé par l\'établissement)</span>' : "") + "</span>" + (np ? '<span style="color:var(--orange)">À encaisser : <b>' + A.fmtMil(np) + " DH</b></span>" : "") + "<span>Prévu (restant) : <b>" + A.fmtMil(prev) + " DH</b></span>" + (nv ? '<span class="mesures">' + nv + " consultation" + (nv > 1 ? "s" : "") + " vue" + (nv > 1 ? "s" : "") + " sans prix</span>" : "") + "</div>");
+    L.forEach((z) => { const p = prixDe(z); if (!p) return; if (z.etat === "vu") { if (p.ok && p.np) np += p.m || 0; else if (p.ok) { enc += p.m || 0; if (p.ap || (!p.mode && !A.payeCabinet(z.x))) etb += p.m || 0; } else nv++; } else prev += p.m || 0; });
+    remplir($("saTot"), '<div class="sa-tot"><span>Encaissé (vus) : <b>' + A.fmtMil(enc) + " DH</b>" + (etb && etb < enc ? ' <span class="mesures">dont ' + A.fmtMil(etb) + " DH par l'établissement (virement)</span>" : etb ? ' <span class="mesures">(par l\'établissement, virement)</span>' : "") + "</span>" + (np ? '<span style="color:var(--orange)">À encaisser : <b>' + A.fmtMil(np) + " DH</b></span>" : "") + "<span>Prévu (restant) : <b>" + A.fmtMil(prev) + " DH</b></span>" + (nv ? '<span class="mesures">' + nv + " consultation" + (nv > 1 ? "s" : "") + " vue" + (nv > 1 ? "s" : "") + " sans prix</span>" : "") + "</div>");
   } else remplir($("saTot"), "");
 }
 // Contenu remplacé seulement s'il a changé
@@ -646,7 +652,8 @@ function actionsDe(l) {
     else if (l.etat === "salle") { if (okR) prin = ["Démarrer", "saDemarrer", "Démarrer la consultation (ouvre le dossier)"]; if (okV) L.push(["Valider", "saValider"]); if (okR && triPerso() !== "alpha") L.push(["Faire passer avant ↑", "saMonter"], ["Faire passer après ↓", "saDescendre"]); L.push(["Annuler l'arrivée", "saAnnuler"]); }
     else if (l.etat === "consult" && okR) { if (okV) prin = ["Valider", "saValider", "Consultation terminée : fenêtre de prix"]; L.push(["Retour en salle", "saRetour"]); }
   } else if (l.jour < t && (l.etat === "" || l.etat === "salle" || l.etat === "consult")) { if (okV) prin = ["Valider", "saValider"]; if (okR && l.etat === "") L.push(["Absent", "saAbsent"]); }
-  if (l.etat === "vu" && p && p.ok && A.payeCabinet(l.x) && A.peutPrix()) { if (p.np) prin = ["Encaisser", "saEncaisser", "Paiement reçu : mode de paiement et reçu"]; else if (p.mode && p.m > 0) L.push(["Réimprimer le reçu", "saRecu"]); }
+  // lot R (31/10/2026) : « Encaisser » dans tous les lieux (consultation à encaisser) ; pas pour un virement attendu de l'établissement (à payer)
+  if (l.etat === "vu" && p && p.ok && A.peutPrix()) { if (p.np) prin = ["Encaisser", "saEncaisser", "Paiement reçu : nouveau reçu (remise, mode, réglé en totalité), facture imprimée"]; else if (A.estRegle(p.mode) && p.m > 0) L.push(["Réimprimer le reçu", "saRecu"]); }
   if ((l.etat === "vu" || l.etat === "absent") && okR && (l.rdv || A.peutPrix() || l.etat === "absent") && !l.orphelin && !l.derive) L.push(["Annuler le statut", "saAnnuler"]);
   if ((!!l.chimio || A.voitRdv()) && okR) L.push(["Motif de consultation", "saMotif"]);
   L.push(["Commentaire", "saCom"]);

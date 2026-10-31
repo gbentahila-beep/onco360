@@ -44,7 +44,7 @@ async def main():
         await ev("fermerFenetre()"); await pg.wait_for_timeout(300)
         await ev(f"ordDocumentation('{pid}')"); await pg.wait_for_timeout(1500)
         r = await ev("(() => { const td = document.querySelector('#dcListe td.act'); return td ? [[...td.querySelectorAll(':scope > .mini')].map(b => b.textContent.trim()), td.querySelector('details.bib-pts') ? [...td.querySelectorAll('details .m3-l button')].map(b => b.textContent.trim()) : null] : null; })()")
-        ok(r and r[0] == ['Ouvrir', 'Remettre'] and r[1] == ['Modifier', 'Supprimer'], 'Doc. : Ouvrir, Remettre visibles ; Modifier, Supprimer sous « ⋯ » ' + str(r))
+        ok(r and r[0] == ['Remettre'] and r[1] == ['Ouvrir', 'Modifier', 'Supprimer'], 'Doc. : Remettre visible ; Ouvrir, Modifier, Supprimer sous « ⋯ » (lot 3.3, 31/10/2026) ' + str(r))
         await ev("fermerFenetre()"); await pg.wait_for_timeout(300)
 
         # 5. Paramètres › Bibliothèques (gestion) : boutons visibles, pas de « ⋯ »

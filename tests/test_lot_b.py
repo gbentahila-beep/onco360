@@ -40,9 +40,11 @@ async def main():
 
         # Patients
         await pg.goto(f'http://localhost:{PORT}/v2.html#patients'); await pg.wait_for_timeout(1500)
-        r = await ev("(() => { const f = document.querySelector('#page .filtres'), t = document.querySelector('#page .liste-tete'), b = t && t.querySelector('.b1'); return [!!f && !!t && f.getBoundingClientRect().bottom <= t.getBoundingClientRect().top + 1, b ? b.textContent.trim() : '', !!t && !!t.querySelector('#nbRes')]; })()")
-        ok(r[0] and r[1] == 'Nouveau patient' and r[2], 'patients : filtres d\'abord, puis « + Nouveau patient » en tête de la liste, à côté du nombre ' + str(r))
-        await pg.click('.liste-tete .b1'); await pg.wait_for_timeout(600)
+        # 31/10/2026 (lots 1.2 et 2.5, demande de Dr Bentahila) : la recherche et « + Patient » sur la 1re ligne, les menus dessous (avant : filtres, puis
+        # « + Nouveau patient » en tête de la liste)
+        r = await ev("(() => { const q = document.querySelector('#page .pt-q'), b = document.querySelector('#page .pt-l1 .b1'), f = document.querySelector('#page .filtres'); return [!!q && !!b && Math.abs(q.getBoundingClientRect().top + q.offsetHeight / 2 - b.getBoundingClientRect().top - b.offsetHeight / 2) <= 3, b ? b.textContent.trim() : '', !!f && f.getBoundingClientRect().top >= q.getBoundingClientRect().bottom]; })()")
+        ok(r[0] and r[1] == 'Patient' and r[2], 'patients : recherche et « + Patient » sur la même ligne, menus dessous ' + str(r))
+        await pg.click('.pt-l1 .b1'); await pg.wait_for_timeout(600)
         ok(await ev("!document.getElementById('fenetre').classList.contains('cache')"), 'patients : le bouton ouvre « Nouveau patient »')
         await ev("fermerFenetre()")
 
@@ -65,7 +67,7 @@ async def main():
         ok('parametres' not in vis and 'profil' not in vis and not await ev("!!document.querySelector('#menu .sortie')"), 'menu : ni Paramètres, ni Mon compte, ni Déconnexion ' + str(vis))
         await pg.click('#btCompte'); await pg.wait_for_timeout(300)
         r = await ev("(() => { const m = document.getElementById('menuCompte'); return [m.offsetParent !== null || getComputedStyle(m).display !== 'none', [...m.querySelectorAll('a,button')].map(x => x.textContent.trim()), document.getElementById('mcNom').textContent]; })()")
-        ok(r[0] and r[1] == ['Mon compte', 'Déconnexion'] and r[2], 'menu du compte (nom en bas du menu) : Mon compte, Déconnexion ' + str(r))
+        ok(r[0] and r[1] == ['Mon compte', 'Guide de démarrage', 'Déconnexion'] and r[2], 'menu du compte (nom en bas du menu) : Mon compte, Guide de démarrage (L3, 31/10), Déconnexion ' + str(r))
         await pg.click('#mcCompte'); await pg.wait_for_timeout(1200)
         ok(pg.url.endswith('#profil') and await ev("document.getElementById('menuCompte').classList.contains('cache')"), 'Mon compte s\'ouvre depuis le menu du compte, qui se ferme')
         await pg.click('#avTete'); await pg.wait_for_timeout(300)

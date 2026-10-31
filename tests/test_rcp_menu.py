@@ -43,7 +43,7 @@ async def main():
         pg = await ouvrir(b, S3); ev = pg.evaluate
         await pg.goto(f'http://localhost:{PORT}/v2.html#accueil'); await pg.wait_for_timeout(3500)
         menu = await ev("[...document.querySelectorAll('nav a')].filter(a => a.offsetParent !== null).map(a => a.dataset.p)")
-        ok(menu[:3] == ['patients', 'taches', 'rcp'], 'menu déjà réglé : son ordre gardé, RCP juste après Tâches', menu)
+        ok(menu[:4] == ['patients', 'documents', 'taches', 'rcp'], 'menu déjà réglé : son ordre gardé, RCP juste après Tâches (« Documents » sous « Patients » : lot 5.3)', menu)
         await pg.close()
         # Module RCP retiré : entrée cachée, page → tableau de bord
         S4 = json.loads(json.dumps(S2)); ed = S4.setdefault(E[:-1], {}); ed.setdefault('abonnement', {}).setdefault('modules', {})['rcp'] = False

@@ -39,6 +39,23 @@ const SECRET = defineSecret("GOOGLE_CLIENT_SECRET");
 const CLIENT_ID = defineString("GOOGLE_CLIENT_ID");
 const SCOPE_AGENDA = "https://www.googleapis.com/auth/calendar.app.created";
 const OPTS = { secrets: [SECRET], timeoutSeconds: 300, memory: "256MiB" };
+// ───── Lot L (31/10/2026) : exploitation de la plateforme (logique pure : functions/plateforme.js) ─────
+const PF = require("./plateforme");
+const { FieldPath } = require("firebase-admin/firestore");
+// L1 : résultat de chaque traitement de nuit (plateforme/nuits { nom: { le, ok, n, echecs, nbEchecs, duree } }), lu par « État de la plateforme »
+async function noterNuit(k, debut, n, echecs) {
+  try { await db.doc("plateforme/nuits").set({ [k]: PF.resultatNuit(debut, Date.now(), n, echecs) }, { merge: true }); } catch (e) { console.warn("nuit", k, e.message); }
+}
+// L4 (2) : documents d'une collection lus par paquets (quelques centaines à la fois, jamais tout le cabinet en mémoire)
+async function parPaquets(col, f, taille = 300) {
+  let dernier = null;
+  for (;;) {
+    let q = db.collection(col).orderBy(FieldPath.documentId()).limit(taille); if (dernier) q = q.startAfter(dernier);
+    const s = await q.get(); if (s.empty) return;
+    for (const d of s.docs) await f(d);
+    if (s.size < taille) return; dernier = s.docs[s.size - 1].id;
+  }
+}
 
 // ───── Jetons Google ─────
 async function oauth(params) {
@@ -314,16 +331,23 @@ exports.tachesAutoPatient = onDocumentWritten(Object.assign({ document: "espaces
   catch (er) { console.error("tâches automatiques", ev.params.p, er); }
 });
 exports.tachesAutoNuit = onSchedule(Object.assign({ schedule: "0 3 * * *", timeZone: L.TZ }, OPTS), async () => {
-  await heureAJour();
+  await heureAJour(); const debut = Date.now(), echecs = []; let n = 0;
+  // L4 (2) : un cabinet à la fois, dossiers lus par paquets ; un cabinet en échec n'arrête pas les autres (noté dans plateforme/nuits)
   for (const es of (await db.collection("espaces").get()).docs) {
-    const ctx = await contexteAuto(es.id); if (!ctx.regles.some((r) => r.actif !== false)) continue;
-    for (const d of (await db.collection("espaces/" + es.id + "/patients").get()).docs) { try { await tachesAuto(es.id, d.id, d.data(), ctx, {}); } catch (er) { console.error("tâches automatiques", d.id, er); } }
+    if (C.estBib(es.id) || (es.data() || {}).actif === false) continue;
+    try {
+      const ctx = await contexteAuto(es.id); if (!ctx.regles.some((r) => r.actif !== false)) continue;
+      await parPaquets("espaces/" + es.id + "/patients", async (d) => { try { await tachesAuto(es.id, d.id, d.data(), ctx, {}); } catch (er) { console.error("tâches automatiques", d.id, er); } });
+      n++;
+    } catch (er) { echecs.push({ espace: es.id, erreur: er }); console.error("tâches automatiques", es.id, er); }
   }
+  await noterNuit("tachesAutoNuit", debut, n, echecs);
 });
 exports.agendaNuit = onSchedule(Object.assign({ schedule: "30 3 * * *", timeZone: L.TZ }, OPTS), async () => {
   await heureAJour();
-  const l = (await db.collection("agendaJetons").get()).docs.filter((d) => !d.data().revoque);
-  for (const d of l) { try { await syncComplet(d.id, d.data()); } catch (e) { await echec(d.id, e); } }
+  const l = (await db.collection("agendaJetons").get()).docs.filter((d) => !d.data().revoque), debut = Date.now(), echecs = [];
+  for (const d of l) { try { await syncComplet(d.id, d.data()); } catch (e) { echecs.push({ espace: "compte " + d.id.slice(0, 6), erreur: e }); await echec(d.id, e); } }
+  await noterNuit("agendaNuit", debut, l.length, echecs);
 });
 
 // ───── Numéro de dossier (étape 8, 09/10/2026) : AAAAMM + rang d'inscription dans le mois (functions/numeros.js) ─────
@@ -388,6 +412,15 @@ async function jAdmin(par, type, espace, cabinet, txt) {
     if (par && par !== "onco360" && !(par in EMAILS)) EMAILS[par] = await getAuth().getUser(par).then((u) => u.email || "").catch(() => "");
     await db.collection("journalAdmin").add({ le: new Date(), par: par || "", parEmail: par === "onco360" ? "Onco360 (automatique)" : EMAILS[par] || "", type, espace: espace || "", cabinet: String(cabinet || "").slice(0, 120), txt: String(txt || "").slice(0, 500) });
   } catch (e) { console.warn("journal de l'administration", e.message); }
+  // L6 (b) : le titulaire est prévenu (tableau de bord : espaces/{e}/avisAdmin ; journal de son cabinet : historique) quand l'Administration agit chez lui
+  try {
+    const es = espace ? await db.doc("espaces/" + espace).get() : null, x = es && es.exists ? es.data() : null;
+    if (x && PF.avisTitulaire({ par, type, espace, titulaire: x.titulaire, demo: x.demo === true, bib: x.bibliotheque === true || C.estBib(espace) })) {
+      const t = String(txt || "").slice(0, 300);
+      await db.collection("espaces/" + espace + "/avisAdmin").add({ le: FieldValue.serverTimestamp(), ms: Date.now(), type, txt: t, auto: par === "onco360" });
+      await db.collection("espaces/" + espace + "/historique").add({ parUid: "onco360-admin", parNom: par === "onco360" ? "Onco360 (automatique)" : "Administration d'Onco360", le: FieldValue.serverTimestamp(), patientId: "", patient: "", quoi: t });
+    }
+  } catch (e) { console.warn("avis au titulaire", e.message); }
 }
 const nomCab = async (e) => { try { const s = await db.doc("espaces/" + e).get(); return (s.exists && s.data().nom) || e; } catch (er) { return e; } };
 // Formules modifiées par l'administration : plateforme/formules (aucune règle : serveur seulement), sinon formules de départ
@@ -743,12 +776,17 @@ exports.listeCabinets = onCall({ timeoutSeconds: 60, memory: "256MiB" }, async (
   const out = await Promise.all(snap.docs.filter((s) => !C.estBib(s.id)).map(async (s) => {
     const r = s.ref, x = s.data() || {};
     const [sm, patients, netab, act] = await Promise.all([r.collection("membres").select("role", "actif", "nom", "email", "telephone").get().catch(() => null), nb(r.collection("patients")), nb(r.collection("etablissements")), activite(r.id)]);
+    // L6 (f) (31/10/2026) : état du démarrage (rien de médical : réglé ou non)
+    const [sProf, sTar, sAg, sEx] = await Promise.all([x.titulaire ? db.doc("utilisateurs/" + x.titulaire).get().catch(() => null) : null, r.collection("finances").doc("tarifs").get().catch(() => null),
+      db.collection("agendaJetons").where("espaces", "array-contains", r.id).limit(1).get().catch(() => null), db.doc("exportsAuto/" + r.id).get().catch(() => null)]);
+    const pf = sProf && sProf.exists ? sProf.data() : {};
+    const demarrage = PF.etatDemarrage({ profil: !!(pf.inpe && (pf.nom || pf.prenom)), lieux: netab || 0, tarifs: !!(sTar && sTar.exists), membres: sm ? sm.size : 0, agenda: !!(sAg && !sAg.empty), export: !!(x.exportFinal || (sEx && sEx.exists && sEx.data().dernier && sEx.data().dernier.ok)), patients: patients || 0 });
     const roles = {}; let membres = null, t = {};
     const equipe = [];
     if (sm) { membres = sm.size; sm.forEach((d) => { const m = d.data(); if (m.actif !== false) roles[m.role] = (roles[m.role] || 0) + 1; if (d.id === x.titulaire) t = m; equipe.push({ nom: m.nom || "", role: m.role || "", email: m.email || "", actif: m.actif !== false, titulaire: d.id === x.titulaire }); }); }
     // Date de création : texte AAAA-MM-JJ (le cabinet de référence l'a en date Firebase) ; sinon date de la fiche
     const jour = (v) => (!v ? "" : typeof v === "string" ? v.slice(0, 10) : v.toDate ? v.toDate().toISOString().slice(0, 10) : "");
-    return { id: r.id, nom: x.nom || (r.id === C.MODELE ? "Cabinet du Dr Bentahila" : r.id), cree: jour(x.cree) || (s.createTime ? s.createTime.toDate().toISOString().slice(0, 10) : ""), actif: x.actif !== false, modele: r.id === C.MODELE, suspenduLe: x.suspenduLe || "",
+    return { id: r.id, nom: x.nom || (r.id === C.MODELE ? "Cabinet du Dr Bentahila" : r.id), cree: jour(x.cree) || (s.createTime ? s.createTime.toDate().toISOString().slice(0, 10) : ""), actif: x.actif !== false, modele: r.id === C.MODELE, suspenduLe: x.suspenduLe || "", suppressionPrevue: x.suppressionPrevue || "", demarrage,
       titulaire: { nom: t.nom || "", email: t.email || "", telephone: t.telephone || "" }, membres, patients, roles, etablissements: netab, abonnement: x.abonnement || null, ville: x.ville || "", adresse: x.adresse || "", telephone: x.telephone || "", demo: x.demo === true, equipe, activite: act, facturation: FACT[r.id] || null, suspenduAuto: !!(FACT[r.id] && FACT[r.id].suspenduPour && x.actif === false) };
   }));
   console.log("listeCabinets : terminé en " + (Date.now() - t0) + " ms");
@@ -778,12 +816,13 @@ exports.etatCabinet = onCall({ timeoutSeconds: 30, memory: "256MiB" }, async (re
   if (!espace || espace === C.MODELE) throw new HttpsError("permission-denied", "Ce cabinet ne peut pas être suspendu.");
   const ref = db.doc("espaces/" + espace); if (!(await ref.get()).exists) throw new HttpsError("not-found", "Cabinet introuvable.");
   const le = new Date().toISOString();
-  await ref.update(actif ? { actif: true, suspenduLe: FieldValue.delete(), reactiveLe: le, etatPar: par } : { actif: false, suspenduLe: le, etatPar: par });
+  await ref.update(actif ? { actif: true, suspenduLe: FieldValue.delete(), reactiveLe: le, etatPar: par, suppressionLe: FieldValue.delete(), suppressionPrevue: FieldValue.delete(), suppressionPar: FieldValue.delete() } : { actif: false, suspenduLe: le, etatPar: par });
   await jAdmin(par, actif ? "reactivation" : "suspension", espace, await nomCab(espace), actif ? "Cabinet réactivé" : "Cabinet suspendu");
   console.log("cabinet", espace, actif ? "réactivé" : "suspendu", "par", par);
   return { actif: !!actif };
 });
-// Supprimer un cabinet, définitivement : seulement s'il est suspendu et si son nom exact est retapé. Efface ses données (base et
+// Supprimer un cabinet : seulement s'il est suspendu et si son nom exact est retapé. L6 (d) (31/10/2026) : export final, puis effacement 30 jours
+// plus tard (suppressionsNuit → effacerCabinet), annulable. L'effacement retire ses données (base et
 // fichiers déposés), les comptes de ses membres (connexion et rattachement) et leurs liaisons Google Agenda. Jamais le cabinet
 // modèle ; jamais un compte d'administration ni un membre du cabinet modèle. Les sauvegardes quotidiennes de la base gardent
 // une copie 14 semaines.
@@ -798,6 +837,36 @@ exports.supprimerCabinet = onCall({ timeoutSeconds: 300, memory: "512MiB" }, asy
   const x = s.data();
   if (x.actif !== false) throw new HttpsError("failed-precondition", "Suspendez d'abord le cabinet.");
   if (String(confirmation || "").trim() !== String(x.nom || espace).trim()) throw new HttpsError("invalid-argument", "Le nom retapé ne correspond pas.");
+  if (x.suppressionPrevue) return { prevue: x.suppressionPrevue, deja: true };
+  // L6 (d) (31/10/2026) : export final remis au médecin (téléchargeable par le titulaire, cabinet en lecture seule), puis effacement 30 jours plus tard
+  // (suppressionsNuit), annulable pendant ce temps (annulerSuppression ; réactiver le cabinet l'annule aussi)
+  let ex; try { ex = await SV._faireExport(espace, { par }); } catch (e) { throw new HttpsError("internal", "Export final impossible, rien n'est supprimé : " + e.message); }
+  const le = new Date().toISOString(), prevue = PF.dateEffacement(le);
+  await ref.update({ suppressionLe: le, suppressionPrevue: prevue, suppressionPar: par, exportFinal: { chemin: ex.chemin, le, taille: ex.taille, patients: ex.patients } });
+  await jAdmin(par, "suppression", espace, x.nom || espace, "Suppression demandée : export final fait (" + ex.patients + " dossier(s)), effacement prévu le " + prevue.slice(0, 10) + " (annulable jusque-là)");
+  return { prevue, export: { patients: ex.patients, taille: ex.taille } };
+});
+exports.annulerSuppression = onCall({ timeoutSeconds: 30, memory: "256MiB" }, async (req) => {
+  const par = req.auth && req.auth.uid;
+  if (!(await estAdministrateur(par))) throw new HttpsError("permission-denied", "Réservé à l'administration d'Onco360.");
+  const espace = String((req.data || {}).espace || ""), ref = db.doc("espaces/" + espace), s = espace ? await ref.get() : null;
+  if (!s || !s.exists) throw new HttpsError("not-found", "Cabinet introuvable.");
+  if (!s.data().suppressionPrevue) return { ok: true };
+  await ref.update({ suppressionLe: FieldValue.delete(), suppressionPrevue: FieldValue.delete(), suppressionPar: FieldValue.delete() });
+  await jAdmin(par, "suppression", espace, s.data().nom || espace, "Suppression annulée (le cabinet reste suspendu)");
+  return { ok: true };
+});
+// Effacement des cabinets dont la suppression a été demandée il y a 30 jours (chaque nuit, 4 h 30)
+exports.suppressionsNuit = onSchedule({ schedule: "30 4 * * *", timeZone: "Africa/Casablanca", timeoutSeconds: 540, memory: "512MiB" }, async () => {
+  const debut = Date.now(), echecs = []; let n = 0;
+  for (const d of (await db.collection("espaces").where("actif", "==", false).get()).docs) {
+    const x = d.data(); if (!PF.aEffacer(x, Date.now()) || d.id === C.MODELE || !/^cab-/.test(d.id)) continue;
+    try { await effacerCabinet(d.id, x, "onco360"); n++; } catch (er) { echecs.push({ espace: d.id, erreur: er }); console.error("effacement du cabinet", d.id, er); }
+  }
+  await noterNuit("suppressionsNuit", debut, n, echecs);
+});
+async function effacerCabinet(espace, x, par) {
+  const ref = db.doc("espaces/" + espace);
   const membres = await ref.collection("membres").get(), auth = getAuth(), comptes = [];
   for (const m of membres.docs) {
     const uid = m.id, c = await db.doc("comptes/" + uid).get();
@@ -813,10 +882,10 @@ exports.supprimerCabinet = onCall({ timeoutSeconds: 300, memory: "512MiB" }, asy
   await getStorage().bucket().deleteFiles({ prefix: "espaces/" + espace + "/" }).catch((e) => console.warn("fichiers", e.message));
   // Comptabilité (18.2) : la fiche de facturation (paiements) est gardée, marquée « supprimé », avec le nom du cabinet
   await db.doc("facturation/" + espace).set({ supprime: true, supprimeLe: new Date().toISOString(), cabinetNom: x.nom || espace }, { merge: true }).catch(() => {});
-  await jAdmin(par, "suppression", espace, x.nom || espace, "Cabinet supprimé définitivement (" + membres.size + " membre(s), " + comptes.length + " compte(s) effacé(s))");
-  console.log("cabinet supprimé", espace, x.nom, "par", par, "comptes supprimés", comptes.length);
+  await jAdmin(par, "effacement", "", x.nom || espace, "Cabinet " + espace + " effacé définitivement (" + membres.size + " membre(s), " + comptes.length + " compte(s) effacé(s))");
+  console.log("cabinet effacé", espace, x.nom, "par", par, "comptes supprimés", comptes.length);
   return { comptes: comptes.length };
-});
+}
 // Lien pour choisir son mot de passe (09/10/2026 : l'e-mail de Firebase arrive souvent dans les indésirables) : l'administration
 // le copie ou l'envoie par WhatsApp. Seulement pour le titulaire d'un cabinet neuf (jamais un membre du cabinet modèle ni un
 // compte d'administration : le lien donne l'accès au compte).
@@ -966,14 +1035,18 @@ exports.creerMembre = onCall({ timeoutSeconds: 60, memory: "256MiB" }, async (re
   let compte = null;
   if (existant) {
     if (sm.docs.some((m) => m.id === u.uid)) throw new HttpsError("already-exists", "Cette personne a déjà un accès à votre cabinet.");
-    if (await estAdministrateur(u.uid)) throw new HttpsError("already-exists", "Cette adresse est celle d'un compte d'administration.");
-    // Déjà dans un autre cabinet (19.2) : possible pour une secrétaire, une infirmière… qui travaille pour plusieurs médecins, après
-    // confirmation du titulaire (autreCabinet) ; jamais le médecin titulaire d'un autre cabinet
+    // L6 (e) (31/10/2026) : messages neutres (jamais « compte d'administration », « titulaire » ni « autre cabinet ») ; une personne qui a déjà
+    // un compte Onco360 reçoit une invitation (invitations/{uid}_{e}) et l'accepte à sa prochaine connexion avant d'entrer (repondreInvitation)
+    const NEUTRE = "Cette adresse ne peut pas recevoir d'accès à votre cabinet : prenez une autre adresse e-mail.";
+    if (await estAdministrateur(u.uid)) throw new HttpsError("failed-precondition", NEUTRE);
     const c = await db.doc("comptes/" + u.uid).get(), mm = !c.exists && (await db.doc("espaces/" + C.MODELE + "/membres/" + u.uid).get()).exists;
     const autres = C.espacesCompte(c.exists ? c.data() : null, mm).filter((x) => x !== e);
-    for (const a of autres) if ((await titulaire(a)) === u.uid) throw new HttpsError("already-exists", "Cette adresse est celle du médecin titulaire d'un autre cabinet Onco360 : prenez une autre adresse.");
-    if (autres.length && o.autreCabinet !== true) throw new HttpsError("already-exists", "AUTRE_CABINET");
-    compte = C.compteModifie(c.exists ? c.data() : null, mm, e, true);
+    for (const a of autres) if ((await titulaire(a)) === u.uid) throw new HttpsError("failed-precondition", NEUTRE);
+    const parNom = ((await membre(e, par)) || {}).nom || "";
+    await db.doc("invitations/" + u.uid + "_" + e).set({ uid: u.uid, espace: e, cabinet: x.nom || "", role: d.membre.role, membre: d.membre, par, parNom, le: new Date().toISOString() });
+    await db.collection("espaces/" + e + "/historique").add({ parUid: par, parNom, le: FieldValue.serverTimestamp(), patientId: "", patient: "", quoi: "Invitation envoyée à " + d.email + " (" + (C.ROLES[d.membre.role] || d.membre.role) + ")" });
+    console.log("invitation", e, d.membre.role, "par", par);
+    return { uid: u.uid, existant: true, invitation: true };
   } else u = await auth.createUser({ email: d.email, password: require("node:crypto").randomBytes(24).toString("base64") + "a9!", displayName: d.membre.nom });
   const b = db.batch();
   b.set(db.doc("espaces/" + e + "/membres/" + u.uid), d.membre);
@@ -983,6 +1056,27 @@ exports.creerMembre = onCall({ timeoutSeconds: 60, memory: "256MiB" }, async (re
   await b.commit();
   console.log("membre créé", e, d.membre.role, "par", par);
   return { uid: u.uid, existant };
+});
+// L6 (e) : réponse à une invitation (personne déjà inscrite dans Onco360) : acceptée = fiche de membre écrite (compteMembre ajoute le cabinet
+// à sa liste) ; refusée = invitation retirée ; dans les deux cas, noté dans le journal du cabinet
+exports.repondreInvitation = onCall({ timeoutSeconds: 30, memory: "256MiB" }, async (req) => {
+  const uid = req.auth && req.auth.uid, { espace, accepter } = req.data || {};
+  if (!uid) throw new HttpsError("unauthenticated", "Connectez-vous à Onco360.");
+  const ref = db.doc("invitations/" + uid + "_" + String(espace || "")), s = await ref.get();
+  if (!s.exists) throw new HttpsError("not-found", "Invitation introuvable (déjà traitée ?).");
+  const v = s.data(), es = await db.doc("espaces/" + v.espace).get();
+  const nom = ((await getAuth().getUser(uid).catch(() => null)) || {}).email || "";
+  if (accepter === true) {
+    if (!es.exists || es.data().actif === false) throw new HttpsError("failed-precondition", "Ce cabinet n'est pas disponible pour le moment.");
+    const sm = await db.collection("espaces/" + v.espace + "/membres").get();
+    if (sm.docs.some((m) => m.id === uid)) { await ref.delete(); return { ok: true }; }
+    const n = sm.docs.filter((m) => m.data().role === v.membre.role && m.data().actif !== false).length;
+    if (es.data().abonnement && C.horsQuota(es.data().abonnement, v.membre.role, n + 1)) throw new HttpsError("resource-exhausted", "La formule de ce cabinet ne permet plus d'ajouter ce rôle : prévenez le médecin.");
+    await db.doc("espaces/" + v.espace + "/membres/" + uid).set(v.membre);
+  }
+  await ref.delete();
+  if (es.exists) await db.collection("espaces/" + v.espace + "/historique").add({ parUid: uid, parNom: nom, le: FieldValue.serverTimestamp(), patientId: "", patient: "", quoi: "Invitation " + (accepter === true ? "acceptée" : "refusée") + " par " + nom });
+  return { ok: true, accepte: accepter === true };
 });
 // Lien pour choisir son mot de passe, à envoyer par le titulaire à un membre de son équipe (WhatsApp, SMS) ; jamais pour lui-même,
 // un compte d'administration ou un membre d'un autre cabinet
@@ -1228,6 +1322,10 @@ exports.facturationCabinet = onCall({ timeoutSeconds: 30, memory: "256MiB" }, as
 // Réglages (18.3) : suspension « demander » (par défaut : rien n'est suspendu, la liste attend la décision de l'administration),
 // « auto » (suspendu après le délai) ou « jamais » ; un cabinet marqué jamaisSuspendre ne l'est jamais automatiquement.
 exports.abonnementsNuit = onSchedule({ schedule: "0 4 * * *", timeZone: "Africa/Casablanca", timeoutSeconds: 300, memory: "256MiB" }, async () => {
+  const debut = Date.now();
+  try { await abonnementsDeLaNuit(); await noterNuit("abonnementsNuit", debut, 1, []); } catch (er) { await noterNuit("abonnementsNuit", debut, 0, [{ espace: "", erreur: er }]); throw er; }
+});
+async function abonnementsDeLaNuit() {
   const RA = await reglagesAbo(); if (RA.suspension !== "auto") { console.log("abonnementsNuit : suspension « " + RA.suspension + " », rien n'est suspendu automatiquement"); return; }
   const jour = new Date().toISOString().slice(0, 10), sf = await db.collection("facturation").get(); let n = 0;
   for (const d of sf.docs) {
@@ -1241,7 +1339,7 @@ exports.abonnementsNuit = onSchedule({ schedule: "0 4 * * *", timeZone: "Africa/
     n++; console.log("abonnement : cabinet suspendu pour retard", d.id, et.fin, et.jours, "j");
   }
   console.log("abonnementsNuit :", n, "cabinet(s) suspendu(s)");
-});
+}
 // Lecture du journal de l'Administration (onglet Journal) : période (du, au : AAAA-MM-JJ), au plus 2 000 lignes, la plus récente d'abord
 exports.journalAdmin = onCall({ timeoutSeconds: 60, memory: "256MiB" }, async (req) => {
   if (!(await estAdministrateur(req.auth && req.auth.uid))) throw new HttpsError("permission-denied", "Réservé à l'administration d'Onco360.");
@@ -1346,7 +1444,7 @@ exports.demandeAbonnement = onCall({ timeoutSeconds: 30, memory: "256MiB" }, asy
 // exporterCabinet (export complet, titulaire), exportsHebdo / exportAuto (export de la semaine, Google Drive du cabinet), recuperation
 // (un dossier, un document ou tout le cabinet tel qu'il était : titulaire ou Administration), fichiersNuit / fichiersSauvegarder (copie de
 // secours des fichiers), sauvegardesEtat (Administration).
-const SV = require("./sauvegardes")({ db, getStorage, getFirestore, getAuth, onCall, onSchedule, HttpsError, FieldValue, Timestamp, estAdministrateur, membre, jAdmin, oauth, SECRET, C });
+const SV = require("./sauvegardes")({ db, getStorage, getFirestore, getAuth, onCall, onSchedule, HttpsError, FieldValue, Timestamp, estAdministrateur, membre, jAdmin, oauth, SECRET, C, noterNuit });
 ["exporterCabinet", "exportsHebdo", "exportAuto", "recuperation", "fichiersNuit", "fichiersSauvegarder", "sauvegardesEtat"].forEach((k) => { exports[k] = SV[k]; });
 
 // ───── Relevé financier du comptable préparé la nuit (R-D2, audit n° 6, A7, 20/10/2026) ─────
@@ -1374,9 +1472,69 @@ async function releveCabinet(e) {
   return { fait: true, n: R.length };
 }
 exports.releveNuit = onSchedule({ schedule: "45 2 * * *", timeZone: L.TZ, timeoutSeconds: 540, memory: "512MiB" }, async () => {
-  await heureAJour();
+  await heureAJour(); const debut = Date.now(), echecs = []; let n = 0;
   for (const es of (await db.collection("espaces").get()).docs) {
     if (C.estBib(es.id)) continue;
-    try { const r = await releveCabinet(es.id); if (r.fait) console.log("relevé du comptable", es.id, r.n); } catch (er) { console.error("relevé du comptable", es.id, er); }
+    try { const r = await releveCabinet(es.id); n++; if (r.fait) console.log("relevé du comptable", es.id, r.n); } catch (er) { echecs.push({ espace: es.id, erreur: er }); console.error("relevé du comptable", es.id, er); }
   }
+  await noterNuit("releveNuit", debut, n, echecs);
+});
+
+// ───── Lot L (31/10/2026) : journal des erreurs, état de la plateforme, registre d'usage (logique : functions/plateforme.js) ─────
+// L1 : erreur JavaScript envoyée par le navigateur d'un membre (v2.js, au plus 10 par page ouverte) : nettoyée ici de tout texte saisi, nombre
+// et adresse (aucune donnée de patient), regroupée par jour dans erreurs/{AAAA-MM-JJ} (serveur seulement, aucune règle), 50 au plus par compte et par jour
+exports.noterErreur = onCall({ timeoutSeconds: 20, memory: "256MiB" }, async (req) => {
+  const uid = req.auth && req.auth.uid; if (!uid) return { ok: false };
+  const d = req.data || {}, espace = String(d.espace || "").replace(/[^\w-]/g, "").slice(0, 60);
+  const m = espace ? await membre(espace, uid).catch(() => null) : null;
+  const e = PF.nettoyerErreur(d), jour = H.jourMaroc(Date.now()), ref = db.doc("erreurs/" + jour), le = new Date().toISOString();
+  await db.runTransaction(async (t) => {
+    const s = await t.get(ref), j = s.exists ? s.data() : {}, par = Object.assign({}, j.par || {});
+    if ((par[uid] || 0) >= 50) return;
+    par[uid] = (par[uid] || 0) + 1;
+    const nv = PF.ajouterErreur(j, e, { role: m ? m.role : "", espace: m ? espace : "" }, le); nv.par = par;
+    t.set(ref, nv);
+  });
+  return { ok: true };
+});
+// Administration › État de la plateforme : dernière nuit de chaque traitement, erreurs des 7 derniers jours, dernier export de chaque cabinet,
+// refus de Google Agenda (nombre de comptes concernés)
+exports.etatPlateforme = onCall({ timeoutSeconds: 60, memory: "256MiB" }, async (req) => {
+  if (!(await estAdministrateur(req.auth && req.auth.uid))) throw new HttpsError("permission-denied", "Réservé à l'administration d'Onco360.");
+  const now = Date.now(), jours = []; for (let i = 0; i < 7; i++) jours.push(H.jourMaroc(now - i * 86400000));
+  const [sn, se, sx, sa, sc] = await Promise.all([db.doc("plateforme/nuits").get(), Promise.all(jours.map((j) => db.doc("erreurs/" + j).get())), db.collection("exportsAuto").get(),
+    db.collection("agendaJetons").get(), db.collection("espaces").get()]);
+  const noms = {}; sc.docs.forEach((d) => { noms[d.id] = (d.data() || {}).nom || d.id; });
+  const erreurs = se.map((s, i) => { const j = s.exists ? s.data() : {}; return { jour: jours[i], total: j.total || 0, debordement: j.debordement || 0, l: PF.erreursTriees(j).slice(0, 30).map((x) => Object.assign({}, x, { cabinets: Object.keys(x.cabinets || {}).map((k) => noms[k] || k) })) }; });
+  const exportsC = sx.docs.filter((d) => noms[d.id] && !C.estBib(d.id)).map((d) => { const r = d.data() || {}, z = r.dernier || {}; return { espace: d.id, nom: noms[d.id], actif: r.actif !== false, le: z.le || "", ok: !!z.ok, erreur: z.erreur || "", drive: z.drive ? (z.drive.ok ? "déposé" : "échec : " + PF.nettoyerMessage(z.drive.erreur)) : "" }; });
+  const revoques = sa.docs.filter((d) => d.data().revoque).length;
+  const usersErr = await Promise.all(sa.docs.filter((d) => !d.data().revoque).slice(0, 200).map((d) => db.doc("utilisateurs/" + d.id).get().catch(() => null)));
+  const refus = usersErr.filter((u) => u && u.exists && u.data().agendaGoogle && (u.data().agendaGoogle.erreur || Object.keys(u.data().agendaGoogle.refus || {}).length)).length;
+  return { nuits: PF.etatNuits(sn.exists ? sn.data() : {}, now), erreurs, exports: exportsC, agenda: { comptes: sa.size, revoques, refus }, lu: new Date(now).toISOString() };
+});
+// L9 : registre d'usage du mois par cabinet, sans aucune donnée de patient : plateforme/usage/mois/{AAAA-MM} { cabinets: { e: { … } }, le } ;
+// chaque nuit (4 h 45) pour le mois en cours, et le 1er du mois pour le mois qui vient de finir
+async function usageDuMois(mois) {
+  const out = {}, echecs = [];
+  for (const es of (await db.collection("espaces").get()).docs) {
+    const x = es.data() || {}; if (C.estBib(es.id) || x.bibliotheque) continue;
+    try {
+      const patients = []; await parPaquets("espaces/" + es.id + "/patients", async (d) => { patients.push({ lignesJson: d.data().lignesJson || "[]" }); });
+      const [sc, sm] = await Promise.all([db.collection("espaces/" + es.id + "/consultations").where("d", ">=", mois + "-01").where("d", "<=", mois + "-31").select("d").get(), db.collection("espaces/" + es.id + "/membres").select("actif", "role").get()]);
+      out[es.id] = Object.assign(PF.usageCabinet({ espace: es.id, cabinet: x.nom || es.id, actif: x.actif !== false, patients, consultations: sc.docs.map((d) => d.data()), membres: sm.docs.map((d) => d.data()) }, mois), { demo: x.demo === true });
+    } catch (er) { echecs.push({ espace: es.id, erreur: er }); console.error("registre d'usage", es.id, er); }
+  }
+  await db.doc("plateforme/usage/mois/" + mois).set({ mois, cabinets: out, le: new Date().toISOString() });
+  return echecs;
+}
+exports.usageNuit = onSchedule({ schedule: "45 4 * * *", timeZone: "Africa/Casablanca", timeoutSeconds: 540, memory: "512MiB" }, async () => {
+  const debut = Date.now(), mois = H.jourMaroc(debut).slice(0, 7), jour = H.jourMaroc(debut).slice(8, 10);
+  let echecs = await usageDuMois(mois);
+  if (jour === "01") echecs = echecs.concat(await usageDuMois(PF.moisPrecedent(mois)));
+  await noterNuit("usageNuit", debut, 1, echecs);
+});
+exports.usageLire = onCall({ timeoutSeconds: 60, memory: "256MiB" }, async (req) => {
+  if (!(await estAdministrateur(req.auth && req.auth.uid))) throw new HttpsError("permission-denied", "Réservé à l'administration d'Onco360.");
+  const s = await db.collection("plateforme/usage/mois").orderBy("mois", "desc").limit(13).get();
+  return { mois: s.docs.map((d) => d.data()) };
 });

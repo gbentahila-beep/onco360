@@ -57,7 +57,7 @@ const migrationsFaites = (jour) => MIGRATIONS.reduce((o, k) => { o[k] = jour; re
 const membreTitulaire = (d, jour, par) => ({ role: "medecin", nom: "Dr " + [d.prenom, d.nom].filter(Boolean).join(" "), email: d.email, telephone: d.telephone, actif: true, tousEtablissements: true, etablissements: [], droits: Object.assign({}, DROITS_MEDECIN), cree: jour, creePar: par });
 
 // Modules et formules (09/10/2026) : mêmes valeurs que public/js/donnees/modules.js (vérifié par le test)
-const MODULES = ["chimio", "rt", "agenda", "salle", "taches", "rcp", "prescriptions", "documents", "gagenda", "listes", "bilan"];
+const MODULES = ["chimio", "rt", "outils", "agenda", "salle", "taches", "rcp", "prescriptions", "documents", "gagenda", "listes", "bilan"];
 const MAX = ["medecin", "remplacant", "assistante", "infirmiere", "comptable", "etablissements", "patients"];
 const COMMUNS = ["agenda", "prescriptions", "documents", "listes", "gagenda", "bilan"], EQUIPE = ["salle", "taches", "rcp"];
 const fo = (specialite, lib, modules, max) => ({ lib, specialite, modules: MODULES.filter((k) => modules.indexOf(k) >= 0), max });
@@ -65,14 +65,14 @@ const { PRIX0 } = require("./facturation");
 // Lot C (25/10/2026) : 3 médecins remplaçants par formule (mêmes valeurs que modules.js)
 const mx = (medecin, assistante, infirmiere, etablissements, patients, comptable = null, remplacant = 3) => ({ medecin, remplacant, assistante, infirmiere, comptable, etablissements, patients });
 const FORMULES = {
-  essentiel: fo("Oncologie – Radiothérapie", "Oncologie – Essentiel", ["chimio"].concat(COMMUNS), mx(1, 1, 0, 1, 300)),
-  "onco-pro": fo("Oncologie – Radiothérapie", "Oncologie – Pro", ["chimio"].concat(COMMUNS, EQUIPE), mx(1, 2, 2, 2, 1000)),
-  "onco-clinique": fo("Oncologie – Radiothérapie", "Oncologie – Clinique", ["chimio"].concat(COMMUNS, EQUIPE), mx(5, 5, 10, null, null)),
-  radiotherapie: fo("Oncologie – Radiothérapie", "Radiothérapie – Essentiel", ["rt"].concat(COMMUNS), mx(1, 1, 0, 1, 300)),
-  "rt-pro": fo("Oncologie – Radiothérapie", "Radiothérapie – Pro", ["rt"].concat(COMMUNS, EQUIPE), mx(1, 2, 1, 2, 1000)),
-  "rt-centre": fo("Oncologie – Radiothérapie", "Radiothérapie – Centre", ["rt"].concat(COMMUNS, EQUIPE), mx(5, 5, 5, null, null)),
-  "oncort-pro": fo("Oncologie – Radiothérapie", "Onco-radiothérapie – Pro", ["chimio", "rt"].concat(COMMUNS, EQUIPE), mx(1, 2, 2, 2, 1000)),
-  complet: fo("Oncologie – Radiothérapie", "Onco-radiothérapie – Clinique", ["chimio", "rt"].concat(COMMUNS, EQUIPE), mx(5, 5, 10, null, null)),
+  essentiel: fo("Oncologie – Radiothérapie", "Oncologie – Essentiel", ["chimio", "outils"].concat(COMMUNS), mx(1, 1, 0, 1, 300)),
+  "onco-pro": fo("Oncologie – Radiothérapie", "Oncologie – Pro", ["chimio", "outils"].concat(COMMUNS, EQUIPE), mx(1, 2, 2, 2, 1000)),
+  "onco-clinique": fo("Oncologie – Radiothérapie", "Oncologie – Clinique", ["chimio", "outils"].concat(COMMUNS, EQUIPE), mx(5, 5, 10, null, null)),
+  radiotherapie: fo("Oncologie – Radiothérapie", "Radiothérapie – Essentiel", ["rt", "outils"].concat(COMMUNS), mx(1, 1, 0, 1, 300)),
+  "rt-pro": fo("Oncologie – Radiothérapie", "Radiothérapie – Pro", ["rt", "outils"].concat(COMMUNS, EQUIPE), mx(1, 2, 1, 2, 1000)),
+  "rt-centre": fo("Oncologie – Radiothérapie", "Radiothérapie – Centre", ["rt", "outils"].concat(COMMUNS, EQUIPE), mx(5, 5, 5, null, null)),
+  "oncort-pro": fo("Oncologie – Radiothérapie", "Onco-radiothérapie – Pro", ["chimio", "rt", "outils"].concat(COMMUNS, EQUIPE), mx(1, 2, 2, 2, 1000)),
+  complet: fo("Oncologie – Radiothérapie", "Onco-radiothérapie – Clinique", ["chimio", "rt", "outils"].concat(COMMUNS, EQUIPE), mx(5, 5, 10, null, null)),
 };
 Object.keys(FORMULES).forEach((k) => { FORMULES[k].prix = Object.assign({}, PRIX0[k]); }); // prix proposés (17.4), modifiables pack par pack
 // Abonnement envoyé par la page Administration, nettoyé : formule connue (ou « sur mesure »), chaque module oui / non, maximums

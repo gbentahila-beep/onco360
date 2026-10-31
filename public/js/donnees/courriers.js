@@ -11,8 +11,8 @@ export const CHAMPS_COURRIER = [
   ["diagnostic", "Diagnostic", ""],
   ["localisation", "Localisation", "Cancer du sein"], ["histologie", "Histologie", ""], ["stade", "Stade", "Métastatique"], ["precision", "Précision du diagnostic", ""], ["oms", "État général (OMS)", "1"], // fiche tumeur (3.1 bis)
   ["mutuelle", "Mutuelle", ""],
-  ["etablissement", "Établissement", "l'Hôpital…"],
-  ["lieu", "Nom de l'établissement", "Hôpital…"],
+  ["etablissement", "Établissement", "la Clinique…"],
+  ["lieu", "Nom de l'établissement", "Clinique…"],
   ["ville", "Ville", "Casablanca"],
   ["date", "Date du jour", "07/10/2026"],
   ["medecin", "Médecin", "Dr NOM Prénom"],

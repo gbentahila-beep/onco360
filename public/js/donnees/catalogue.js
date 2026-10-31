@@ -10,8 +10,8 @@ import { MODULES, FORMULES } from "./modules.js";
 // Menu : clé, libellé, module dont il dépend (null = toujours possible)
 export const MENU = [
   ["accueil", "Tableau de bord", null], ["agenda", "Agenda / Rendez-vous", "agenda"], ["salle", "Salle d'attente", "salle"],
-  ["patients", "Patients", null], ["taches", "Tâches", "taches"], ["rcp", "RCP", "rcp"], ["protocoles", "Protocoles", "chimio"], // RCP : menu (R-B1, 19/10/2026)
-  ["radiotherapie", "Radiothérapie", "rt"], // référentiel de radiothérapie (RTR, RT1 du 25/10/2026) : module rt, fonction rt.referentiel, droit referentielRT
+  ["patients", "Patients", null], ["documents", "Documents", "documents"], ["taches", "Tâches", "taches"], ["rcp", "RCP", "rcp"], ["protocoles", "Protocoles", "chimio"], // RCP : menu (R-B1, 19/10/2026)
+  ["radiotherapie", "Radiothérapie", "rt"], ["outils", "Outils cliniques", "outils"], // outils cliniques (lot RT.13, 31/10/2026) ; référentiel de radiothérapie (RTR, RT1 du 25/10/2026) : module rt, fonction rt.referentiel, droit referentielRT
   ["bilan", "Bilan", "bilan"],
 ];
 // Lot B (25/10/2026) : « Paramètres » (icône de la barre du haut) et « Mon compte » (menu du compte, ouvert par le nom ou la photo) ne sont plus dans le
@@ -23,8 +23,9 @@ export const FONCTIONS = {
   salle: [["etats", "À venir, En salle, Vus, Absents", true], ["prix", "Prix payé d'avance"], ["passage", "Numéro de passage"], ["commentaire", "Commentaire du jour"], ["attente", "Temps d'attente (orange, rouge)"], ["colonnes", "Colonnes au choix"], ["bulles", "Bulles dans le dossier"]],
   taches: [["toutes", "Toutes les tâches de l'équipe"], ["types", "Types de tâches"], ["urgent", "Urgent, échéance"], ["fil", "Fil : historique et commentaires", true], ["reattribuer", "Réattribuer"], ["auto", "Tâches automatiques"], ["gagenda", "Échéances dans Google Agenda"]],
   rcp: [["inscription", "Inscription (question, date)", true], ["calendrier", "Calendrier des semaines", true], ["decision", "Décision, case Fait", true], ["impression", "Impression de la liste"]],
-  prescriptions: [["medic", "Médic."], ["exam", "Examens compl."], ["ordo", "Ordo. type"], ["analyse", "Analyses et bilans"], ["courrier", "Courriers"], ["doc", "Doc. (documentation remise)"], ["format", "Ordonnance A5 / A4 modifiable"], ["antecedents", "Antécédents (▾)"], ["compteur", "Nombre d'ordonnances faites (barre du dossier)"]],
-  documents: [["depot", "Dépôt de fichiers"], ["types", "Types de documents"], ["rt", "Pli, compte rendu, rendez-vous RT"]],
+  prescriptions: [["medic", "Médic."], ["exam", "Examens compl."], ["ordo", "Ordo. type"], ["analyse", "Analyses et bilans"], ["courrier", "Courriers"], ["doc", "Doc. (documentation remise)"], ["feuille", "Feuille de soins (CNOPS, CNSS)"], ["format", "Ordonnance A5 / A4 modifiable"], ["antecedents", "Antécédents (▾)"], ["compteur", "Nombre d'ordonnances faites (barre du dossier)"]],
+  outils: [["tnm", "Stadification TNM"], ["ctcae", "Échelles de toxicité (CTCAE)"], ["calculs", "Calculateurs", true]],
+  documents: [["depot", "Dépôt de fichiers (onglet du dossier et menu « Documents »)"], ["types", "Types de documents"], ["rt", "Pli, compte rendu, rendez-vous RT"]],
   gagenda: [["liaison", "Lier mon Google Agenda", true], ["filtre", "Ce que chacun y voit"], ["couleurs", "Couleurs par catégorie"]],
   listes: [["diag", "Diagnostics", true], ["mut", "Mutuelles", true], ["cor", "Correspondants"]],
   bilan: [["filtres", "Périodes et filtres"], ["paye", "Payé / à recevoir, payé auto.", true], ["versements", "Versements"], ["referents", "Référents"], ["rtprev", "Radiothérapies prévisionnelles"], ["exports", "Exports Excel / PDF"], ["comptable", "Relevé du comptable"]],
@@ -54,17 +55,19 @@ function ordreAvecNouveaux(l, ref, cat) {
 }
 // Entrées ajoutées au menu après que des cabinets ont réglé le leur (R-B1, 19/10/2026) : placées juste après l'entrée qui les précède dans le
 // catalogue (« RCP » sous « Tâches », « Radiothérapie » sous « Protocoles » le 25/10/2026) ; toute autre entrée absente : à la fin, comme avant
-const MENU_NOUVEAUX = ["rcp", "radiotherapie"];
+const MENU_NOUVEAUX = ["rcp", "radiotherapie", "documents", "outils"]; // « Documents » sous « Patients » (lot 5.3, 31/10/2026)
 function menuAvecNouveaux(l) {
   const ref = MENU.map((m) => m[0]), r = ordre(Array.isArray(l) ? l.filter((k) => MENU_NOUVEAUX.indexOf(k) < 0 || l.indexOf(k) >= 0) : l, ref.filter((k) => MENU_NOUVEAUX.indexOf(k) < 0 || (Array.isArray(l) && l.indexOf(k) >= 0)));
   ref.forEach((k, i) => { if (r.indexOf(k) >= 0) return; const j = r.indexOf(ref[i - 1]); r.splice(j >= 0 ? j + 1 : r.length, 0, k); });
   return r;
 }
 const ordre = (l, ref) => (Array.isArray(l) ? l.filter((k, i) => ref.indexOf(k) >= 0 && l.indexOf(k) === i) : []).concat(ref.filter((k) => !(Array.isArray(l) && l.indexOf(k) >= 0)));
+// 31/10/2026 (demande de Dr Bentahila, 2.2) : « N° d'immatriculation / d'adhérent » (numAdh) devient un champ de base de tous les cabinets, juste après la
+// mutuelle (ordreAvecNouveaux le place après elle dans une fiche déjà réglée) ; l'ancien champ propre au cabinet est repris par migrations() (v2.js)
 export const FICHE = [
   ["nom", "Nom", "identite", true], ["prenom", "Prénom", "identite", true], ["ddn", "Date de naissance", "identite"], ["sexe", "Sexe", "identite"],
-  ["taille", "Taille", "clinique"], ["poids", "Poids", "clinique"], ["diag", "Diagnostic", "clinique"], ["diagP", "Précision du diagnostic", "clinique"], ["cin", "CIN", "identite"], ["tel", "Téléphone", "identite"], ["tel2", "2e téléphone", "identite"],
-  ["etab", "Hôpital (lieu d'exercice)", "identite", true], ["ald", "ALD", "identite"], ["cor", "Correspondant", "identite"], ["mut", "Mutuelle", "identite"],
+  ["taille", "Taille", "clinique"], ["poids", "Poids", "clinique"], ["diag", "Diagnostic", "clinique"], ["diagP", "Précision du diagnostic", "clinique"], ["cin", "CIN / passeport", "identite"], ["tel", "Téléphone", "identite"], ["tel2", "2e téléphone", "identite"],
+  ["etab", "Établissement", "identite", true], ["ald", "ALD", "identite"], ["cor", "Correspondant", "identite"], ["mut", "Mutuelle", "identite"], ["numAdh", "N° d'immatriculation / d'adhérent", "identite"],
   ["adresse", "Adresse", "identite"], ["email", "E-mail", "identite"], ["allergies", "Allergies", "clinique"], ["atcdMed", "Antécédents médicaux", "clinique"],
   ["atcdChir", "Antécédents chirurgicaux", "clinique"], ["atcdFam", "Antécédents familiaux", "clinique"], ["modeVie", "Mode de vie", "clinique"], ["traitCours", "Traitement en cours", "clinique"],
 ];
@@ -80,16 +83,16 @@ export const TYPES_CHAMP = [["texte", "Texte"], ["textelong", "Texte long (plusi
 // une liste du cabinet ou un format (FIXES : la raison affichée) ; « oui / non + précision » : case à remplir si « oui » (valeur : le texte
 // dans le champ, le oui / non dans champ + « Oui » ; pour l'allergie : allergie / allergies, comme avant)
 export const TYPE_FICHE0 = { nom: "texte", prenom: "texte", ddn: "date", sexe: "sexe", taille: "nombre", poids: "nombre", diag: "liste", diagP: "texte", cin: "texte", tel: "tel", tel2: "tel",
-  etab: "etab", ald: "ouinon", cor: "liste", mut: "liste", adresse: "texte", email: "email", allergies: "ouinonp", atcdMed: "listem", atcdChir: "listem", atcdFam: "listem", modeVie: "textelong", traitCours: "listem" };
+  etab: "etab", ald: "ouinon", cor: "liste", mut: "liste", numAdh: "texte", adresse: "texte", email: "email", allergies: "ouinonp", atcdMed: "listem", atcdChir: "listem", atcdFam: "listem", modeVie: "textelong", traitCours: "listem" };
 // Lot A §4 et §6 (25/10/2026, demande de Dr Bentahila) : antécédents (médicaux, chirurgicaux, familiaux) et traitements en cours = « liste du cabinet,
 // une ligne par élément » (listem : libellé + note, dosage facultatif pour un traitement ; rangés une ligne chacun dans le champ texte d'avant, voir
 // app/infosmed.js) ; allergie : oui / non, puis la liste si oui. Types fixes (FIXES) : un réglage d'avant (« texte long ») n'est plus appliqué
 export const FIXES = { nom: "nom du dossier", prenom: "nom du dossier", ddn: "sert à l'âge (doses)", sexe: "sert à la clairance (doses)", taille: "sert à la surface corporelle (doses)",
-  poids: "sert aux doses", etab: "hôpital du dossier", diag: "liste des localisations", cor: "liste des correspondants", mut: "liste des mutuelles", tel: "numéro de téléphone", tel2: "numéro de téléphone", email: "adresse e-mail",
+  poids: "sert aux doses", etab: "établissement du dossier", diag: "liste des localisations", cor: "liste des correspondants", mut: "liste des mutuelles", tel: "numéro de téléphone", tel2: "numéro de téléphone", email: "adresse e-mail",
   atcdMed: "liste du cabinet", atcdChir: "liste du cabinet", atcdFam: "liste du cabinet", traitCours: "liste du cabinet", allergies: "oui / non, puis la liste du cabinet" };
 export const LISTES_CAB = { diag: "diag", cor: "cor", mut: "mut", xtstade: "stade", xtgrade: "grade", allergies: "allergies", atcdMed: "atcdMed", atcdChir: "atcdChir", atcdFam: "atcdFam", traitCours: "traitCours" }; // champs dont la liste est celle du cabinet (parametres/listes) ; lot A : informations médicales
 export const UNITE0 = { taille: "cm", poids: "kg" };
-export const libType = (t) => ({ sexe: "Femme / Homme", liste: "liste du cabinet", listem: "liste du cabinet (une ligne par élément)", tel: "téléphone", email: "e-mail", etab: "hôpital" }[t] || ((TYPES_CHAMP.find((z) => z[0] === t) || [])[1] || t).toLowerCase());
+export const libType = (t) => ({ sexe: "Femme / Homme", liste: "liste du cabinet", listem: "liste du cabinet (une ligne par élément)", tel: "téléphone", email: "e-mail", etab: "établissement" }[t] || ((TYPES_CHAMP.find((z) => z[0] === t) || [])[1] || t).toLowerCase());
 export const drapeau = (k) => (k === "allergies" ? "allergie" : k + "Oui"); // « oui / non » d'un champ « oui / non + précision »
 // Fiche tumeur (3.1, 12/10/2026, décisions de Dr Bentahila) : champs de la spécialité Oncologie, ajoutés d'office à la fiche des cabinets
 // d'oncologie / radiothérapie (formEffectif, s._onco) ; chaque cabinet les affiche ou non, en tête du dossier ou non (Paramètres › Cabinet ›
@@ -172,7 +175,7 @@ export const champDuType = (R, a, type, F) => { const L = F || formulairesDe(R),
 // Un champ à condition (si.diag) est-il proposé, d'après le diagnostic (localisation) ? « Primitif inconnu » : tous ; diagnostic vide : aucun
 export const champPropose = (a, vals) => { if (!a.si) return true; const f = famillesDiag((vals || {}).diag); return f.indexOf("inconnu") >= 0 || (a.si.diag || []).some((k) => f.indexOf(k) >= 0); };
 // Partie de la fiche d'un champ (3.1 bis) : identité, informations médicales, fiche tumeur (cabinets d'oncologie)
-const SEC_ID = ["nom", "prenom", "ddn", "sexe", "cin", "tel", "tel2", "etab", "ald", "cor", "mut", "adresse", "email"];
+const SEC_ID = ["nom", "prenom", "ddn", "sexe", "cin", "tel", "tel2", "etab", "ald", "cor", "mut", "numAdh", "adresse", "email"]; // numAdh : 31/10/2026 (2.2)
 // 3.11 – description de chaque champ de la fiche effective R, dans l'ordre : { k, lib, type, choix, unite, partie (stockage identite | clinique),
 // section (id | med | tum), ajout (champ ajouté ou null), fixe (raison ou ""), liste (clé de liste du cabinet ou ""), present, entete, imprimer }
 export function champsDe(R) {
@@ -291,10 +294,13 @@ export function formulairesCabinet(reg, cab) {
 }
 // Cartes du tableau de bord (ordre de départ ; « afaire » = « À valider par le médecin » / « À faire par la secrétaire » /
 // « À faire par l'infirmière », selon le rôle, 11/10/2026)
-export const CARTES = [["ppas", "Pour commencer (cabinet neuf)"], ["jour", "Aujourd'hui"], ["afaire", "À valider / À faire (selon le rôle)"], ["rappels", "Rappels WhatsApp à envoyer"], ["sept", "Les 7 prochains jours"], ["taches", "Mes tâches"], ["conflits", "Conflits : rendez-vous à décaler"], ["stats", "Statistiques"]];
+// 31/10/2026 (lot 4.1, demande de Dr Bentahila) : nouvelle disposition = en haut Aujourd'hui (gauche) | Actions rapides puis À valider (droite) ; dessous
+// Les 7 prochains jours (gauche) | Activité récente, Derniers documents (droite) ; puis Conflits et Statistiques sur toute la largeur. Trois cartes nouvelles :
+// actions (Actions rapides, 4.2), activite (Activité récente, 4.3), documents (Derniers documents, 4.4).
+export const CARTES = [["ppas", "Pour commencer (cabinet neuf)"], ["jour", "Aujourd'hui"], ["actions", "Actions rapides"], ["afaire", "À valider / À faire (selon le rôle)"], ["sept", "Les 7 prochains jours"], ["activite", "Activité récente"], ["documents", "Derniers documents"], ["taches", "Mes tâches"], ["rappels", "Rappels WhatsApp à envoyer"], ["conflits", "Conflits : rendez-vous à décaler"], ["stats", "Statistiques"]];
 // Colonne de chaque carte sur grand écran (11/10/2026) : g = gauche, d = droite, l = pleine largeur ; sur tablette et téléphone, une
 // seule colonne dans l'ordre réglé. Le programme du jour est à gauche.
-export const COLONNES0 = { ppas: "l", jour: "g", afaire: "d", rappels: "d", sept: "g", taches: "d", conflits: "d", stats: "l" };
+export const COLONNES0 = { ppas: "l", jour: "g", actions: "d", afaire: "d", sept: "g", activite: "d", documents: "d", taches: "d", rappels: "d", conflits: "l", stats: "l" };
 // Organisation du tableau de bord : réglage de l'administration (reg = reglageEffectif(...) : accueil, cartes, col éventuel) puis
 // celui du cabinet (cab = parametres/accueil décodé { ordre, cartes, col }, ou null : Paramètres › Cabinet › Tableau de bord).
 // cartes du cabinet : true et false comptent (le cabinet peut remettre une carte retirée par l'administration) ; absent = réglage

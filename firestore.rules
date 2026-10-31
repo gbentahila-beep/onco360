@@ -5,15 +5,22 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     function connecte() { return request.auth != null; }
-    function proprietaire() { return connecte() && request.auth.token.email == 'ritabentahila@gmail.com'; }
+    // L6 (a) (31/10/2026) : Dr Bentahila reconnue par l'identifiant de son compte (titulaire du cabinet modèle), plus par son adresse e-mail
+    function proprietaire() { return connecte() && get(/databases/$(database)/documents/espaces/cabinet-bentahila).data.get('titulaire', '') == request.auth.uid; }
+    // Membre de son équipe (profils qu'elle lit et complète) : seulement les membres du cabinet modèle
+    function equipeProprietaire(uid) { return proprietaire() && exists(/databases/$(database)/documents/espaces/cabinet-bentahila/membres/$(uid)); }
 
     // Ancienne application (v1) : retirée le 11/10/2026 (site, puis règles) ; ses collections racine (patients, protocoles,
     // parametres, finances, roles, historique) ne sont plus ouvertes à personne (aucune règle = refus).
 
     // ───────────── PARTIE 2 : v2 ─────────────
     // Administrateurs de la plateforme (compte d'administration séparé depuis le 09/10/2026) : chacun lit sa fiche ; liste tenue
-    // par Dr Bentahila (console). Le compte d'administration ne lit ni les profils ni les cabinets : tout passe par les fonctions.
-    match /administrateurs/{uid} { allow read: if connecte() && (request.auth.uid == uid || proprietaire()); allow write: if proprietaire(); }
+    // dans la console Firebase seulement (L6 (a), 31/10/2026 : plus aucune écriture depuis le navigateur). Le compte d'administration ne lit ni les
+    // profils ni les cabinets : tout passe par les fonctions.
+    match /administrateurs/{uid} { allow read: if connecte() && request.auth.uid == uid; allow write: if false; }
+    // L6 (e) (31/10/2026) : invitation à rejoindre un cabinet (personne déjà inscrite) : écrite par le serveur (creerMembre), lue par la personne invitée,
+    // acceptée ou refusée par la fonction repondreInvitation
+    match /invitations/{i} { allow read: if connecte() && resource.data.uid == request.auth.uid; allow write: if false; }
 
     // Heure du Maroc (S1, 21/10/2026) : changements d'heure ajoutés par l'Administration, lus au démarrage par tout compte connecté ;
     // écrits par la fonction heureMaroc seulement
@@ -21,9 +28,16 @@ service cloud.firestore {
 
     // Profil personnel : chacun lit et modifie le sien (aucun droit n'y est stocké) ; Dr Bentahila aussi ceux de son équipe (inchangé)
     match /utilisateurs/{uid} {
-      allow read: if connecte() && (request.auth.uid == uid || proprietaire());
-      allow create, update: if connecte() && (request.auth.uid == uid || proprietaire());
-      allow delete: if proprietaire();
+      // L6 (a) : Dr Bentahila ne lit plus que les profils de son équipe (avant : tout profil, de tout cabinet)
+      allow read: if connecte() && (request.auth.uid == uid || equipeProprietaire(uid));
+      allow create, update: if connecte() && (request.auth.uid == uid || equipeProprietaire(uid)) && cguOk(uid);
+      allow delete: if equipeProprietaire(uid);
+      // L0 (31/10/2026) : acceptation des conditions générales (cgu) écrite par la personne elle-même, à la date du serveur ; jamais modifiée par un autre
+      function cguOk(u) {
+        return !('cgu' in request.resource.data)
+          || (resource != null && 'cgu' in resource.data && request.resource.data.cgu == resource.data.cgu)
+          || (request.auth.uid == u && request.resource.data.cgu.le == request.time);
+      }
     }
 
     // Journal d'audit (étape 9, 09/10/2026) : écrit par le serveur seulement (auditEcriture), jamais modifié ni effacé depuis le
@@ -39,14 +53,15 @@ service cloud.firestore {
     match /espaces/{e} {
       // Plusieurs cabinets (09/10/2026) : le compte de Dr Bentahila ne garde ses pouvoirs d'administratrice que dans son propre
       // cabinet ; le compte d'administration (collection administrateurs) n'ouvre aucun cabinet (création par fonction serveur).
-      function adminIci() { return proprietaire() && e == 'cabinet-bentahila'; }
+      function adminIci() { return e == 'cabinet-bentahila' && proprietaire(); }
       function cheminMembre() { return /databases/$(database)/documents/espaces/$(e)/membres/$(request.auth.uid); }
       function m() { return get(cheminMembre()).data; }
-      // Cabinet suspendu par l'administration (abonnement non payé, 09/10/2026) : plus personne n'y entre ; rien n'est effacé
+      // Cabinet suspendu par l'administration (abonnement non payé, 09/10/2026) : rien n'est effacé ; depuis le 31/10/2026 (L6 c) : lecture seule
       function cabinetActif() { return get(/databases/$(database)/documents/espaces/$(e)).data.get('actif', true) != false; }
       // Lot C (25/10/2026) : un médecin remplaçant n'entre que pendant sa période (remplaceDebMs / remplaceFinMs, absents ou 0 = sans limite)
       function periodeOk() { return m().role != 'remplacant' || ((m().get('remplaceDebMs', 0) == 0 || request.time >= timestamp.value(m().remplaceDebMs)) && (m().get('remplaceFinMs', 0) == 0 || request.time <= timestamp.value(m().remplaceFinMs))); }
-      function estMembre() { return connecte() && exists(cheminMembre()) && m().actif == true && cabinetActif() && periodeOk(); }
+      // L6 (c) (31/10/2026) : cabinet suspendu = lecture seule (lectures permises, toute écriture refusée ; l'export complet passe par le serveur)
+      function estMembre() { return connecte() && exists(cheminMembre()) && m().actif == true && (request.method in ['get', 'list'] || cabinetActif()) && periodeOk(); }
       // Lot C : le remplaçant agit comme un médecin (mêmes droits que le titulaire, recopiés par le serveur)
       function estMed() { return m().role in ['medecin', 'remplacant']; }
       // Module de la formule (1.3, 11/10/2026) : un module retiré (abonnement.modules[k] == false) est aussi fermé à l'écriture par le
@@ -344,6 +359,11 @@ service cloud.firestore {
         allow read: if (droit('finances') && !comptable()) || (estMembre() && resource.data.parUid == request.auth.uid);
         allow create: if estMembre() && request.resource.data.parUid == request.auth.uid;
         allow update, delete: if false;
+      }
+      // L6 (b) (31/10/2026) : avis au titulaire des actions de l'Administration dans son cabinet (écrits par le serveur, jAdmin) ; lus par lui seul
+      match /avisAdmin/{a} {
+        allow read: if estTitulaire() && estMembre();
+        allow write: if false;
       }
     }
   }

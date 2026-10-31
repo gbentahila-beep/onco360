@@ -18,7 +18,7 @@ const $ = (i) => document.getElementById(i);
 const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const dfr = (d) => (typeof d === "string" && d.length >= 10 ? d.slice(8, 10) + "/" + d.slice(5, 7) + "/" + d.slice(0, 4) : "");
 const sansAcc = (x) => String(x || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-const ONGLETS = [["cabinets", "Cabinets"], ["nouveau", "Nouveau cabinet"], ["compta", "Comptabilité"], ["specialites", "Par spécialité"], ["modules", "Modules"], ["sauvegardes", "Sauvegardes"], ["plateforme", "Plateforme"], ["journal", "Journal"]];
+const ONGLETS = [["cabinets", "Cabinets"], ["nouveau", "Nouveau cabinet"], ["compta", "Comptabilité"], ["specialites", "Par spécialité"], ["modules", "Modules"], ["sauvegardes", "Sauvegardes"], ["etat", "État de la plateforme"], ["plateforme", "Plateforme"], ["journal", "Journal"]];
 // CABINETS : liste (null = chargement) ; FS : packs (formules) enregistrés (sinon ceux de départ)
 let RA = Object.assign({}, REGLAGES_ABO0); // réglages des abonnements (suspension, délais ; 18.3)
 let EDITEUR = null, FACT = []; // Mon entreprise (mentions des factures) ; factures et avoirs (18.4)
@@ -172,9 +172,9 @@ function dessiner() {
   const o = ONG();
   $("onglets").innerHTML = ONGLETS.map(([k, lib]) => '<a href="#' + k + '" class="' + (k === o ? "on" : "") + '">' + esc(lib) + (k === "cabinets" && CABINETS ? ' <span class="nb">' + CABINETS.length + "</span>" : "") + "</a>").join("");
   const bandeau = RES ? '<div class="ok bandeau">' + RES + '<button class="x" id="resX" aria-label="Fermer">✕</button></div>' : "";
-  $("page").innerHTML = bandeau + (o === "nouveau" ? htmlNouveau() : o === "specialites" ? htmlSpecialites() : o === "modules" ? htmlModules() : o === "journal" ? htmlJournal() : o === "compta" ? htmlCompta() : o === "sauvegardes" ? htmlSauvegardes() : o === "plateforme" ? htmlPlateforme() : alerteSauvegardes() + htmlCabinets());
+  $("page").innerHTML = bandeau + (o === "nouveau" ? htmlNouveau() : o === "specialites" ? htmlSpecialites() : o === "modules" ? htmlModules() : o === "journal" ? htmlJournal() : o === "compta" ? htmlCompta() : o === "sauvegardes" ? htmlSauvegardes() : o === "plateforme" ? htmlPlateforme() : o === "etat" ? htmlEtat() : alerteSauvegardes() + htmlCabinets());
   if ($("resX")) $("resX").onclick = () => { RES = ""; dessiner(); };
-  if (o === "nouveau") brancherNouveau(); else if (o === "specialites") brancherSpecialites(); else if (o === "modules") brancherModules(); else if (o === "journal") brancherJournal(); else if (o === "compta") brancherCompta(); else if (o === "sauvegardes") brancherSauvegardes(); else if (o === "plateforme") brancherPlateforme(); else brancherCabinets();
+  if (o === "nouveau") brancherNouveau(); else if (o === "specialites") brancherSpecialites(); else if (o === "modules") brancherModules(); else if (o === "journal") brancherJournal(); else if (o === "compta") brancherCompta(); else if (o === "sauvegardes") brancherSauvegardes(); else if (o === "plateforme") brancherPlateforme(); else if (o === "etat") brancherEtat(); else brancherCabinets();
 }
 
 // ───── Onglet Cabinets : chiffres, recherche, filtres, cartes ─────
@@ -234,11 +234,13 @@ function carteCabinet(c) {
     '<div class="chiffres">' + chiffre(r.medecin || 0, mx.medecin, "Médecins") + (r.remplacant || mx.remplacant != null ? chiffre(r.remplacant || 0, mx.remplacant, "Remplaçants") : "") + chiffre(r.assistante || 0, mx.assistante, "Secrétaires") + chiffre(r.infirmiere || 0, mx.infirmiere, "Infirmières") + (r.comptable || mx.comptable != null ? chiffre(r.comptable || 0, mx.comptable, "Comptables") : "") + chiffre(c.etablissements, mx.etablissements, "Lieux") + chiffre(c.patients, mx.patients, "Dossiers") + "</div>" +
     (c.equipe && c.equipe.length ? '<details class="equipe"><summary>Équipe (' + c.equipe.length + ")</summary>" + c.equipe.slice().sort((a, b) => (b.titulaire ? 1 : 0) - (a.titulaire ? 1 : 0) || String(a.role).localeCompare(String(b.role))).map((m) => '<div class="mb' + (m.actif ? "" : " off") + '"><b>' + esc(m.nom || "—") + '</b> <span class="bdg">' + esc(ROLES_LIB[m.role] || m.role) + (m.titulaire ? " titulaire" : "") + "</span>" + (m.actif ? "" : ' <span class="bdg al">désactivé</span>') + '<div class="m">' + esc(m.email) + "</div></div>").join("") + "</details>" : "") +
     blocAbonnement(c) +
+    // L6 (f) (31/10/2026) : état du démarrage, sans donnée médicale
+    (c.demarrage && !c.modele ? '<details class="equipe"><summary>Démarrage : ' + c.demarrage.faits + " / " + c.demarrage.total + "</summary>" + c.demarrage.l.map((x) => '<div class="mb' + (x.ok ? "" : " off") + '">' + (x.ok ? "✓ " : "○ ") + esc(x.lib) + "</div>").join("") + "</details>" : "") +
     '<div class="m">Créé le ' + esc(dfr(c.cree) || "—") + (c.activite ? " · dernière activité : " + esc(ilYa(c.activite.derniere)) + (c.activite.par ? " (" + esc(c.activite.par) + ")" : "") + " · " + (c.activite.n30 || 0) + " action" + ((c.activite.n30 || 0) > 1 ? "s" : "") + " en 30 jours" : "") + "</div>" +
     // Actions regroupées (17.3) : gérer · accès · zone sensible
     '<div class="act-g"><div><span class="m">Gérer</span>' + (c.demo ? '<button class="clair petit" data-reinit="' + esc(c.id) + '">Réinitialiser la démo</button>' : "") + '<button class="clair petit" data-info="' + esc(c.id) + '">Modifier</button><button class="clair petit" data-form="' + esc(c.id) + '">Réglage du cabinet</button>' + (c.bibliotheque ? "" : '<button class="clair petit" data-ecart="' + esc(c.id) + '" title="Ce que ce cabinet a de différent du modèle de sa spécialité (lecture seule, aucune donnée patient)">' + (c.modele ? "Différences avec le modèle" : "Écart au modèle") + "</button>") + (c.modele || c.bibliotheque ? "" : '<button class="clair petit" data-modele="' + esc(c.id) + '" title="Ajouter à ce cabinet ce qui lui manque du modèle de sa spécialité (rien de ce qu\'il a modifié n\'est écrasé)">Appliquer le modèle</button>') + '<button class="clair petit" data-jcab="' + esc(c.id) + '" title="Actions de l\'administration sur ce cabinet">Journal</button>' + (c.bibliotheque ? "" : '<button class="clair petit" data-recup="' + esc(c.id) + '" title="Remettre un dossier (par son numéro), un document ou tout le cabinet tel qu\'il était (sans voir les noms)">Récupérer des données</button>') + "</div>" +
     (c.modele || !c.titulaire.email ? "" : '<div><span class="m">Accès du médecin</span><button class="clair petit" data-lien="' + esc(c.id) + '">Lien du mot de passe</button><button class="clair petit" data-mail="' + esc(c.titulaire.email) + '">Renvoyer l\'e-mail</button></div>') +
-    (c.modele ? "" : '<div class="sensible"><span class="m">Zone sensible</span>' + (c.actif ? '<button class="clair petit rouge-t" data-susp="' + esc(c.id) + '">Suspendre</button>' : '<button class="clair petit" data-react="' + esc(c.id) + '">Réactiver</button><button class="rouge petit" data-suppr="' + esc(c.id) + '">Supprimer</button>') + "</div>") +
+    (c.modele ? "" : '<div class="sensible"><span class="m">Zone sensible</span>' + (c.actif ? '<button class="clair petit rouge-t" data-susp="' + esc(c.id) + '">Suspendre</button>' : '<button class="clair petit" data-react="' + esc(c.id) + '">Réactiver</button>' + (c.suppressionPrevue ? '<span class="bdg al">Effacement prévu le ' + esc(dfr(c.suppressionPrevue.slice(0, 10))) + '</span><button class="clair petit" data-annsup="' + esc(c.id) + '">Annuler la suppression</button>' : '<button class="rouge petit" data-suppr="' + esc(c.id) + '">Supprimer</button>')) + "</div>") +
     "</div></article>";
 }
 // Abonnement d'un cabinet (fiche) : état, formule de paiement, prix, échéance, paiements
@@ -341,6 +343,7 @@ function brancherActions(R) {
   on("[data-susp]", (b) => etat(b, cab(b.dataset.susp), false));
   on("[data-react]", (b) => etat(b, cab(b.dataset.react), true));
   on("[data-suppr]", (b) => supprimer(b, cab(b.dataset.suppr)));
+  on("[data-annsup]", (b) => annulerSuppression(b, cab(b.dataset.annsup)));
   on("[data-reinit]", (b) => reinitDemo(b));
   on("[data-paye]", (b) => ouvrirPaiement(cab(b.dataset.paye)));
   on("[data-jcab]", (b) => { JF = Object.assign(JF, { cab: b.dataset.jcab, periode: "tout" }); JL = null; fermer(true); location.hash = "journal"; });
@@ -722,14 +725,22 @@ async function etat(b, c, actif) {
   try { await serveur("etatCabinet", { espace: c.id, actif }); fermer(); c.actif = actif; c.suspenduLe = actif ? "" : new Date().toISOString(); RES = "Cabinet « " + esc(c.nom) + " » " + (actif ? "réactivé." : "suspendu."); dessiner(); }
   catch (e) { b.disabled = false; alert("Impossible : " + e.message); }
 }
-// Supprimer définitivement (cabinet suspendu seulement, nom retapé)
+// Annuler une suppression demandée (pendant les 30 jours)
+async function annulerSuppression(b, c) {
+  if (!c || !confirm("Annuler la suppression du cabinet « " + c.nom + " » ? Il reste suspendu (lecture seule) : réactivez-le ensuite si besoin.")) return;
+  b.disabled = true;
+  try { await serveur("annulerSuppression", { espace: c.id }); fermer(); c.suppressionPrevue = ""; RES = "Suppression du cabinet « " + esc(c.nom) + " » annulée."; dessiner(); }
+  catch (e) { b.disabled = false; alert("Impossible : " + e.message); }
+}
+// Supprimer (cabinet suspendu seulement, nom retapé) : export final puis effacement après 30 jours
 async function supprimer(b, c) {
   if (!c) return;
-  const t = prompt("SUPPRESSION DÉFINITIVE du cabinet « " + c.nom + " » : ses " + (c.patients || 0) + " dossiers, ses fichiers et les comptes de ses " + (c.membres || 0) + " membres seront effacés.\n\nPour confirmer, tapez exactement le nom du cabinet :");
+  // L6 (d) (31/10/2026) : export final d'abord, effacement 30 jours plus tard (annulable jusque-là)
+  const t = prompt("SUPPRESSION du cabinet « " + c.nom + " » : un export final est fait maintenant (téléchargeable par le médecin titulaire, cabinet en lecture seule), puis dans 30 jours ses " + (c.patients || 0) + " dossiers, ses fichiers et les comptes de ses " + (c.membres || 0) + " membres seront effacés. Vous pourrez annuler pendant ces 30 jours.\n\nPour confirmer, tapez exactement le nom du cabinet :");
   if (t == null) return;
   if (t.trim() !== String(c.nom).trim()) { alert("Le nom ne correspond pas : rien n'a été supprimé."); return; }
   b.disabled = true; b.textContent = "Suppression…";
-  try { const o = await serveur("supprimerCabinet", { espace: c.id, confirmation: t.trim() }); fermer(); CABINETS = CABINETS.filter((x) => x.id !== c.id); RES = "Cabinet « " + esc(c.nom) + " » supprimé (" + o.comptes + " compte(s) effacé(s))."; dessiner(); }
+  try { const o = await serveur("supprimerCabinet", { espace: c.id, confirmation: t.trim() }); fermer(); c.suppressionPrevue = o.prevue; RES = "Cabinet « " + esc(c.nom) + " » : export final fait" + (o.export ? " (" + o.export.patients + " dossier(s))" : "") + ", effacement prévu le " + esc(dfr(String(o.prevue).slice(0, 10))) + "."; dessiner(); }
   catch (e) { b.disabled = false; b.textContent = "Supprimer"; alert("Suppression impossible : " + e.message); }
 }
 
@@ -1039,6 +1050,33 @@ async function hmEnregistrer(l, msg) {
   HMA.err = ""; HMA.res = "";
   try { HMA.data = await serveur("heureMaroc", { action: "enregistrer", changements: l }); HMA.res = msg; } catch (e) { HMA.err = e.message; }
   dessiner();
+}
+// ───── Onglet État de la plateforme (lot L, 31/10/2026 : L1 et L9) ─────
+// Dernière nuit de chaque traitement, erreurs des utilisateurs (sans donnée de patient), dernier export de chaque cabinet, Google Agenda,
+// registre d'usage du mois par cabinet (fonctions etatPlateforme et usageLire)
+const ET = { data: null, usage: null, err: "", lu: false, jour: 0 };
+const dhfr = (iso) => { if (!iso) return "—"; const d = new Date(iso); return isNaN(d) ? "—" : d.toLocaleDateString("fr-FR") + " " + d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }); };
+function htmlEtat() {
+  if (!ET.lu) { ET.lu = true; Promise.all([serveur("etatPlateforme", {}), serveur("usageLire", {})]).then(([a, u]) => { ET.data = a; ET.usage = u; dessiner(); }, (e) => { ET.err = e.message; dessiner(); }); }
+  const X = ET.data;
+  if (!X) return '<section class="carte"><h2>État de la plateforme</h2>' + (ET.err ? '<p class="err">' + esc(ET.err) + "</p>" : '<p class="sous">Lecture…</p>') + "</section>";
+  const nuits = X.nuits.map((n) => '<tr><td data-l="Traitement">' + esc(n.lib) + '</td><td data-l="Dernière fois">' + esc(dhfr(n.le)) + '</td><td data-l="Traités">' + (n.n == null ? "—" : esc(String(n.n))) + '</td><td data-l="Durée">' + (n.duree == null ? "—" : esc(String(n.duree)) + " s") + '</td><td data-l="État">' + (n.alerte ? '<span class="bdg al">' + esc(n.alerte) + "</span>" + (n.echecs && n.echecs.length ? '<div class="m">' + n.echecs.map((x) => esc((x.espace ? x.espace + " : " : "") + x.erreur)).join("<br>") + "</div>" : "") : '<span class="bdg ok">OK</span>') + "</td></tr>").join("");
+  const J = X.erreurs[ET.jour] || { l: [], total: 0 };
+  const jours = X.erreurs.map((j, i) => '<button type="button" class="' + (i === ET.jour ? "plein" : "clair") + '" data-et-jour="' + i + '">' + esc(j.jour.split("-").reverse().slice(0, 2).join("/")) + (j.total ? " (" + j.total + ")" : "") + "</button>").join("");
+  const errs = J.l.length ? '<div class="tableau"><table class="lc"><thead><tr><th>Nombre</th><th>Erreur</th><th>Fichier, ligne</th><th>Page</th><th>Rôles, cabinets</th><th>Version</th></tr></thead><tbody>' + J.l.map((e) => '<tr><td data-l="Nombre"><b>' + e.n + '</b></td><td data-l="Erreur">' + esc(e.msg) + '</td><td data-l="Fichier">' + esc(e.src || "—") + (e.ligne ? ":" + e.ligne : "") + '</td><td data-l="Page">' + esc(e.page || "—") + '</td><td data-l="Qui">' + esc(Object.keys(e.roles || {}).join(", ")) + "<br>" + esc((e.cabinets || []).join(", ")) + '</td><td data-l="Version">' + esc(e.version || "—") + "</td></tr>").join("") + "</tbody></table></div>" + (J.debordement ? '<p class="m">' + J.debordement + " autre(s) erreur(s) différente(s) comptée(s) sans détail (limite du jour).</p>" : "") : '<p class="sous">Aucune erreur notée ce jour-là.</p>';
+  const exps = X.exports.length ? '<div class="tableau"><table class="lc"><thead><tr><th>Cabinet</th><th>Dernier export de la semaine</th><th>Google Drive</th></tr></thead><tbody>' + X.exports.map((x) => '<tr><td data-l="Cabinet">' + esc(x.nom) + '</td><td data-l="Dernier export">' + (!x.actif ? "arrêté" : x.le ? esc(dhfr(x.le)) + " " + (x.ok ? '<span class="bdg ok">OK</span>' : '<span class="bdg al">échec</span> ' + esc(x.erreur)) : "aucun") + '</td><td data-l="Drive">' + esc(x.drive || "non relié") + "</td></tr>").join("") + "</tbody></table></div>" : '<p class="sous">Aucun export de la semaine réglé.</p>';
+  const U = (ET.usage && ET.usage.mois) || [], M = U[0];
+  const usage = M ? '<p class="sous">Mois ' + esc(M.mois.split("-").reverse().join("/")) + " (mis à jour le " + esc(dhfr(M.le)) + ") ; aucune donnée de patient, seulement des nombres.</p>" + '<div class="tableau"><table class="lc"><thead><tr><th>Cabinet</th><th>Actif</th><th>Dossiers</th><th>Cures validées</th><th>Séances validées</th><th>Consultations</th><th>Membres</th></tr></thead><tbody>' +
+    Object.values(M.cabinets || {}).sort((a, b) => String(a.cabinet).localeCompare(String(b.cabinet))).map((c) => '<tr><td data-l="Cabinet">' + esc(c.cabinet) + (c.demo ? ' <span class="bdg demo">Démonstration</span>' : "") + '</td><td data-l="Actif">' + (c.actif ? "oui" : "suspendu") + '</td><td data-l="Dossiers">' + c.dossiers + '</td><td data-l="Cures">' + c.curesValidees + '</td><td data-l="Séances">' + c.seancesValidees + '</td><td data-l="Consultations">' + c.consultations + '</td><td data-l="Membres">' + c.membres + "</td></tr>").join("") + "</tbody></table></div>" +
+    (U.length > 1 ? '<p class="m">Mois précédents : ' + U.slice(1).map((m) => esc(m.mois.split("-").reverse().join("/")) + " (" + Object.keys(m.cabinets || {}).length + " cabinets)").join(" · ") + "</p>" : "") : '<p class="sous">Le registre d\'usage est écrit chaque nuit (4 h 45) : rien encore.</p>';
+  return '<section class="carte"><h2>Traitements de nuit</h2><p class="sous">Lu le ' + esc(dhfr(X.lu)) + ' <button type="button" class="lien" id="etRelire">Relire</button></p><div class="tableau"><table class="lc"><thead><tr><th>Traitement</th><th>Dernière fois</th><th>Traités</th><th>Durée</th><th>État</th></tr></thead><tbody>' + nuits + "</tbody></table></div></section>" +
+    '<section class="carte"><h2>Erreurs des utilisateurs</h2><p class="sous">Notées sans aucune donnée de patient (texte saisi, nombres et adresses retirés). Regroupées par erreur et par jour.</p><div class="barre" style="gap:6px;flex-wrap:wrap">' + jours + "</div>" + errs + "</section>" +
+    '<section class="carte"><h2>Exports de la semaine</h2>' + exps + '<p class="m">Google Agenda : ' + X.agenda.comptes + " compte(s) relié(s), " + X.agenda.revoques + " accès retiré(s), " + X.agenda.refus + " compte(s) avec des événements refusés par Google.</p></section>" +
+    '<section class="carte"><h2>Registre d\'usage</h2>' + usage + "</section>";
+}
+function brancherEtat() {
+  document.querySelectorAll("[data-et-jour]").forEach((b) => { b.onclick = () => { ET.jour = Number(b.dataset.etJour); dessiner(); }; });
+  if ($("etRelire")) $("etRelire").onclick = () => { ET.lu = false; ET.data = null; ET.err = ""; dessiner(); };
 }
 function brancherPlateforme() {
   const X = HMA.data; if (!X) return;

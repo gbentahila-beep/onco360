@@ -19,7 +19,9 @@ label{font-size:13px;color:#555;display:block;margin:10px 0 4px}
 input{font-size:16px;padding:10px;border:1px solid #c9cbd8;border-radius:8px;width:100%}
 button{background:var(--n);color:#fff;border:0;border-radius:8px;padding:12px 16px;font-size:16px;cursor:pointer;margin-top:16px;width:100%}
 button:disabled{opacity:.6}
-.err{color:#a3243b;font-size:14px;margin-top:10px;min-height:18px}.st{font-size:13px;color:#666}a{color:var(--n)}
+.err{color:#a3243b;font-size:14px;margin-top:10px;min-height:18px}
+.partage{display:flex;gap:10px;align-items:center;margin:14px 0 0;font-size:14px;color:#262838;cursor:pointer;min-height:44px}.partage input{width:20px;height:20px;flex:none;padding:0}
+.pied{max-width:420px;margin:0 auto 24px;padding:0 12px;text-align:center;font-size:13px;color:#666}.st{font-size:13px;color:#666}a{color:var(--n)}
 </style></head>
 <body>
 <header><img src="onco360-icone.png" alt=""><b>Onco<span>360</span></b></header>
@@ -30,15 +32,17 @@ button:disabled{opacity:.6}
     <input id="email" type="email" autocomplete="username" inputmode="email">
     <label for="mdp">Mot de passe</label>
     <input id="mdp" type="password" autocomplete="current-password">
+    <label class="partage" for="partage"><input id="partage" type="checkbox"> Poste partagé (se déconnecter à la fermeture du navigateur)</label>
     <button id="btnConnexion">Se connecter</button>
     <div class="err" id="erreur"></div>
     <div class="st" style="margin-top:6px"><a href="#" id="lienOubli">Mot de passe oublié ?</a></div>
   </div>
   <div class="card" id="vueChargement"><div class="st">Chargement…</div></div>
 </main>
+<div class="pied"><a href="cgu.html" target="_blank" rel="noopener" id="lienCgu">Conditions générales d’utilisation</a></div>
 <script type="module">
 import { auth } from "./js/config.js";
-import { onAuthStateChanged, signInWithEmailAndPassword, sendPasswordResetEmail, setPersistence, browserLocalPersistence, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { onAuthStateChanged, signInWithEmailAndPassword, sendPasswordResetEmail, setPersistence, browserLocalPersistence, browserSessionPersistence, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 const $ = (id) => document.getElementById(id);
 const MESSAGES = {
   "auth/invalid-credential": "E-mail ou mot de passe incorrect.",
@@ -54,7 +58,8 @@ $("btnConnexion").onclick = async () => {
   const email = $("email").value.trim(), mdp = $("mdp").value;
   if (!email || !mdp) { $("erreur").textContent = "Saisissez l’e-mail et le mot de passe."; return; }
   $("btnConnexion").disabled = true;
-  try { await signInWithEmailAndPassword(auth, email, mdp); }
+  // L7 (31/10/2026) : poste partagé = session fermée avec le navigateur ; sinon la connexion reste sur cet appareil
+  try { await setPersistence(auth, $("partage").checked ? browserSessionPersistence : browserLocalPersistence); await signInWithEmailAndPassword(auth, email, mdp); }
   catch (e) { $("erreur").textContent = message(e); $("btnConnexion").disabled = false; }
 };
 $("mdp").addEventListener("keydown", (e) => { if (e.key === "Enter") $("btnConnexion").click(); });

@@ -101,7 +101,9 @@ function vueInfos() {
       ch("pfIf", "IF (identifiant fiscal)", p.idFiscal || "", { ph: "Reçus" }) + ch("pfTp", "TP (taxe professionnelle)", p.tp || "", { ph: "Reçus" }) + ch("pfIce", "ICE", p.ice || "", { ph: "Reçus" }) : "") +
     // R-E5 (19/10/2026) : plus de signature scannée (retirée du profil et effacée, réponse de Dr Bentahila)
     '</div><h4 class="soustitre">Mot de passe</h4><p class="mesures">Laissez vide pour ne pas le changer.</p><div class="form">' + ch("pfMdpA", "Mot de passe actuel", "", { type: "password", ac: "current-password" }) + ch("pfMdp", "Nouveau mot de passe (8 caractères minimum)", "", { type: "password", ac: "new-password" }) + ch("pfMdp2", "Confirmer le nouveau mot de passe", "", { type: "password", ac: "new-password" }) + "</div>" +
-    '<div class="err" id="fErr"></div><div class="boutons"><button class="bt plein" id="pfOk" onclick="pfEnregistrer()"><svg class="pi"><use href="#i-enregistrer"/></svg>Enregistrer</button></div></section>';
+    '<div class="err" id="fErr"></div><div class="boutons"><button class="bt plein" id="pfOk" onclick="pfEnregistrer()"><svg class="pi"><use href="#i-enregistrer"/></svg>Enregistrer</button></div>' +
+    // L0 (31/10/2026) : conditions générales acceptées (version et date)
+    '<p class="mesures" id="pfCgu" style="margin-top:14px">' + (p.cgu && p.cgu.version ? "Conditions générales d'utilisation acceptées (version " + esc(p.cgu.version) + (p.cgu.le && p.cgu.le.toDate ? " le " + p.cgu.le.toDate().toLocaleDateString("fr-FR") : "") + "). " : "") + '<a href="cgu.html" target="_blank" rel="noopener">Lire les conditions générales d\'utilisation</a></p></section>';
 }
 window.pfEnregistrer = async () => {
   const b = A.$("pfOk"), err = (t) => { A.$("fErr").textContent = t; }, v = A.val, p = D().profil || {};
@@ -126,7 +128,7 @@ window.pfEnregistrer = async () => {
 // ───── Lieux d'exercice ─────
 function vueLieux() {
   const ok = A.peut("parametres");
-  return '<section class="carte"><div class="entete"><h3><span class="ic">' + A.ic("accueil") + '</span>' + (D().membre.tousEtablissements ? "Mes lieux d\'exercice" : "Mon lieu d\'exercice") + "</h3>" + (ok ? '<button class="bt clair petit" onclick="pfLieu()">' + A.ic("plus") + "Ajouter un hôpital</button>" : "") + "</div>" +
+  return '<section class="carte"><div class="entete"><h3><span class="ic">' + A.ic("accueil") + '</span>' + (D().membre.tousEtablissements ? "Mes lieux d\'exercice" : "Mon lieu d\'exercice") + "</h3>" + (ok ? '<button class="bt clair petit" onclick="pfLieu()">' + A.ic("plus") + "Ajouter un établissement</button>" : "") + "</div>" +
     '<p class="sous">Chaque patient est rattaché à un établissement : il détermine les tarifs appliqués et les membres de l\'équipe qui voient le dossier.</p>' +
     '<div class="recherche" style="max-width:460px">' + A.ic("loupe") + '<input id="pfQ" type="search" placeholder="Rechercher un établissement…" value="' + A.esc(Q) + '"></div><div id="pfL" style="margin-top:10px">' + listeLieux() + "</div></section>";
 }
@@ -136,9 +138,11 @@ function listeLieux() {
   const mb = D().membre, l = (D().etabsTous || D().etabs).filter((e) => (mb.tousEtablissements || (mb.etablissements || []).indexOf(e.code) >= 0) && m.every((w) => sa(e.code + " " + e.nom + " " + (e.adresse || "")).indexOf(w) >= 0));
   if (!l.length) return '<p class="sous">Aucun établissement.</p>';
   return l.map((e) => '<div class="lieu' + (e.actif === false ? " off" : "") + '">' + (srcImage(e.logo) ? '<img src="' + srcImage(e.logo) + '" alt="">' : '<span class="av">' + esc(e.code) + "</span>") +
-    '<div class="tx"><b>' + esc(e.nom) + ' <span class="badge b-gr">' + esc(e.code) + "</span>" + (e.actif === false ? ' <span class="badge b-al">Désactivé</span>' : "") + (e.paiement === "cabinet" ? ' <span class="badge b-ch">Payé au cabinet</span>' : ' <span class="badge b-gr">Payé par l\'établissement</span>') + "</b><span>" + esc([e.adresse, e.tel].filter(Boolean).join(" · ") || "Adresse et téléphone à compléter") + "</span></div>" +
+    '<div class="tx"><b>' + esc(e.nom) + ' <span class="badge b-gr">' + esc(e.code) + "</span>" + (e.actif === false ? ' <span class="badge b-al">Désactivé</span>' : "") + (modeHabE(e) === "vir" ? ' <span class="badge b-gr">Payé par l\'établissement (virement)</span>' : ' <span class="badge b-ch">Paiement habituel : ' + esc({ esp: "espèces", carte: "carte", chq: "chèque" }[modeHabE(e)]) + "</span>") + "</b><span>" + esc([e.adresse, e.tel].filter(Boolean).join(" · ") || "Adresse et téléphone à compléter") + "</span></div>" +
     (A.peut("parametres") ? '<button class="mini" onclick="pfLieu(\'' + esc(e.code) + "')\">Modifier</button>" : A.peut("secretariat") && !D().bib ? '<button class="mini" onclick="pfLieuSec(\'' + esc(e.code) + "')\">Compléter</button>" : "") + "</div>").join("");
 }
+// Lot R : mode habituel du lieu (ancien réglage « payé au cabinet » → espèces, sinon virement)
+const modeHabE = (e) => e.modeHab || (e.paiement === "cabinet" ? "esp" : "vir");
 // Secrétaire (droit « secretariat », 19.3, 10/10/2026) : adresse, téléphone et ville de son lieu ({adresse} des messages WhatsApp,
 // « Fait à {ville} » des courriers) ; le nom, le code et le logo restent au médecin
 window.pfLieuSec = (code) => {
@@ -161,13 +165,13 @@ window.pfLieu = (code) => {
   const maxE = D().abo && D().abo.max.etablissements; // formule du cabinet (09/10/2026)
   if (!code && maxE != null && (D().etabsTous || D().etabs).length >= maxE) { alert("Votre formule Onco360 permet " + maxE + " lieu" + (maxE > 1 ? "x" : "") + " d'exercice : la limite est atteinte.\nContactez l'éditeur d'Onco360 pour en ajouter."); return; }
   const e = code ? (D().etabsTous || D().etabs).find((z) => z.code === code) : { actif: true }, esc = A.esc;
-  A.fenetre("<h3>" + (code ? "Modifier l'établissement" : "Ajouter un hôpital") + '</h3><div class="form">' +
+  A.fenetre("<h3>" + (code ? "Modifier l'établissement" : "Ajouter un établissement") + '</h3><div class="form">' +
     '<div><label for="lCode">Code court</label><input id="lCode" value="' + esc(e.code || "") + '" placeholder="ex. HGC"' + (code ? " disabled" : "") + '></div><div><label for="lTel">Téléphone</label><input id="lTel" type="tel" value="' + esc(e.tel || "") + '"></div>' +
     '<div class="large"><label for="lNom">Nom complet</label><input id="lNom" value="' + esc(e.nom || "") + '"></div><div class="large"><label for="lAdr">Adresse</label><input id="lAdr" value="' + esc(e.adresse || "") + '"></div>' +
     '<div><label for="lVille">Ville</label><input id="lVille" value="' + esc(e.ville || "") + '" placeholder="Casablanca"></div>' +
-    // 19.5 : au cabinet = le patient paie à la secrétaire (mode de paiement, reçu ; payé dans le bilan seulement si encaissé) ;
-    // par l'établissement (virement, convention) = rien à encaisser au cabinet ; « Payé » coché dans le bilan quand le virement arrive
-    '<div class="large"><label for="lPay">Les consultations sont payées</label><select id="lPay"><option value="">par l\'établissement (virement, convention) : rien à encaisser au cabinet</option><option value="cabinet"' + (e.paiement === "cabinet" ? " selected" : "") + ">au cabinet, par le patient (espèces, carte, chèque) : reçu, caisse du jour</option></select></div>" +
+    // Lot R (31/10/2026) : mode de paiement habituel du lieu (remplace « Les consultations sont payées ») : il pré-remplit la fenêtre « Nouveau reçu » ;
+    // virement (ex. HCK) = l'établissement paie : non réglé → « à payer » dans le Bilan ; sinon non réglé → « à encaisser » par la secrétaire
+    '<div class="large"><label for="lPay">Mode de paiement habituel</label><select id="lPay">' + [["esp", "Espèces"], ["carte", "Carte bancaire"], ["chq", "Chèque"], ["vir", "Virement (payé par l'établissement)"]].map(([k, l]) => '<option value="' + k + '"' + (modeHabE(e) === k ? " selected" : "") + ">" + l + "</option>").join("") + '</select><p class="mesures">Proposé dans la fenêtre « Nouveau reçu » quand une consultation est validée « Venu » ; modifiable à chaque consultation.</p></div>' +
     '<div class="large"><label>Logo (facultatif)</label><div class="sig">' + (srcImage(e.logo) ? '<img src="' + srcImage(e.logo) + '" alt="Logo">' : "") + '<input id="lLogo" type="file" accept="image/*"></div></div>' +
     (code ? '<div class="large"><label style="font-weight:normal"><input id="lActif" type="checkbox" style="width:auto;margin-right:6px"' + (e.actif !== false ? " checked" : "") + ">Établissement actif (proposé pour les nouveaux dossiers)</label></div>" : "") +
     '</div><p class="mesures">Le code ne peut plus être changé ensuite : il est enregistré dans les dossiers des patients.</p><div class="err" id="fErr"></div><div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Annuler</button>' + (code ? '<button class="bt gris" id="lSup" style="color:var(--rouge)"><svg class="pi"><use href="#i-corbeille"/></svg>Supprimer</button>' : "") + '<button class="bt plein" id="fOk">Enregistrer</button></div>');
@@ -194,7 +198,7 @@ window.pfLieu = (code) => {
     A.occupe(A.$("fOk"), true);
     try {
       const n = Object.assign({}, e, { code: c, nom, adresse: A.val("lAdr"), ville: A.val("lVille"), tel: A.val("lTel"), actif: A.$("lActif") ? A.$("lActif").checked : true });
-      if (A.val("lPay") === "cabinet") n.paiement = "cabinet"; else delete n.paiement;
+      n.modeHab = A.val("lPay") || "esp"; delete n.paiement;
       const logo = await lireImage(A.$("lLogo"), 400); if (logo) n.logo = logo;
       await setDoc(doc(db, "espaces", A.ESPACE, "etablissements", c), n);
       const tous = (D().etabsTous || D().etabs).filter((z) => z.code !== c).concat([n]).sort((a, z) => a.code.localeCompare(z.code));
@@ -281,9 +285,14 @@ async function vueAcces() {
   const esc = A.esc, moi = D().u.uid;
   return '<section class="carte"><div class="entete"><h3><span class="ic">' + A.ic("patients") + '</span>Gestion des accès</h3><button class="bt plein petit" onclick="pfMembre()">' + A.ic("plus") + "Ajouter un accès</button></div>" +
     '<p class="sous">Chaque membre a sa propre grille de droits, pré-remplie selon son rôle et modifiable. Le serveur la fait respecter : un membre ne peut ni voir ni modifier ce que sa grille ne permet pas.</p>' + quotas() +
-    MEMBRES.map((m) => '<div class="lieu' + (m.actif === false ? " off" : "") + '"><span class="av">' + esc(String(m.nom || m.email || "?").replace(/^Dr\.?\s*/i, "").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase()) + "</span>" +
-      '<div class="tx"><b>' + esc(m.nom || m.email) +  ' <span class="badge b-co">' + esc(ROLES[m.role] || m.role) + "</span>" + (m.role === "remplacant" ? ' <span class="badge b-gr" title="Durée de l\'accès">' + esc(periodeRemplacant(m, D().t)) + "</span>" : "") + (m.actif === false ? ' <span class="badge b-al">' + (m.horsQuota ? "Hors formule" : "Désactivé") + "</span>" : "") + (m.uid === moi ? ' <span class="badge b-gr">Vous</span>' : "") + "</b><span>" + esc([m.email, m.telephone, m.tousEtablissements ? "Tous les établissements" : (m.etablissements || []).join(", ")].filter(Boolean).join(" · ")) + "</span></div>" +
-      (m.uid === moi ? "" : '<button class="mini" onclick="pfLienMdp(\'' + m.uid + '\')" title="Lien pour choisir son mot de passe, à lui envoyer (WhatsApp, SMS)">Lien du mot de passe</button><button class="mini" onclick="pfMembre(\'' + m.uid + '\')">Droits</button>') + "</div>").join("") + "</section>";
+    // 31/10/2026 (lot 6.6, demande de Dr Bentahila) : tableau au modèle des Tâches : Utilisateur, Rôle, Contact, Établissement(s), Actions
+    '<div class="ta-tab ac-tab"><div class="ta-h ac-g" aria-hidden="true"><span>Utilisateur</span><span>Rôle</span><span>Contact</span><span>Établissement(s)</span><span>Actions</span></div>' +
+    MEMBRES.map((m) => '<div class="ta-r ac-g ac-r' + (m.actif === false ? " off" : "") + '">' +
+      '<div class="c-u"><span class="ta-av">' + esc(String(m.nom || m.email || "?").replace(/^Dr\.?\s*/i, "").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase()) + '</span><span class="ta-nm"><b>' + esc(m.nom || m.email) + "</b>" + (m.uid === moi ? ' <span class="badge b-gr">Vous</span>' : "") + "</span></div>" +
+      '<div class="ac-role" data-l="Rôle"><span class="badge b-co">' + esc(ROLES[m.role] || m.role) + "</span>" + (m.role === "remplacant" ? ' <span class="badge b-gr" title="Durée de l\'accès">' + esc(periodeRemplacant(m, D().t)) + "</span>" : "") + (m.actif === false ? ' <span class="badge b-al">' + (m.horsQuota ? "Hors formule" : "Désactivé") + "</span>" : "") + "</div>" +
+      '<div class="ac-ct" data-l="Contact">' + (m.email || m.telephone ? [m.email, m.telephone].filter(Boolean).map((v) => "<span>" + esc(v) + "</span>").join("") : '<span class="mesures">—</span>') + "</div>" +
+      '<div class="ac-et" data-l="Établissement(s)">' + esc(m.tousEtablissements ? "Tous les établissements" : (m.etablissements || []).join(", ") || "—") + "</div>" +
+      '<div class="c-a">' + (m.uid === moi ? "" : '<button class="mini" onclick="pfLienMdp(\'' + m.uid + '\')" title="Lien pour choisir son mot de passe, à lui envoyer (WhatsApp, SMS)">Lien du mot de passe</button><button class="mini" onclick="pfMembre(\'' + m.uid + '\')">Droits</button>') + "</div></div>").join("") + "</div></section>";
 }
 function grille(dr, role) {
   const esc = A.esc;
@@ -348,23 +357,19 @@ window.pfMembre = (uid) => {
           if (!m._mNom) throw new Error("Indiquez le nom.");
           // Compte créé par le serveur (la création depuis le navigateur est fermée dans Firebase, 10/10/2026)
           const dem = Object.assign({ espace: A.ESPACE, email, prenom: m._mPre || "", nom: m._mNom || "", telephone: m._mTel || "", role: m.role, tousEtablissements: m.tousEtablissements, etablissements: m.etablissements, droits: m.droits }, rem() ? { remplaceDu: m.remplaceDu || "", remplaceAu: m.remplaceAu || "" } : {});
-          let nouvel;
-          // Personne déjà dans un autre cabinet Onco360 (19.2 : secrétaire de plusieurs médecins) : accès ajouté après confirmation
-          try { nouvel = await appelServeur("creerMembre", dem); }
-          catch (er) {
-            if (!/AUTRE_CABINET/.test(er.message || "")) throw er;
-            if (!confirm("Cette adresse est déjà celle d'un compte Onco360 dans le cabinet d'un autre médecin (par exemple une secrétaire qui travaille aussi pour lui).\n\nLui donner aussi l'accès à votre cabinet ?\nElle garde son mot de passe et passe d'un cabinet à l'autre avec le menu « Cabinet ». Elle ne voit que ce que vous lui permettez ici, et vous ne voyez rien de l'autre cabinet.")) { A.occupe(A.$("fOk"), false); return; }
-            nouvel = await appelServeur("creerMembre", Object.assign(dem, { autreCabinet: true }));
-            A.journal({ id: "", r: { nm: "" } }, "Accès ajouté : " + nom + " (" + ROLES[m.role] + "), compte d'un autre cabinet");
+          // L6 (e) (31/10/2026) : une personne qui a déjà un compte Onco360 reçoit une invitation, qu'elle accepte à sa prochaine connexion
+          const nouvel = await appelServeur("creerMembre", dem);
+          if (nouvel.invitation) {
+            A.journal({ id: "", r: { nm: "" } }, "Invitation envoyée : " + nom + " (" + ROLES[m.role] + ")");
             MEMBRES = null; A.fermerFenetre(); rafraichir();
-            alert("Accès ajouté pour " + nom + ".\nElle se connecte avec son mot de passe habituel et choisit votre cabinet dans le menu « Cabinet » (à gauche, sous le logo).");
+            alert("Invitation envoyée à " + email + ".\nCette adresse a déjà un compte Onco360 : la personne verra l'invitation à sa prochaine connexion et l'acceptera pour entrer dans votre cabinet, avec son mot de passe habituel.");
             return;
           }
           let envoi = "";
           if (!nouvel.existant) { try { await sendPasswordResetEmail(auth, email); envoi = "Un e-mail a été envoyé à " + email + " (souvent dans les indésirables) pour choisir le mot de passe."; } catch (er) { envoi = "L'e-mail n'a pas pu partir."; } }
           A.journal({ id: "", r: { nm: "" } }, "Accès créé : " + nom + " (" + ROLES[m.role] + ")");
           MEMBRES = null; rafraichir();
-          fenetreMotDePasse({ uid: nouvel.uid, nom, email, telephone: m._mTel || "" }, nouvel.existant ? "Accès ajouté : ce compte existait déjà, la personne garde son mot de passe." : "Accès créé. " + envoi + " Vous pouvez aussi lui envoyer le lien vous-même :");
+          fenetreMotDePasse({ uid: nouvel.uid, nom, email, telephone: m._mTel || "" }, "Accès créé. " + envoi + " Vous pouvez aussi lui envoyer le lien vous-même :");
           return;
         }
         MEMBRES = null; A.fermerFenetre(); if (m0) A.toast("Droits enregistrés."); rafraichir();

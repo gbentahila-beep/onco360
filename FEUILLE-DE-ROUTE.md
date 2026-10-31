@@ -47,6 +47,20 @@ Sources plus anciennes : audits n° 1 à 3 (Drive › Audit, `archives/audit-3/`
   après chaque mise en ligne, 3 vérifications pour Dr Bentahila (« ouvrez X, cliquez Y, vous devez voir Z ») (Q9).
 - Code enregistré et poussé sur GitHub à la fin de chaque étape testée. Ce qui arrive en cours de route va dans « À placer ».
 - **Ce qui est refusé n'est jamais reproposé** (liste cumulée en bas du plan, « Refusé – ne pas reproposer »).
+- **(31/10/2026) Règles du travail par lots** (document « Onco360 — Demandes à faire » ; à suivre à chaque session, par chaque Claude) :
+  - Un Claude prépare les lots en **un seul patch cumulatif** sur le dernier enregistrement en ligne, **sans pousser ni mettre en ligne** ; l'autre Claude
+    l'applique (`git am`), relance les contrôles, pousse et met en ligne **avec l'accord de Dr Bentahila**. Personne ne touche un fichier d'un patch pas encore appliqué.
+  - Enregistrements : auteur et enregistreur « Rita Bentahila <ritabentahila@gmail.com> » ; message terminé par les lignes `Co-Authored-By` et `Claude-Session`.
+  - **Mise en page seulement** quand c'est demandé ainsi : aucune nouvelle police, couleur ni style de bouton sans demande (variables de v2.html, `b1` / `b2` / `b3`).
+  - Texte **≥ 13 px** ; zones à toucher **≥ 40 px** (44 px au téléphone) ; contrôle à **390, 900, 1 280 et 1 600 px**, sans débordement.
+  - Jamais de « // commentaire » au milieu d'une ligne de code (`outils/commentaires.py`).
+  - Chaque lot : une ligne dans `JOURNAL.md`, une section ici (**cases cochées pour tout ce qui est fait, y compris ce qui a été fait en plus de la demande**), une
+    section dans `CLAUDE.md` ; statut de chaque ligne mis à jour dans le document « Onco360 — Demandes à faire » (Fait sur main, Envoyé, À trancher…).
+  - Jamais `tests/seed.json` ni une vraie donnée de patient dans le dépôt, le site, les tests ou les captures (jeu fictif seulement).
+  - Aucun contenu protégé recopié (manuels UICC / AJCC, outils de calcul propriétaires) : structure à remplir par le cabinet, lien vers la source, ou PDF du cabinet joint.
+  - Valider une consultation = marquer le rendez-vous « Venu » ; prix affiché des Paramètres, remise en DH seulement, jamais de paiement partiel en pourcentage ;
+    séance de chimio validée sans fenêtre (tarif de la séance), consultation du jour de chimio avec la fenêtre « Nouveau reçu ».
+  - Tests : chaque lot a son test (`tests/test_lot_….py`), ajouté à `outils/avant-mise-en-ligne.sh` ; suite complète relancée avant de livrer ; un test rouge est réparé.
 
 ## Règles à ne pas changer
 - Honoraires de séance de chimio : tarif des Paramètres, 500 DH brut par jour validé (J1 et J8 = 2 × 500 DH), sans saisie manuelle.
@@ -73,6 +87,9 @@ Sources plus anciennes : audits n° 1 à 3 (Drive › Audit, `archives/audit-3/`
 
 ## Questions et vérifications en attente (Claude les rappelle en début de session)
 **À vérifier par Dr Bentahila, sans rien coder** (audit 10, « À reprendre ») :
+- [ ] (31/10, L4) Photos des patients : les garder dans la liste des patients (une lecture par photo affichée) ou seulement dans le dossier ? Réponse
+  avant de déplacer les photos dans Cloud Storage.
+- [ ] (31/10, L0) CGU : relecture par un juriste avant le premier client payant (prix, résiliation, sous-traitance CNDP, juridiction).
 - [ ] Comparer l'heure d'arrivée affichée en salle d'attente avec l'heure de son téléphone (heure du Maroc, étape S1).
 - [ ] Mercredi 21/10 au matin : le premier relevé du comptable préparé la nuit (2 h 45) est-il là ?
 - [ ] Lundi 26/10 : le premier export de la semaine (dimanche 25/10, 1 h 30) est-il dans Paramètres › Export des données et dans son Drive ?
@@ -578,23 +595,33 @@ dans ⋯ ; Afficher, Journal, Modifier restent visibles ; aucune consultation cr
       plus sa traduction »).
 
 ## Phase L – Lancement : avant le premier cabinet ami
-- [ ] **L1 Journal des erreurs en ligne** (d. 21 ; ancien Q-c) + **page « État de la plateforme »** (d. 41). Erreurs JavaScript des utilisateurs
+- [x] **L0 Conditions générales d'utilisation** (ajouté le 31/10, demande du document « Demandes à faire ») : texte complet `public/cgu.html` (éditeur non nommé, droit
+      marocain, loi 09-08, secret médical, responsabilité, prix TTC…), version `js/donnees/cgu.js` ; case non cochée + lien à la première connexion et à chaque
+      nouvelle version, acceptation notée (`utilisateurs/{uid}.cgu` : version, date du serveur, e-mail, cabinet ; règle) ; lien à la connexion et dans Mon compte.
+      **À faire relire par un juriste** avant le premier client payant (6.1).
+- [x] **L1 Journal des erreurs en ligne** (d. 21 ; ancien Q-c) + **page « État de la plateforme »** (d. 41). Erreurs JavaScript des utilisateurs
       notées **sans donnée patient** (message, fichier, ligne, page, version, rôle, cabinet ; jamais un nom ni un contenu), regroupées, limitées par
       jour ; Administration › État de la plateforme : dernière nuit de chaque traitement (tâches automatiques, Google Agenda, relevé du comptable,
       copie des fichiers, exports), échecs, dernier export de chaque cabinet, refus de Google Agenda, erreurs du jour.
-- [ ] **L2 Import des patients par fichier Excel** (d. 19) : Paramètres › Cabinet › « Importer des patients » (titulaire) : modèle Excel à
+      *Fait le 31/10* : `noterErreur`, `erreurs/{jour}`, `plateforme/nuits`, `etatPlateforme`, onglet « État de la plateforme » ; logique `functions/plateforme.js`.
+- [x] **L2 Import des patients par fichier Excel** (d. 19) : Paramètres › Cabinet › « Importer des patients » (titulaire) : modèle Excel à
       télécharger (identité, CIN, téléphone, mutuelle, diagnostic, n° de dossier d'origine), aperçu ligne par ligne (erreurs, doublons de nom +
       naissance), import, compte rendu ; n° de dossier Onco360 attribué comme d'habitude, ancien numéro gardé dans la fiche. SheetJS déjà dans
-      `vendor/`. Test sur un fichier fictif.
-- [ ] **L3 Guide de démarrage** (d. 22) : 2 pages pour le médecin, 2 pour la secrétaire, illustrées avec le **cabinet de démonstration** (jamais un
-      vrai patient) ; dans `guide/` et dans Onco360 (aide).
-- [ ] **L4 Photos à part et nuit par cabinet** (d. 23, 24 ; partie de 5.3). (1) **Photos des patients dans Cloud Storage** (environ 50 Ko chacune,
+      `vendor/`. Test sur un fichier fictif. *Fait le 31/10* : dans Paramètres › Cabinet › Export des données (carte « Importer des patients ») ; Excel ou CSV ;
+      ancien numéro `identite.numOrig` (cherché et affiché dans Patients) ; compte rendu Excel ; `js/moteur/importpatients.js`.
+- [x] **L3 Guide de démarrage** (d. 22) : 2 pages pour le médecin, 2 pour la secrétaire, illustrées avec le **cabinet de démonstration** (jamais un
+      vrai patient) ; dans `guide/` et dans Onco360 (aide). *Fait le 31/10* : `guide/demarrage.md` → `public/guide/demarrage.html` (`outils/guide-html.py`), captures
+      du jeu fictif (`tests/guide_captures.py`), lien « Guide de démarrage » du menu du compte, imprimable (une partie par page).
+- [ ] **L4 Photos à part et nuit par cabinet** — *partiel le 31/10* : (2) fait (tâches automatiques un cabinet à la fois, dossiers par paquets de 300,
+      cabinet en échec noté sans arrêter les autres, comme le relevé, l'export et Google Agenda) ; (1) photos **pas faites** : à trancher avec Dr Bentahila (la liste des
+      patients montre aujourd'hui les photos : les garder dans la liste = une lecture par photo), puis avec l'émulateur Storage sur le Mac. (d. 23, 24 ; partie de 5.3). (1) **Photos des patients dans Cloud Storage** (environ 50 Ko chacune,
       chargées aujourd'hui à chaque ouverture) : lues seulement à l'ouverture du dossier ; reprise des photos existantes une fois ; export et
       récupération à jour. (2) **Traitements de nuit un cabinet à la fois** (tâches automatiques, Google Agenda, relevé, exports), dossiers lus par
       paquets de quelques centaines ; un cabinet en échec n'arrête pas les autres (noté dans L1).
-- [ ] **L5 Contrôle des dossiers au chargement** (ancien Q-d) : champs mal rangés, rendez-vous orphelins, dates impossibles → réparés ou signalés ;
-      test « aller-retour » : un dossier enregistré puis relu ne perd aucun champ.
-- [ ] **L6 Administration et sécurité entre cabinets** (d. 36, 38, 39, 40, 42 ; audit 10, « Administration » et « Sécurité entre cabinets »).
+- [x] **L5 Contrôle des dossiers au chargement** (ancien Q-d) : champs mal rangés, rendez-vous orphelins, dates impossibles → réparés ou signalés ;
+      test « aller-retour » : un dossier enregistré puis relu ne perd aucun champ. *Fait le 31/10* : `js/moteur/controle.js` (réparé dans la copie lue, signalé au
+      médecin dans le dossier et au journal des erreurs, type seulement) ; `node tests/moteur/test-controle.mjs` (86 dossiers fictifs, aller-retour sans perte).
+- [x] **L6 Administration et sécurité entre cabinets** (d. 36, 38, 39, 40, 42 ; audit 10, « Administration » et « Sécurité entre cabinets »).
       (a) **d. 36, confirmé le 20/10** (question 3) : la liste des administrateurs n'est plus écrite depuis le navigateur (console seulement) ; l'administrateur se nomme seulement dans la
       console Firebase (comme aujourd'hui) ; le compte de tous les jours ne lit plus que les profils **de son équipe** (aujourd'hui : profil de tout utilisateur, de tout cabinet : INPE, IF, TP,
       ICE) ; identité reconnue par l'**identifiant du compte**, plus par l'adresse e-mail (`proprietaire()`). Tests de règles. (b) Le titulaire est
@@ -604,22 +631,31 @@ dans ⋯ ; Afficher, Journal, Modifier restent visibles ; aucune consultation cr
       administrateur, d'un titulaire ou d'un membre d'un autre cabinet) ; la personne déjà inscrite ailleurs **accepte l'invitation** avant d'entrer
       (d. 42). (f) Fiche de chaque cabinet : **état du démarrage** (profil, lieu, tarifs, équipe, Google Agenda, export), sans donnée médicale.
       **Pas** de double vérification sur le compte d'administration (d. 37 : non).
-- [ ] **L7 Sécurité du site** (d. 43, 57, 59 ; ancien Q-e). (1) **CSP appliquée** (en observation depuis le 11/10 ; code écrit dans les pages
+      *Fait le 31/10* : (a) `proprietaire()` = titulaire du cabinet modèle (identifiant du compte), profils de son équipe seulement, `administrateurs` fermé au
+      navigateur ; (b) `espaces/{e}/avisAdmin` + journal du cabinet, bandeau du titulaire (« Vu ») ; (c) règles `request.method` (lectures permises, écritures refusées),
+      Storage en lecture, bandeau ; (d) `supprimerCabinet` = export final + effacement à 30 jours (`suppressionsNuit`, `annulerSuppression`) ; (e) messages neutres,
+      invitations (`invitations/{uid}_{e}`, `repondreInvitation`) ; (f) état du démarrage dans la fiche du cabinet. **Tests de règles à lancer sur le Mac** (`npm test`).
+- [ ] **L7 Sécurité du site** — *fait le 31/10 sauf (3)* : (1) CSP appliquée (même politique, aucune violation sur 13 pages, un dossier, CGU, guide :
+      `tests/test_lot_l.py`) + `Permissions-Policy` ; (2) mammoth 1.11.0 ; (4) « Poste partagé ». **Reste (3)** : clé web limitée dans la console (clics dans le LISEZMOI). (d. 43, 57, 59 ; ancien Q-e). (1) **CSP appliquée** (en observation depuis le 11/10 ; code écrit dans les pages
       retiré ou permis par empreinte) + **politique des permissions** (caméra, micro… refusés). (2) **mammoth 1.11.0** (faille CVE-2025-11849
       corrigée) dans `vendor/`. (3) Clé web de Firebase **limitée à l'adresse du site** dans la console Google (fait par Dr Bentahila, Claude donne
       les clics). (4) Case **« Poste partagé »** à la connexion (d. 57 : oui, rare) : session fermée avec le navigateur, sur ce poste seulement ;
       sans la case, rien ne change (jamais de déconnexion automatique). **Pas** de mots de passe de 10 caractères ni de protection contre la
       recherche des adresses (d. 58 : non).
-- [ ] **L8 Coûts** (d. 60 ; réponse ci-dessus). (1) **Export de la semaine qui n'envoie que le nouveau** : données (petites) chaque semaine, PDF
+- [ ] **L8 Coûts** — *pas fait le 31/10* : (1) changerait la chaîne de restauration (PDF répartis sur plusieurs exports) ; à faire avec l'émulateur sur le Mac
+      (`npm run export`) et la restauration multi-exports ; (2) et (3) : clics dans la console, donnés dans le LISEZMOI du patch. (d. 60 ; réponse ci-dessus). (1) **Export de la semaine qui n'envoie que le nouveau** : données (petites) chaque semaine, PDF
       seulement ceux ajoutés depuis le dernier export réussi (le Drive garde les anciens ; liste des fichiers déjà envoyés dans `exportsAuto/{e}`) ;
       récupération et restauration toujours possibles depuis le Drive (test). (2) **Alerte de budget Google** (par exemple 20 dollars par mois,
       console Google Cloud : Claude donne les clics). (3) Regarder dans la console : images des fonctions (Artifact Registry), journaux.
-- [ ] **L9 Registre d'usage** (V5) : chaque mois, par cabinet, **sans aucune donnée de patient** : cabinet actif, nombre de dossiers, de cures
+- [x] **L9 Registre d'usage** (V5) : chaque mois, par cabinet, **sans aucune donnée de patient** : cabinet actif, nombre de dossiers, de cures
       validées, de consultations, de membres ; écrit par le serveur (`plateforme/usage/{AAAA-MM}`), lu par l'Administration ; dès le 1er cabinet ami.
-- [ ] **L10 Prix des packs au prix marocain** (O4). Relevé des prix publics de GestiCab, DabaDoc et autres logiciels médicaux marocains (recherche
+      *Fait le 31/10* : `usageNuit` (4 h 45, mois en cours, et le 1er du mois le mois fini) → `plateforme/usage/mois/{AAAA-MM}` ; `usageLire` ; État de la plateforme.
+- [x] **L10 Prix des packs au prix marocain** (O4). Relevé des prix publics de GestiCab, DabaDoc et autres logiciels médicaux marocains (recherche
       en ligne, sources notées), proposition de nouveaux prix à Dr Bentahila, puis `PRIX0` (`functions/facturation.js` = `public/js/donnees/
-      facturation.js`) et fiches des packs. Pilote gratuit (d. 20) : mode « gratuit » de la facturation (déjà là).
-- [ ] **L11 Répétition générale chronométrée** (audit 10, « Plan d'action ») dans le cabinet de démonstration : création du cabinet, import d'un
+      facturation.js`) et fiches des packs. Pilote gratuit (d. 20) : mode « gratuit » de la facturation (déjà là). *Fait le 31/10* (prix donnés par Hamza Benzekri :
+      Tbibclic 299 DH/mois ou 3 588 DH/an, DabaDoc 475 DH/mois, Medic.ma 450 DH/mois) : Essentiel et Radiothérapie 490 DH/mois (4 900 DH/an), Onco Pro et RT Pro
+      790 (7 900), Onco-RT Pro 990 (9 900), Onco Clinique et RT Centre 1 990 (19 900), Complet 2 490 (24 900) ; annuel = 10 mois.
+- [x] **L11 Répétition générale chronométrée** (script écrit le 31/10 : `docs/lancement/repetition-et-jour-j.md` ; la répétition elle-même reste à faire après la mise en ligne) (audit 10, « Plan d'action ») dans le cabinet de démonstration : création du cabinet, import d'un
       fichier fictif (L2), premier patient, cure validée, reçu, export, récupération (S8) ; puis le « jour J » écrit pas à pas pour le pilote
       (1 h en visio : modèle recopié juste avant, carte « Bienvenue », export vers son Drive, messages WhatsApp, marges, patient d'essai créé puis
       supprimé) et la première semaine (journal des erreurs lu chaque jour, « Écart au modèle », premier export vérifié, un point).
@@ -858,6 +894,140 @@ refus reste valable pour des contraintes dans la prescription ou le dossier d'un
       par situation (Biau 2019 en définitif, Evans 2025 en postopératoire de la cavité buccale), CTV-T (Grégoire 2017 / Lapeyre 2019) ; chaque volume de
       chaque protocole défini anatomiquement (PTV = marges) ; chaque situation dit exactement quoi faire ; schémas manquants ajoutés.
 - [ ] États vides illustrés à étendre aux autres pages (Patients, Agenda, RCP, documents du dossier) si Dr Bentahila le souhaite.
+
+## Demandes du 31/10/2026, lots 1 et 2 (document « Onco360 — Demandes à faire » ; testé, **pas en ligne** : à mettre en ligne avec l'accord de Dr Bentahila)
+Mise en page seulement : aucune police ni couleur changée. Test : `tests/test_lots_1_2.py` (1 600, 1 280, 900, 390 px). Le module Radiothérapie n'est pas touché (lot à part).
+- [x] 1.1 Boutons « + Patient » (tableau de bord, Patients), « + Rendez-vous » (tableau de bord, agenda, salle d'attente), « + Tâche » (Tâches) ; remplace « + Nouveau rendez-vous » du 30/10.
+- [x] 1.2 Bouton principal au même endroit et à la même hauteur partout (bord droit de la 1re ligne, 46 px) : Patients (recherche élargie, menus dessous), salle d'attente
+  (« + Rendez-vous » au bout de la ligne d'Actualiser et de « ⋯ », « Patient suivant » devient secondaire), tableau de bord (« + Patient » principal, à droite), Protocoles.
+- [x] 1.3 Icônes centrées sur leur texte (`svg.i` / `svg.pi` : milieu des capitales) : Bilan, WhatsApp › Messages, liste des patients…
+- [x] 1.4 18 px entre toutes les cartes (Paramètres : pages en colonne `.cf-main`, RCP, agenda, dossier, tableau de bord, bilan) ; 12 px entre champs côte à côte ; champs
+  et menus des formulaires à 44 px (Heure / Lieu de la RCP, dates, heures).
+- [x] 1.5 Menus déroulants : la flèche ne passe plus sur le texte (Protocoles « Tous les statuts ») ; chaque menu au moins aussi large que son libellé (v2.js, calculé).
+- [x] 1.6 Tâches terminées alignées sur le tableau du dessus ; test : les tableaux de mêmes colonnes d'une page sont alignés.
+- [x] 1.7 États vides : plus d'icône répétée avant la phrase ; « Toutes les tâches sont terminées » redessiné (presse-papiers coché, style d'Onco360).
+- [x] 1.8 « ? » : bulle flottante entière au survol (au toucher sur téléphone), jamais coupée ; plus d'affichage en bas au clic (« ? » des lignes de chimio).
+  Reste pour le lot Radiothérapie : les « ? » des contraintes (`rtr-q`, affichage sous le tableau) → `class="q-aide" data-txt="…"`.
+- [x] 1.9 Champ à liste déjà rempli : la liste ne s'ouvre qu'après 2 lettres tapées (mutuelle, correspondant, diagnostic, informations médicales…).
+- [x] 1.10 « Onco360 (automatique) » : pastille « O ».
+- [x] 1.11 Téléphone : titre de la page sur une ligne (barre resserrée, zones de 44 px gardées ; « Agenda » au lieu de « Agenda / Rendez-vous »).
+- [x] 2.1 Nouveau patient en pleine page (menu et barre du haut gardés) : Identité (nom et prénom, date de naissance, sexe Masculin / Féminin en deux boutons, CIN / passeport),
+  Contact (téléphones, e-mail et adresse), Couverture et parcours de soins (mutuelle et n° d'immatriculation, établissement et correspondant, ALD, médecin) ; Annuler / Créer le
+  patient ; même formulaire pour « Identité et administratif » au centre du dossier ; toujours réglé par Paramètres › Fiche patient (champs, noms, ordre dans chaque sous-partie).
+- [x] 2.2 « N° d'immatriculation / d'adhérent » (`identite.numAdh`) : champ de base de tous les cabinets, après la mutuelle ; l'ancien champ propre au cabinet est repris
+  une fois (`migrations()`, `parametres/migrations.numAdh1031`) : valeurs, nom d'en-tête et impression, puis retiré de la fiche du cabinet.
+- [x] 2.3 Nouveau rendez-vous en pleine page depuis tous les boutons : Patient existant (recherche) ou Nouveau patient (formulaire 2.1, retour au rendez-vous avec ce patient,
+  saisie gardée) ; le rendez-vous dessous tout de suite ; depuis un dossier, patient déjà choisi. Modifier un rendez-vous : pleine page aussi (ajout du 31/10, lots 3 et 4).
+- [x] 2.4 Patients en tableau (modèle Tâches) : Nom Prénom, date de naissance (âge), n° de dossier (colonne dès 1 400 px, sous le nom avant), médecin (cabinet de plusieurs
+  médecins), établissement, cancer, dernières nouvelles (ou « Décédé »), traitement en cours ; téléphone : une carte par patient.
+- [x] 2.5 Patients : « + Patient » à la hauteur de la recherche, menus dessous (patients, hôpitaux, statuts, localisations, stades, médecins).
+- [x] 2.6 Agenda : « ‹ 26 oct. – 1 nov. › » (période entre les flèches).
+
+## Demandes du 31/10/2026, lots 3 et 4 (même patch que les lots 1 et 2 ; testé, **pas en ligne** : à mettre en ligne avec l'accord de Dr Bentahila)
+Mise en page seulement. Test : `tests/test_lots_3_4.py` (1 600, 1 280, 900, 390 px). Index Firestore ajoutés (`firebase deploy --only firestore:indexes`).
+- [x] 3.1 Onglets du dossier : « + Nouvelle consultation », « + Nouvelle prescription chimiothérapie », « + Nouvelle prescription radiothérapie » à gauche
+  (Référentiel sous ⋯ à droite) ; Docs : « + Ajouter un document », puis la recherche, puis les types.
+- [x] 3.2 Barre du bas (Médic., Ordo. type, Analyses, Examens compl., Courriers, Doc., + RCP, + Rendez-vous, + Tâche) : ouverte à la place du centre et de la colonne
+  de droite, sur toute la largeur (`#fenetre.centre`), ordonnance comprise ; plus de fenêtre.
+- [x] 3.3 Doc. dans le dossier : étoile et « Remettre » visibles, Ouvrir, Modifier et Supprimer sous ⋯.
+- [x] 3.4 États vides illustrés : consultation, chimiothérapie, radiothérapie.
+- [x] 3.5 Radiothérapies : la plus ancienne en haut, la plus récente en bas.
+- [x] 3.6 « Notes seulement » : « Dr Prénom Nom » au lieu des initiales.
+- [x] 3.7 Résumé sur toute la hauteur sans défilement ; note de consultation sans bordure pleine, cadre plus léger.
+- [x] 3.8 « Modifiée le » : seulement la dernière date.
+- [x] 3.9 Ligne de chimio : ⋯ aligné sur les boutons, « ? » retiré.
+- [x] 3.10 Impression des listes « Rendez-vous et tâches à venir » et « Historique des RDV » ; « Imprimer le rendez-vous » (A5) dans le ⋯ de chaque rendez-vous.
+- [x] 3.11 Téléphone : 5 onglets sur une ligne, « Docs » loin du bord, « + Prescrire » rectangulaire.
+- [x] 4.1 Tableau de bord en rangées : Aujourd'hui | Actions rapides, À valider ; Les 7 prochains jours | Activité récente, Derniers documents ; Conflits sur toute la
+  largeur ; Statistiques. Même ordre dans Paramètres et Admin ; ordre et colonnes réglés avant remis une fois (`migrations.accueil1031`), cartes cachées gardées.
+- [x] 4.2 Actions rapides : + Consultation, Ordonnances (patient puis type), + Document, + Radiothérapie, + Chimiothérapie ; patient choisi en haut, tout rangé
+  dans le dossier. Feuille de soins : lot 9.
+- [x] 4.3 Activité récente : 5 dernières actions, « Voir tout ».
+- [x] 4.4 Derniers documents : 5 derniers, « Voir tout » (30) ; aucun : dessin et phrase.
+- [x] 4.5 Carte chimio : une consultation de chimio validée reste, marquée « Vu ».
+- [x] (31/10, ajout) Modifier un rendez-vous : pleine page comme un nouveau (patient en haut, sans le changer ; rendez-vous dessous) ; remplace « la fenêtre d'avant » du 2.3.
+- [x] (31/10, ajout) « Établissement(s) » partout à la place d'« Hôpital / hôpitaux » (générique : clinique, hôpital, cabinet) : menu de la page Patients, champ de la
+  fiche patient, Bilan (colonnes, règlements, export), Lieux d'exercice (« + Ajouter un établissement »), modules, exemples des courriers ; un nom « Hôpital » réglé
+  par le cabinet pour ce champ est retiré une fois (`migrations.etab1031`). Gardé : « hôpital de jour » (le service des séances, pas un lieu).
+
+## Demandes du 31/10/2026, lots 5, 6 et 7 (même patch que les lots 1 à 4 ; testé, **pas en ligne** : à mettre en ligne avec l'accord de Dr Bentahila)
+Test : `tests/test_lots_5_7.py` (1 440 et 390 px) et `node tests/moteur/test-tarifs-communs.mjs`.
+- [x] 5.1 RCP : inscrits en tableau au modèle des Tâches (Patient, Né(e) le (âge), Question, Décision, Inscrit (date et par qui), Statut En attente / Validé,
+  Actions Valider ou Remettre en attente, Modifier, Supprimer).
+- [x] 5.2 Salle d'attente : toute la liste, jamais de cadre qui défile en hauteur (ordinateur et téléphone).
+- [x] 5.3 Menu « Documents » (sous Patients, droit « documents ») : dépôt d'un ou plusieurs fichiers, type et patient de chacun (« Pour tous » : type, patient),
+  sans ouvrir le dossier ; tout en PDF comme l'onglet du dossier (fichiers.js `pageDepot`).
+- [x] 6.1 Accueil des Paramètres (« #parametres » seul) : bonjour, « Que voulez-vous faire ? », recherche dans toutes les rubriques (mots proches `MOTS_RUB`),
+  dessin, familles en cartes ; plus de rubrique ouverte d'office ; un clic sur une famille ouvre sa 1re rubrique.
+- [x] 6.2 Finances et Laboratoires : plus de sous-onglet unique (une famille d'une seule rubrique n'a pas de sous-menu).
+- [x] 6.3 Téléphone : familles en menu segmenté sur une ligne qui défile avec flèche (comme Radiothérapie), rubriques dessous, collés sous la barre du haut.
+- [x] 6.4 Reçu (note d'honoraires) : modèle `rt-recu` de Bibliothèques › Courriers, modifiable par le médecin (champs {numero}, {patient}, {montant}…), même reçu
+  qu'avant tant qu'il n'est pas modifié.
+- [ ] 6.5 « Supprimer mon compte » : **abandonné** le 31/10/2026 (Dr Bentahila : « 6.5 on oublie »).
+- [x] 6.6 Mon compte › Accès en tableau (Utilisateur, Rôle, Contact, Établissement(s), Actions).
+- [x] 6.7 Abonnement : fait avec les lots 8 et 9 (voir plus bas).
+- [x] 7.1 Paramètres › Finances : cadre « Séance de chimiothérapie » (tarif commun daté, une ligne par lieu : Tarif commun ou Taux propres).
+- [x] 7.2 « Radiothérapie (tarif de l'acte) » : dans le cadre Actes de radiothérapie, une ligne par lieu (Tarif commun ou Taux propres).
+- [x] 7.3 Taux communs : lieu sans ligne propre → tarif commun (séance : `finances/tarifs.seanceCommune`, écrit une fois par `migrations.seance1031` :
+  50 % / 10 %, brut du lieu de repli ; radiothérapie : `tauxRT`), avant le lieu de repli (moteur/finances.js `seanceAu`, `rtAu`). Bilan fictif inchangé.
+- [x] 7.4 Bilan › versements et règlements : mode « Espèces » (filtre, colonne des totaux).
+- [x] 7.5 Bilan sur téléphone : grille à deux colonnes (Du et Au côte à côte), Actualiser et « ⋯ » sur la ligne du menu Référent.
+
+## Demandes du 31/10/2026, lots 8 et 9, et 6.7 (même patch que les lots 1 à 7 ; testé, **pas en ligne** : à mettre en ligne avec l'accord de Dr Bentahila)
+Test : `tests/test_lots_8_9.py` (1 440 et 390 px) et `node tests/moteur/test-feuillesoins.mjs`.
+- [x] 8.1 Un protocole (Bibliothèques › Protocoles, et « Voir » depuis une prescription) s'ouvre en pleine page, mêmes actions qu'avant.
+- [x] 8.2 Fiche du protocole en cadres repliables alignés (même bord, même largeur) : Protocole, Prescription, Indications, Molécules, Remarques.
+- [x] 8.3 Avertissement « Contenus indicatifs, à vérifier avant toute prescription… » en bas de la liste des protocoles, de chaque fiche et de
+  Paramètres › Bibliothèques. Partie radiothérapie laissée au lot RT (radiotherapie.js non touché).
+- [x] 9.1 Bouton « Feuille de soins » dans la barre du dossier (entre Doc. et + RCP, droit `prescriptions.feuille`) et action rapide de l'accueil.
+- [x] 9.2 Feuille remplie sur le vrai formulaire (images des PDF CNOPS et CNSS, `public/documents/feuilles/`), deux pages A4 paysage : patient, assuré(e),
+  médecin (carte du médecin), établissement, actes (+ Ajouter un acte, total), type de soins, pli confidentiel (CNOPS), CIM-10, pièces jointes.
+  « Consultation du dossier » : « Saisie libre » par défaut ou une consultation enregistrée, dont la date remplace la date des soins.
+  Aperçu, puis impression avec ou sans le fond (sans fond : sur une feuille officielle déjà imprimée ; à calibrer sur l'imprimante du cabinet).
+- [x] 9.3 Feuille choisie d'office selon la mutuelle du dossier (CNSS → feuille CNSS ; sinon CNOPS), modifiable.
+- [x] 6.7 Mon abonnement : formule en cours, cartes Mensuel / Annuel (« 2 mois offerts », économie), « Passer à l'annuel », « Renouveler maintenant », RIB.
+- [x] Reçu et encaissement à la validation d'une consultation : fait dans le lot R (plus bas).
+
+## Demandes du 31/10/2026, lot R (reçu et encaissement) et lot RT (référentiel de radiothérapie, outils cliniques) (même patch que les lots 1 à 9 ; testé, **pas en ligne**)
+Tests : `tests/test_lot_r.py`, `tests/test_lot_rt.py` (1 440 et 390 px), `node tests/moteur/test-calculs.mjs`, `node functions/test-logique.js` (prixConsultation).
+Décisions de Dr Bentahila (31/10) : valider = « Venu » seulement ; pas de paiement partiel (remise en DH seulement) ; séances de chimio sans fenêtre ; mode habituel par lieu ;
+lot RT fait ici en entier (l'autre Claude ne touche plus radiotherapie.js avant d'avoir appliqué ce patch) ; RT.14 : structure + tableaux saisis par le cabinet (rien de l'AJCC recopié).
+- [x] R.1 Fenêtre « Nouveau reçu » à « Venu » (dossier, salle d'attente, agenda) : patient, date, prestation, prix des Paramètres (modifiable seulement sans tarif), remise en DH
+  (cette consultation seulement), total, mode (espèces, carte, chèque, virement), « Réglé en totalité », Enregistrer / Enregistrer et imprimer le reçu.
+- [x] R.2 Statuts : réglé → encaissé ; pas réglé + virement → « à payer » (mode `ap`, l'établissement paie) ; pas réglé sinon → « à encaisser » (`ae`, la secrétaire).
+- [x] R.3 Secrétaire : « Encaisser » sur la ligne « Vu » de la salle d'attente (tous les lieux), même fenêtre, réglé coché, reçu imprimé.
+- [x] R.4 Lieux d'exercice : « Mode de paiement habituel » (`modeHab`) à la place de « Les consultations sont payées » (ancien réglage repris : au cabinet → espèces, sinon virement).
+- [x] R.5 Plus de case « Encaisser maintenant (pas de secrétaire…) » ; « Déclaré à la mutuelle » : n'existe pas dans Onco360 (pas repris).
+- [x] R.6 Chimio (précisé par Dr Bentahila le 31/10) : la séance se valide sans fenêtre au tarif de la séance (comme avant) ; la consultation du jour de chimio
+  avec la fenêtre « Nouveau reçu » (tarif de la consultation de chimio à J1, 0 ensuite).
+- [x] R.7 Hospitalisation : jours ouvrés (hors samedi et dimanche) × prix par jour − remise ; même fenêtre (statut, reçu).
+- [x] R.8 Bilan : « ✓ Encaissé », « À encaisser », « À payer » ; « À recevoir » détaillé (à encaisser, à payer par les établissements). Reçu (modèle des courriers) : {prix}, {remise}, {total}.
+- [x] R.9 Serveur : `prixConsultation` (logique.js `appliquerPrix`) : modes `vir` et `ap`, remise `rem`, prix affiché `px` (à déployer avec les fonctions).
+- [x] RT.1 à RT.12 : nouveau schéma aéré ; organes à risque et contraintes en cartes de même hauteur dépliées au clic (sans « Utilisé dans »), « Modifier » en fenêtre,
+  libellés sans « pour le cabinet » ; contraintes des essais et de la curiethérapie en cartes, modifiables (`referentielRT/_contraintes.jeux`) ; Technique et Traitement
+  systémique en petits tableaux ; étoile, « Modifier », « ⋯ » (Imprimer, Dupliquer, Copier, Supprimer) ; plus « Vérifié le » ; Centrage en tableau ; points d'attention un par
+  ligne ; nombres en pastille au-dessus des onglets ; remarques numérotées ajoutées / supprimées ; suppression d'un essai par une icône ; avertissement en bas des schémas et des cartes.
+- [x] RT.13 Menu « Outils cliniques » (module `outils`, packs Oncologie – Radiothérapie de l'Administration) : menu à gauche Stadification, Échelles de toxicité, Calculateurs.
+- [x] RT.14 Stadification TNM : localisations, sous-localisations en cartes ; page avec cTNM / pTNM, T, N, M, groupes de stades, calcul du stade, tableaux annexes ; **tableaux
+  saisis par le médecin** depuis son manuel (`bibliotheques/tnm`, `tnm_<id>`) ; pages du manuel du cabinet jointes en PDF (Storage `documentation/tnm-<id>-<ms>/`).
+  Le manuel UICC 9e édition et l'AJCC V9 envoyés le 31/10 ne sont pas recopiés dans Onco360 (ouvrages protégés).
+- [x] RT.15 CTCAE v6.0 **fourni** (`public/donnees-outils/ctcae-v6.json`, 850 termes lus dans le PDF du NCI par `outils/ctcae-pdf.py`) ; un fichier Excel du NCI importé
+  par le médecin le remplace (`bibliotheques/ctcae`, `ctcae_0…`) ; onglets Aiguë / Tardive (termes suivis en tardive, modifiables),
+  cartes de même hauteur, grades 0 à 5 dépliés au clic, source.
+- [x] RT.16 / RT.17 26 calculateurs avec leur source (moteur/calculs.js) ; Stephenson, Partin, MSKCC, NSABP B-18 / B-27 : liens externes (outils protégés) ; espérance de vie :
+  table du cabinet à remplir (`bibliotheques/esperanceVie`).
+
+## Demandes du 31/10/2026, lot L (lancement) (même patch que les lots 1 à 9, R et RT ; testé, **pas en ligne**)
+Tests : `tests/test_lot_l.py` (1 440 et 390 px, CSP appliquée), `node tests/moteur/test-importpatients.mjs`, `node tests/moteur/test-controle.mjs`, `node functions/test-plateforme.js` ;
+règles : `tests/regles/test-cgu.mjs` et 9 cas ajoutés à `test-cabinets.mjs` (**à lancer sur le Mac**, l'émulateur ne s'installe pas ici).
+Détail dans « Phase L » plus haut (cases cochées). En plus de la demande :
+- [x] Ancien numéro de dossier (`identite.numOrig`) cherché par la recherche du haut et la page Patients, affiché sous le numéro Onco360.
+- [x] Invitation : « Plus tard » possible ; le refus et l'acceptation sont notés dans le journal du cabinet ; quota de la formule revérifié à l'acceptation.
+- [x] Réactiver un cabinet annule une suppression demandée.
+- [x] Tâches automatiques de la nuit : plus lancées pour un cabinet suspendu (lecture seule).
+- [x] Seuls le compte du Dr Bentahila et le compte de démonstration existent (Hamza Benzekri, 31/10) : pas de reprise d'anciens accès « autre cabinet » ; les deux
+  comptes verront les CGU à leur prochaine connexion.
+- [ ] Reste : L4 (1) photos, L7 (3) clé web, L8 ; tests de règles et `npm run export` sur le Mac ; CGU relues par un juriste ; répétition générale (L11).
 
 ## À placer (nouveau plan)
 - (21/10, S5) **Vigilance des molécules, flacons et interactions ne sont pas dans le modèle des cabinets neufs** (`PARAMS_SPE` de functions/cabinets.js :
@@ -1989,16 +2159,16 @@ démarrage par un médecin (comme `marquerProtocoles`), avec une fenêtre récap
       ne presse avant la création du premier cabinet.
 
 ## Phase Q – Qualité (en continu, et ces étapes)
-- [ ] **Q-a Jeu de test fictif** (ancienne 0.6, à faire tôt : chaque test écrit sur la sauvegarde réelle risque d'y laisser un nom) :
+- [x] **Q-a Jeu de test fictif** (fait en S7, 24/10/2026 : `tests/seed-fictif.json`) (ancienne 0.6, à faire tôt : chaque test écrit sur la sauvegarde réelle risque d'y laisser un nom) :
       jeu construit par `functions/demo.js` pour tous les tests du navigateur (`tests/base.py`, `tests/mkseed.mjs`) ; tests de calcul qui
       plantent sans `seed.json` rendus autonomes ; contrôle automatique : aucun nom du jeu réel dans `tests/`, `functions/`, `public/`.
       Bibliothèque de protocoles fictive pour les tests de P (Q10 : jeu rafraîchi depuis une sauvegarde récente anonymisée).
-- [ ] **Q-b ESLint** (Q3 bis : variable inconnue, fonction absente, double déclaration) dans `avant-mise-en-ligne.sh`.
-- [ ] **Q-c Journal des erreurs en ligne** (Q6) : erreurs JavaScript des utilisateurs notées (sans données patient), visibles dans
+- [x] **Q-b ESLint** (fait en S7, 24/10/2026 : `outils/eslint`) (Q3 bis : variable inconnue, fonction absente, double déclaration) dans `avant-mise-en-ligne.sh`.
+- [x] **Q-c Journal des erreurs en ligne** (fait en L1, 31/10/2026) (Q6) : erreurs JavaScript des utilisateurs notées (sans données patient), visibles dans
       l'Administration.
-- [ ] **Q-d Contrôle des dossiers au chargement** (Q7) : champs mal rangés, rendez-vous orphelins, dates impossibles → réparés ou
+- [x] **Q-d Contrôle des dossiers au chargement** (fait en L5, 31/10/2026) (Q7) : champs mal rangés, rendez-vous orphelins, dates impossibles → réparés ou
       signalés ; test « aller-retour » (un enregistrement ne perd aucun champ).
-- [ ] **Q-e CSP appliquée pour de bon** (reportée de 1.5 ; en observation depuis le 11/10).
+- [x] **Q-e CSP appliquée pour de bon** (fait en L7, 31/10/2026) (reportée de 1.5 ; en observation depuis le 11/10).
 - [ ] **Q-f `tests/test_cabinets.py`** : 2 vérifications en échec depuis le 11/10 (« Statistiques en premier », « Listes en premier ») :
       l'ordre des cartes et des rubriques réglé par l'Administration est-il encore respecté ?
 

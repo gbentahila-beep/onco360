@@ -78,7 +78,7 @@ function pageProtocoles0() {
   if (CF.c && !CF.o) { const o = valeurs(1); if (o.length === 1) CF.o = o[0]; }
   // 26/10/2026 : menus en cascade fixés en haut quand on fait défiler la liste (la ligne de recherche et de boutons, elle, défile)
   h += '<div class="pr-casc">' + menusCascade(BIB(), CF, "prChoixV") + "</div>";
-  h += '<div id="prL" style="margin-top:6px">' + liste() + "</div></section>";
+  h += '<div id="prL" style="margin-top:6px">' + liste() + "</div>" + AVERT + "</section>";
   A.$("page").innerHTML = h;
   const q = A.$("prQ"); q.oninput = () => { CF.q = q.value; A.$("prL").innerHTML = liste(); };
   bandeauMaj();
@@ -374,6 +374,11 @@ window.prSuppr = async (id) => {
   catch (e) { A.toast(e.code === "permission-denied" ? "Vous n'avez pas le droit de modifier la bibliothèque." : e.message); }
 };
 
+// 31/10/2026 (lot 8.3, article 3 des CGU) : avertissement en bas de la liste, de chaque fiche et de Paramètres › Bibliothèques
+export const AVERT_TXT = "Contenus indicatifs, à vérifier avant toute prescription ; la prescription reste sous la responsabilité du médecin.";
+const AVERT = '<p class="avert-ind">' + AVERT_TXT + "</p>";
+// Cadre repliable de la fiche (8.2) : ouvert d'office ; tous de la même largeur
+const cadre = (t, corps) => '<details class="pg-sec pr-cad" open><summary><h4 class="soustitre">' + t + "</h4></summary>" + corps + "</details>";
 // ───── Fiche d'un protocole (création ou modification) ─────
 window.prOuvrir = (id) => {
   const nouv = !id, ok = A.peut("parametres");
@@ -384,25 +389,26 @@ window.prOuvrir = (id) => {
   function dessiner() {
     const esc = A.esc, tous = [[], [], [], []];
     BIB().forEach((x) => (x.ind || []).forEach((i) => { for (let k = 0; k < 4; k++) if (i[k] && tous[k].indexOf(i[k]) < 0) tous[k].push(i[k]); }));
-    A.fenetre("<h3>" + (nouv ? "Nouveau protocole" : "Protocole de la bibliothèque") + '</h3><div class="form" style="grid-template-columns:2fr 1fr 1fr 1fr">' +
+    // 31/10/2026 (lots 8.1 et 8.2, demande de Dr Bentahila) : pleine page (comme un schéma de radiothérapie), cadres repliables alignés (même largeur,
+    // mêmes marges), mêmes actions qu'avant ; avertissement en bas (8.3)
+    A.fenetre('<div class="pg-form pr-fiche"><h3>' + (nouv ? "Nouveau protocole" : esc(ED.nom || "Protocole de la bibliothèque")) + " " + (nouv ? "" : badgeSt(ED)) + "</h3>" + cadre("Protocole", '<div class="form pr-f4">' +
       '<div><label>Nom du protocole (schéma compris)</label><input value="' + esc(ED.nom) + '" onchange="prProp(\'nom\',this.value)"></div><div><label>Cycle (jours, 0 = continu)</label><input inputmode="numeric" value="' + esc(ED.c || 0) + '" onchange="prProp(\'c\',this.value)"></div>' +
       '<div><label>Nombre de cures proposé</label><input inputmode="numeric" placeholder="' + curesProposees(Object.assign({}, ED, { nbc: 0 })) + '" value="' + esc(ED.nbc || "") + '" onchange="prProp(\'nbc\',this.value)" title="Proposé à la création d\'une ligne (toujours modifiable) ; vide : « × n » du nom, sinon 6"></div>' +
       '<div><label>Statut</label><select onchange="prProp(\'st\',this.value)"><option value="ok"' + (valide(ED) ? " selected" : "") + '>Validé (utilisable)</option><option value="todo"' + (!valide(ED) ? " selected" : "") + ">Non validé</option></select></div>" +
       '<div class="large" style="grid-column:1/-1"><label>Rythme / observations</label><input value="' + esc(ED.r || "") + '" onchange="prProp(\'r\',this.value)"></div>' +
-      '<div class="large" style="grid-column:1/-1"><label>Source (référentiel, article, recommandation)</label><input value="' + esc(ED.src || "") + '" placeholder="ex. ESMO 2023, KEYNOTE-189…" onchange="prProp(\'src\',this.value)"></div>' +
+      '<div class="large" style="grid-column:1/-1"><label>Source (référentiel, article, recommandation)</label><input value="' + esc(ED.src || "") + '" placeholder="ex. ESMO 2023, KEYNOTE-189…" onchange="prProp(\'src\',this.value)"></div>' + "</div>" + (traceVal(ED) || ED.version ? '<p class="mesures" style="margin:8px 0 0">' + esc(traceVal(ED) || "Version " + ED.version) + (ED.majParNom ? " · modifié par " + esc(ED.majParNom) + " le " + A.dfrA(String(ED.majLe || "").slice(0, 10)) : "") + "</p>" : "")) +
+      cadre("Prescription", '<div class="form pr-f4">' +
       // P3 (18/10/2026, audit n° 3) : risque émétique (calculé, modifiable), ordonnances liées, seuils particuliers du jour
       '<div><label>Risque émétique</label><select onchange="prProp(\'re\',this.value)"><option value="">Calculé : ' + esc(libRisque(risqueEmetique(ED, premed))) + "</option>" + RISQUES.map(([k, l]) => '<option value="' + k + '"' + (ED.re === k ? " selected" : "") + ">" + esc(l) + "</option>").join("") + "</select></div>" +
       '<div class="large" style="grid-column:2/-1"><label>Ordonnances liées (une par ligne, nom de l\'ordonnance type)</label><textarea rows="2" onchange="prProp(\'ordos\',this.value)">' + esc((ED.ordos || []).join("\n")) + "</textarea></div>" +
-      '<div class="large" style="grid-column:1/-1"><label>Seuils du jour (une par ligne ; rappelés dans la séance)</label><textarea rows="2" onchange="prProp(\'seuils\',this.value)">' + esc((ED.seuils || []).join("\n")) + "</textarea></div></div>" +
-      (traceVal(ED) || ED.version ? '<p class="mesures" style="margin:4px 0 0">' + esc(traceVal(ED) || "Version " + ED.version) + (ED.majParNom ? " · modifié par " + esc(ED.majParNom) + " le " + A.dfrA(String(ED.majLe || "").slice(0, 10)) : "") + "</p>" : "") +
-      '<h4 class="soustitre">Indications (branches de l\'arborescence)</h4><div class="tableau"><table class="tcures ed"><tr><th>Cancer</th><th>Localisation</th><th>Situation</th><th>Sous-groupe</th><th></th></tr>' +
+      '<div class="large" style="grid-column:1/-1"><label>Seuils du jour (une par ligne ; rappelés dans la séance)</label><textarea rows="2" onchange="prProp(\'seuils\',this.value)">' + esc((ED.seuils || []).join("\n")) + "</textarea></div></div>") +
+      cadre("Indications (branches de l'arborescence)", '<div class="tableau"><table class="tcures ed"><tr><th>Cancer</th><th>Localisation</th><th>Situation</th><th>Sous-groupe</th><th></th></tr>' +
       ED.ind.map((x, i) => "<tr>" + [0, 1, 2, 3].map((k) => '<td><input list="dl' + k + '" value="' + esc(x[k] || "") + '" style="min-width:130px" onchange="prInd(' + i + "," + k + ',this.value)"></td>').join("") + '<td><button class="mini rouge" onclick="prIndSup(' + i + ')">−</button></td></tr>').join("") + "</table></div>" +
       [0, 1, 2, 3].map((k) => '<datalist id="dl' + k + '">' + tous[k].sort().map((v) => '<option value="' + esc(v) + '">').join("") + "</datalist>").join("") +
-      '<div class="actr" style="justify-content:flex-start;margin-top:8px"><button class="mini" onclick="prIndAj()">+ Ajouter une indication</button><label style="font-weight:normal;margin-left:10px"><input type="checkbox" style="width:auto;margin-right:6px"' + (ED.assoc ? " checked" : "") + ' onchange="prProp(\'assoc\',this.checked)">Traitement associé (castration, os, support…)</label></div>' +
-      '<h4 class="soustitre">Molécules</h4>' + tableMol() +
-      '<div class="form" style="margin-top:12px"><div class="large"><label>Remarques (une par ligne)</label><textarea rows="3" onchange="prProp(\'no\',this.value)">' + esc((ED.no || []).join("\n")) + "</textarea></div></div>" +
-      '<p class="mesures">Unités : mg/m² × surface corporelle ; mg/kg × poids ; mg = dose fixe ; AUC = carboplatine (Calvert) ; « charge C1 / suite » : saisir par ex. 840/420 ; texte libre : affiché tel quel. Seuls les protocoles « Validé » peuvent être prescrits.</p>' +
-      '<div class="err" id="fErr"></div><div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Annuler</button>' + (nouv ? "" : '<button class="bt gris" style="color:#C0392B;margin-right:auto" onclick="prSuppr(\'' + esc(ED.id) + '\')">Supprimer le protocole</button><button class="bt gris" onclick="prSignaler(\'' + esc(ED.id) + '\')">Signaler une erreur</button><button class="bt clair" id="prDup">Dupliquer</button>') + '<button class="bt plein" id="fOk">Enregistrer</button></div>', "large");
+      '<div class="actr" style="justify-content:flex-start;margin-top:8px"><button class="mini" onclick="prIndAj()">+ Ajouter une indication</button><label style="font-weight:normal;margin-left:10px"><input type="checkbox" style="width:auto;margin-right:6px"' + (ED.assoc ? " checked" : "") + ' onchange="prProp(\'assoc\',this.checked)">Traitement associé (castration, os, support…)</label></div>') +
+      cadre("Molécules", tableMol() + '<p class="mesures" style="margin:8px 0 0">Unités : mg/m² × surface corporelle ; mg/kg × poids ; mg = dose fixe ; AUC = carboplatine (Calvert) ; « charge C1 / suite » : saisir par ex. 840/420 ; texte libre : affiché tel quel. Seuls les protocoles « Validé » peuvent être prescrits.</p>') +
+      cadre("Remarques", '<div class="form"><div class="large"><label>Remarques (une par ligne)</label><textarea rows="3" onchange="prProp(\'no\',this.value)">' + esc((ED.no || []).join("\n")) + "</textarea></div></div>") +
+      AVERT + '<div class="err" id="fErr"></div><div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Annuler</button>' + (nouv ? "" : '<button class="bt gris" style="color:#C0392B;margin-right:auto" onclick="prSuppr(\'' + esc(ED.id) + '\')">Supprimer le protocole</button><button class="bt gris" onclick="prSignaler(\'' + esc(ED.id) + '\')">Signaler une erreur</button><button class="bt clair" id="prDup">Dupliquer</button>') + '<button class="bt plein" id="fOk">Enregistrer</button></div></div>', "page");
     A.$("fOk").onclick = enregistrer;
     if (A.$("prDup")) A.$("prDup").onclick = () => { const c = JSON.parse(JSON.stringify(ED)); c.id = "perso_" + Date.now(); c.nom = ED.nom + " (copie)"; c.st = "todo"; delete c.fav; ED = c; enregistrer(true); };
   }
@@ -439,9 +445,13 @@ window.prIndAj = () => { ED.ind.push(["", "", "", ""]); REDESSINER(); };
 window.prIndSup = (i) => { ED.ind.splice(i, 1); REDESSINER(); };
 function voir() {
   const esc = A.esc;
-  A.fenetre("<h3>" + esc(ED.nom) + " " + badgeSt(ED) + '</h3><p class="mesures">' + esc(ED.r || "") + (ED.c ? " – cycle " + ED.c + " j" : " – continu") + '</p><div class="tableau"><table class="tcures"><tr><th>Produit</th><th>Dose</th><th>Unité</th><th>Jours</th><th>Voie</th><th>Durée</th></tr>' +
-    ED.dr.map((d) => "<tr><td>" + esc(d.p) + "</td><td>" + esc(d.u === "txt" ? d.pos || "" : d.d != null ? d.d : (d.c1 != null ? d.c1 + "/" + d.cn : "")) + "</td><td>" + esc(d.u) + "</td><td>" + esc(d.jl || (d.j || []).filter((y) => y !== 99).map((y) => "J" + y).join(" ")) + "</td><td>" + esc(d.v || "") + "</td><td>" + esc(d.t || "") + "</td></tr>").join("") + "</table></div>" +
-    (ED.no ? '<p style="color:#8A1C2B;font-size:13px">' + ED.no.map(esc).join("<br>") + "</p>" : "") +
-    '<p class="mesures">Risque émétique : ' + esc(libRisque(ED.re || risqueEmetique(ED, premed))) + ((ED.ordos || []).length ? " · Ordonnances liées : " + ED.ordos.map(esc).join(" ; ") : "") + "</p>" +
-    ((ED.seuils || []).length ? '<p class="mesures">Seuils du jour : ' + ED.seuils.map(esc).join(" · ") + "</p>" : "") + (traceVal(ED) ? '<p class="mesures">' + esc(traceVal(ED)) + "</p>" : "") + '<div class="boutons"><button class="bt gris" onclick="prSignaler(\'' + esc(ED.id) + '\')">Signaler une erreur</button><button class="bt gris" onclick="fermerFenetre()">Fermer</button></div>', "large");
+  A.fenetre('<div class="pg-form pr-fiche"><h3>' + esc(ED.nom) + " " + badgeSt(ED) + "</h3>" +
+    cadre("Protocole", '<p class="mesures" style="margin:0">' + esc(ED.r || "") + (ED.c ? " – cycle " + ED.c + " j" : " – continu") + "</p>" + (traceVal(ED) ? '<p class="mesures" style="margin:6px 0 0">' + esc(traceVal(ED)) + "</p>" : "")) +
+    ((ED.ind || []).length ? cadre("Indications", '<div class="tableau"><table class="tcures"><tr><th>Cancer</th><th>Localisation</th><th>Situation</th><th>Sous-groupe</th></tr>' + ED.ind.map((x) => "<tr>" + [0, 1, 2, 3].map((k) => "<td>" + esc(x[k] || "") + "</td>").join("") + "</tr>").join("") + "</table></div>") : "") +
+    cadre("Molécules", '<div class="tableau"><table class="tcures"><tr><th>Produit</th><th>Dose</th><th>Unité</th><th>Jours</th><th>Voie</th><th>Durée</th></tr>' +
+      ED.dr.map((d) => "<tr><td>" + esc(d.p) + "</td><td>" + esc(d.u === "txt" ? d.pos || "" : d.d != null ? d.d : (d.c1 != null ? d.c1 + "/" + d.cn : "")) + "</td><td>" + esc(d.u) + "</td><td>" + esc(d.jl || (d.j || []).filter((y) => y !== 99).map((y) => "J" + y).join(" ")) + "</td><td>" + esc(d.v || "") + "</td><td>" + esc(d.t || "") + "</td></tr>").join("") + "</table></div>" +
+      '<p class="mesures" style="margin:8px 0 0">Risque émétique : ' + esc(libRisque(ED.re || risqueEmetique(ED, premed))) + ((ED.ordos || []).length ? " · Ordonnances liées : " + ED.ordos.map(esc).join(" ; ") : "") + "</p>" +
+      ((ED.seuils || []).length ? '<p class="mesures" style="margin:4px 0 0">Seuils du jour : ' + ED.seuils.map(esc).join(" · ") + "</p>" : "")) +
+    (ED.no ? cadre("Remarques", '<p style="color:#8A1C2B;font-size:13px;margin:0">' + ED.no.map(esc).join("<br>") + "</p>") : "") +
+    AVERT + '<div class="boutons"><button class="bt gris" onclick="prSignaler(\'' + esc(ED.id) + '\')">Signaler une erreur</button><button class="bt gris" onclick="fermerFenetre()">Fermer</button></div></div>', "page");
 }

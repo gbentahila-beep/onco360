@@ -200,14 +200,22 @@ const infirmiere = { actif: true, etablissements: ["HGC", "CIOC"], droits: { tra
   ok(!("mode" in M.rdv.r1), "sans mode (lieu payé par l'établissement) : rien");
   L.appliquerPrix(dos, M, E, { rdvId: "r1", montant: 300, mode: "bitcoin" });
   ok(!("mode" in M.rdv.r1), "mode inconnu refusé");
-  L.appliquerPrix(dos, M, E, { rdvId: "r2", montant: 400, mode: "esp" });
-  ok(!("mode" in M.rdv.r2), "hospitalisation : pas de mode");
+  L.appliquerPrix(dos, M, E, { rdvId: "r2", montant: 400, mode: "ap", rem: 100 });
+  ok(M.rdv.r2.mode === "ap" && M.rdv.r2.tj === 400 && M.rdv.r2.rem === 100 && E.rdv.r2.rem === 100, "hospitalisation : mode et remise notés (lot R, 31/10/2026)");
   L.appliquerPrix(dos, M, E, { rdvId: "r1", montant: 300, mode: "ae" });
   ok(M.rdv.r1.mode === "ae" && E.rdv.r1.mode === "ae", "à encaisser (validé par le médecin) : noté");
   L.appliquerPrix(dos, M, E, { lid: "L1", n: 1, j: 1, montant: 250, mode: "carte" });
   ok(M.cures.L1[1].consModeJ[1] === "carte" && E.cons["L1|1|1"].mode === "carte", "consultation de chimio : mode par jour");
   L.appliquerPrix(dos, M, E, { lid: "L1", n: 1, j: 1, montant: null });
   ok(!M.cures.L1[1].consModeJ, "consultation de chimio annulée : mode retiré");
+  L.appliquerPrix(dos, M, E, { rdvId: "r1", montant: 250, rem: 50, px: 300, mode: "vir" });
+  ok(M.rdv.r1.brut === 250 && M.rdv.r1.rem === 50 && M.rdv.r1.px === 300 && M.rdv.r1.mode === "vir" && E.rdv.r1.rem === 50 && E.rdv.r1.px === 300, "lot R : remise en DH, prix affiché, virement reçu");
+  L.appliquerPrix(dos, M, E, { rdvId: "r1", montant: 300 });
+  ok(!("rem" in M.rdv.r1) && !("px" in M.rdv.r1), "lot R : sans remise, remise et prix affiché retirés");
+  let er = ""; try { L.appliquerPrix(dos, M, E, { rdvId: "r1", montant: 300, rem: -1 }); } catch (e) { er = e.message; }
+  ok(/invalide/.test(er), "lot R : remise négative refusée");
+  L.appliquerPrix(dos, M, E, { lid: "L1", n: 1, j: 1, montant: 200, mode: "ae", rem: 50 });
+  ok(M.cures.L1[1].consRemJ[1] === 50 && E.cons["L1|1|1"].rem === 50, "lot R : consultation de chimio, remise par jour");
 })();
 
 // ───── Ce que chacun voit dans son agenda (P3, 08/10/2026) ─────

@@ -62,9 +62,10 @@ export function htmlFichiers(x) {
   if (L === null) return '<p class="sous" style="margin:2px 0 0;color:var(--rouge)">Les documents n\'ont pas pu être lus. Rechargez la page.</p>';
   const types = (TYPES || TYPES_DOCUMENTS0).concat(L.map((f) => f.type).filter((t) => t && (TYPES || TYPES_DOCUMENTS0).indexOf(t) < 0));
   const presents = types.filter((t, i) => types.indexOf(t) === i);
-  h += '<div class="fi-barre"><div class="recherche">' + A.ic("loupe") + '<input id="fiQ" type="search" autocomplete="off" placeholder="Rechercher un document (titre, type, fichier)…" value="' + esc(F.q) + '" oninput="fiFiltre(' + q + ')" aria-label="Rechercher un document"></div>' +
-    '<select id="fiT" data-fn="documents.types" onchange="fiFiltre(' + q + ')" aria-label="Type de document"><option value="">Tous les types</option>' + presents.map((t) => '<option' + (F.t === t ? " selected" : "") + ">" + esc(t) + "</option>").join("") + "</select>" +
-    (peutDeposer() ? '<button class="bt clair petit" onclick="fiAjouter(' + q + ')">' + A.ic("plus") + "Ajouter un document</button>" : "") + "</div>" +
+  // 3.1 (30/10/2026, demande de Dr Bentahila) : « + Ajouter un document » à gauche, puis la recherche, puis les types (comme les autres onglets)
+  h += '<div class="fi-barre">' + (peutDeposer() ? '<button class="bt clair petit" onclick="fiAjouter(' + q + ')">' + A.ic("plus") + "Ajouter un document</button>" : "") +
+    '<div class="recherche">' + A.ic("loupe") + '<input id="fiQ" type="search" autocomplete="off" placeholder="Rechercher un document (titre, type, fichier)…" value="' + esc(F.q) + '" oninput="fiFiltre(' + q + ')" aria-label="Rechercher un document"></div>' +
+    '<select id="fiT" data-fn="documents.types" onchange="fiFiltre(' + q + ')" aria-label="Type de document"><option value="">Tous les types</option>' + presents.map((t) => '<option' + (F.t === t ? " selected" : "") + ">" + esc(t) + "</option>").join("") + "</select></div>" +
     // Fenêtre coupée en deux : la liste à gauche, l'aperçu du document choisi à droite (sur téléphone : l'un sous l'autre)
     (L.length ? '<div class="fi-split"><div id="fiListe" class="fi-g">' + listeHtml(x) + '</div><div class="fi-v" id="fiVue"></div></div>' : '<div id="fiListe">' + listeHtml(x) + "</div>");
   if (L.length) setTimeout(() => afficherVue(x), 0); // aperçu rempli une fois la page affichée
@@ -361,6 +362,91 @@ window.fiEnvoyer = async () => {
     if (e && e.code === "storage/canceled") return;
     A.erreur((faits ? faits + " fichier(s) enregistré(s). " : "") + (e && /unauthorized|permission/.test(e.code || "") ? "Vous n'avez pas le droit de déposer un document dans ce dossier." : "Envoi impossible : " + ((e && e.message) || e)));
   }
+};
+
+// ───── Page « Documents » du menu (31/10/2026, lot 5.3, demande de Dr Bentahila) : la secrétaire dépose un ou plusieurs documents et choisit,
+// pour chacun, son type et son patient, sans ouvrir le dossier ; même envoi que l'onglet Documents (tout en PDF, envoyerUn) ─────
+let DP = []; // [{ f: File, titre, d, type, pid, q (recherche du patient), etat: "" | "envoi" | "ok" | "err", msg }]
+let DP_T = null; // types de documents
+const choixPat = (q) => { const m = sansAcc(q).split(/\s+/).filter(Boolean); if (!m.length) return [];
+  return D().patients.filter((z) => m.every((w) => sansAcc(z.r.nm + " " + A.numDossier(z) + " " + A.dfrA(z.r.ddn)).indexOf(w) >= 0)).slice(0, 8); };
+const patLigne = (z) => '<b>' + A.esc(z.r.nm) + "</b><span>" + A.esc([A.numDossier(z) ? "N° " + A.numDossier(z) : "", z.r.ddn ? A.dfrA(z.r.ddn) : "", z.doc.etablissementId || ""].filter(Boolean).join(" · ")) + "</span>";
+// Choix du patient d'une ligne (i ≥ 0) ou de toutes (i = -1) : recherche, puis le patient choisi (« Changer »)
+function htmlChoixPat(i, pid, q) {
+  const x = pid ? trouver(pid) : null, esc = A.esc;
+  if (x) return '<div class="dp-sel">' + patLigne(x) + '<button type="button" class="ico" data-act="chg" data-i="' + i + '" title="Changer de patient" aria-label="Changer de patient">' + A.ic("croix") + "</button></div>";
+  return '<div class="dp-ch"><input type="search" data-k="q" data-i="' + i + '" value="' + esc(q || "") + '" placeholder="' + (i < 0 ? "Même patient pour tous…" : "Nom, n° de dossier…") + '" aria-label="' + (i < 0 ? "Patient pour tous les documents" : "Patient du document") + '" autocomplete="off"><div class="dp-pl liste-choix" data-i="' + i + '"></div></div>';
+}
+function htmlDepotListe() {
+  const esc = A.esc, types = DP_T || [], reste = DP.filter((o) => o.etat !== "ok").length;
+  if (!DP.length) return "";
+  const optT = (v) => '<option value=""></option>' + types.concat(v && types.indexOf(v) < 0 ? [v] : []).map((t) => "<option" + (t === v ? " selected" : "") + ">" + esc(t) + "</option>").join("");
+  return '<div class="dp-tous"><span class="lbl">Pour tous les documents</span><div class="dp-tous-c"><div><label for="dpTT">Type</label><select id="dpTT" data-k="tt">' + optT("") + "</select></div>" +
+      '<div class="dp-pat"><label>Patient</label>' + htmlChoixPat(-1, "", DPQ) + "</div></div></div>" +
+    '<div class="ta-tab dp-tab"><div class="ta-h dp-g" aria-hidden="true"><span>Fichier</span><span>Titre</span><span>Date du document</span><span>Type</span><span>Patient</span><span></span></div>' +
+    DP.map((o, i) => { const fini = o.etat === "ok", x = o.pid ? trouver(o.pid) : null;
+      return '<div class="ta-r dp-g dp-r' + (fini ? " ok" : o.etat === "err" ? " err" : "") + '" data-i="' + i + '">' +
+        '<div class="c-f"><b>' + esc(o.f.name) + '</b><span class="ta-s">' + taille(o.f.size) + "</span></div>" +
+        (fini ? '<div class="dp-fait" data-l="Titre">' + esc(o.titre) + '</div><div data-l="Date">' + esc(A.dfrA(o.d)) + '</div><div data-l="Type">' + esc(o.type) + '</div><div class="dp-pat" data-l="Patient">' + (x ? '<button type="button" class="lien-l" onclick="ouvrirDossier(\'' + x.id + '\')">' + esc(x.r.nm) + "</button>" : "") + "</div>" +
+          '<div class="c-a"><span class="badge b-ch">' + A.ic("check") + "Déposé</span></div>"
+        : '<div data-l="Titre"><input data-k="titre" data-i="' + i + '" value="' + esc(o.titre) + '" aria-label="Titre du document"></div>' +
+          '<div data-l="Date"><input type="date" data-k="d" data-i="' + i + '" value="' + esc(o.d) + '" aria-label="Date du document"></div>' +
+          '<div data-l="Type"><select data-k="type" data-i="' + i + '" aria-label="Type de document">' + optT(o.type) + "</select></div>" +
+          '<div class="dp-pat" data-l="Patient">' + htmlChoixPat(i, o.pid, o.q) + "</div>" +
+          '<div class="c-a">' + (o.etat === "envoi" ? '<span class="mesures">Envoi…</span>' : '<button type="button" class="ico rouge" data-act="ret" data-i="' + i + '" title="Retirer ce fichier" aria-label="Retirer ce fichier">' + A.ic("corbeille") + "</button>") + "</div>") +
+        (o.msg ? '<p class="dp-msg">' + esc(o.msg) + "</p>" : "") + "</div>"; }).join("") + "</div>" +
+    '<div class="err" id="dpErr"></div><div class="boutons"><button class="bt gris" id="dpVid" onclick="dpVider()">' + (reste ? "Tout retirer" : "Effacer la liste") + "</button>" +
+      (reste ? '<button class="bt plein" id="dpOk" onclick="dpEnvoyer()">Déposer ' + (reste > 1 ? "les " + reste + " documents" : "le document") + "</button>" : "") + "</div>";
+}
+let DPQ = "";
+const dessinerDepot = () => { const z = $("dpL"); if (!z) return; const f = document.activeElement; if (f && z.contains(f)) f.blur(); z.innerHTML = htmlDepotListe(); }; // champ quitté avant (son « change » ne tombe pas pendant le remplacement)
+export async function pageDepot() {
+  const p = $("page"); if (!p) return;
+  if (!peutDeposer()) { p.innerHTML = '<section class="carte">' + A.etatVide({ ill: "document", titre: "Dépôt de documents", txt: "Vous n'avez pas le droit de déposer des documents." }) + "</section>"; return; }
+  DP_T = await typesDocuments();
+  p.innerHTML = '<section class="carte dp-page"><h3>' + A.ic("document") + 'Déposer des documents</h3><p class="sous">Un ou plusieurs fichiers d\'un coup ; pour chacun, son type et son patient : il est rangé dans le dossier, sans l\'ouvrir. Tout est enregistré en PDF (photos, Word, Excel convertis), 25 Mo au plus par fichier.</p>' +
+    '<label class="fi-depot" id="dpDepot" for="dpF"><input type="file" id="dpF" class="cache-vis" multiple><b>Choisir un ou plusieurs fichiers</b><span class="mesures">ou les glisser ici</span></label><div id="dpL"></div></section>';
+  dessinerDepot();
+  const ajouter = (liste) => {
+    const L = [...(liste || [])]; if (!L.length) return;
+    const refus = L.filter((fl) => fl.size > MAX || !convertible(fl)), ok = L.filter((fl) => fl.size <= MAX && convertible(fl));
+    ok.sort((a, b) => a.name.localeCompare(b.name, "fr", { numeric: true })).forEach((fl) => DP.push({ f: fl, titre: titreDe(fl), d: D().t, type: "", pid: "", q: "", etat: "", msg: "" }));
+    dessinerDepot();
+    if (refus.length) A.toast("Non ajouté" + (refus.length > 1 ? "s" : "") + " (trop lourd ou format non convertible en PDF) : " + refus.map((fl) => fl.name).join(", "));
+  };
+  $("dpF").onchange = () => { ajouter($("dpF").files); $("dpF").value = ""; };
+  const z = $("dpDepot");
+  z.ondragover = (e) => { e.preventDefault(); z.classList.add("on"); };
+  z.ondragleave = () => z.classList.remove("on");
+  z.ondrop = (e) => { e.preventDefault(); z.classList.remove("on"); ajouter(e.dataTransfer.files); };
+  const L = $("dpL");
+  L.oninput = (e) => { const t = e.target, i = +t.dataset.i, k = t.dataset.k; if (!k) return;
+    if (k === "q") { if (i < 0) DPQ = t.value; else DP[i].q = t.value;
+      const pl = L.querySelector('.dp-pl[data-i="' + i + '"]'); if (pl) pl.innerHTML = t.value.trim().length < 2 ? "" : choixPat(t.value).map((x) => '<button type="button" class="pat" data-act="pat" data-i="' + i + '" data-id="' + A.esc(x.id) + '"><div class="tx">' + patLigne(x) + "</div></button>").join("") || '<p class="sous">Aucun patient trouvé.</p>';
+      return; }
+    if (i >= 0 && DP[i]) DP[i][k] = t.value; };
+  L.onchange = (e) => { const t = e.target; if (t.dataset.k === "tt" && t.value) { DP.forEach((o) => { if (o.etat !== "ok") o.type = t.value; }); dessinerDepot(); } else if (t.dataset.k && t.dataset.k !== "q" && +t.dataset.i >= 0) DP[+t.dataset.i][t.dataset.k] = t.value; };
+  L.onclick = (e) => { const b = e.target.closest("[data-act]"); if (!b) return; const i = +b.dataset.i, a = b.dataset.act;
+    if (a === "pat") { const id = b.dataset.id; if (i < 0) { DPQ = ""; DP.forEach((o) => { if (o.etat !== "ok") { o.pid = id; o.q = ""; } }); } else { DP[i].pid = id; DP[i].q = ""; } dessinerDepot(); }
+    else if (a === "chg") { DP[i].pid = ""; dessinerDepot(); const inp = L.querySelector('input[data-k="q"][data-i="' + i + '"]'); if (inp) inp.focus(); }
+    else if (a === "ret") { DP.splice(i, 1); dessinerDepot(); } };
+}
+window.dpVider = () => { if (DP.some((o) => o.etat === "envoi")) return; DP = []; DPQ = ""; dessinerDepot(); };
+window.dpEnvoyer = async () => {
+  const L = DP.filter((o) => o.etat !== "ok"); if (!L.length) return;
+  let manque = 0; L.forEach((o) => { o.titre = String(o.titre || "").trim(); const m = !o.titre ? "Titre à écrire." : !/^\d{4}-\d{2}-\d{2}$/.test(o.d || "") ? "Date du document à indiquer." : !o.type ? "Type à choisir." : !o.pid || !trouver(o.pid) ? "Patient à choisir." : "";
+    o.msg = m; o.etat = m ? "err" : ""; if (m) manque++; });
+  if (manque) { dessinerDepot(); A.erreur(manque + " document" + (manque > 1 ? "s" : "") + " à compléter (en rouge)."); return; }
+  let faits = 0;
+  for (const o of L) {
+    o.etat = "envoi"; dessinerDepot(); if ($("dpOk")) A.occupe($("dpOk"), true);
+    const x = trouver(o.pid), avant = x.id in FI;
+    try { const pf = await enPdf(o.f); await envoyerUn(x, pf, o.titre, o.d, o.type); o.etat = "ok"; o.msg = ""; faits++; }
+    catch (e) { o.etat = "err"; o.msg = e && /unauthorized|permission/.test(e.code || "") ? "Vous n'avez pas le droit de déposer un document dans ce dossier." : "Envoi impossible : " + ((e && e.message) || e); }
+    if (!avant) { delete FI[x.id]; delete SEL[x.id]; }
+  }
+  dessinerDepot();
+  if (faits) A.toast(faits > 1 ? faits + " documents déposés dans les dossiers." : "Document déposé dans le dossier.");
 };
 
 // ───── Ouvrir, télécharger (fichier relu avec les droits du membre), modifier, supprimer ─────

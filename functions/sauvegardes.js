@@ -17,6 +17,7 @@ const H = require("./heure");
 
 module.exports = function sauvegardes(o) {
   const { db, getStorage, getFirestore, onCall, onSchedule, HttpsError, FieldValue, Timestamp, estAdministrateur, membre, jAdmin, oauth, SECRET, C } = o;
+  const noterNuit = o.noterNuit || (async () => {}); // L1 (31/10/2026) : résultat de la nuit pour « État de la plateforme »
   const TZ = "Africa/Casablanca", bucket = () => getStorage().bucket();
   const SEMAINES = 14; // exports de la semaine gardés dans Onco360 (données seules) : comme la sauvegarde Firebase (14 semaines)
   const heureMaroc = (d) => H.dateHeureMaroc(d ? new Date(d).getTime() : Date.now()); // S1 (21/10/2026) : sans les données horaires de Node
@@ -114,11 +115,16 @@ module.exports = function sauvegardes(o) {
     return dernier;
   }
   const exportsHebdo = onSchedule({ schedule: "30 1 * * 0", timeZone: TZ, timeoutSeconds: 1800, memory: "1GiB", secrets: [SECRET] }, async () => {
+    const debut = Date.now(), echecs = []; let n = 0;
     for (const d of (await db.collection("espaces").get()).docs) {
       const x = d.data() || {}; if (C.estBib(d.id) || x.bibliotheque || x.demo || x.actif === false) continue;
-      if (!(await reglageAuto(d.id)).actif) continue;
-      const r = await exportSemaine(d.id); console.log("export de la semaine", d.id, r.ok ? "fait" : "échec", r.drive ? (r.drive.ok ? "Drive : déposé" : "Drive : " + r.drive.erreur) : "");
+      try {
+        if (!(await reglageAuto(d.id)).actif) continue;
+        const r = await exportSemaine(d.id); n++; console.log("export de la semaine", d.id, r.ok ? "fait" : "échec", r.drive ? (r.drive.ok ? "Drive : déposé" : "Drive : " + r.drive.erreur) : "");
+        if (!r.ok) echecs.push({ espace: d.id, erreur: r.erreur || "échec" }); else if (r.drive && !r.drive.ok) echecs.push({ espace: d.id, erreur: "Drive : " + r.drive.erreur });
+      } catch (er) { echecs.push({ espace: d.id, erreur: er }); console.error("export de la semaine", d.id, er); }
     }
+    await noterNuit("exportsHebdo", debut, n, echecs);
   });
   const exportAuto = onCall({ timeoutSeconds: 1800, memory: "1GiB", secrets: [SECRET] }, async (req) => {
     const { uid, e, admin } = await titulaireOuAdmin(req, true), d = req.data || {}, ref = db.doc("exportsAuto/" + e);
@@ -288,7 +294,11 @@ module.exports = function sauvegardes(o) {
       throw er;
     }
   }
-  const fichiersNuit = onSchedule({ schedule: "15 2 * * *", timeZone: TZ, timeoutSeconds: 540, memory: "512MiB" }, async () => { await sauvegarderFichiers(); });
+  const fichiersNuit = onSchedule({ schedule: "15 2 * * *", timeZone: TZ, timeoutSeconds: 540, memory: "512MiB" }, async () => {
+    const debut = Date.now();
+    try { const r = await sauvegarderFichiers(); await noterNuit("fichiersNuit", debut, (r && r.copies) || 0, [].concat(r && r.erreurs ? [{ espace: "", erreur: r.erreurs + " fichier(s) non copié(s)" }] : [], r && r.garde ? [{ espace: "", erreur: "garde-fou : trop de fichiers disparus, rien retiré" }] : [])); }
+    catch (er) { await noterNuit("fichiersNuit", debut, 0, [{ espace: "", erreur: er }]); throw er; }
+  });
   const fichiersSauvegarder = onCall({ timeoutSeconds: 540, memory: "512MiB" }, async (req) => {
     if (!(await estAdministrateur(req.auth && req.auth.uid))) throw new HttpsError("permission-denied", "Réservé à l'administration d'Onco360.");
     return sauvegarderFichiers();

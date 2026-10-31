@@ -17,6 +17,8 @@ import { listeDiag, listeMut, listeCor, LISTES0 } from "./chimio.js";
 import { LISTES_MED, listeMed, departMed, elements as elementsMed } from "./infosmed.js"; // lot A §6 : listes des informations médicales
 import { gererListe, tailleListe } from "./ordonnances.js";
 import { installer as installerRecuperation, htmlRecuperation, afficherRecuperation, appelLong } from "./recuperation.js";
+import { installer as installerImport, htmlImport, brancherImport } from "./importpatients.js"; // L2 (31/10/2026) : import des patients par fichier Excel
+import { AVERT_TXT } from "./protocoles.js";
 import { htmlOngletProfil, apresOngletProfil, titulaireConnecte } from "./profil.js";
 import { afficherAudit } from "./audit.js"; // onglet « Journal d'audit » (titulaire, 09/10/2026)
 import { configRcp, configChargee, chargerConfigRcp, enregistrerConfigRcp, prochainesRcp, CFG0 as RCP0, libDate } from "./rcp.js";
@@ -26,7 +28,7 @@ import { estStd, estNote, AUTO as AUTO_TY, cleDuree, renommer, nouvelleCle, aEnr
 import { htmlVigilances } from "./vigilances.js"; // notes « À vérifier » par molécule (12/10/2026) // fiche patient et formulaire de consultation du cabinet (11/10/2026)
 
 let A = null;
-export function installer(api) { A = api; installerLabos(api); A.enteteParametres = () => entete(); A.pageParametres = () => pageConfiguration(); installerRecuperation(api); }
+export function installer(api) { A = api; installerLabos(api); A.enteteParametres = () => entete(); A.pageParametres = () => pageConfiguration(); installerRecuperation(api); installerImport(api); }
 const D = () => A.D();
 const JOURS = [[1, "Lundi"], [2, "Mardi"], [3, "Mercredi"], [4, "Jeudi"], [5, "Vendredi"], [6, "Samedi"], [0, "Dimanche"]];
 const TYPES = ["Congé", "Congrès", "Voyage", "Formation", "Fermeture du cabinet", "Autre"];
@@ -164,7 +166,7 @@ const secretariat = () => A.peut("secretariat") && !A.D().bib;
 const MODULE_ONGLET = { vigilances: "chimio", couleurs: "gagenda", taches: "taches", rcp: "rcp", listes: "listes", bibliotheques: "prescriptions" };
 const DERN = {}; // dernière rubrique ouverte de chaque famille
 function entete() {
-  const L = ONGLETS(), fam = famDe(ONG), sous = L.filter((o) => famDe(o[0]) === fam);
+  const L = ONGLETS(), fam = ONG ? famDe(ONG) : "", sous = L.filter((o) => famDe(o[0]) === fam);
   // Lot B (25/10/2026) : plus de titre ; les familles en haut ; dans le modèle des cabinets neufs, la phrase d'explication reste en petit sous les familles
   const expl = A.D().bib ? '<p class="mesures cf-modele">' + "Ce que reçoit chaque cabinet neuf de la spécialité, réglé comme chez un médecin. Rien ne touche le cabinet du Dr Bentahila ; les cabinets déjà créés ne reçoivent que la fiche patient et le formulaire de consultation (leurs retouches restent par-dessus)." + "</p>" : "";
   // 26/10/2026 (demande de Dr Bentahila, modèle Doctolib) : menu fixe à gauche, « Paramètres » puis les grandes familles (icône, nom, flèche) ;
@@ -172,8 +174,43 @@ function entete() {
   return '<div class="cf-lay"><aside class="cf-nav" aria-label="Paramètres"><div class="cf-nav-t">Paramètres</div><div class="cf-fam" role="tablist">' +
     FAMILLES.filter((f) => L.some((o) => famDe(o[0]) === f[0])).map(([k, ico, lib]) => { const sk = L.filter((o) => famDe(o[0]) === k);
       return '<div class="cf-g' + (fam === k ? " ouv" : "") + '"><button role="tab" aria-selected="' + (fam === k) + '" aria-expanded="' + (fam === k) + '" class="cf-gt' + (fam === k ? " on" : "") + '" onclick="cfFamille(\'' + k + "')\">" + A.ic(ico) + "<span>" + lib + "</span></button>" +
-        (fam === k ? '<nav class="cf-sous" aria-label="Rubriques">' + sk.map(([o, , l2]) => '<button class="' + (ONG === o ? "on" : "") + '"' + (ONG === o ? ' aria-current="page"' : "") + ' onclick="cfOnglet(\'' + o + "')\">" + l2 + "</button>").join("") + "</nav>" : "") + "</div>"; }).join("") +
-    '</div></aside><div class="cf-main">' + expl;
+        (fam === k && sk.length > 1 ? '<nav class="cf-sous" aria-label="Rubriques">' + sk.map(([o, , l2]) => '<button class="' + (ONG === o ? "on" : "") + '"' + (ONG === o ? ' aria-current="page"' : "") + ' onclick="cfOnglet(\'' + o + "')\">" + l2 + "</button>").join("") + "</nav>" : "") + "</div>"; }).join("") +
+    '</div></aside><div class="cf-main">' + enteteTel(L, fam, sous) + expl;
+}
+// 31/10/2026 (lot 6.3, demande de Dr Bentahila) : téléphone : les familles en menu segmenté sur une ligne qui défile, avec flèche (comme
+// Radiothérapie), puis les rubriques de la famille ouverte ; collés sous la barre du haut pendant le défilement
+function enteteTel(L, fam, sous) {
+  const fams = FAMILLES.filter((f) => L.some((o) => famDe(o[0]) === f[0]));
+  return '<div class="cf-telz"><div class="ag-vues defile rtr-sous cf-tel" role="tablist" aria-label="Paramètres">' + fams.map(([k, ico, lib]) => '<button type="button" role="tab" aria-selected="' + (fam === k) + '" class="' + (fam === k ? "on" : "") + '" onclick="cfFamille(\'' + k + "')\">" + A.ic(ico) + "<span>" + lib + "</span></button>").join("") + "</div>" +
+    (sous.length > 1 ? '<div class="ag-vues defile cf-tel2" role="tablist" aria-label="Rubriques">' + sous.map(([o, , l2]) => '<button type="button" role="tab" aria-selected="' + (ONG === o) + '" class="' + (ONG === o ? "on" : "") + '" onclick="cfOnglet(\'' + o + "')\">" + l2 + "</button>").join("") + "</div>" : "") + "</div>";
+}
+// 31/10/2026 (lot 6.1, demande de Dr Bentahila) : accueil des Paramètres quand rien n'est choisi (plus de « Lieux d'exercice » ouvert d'office) :
+// bonjour, « Que voulez-vous faire ? », recherche dans toutes les rubriques (mots proches : Google Agenda, Impression, Export des données…), dessin
+const MOTS_RUB = { lieux: "établissements cabinet clinique adresse logo téléphone paiement au cabinet", accueil: "tableau de bord cartes accueil disposition", fiche: "fiche patient champs identité informations médicales", consultation: "formulaire de consultation champs note",
+  types: "types de consultation durée rendez-vous automatiques annonce suivi contrôle", affichage: "affichage du dossier colonnes rubriques", impression: "impression marges ordonnance en-tête papier a5 a4 âge poids", audit: "journal d'audit historique qui a fait quoi",
+  export: "export des données sauvegarde récupérer google drive importer patients fichier excel reprise logiciel", horaires: "horaires créneaux plages ouverture", fermetures: "congés absences jours fériés fermetures", couleurs: "google agenda couleurs synchronisation lier", whatsapp: "whatsapp rappels messages sms",
+  rcp: "rcp réunion de concertation dates", alertes: "alertes délais notifications", listes: "listes diagnostics mutuelles correspondants stades types de documents types de tâches", bibliotheques: "bibliothèques médicaments ordonnances types analyses examens courriers modèles reçu note d'honoraires",
+  vigilances: "vigilance des molécules toxicité cumul", activites: "finances activités rémunérations tarifs taux rétrocession impôt séance radiothérapie", laboratoires: "laboratoires délégués produits carnets" };
+const ILL_PARAM = '<svg class="cf-acc-ill" viewBox="0 0 260 170" aria-hidden="true"><circle cx="130" cy="88" r="78" fill="#EAF0FA"/>' +
+  '<rect x="70" y="46" width="120" height="86" rx="12" fill="#fff" stroke="#C9D5EA" stroke-width="2"/>' +
+  [0, 1, 2].map((i) => '<rect x="88" y="' + (66 + i * 22) + '" width="84" height="4" rx="2" fill="#D5DFEE"/><rect x="88" y="' + (66 + i * 22) + '" width="' + [52, 30, 64][i] + '" height="4" rx="2" fill="#3563B0"/>' +
+    '<circle cx="' + (88 + [52, 30, 64][i]) + '" cy="' + (68 + i * 22) + '" r="7" fill="#fff" stroke="#3563B0" stroke-width="2.5"/>').join("") +
+  '<circle cx="186" cy="124" r="20" fill="#fff"/><circle cx="186" cy="124" r="16" fill="#3563B0"/><circle cx="186" cy="124" r="5.5" fill="none" stroke="#fff" stroke-width="2.4"/>' +
+  [0, 45, 90, 135, 180, 225, 270, 315].map((d) => '<rect x="184.6" y="113" width="2.8" height="4.5" rx="1" fill="#fff" transform="rotate(' + d + ' 186 124)"/>').join("") +
+  '<circle cx="62" cy="58" r="6" fill="#2FA37A"/><circle cx="206" cy="52" r="4.5" fill="#9AAAC4"/></svg>';
+function accueilParam() {
+  const L = ONGLETS(), esc = A.esc, d = A.D(), nom = [d.titre, d.nomAff].filter(Boolean).join(" ");
+  return '<section class="carte cf-acc"><div class="cf-acc-t"><div><h2>Bonjour' + (nom ? " " + esc(nom) : "") + '</h2><p class="sous">Adaptez Onco360 à vos besoins.</p>' +
+      '<h3 class="cf-acc-q">Que voulez-vous faire ?</h3><div class="recherche">' + A.ic("loupe") + '<input id="cfQ" type="search" placeholder="Rechercher un paramètre : Google Agenda, Impression, Tableau de bord, Export des données…" autocomplete="off" aria-label="Rechercher dans les paramètres"></div></div>' + ILL_PARAM + "</div>" +
+    '<div id="cfQr" class="cf-qr">' + resultatsParam("", L) + "</div></section>";
+}
+function resultatsParam(q, L) {
+  const esc = A.esc, m = A.sansAcc(q).split(/\s+/).filter(Boolean), lib = (k) => (FAMILLES.find((f) => f[0] === famDe(k)) || [])[2] || "";
+  if (!m.length) return '<div class="cf-qf">' + FAMILLES.filter((f) => L.some((o) => famDe(o[0]) === f[0])).map(([k, ico, l]) => '<div class="cf-qc"><button type="button" class="cf-qct" onclick="cfFamille(\'' + k + "')\">" + A.ic(ico) + "<span>" + esc(l) + "</span></button>" +
+    '<div class="cf-ql">' + L.filter((o) => famDe(o[0]) === k).map(([o, , l2]) => '<button type="button" class="lien" onclick="cfOnglet(\'' + o + "')\">" + esc(l2) + "</button>").join("") + "</div></div>").join("") + "</div>";
+  const r = L.filter(([o, , l2]) => { const h = A.sansAcc(l2 + " " + lib(o) + " " + (MOTS_RUB[o] || "")); return m.every((w) => h.indexOf(w) >= 0); });
+  return r.length ? '<div class="cf-qres">' + r.map(([o, ico, l2]) => '<button type="button" class="cf-qi" onclick="cfOnglet(\'' + o + "')\">" + A.ic(ico) + '<span><b>' + esc(l2) + "</b><span>" + esc(lib(o)) + "</span></span></button>").join("") + "</div>"
+    : '<p class="sous cf-qv">Aucun paramètre ne correspond à « ' + esc(q) + " ».</p>";
 }
 // Bouton de retrait discret (gris, rouge au survol) à la place de la croix rouge sur chaque ligne
 // 3.10 (12/10/2026, audit) : retrait dans un menu ⋯ (plus de corbeille à portée de clic) et confirmation avant de retirer
@@ -277,7 +314,7 @@ const RUBRIQUES = {
       '<p class="sous">À garder en lieu sûr : ce fichier contient des données de santé (ne pas l\'envoyer par e-mail ni WhatsApp). La préparation ' +
       "peut prendre une à deux minutes. L'export est noté dans le journal.</p>" +
       '<button class="bt plein" id="cfExp" onclick="cfExporter()">' + A.ic("telecharger") + "Exporter tout le cabinet</button>" +
-      '<p class="sous" id="cfExpMsg" style="margin-top:10px"></p></section>' + htmlRecuperation(); // R-F (20/10/2026) : export de la semaine, récupérer des données
+      '<p class="sous" id="cfExpMsg" style="margin-top:10px"></p></section>' + htmlRecuperation() + htmlImport(); // R-F (20/10/2026) : export de la semaine, récupérer des données
   },
   lieux() { return '<div id="cfProfil"><p class="sous">Chargement…</p></div>'; },
   couleurs(c) {
@@ -321,7 +358,8 @@ const RUBRIQUES = {
     const B = [["medicaments", "pilule", "Médicaments", "Nom, posologie, classe"], ["ordostypes", "presse", "Ordonnances types", "Médicaments prescrits ensemble"], ["analyses", "tube", "Analyses et bilans", "Analyses et bilans"], ["examens", "loupe", "Examens complémentaires", "Imagerie, explorations"], ["courriers", "courrier", "Modèles de courriers", "Certificats, courriers, ALD…"]];
     return '<section class="carte">' + titre("pilule", "Bibliothèques des prescriptions") + "" +
       '<div class="cf-bib">' + B.map(([k, ico, t, sous]) => '<button class="cf-b" data-bib="' + k + '" onclick="cfBib(\'' + k + "')\"><span class=\"ic\">" + A.ic(ico) + "</span><span><b>" + t + '</b><span class="mesures">' + sous + '</span><span class="mesures" id="cfBn-' + k + '"></span></span></button>').join("") +
-      (A.estMed() ? '<button class="cf-b" data-bib="documentation" onclick="ordDocumentationGestion()"><span class="ic">' + A.ic("document") + '</span><span><b>Documentation</b><span class="mesures">Fiches PDF remises aux patients</span></span></button>' : "") + "</div></section>";
+      (A.estMed() ? '<button class="cf-b" data-bib="documentation" onclick="ordDocumentationGestion()"><span class="ic">' + A.ic("document") + '</span><span><b>Documentation</b><span class="mesures">Fiches PDF remises aux patients</span></span></button>' : "") + "</div>" +
+      '<p class="avert-ind">' + AVERT_TXT + "</p></section>"; // 8.3
   },
   // R-G d (audit n° 5, 19/10/2026) : affichage du dossier patient. Pour le cabinet (titulaire ou secrétaire) : parties de la colonne Patient
   // dépliées à l'ouverture (parametres/reglages, clé dossier). Pour moi : taille de la visionneuse (utilisateurs/{uid}.dossier), « Rétablir ».
@@ -443,8 +481,14 @@ export function pageConfiguration(arg) {
   if (TIT === null) { TIT = false; titulaireConnecte().then((v) => { TIT = v; const dem = (location.hash.match(/^#parametres\/([^/?]+)/) || [])[1]; if (v && location.hash.startsWith("#parametres") && !MOD) pageConfiguration(dem); }).catch(() => {}); }
   if (arg === "rdvauto") arg = "types"; // 3.13 : rendez-vous créés d'office réglés avec leur type
   if (arg === "documents" || arg === "taches") { LS = arg; arg = "listes"; history.replaceState(null, "", "#parametres/listes"); } // Lot D : sous-onglets de Listes
-  if (arg && ONGLETS().some((o) => o[0] === arg)) ONG = arg;
-  if (!ONGLETS().some((o) => o[0] === ONG)) ONG = (ONGLETS()[0] || ["horaires"])[0]; // 1re rubrique présente (réglage du cabinet)
+  if (arg === "@") ONG = "";
+  else if (arg && ONGLETS().some((o) => o[0] === arg)) ONG = arg;
+  if (ONG && !ONGLETS().some((o) => o[0] === ONG)) ONG = (ONGLETS()[0] || ["horaires"])[0]; // 1re rubrique présente (réglage du cabinet)
+  if (!ONG) { // 6.1 : accueil des Paramètres
+    DESSIN = true; try { A.$("page").innerHTML = entete() + accueilParam() + "</div></div>"; } finally { DESSIN = false; }
+    const q = A.$("cfQ"); if (q) q.oninput = () => { A.$("cfQr").innerHTML = resultatsParam(q.value, ONGLETS()); };
+    return;
+  }
   DERN[famDe(ONG)] = ONG;
   if (ONG === "activites") { pageParametres(); return; }
   if (ONG === "laboratoires") { pageLaboratoires(); return; } // 26/10/2026 : carnet des laboratoires (laboratoires.js)
@@ -473,7 +517,7 @@ export function pageConfiguration(arg) {
   document.querySelectorAll("#page section.carte > h3 + p.sous").forEach((p) => { if (!p.querySelector("button, a, input, select")) p.classList.add("cache"); });
   if (A.$("cfProfil")) { const o = ONG === "couleurs" ? "gagenda" : ONG; htmlOngletProfil(o).then((x) => { const z = A.$("cfProfil"); if (z && ONG === (o === "gagenda" ? "couleurs" : o)) { z.innerHTML = x; apresOngletProfil(o); } }).catch((e) => { const z = A.$("cfProfil"); if (z) z.innerHTML = '<p class="sous" style="color:var(--rouge)">Lecture impossible : ' + A.esc(e.message || String(e)) + "</p>"; }); }
   if (ONG === "audit") afficherAudit(A.$("cfAudit"));
-  if (ONG === "export") afficherRecuperation();
+  if (ONG === "export") { afficherRecuperation(); brancherImport(); }
   if (ONG === "listes" && A.$("cfLq")) { listeL(); A.$("cfLq").oninput = () => { LQ = A.$("cfLq").value; listeL(); }; }
   // Fiche patient, formulaire de consultation : l'éditeur commun avec l'Administration (editeurfiche.js) ; toute action = modification
   if (ONG === "fiche" || ONG === "consultation") { const E = ONG === "fiche" ? FE : CE, z = document.querySelector(".edf"); E.brancher(() => modif(true)); if (z) z.addEventListener("change", () => modif()); }
@@ -484,7 +528,7 @@ export const remplir = (m, v) => String(m || "").replace(/\{(\w+)\}/g, (t, k) =>
 const modif = (redessiner) => { MOD = true; if (redessiner) pageConfiguration(); else { const m = A.$("cfMod"); if (m) m.classList.remove("cache"); } };
 window.cfOnglet = (o) => { ONG = o; history.replaceState(null, "", "#parametres/" + o); pageConfiguration(); }; // l'onglet reste après un rechargement
 // Famille : sa dernière rubrique ouverte, sinon la première présente
-window.cfFamille = (f) => { const L = ONGLETS().filter((o) => famDe(o[0]) === f), o = L.some((x) => x[0] === DERN[f]) ? DERN[f] : (L[0] || [])[0]; if (o) window.cfOnglet(o); };
+window.cfFamille = (f) => { const o = (ONGLETS().filter((x) => famDe(x[0]) === f)[0] || [])[0]; if (o) window.cfOnglet(o); }; // 6.1 : un clic sur une famille ouvre sa 1re rubrique
 const HC = () => (HET ? ED.horairesEtab[HET] : ED.horaires);
 window.cfEtab = (c) => { HET = c; pageConfiguration(); };
 window.cfPropre = (on) => { if (on) ED.horairesEtab[HET] = copie(ED.horaires); else delete ED.horairesEtab[HET]; modif(true); };

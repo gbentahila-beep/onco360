@@ -3,7 +3,7 @@
 // Réservé au droit « finances ». Les calculs viennent du moteur v2 (même résultat au dirham près que la v1).
 import { doc, getDoc, getDocs, setDoc, collection, serverTimestamp, runTransaction, query, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { db } from "../config.js";
-import { evtsFin, tauxRT } from "../moteur/finances.js";
+import { evtsFin, rtAu } from "../moteur/finances.js";
 import { calculerBilan, dh, clePaye, cleAncienne, estPaye, RE_DOC_PAYE, docPaiements, fusionnerPaiements, repartirPaiements, placePaiements } from "../moteur/bilan.js";
 import { num } from "../moteur/outils.js";
 import { dateHeureMaroc } from "../moteur/heure.js";
@@ -25,7 +25,7 @@ const pctTxt = (x) => String(Math.round(x * 10) / 10).replace(".", ",");
 const tauxTxt = (o) => {
   if (o.sansT) return "sans tarif";
   if (o.t === "kl") return "100 %";
-  if (o.t === "rt") { if (o.taux == null) return "ancien calcul"; const v = D().tarifs && (tarif(D().tarifs, o.hop, "rt", o.d) || tauxRT(D().tarifs)); return o.taux + " % − " + (v && v.impot != null ? v.impot : 0) + " %"; } // R-D3 : plus de 10 % caché
+  if (o.t === "rt") { if (o.taux == null) return "ancien calcul"; const v = D().tarifs && rtAu(D().tarifs, o.hop, o.d); return o.taux + " % − " + (v && v.impot != null ? v.impot : 0) + " %"; } // R-D3 : plus de 10 % caché
   const b = num(o.brut) || 0, n = num(o.net) || 0; if (!b) return "—";
   const r = 100 - (n / b) * 100; return Math.abs(r) < 0.05 ? "100 %" : "− " + pctTxt(r) + " %";
 };
@@ -38,13 +38,14 @@ const FIN_PAYE_AUTO = "2026-10-12";
 const autoPaye = (o) => { const T = D().tarifs; if (!T || !o.t || o.t === "kl" || o.t === "rtprev" || !o.d || o.d >= FIN_PAYE_AUTO) return false; const a = activite(T, o.hop, o.t); return !!(a && a.payeAuto && o.d >= a.payeAuto); };
 // Lieux « payé au cabinet » (19.5, 10/10/2026) : une consultation dont le mode de paiement est noté (9e colonne) est payée si elle a été
 // encaissée (espèces, carte, chèque) et impayée si « non payé » ; sans mode (avant le 19.5, autres lieux) : « Payé auto. » comme avant
-const lieuCabinet = (hop) => ((D().etabsTous || D().etabs || []).find((e) => e.code === hop) || {}).paiement === "cabinet";
-let ENC = {}; // clé → "enc" (encaissé au cabinet) | "np" (non payé par le patient)
+const lieuCabinet = (hop) => { const e = (D().etabsTous || D().etabs || []).find((z) => z.code === hop) || {}; return e.modeHab ? e.modeHab !== "vir" : e.paiement === "cabinet"; };
+let ENC = {}; // clé → "enc" (encaissé) | "np" (non payé par le patient : à encaisser) | "ap" (à payer par l'établissement, virement)
 function paiementsEffectifs(R) {
   const p = Object.assign({}, B.paiements); ENC = {};
   R.forEach((x) => (x.fin || []).forEach((e) => { const o = { id: x.id, t: e[1], d: e[0], lib: e[3], hop: e[2] || "", a: e[9] || "" }, k = clePaye(o);
     if (p[k] == null && p[cleAncienne(o)] != null) p[k] = p[cleAncienne(o)]; // case pas encore reprise (migrerPaiements)
-    if (e[8] && lieuCabinet(o.hop)) ENC[k] = e[8] === "np" || e[8] === "ae" ? "np" : "enc";
+    // lot R (31/10/2026) : mode noté dans tous les lieux (fenêtre « Nouveau reçu ») : réglé → encaissé ; ae / np → à encaisser ; ap → à payer par l'établissement
+    if (e[8] && (lieuCabinet(o.hop) || e[8] === "vir" || e[8] === "ap" || o.d >= "2026-10-31")) ENC[k] = e[8] === "np" || e[8] === "ae" ? "np" : e[8] === "ap" ? "ap" : "enc";
     if (p[k]) return;
     if (ENC[k]) { if (ENC[k] === "enc") p[k] = o.d; return; }
     if (autoPaye(o)) p[k] = o.d; }));
@@ -193,6 +194,11 @@ function sansZero(b) {
   const n = b.all.filter(zeroDH).length; if (!n) return b;
   return Object.assign({}, b, { all: b.all.filter((o) => !zeroDH(o)), tot: Object.assign({}, b.tot, { nbActes: b.tot.nbActes - n, nbConsultations: b.tot.nbConsultations - n }) });
 }
+// Lot R (31/10/2026) : « À recevoir » détaillé : à encaisser (le patient, secrétaire) et à payer (l'établissement, virement), en NET médecin
+function detailRecevoir(all) {
+  let ae = 0, ap = 0; all.forEach((o) => { if (o.t === "kl" || estPaye(o, PE)) return; const k = ENC[clePaye(o)]; if (k === "np") ae += o.net || 0; else if (k === "ap") ap += o.net || 0; });
+  return ae || ap ? '<span class="mesures bi-rec">' + [ae ? "dont à encaisser : " + dh(ae) : "", ap ? (ae ? "" : "dont ") + "à payer par les établissements : " + dh(ap) : ""].filter(Boolean).join(" · ") + "</span>" : "";
+}
 function dessiner() {
   const esc = A.esc, R = resumes(), b = sansZero((PE = paiementsEffectifs(R), calculerBilan(R, B.versements, PE, F.per === "perso" ? Object.assign({}, F, { per: "" }) : F, D().t))), T = b.tot, all = b.all;
   DATA = b;
@@ -206,29 +212,29 @@ function dessiner() {
   const act = '<div class="bi-act"><span class="bp-maj"><button class="bt gris" onclick="biActualiser()"><svg class="pi"><use href="#i-actualiser"/></svg>Actualiser</button>' +
     (estComptable() ? '<span class="mesures" id="biReleve">' + (RELEVE_LE ? "relevé à jour au " + dateHeureMaroc(RELEVE_LE.getTime()) : "aucun relevé : il est préparé quand un médecin ouvre Onco360") + "</span>" : "") + "</span>" + exps + "</div>";
   let h = '<section class="carte" data-fn="bilan.filtres"><div class="bi-ligne"><div class="form" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
-    "<div><label>Période</label>" + sel("biPer", F.per, periodes(R), "per") + "</div>" +
+    '<div class="bi-per"><label>Période</label>' + sel("biPer", F.per, periodes(R), "per") + "</div>" +
     (F.per === "perso" ? '<div><label>Du</label><input type="date" value="' + esc(F.du) + '" onchange="biF(\'du\',this.value)"></div><div><label>Au</label><input type="date" value="' + esc(F.au) + '" onchange="biF(\'au\',this.value)"></div>' : "") +
     "<div><label>Établissement</label>" + sel("biHop", F.hop, [["tous", "Tous les centres"]].concat(etabs).concat([["—", "Non renseigné / autres"]]), "hop") + "</div>" +
     "<div><label>Type d'acte</label>" + sel("biTyp", F.typ, typesActes(), "typ") + "</div>" +
-    "<div><label>Paiement</label>" + sel("biPay", F.pay, [["tous", "Payés et à recevoir"], ["paye", "Payés"], ["att", "À recevoir"]], "pay") + "</div>" +
+    '<div class="bi-pay"><label>Paiement</label>' + sel("biPay", F.pay, [["tous", "Payés et à recevoir"], ["paye", "Payés"], ["att", "À recevoir"]], "pay") + "</div>" +
     "<div><label>Référent</label>" + sel("biCor", F.cor, [["tous", "Tous les référents"]].concat(refs.map((c) => [c, c || "Sans référent"])), "cor") + "</div></div>" + act + "</div>" +
     '<div class="form bi-q"><div style="grid-column:1/-1"><label>Rechercher un acte ou un patient</label><input id="biQ" value="' + esc(F.q) + '" placeholder="ex. FOLFOX, prostate, VMAT, Zometa, nom…"></div></div>' +
     (b.manque ? '<p class="mesures"><svg class="pi"><use href="#i-alerte"/></svg>' + b.manque + " dossier(s) n'ont pas pu être calculés.</p>" : "") + alerteSansTarif(all) + alertePlace() + "</section>";
   const k = (v, lib, cls) => '<div class="k' + (cls ? " " + cls : "") + '"><b>' + dh(v) + "</b><span>" + lib + "</span></div>";
   h += '<section class="carte"><div class="kpi">' + k(T.caNet, "CA NET médecin", "fort") + k(T.chimio, "Chimio – " + T.nbChimio + " séance(s)") + k(T.consultations, "Consultations – " + T.nbConsultations) + k(T.hospit, "Hospitalisations – " + T.nbHospit) + k(T.rt, "Radiothérapie – " + T.nbRt + " terminée(s)") + k(T.versements, "Autres versements – " + T.nbVersements) + "</div>" +
-    '<div class="actr" style="justify-content:flex-start;gap:16px;margin-top:12px"><b style="color:var(--vert)"><svg class="pi"><use href="#i-check"/></svg>Payé : ' + dh(T.paye) + '</b><b style="color:var(--orange)"><svg class="pi"><use href="#i-sablier"/></svg>À recevoir : ' + dh(T.aRecevoir) + "</b></div>" +
+    '<div class="actr" style="justify-content:flex-start;gap:16px;margin-top:12px"><b style="color:var(--vert)"><svg class="pi"><use href="#i-check"/></svg>Payé : ' + dh(T.paye) + '</b><b style="color:var(--orange)"><svg class="pi"><use href="#i-sablier"/></svg>À recevoir : ' + dh(T.aRecevoir) + "</b>" + detailRecevoir(all) + "</div>" +
     (T.nbPrev ? '<p class="mesures" style="margin:4px 0 0">' + A.ic("radiation") + 'Radiothérapies en cours ou prévues (non comptées) : ' + T.nbPrev + " – NET prévisionnel " + dh(T.netPrev) + "</p>" : "") + "</section>";
   h += htmlEtabs(all) + htmlMois(b, R);
-  h += '<section class="carte"><h3><span class="ic">' + A.ic("liste") + "</span>Journal détaillé (" + all.length + " acte" + (all.length > 1 ? "s" : "") + ')</h3><div class="tableau"><table class="tcures bilan"><tr><th>Date</th><th>Patient</th><th>Hôpital</th><th>Acte / prestation</th><th>Statut</th><th class="n">Brut</th><th class="n">Taux</th><th class="n">NET médecin</th><th>Paiement</th></tr>' +
+  h += '<section class="carte"><h3><span class="ic">' + A.ic("liste") + "</span>Journal détaillé (" + all.length + " acte" + (all.length > 1 ? "s" : "") + ')</h3><div class="tableau"><table class="tcures bilan"><tr><th>Date</th><th>Patient</th><th>Établissement</th><th>Acte / prestation</th><th>Statut</th><th class="n">Brut</th><th class="n">Taux</th><th class="n">NET médecin</th><th>Paiement</th></tr>' +
     (all.length ? all.slice(0, LIM).map((o, i) => {
       const cor = o.id ? corDe[o.id] : "";
       return "<tr" + lienDossier(o.id) + "><td>" + A.dfrA(o.d) + "</td><td>" + esc(o.nm) + (cor ? '<div class="mesures">' + esc(cor) + "</div>" : "") + "</td><td>" + esc(o.hop || "—") + "</td><td>" + esc(o.lib) + "</td><td>" + esc(o.st) + '</td><td class="n">' + dh(o.brut) + '</td><td class="n">' + tauxTxt(o) + '</td><td class="n"><b>' + dh(o.net) + "</b></td>" +
-        '<td onclick="event.stopPropagation()">' + (o.t === "kl" ? '<span class="badge b-ch">Reçu</span>' : '<button class="mini ' + (estPaye(o, PE) ? "vert" : "") + '" title="' + (estPaye(o, PE) ? (coche(o) ? "Payé le " + A.dfrA(coche(o)) + " – cliquer pour annuler" : ENC[clePaye(o)] === "enc" ? "Encaissé au cabinet (fenêtre « Venu »)" : "Payé automatiquement (ancienne case « Payé auto. », avant le 12/10/2026)") : ENC[clePaye(o)] === "np" ? "Non payé par le patient : à encaisser depuis le dossier (ou cliquer quand il a payé)" : "Cliquer quand la clinique a payé") + '" onclick="biPaye(' + i + ')">' + (estPaye(o, PE) ? (coche(o) ? "✓ Payé" : ENC[clePaye(o)] === "enc" ? "✓ Encaissé" : "✓ Payé (auto.)") : ENC[clePaye(o)] === "np" ? "À encaisser" : "Payé") + "</button>") + "</td></tr>";
+        '<td onclick="event.stopPropagation()">' + (o.t === "kl" ? '<span class="badge b-ch">Reçu</span>' : '<button class="mini ' + (estPaye(o, PE) ? "vert" : "") + '" title="' + (estPaye(o, PE) ? (coche(o) ? "Payé le " + A.dfrA(coche(o)) + " – cliquer pour annuler" : ENC[clePaye(o)] === "enc" ? "Encaissé au cabinet (fenêtre « Venu »)" : "Payé automatiquement (ancienne case « Payé auto. », avant le 12/10/2026)") : ENC[clePaye(o)] === "np" ? "Non payé par le patient : à encaisser depuis le dossier (ou cliquer quand il a payé)" : ENC[clePaye(o)] === "ap" ? "À payer par l'établissement (virement) : cliquer quand il est reçu" : "Cliquer quand la clinique a payé") + '" onclick="biPaye(' + i + ')">' + (estPaye(o, PE) ? (coche(o) ? "✓ Payé" : ENC[clePaye(o)] === "enc" ? "✓ Encaissé" : "✓ Payé (auto.)") : ENC[clePaye(o)] === "np" ? "À encaisser" : ENC[clePaye(o)] === "ap" ? "À payer" : "Payé") + "</button>") + "</td></tr>";
     }).join("") + (all.length > LIM ? '<tr><td colspan="9" class="mesures">' + LIM + " actes affichés sur " + all.length + ' (le total et les exports comptent tout). <button class="mini" onclick="biPlus(300)">Afficher 300 de plus</button> <button class="mini" onclick="biPlus(0)">Tout afficher</button></td></tr>' : "") + '<tr class="tot"><td colspan="7" class="n"><b>Total</b></td><td class="n"><b>' + dh(T.caNet) + "</b></td><td></td></tr>" : '<tr><td colspan="9" class="mesures">Aucun acte sur la période.</td></tr>') + "</table></div></section>";
   // Référents
   if (F.cor !== "tous") {
     const l = R.filter((x) => (x.cor || "") === F.cor && patientOK(x)).sort((a, z) => String(z.c1).localeCompare(String(a.c1)));
-    h += '<section class="carte"><h3><span class="ic">' + A.ic("patients") + "</span>Patients adressés par " + esc(F.cor || "— (sans référent)") + " (" + l.length + ')</h3><div class="tableau"><table class="tcures bilan"><tr><th>1re venue</th><th>Patient</th><th>Diagnostic</th><th>Hôpital</th><th class="n">NET sur la période</th><th class="n">NET total</th></tr>' +
+    h += '<section class="carte"><h3><span class="ic">' + A.ic("patients") + "</span>Patients adressés par " + esc(F.cor || "— (sans référent)") + " (" + l.length + ')</h3><div class="tableau"><table class="tcures bilan"><tr><th>1re venue</th><th>Patient</th><th>Diagnostic</th><th>Établissement</th><th class="n">NET sur la période</th><th class="n">NET total</th></tr>' +
       l.map((x) => "<tr" + lienDossier(x.id) + "><td>" + (x.c1 ? A.dfrA(x.c1) : "—") + "</td><td>" + esc(x.nm) + "</td><td>" + esc(x.diag) + "</td><td>" + esc(x.hop || "—") + '</td><td class="n">' + dh(netPer(x, b.pr)) + '</td><td class="n">' + dh(netPer(x, ["0000", "9999"])) + "</td></tr>").join("") + '</table></div><button class="mini" style="margin-top:8px" onclick="biF(\'cor\',\'tous\')">← Tous les référents</button></section>';
   } else {
     const m = {}; R.filter(patientOK).forEach((x) => { const c = x.cor || ""; m[c] = m[c] || { n: 0, np: 0, net: 0 }; m[c].n++; if (x.c1 && x.c1 >= b.pr[0] && x.c1 <= b.pr[1]) m[c].np++; m[c].net += netPer(x, b.pr); });
@@ -236,7 +242,7 @@ function dessiner() {
     h += '<section class="carte" data-fn="bilan.referents"><h3><span class="ic">' + A.ic("patients") + '</span>Référents</h3><p class="sous">Touchez un référent pour voir les patients qu\'il vous a adressés. Selon l\'établissement et le type d\'acte choisis en haut.</p><div class="tableau"><table class="tcures bilan"><tr><th>Référent</th><th class="n">Patients adressés</th><th class="n">Nouveaux sur la période</th><th class="n">NET sur la période</th></tr>' +
       l.map((c) => '<tr class="cl" onclick="biF(\'cor\',' + esc(JSON.stringify(c)) + ')"><td>' + esc(c || "— (sans référent)") + '</td><td class="n">' + m[c].n + '</td><td class="n">' + m[c].np + '</td><td class="n">' + dh(m[c].net) + "</td></tr>").join("") + "</table></div></section>";
   }
-  if (b.prev.length) h += '<section class="carte" data-fn="bilan.rtprev"><h3><span class="ic">' + A.ic("radiation") + '</span>Radiothérapies en cours ou prévues (prévisionnel, non comptées)</h3><div class="tableau"><table class="tcures bilan"><tr><th>Fin prévue</th><th>Patient</th><th>Hôpital</th><th>Acte</th><th class="n">NET prévisionnel</th></tr>' +
+  if (b.prev.length) h += '<section class="carte" data-fn="bilan.rtprev"><h3><span class="ic">' + A.ic("radiation") + '</span>Radiothérapies en cours ou prévues (prévisionnel, non comptées)</h3><div class="tableau"><table class="tcures bilan"><tr><th>Fin prévue</th><th>Patient</th><th>Établissement</th><th>Acte</th><th class="n">NET prévisionnel</th></tr>' +
     b.prev.map((o) => "<tr" + lienDossier(o.id) + "><td>" + (o.d ? A.dfrA(o.d) : "—") + "</td><td>" + esc(o.nm) + "</td><td>" + esc(o.hop || "—") + "</td><td>" + esc(o.lib) + '</td><td class="n">' + dh(o.net) + "</td></tr>").join("") + "</table></div></section>";
   h += htmlRecus(b);
   A.$("page").innerHTML = h;
@@ -265,7 +271,7 @@ const cleV = (e) => e.id || "v:" + e.d + "|" + e.m + "|" + (e.lib || "");
 const nouvelId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
 let CLES = []; // clés des autres versements de la liste affichée (boutons ✎ ✕)
 const liste = (s) => { try { return s && s.exists() ? JSON.parse(s.data().data || "[]") : []; } catch (e) { return []; } };
-const MODES = { vir: "Virement", chq: "Chèque" };
+const MODES = { vir: "Virement", chq: "Chèque", esp: "Espèces" }; // 31/10/2026 (lot 7.4) : espèces en plus
 const peutRg = () => A.peut("finances") && !estComptable();
 const peutKL = () => A.peut("finances");
 // Un virement arrive directement sur le compte : seul un chèque attend d'être encaissé
@@ -288,9 +294,9 @@ function htmlRecus(b) {
   DATA.rg = L;
   const sel = (v, opts, f) => '<select onchange="biF(\'' + f + '\',this.value)">' + opts.map((o) => '<option value="' + o[0] + '"' + (o[0] === v ? " selected" : "") + ">" + o[1] + "</option>").join("") + "</select>";
   let h = '<section class="carte" data-fn="bilan.versements" id="biRg"><h3><span class="ic"><svg class="i"><use href="#i-banque"/></svg></span>Versements et règlements reçus</h3>' +
-    '<p class="sous"><b>Règlements</b> des cliniques et hôpitaux (virements, chèques) : pour la comptabilité, <b>non comptés dans le bilan</b> (le bilan compte déjà les actes). <b>Autres versements</b> (laboratoire…) : <b>ajoutés au bilan</b> à leur date, établissement « Non renseigné ». Période et établissement : ceux choisis en haut de la page.' + (peutRg() ? "" : " Règlements en lecture seule.") + "</p>" +
+    '<p class="sous"><b>Règlements</b> des établissements (virements, chèques, espèces) : pour la comptabilité, <b>non comptés dans le bilan</b> (le bilan compte déjà les actes). <b>Autres versements</b> (laboratoire…) : <b>ajoutés au bilan</b> à leur date, établissement « Non renseigné ». Période et établissement : ceux choisis en haut de la page.' + (peutRg() ? "" : " Règlements en lecture seule.") + "</p>" +
     '<div class="form" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin-bottom:10px"><div><label>Type</label>' + sel(F.rtype, [["tous", "Tout"], ["rg", "Règlements (hors bilan)"], ["kl", "Autres versements (dans le bilan)"]], "rtype") + "</div>" +
-    "<div><label>Mode</label>" + sel(F.rmode, [["tous", "Tous les modes"], ["vir", "Virements"], ["chq", "Chèques"]], "rmode") + "</div>" +
+    "<div><label>Mode</label>" + sel(F.rmode, [["tous", "Tous les modes"], ["vir", "Virements"], ["chq", "Chèques"], ["esp", "Espèces"]], "rmode") + "</div>" +
     "<div><label>Encaissement</label>" + sel(F.renc, [["tous", "Tous"], ["oui", "Encaissés"], ["non", "Chèques pas encore encaissés"]], "renc") + "</div></div>";
   if (L.length) {
     const cl = [...new Set(RG.map((r) => r.hop || "—"))].sort();
@@ -298,16 +304,16 @@ function htmlRecus(b) {
       '<div class="k"><b>' + dh(somme(KL)) + "</b><span>Autres versements (dans le bilan) – " + KL.length + "</span></div>" +
       cl.map((c) => { const l = RG.filter((r) => (r.hop || "—") === c); return '<div class="k"><b>' + dh(somme(l)) + "</b><span>" + esc(c) + " – " + l.length + "</span></div>"; }).join("") + "</div>";
     // Règlements par clinique ou hôpital
-    if (RG.length) h += '<div class="tableau"><table class="tcures bilan"><tr><th>Clinique / hôpital</th><th class="n">Virements</th><th class="n">Chèques</th><th class="n">Total reçu</th></tr>' +
+    if (RG.length) h += '<div class="tableau"><table class="tcures bilan"><tr><th>Établissement</th><th class="n">Virements</th><th class="n">Chèques</th><th class="n">Espèces</th><th class="n">Total reçu</th></tr>' +
       cl.map((c) => { const l = RG.filter((r) => (r.hop || "—") === c);
-        return "<tr><td>" + etabNom(c) + '</td><td class="n">' + dh(somme(l.filter((r) => r.mode === "vir"))) + '</td><td class="n">' + dh(somme(l.filter((r) => r.mode === "chq"))) + '</td><td class="n"><b>' + dh(somme(l)) + "</b></td></tr>"; }).join("") + "</table></div>";
+        return "<tr><td>" + etabNom(c) + '</td><td class="n">' + dh(somme(l.filter((r) => r.mode === "vir"))) + '</td><td class="n">' + dh(somme(l.filter((r) => r.mode === "chq"))) + '</td><td class="n">' + dh(somme(l.filter((r) => r.mode === "esp"))) + '</td><td class="n"><b>' + dh(somme(l)) + "</b></td></tr>"; }).join("") + "</table></div>";
     // Par mois, si la période en couvre plusieurs
     const mois = [...new Set(L.map((r) => r.d.slice(0, 7)))].sort().reverse();
-    if (mois.length > 1) h += '<div class="tableau" style="margin-top:12px"><table class="tcures bilan"><tr><th>Mois de réception</th><th>Règlements par Clinique / hôpital</th><th class="n">Autres versements</th><th class="n">Total reçu</th></tr>' +
+    if (mois.length > 1) h += '<div class="tableau" style="margin-top:12px"><table class="tcures bilan"><tr><th>Mois de réception</th><th>Règlements par établissement</th><th class="n">Autres versements</th><th class="n">Total reçu</th></tr>' +
       mois.map((m) => { const l = L.filter((r) => r.d.slice(0, 7) === m), parC = {}; l.filter((r) => r.k === "rg").forEach((r) => { parC[r.hop || "—"] = (parC[r.hop || "—"] || 0) + (num(r.m) || 0); });
         return "<tr><td>" + moisTxt(m) + "</td><td>" + (Object.keys(parC).sort().map((c) => esc(c) + " " + dh(parC[c])).join(" · ") || "—") + '</td><td class="n">' + dh(somme(l.filter((r) => r.k === "kl"))) + '</td><td class="n"><b>' + dh(somme(l)) + "</b></td></tr>"; }).join("") + "</table></div>";
     const act = L.some(ed);
-    h += '<div class="tableau" style="margin-top:12px"><table class="tcures bilan"><tr><th>Reçu le</th><th>Type</th><th>Clinique / hôpital</th><th>Mode</th><th>Référence</th><th>Banque</th><th>Libellé / période concernée</th><th class="n">Montant</th><th>Chèque encaissé le</th><th>Note</th>' + (act ? "<th></th>" : "") + "</tr>" +
+    h += '<div class="tableau" style="margin-top:12px"><table class="tcures bilan"><tr><th>Reçu le</th><th>Type</th><th>Établissement</th><th>Mode</th><th>Référence</th><th>Banque</th><th>Libellé / période concernée</th><th class="n">Montant</th><th>Chèque encaissé le</th><th>Note</th>' + (act ? "<th></th>" : "") + "</tr>" +
       L.map((r) => { const cle = r.k === "rg" ? "'" + esc(r.id) + "'" : CLES.push(r.vk) - 1;
         return "<tr><td>" + A.dfrA(r.d) + "</td><td>" + (r.k === "rg" ? "Règlement" + '<div class="mesures">hors bilan</div>' : "Autre versement" + '<div class="mesures" style="color:var(--vert)">dans le bilan</div>') + "</td><td>" + esc(r.hop || "—") + "</td><td>" + (MODES[r.mode] || "—") + "</td><td>" + esc(r.ref || "") + "</td><td>" + esc(r.banque || "") + "</td><td>" + esc(r.per || "") + '</td><td class="n"><b>' + dh(r.m) + "</b></td><td>" +
           (encaisse(r) ? encTxt(r) : '<span style="color:var(--orange);font-weight:bold">Pas encore</span>') + '</td><td class="mesures">' + esc(r.note || "") + "</td>" +
@@ -333,12 +339,12 @@ window.biRgFiche = (k, cle) => {
   const r = r0 ? Object.assign({}, r0, k === "kl" ? { per: r0.lib || "" } : {}) : null;
   const esc = A.esc, v = (c, d) => esc(r ? r[c] || "" : d || ""), etabs = (D().etabsTous || D().etabs || []).filter((e) => e.actif !== false || (r && r.hop === e.code));
   const hop0 = r ? r.hop : F.hop !== "tous" && F.hop !== "—" ? F.hop : (D().etabs[0] || {}).code || "";
-  const types = (peutRg() ? [["rg", "Règlement d'une clinique ou d'un hôpital (non compté dans le bilan)"]] : []).concat([["kl", "Autre versement : laboratoire… (compté dans le bilan)"]]);
+  const types = (peutRg() ? [["rg", "Règlement d'un établissement (non compté dans le bilan)"]] : []).concat([["kl", "Autre versement : laboratoire… (compté dans le bilan)"]]);
   const t0 = k || (F.rtype === "kl" || !peutRg() ? "kl" : "rg");
   A.fenetre("<h3>" + (nouv ? "Nouveau versement ou règlement reçu" : k === "rg" ? "Modifier le règlement reçu" : "Modifier l'autre versement") + '</h3><div class="form">' +
     '<div class="large"><label for="rgT">Type *</label><select id="rgT"' + (nouv ? "" : " disabled") + ">" + types.map((t) => '<option value="' + t[0] + '"' + (t[0] === t0 ? " selected" : "") + ">" + t[1] + "</option>").join("") + "</select></div>" +
     '<div><label for="rgD">Date de réception *</label><input id="rgD" type="date" value="' + v("d", D().t) + '"></div>' +
-    '<div id="rgHopB"><label for="rgHop">Clinique ou hôpital *</label><select id="rgHop"><option value="">—</option>' + etabs.map((e) => '<option value="' + esc(e.code) + '"' + (e.code === hop0 ? " selected" : "") + ">" + esc(e.code + (e.nom ? " – " + e.nom : "")) + "</option>").join("") + "</select></div>" +
+    '<div id="rgHopB"><label for="rgHop">Établissement *</label><select id="rgHop"><option value="">—</option>' + etabs.map((e) => '<option value="' + esc(e.code) + '"' + (e.code === hop0 ? " selected" : "") + ">" + esc(e.code + (e.nom ? " – " + e.nom : "")) + "</option>").join("") + "</select></div>" +
     '<div><label for="rgMode">Mode</label><select id="rgMode"><option value="">—</option>' + Object.keys(MODES).map((m) => '<option value="' + m + '"' + ((r ? r.mode : "vir") === m ? " selected" : "") + ">" + MODES[m] + "</option>").join("") + "</select></div>" +
     '<div><label for="rgM">Montant (DH) *</label><input id="rgM" inputmode="decimal" value="' + (r ? esc(String(r.m)) : "") + '"></div>' +
     '<div><label for="rgRef">N° du chèque ou référence du virement</label><input id="rgRef" value="' + v("ref") + '"></div>' +
@@ -358,7 +364,7 @@ window.biRgFiche = (k, cle) => {
     const t = A.val("rgT"), n = { d: A.val("rgD"), mode: A.val("rgMode"), m: num(A.val("rgM")), ref: A.val("rgRef"), banque: A.val("rgBq"), enc: A.val("rgEnc"), note: A.val("rgNote") }, per = A.val("rgPer");
     if (n.mode !== "chq") n.enc = "";
     if (!/^\d{4}-\d{2}-\d{2}$/.test(n.d)) { A.erreur("Indiquez la date de réception."); return; }
-    if (t === "rg") { n.hop = A.val("rgHop"); n.per = per; if (!n.hop) { A.erreur("Choisissez la clinique ou l'hôpital."); return; } if (!n.mode) { A.erreur("Choisissez virement ou chèque."); return; } }
+    if (t === "rg") { n.hop = A.val("rgHop"); n.per = per; if (!n.hop) { A.erreur("Choisissez l'établissement."); return; } if (!n.mode) { A.erreur("Choisissez le mode : virement, chèque ou espèces."); return; } }
     else { n.lib = per; if (!per) { A.erreur("Donnez un libellé au versement (ex. laboratoire)."); return; } }
     if (n.m == null || !(n.m > 0)) { A.erreur("Indiquez le montant reçu."); return; }
     if (n.enc && n.enc < n.d) { A.erreur("La date d'encaissement du chèque est avant la date de réception."); return; }
@@ -502,8 +508,8 @@ window.biExport = async (fmt) => {
     const html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>' + nom + '</title><style>@page{size:A4 landscape;margin:12mm}body{font-family:Arial,sans-serif;font-size:9pt;color:#222}table{border-collapse:collapse;width:100%;margin-top:8px}th{background:#2B2D5C;color:#fff;padding:4px 5px;text-align:left}</style></head><body>' +
       '<div style="font-size:15pt;font-weight:bold;color:#2B2D5C">BILAN – ' + esc(nomMed()) + '</div><div style="color:#666">Édité le ' + A.dfrA(D().t) + "</div><div style=\"margin:6px 0\">" + filtresTxt().map(esc).join("<br>") + "</div>" +
       "<table><tr><th>Indicateur</th><th>Montant NET</th><th>Nombre</th></tr>" + indic().map((k) => "<tr><td " + td + ">" + k[0] + "</td><td " + tr + ">" + dh(k[1]) + "</td><td " + tr + ">" + k[2] + "</td></tr>").join("") + "</table>" +
-      "<table><tr><th>Date</th><th>Patient</th><th>Hôpital</th><th>Acte / prestation</th><th>Statut</th><th>Brut</th><th>Taux</th><th>NET</th><th>Paiement</th></tr>" + DATA.all.map((o) => "<tr><td " + td + ">" + A.dfrA(o.d) + "</td><td " + td + ">" + esc(o.nm) + "</td><td " + td + ">" + esc(o.hop || "—") + "</td><td " + td + ">" + esc(o.lib) + "</td><td " + td + ">" + esc(o.st) + "</td><td " + tr + ">" + dh(o.brut) + "</td><td " + tr + ">" + tauxTxt(o) + "</td><td " + tr + "><b>" + dh(o.net) + "</b></td><td " + td + ">" + payeTxt(o) + "</td></tr>").join("") + "</table>" +
-      (DATA.rg && DATA.rg.length ? '<div style="font-size:12pt;font-weight:bold;color:#2B2D5C;margin-top:14px">Versements et règlements reçus (règlements : non comptés dans le bilan)</div><table><tr><th>Reçu le</th><th>Type</th><th>Clinique / hôpital</th><th>Mode</th><th>Référence</th><th>Banque</th><th>Libellé / période concernée</th><th>Montant</th><th>Chèque encaissé le</th><th>Note</th></tr>' +
+      "<table><tr><th>Date</th><th>Patient</th><th>Établissement</th><th>Acte / prestation</th><th>Statut</th><th>Brut</th><th>Taux</th><th>NET</th><th>Paiement</th></tr>" + DATA.all.map((o) => "<tr><td " + td + ">" + A.dfrA(o.d) + "</td><td " + td + ">" + esc(o.nm) + "</td><td " + td + ">" + esc(o.hop || "—") + "</td><td " + td + ">" + esc(o.lib) + "</td><td " + td + ">" + esc(o.st) + "</td><td " + tr + ">" + dh(o.brut) + "</td><td " + tr + ">" + tauxTxt(o) + "</td><td " + tr + "><b>" + dh(o.net) + "</b></td><td " + td + ">" + payeTxt(o) + "</td></tr>").join("") + "</table>" +
+      (DATA.rg && DATA.rg.length ? '<div style="font-size:12pt;font-weight:bold;color:#2B2D5C;margin-top:14px">Versements et règlements reçus (règlements : non comptés dans le bilan)</div><table><tr><th>Reçu le</th><th>Type</th><th>Établissement</th><th>Mode</th><th>Référence</th><th>Banque</th><th>Libellé / période concernée</th><th>Montant</th><th>Chèque encaissé le</th><th>Note</th></tr>' +
         DATA.rg.map((r) => "<tr><td " + td + ">" + A.dfrA(r.d) + "</td><td " + td + ">" + typeTxt(r) + "</td><td " + td + ">" + esc(r.hop || "—") + "</td><td " + td + ">" + (MODES[r.mode] || "") + "</td><td " + td + ">" + esc(r.ref || "") + "</td><td " + td + ">" + esc(r.banque || "") + "</td><td " + td + ">" + esc(r.per || "") + "</td><td " + tr + ">" + dh(r.m) + "</td><td " + td + ">" + encTxt(r) + "</td><td " + td + ">" + esc(r.note || "") + "</td></tr>").join("") +
         "<tr><td " + td + ' colspan="7"><b>Total reçu</b></td><td ' + tr + "><b>" + dh(somme(DATA.rg)) + "</b></td><td " + td + ' colspan="2"></td></tr></table>' : "") + "</body></html>";
     const w = window.open("", "_blank"); if (!w) { A.toast("Autorisez l'ouverture des fenêtres pour imprimer le bilan."); return; }
@@ -513,12 +519,12 @@ window.biExport = async (fmt) => {
     const syn = [["BILAN – " + nomMed()], ["Édité le " + A.dfrA(D().t)], []].concat(filtresTxt().map((x) => [x])).concat([[], ["Indicateur", "Montant NET (DH)", "Nombre"]]).concat(indic().map((k) => [k[0], Math.round(k[1] * 100) / 100, k[2]]));
     if (DATA.prev.length) syn.push([], ["Radiothérapies en cours ou prévues (non comptées)", Math.round(DATA.tot.netPrev), DATA.prev.length]);
     const cor = (id) => ((RES || []).find((x) => x.id === id) || {}).cor || "";
-    const jr = [["Date", "Patient", "Référent", "Hôpital", "Acte / prestation", "Statut", "Brut (DH)", "Taux", "NET médecin (DH)", "Paiement"]].concat(DATA.all.map((o) => [A.dfrA(o.d), o.nm, o.id ? cor(o.id) : "", o.hop || "—", o.lib, o.st, num(o.brut) || 0, tauxTxt(o), Math.round((num(o.net) || 0) * 100) / 100, payeTxt(o)]));
+    const jr = [["Date", "Patient", "Référent", "Établissement", "Acte / prestation", "Statut", "Brut (DH)", "Taux", "NET médecin (DH)", "Paiement"]].concat(DATA.all.map((o) => [A.dfrA(o.d), o.nm, o.id ? cor(o.id) : "", o.hop || "—", o.lib, o.st, num(o.brut) || 0, tauxTxt(o), Math.round((num(o.net) || 0) * 100) / 100, payeTxt(o)]));
     jr.push(["", "", "", "", "", "", "", "TOTAL", Math.round(DATA.tot.caNet * 100) / 100, ""]);
     const feuilles = [["Synthèse", syn, [48, 18, 10]], ["Journal", jr, [11, 28, 22, 9, 52, 11, 12, 16, 16, 18]]];
     if (DATA.etabs && DATA.etabs.length) feuilles.push(["Par établissement", [["Établissement", "Actes", "NET (DH)", "Payé (DH)", "À recevoir (DH)", "dont 31 à 60 j", "dont 61 à 90 j", "dont + de 90 j"]].concat(DATA.etabs.map((x) => [x.h === "kl" ? "Autres versements" : x.h === "—" ? "Établissement non renseigné" : x.h, x.n].concat(["net", "paye", "rec", "r30", "r60", "r90"].map((k) => Math.round(x[k] * 100) / 100)))), [24, 8, 14, 14, 14, 14, 14, 14]]);
-    if (DATA.prev.length) feuilles.push(["RT prévisionnel", [["Fin prévue", "Patient", "Hôpital", "Acte", "NET prévisionnel (DH)"]].concat(DATA.prev.map((o) => [o.d ? A.dfrA(o.d) : "—", o.nm, o.hop || "—", o.lib, num(o.net) || 0])), [11, 28, 9, 45, 18]]);
-    if (DATA.rg && DATA.rg.length) feuilles.push(["Versements et règlements", [["Reçu le", "Type", "Clinique / hôpital", "Mode", "Référence", "Banque", "Libellé / période concernée", "Montant (DH)", "Chèque encaissé le", "Note"]].concat(DATA.rg.map((r) => [A.dfrA(r.d), typeTxt(r), r.hop || "—", MODES[r.mode] || "", r.ref || "", r.banque || "", r.per || "", num(r.m) || 0, encTxt(r), r.note || ""])).concat([["", "", "", "", "", "", "TOTAL REÇU", Math.round(somme(DATA.rg) * 100) / 100, "", ""]]), [11, 28, 10, 10, 18, 14, 30, 14, 12, 30]]);
+    if (DATA.prev.length) feuilles.push(["RT prévisionnel", [["Fin prévue", "Patient", "Établissement", "Acte", "NET prévisionnel (DH)"]].concat(DATA.prev.map((o) => [o.d ? A.dfrA(o.d) : "—", o.nm, o.hop || "—", o.lib, num(o.net) || 0])), [11, 28, 9, 45, 18]]);
+    if (DATA.rg && DATA.rg.length) feuilles.push(["Versements et règlements", [["Reçu le", "Type", "Établissement", "Mode", "Référence", "Banque", "Libellé / période concernée", "Montant (DH)", "Chèque encaissé le", "Note"]].concat(DATA.rg.map((r) => [A.dfrA(r.d), typeTxt(r), r.hop || "—", MODES[r.mode] || "", r.ref || "", r.banque || "", r.per || "", num(r.m) || 0, encTxt(r), r.note || ""])).concat([["", "", "", "", "", "", "TOTAL REÇU", Math.round(somme(DATA.rg) * 100) / 100, "", ""]]), [11, 28, 10, 10, 18, 14, 30, 14, 12, 30]]);
     await excel(feuilles, nom + ".xlsx");
   } catch (e) { A.toast("Export Excel impossible : " + e.message); }
 };

@@ -19,7 +19,7 @@ async def main():
         ok(pg.url.endswith('#accueil') and 'Protocoles' in await pg.inner_text('#titrePage'), 'la bibliothèque s\'ouvre sur les Protocoles (pas de tableau de bord)')
         vis = await pg.evaluate("[...document.querySelectorAll('nav a')].filter(a=>a.offsetParent!==null).map(a=>a.dataset.p||a.id)")
         # Lot B (25/10/2026) : Paramètres passe dans l'icône de la barre du haut (#btParam) ; Radiothérapie (référentiel, 25/10/2026) dans le menu
-        ok(vis == ['protocoles', 'radiotherapie', 'lienAdmin'] and await pg.evaluate("!!document.getElementById('btParam') && document.getElementById('btParam').offsetParent !== null"), 'menu : Protocoles, Radiothérapie, Retour à l\'Administration ; Paramètres par l\'icône du haut ' + str(vis))
+        ok(vis == ['protocoles', 'radiotherapie', 'outils', 'lienAdmin'] and await pg.evaluate("!!document.getElementById('btParam') && document.getElementById('btParam').offsetParent !== null"), 'menu : Protocoles, Radiothérapie, Outils cliniques (lot RT.13), Retour à l\'Administration ; Paramètres par l\'icône du haut ' + str(vis))
         ok('ce que reçoivent les nouveaux cabinets' in await pg.inner_text('body'), 'bandeau « ce que reçoivent les nouveaux cabinets »')
         fs = await pg.evaluate("window.__fs")
         fig = [k.split('/')[-1] for k in fs if k.startswith(B + 'bibliotheques/')]
@@ -46,7 +46,7 @@ async def main():
         # Administration : onglet Bibliothèques
         pa = await ouvrir(b, S2); await pa.add_init_script("""window.__uid='ADM2';window.__fs['administrateurs/ADM2']={email:'a@b.ma'};window.__fonctions={listeCabinets:async()=>({cabinets:[],bibliotheques:[{id:'bib-oncologie',lib:'Oncologie – Radiothérapie',specialites:['Oncologie – Radiothérapie','Oncologie médicale','Radiothérapie','Oncologie-radiothérapie'],existe:true,nb:{protocoles:316,ordostypes:26,medicaments:120}},{id:'bib-generaliste',lib:'Médecine générale',specialites:['Médecine générale'],existe:false},{id:'bib-gynecologie',lib:'Gynécologie',specialites:['Gynécologie'],existe:false}]}),bibliothequeOuvrir:async(d)=>{window.__bo=d;return {espace:d.bib}}};""")
         await pa.goto(f'http://localhost:{PORT}/admin.html#reference'); await pa.wait_for_timeout(1500)
-        ok(pa.url.endswith('#reference') and await pa.evaluate("document.querySelectorAll('nav#onglets a').length") == 8 and await pa.evaluate("!!document.querySelector('[data-spec]')"), 'ancien lien « Bibliothèques » → Par spécialité (8 onglets, Sauvegardes et Plateforme comprises)')
+        ok(pa.url.endswith('#reference') and await pa.evaluate("document.querySelectorAll('nav#onglets a').length") == 9 and await pa.evaluate("!!document.querySelector('[data-spec]')"), 'ancien lien « Bibliothèques » → Par spécialité (9 onglets, Sauvegardes, État de la plateforme et Plateforme comprises)')
         await pa.click('[data-sous="biblio"]'); await pa.wait_for_timeout(300); ta = await pa.inner_text('main')
         ok('Oncologie – Radiothérapie' in ta and '316 protocoles' in ta and 'Ouvrir le modèle' in ta and await pa.evaluate("document.querySelectorAll('.puce[data-sous]').length") == 2, 'Par spécialité › Modèle des cabinets neufs : la bibliothèque, compteurs ; plus de « Modules et menus »')
         ok(await pa.evaluate("!!document.querySelector('[data-publier]')") and 'Publier une version' in await pa.inner_text('main'), 'P9 : bouton « Publier une version » sur la carte Oncologie – Radiothérapie')

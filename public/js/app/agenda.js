@@ -128,12 +128,12 @@ export function pageAgenda() {
     (A.multiMed() ? '<select class="ag-etab" id="agMed" aria-label="Médecin" onchange="agMed(this.value)"><option value="">Tous les médecins</option>' + A.medecins().map((m) => '<option value="' + esc(m.uid) + '"' + (AG.med === m.uid ? " selected" : "") + ">" + esc(m.nom) + "</option>").join("") + "</select>" : "");
   const main = v === "mois" ? vueMois(du) : v === "liste" ? vueListe() : vueGrille(du, v === "jour" ? 1 : 7), cote = (fil ? '<div class="ag-fil">' + fil + "</div>" : "") + miniCal() + aVenir();
   const onglet = (k, ico, t) => '<button' + (k === "liste" ? "" : ' data-fn="agenda.vues"') + ' class="' + (v === k ? "on" : "") + '" onclick="agVue(\'' + k + '\')">' + A.ic(ico) + t + "</button>";
-  // Lot B (25/10/2026) : plus de titre de page ; « + Nouveau rendez-vous » au bout de la barre (vues, période, filtres, Actualiser)
+  // Lot B (25/10/2026) : plus de titre de page ; « + Rendez-vous » (31/10/2026, avant « + Nouveau rendez-vous ») au bout de la barre (vues, période, filtres, Actualiser)
   let h = '<div class="ag-barre"><div class="ag-vues">' + onglet("liste", "liste", "Liste") + onglet("jour", "agenda", "Jour") + onglet("semaine", "agenda", "Semaine") + onglet("mois", "accueil", "Mois") + "</div>" +
-    // 26/10/2026 (lot E, étendu à l'Agenda) : boutons b1 (un seul : « + Nouveau rendez-vous »), b2 (secondaires), b3 (flèches)
-    '<div class="ag-nav"><button class="b2" onclick="agAuj()">Aujourd\'hui</button><button class="b3" onclick="agNav(-1)" aria-label="Précédent" title="Précédent">' + A.ic("retour") + '</button><button class="b3" onclick="agNav(1)" aria-label="Suivant" title="Suivant" style="transform:scaleX(-1)">' + A.ic("retour") + "</button><b>" + esc(lib) + "</b></div>" +
+    // 26/10/2026 (lot E, étendu à l'Agenda) : boutons b1 (un seul : « + Rendez-vous »), b2 (secondaires), b3 (flèches)
+    '<div class="ag-nav"><button class="b2" onclick="agAuj()">Aujourd\'hui</button><button class="b3" onclick="agNav(-1)" aria-label="Précédent" title="Précédent">' + A.ic("retour") + '</button><b class="ag-per">' + esc(lib) + '</b><button class="b3" onclick="agNav(1)" aria-label="Suivant" title="Suivant" style="transform:scaleX(-1)">' + A.ic("retour") + "</button></div>" + // 2.6 (31/10/2026) : la période entre les flèches
     '<span class="ag-droite"><span class="ag-act"><button class="b2" id="agAct" onclick="agActualiser()" title="Relire les rendez-vous, séances et radiothérapies (aussi chaque minute)">' + A.ic("actualiser") + 'Actualiser</button><span class="mesures" id="agAjour"></span></span>' +
-    '<button class="b1 ag-nouv" onclick="nouveauRdv(null,null,\'' + esc(AG.etab || "") + '\',\'' + esc(AG.med || "") + '\')">' + A.ic("plus") + '<span class="lg">Nouveau rendez-vous</span><span class="sm">Rendez-vous</span></button></span></div>' +
+    '<button class="b1 ag-nouv" onclick="nouveauRdv(null,null,\'' + esc(AG.etab || "") + '\',\'' + esc(AG.med || "") + '\')">' + A.ic("plus") + "Rendez-vous</button></span></div>" +
     '<div class="ag-corps"><aside class="ag-cote">' + cote + '</aside><div class="ag-main carte">' + main + "</div></div>";
   // R-C8 : même vue et même période redessinées (Actualiser, écoute des dossiers, après une modification) : le défilement de la grille est gardé
   const g0 = document.querySelector(".ag-grille"), cleVue = v + "|" + du, garde = g0 && AG.cleVue === cleVue ? g0.scrollTop : null;
@@ -207,7 +207,7 @@ function vueMois(du) {
   return h + "</div>";
 }
 function vueListe() {
-  if (!EVS.length) return '<div class="vide-e"><p>Rien de prévu sur les 30 prochains jours.</p><button class="b2" onclick="nouveauRdv(null,null,\'' + A.esc(AG.etab || "") + '\',\'' + A.esc(AG.med || "") + '\')">' + A.ic("plus") + "Nouveau rendez-vous</button></div>";
+  if (!EVS.length) return '<div class="vide-e"><p>Rien de prévu sur les 30 prochains jours.</p><button class="b2" onclick="nouveauRdv(null,null,\'' + A.esc(AG.etab || "") + '\',\'' + A.esc(AG.med || "") + '\')">' + A.ic("plus") + "Rendez-vous</button></div>";
   let h = "", jc = "";
   EVS.forEach((e, i) => {
     if (e.d !== jc) { if (jc) h += "</div>"; jc = e.d; h += '<div class="jour7"><h4>' + A.cap(A.jourLong(e.d)) + (absence(e.d) ? ' <span class="badge b-al">Absence</span>' : "") + "</h4>"; }

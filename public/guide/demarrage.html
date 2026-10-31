@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" href="../onco360-icone.png">
+<title>Onco360 – Guide de démarrage</title>
+<!-- Page produite par outils/guide-html.py depuis guide/demarrage.md : modifier le .md, puis relancer le script -->
+<style>
+:root{--n:#3563B0}*{box-sizing:border-box}
+body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#F5F7FB;color:#262838;font-size:15px;line-height:1.6}
+main{max-width:900px;margin:24px auto;padding:0 16px 40px}
+.card{background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+h1{font-size:24px;color:#1D3F94;margin:0 0 8px}h2{font-size:19px;color:var(--n);margin:30px 0 10px;padding-top:10px;border-top:1px solid #E3E7F0}
+li{margin:6px 0}img{max-width:100%;height:auto;border:1px solid #E3E7F0;border-radius:10px;margin:10px 0;display:block}
+.imp{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:8px;border:1px solid var(--n);background:#fff;color:var(--n);font:inherit;font-weight:bold;cursor:pointer}
+@media print{body{background:#fff;font-size:12.5px}.card{box-shadow:none;padding:0}.imp{display:none}h2.saut{break-before:page;border:0}h2.saut:first-of-type{break-before:auto}img{max-height:9cm;width:auto}}
+@media (max-width:600px){.card{padding:16px}}
+</style></head>
+<body><main><div class="card">
+<p><button type="button" class="imp" onclick="print()">Imprimer le guide</button></p>
+<h1>Onco360 – Guide de démarrage</h1>
+<p>Quatre pages : deux pour le médecin, deux pour la secrétaire. Les captures viennent d'un cabinet d'essai : tous les patients sont fictifs.
+Les guides détaillés de chaque module sont dans le même dossier (dossier patient, ordonnances, salle d'attente, tâches, bilan, en cas de problème).</p>
+<h2 class="saut">Médecin – page 1 : les réglages du premier jour</h2>
+<p>À faire une fois, dans cet ordre. Comptez trente minutes.</p>
+<ol>
+<li><strong>Se connecter.</strong> Adresse : celle donnée par l'éditeur. À la première connexion, lisez et acceptez les conditions générales d'utilisation (case à cocher, puis « Continuer »). Sur un ordinateur partagé, cochez « Poste partagé » avant de vous connecter : la session se ferme avec le navigateur.</li>
+<li><strong>Mon compte</strong> (vos initiales, en haut à droite › Mon compte) : nom, INPE, spécialité, photo. Ces informations sont imprimées sur les ordonnances et les reçus.</li>
+<li><strong>Paramètres</strong> (la roue en haut à droite) › Cabinet › <strong>Lieux d'exercice</strong> : chaque établissement où vous consultez (nom, adresse, téléphone, mode de paiement habituel).</li>
+<li>Paramètres › Finances › <strong>Activités et rémunérations</strong> : le prix de chaque type de consultation, de la séance de chimiothérapie, de la radiothérapie, par lieu.</li>
+<li>Paramètres › Agenda et rappels › <strong>Horaires</strong> : vos jours et heures de consultation ; <strong>Congés et jours fériés</strong>.</li>
+<li>Paramètres › Cabinet › <strong>Impression</strong> : marges des ordonnances (A5 ou A4) ; imprimez une ordonnance d'essai et ajustez.</li>
+<li>Mon compte › <strong>Accès</strong> : créez le compte de votre secrétaire (nom, adresse e-mail, rôle). Elle reçoit un e-mail pour choisir son mot de passe ; vous pouvez aussi lui envoyer le lien vous-même par WhatsApp.</li>
+<li>Paramètres › Agenda et rappels › <strong>Google Agenda</strong> (facultatif) : « Lier mon Google Agenda ». Vos rendez-vous y apparaissent dans un agenda « Onco360 ».</li>
+<li>Paramètres › Cabinet › <strong>Export des données</strong> : activez l'export automatique de la semaine et reliez le Google Drive du cabinet. Une copie complète part chaque dimanche.</li>
+<li><strong>Reprendre vos patients d'un autre logiciel</strong> (facultatif) : même page, « Importer des patients (fichier Excel) ». Téléchargez le modèle, remplissez-le (une ligne par patient), choisissez le fichier : chaque ligne est montrée (prête, doublon, erreur) avant tout import. Le numéro de dossier de l'ancien logiciel est gardé.</li>
+</ol>
+<p><img alt="Paramètres" src="images/parametres.jpg" /></p>
+<p><img alt="Import des patients" src="images/import-patients.jpg" /></p>
+<h2 class="saut">Médecin – page 2 : la journée</h2>
+<ol>
+<li><strong>Tableau de bord</strong> : la journée (consultations, chimiothérapies, radiothérapies), ce qui attend votre validation, les sept prochains jours.</li>
+<li><strong>Ouvrir un dossier</strong> : tapez le nom, la date de naissance ou le numéro dans la recherche en haut.</li>
+<li><strong>Consultation</strong> : onglet Consultation › « Nouvelle consultation ». En bas du dossier, la barre des prescriptions : Médic., Ordo. type, Analyses, Examens, Courriers, Doc., F. soins (feuille de soins), + RCP, + RDV, + Tâche.</li>
+<li><strong>Chimiothérapie</strong> : onglet Chimiothérapie › nouvelle ligne (protocole de la bibliothèque) ; chaque séance se valide d'un clic, avec le bilan du jour. Les avertissements ne bloquent jamais : vous décidez.</li>
+<li><strong>Radiothérapie</strong> : onglet Radiothérapie › prescription, puis les étapes (scanner, contourage, dosimétrie, première séance, fin). Le menu « Radiothérapie » donne le référentiel (schémas, contraintes de dose).</li>
+<li><strong>Patient venu</strong> : dans l'agenda ou la salle d'attente, « Valider » = venu ; la fenêtre « Nouveau reçu » propose le prix du lieu, une remise éventuelle en dirhams et le mode de paiement.</li>
+<li><strong>Bilan</strong> (menu) : ce qui est dû, payé, à encaisser, par lieu et par période.</li>
+</ol>
+<p><img alt="Tableau de bord" src="images/tableau-de-bord.jpg" /></p>
+<p><img alt="Dossier patient" src="images/dossier.jpg" /></p>
+<p>Les contenus de référence (protocoles, référentiel de radiothérapie, outils cliniques) sont indicatifs : vérifiez avant toute prescription.</p>
+<h2 class="saut">Secrétaire – page 1 : rendez-vous et accueil</h2>
+<ol>
+<li><strong>Se connecter</strong> avec l'adresse donnée par le médecin et le mot de passe choisi depuis l'e-mail reçu. Acceptez les conditions générales à la première connexion. Ordinateur partagé : cochez « Poste partagé ».</li>
+<li><strong>Nouveau rendez-vous</strong> : bouton « + Rendez-vous » du tableau de bord ou de l'agenda ; choisissez le patient (ou créez-le), le type, le jour et l'heure. Les créneaux déjà pris sont signalés.</li>
+<li><strong>Déplacer un rendez-vous</strong> : dans l'agenda, faites-le glisser vers un autre créneau, ou ouvrez-le › Modifier.</li>
+<li><strong>Rappels WhatsApp</strong> : le tableau de bord liste les rappels à envoyer ; le message est prêt (français et arabe), vous l'envoyez depuis votre WhatsApp.</li>
+<li><strong>Salle d'attente</strong> (menu) : à l'arrivée du patient, « Mettre en salle » ; le médecin voit qu'il est arrivé. Après la consultation, « Valider » (venu) ou « Absent » (proposition de nouvelle date).</li>
+<li><strong>Encaisser</strong> : la fenêtre « Nouveau reçu » propose le prix ; choisissez le mode de paiement (espèces, carte, chèque, virement) et imprimez le reçu numéroté.</li>
+</ol>
+<p><img alt="Agenda" src="images/agenda.jpg" /></p>
+<p><img alt="Salle d'attente" src="images/salle-attente.jpg" /></p>
+<h2 class="saut">Secrétaire – page 2 : dossiers, documents et tâches</h2>
+<ol>
+<li><strong>Nouveau patient</strong> : bouton « + Patient » ; identité, contact, mutuelle et numéro d'immatriculation. Le numéro de dossier est attribué tout seul.</li>
+<li><strong>Déposer un document</strong> (compte rendu, résultat, imagerie) : menu Documents, ou onglet Documents du dossier ; tout est converti en PDF.</li>
+<li><strong>Tâches</strong> (menu) : ce que le médecin vous confie, avec une échéance ; cochez « Fait » une fois terminé, ajoutez un commentaire si besoin.</li>
+<li><strong>RCP</strong> : Tâches › onglet RCP : les patients inscrits à la prochaine réunion.</li>
+<li><strong>Feuille de soins</strong> : bouton « F. soins » du dossier : remplie avec la mutuelle du patient, à imprimer.</li>
+<li><strong>En cas de problème</strong> : notez l'heure et ce qui manque, ne ressaisissez rien, prévenez le médecin (Paramètres › Cabinet › Export des données › « En cas de problème »).</li>
+</ol>
+<p><img alt="Nouveau patient" src="images/nouveau-patient.jpg" /></p>
+<p>Questions : écrivez à l'éditeur d'Onco360 depuis Mon compte › Abonnement, ou par le contact donné à l'ouverture du cabinet.</p>
+</div></main></body></html>

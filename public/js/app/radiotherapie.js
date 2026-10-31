@@ -12,7 +12,9 @@ import { collection, doc, getDocs, setDoc, deleteDoc, runTransaction } from "htt
 import { db } from "../config.js";
 import { fusionner, trier, chercher, motBloquant, termes, sansAcc, resumePrescription, fmtPrescription, controlePrescription, nombre, calculBED, calculable, fixe, libPreuve, nb, TYPES, FRACTIONNEMENTS, CONTEXTES,
   contraintesSchema, regimeDe, baseEffective, cleOar, REGIMES, appliquerDelta, deltaDe, lignesCouverture } from "../moteur/rtref.js";
-import { idProtocole } from "./protocoles.js";
+import { idProtocole, AVERT_TXT } from "./protocoles.js";
+// RT.12 (31/10/2026) : même avertissement que les protocoles (8.3), en bas des schémas et des cartes
+const AVERT_RT = '<p class="avert-ind">' + AVERT_TXT + "</p>";
 
 let A = null, INDEX = null, CAB = null, LISTE = null, ERREUR = null, CHARGE = null, PROTOS = {};
 // Bibliothèques modifiées par le cabinet (25/10/2026) : referentielRT/_oar { oar: { id: { nom, nom_tg263, definition } }, ajouts: [OAR] } et
@@ -164,7 +166,7 @@ function dessinerListe() {
   // schémas de la référence supprimés par le cabinet : en bas de la liste générale, à rétablir
   const sup = accueil && peutModif() ? Object.keys(CAB).filter((id) => CAB[id] && CAB[id].supprime) : [];
   if (sup.length) h += '<details class="rtr-sup"><summary class="mesures">Schémas supprimés (' + sup.length + ")</summary><ul>" + sup.map((id) => "<li>" + esc(CAB[id].titre || id) + ' <span class="mesures">' + esc((loc(CAB[id].localisation_id) || {}).nom || "") + '</span> <button type="button" class="mini" onclick="rtrRetablir(\'' + esc(id) + '\')">Rétablir</button></li>').join("") + "</ul></details>";
-  z.innerHTML = h;
+  z.innerHTML = h + AVERT_RT;
 }
 function blocListe(titre, ids) {
   const L = ids.map((id) => LISTE.find((e) => e.id === id)).filter(Boolean);
@@ -192,12 +194,14 @@ window.rtrOnglet = (o) => { if (ED) { FICHE.onglet = o; dessinerFiche(); return;
 let ESSAIS = null, BB = null;
 // BB.oar et BB.base : référence + changements du cabinet ; BB.jeux = contraintes propres aux essais et à la curiethérapie ; BB.paires = droite et gauche
 const chargerBibs = () => BIBS || (BIBS = Promise.all(["oar.json", "contraintes.json", "essais.json"].map(json)).then(([o, c, e]) => { ESSAIS = {}; e.essais.forEach((x) => { ESSAIS[x.id] = x.acronyme; });
-  BB = { oarRef: o.oar, paires: o.paires || [], baseRef: c.base || [], jeux: c.essais || [], aideCol: c.aide || {}, aide: c.aide_colonnes, essais: e.essais }; appliquerCab(); return BB; }).catch((e) => { BIBS = null; throw e; }));
+  BB = { oarRef: o.oar, paires: o.paires || [], baseRef: c.base || [], jeuxRef: c.essais || [], aideCol: c.aide || {}, aide: c.aide_colonnes, essais: e.essais }; appliquerCab(); return BB; }).catch((e) => { BIBS = null; throw e; }));
 function appliquerCab() {
   if (!BB) return;
   const m = (CAB_OAR && CAB_OAR.oar) || {};
   BB.oar = BB.oarRef.map((o) => (m[o.id] ? Object.assign({}, o, m[o.id], { cabinet: true }) : o)).concat(((CAB_OAR && CAB_OAR.ajouts) || []).map((o) => Object.assign({ region: "divers" }, o, { cabinet: true, ajout: true })));
   BB.base = baseEffective(BB.baseRef, CAB_CT);
+  const jx = (CAB_CT && CAB_CT.jeux) || {}; // RT.5 : contraintes d'un essai ou de la curiethérapie modifiées par le cabinet
+  BB.jeux = BB.jeuxRef.map((j) => (Array.isArray(jx[j.id]) ? Object.assign({}, j, { lignes: jx[j.id], cabinet: true }) : j));
 }
 const acronymeDe = (id) => (ESSAIS && ESSAIS[id]) || id;
 async function ouvrirFiche(id, onglet) {
@@ -265,7 +269,7 @@ function dessinerLienProto() {
   const esc = A.esc, bib = bibProto(), L = Object.values(bib).filter((p) => p && p.nom).sort((a, b) => sansAcc(a.nom).localeCompare(sansAcc(b.nom)));
   A.fenetre("<h3>Protocole lié</h3><p class=\"mesures\">" + esc(LP.nom) + '</p><ul class="rtr-sys rtr-lp">' + (LP.ids.length ? LP.ids.map((id, k) => "<li>" + esc((bib[id] || {}).nom || id) + ' <button type="button" class="mini" onclick="rtrLpRet(' + k + ')" aria-label="Retirer">' + A.ic("croix") + "</button></li>").join("") : '<li class="mesures">Aucun : la page Protocoles s\'ouvrira filtrée sur la localisation</li>') + "</ul>" +
     '<label class="rtr-lab">Ajouter un protocole de la bibliothèque<input id="rtrLpQ" class="rtr-in" list="rtrLpL" placeholder="Nom du protocole" onchange="rtrLpAj(this.value)"></label><datalist id="rtrLpL">' + L.map((p) => '<option value="' + esc(p.nom) + '">').join("") + "</datalist>" +
-    '<div class="actr">' + (CAB_PR && CAB_PR.liens && CAB_PR.liens[LP.nom] ? '<button class="bt rouge" onclick="rtrLpOk(1)">Revenir au lien de la référence</button>' : "") + '<button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" onclick="rtrLpOk()">' + A.ic("enregistrer") + "Enregistrer pour le cabinet</button></div>");
+    '<div class="actr">' + (CAB_PR && CAB_PR.liens && CAB_PR.liens[LP.nom] ? '<button class="bt rouge" onclick="rtrLpOk(1)">Revenir au lien de la référence</button>' : "") + '<button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" onclick="rtrLpOk()">' + A.ic("enregistrer") + "Enregistrer</button></div>");
 }
 window.rtrLpRet = (k) => { LP.ids.splice(k, 1); dessinerLienProto(); };
 window.rtrLpAj = (v) => { const p = Object.values(bibProto()).find((x) => x && x.nom === v); if (p && LP.ids.indexOf(p.id) < 0) LP.ids.push(p.id); dessinerLienProto(); };
@@ -280,7 +284,7 @@ window.rtrLpOk = async (revenir) => {
       tx.set(ref, c); return c;
     });
   } catch (e) { console.warn("lien vers Protocoles", e); A.toast("Pas de connexion : réessayez"); return; }
-  LP = null; A.fermerFenetre(); A.toast(revenir ? "Lien de la référence rétabli" : "Enregistré pour le cabinet"); if (FICHE) dessinerFiche();
+  LP = null; A.fermerFenetre(); A.toast(revenir ? "Lien de la référence rétabli" : "Enregistré"); if (FICHE) dessinerFiche();
 };
 
 // Prescription
@@ -296,8 +300,9 @@ function lignesSyst(rows, champ) {
   const L = rows.filter((x) => !x.situation_id || x.situation_id === s.situation_id); if (!L.length) return "";
   // situation écrite seulement si ce n'est pas celle du schéma (nom de la situation, jamais son identifiant)
   const lib = (x) => { const id = x.situation_id || x.situation, st = sit(id); if (id === s.situation_id) return ""; return st ? st.titre : x.situation || ""; };
-  return '<ul class="rtr-sys">' + L.map((x) => "<li>" + (lib(x) ? '<span class="mesures">' + esc(lib(x)) + " :</span> " : "") + court(x[champ] || x.protocole || "", 140) + (x.protocole ? " " + lienProtocole(x.protocole, true) : "") +
-    (x.essai_ids && x.essai_ids.length ? ' <span class="mesures">(' + esc(acronymes(x.essai_ids)) + ")</span>" : "") + (x.note ? '<div class="mesures">' + court(x.note) + "</div>" : "") + "</li>").join("") + "</ul>";
+  // RT.6 (31/10/2026) : une ligne du petit tableau « Traitement systémique » (situation, traitement, essais)
+  return L.map((x) => '<tr><td data-l="Situation">' + (lib(x) ? esc(lib(x)) : '<span class="mesures">Ce schéma</span>') + '</td><td data-l="Traitement">' + court(x[champ] || x.protocole || "", 140) + (x.protocole ? " " + lienProtocole(x.protocole, true) : "") +
+    (x.note ? '<div class="mesures">' + court(x.note) + "</div>" : "") + '</td><td data-l="Essais">' + (x.essai_ids && x.essai_ids.length ? esc(acronymes(x.essai_ids)) : '<span class="mesures">—</span>') + "</td></tr>").join("");
 }
 function ongletPrescription() {
   const esc = A.esc, s = FICHE.schema, P = s.prescriptions || [], L = FICHE.loc, curie = /curie/.test(s.type || "");
@@ -306,11 +311,12 @@ function ongletPrescription() {
   const c = (p) => CURIE.test(p.volume || ""), nc = P.filter(c).length;
   if (s.type === "rte_plus_curie" && nc && nc < P.length) h += "<h4>Radiothérapie externe</h4>" + tablePrescription(P.filter((p) => !c(p))) + "<h4>Curiethérapie</h4>" + tablePrescription(P.filter(c));
   else h += tablePrescription(P);
-  if (s.technique) h += '<p class="rtr-l2"><span class="mesures">Technique</span> ' + court(s.technique, 160) + "</p>";
+  // RT.6 (31/10/2026) : Technique et Traitement systémique chacun dans son petit tableau
+  if (s.technique) h += '<div class="rtr-tw rtr-petit"><table class="rtr-tab"><thead><tr><th>Technique</th></tr></thead><tbody><tr><td data-l="Technique">' + court(s.technique, 160) + "</td></tr></tbody></table></div>";
   // une seule liste : la précision du schéma (sauf un simple renvoi « Voir … ») puis les traitements de la localisation ; rien : « Aucun »
-  const propre = s.systemique && !/^\s*voir\b/i.test(s.systemique) ? '<ul class="rtr-sys"><li>' + court(s.systemique) + "</li></ul>" : "";
+  const propre = s.systemique && !/^\s*voir\b/i.test(s.systemique) ? '<tr><td data-l="Situation"><span class="mesures">Ce schéma</span></td><td data-l="Traitement">' + court(s.systemique) + '</td><td data-l="Essais"><span class="mesures">—</span></td></tr>' : "";
   const sys = propre + lignesSyst(L.systemique || [], "traitement") + lignesSyst(L.hormonotherapie || [], "hormonotherapie");
-  h += "<h4>Traitement systémique</h4>" + (sys || '<p class="mesures">Aucun</p>');
+  h += "<h4>Traitement systémique</h4>" + (sys ? '<div class="rtr-tw rtr-petit"><table class="rtr-tab rtr-syst"><thead><tr><th>Situation</th><th>Traitement</th><th>Essais</th></tr></thead><tbody>' + sys + "</tbody></table></div>" : '<p class="mesures">Aucun</p>');
   if (curie && (L.curie_indications || []).length) h += "<h4>Curiethérapie : indications</h4><ul class=\"rtr-sys\">" + L.curie_indications.map((x) => "<li><b>" + esc(x.indication || "") + "</b> · " + esc(x.modalite || "") + (x.niveau_preuve ? ' <span class="mesures">(' + esc(x.niveau_preuve) + ")</span>" : "") + (x.note ? '<div class="mesures">' + court(x.note) + "</div>" : "") + "</li>").join("") + "</ul>" + textes("curietherapie");
   if (FICHE.cab && FICHE.cab.note) h += "<h4>Note du médecin</h4><p>" + esc(FICHE.cab.note) + "</p>";
   return h;
@@ -320,7 +326,9 @@ const SIM = [["position", "Position"], ["contention", "Contention"], ["preparati
 const simDe = () => FICHE.schema.simulation || (FICHE.loc.simulations || []).find((x) => x.id === FICHE.schema.simulation_id);
 function ongletCentrage() {
   const m = simDe(); if (!m) return '<p class="vide-c">Pas de fiche de centrage du service pour cette localisation</p>' + textes("centrage");
-  return '<dl class="rtr-dl">' + SIM.filter(([k]) => m[k]).map(([k, lib]) => "<dt>" + lib + "</dt><dd>" + court(m[k], 220) + "</dd>").join("") + (m.autres || []).filter((x) => x.lib || x.val).map((x) => "<dt>" + court(x.lib) + "</dt><dd>" + court(x.val) + "</dd>").join("") + "</dl>" + textes("centrage");
+  // RT.8 (31/10/2026) : tableau soigné (rubrique, consigne)
+  const R = SIM.filter(([k]) => m[k]).map(([k, lib]) => [lib, court(m[k], 220)]).concat((m.autres || []).filter((x) => x.lib || x.val).map((x) => [court(x.lib), court(x.val)]));
+  return '<div class="rtr-tw"><table class="rtr-tab rtr-cent"><thead><tr><th>Étape</th><th>Consigne</th></tr></thead><tbody>' + R.map(([l, v]) => '<tr><th scope="row" data-l="Étape">' + l + '</th><td data-l="Consigne">' + v + "</td></tr>").join("") + "</tbody></table></div>" + textes("centrage");
 }
 // Contourage
 const volDe = () => FICHE.schema.volumes || (FICHE.loc.volumes || []).find((x) => x.id === FICHE.schema.volumes_id);
@@ -374,7 +382,8 @@ function renvoiCalcule(g) {
 }
 const renvoiDe = (g, s = FICHE.schema) => (s.renvois && g.cle in s.renvois ? s.renvois[g.cle] : renvoiCalcule(g));
 const COLS = '<colgroup><col class="rtr-c1"><col class="rtr-c2"><col class="rtr-c3"><col class="rtr-c3"><col class="rtr-c5"></colgroup>';
-const thAide = (lib, k) => '<th class="n">' + lib + (IMPRESSION ? "" : ' <button type="button" class="rtr-q" aria-label="Aide : ' + lib + '" onclick="rtrAideCt(\'' + k + '\')">?</button>') + "</th>";
+// 31/10/2026 (lot RT, règle 1.8) : « ? » en bulle au survol (classe q-aide de v2.js), plus d'explication sous le tableau
+const thAide = (lib, k) => '<th class="n">' + lib + (IMPRESSION ? "" : ' <button type="button" class="q-aide rtr-q" aria-label="Aide : ' + lib + '" data-txt="' + A.esc(lib + " : " + ((BB && BB.aideCol && BB.aideCol[k]) || "")) + '">?</button>') + "</th>";
 const tete2 = (premier) => "<thead><tr><th>" + premier + "</th><th>Indicateur</th>" + thAide("Idéal", "ideal") + thAide("Limitant", "limitant") + "<th>Note</th></tr></thead>";
 window.rtrAideCt = (k) => { const a = BB.aideCol || {}, z = $("rtrAideCt"); if (!z) return; const t = (k === "ideal" ? "Idéal : " + (a.ideal || "") : "Limitant : " + (a.limitant || "")); z.hidden = !z.hidden && z.textContent === t; z.textContent = t; };
 function tableCouv(C) {
@@ -398,7 +407,7 @@ function ongletContraintes() {
   let h = '<div class="rtr-jt"><h4>Objectifs de couverture</h4>' + (IMPRESSION ? "" : '<button type="button" class="mini rtr-cp" onclick="rtrCopierCt()">' + A.ic("copier") + "Copier</button>") + "</div>" +
     (C.length ? tableCouv(C) : '<p class="vide-c">Pas d\'objectif de couverture pour ce schéma</p>') + "<h4>Organes à risque</h4>" +
     (G.length ? tableContraintes(G) : '<p class="vide-c">Aucun organe à risque contouré pour ce schéma</p>');
-  return h + '<p class="mesures rtr-aideq" id="rtrAideCt" hidden></p>';
+  return h;
 }
 window.rtrCopierCt = () => {
   if (!FICHE) return;
@@ -429,7 +438,8 @@ function ongletEssais() {
 window.rtrCopierRef = (id) => { const x = essai(id); if (x) copier([x.acronyme, x.revue, x.annee, x.pmid ? "PMID " + x.pmid : ""].filter(Boolean).join(", "), "Référence copiée"); };
 // Points d'attention : ceux du schéma et ceux de toute la localisation, sans doublon
 function pointsDe() { const p = (FICHE.schema.points_attention || []).slice(); (FICHE.loc.points_attention || []).forEach((x) => { if (x.portee === "localisation" && p.indexOf(x.point) < 0) p.push(x.point); }); return p; }
-const ongletAttention = () => { const p = pointsDe(); return p.length ? '<ul class="rtr-pts">' + p.map((x) => "<li>" + md(x) + "</li>").join("") + "</ul>" : '<p class="vide-c">Pas de point d\'attention pour ce schéma</p>'; };
+// RT.9 (31/10/2026) : un point par ligne, aéré, numéroté
+const ongletAttention = () => { const p = pointsDe(); return p.length ? '<ol class="rtr-pts rtr-pts2">' + p.map((x) => "<li>" + md(x) + "</li>").join("") + "</ol>" : '<p class="vide-c">Pas de point d\'attention pour ce schéma</p>'; };
 const RENDUS = { prescription: ongletPrescription, centrage: ongletCentrage, contourage: ongletContourage, contraintes: ongletContraintes, essais: ongletEssais, attention: ongletAttention };
 function nombres() { return { prescription: (FICHE.schema.prescriptions || []).length, centrage: simDe() ? 1 : 0, contourage: volDe() ? 1 : 0, contraintes: lignesFiche().reduce((n, g) => n + g.lignes.length, 0), essais: (FICHE.schema.essai_ids || []).length, attention: pointsDe().length }; }
 // « Pratique institutionnelle » n'est plus affichée (demande du 26/10/2026) ; la preuve sert encore à l'ordre des schémas
@@ -440,19 +450,19 @@ function enteteHtml() {
   return '<div class="rtr-ft"><button class="mini rtr-ret" onclick="rtrRetour()">' + A.ic("retour") + "Retour à la liste</button>" +
     '<div class="rtr-ar" role="navigation" aria-label="Fil d\'Ariane"><a href="#radiotherapie" onclick="rtrSommaire(\'' + r.id + "','');return true\">" + esc(r.nom || "") + '</a> › <a href="#radiotherapie" onclick="rtrSommaire(\'' + r.id + "','" + l.id + "');return true\">" + esc(l.nom || "") + "</a> › <span>" + esc(s.titre || "") + "</span></div>" +
     (ED ? '<div class="rtr-t rtr-ted"><label class="rtr-lab">Titre du schéma' + inp("titre", ED.schema.titre, "Titre du schéma") + "</label>" + err("titre") + "</div>" : '<div class="rtr-t"><h2>' + esc(e.titre) + '</h2><div class="rtr-act">' + etoile + actions() + "</div></div>") +
-    '<div class="rtr-res">' + esc(resumePrescription(schema)) + ' <span class="badge b-ch"><svg class="pi"><use href="#i-check"/></svg>Validé</span>' + (preuveVue(schema.preuve || e.preuve) ? ' <span class="badge b-gr">' + esc(preuveVue(schema.preuve || e.preuve)) + "</span>" : "") + (schema.date_verif ? ' <span class="mesures">Vérifié le ' + esc(dfr(schema.date_verif)) + "</span>" : "") + "</div>" +
+    '<div class="rtr-res">' + esc(resumePrescription(schema)) + ' <span class="badge b-ch"><svg class="pi"><use href="#i-check"/></svg>Validé</span>' + (preuveVue(schema.preuve || e.preuve) ? ' <span class="badge b-gr">' + esc(preuveVue(schema.preuve || e.preuve)) + "</span>" : "") + "" + "</div>" +
     (e.modifie && !ED ? '<p class="mesures rtr-mod"><span class="badge b-or">Modifié</span>' + (e.cab && e.cab.majParNom ? " · par " + esc(e.cab.majParNom) + (e.cab.majLe ? " le " + esc(dfr(String(e.cab.majLe).slice(0, 10))) : "") : "") +
       (e.nouveau ? "" : e.refChangee ? ' · La référence a changé depuis · <a href="#" class="rtr-lien" onclick="rtrComparer();return false">Voir la comparaison</a>' : ' · <a href="#" class="rtr-lien" onclick="rtrComparer();return false">Voir la référence</a>') + "</p>" : "") + "</div>";
 }
-// Actions de la fiche (26/10/2026) : étoile, Imprimer, puis « ⋯ » : Modifier, Dupliquer, Copier, Voir la référence, Revenir à la référence,
-// Supprimer (en rouge, en dernier) ; sous 900 px, Imprimer passe aussi dans « ⋯ »
+// Actions de la fiche (RT.7, 31/10/2026) : étoile, « Modifier », puis « ⋯ » : Imprimer, Dupliquer, Copier, Voir la référence, Revenir à la référence,
+// Supprimer (en rouge, en dernier) ; sans le droit de modifier : étoile, Imprimer, « ⋯ » (Copier) ; tous de la même hauteur, alignés
 function actions() {
   const mod = peutModif(), c = FICHE.cab, ic = A.ic, fm = "this.closest('details').open=false;";
   const b = (f, i, t, rouge) => '<button class="mini' + (rouge ? " rouge-t" : "") + '" onclick="' + fm + f + '">' + ic(i) + t + "</button>";
-  const menu = '<button class="mini rtr-tel" onclick="' + fm + 'rtrImprimer()">' + ic("imprimer") + "Imprimer</button>" + (mod ? b("rtrModifier()", "crayon", "Modifier") + b("rtrDupliquer()", "copier", "Dupliquer") : "") + b("rtrCopierFiche()", "copier", "Copier") +
+  const menu = (mod ? b("rtrImprimer()", "imprimer", "Imprimer") + b("rtrDupliquer()", "copier", "Dupliquer") : '<button class="mini rtr-tel" onclick="' + fm + 'rtrImprimer()">' + ic("imprimer") + "Imprimer</button>") + b("rtrCopierFiche()", "copier", "Copier") +
     (c && c.schema && !c.nouveau ? b("rtrComparer()", "liste", "Voir la référence") + (mod ? b("rtrRevenir()", "retour", "Revenir à la référence") : "") : "") + (mod ? b("rtrSupprimer()", "corbeille", "Supprimer", true) : "");
-  return '<button class="bt clair petit rtr-imp" onclick="rtrImprimer()">' + ic("imprimer") + "Imprimer</button>" +
-    '<details class="m3 rtr-pts3"><summary class="mini" title="Autres actions" aria-label="Autres actions">⋯</summary><div class="m3-l">' + menu + "</div></details>";
+  return (mod ? '<button class="bt clair petit rtr-modb" onclick="rtrModifier()">' + ic("crayon") + "Modifier</button>" : '<button class="bt clair petit rtr-imp" onclick="rtrImprimer()">' + ic("imprimer") + "Imprimer</button>") +
+    '<details class="m3 rtr-pts3"><summary class="bt clair petit" title="Autres actions" aria-label="Autres actions">⋯</summary><div class="m3-l">' + menu + "</div></details>";
 }
 // Copier : la fiche en texte (prescription, volumes, objectifs de couverture et contraintes), à coller dans un dossier ou un logiciel de planification
 window.rtrCopierFiche = () => {
@@ -486,9 +496,9 @@ window.rtrRetablir = async (id) => {
 function dessinerFiche() {
   const z = $("rtrFiche"); if (!z || !FICHE) return;
   const n = nombres(), o = FICHE.onglet, R = ED ? EDITS : RENDUS;
-  z.innerHTML = enteteHtml() + '<div class="ag-vues defile rtr-ong" role="tablist">' + ONGLETS.map(([k, lib]) => '<button role="tab" aria-selected="' + (k === o) + '" class="' + (k === o ? "on" : "") + (n[k] ? "" : " vide") + '" onclick="rtrOnglet(\'' + k + "')\">" + lib + (n[k] && ["contraintes", "essais", "attention"].indexOf(k) >= 0 ? ' <span class="n">' + n[k] + "</span>" : "") + "</button>").join("") + "</div>" +
-    '<div class="rtr-oc" role="tabpanel">' + R[o]() + "</div>" +
-    (ED ? '<div class="barre-enr rtr-barre"><button class="bt gris" onclick="rtrAnnulerEd()">Annuler</button><span class="mesures" id="rtrBmsg" aria-live="polite"></span><button class="bt plein" id="rtrEnr" onclick="rtrEnregistrer()">' + A.ic("enregistrer") + "Enregistrer pour le cabinet</button></div>" : "");
+  z.innerHTML = enteteHtml() + '<div class="ag-vues defile rtr-ong" role="tablist">' + ONGLETS.map(([k, lib]) => '<button role="tab" aria-selected="' + (k === o) + '" class="' + (k === o ? "on" : "") + (n[k] ? "" : " vide") + '" onclick="rtrOnglet(\'' + k + "')\">" + lib + (n[k] && ["contraintes", "essais", "attention"].indexOf(k) >= 0 ? ' <span class="n rtr-pas" aria-label="' + n[k] + '">' + n[k] + "</span>" : "") + "</button>").join("") + "</div>" +
+    '<div class="rtr-oc" role="tabpanel">' + R[o]() + "</div>" + (ED ? "" : AVERT_RT) +
+    (ED ? '<div class="barre-enr rtr-barre"><button class="bt gris" onclick="rtrAnnulerEd()">Annuler</button><span class="mesures" id="rtrBmsg" aria-live="polite"></span><button class="bt plein" id="rtrEnr" onclick="rtrEnregistrer()">' + A.ic("enregistrer") + "Enregistrer</button></div>" : "");
   const on = z.querySelector(".rtr-ong .on"); if (on && on.scrollIntoView) on.scrollIntoView({ block: "nearest", inline: "nearest" });
   if (ED) { majEtat(); if (ED.choisir) { ED.choisir = false; const t = z.querySelector('[data-p="titre"]'); if (t) { t.focus(); t.select(); } } }
 }
@@ -521,7 +531,7 @@ const CSS_IMP = "@page{size:A4 portrait;margin:14mm 12mm}body{font-family:Arial,
   "details>summary{list-style:none}footer{margin-top:16px;border-top:1px solid #999;padding-top:4px;font-size:8.5pt;color:#555}";
 
 // ───── Modification pour le cabinet (RT5, 25/10/2026 ; médecin avec le droit referentielRT « modifier ») ─────
-// Sur place : même en-tête, mêmes onglets, des champs à la place des valeurs ; barre du bas « Annuler » · « Enregistrer pour le cabinet » (nombre
+// Sur place : même en-tête, mêmes onglets, des champs à la place des valeurs ; barre du bas « Annuler » · « Enregistrer » (nombre
 // de changements) ; champ changé sur fond --prim-c ; contrôles sous le champ, pendant la saisie (dose par séance = dose / séances à 0,01 Gy près,
 // nombres > 0, titre) ; quitter avec des changements : « Quitter sans enregistrer ? » (garde de v2.js) ; enregistrement en transaction : fiche
 // changée par un collègue entre-temps = rien n'est écrasé, fiche rechargée. Ce que l'on modifie : le schéma (forme de la référence) ; centrage,
@@ -634,7 +644,7 @@ window.rtrEnregistrer = async () => {
     rafraichir(); finEdition(); A.toast("Fiche modifiée par un collègue entre-temps : rien n'a été écrasé, elle est rechargée."); FICHE = null;
     if (!neuf) ouvrirFiche(id, ongletDe(profil().rtOnglet)); return;
   }
-  CAB[id] = d; rafraichir(); const o = FICHE ? FICHE.onglet : "prescription"; finEdition(); FICHE = null; A.toast("Enregistré pour le cabinet");
+  CAB[id] = d; rafraichir(); const o = FICHE ? FICHE.onglet : "prescription"; finEdition(); FICHE = null; A.toast("Enregistré");
   const zf = $("rtrFiche"); if (zf) zf.scrollTop = 0; window.scrollTo(0, 0); // retour en haut : la ligne « Modifié pour le cabinet »
   if (neuf) location.hash = "radiotherapie/s/" + encodeURIComponent(id) + "/" + o; else ouvrirFiche(id, o);
 };
@@ -676,7 +686,7 @@ window.rtrNouveau = () => {
   if (!peutModif() || !LISTE) return;
   const esc = A.esc, locId = RF.loc || INDEX.localisations[0].id;
   const optsSit = (l) => INDEX.situations.filter((s) => s.localisation_id === l).map((s) => '<option value="' + esc(s.id) + '"' + (s.id === RF.sit ? " selected" : "") + ">" + esc(s.titre) + "</option>").join("");
-  A.fenetre('<h3>Nouveau schéma du cabinet</h3><div class="form" style="grid-template-columns:1fr"><div><label for="rtrNL">Localisation</label><select id="rtrNL" onchange="document.getElementById(\'rtrNS\').innerHTML=rtrSits(this.value)">' +
+  A.fenetre('<h3>Nouveau schéma du cabinet</h3><div class="form rtr-nvf" style="grid-template-columns:1fr"><div><label for="rtrNL">Localisation</label><select id="rtrNL" onchange="document.getElementById(\'rtrNS\').innerHTML=rtrSits(this.value)">' +
     INDEX.regions.map((r) => '<optgroup label="' + esc(r.nom) + '">' + INDEX.localisations.filter((l) => l.region_id === r.id).map((l) => '<option value="' + l.id + '"' + (l.id === locId ? " selected" : "") + ">" + esc(l.nom) + "</option>").join("") + "</optgroup>").join("") +
     '</select></div><div><label for="rtrNS">Situation</label><select id="rtrNS">' + optsSit(locId) + '</select></div><div><label for="rtrNT">Fractionnement</label><select id="rtrNT">' + Object.keys(TYPES).map((k) => '<option value="' + k + '"' + (TYPES[k] === RF.frac ? " selected" : "") + ">" + esc(TYPES[k] + (/^curie_/.test(k) ? " " + k.slice(6).toUpperCase() : "")) + "</option>").join("") +
     '</select></div></div><div class="actr"><button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" onclick="rtrNouveauOk()">Créer le schéma</button></div>');
@@ -733,6 +743,8 @@ window.rtrVolOar = (id, ajout) => { if (!ED || !id) return; const V = matVol(); 
 window.rtrCt = (i) => { if (!ED) return; const C = matCtl(); if (i == null) C.push({ id: "cl-" + Date.now().toString(36) + C.length, oar_id: (C[C.length - 1] || {}).oar_id || "", indicateur: "", ideal: "", limitant: "", note: "" }); else C.splice(i, 1); syncCt(); dessinerFiche(); };
 window.rtrCv = (i) => { if (!ED) return; const C = matCv(); if (i == null) C.push({ volume: (C[C.length - 1] || {}).volume || "PTV", indicateur: "", ideal: "", limitant: "", note: "" }); else C.splice(i, 1); dessinerFiche(); };
 window.rtrRv = (k) => { if (!ED || !k) return; poserRenvoi(k, ""); ED.schema.renvois = Object.assign(ED.schema.renvois || {}, { [k]: ED.schema.renvois && ED.schema.renvois[k] != null ? ED.schema.renvois[k] : " " }); dessinerFiche(); };
+window.rtrRvSup = (k) => { if (!ED || !k) return; const r = ED.schema.renvois = ED.schema.renvois || {}; const g = contraintesCalculees(Object.assign({}, ED.schema, { ct: null })).find((x) => x.cle === k) || { cle: k };
+  if (renvoiCalcule(g)) r[k] = ""; else delete r[k]; if (!Object.keys(r).length) delete ED.schema.renvois; dessinerFiche(); };
 window.rtrCtBase = () => { if (!ED) return; ["contraintes", "ct", "renvois", "couverture_lignes", "couvCab"].forEach((k) => { delete ED.schema[k]; }); const r = (ED.orig || {}).couverture_lignes; if (r && !ED.orig.couvCab) ED.schema.couverture_lignes = clone(r); ED.ctl = null; dessinerFiche(); };
 function editCentrage() {
   const m = ED.schema.simulation || simDe() || {}, autres = m.autres || [];
@@ -754,7 +766,7 @@ function editContourage() {
 function editContraintes() {
   const esc = A.esc, cab = !!(ED.schema.ct || ED.schema.contraintes || ED.schema.renvois || ED.schema.couvCab), C = ED.schema.couvCab ? ED.schema.couverture_lignes : couvLignes(ED.schema), L = ED.ctl || matCtl();
   const choix = tri(BB.paires.map((p) => [p.id, p.nom]).concat(BB.oar.filter((o) => !o.paire).map((o) => [o.id, o.nom])));
-  const G = lignesFiche(ED.schema), avecRv = G.filter((g) => renvoiDe(g, ED.schema) || (ED.schema.renvois && g.cle in ED.schema.renvois));
+  const G = lignesFiche(ED.schema), avecRv = G.filter((g) => String(renvoiDe(g, ED.schema) || "").trim() || (ED.schema.renvois && ED.schema.renvois[g.cle] === " "));
   const x = (i) => '<td><button type="button" class="mini" onclick="' + i + '" aria-label="Retirer cette ligne">' + A.ic("croix") + "</button></td>";
   return (cab ? '<p class="mesures">Modifié pour ce schéma · <a href="#" class="rtr-lien" onclick="rtrCtBase();return false">Revenir aux contraintes de la base</a></p>' : "") +
     "<h4>Objectifs de couverture</h4>" + '<div class="rtr-tw"><table class="rtr-tab rtr-edt rtr-ctedit">' + COLS.replace("</colgroup>", '<col class="rtr-cx"></colgroup>') + "<thead><tr><th>Volume</th><th>Indicateur</th><th>Idéal</th><th>Limitant</th><th>Note</th><th></th></tr></thead><tbody>" +
@@ -765,12 +777,14 @@ function editContraintes() {
     L.map((l, i) => '<tr><td data-l="Organe">' + sel("ctl." + i + ".oar_id", l.oar_id, (choix.some(([k]) => k === l.oar_id) ? [] : [[l.oar_id, oar(l.oar_id).nom]]).concat(choix), "Organe") + '</td><td data-l="Indicateur">' + inp("ctl." + i + ".indicateur", l.indicateur, "Indicateur", { ph: "Dmax, V20Gy…" }) + "</td>" +
       '<td data-l="Idéal">' + inp("ctl." + i + ".ideal", l.ideal, "Idéal") + '</td><td data-l="Limitant">' + inp("ctl." + i + ".limitant", l.limitant, "Limitant") + '</td><td data-l="Note">' + inp("ctl." + i + ".note", l.note, "Note") + "</td>" + x("rtrCt(" + i + ")") + "</tr>").join("") +
     '</tbody></table></div><button type="button" class="mini rtr-aj" onclick="rtrCt()">' + A.ic("plus") + "Ajouter une contrainte</button>" +
-    "<h4>Remarques sous le tableau</h4>" + avecRv.map((g, i) => '<label class="rtr-lab">' + (i + 1) + ". " + esc(oar(g.cle).nom) + '<textarea class="rtr-in" data-p="rv.' + esc(g.cle) + '" rows="2">' + esc(renvoiDe(g, ED.schema).trim()) + "</textarea></label>").join("") +
-    '<label class="rtr-lab">Ajouter une remarque sur un organe<select class="rtr-in" onchange="rtrRv(this.value)"><option value="">Choisir l\'organe…</option>' + G.filter((g) => avecRv.indexOf(g) < 0).map((g) => '<option value="' + esc(g.cle) + '">' + esc(oar(g.cle).nom) + "</option>").join("") + "</select></label>";
+    // RT.11 (31/10/2026) : remarques numérotées modifiables, supprimées par l'icône de leur ligne, ajoutées sur n'importe quel organe du tableau
+    "<h4>Remarques sous le tableau</h4>" + (avecRv.length ? "" : '<p class="mesures">Aucune remarque.</p>') + avecRv.map((g, i) => '<div class="rtr-rve"><label class="rtr-lab">' + (i + 1) + ". " + esc(oar(g.cle).nom) + '<textarea class="rtr-in" data-p="rv.' + esc(g.cle) + '" rows="2">' + esc(String(renvoiDe(g, ED.schema) || "").trim()) + '</textarea></label><button type="button" class="rtr-sup" onclick="rtrRvSup(\'' + esc(g.cle) + '\')" aria-label="Supprimer la remarque ' + (i + 1) + '" title="Supprimer">' + A.ic("corbeille") + "</button></div>").join("") +
+    '<label class="rtr-lab">Ajouter une remarque sur un organe<select class="rtr-in" onchange="rtrRv(this.value)"><option value="">Choisir l\'organe…</option>' + tri(G.filter((g) => avecRv.indexOf(g) < 0).map((g) => [g.cle, oar(g.cle).nom])).map(([k, l]) => '<option value="' + esc(k) + '">' + esc(l) + "</option>").join("") + "</select></label>";
 }
 function editEssais() {
   const esc = A.esc, L = (ED.schema.essai_ids || []).map(essai).filter(Boolean);
-  return '<ul class="rtr-sys">' + L.map((x) => "<li><b>" + esc(x.acronyme) + '</b> <span class="mesures">' + esc([x.revue, x.annee].filter(Boolean).join(", ")) + '</span> <button type="button" class="mini" onclick="rtrRetEssai(\'' + esc(x.id) + '\')" aria-label="Retirer ' + esc(x.acronyme) + '">' + A.ic("croix") + "</button></li>").join("") + "</ul>" +
+  // RT.12 (31/10/2026) : suppression par une icône discrète, alignée à droite de la ligne
+  return '<ul class="rtr-sys rtr-ese">' + L.map((x) => '<li><span class="t"><b>' + esc(x.acronyme) + '</b> <span class="mesures">' + esc([x.revue, x.annee].filter(Boolean).join(", ")) + '</span></span><button type="button" class="rtr-sup" onclick="rtrRetEssai(\'' + esc(x.id) + '\')" aria-label="Retirer ' + esc(x.acronyme) + '" title="Retirer">' + A.ic("corbeille") + "</button></li>").join("") + "</ul>" +
     '<label class="rtr-lab">Ajouter un essai ou une référence de la bibliothèque<input id="rtrAjEssai" class="rtr-in" list="rtrEssaisL" placeholder="Acronyme (ex. CHHiP)"></label><datalist id="rtrEssaisL">' + BB.essais.map((x) => '<option value="' + esc(libEssai(x)) + '">').join("") + "</datalist>";
 }
 function editAttention() {
@@ -838,25 +852,22 @@ const oarsDe = (s, L) => (s.volumes || (L.volumes || []).find((x) => x.id === s.
 function listeOar() {
   const z = $("rtrOl"); if (!z) return;
   const esc = A.esc, q = sansAcc(RS.oarQ).trim(), L = BB.oar.filter((o) => (!RS.oarR || o.region === RS.oarR) && (!q || sansAcc(o.nom + " " + (o.nom_tg263 || "") + " " + (o.definition || "")).indexOf(q) >= 0));
+  // RT.2 / RT.3 (31/10/2026) : « + Ajouter un organe » décollé des cartes ; cartes de même hauteur, dépliées au clic (définition entière, « Modifier »),
+  // repliées au second clic ; plus de « Utilisé dans … »
   z.innerHTML = '<div class="rtr-ohaut"><p class="mesures rtr-nb">' + L.length + " organe" + (L.length > 1 ? "s" : "") + "</p>" + (peutModif() ? '<button type="button" class="mini" onclick="rtrOarForm(null)">' + A.ic("plus") + "Ajouter un organe</button>" : "") + "</div>" +
-    (L.length ? '<div class="rtr-tw"><table class="rtr-tab rtr-ot rtr-cartes"><thead><tr><th>Nom</th><th>TG-263</th><th>Définition</th></tr></thead><tbody>' +
-    L.map((o) => '<tr class="rtr-clic" tabindex="0" data-oar="' + esc(o.id) + '" onclick="rtrDetailOar(this,\'' + esc(o.id) + '\')" onkeydown="if(event.key===\'Enter\')this.click()"><td data-l="Nom"><b>' + esc(o.nom) + "</b>" + (o.cabinet ? ' <span class="badge b-or">Cabinet</span>' : "") + '</td><td data-l="TG-263">' + esc(o.nom_tg263 || "") + '</td><td data-l="Définition"><div class="rtr-def2">' + court(o.definition || "") + "</div></td></tr>").join("") + "</tbody></table></div>" : '<div class="vide-c">Aucun organe ne correspond</div>');
+    (L.length ? '<div class="rtr-tw"><table class="rtr-tab rtr-ot rtr-cartes rtr-cartes-h"><thead><tr><th>Nom</th><th>TG-263</th><th>Définition</th></tr></thead><tbody>' +
+    L.map((o) => '<tr class="rtr-clic" tabindex="0" aria-expanded="false" data-oar="' + esc(o.id) + '" onclick="rtrDetailOar(this,\'' + esc(o.id) + '\')" onkeydown="if(event.key===\'Enter\')this.click()"><td data-l="Nom"><b>' + esc(o.nom) + "</b>" + (o.cabinet ? ' <span class="badge b-or">Cabinet</span>' : "") + '</td><td data-l="TG-263">' + esc(o.nom_tg263 || "") + '</td><td data-l="Définition"><div class="rtr-def2">' + court(o.definition || "") + "</div></td>" +
+      (peutModif() ? '<td class="rtr-cda"><button type="button" class="mini" onclick="event.stopPropagation();rtrOarForm(\'' + esc(o.id) + '\')">' + A.ic("crayon") + "Modifier</button></td>" : "") + "</tr>").join("") + "</tbody></table></div>" : '<div class="vide-c">Aucun organe ne correspond</div>') + AVERT_RT;
 }
-window.rtrDetailOar = async (tr, id) => {
-  const n = tr.nextElementSibling; if (n && n.classList.contains("rtr-det")) { n.remove(); tr.classList.remove("ouv"); return; }
-  const esc = A.esc, d = document.createElement("tr"); d.className = "rtr-det"; tr.classList.add("ouv");
-  d.innerHTML = '<td colspan="3"><p class="mesures">Chargement…</p></td>'; tr.after(d);
-  try { await chargerTout(); } catch (e) { d.querySelector(".mesures").textContent = "Pas de connexion : réessayez"; return; }
-  const S2 = schemasComplets().filter(({ s, L }) => oarsDe(s, L).indexOf(id) >= 0);
-  d.querySelector("td").innerHTML = '<p class="mesures rtr-util">Utilisé dans ' + S2.length + " schéma" + (S2.length > 1 ? "s" : "") + (S2.length ? " : " : "") + S2.map(({ s, L }) => '<a href="#radiotherapie/s/' + encodeURIComponent(s.id) + '/contourage">' + esc(L.nom + " · " + s.titre) + "</a>").join(" · ") + "</p>" +
-    (peutModif() ? '<button type="button" class="mini" onclick="event.stopPropagation();rtrOarForm(\'' + esc(id) + '\')">' + A.ic("crayon") + "Modifier pour le cabinet</button>" : "");
-};
+window.rtrDetailOar = (tr) => carte(tr);
+// Carte dépliée / repliée (RT.3) : une seule ouverte à la fois dans la liste, repliée à sa hauteur d'origine
+function carte(tr) { const ouv = !tr.classList.contains("ouv"); tr.parentNode.querySelectorAll("tr.ouv").forEach((x) => { x.classList.remove("ouv"); x.setAttribute("aria-expanded", "false"); }); tr.classList.toggle("ouv", ouv); tr.setAttribute("aria-expanded", String(ouv)); }
 window.rtrOarForm = (id) => {
   if (!peutModif()) return;
   const o = id ? BB.oar.find((x) => x.id === id) : { nom: "", nom_tg263: "", definition: "", region: RS.oarR || "divers" }, esc = A.esc;
-  A.fenetre("<h3>" + (id ? "Modifier l'organe pour le cabinet" : "Ajouter un organe") + '</h3><div class="form" style="grid-template-columns:1fr"><div><label for="rtrOn">Nom</label><input id="rtrOn" value="' + esc(o.nom || "") + '"></div><div><label for="rtrOt">TG-263</label><input id="rtrOt" value="' + esc(o.nom_tg263 || "") + '"></div>' +
+  A.fenetre("<h3>" + (id ? "Modifier l'organe" : "Ajouter un organe") + '</h3><div class="form" style="grid-template-columns:1fr"><div><label for="rtrOn">Nom</label><input id="rtrOn" value="' + esc(o.nom || "") + '"></div><div><label for="rtrOt">TG-263</label><input id="rtrOt" value="' + esc(o.nom_tg263 || "") + '"></div>' +
     '<div><label for="rtrOd">Définition du contourage</label><textarea id="rtrOd" rows="5">' + esc(o.definition || "") + "</textarea></div>" + (id ? "" : '<div><label for="rtrOg">Région</label><select id="rtrOg">' + Object.keys(REGIONS_OAR).map((k) => '<option value="' + k + '"' + (k === o.region ? " selected" : "") + ">" + esc(REGIONS_OAR[k]) + "</option>").join("") + "</select></div>") + "</div>" +
-    '<div class="actr">' + (id && CAB_OAR && CAB_OAR.oar && CAB_OAR.oar[id] ? '<button class="bt rouge" onclick="rtrOarOk(\'' + esc(id) + '\',1)">Revenir à la référence</button>' : "") + '<button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" onclick="rtrOarOk(\'' + esc(id || "") + '\')">' + A.ic("enregistrer") + "Enregistrer pour le cabinet</button></div>");
+    '<div class="actr">' + (id && CAB_OAR && CAB_OAR.oar && CAB_OAR.oar[id] ? '<button class="bt rouge" onclick="rtrOarOk(\'' + esc(id) + '\',1)">Revenir à la référence</button>' : "") + '<button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" onclick="rtrOarOk(\'' + esc(id || "") + '\')">' + A.ic("enregistrer") + "Enregistrer</button></div>");
 };
 window.rtrOarOk = async (id, revenir) => {
   const v = { nom: A.val("rtrOn").trim(), nom_tg263: A.val("rtrOt").trim(), definition: A.val("rtrOd").trim() };
@@ -875,7 +886,7 @@ window.rtrOarOk = async (id, revenir) => {
       tx.set(ref, c); return c;
     });
   } catch (e) { console.warn("organes du cabinet", e); A.toast("Pas de connexion : réessayez"); return; }
-  A.fermerFenetre(); appliquerCab(); listeOar(); A.toast(revenir ? "La référence s'affiche de nouveau" : "Enregistré pour le cabinet");
+  A.fermerFenetre(); appliquerCab(); listeOar(); A.toast(revenir ? "La référence s'affiche de nouveau" : "Enregistré");
 };
 // Contraintes (25/10/2026) : tous les organes, une ligne chacun, avec leurs contraintes en normofractionné, hypofractionné et stéréotaxie (selon le
 // nombre de séances), et les précisions par localisation ; un clic ouvre la liste complète, modifiable par le médecin qui a le droit « modifier »
@@ -903,36 +914,71 @@ async function pageContraintesRef() {
   }
   const a = BB.aideCol || {};
   $("rtrJt").innerHTML = '<p class="mesures rtr-nb">' + K.length + " organe" + (K.length > 1 ? "s" : "") + " · base RecoRad 2025, précisions par localisation" + (a.ideal ? " · <b>idéal</b> : " + esc(a.ideal) : "") + "</p>" +
-    '<div class="rtr-tw"><table class="rtr-tab rtr-ctr rtr-cartes"><thead><tr><th>Organe</th>' + R0.map((r) => "<th>" + REGIMES[r] + "</th>").join("") + "</tr></thead><tbody>" +
-    K.map((k) => { const o = oar(k); return '<tr class="rtr-clic" tabindex="0" onclick="rtrDetailCt(this,\'' + esc(k) + '\')" onkeydown="if(event.key===\'Enter\')this.click()"><td data-l="Organe"><b>' + esc(o.nom) + "</b>" + (o.nom_tg263 ? '<br><span class="mesures">' + esc(o.nom_tg263) + "</span>" : "") + "</td>" +
-      R0.map((r) => { const L = BB.base.filter((l) => l.oar_id === k && l.regime === r); return '<td data-l="' + REGIMES[r] + '">' + (L.length ? celluleRegime(L) : '<span class="mesures">—</span>') + "</td>"; }).join("") + "</tr>"; }).join("") + "</tbody></table></div>" +
+    // RT.3 / RT.4 (31/10/2026) : cartes de même hauteur, dépliées au clic (toutes les contraintes, sources), repliées au second clic ; « Modifier »
+    // ouvre le tableau dans une fenêtre (modifier, ajouter, supprimer, Enregistrer) ; plus de tableau sous la carte
+    '<div class="rtr-tw"><table class="rtr-tab rtr-ctr rtr-cartes rtr-cartes-h"><thead><tr><th>Organe</th>' + R0.map((r) => "<th>" + REGIMES[r] + "</th>").join("") + "</tr></thead><tbody>" +
+    K.map((k) => { const o = oar(k), Lk = BB.base.filter((l) => l.oar_id === k), src = [...new Set(Lk.map((l) => l.source).filter(Boolean))].join(" ; ");
+      return '<tr class="rtr-clic" tabindex="0" aria-expanded="false" data-ct="' + esc(k) + '" onclick="rtrDetailCt(this,\'' + esc(k) + '\')" onkeydown="if(event.key===\'Enter\')this.click()"><td data-l="Organe"><b>' + esc(o.nom) + "</b>" + (o.nom_tg263 ? '<br><span class="mesures">' + esc(o.nom_tg263) + "</span>" : "") + "</td>" +
+      R0.map((r) => { const L = Lk.filter((l) => l.regime === r); return '<td data-l="' + REGIMES[r] + '">' + (L.length ? celluleRegime(L) : '<span class="mesures">—</span>') + "</td>"; }).join("") +
+      '<td class="rtr-cda">' + (src ? '<p class="mesures">Sources : ' + esc(src) + "</p>" : "") + (peutModif() ? '<button type="button" class="mini" onclick="event.stopPropagation();rtrCtModif(\'' + esc(k) + '\')">' + A.ic("crayon") + "Modifier</button>" : "") + "</td></tr>"; }).join("") + "</tbody></table></div>" +
+    // RT.5 : contraintes propres aux essais et à la curiethérapie en cartes, mêmes règles (dépliées au clic, « Modifier » en fenêtre)
     '<h3 class="rtr-tous">Contraintes propres aux essais et à la curiethérapie</h3>' +
-    BB.jeux.map((j, i) => '<details class="rtr-e"><summary><span class="t"><b>' + esc(j.titre) + '</b> <span class="mesures">' + esc([j.fractionnement, j.source].filter(Boolean).join(" · ")) + "</span></span></summary>" + tableJeu(j, i) + "</details>").join("");
+    '<div class="rtr-tw"><table class="rtr-tab rtr-jx rtr-cartes rtr-cartes-h"><thead><tr><th>Essai</th><th>Contraintes</th></tr></thead><tbody>' +
+    BB.jeux.map((j, i) => '<tr class="rtr-clic" tabindex="0" aria-expanded="false" data-jeu="' + esc(j.id) + '" onclick="if(!event.target.closest(\'.rtr-jfull\'))rtrDetailOar(this)" onkeydown="if(event.key===\'Enter\'&&event.target===this)this.click()"><td data-l="Essai"><b>' + esc(j.titre) + "</b>" + (j.cabinet ? ' <span class="badge b-or">Cabinet</span>' : "") + '<br><span class="mesures">' + esc([j.fractionnement, j.source].filter(Boolean).join(" · ")) + "</span></td>" +
+      '<td data-l="Contraintes" class="rtr-japer">' + esc([...new Set(j.lignes.map((l) => oar(l.oar_id).nom))].join(", ")) + '</td><td class="rtr-cda rtr-jfull">' + tableJeu(j, i) +
+      (peutModif() ? '<div class="actr rtr-jact"><button type="button" class="mini" onclick="event.stopPropagation();rtrJeuModif(\'' + esc(j.id) + '\')">' + A.ic("crayon") + "Modifier</button></div>" : "") + "</td></tr>").join("") + "</tbody></table></div>" + AVERT_RT;
 }
 let CTED = null;
-window.rtrDetailCt = (tr, k) => {
-  const n = tr.nextElementSibling; if (n && n.classList.contains("rtr-det")) { n.remove(); CTED = null; return; }
-  document.querySelectorAll(".rtr-ctr .rtr-det").forEach((x) => x.remove());
-  const d = document.createElement("tr"); d.className = "rtr-det"; d.innerHTML = '<td colspan="4"></td>'; tr.after(d);
-  CTED = { k, L: clone(BB.base.filter((l) => l.oar_id === k)), ret: [] }; dessinerCtEd();
-};
+window.rtrDetailCt = (tr) => carte(tr);
+// Contraintes d'un organe (base) ou d'un essai (jeu) en fenêtre (RT.4, RT.5) : CTED = { k (organe) | jeu, L (lignes), ret (retirées) }
+window.rtrCtModif = (k) => { if (!peutModif()) return; CTED = { k, L: clone(BB.base.filter((l) => l.oar_id === k)), ret: [] }; const o = oar(k);
+  A.fenetre("<h3>Contraintes : " + A.esc(o.nom) + '</h3><div id="rtrCtEdZ"></div>', "large"); dessinerCtEd(); };
+window.rtrJeuModif = (id) => { const j = BB.jeux.find((x) => x.id === id); if (!j || !peutModif()) return; CTED = { jeu: id, L: clone(j.lignes), ret: [] };
+  A.fenetre("<h3>Contraintes : " + A.esc(j.titre) + '</h3><p class="mesures">' + A.esc([j.fractionnement, j.source].filter(Boolean).join(" · ")) + '</p><div id="rtrCtEdZ"></div>', "large"); dessinerCtEd(); };
 function dessinerCtEd() {
-  const z = document.querySelector(".rtr-ctr .rtr-det td"); if (!z || !CTED) return;
+  const z = $("rtrCtEdZ"); if (!z || !CTED) return;
   const esc = A.esc, mod = peutModif(), R0 = [["normo", "Normofractionné"], ["hypo", "Hypofractionné"], ["stereo", "Stéréotaxie"]];
   const locs = [["", "Toutes"]].concat(INDEX.localisations.map((l) => [l.id, l.nom]));
   const c = (i, f, v, ph) => '<input class="rtr-in" data-cti="' + i + '" data-ctf="' + f + '" value="' + esc(txt(v)) + '"' + (ph ? ' placeholder="' + esc(ph) + '"' : "") + ' aria-label="' + esc(f) + '">';
   const s = (i, f, v, o) => '<select class="rtr-in" data-cti="' + i + '" data-ctf="' + f + '" aria-label="' + esc(f) + '">' + o.map(([k, l]) => '<option value="' + esc(k) + '"' + (txt(v) === k ? " selected" : "") + ">" + esc(l) + "</option>").join("") + "</select>";
+  if (CTED.jeu) { dessinerJeuEd(z); return; }
   z.innerHTML = !mod ? '<p class="mesures">' + CTED.L.length + " contrainte" + (CTED.L.length > 1 ? "s" : "") + " · sources : " + esc([...new Set(CTED.L.map((l) => l.source).filter(Boolean))].join(" ; ")) + "</p>" :
     '<div class="rtr-tw"><table class="rtr-tab rtr-edt"><thead><tr><th>Régime</th><th>Séances</th><th>Localisation</th><th>Indicateur</th><th>Idéal</th><th>Limitant</th><th>Note</th><th></th></tr></thead><tbody>' +
     CTED.L.map((l, i) => '<tr><td data-l="Régime">' + s(i, "regime", l.regime, R0) + '</td><td data-l="Séances">' + c(i, "fx", l.fx, "toutes") + '</td><td data-l="Localisation">' + s(i, "loc", (l.loc || [])[0] || "", locs) + (l.loc && l.loc.length > 1 ? '<span class="mesures">' + esc(l.loc.map(nomLoc).join(", ")) + "</span>" : "") + "</td>" +
       '<td data-l="Indicateur">' + c(i, "indicateur", l.indicateur) + '</td><td data-l="Idéal">' + c(i, "ideal", l.ideal) + '</td><td data-l="Limitant">' + c(i, "limitant", l.limitant) + '</td><td data-l="Note">' + c(i, "note", l.note) + "</td>" +
-      '<td><button type="button" class="mini" onclick="rtrCtLigne(' + i + ')" aria-label="Retirer cette contrainte">' + A.ic("croix") + "</button></td></tr>").join("") +
-    '</tbody></table></div><div class="actr"><button type="button" class="mini rtr-aj" onclick="rtrCtLigne()">' + A.ic("plus") + 'Ajouter une contrainte</button><span></span><button class="bt plein petit" onclick="rtrCtEnr()">' + A.ic("enregistrer") + "Enregistrer pour le cabinet</button></div>";
+      '<td><button type="button" class="rtr-sup" onclick="rtrCtLigne(' + i + ')" aria-label="Retirer cette contrainte" title="Retirer">' + A.ic("croix") + "</button></td></tr>").join("") +
+    '</tbody></table></div><div class="actr"><button type="button" class="mini rtr-aj" onclick="rtrCtLigne()">' + A.ic("plus") + 'Ajouter une contrainte</button><span></span><button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" onclick="rtrCtEnr()">' + A.ic("enregistrer") + "Enregistrer</button></div>";
 }
+// Jeu d'un essai ou de la curiethérapie (RT.5) : organe, indicateur, idéal, limitant, note ; enregistré dans referentielRT/_contraintes.jeux[id]
+function dessinerJeuEd(z) {
+  const esc = A.esc, j = BB.jeux.find((x) => x.id === CTED.jeu), ref = (BB.jeuxRef || []).find((x) => x.id === CTED.jeu);
+  const choix = BB.oar.map((o) => [o.id, o.nom]).sort((a, b) => sansAcc(a[1]).localeCompare(sansAcc(b[1])));
+  const c = (i, f, v) => '<input class="rtr-in" data-cti="' + i + '" data-ctf="' + f + '" value="' + esc(txt(v)) + '" aria-label="' + esc(f) + '">';
+  z.innerHTML = '<div class="rtr-tw"><table class="rtr-tab rtr-edt"><thead><tr><th>Organe</th><th>Indicateur</th><th>Idéal</th><th>Limitant</th><th>Note</th><th></th></tr></thead><tbody>' +
+    CTED.L.map((l, i) => '<tr><td data-l="Organe"><select class="rtr-in" data-cti="' + i + '" data-ctf="oar_id" aria-label="Organe">' + (choix.some(([k]) => k === l.oar_id) ? [] : [[l.oar_id, oar(l.oar_id).nom]]).concat(choix).map(([k, n]) => '<option value="' + esc(k) + '"' + (k === l.oar_id ? " selected" : "") + ">" + esc(n) + "</option>").join("") + "</select></td>" +
+      '<td data-l="Indicateur">' + c(i, "indicateur", l.indicateur) + '</td><td data-l="Idéal">' + c(i, "ideal", l.ideal) + '</td><td data-l="Limitant">' + c(i, "limitant", l.limitant) + '</td><td data-l="Note">' + c(i, "note", l.note) + "</td>" +
+      '<td><button type="button" class="rtr-sup" onclick="rtrCtLigne(' + i + ')" aria-label="Retirer cette contrainte" title="Retirer">' + A.ic("croix") + "</button></td></tr>").join("") +
+    '</tbody></table></div><div class="actr"><button type="button" class="mini rtr-aj" onclick="rtrCtLigne()">' + A.ic("plus") + "Ajouter une contrainte</button><span></span>" +
+    (j && j.cabinet && ref ? '<button class="bt rouge" onclick="rtrJeuEnr(1)">Revenir à la référence</button>' : "") + '<button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" onclick="rtrJeuEnr()">' + A.ic("enregistrer") + "Enregistrer</button></div>";
+}
+window.rtrJeuEnr = async (revenir) => {
+  if (!CTED || !CTED.jeu || !peutModif()) return;
+  const ref = doc(db, "espaces", A.ESPACE, "referentielRT", "_contraintes"), id = CTED.jeu;
+  const L = CTED.L.filter((l) => l.oar_id && (txt(l.indicateur).trim() || txt(l.limitant).trim() || txt(l.ideal).trim())).map((l) => { const x = {}; ["oar_id", "indicateur", "ideal", "limitant", "note"].forEach((k) => { if (txt(l[k]).trim()) x[k] = txt(l[k]).trim(); }); return x; });
+  try {
+    CAB_CT = await runTransaction(db, async (tx) => {
+      const sn = await tx.get(ref), c = sn.exists() ? sn.data() : { lignes: [], retirees: [] };
+      c.jeux = Object.assign({}, c.jeux || {}); if (revenir) delete c.jeux[id]; else c.jeux[id] = L;
+      Object.assign(c, { majPar: D().u.uid, majParNom: $("nomMenu") ? $("nomMenu").textContent : "", majLe: new Date().toISOString() });
+      tx.set(ref, c); return c;
+    });
+  } catch (e) { console.warn("contraintes des essais du cabinet", e); A.toast("Pas de connexion : réessayez"); return; }
+  appliquerCab(); CTED = null; A.fermerFenetre(); A.toast(revenir ? "La référence s'affiche de nouveau" : "Enregistré"); pageContraintesRef();
+};
 document.addEventListener("input", (ev) => { const t = ev.target; if (!CTED || !t.dataset || t.dataset.cti == null) return; const l = CTED.L[Number(t.dataset.cti)], f = t.dataset.ctf;
   if (f === "fx") { const n = parseInt(t.value, 10); if (n > 0) l.fx = n; else delete l.fx; } else if (f === "loc") { if (t.value) { if (!(l.loc || []).length || l.loc.length === 1) l.loc = [t.value]; } else delete l.loc; } else l[f] = t.value; });
 document.addEventListener("change", (ev) => { const t = ev.target; if (!CTED || !t.dataset || t.dataset.cti == null || t.tagName !== "SELECT") return; t.dispatchEvent(new Event("input", { bubbles: true })); });
-window.rtrCtLigne = (i) => { if (!CTED) return; if (i == null) CTED.L.push({ id: "cc-" + Date.now().toString(36) + CTED.L.length, oar_id: CTED.k, regime: "normo", indicateur: "", limitant: "", source: "Cabinet" }); else { const x = CTED.L.splice(i, 1)[0]; if (x.id && !/^cc-/.test(x.id)) CTED.ret.push(x.id); } dessinerCtEd(); };
+window.rtrCtLigne = (i) => { if (!CTED) return; if (i == null) CTED.L.push(CTED.jeu ? { oar_id: (CTED.L[CTED.L.length - 1] || {}).oar_id || "", indicateur: "", ideal: "", limitant: "", note: "" } : { id: "cc-" + Date.now().toString(36) + CTED.L.length, oar_id: CTED.k, regime: "normo", indicateur: "", limitant: "", source: "Cabinet" }); else { const x = CTED.L.splice(i, 1)[0]; if (x.id && !/^cc-/.test(x.id)) CTED.ret.push(x.id); } dessinerCtEd(); };
 window.rtrCtEnr = async () => {
   if (!CTED || !peutModif()) return;
   const ref = doc(db, "espaces", A.ESPACE, "referentielRT", "_contraintes"), ids = new Set(BB.baseRef.map((l) => l.id));
@@ -948,7 +994,7 @@ window.rtrCtEnr = async () => {
       tx.set(ref, c); return c;
     });
   } catch (e) { console.warn("contraintes du cabinet", e); A.toast("Pas de connexion : réessayez"); return; }
-  appliquerCab(); CTED = null; A.toast("Enregistré pour le cabinet"); pageContraintesRef();
+  appliquerCab(); CTED = null; A.fermerFenetre(); A.toast("Enregistré"); pageContraintesRef();
 };
 // Essais : tableau triable (acronyme, année, localisation, revue), recherche ; détail : population, bras, schémas qui le citent
 function citants(x) { return LISTE.filter((e) => (e.essais || []).indexOf(x.acronyme) >= 0); }
@@ -958,6 +1004,7 @@ function pageEssaisRef() {
   if (!$("rtrEq")) {
     z.innerHTML = '<div class="rtr-haut rtr-sh"><div class="recherche"><svg class="i"><use href="#i-loupe"/></svg><input id="rtrEq" type="search" autocomplete="off" placeholder="Rechercher un essai (acronyme, revue, population, résultat)" aria-label="Rechercher un essai" value="' + esc(RS.essQ) + '"></div></div><div class="rtr-liste rtr-sl" id="rtrEl"></div>';
     $("rtrEq").oninput = (e) => { RS.essQ = e.target.value; listeEssais(); };
+    z.insertAdjacentHTML("beforeend", AVERT_RT);
   }
   listeEssais();
 }
@@ -1083,7 +1130,7 @@ export async function pageRadiotherapie(arg) {
   if (!$("rtr")) return; // page quittée pendant le chargement
   dessinerFiltres(); dessinerListe();
   if (id === "nouveau") {
-    // schéma créé ou dupliqué : fiche en modification, enregistrée seulement par « Enregistrer pour le cabinet »
+    // schéma créé ou dupliqué : fiche en modification, enregistrée seulement par « Enregistrer »
     if (NOUVEAU) { const n = NOUVEAU; NOUVEAU = null; demarrer(n); FICHE = { e: { id: n.id, titre: n.schema.titre, situation_id: n.schema.situation_id, localisation_id: n.localisation_id, preuve: "pratique_du_cabinet" }, cab: null, schema: ED.schema, loc: n.loc, B: n.B, onglet: "prescription" }; }
     RF.ouvert = ED.id; dessinerFiche();
   } else if (id) await ouvrirFiche(decodeURIComponent(id), m[2]);

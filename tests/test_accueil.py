@@ -16,8 +16,9 @@ async def main():
         b = await p.chromium.launch()
         # Médecin, 1440 px
         pg = await ouvrir(b, S3, w=1440); await pg.goto(U); await pg.wait_for_timeout(2500)
-        r = await pg.evaluate("""(()=>{const g=document.querySelector('.tb-grille');if(!g)return null;const c=[...g.querySelectorAll(':scope>.tb-col')];
-          return {cols:getComputedStyle(g).gridTemplateColumns.split(' ').length,gauche:[...c[0].querySelectorAll(':scope>.tb-c>section')].map(s=>s.className),droite:[...c[1].querySelectorAll(':scope>.tb-c>section')].map(s=>s.className),h:document.documentElement.scrollHeight}})()""")
+        # 31/10/2026 (lot 4.1) : rangées (.tb-rang) à deux colonnes de même hauteur, à la place de la grille d'avant (.tb-grille)
+        r = await pg.evaluate("""(()=>{const g=document.querySelector('.tb-rang');if(!g)return null;const c=[...g.querySelectorAll(':scope>.tb-col')];
+          return {cols:getComputedStyle(g).gridTemplateColumns.split(' ').length,gauche:[...c[0].querySelectorAll('.tb-c>section')].map(s=>s.className),droite:[...c[1].querySelectorAll('.tb-c>section')].map(s=>s.className),h:document.documentElement.scrollHeight}})()""")
         ok(r and r['cols'] == 2 and r['gauche'][0].startswith('jour') and any('afaire' in x for x in r['droite']), f'1440 px : deux colonnes, programme du jour à gauche, « À valider » à droite ({r})')
         t = await pg.inner_text('#page')
         ok('À valider par le médecin' in t, 'médecin : bloc « À valider par le médecin »')
@@ -46,9 +47,9 @@ async def main():
         pi = await ouvrir(b, S3, w=1440); await pi.add_init_script("window.__uid='INF'"); await pi.goto(U); await pi.wait_for_timeout(2500)
         ok('À faire par l\'infirmière' in await pi.inner_text('#page') and not pi.errs, 'infirmière : bloc « À faire par l\'infirmière » ' + str(pi.errs[:2]))
         # Organisation du cabinet (Paramètres › Cabinet › Tableau de bord) : parametres/accueil
-        S4 = json.loads(json.dumps(S3)); S4[E+'parametres/accueil'] = {"data": json.dumps({"cartes": {"sept": False}, "col": {"stats": "d"}})}
+        S4 = json.loads(json.dumps(S3)); S4[E+'parametres/accueil'] = {"data": json.dumps({"cartes": {"sept": False}, "col": {"stats": "d", "conflits": "d"}})}
         pc = await ouvrir(b, S4, w=1440); await pc.goto(U); await pc.wait_for_timeout(2500)
-        r = await pc.evaluate("(()=>{const c=[...document.querySelectorAll('.tb-grille>.tb-col')];return {sept:!!document.querySelector('section.sept'),stats:!!c[1]&&!!c[1].querySelector('.kpi')}})()")
+        r = await pc.evaluate("(()=>{const c=[...document.querySelectorAll('.tb-rang .tb-d')];return {sept:!!document.querySelector('section.sept'),stats:c.some(z=>!!z.querySelector('.kpi'))}})()")
         ok(not r['sept'] and r['stats'], f'réglage du cabinet : « 7 prochains jours » retiré, statistiques dans la colonne de droite ({r})')
         await pc.evaluate("window.majAccueilCab(null)"); await pc.wait_for_timeout(300)
         ok(await pc.evaluate("!!document.querySelector('section.sept')"), 'window.majAccueilCab : la page se refait tout de suite')

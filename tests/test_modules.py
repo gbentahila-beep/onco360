@@ -7,7 +7,7 @@ async def main():
         pa = await ouvrir(b, S); await pa.add_init_script("""window.__uid='ADM';window.__fs['administrateurs/ADM']={email:'a@b.ma'};window.__fonctions={listeCabinets:async()=>({cabinets:[{id:'cabinet-bentahila',nom:'Cabinet B',cree:'2026-10-01',actif:true,titulaire:{},membres:4,patients:60},{id:'cab-t',nom:'Cabinet T',cree:'2026-10-09',actif:true,titulaire:{},membres:1,patients:0,abonnement:{formule:'essentiel',modules:{chimio:true,agenda:true,prescriptions:true,documents:true,listes:true,gagenda:true,bilan:true}}}]})};""")
         await pa.goto(f'http://localhost:{PORT}/admin.html#modules'); await pa.wait_for_timeout(1500)
         t = await pa.inner_text('#page'); n = await pa.evaluate("document.querySelectorAll('[data-module]').length")
-        ok('Modules d\'Onco360' in t and n == 7 + 11 + 2, 'onglet Modules : 7 de base + 11 activables + 2 prévus = ' + str(n))
+        ok('Modules d\'Onco360' in t and n == 7 + 12 + 2, 'onglet Modules : 7 de base + 12 activables (avec Outils cliniques, lot RT.13) + 2 prévus = ' + str(n))
         ok(all(x in t for x in ['Bilan financier', 'Radiothérapie', 'Chimiothérapie et protocoles', 'Paramètres (paramétrage)', 'Traitements et stocks']), 'finance, radiothérapie, chimiothérapie, paramétrage, modules prévus listés')
         row = lambda k: pa.inner_text(f'[data-module="{k}"]')
         ok('Oncologie – Radiothérapie' in await row('rt') and 'Toutes' in await row('bilan') and 'Médecine générale' in await row('stocks'), 'spécialité de chaque module (RT : oncologie ; bilan : toutes ; stocks : médecine générale)')

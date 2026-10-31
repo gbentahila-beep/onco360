@@ -49,7 +49,7 @@ async def main():
         await ev(f"prixRdv('{P7}', '{RID}')"); await pg.wait_for_timeout(1500)
         note = await ev("(document.getElementById('pvRecu')||{}).textContent || ''")
         ok('Reçu n° R-2026-0001 remis pour 400 DH' in note, 'fenêtre de prix : « Reçu n° … remis pour 400 DH »', note)
-        await pg.fill('#pvM', '300'); await ev("document.getElementById('fOk').click()"); await pg.wait_for_timeout(1800)
+        await prix_total(pg, 300); await ev("document.getElementById('fOk').click()"); await pg.wait_for_timeout(1800)
         ok(any('Un reçu n° R-2026-0001 a été remis pour 400 DH' in m for m in pg.dlg[n0:]), 'prix changé : avertissement d\'un clic (non bloquant)', pg.dlg[n0:])
         rc = await ev(f"window.__fs['{E}recus/{P7}_r-{RID}']")
         ok(rc and (rc.get('prix') or [{}])[-1].get('avant') == 400 and rc['prix'][-1].get('apres') == 300 and rc['prix'][-1].get('par') == 'UIDRITA', 'historique du prix dans le reçu (400 → 300, par qui, quand)', rc and rc.get('prix'))

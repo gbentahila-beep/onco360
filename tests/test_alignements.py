@@ -44,7 +44,7 @@ async def main():
         print('États vides illustrés (26/10/2026)')
         await pg.goto(f'http://localhost:{PORT}/v2.html#taches'); await pg.wait_for_timeout(1800)
         t = await ev("(document.querySelector('#taL .ev-vide') || {}).innerText || ''")
-        ok('Toutes les tâches au même endroit' in t and 'Créez des tâches pour vous-même et vos collègues' in t and 'Nouvelle tâche' in t and await ev("!!document.querySelector('#taL .ev-vide svg')"), 'Tâches : illustration, titre, texte, bouton Nouvelle tâche', t)
+        ok('Toutes les tâches au même endroit' in t and 'Créez des tâches pour vous-même et vos collègues' in t and 'Tâche' in t and await ev("!!document.querySelector('#taL .ev-vide svg')"), 'Tâches : illustration, titre, texte, bouton « + Tâche » (31/10/2026)', t)
         ok(await ev("[...document.querySelectorAll('.ta-vues .nb')].every(n => n.offsetParent === null) && document.getElementById('taNb').parentNode.offsetParent === null"), 'Tâches : plus de « 0 » ni de « 0 tâche à faire ? »')
         await pg.goto(f'http://localhost:{PORT}/v2.html#salle'); await pg.wait_for_timeout(1800)
         await ev("saOnglet('absents')"); await pg.wait_for_timeout(500)

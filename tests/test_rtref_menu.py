@@ -82,7 +82,7 @@ async def main():
             ok(not pg.errs, lib + ' : aucune erreur JavaScript', pg.errs[:2]); await pg.close()
         # Menu réglé avant le 25/10 (sans « Radiothérapie ») : inséré juste après Protocoles, le reste dans l'ordre réglé
         pg = await page(b, jeu(lambda s: abo(s, 'menu', ['patients', 'protocoles', 'accueil', 'agenda', 'salle', 'taches', 'rcp', 'parametres', 'bilan', 'profil']))); ev = pg.evaluate
-        ok((await ev(MENU))[:3] == ['patients', 'protocoles', 'radiotherapie'], 'menu déjà réglé : son ordre gardé, « Radiothérapie » après « Protocoles »', await ev(MENU)); await pg.close()
+        ok((await ev(MENU))[:4] == ['patients', 'documents', 'protocoles', 'radiotherapie'], 'menu déjà réglé : son ordre gardé, « Radiothérapie » après « Protocoles » (« Documents » sous « Patients » : lot 5.3)', await ev(MENU)); await pg.close()
         # Formule « Radiothérapie – Essentiel » (modules.js : rt, agenda, prescriptions, documents, gagenda, listes, bilan), sans chimio
         pg = await page(b, jeu(lambda s: formule(s, 'radiotherapie', ['rt', 'agenda', 'prescriptions', 'documents', 'gagenda', 'listes', 'bilan']))); ev = pg.evaluate
         m = await ev(MENU)

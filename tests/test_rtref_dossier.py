@@ -20,13 +20,13 @@ async def main():
         await onglet_rt(pg, PID)
         avant = await ev(f"JSON.stringify(window.__fs['{E}patients/{PID}'])")
         ok(await ev("!!document.querySelector('a.rtr-lien[href^=\"#radiotherapie/diag/\"]')"), 'onglet Radiothérapie du dossier : lien « Référentiel › »')
-        await pg.click('a.rtr-lien[href^="#radiotherapie/diag/"]'); await pg.wait_for_timeout(2500)
+        await pg.evaluate("document.querySelector('#op-rt .mpts > button').click()"); await pg.wait_for_timeout(200); await pg.click('#ptsMenuF a.rtr-lien[href^="#radiotherapie/diag/"]'); await pg.wait_for_timeout(2500)
         ok(await ev("location.hash") == '#radiotherapie' and await ev("[document.getElementById('rtr_reg').value, document.getElementById('rtr_loc').value]") == ['uro', 'prostate'] and await ev("parseInt(document.querySelector('#rtrListe .rtr-nb').textContent)") == 27, 'le référentiel s\'ouvre filtré sur la localisation du dossier (Prostate, 27 schémas)')
         await pg.go_back(); await pg.wait_for_timeout(2500)
         ok((await ev("location.hash")).startswith('#dossier/' + PID), 'Retour : le dossier', await ev("location.hash"))
         ok(await ev(f"JSON.stringify(window.__fs['{E}patients/{PID}'])") == avant, 'le module n\'a rien écrit dans le dossier')
         if SANS:
-            await onglet_rt(pg, SANS[0]); await pg.click('a.rtr-lien[href^="#radiotherapie/diag/"]'); await pg.wait_for_timeout(2500)
+            await onglet_rt(pg, SANS[0]); await pg.evaluate("document.querySelector('#op-rt .mpts > button').click()"); await pg.wait_for_timeout(200); await pg.click('#ptsMenuF a.rtr-lien[href^="#radiotherapie/diag/"]'); await pg.wait_for_timeout(2500)
             ok('Tous les schémas' in await ev("document.getElementById('page').innerText") and await ev("document.getElementById('rtr_loc').value") == '', 'diagnostic sans correspondance dans le référentiel : la liste générale')
         ok(not pg.errs, 'aucune erreur JavaScript', pg.errs[:2]); await pg.close()
         # Sans le droit, sans la fonction : pas de lien

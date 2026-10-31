@@ -32,7 +32,7 @@ async def main():
         ok(await ca(pg) - avant == 450, 'bilan : la séance seule (450 DH net), sans la consultation', await ca(pg) - avant)
         await ev("location.hash='dossier/PTA2'"); await pg.wait_for_timeout(2500)
         await ev(f"chVenuChimio('PTA2','{lid}',1,1)"); await pg.wait_for_timeout(1200)
-        ok(await ev("(document.getElementById('pvM')||{}).value") == '250', 'consultation validée à part (« Consultation : venu ») : 250 DH proposés (tarif de la consultation de chimio)')
+        ok(await ev("(document.getElementById('pvM')||{}).value") == '250', 'consultation validée à part (« Consultation : venu ») : fenêtre « Nouveau reçu », 250 DH proposés (tarif de la consultation de chimio)')
         await pg.click('#fOk'); await pg.wait_for_timeout(1500)
         await ev("location.hash='accueil'"); await pg.wait_for_timeout(800); await ev("location.hash='dossier/PTA2'"); await pg.wait_for_timeout(2500)
         bd = await ev("(document.querySelector('.bn-bd')||{}).innerText||''")

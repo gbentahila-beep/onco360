@@ -408,7 +408,7 @@ Google Agenda (déjà en place, par personne).
   Bentahila (INPE et nom par défaut sur la fiche, HGC/HCK par défaut dans tarifs.js / rdv.js / parametres.js) ; premier
   démarrage guidé ; tests d'étanchéité entre cabinets (bilan Bentahila inchangé : 352 317 DH).
   **À valider avec elle d'abord : la liste exacte de ce que reçoit un nouveau cabinet** (ex. PAS sa liste de correspondants).
-- F2 : nom de domaine, ~~retirer ancienne app~~ (fait le 11/10), CGU + politique de confidentialité
+- F2 : nom de domaine, ~~retirer ancienne app~~ (fait le 11/10), ~~CGU~~ (L0, 31/10 ; données personnelles : article 7 des CGU) + politique de confidentialité
   (aussi pour la vérification Google), suivi des abonnements. Point juridique signalé : données de santé, loi 09-08 / CNDP,
   hébergement hors Maroc.
 - F3 : guide complet (PDF illustré + aide intégrée). Puis suite de la phase E (vue infirmière, pharmacie J−1, relevé mensuel).
@@ -420,7 +420,74 @@ Aucune donnée patient n'est dans le code ; jeu de test fictif `tests/seed-ficti
 Règles de sécurité : `cd tests/regles && npm test` (émulateur Firestore, Java 21 ; `npm install --cache` vers un dossier
 temporaire si le cache npm du Mac refuse) — à relancer avant chaque mise en ligne des règles ; ajouter des cas pour chaque nouvelle règle.
 
+## Lots 1 et 2 du 31/10/2026 (mise en page)
+- `fenetre(html, "page")` (v2.js) : pleine page à la place de la page (`#fenetre.pleine`, menu et barre du haut gardés), contenu dans `.pg-form`, sous-parties `.pg-sec` / `.fp-g`.
+  Nouveau patient (chimio.js `nouveauPatient`, `o.retour` / `o.ensuite`) et nouveau rendez-vous (`ouvrirRdv(id | null, null, pre, { choix, etab })`, `nouveauRdv`) ; modifier un rendez-vous aussi (lots 3 et 4).
+- Fiche patient : « Identité et administratif » en sous-parties `GROUPES_ID` / `PAIRES_ID` (fichepatient.js `groupesId`), sexe en deux boutons (`.fp-seg`, champ caché `fSexe`) ;
+  `identite.numAdh` (champ de base du catalogue, après `mut`).
+- v2.html, bloc « Lots 1 et 2 » : `--ecart` (18 px entre cartes), `--ecart-champs` (12 px), Patients en tableau (`.pt-tab`), bulles `.q-bulle` ; v2.js : bulles « ? » (`.q-aide`,
+  `data-txt`), largeur minimale des menus déroulants, listes reliées ouvertes après 2 lettres tapées (`TAPE`). Test : `tests/test_lots_1_2.py`.
+
+## Lots 3 et 4 du 31/10/2026 (dossier, tableau de bord)
+- `fenetre()` en mode centre (`#fenetre.centre`) : un clic dans la barre du bas du dossier (`#dos > [data-zone=barre] .br-g button`) met `CENTRE` ; la fenêtre se place
+  sur `[data-zone=travail]` + `[data-zone=documents]` (`placerCentre`) ; remis à zéro par `fermerFenetre`, `fermerPetite`, `route` (`quitterCentre`).
+- Impression : `imprimerHtml(titre, corps, a5)`, `window.dosImprimerListe(pid, k)` (avenir / passe), `window.imprimerRdv(pid, rid)` (A5).
+- Tableau de bord en rangées `.tb-rang` > `.tb-col.tb-g/.tb-d` > `.tb-in` > `.tb-c[data-carte]` ; cartes `actions` (`window.actionRapide(k)`, patient choisi en pleine
+  page puis dossier + `CENTRE`), `activite` (historique : tout avec le droit finances, sinon `parUid`), `documents` (fichiers, `o` décroissant) ; `lireAvecRepli` relit sans
+  `orderBy` si l'index manque (index dans firestore.indexes.json). Catalogue : `CARTES` / `COLONNES0` (copie dans functions/site). Migration `accueil1031`.
+- Chimio vue du jour gardée (`salle.js chimiosVuesDuJour`, `vu: true`). Test : `tests/test_lots_3_4.py`.
+- Modifier un rendez-vous : pleine page aussi (`ouvrirRdv(id, rid)`, patient affiché par `selP`, pas de « Changer »). Vocabulaire : « Établissement(s) », jamais
+  « Hôpital / hôpitaux » à l'écran (sauf « hôpital de jour », le service) ; migration `etab1031` (nom du champ `etab` réglé par le cabinet).
+
+## Lots 5 à 7 du 31/10/2026 (RCP, Documents, Paramètres, Finances)
+- RCP : tableau `.rcp-tab` (classes des Tâches), `rcpMettre(id, oui)`, `rcpStatut`. Salle : `.sa-defile{overflow-y:hidden}` (jamais de défilement en hauteur).
+- Menu « Documents » (`#documents`, catalogue MENU + `MENU_NOUVEAUX`, `data-droit="documents"`) : fichiers.js `pageDepot` (`DP`, `envoyerUn`, cache `FI` remis à zéro
+  pour un dossier pas encore lu).
+- Paramètres : `pageConfiguration("@")` = accueil (`accueilParam`, `resultatsParam`, `MOTS_RUB`) ; `ONG === ""` ; famille d'une rubrique sans `.cf-sous` ;
+  téléphone `.cf-telz` (`enteteTel`, `.ag-vues.defile.rtr-sous`), `.cf-nav` caché.
+- Reçu : modèle `rt-recu` (`MODELES_RT0.recu`, `CHAMPS_RT.recu` de donnees/modelesrt.js), lu par `modeleRT("recu")`, rempli par `htmlRecu(…, modele)` (v2.js).
+- Accès : tableau `.ac-tab` (profil.js `vueAcces`).
+- Tarifs : `finances/tarifs.seanceCommune` { type, libelle, historique } (daté) ; moteur/finances.js `seanceAu(tab, lieu, d)` / `rtAu` : ligne du lieu, sinon
+  commun, sinon repli ; parametres.js `cadreSeance`, `lignesLieux`, `paPropre`, `paCom`, `paValL` ; migration `seance1031`. Test `node tests/moteur/test-tarifs-communs.mjs`.
+- Bilan : `MODES.esp` (Espèces) ; téléphone : `.bi-ligne` en grille (`.bi-per`, `.bi-pay` sur toute la ligne). Test : `tests/test_lots_5_7.py`.
+
+## Lots 8 et 9, et 6.7, du 31/10/2026 (protocoles, feuille de soins, abonnement)
+- Protocoles : `prOuvrir` et `voir()` en pleine page (`fenetre(…, "page")`), cadres `details.pr-cad` (`cadre(titre, corps)`), avertissement `AVERT_TXT`
+  (protocoles.js, repris par configuration.js) en `.avert-ind`.
+- Feuille de soins : données et rendu dans `js/donnees/feuillesoins.js` (`FORMULAIRES` cnops / cnss en pixels de l'image, `feuilleDe(mut)`, `rendreFeuille`,
+  `CSS_FEUILLE`) ; écran `js/app/feuillesoins.js` (`fsOuvrir(pid)`, aperçu, `imprimer` A4 paysage) ; fonds `public/documents/feuilles/*.jpg`. Bouton de la barre
+  (consultations.js `boutonsPrescription`), action rapide `fs` (v2.js), fonction `prescriptions.feuille` du catalogue. Test `node tests/moteur/test-feuillesoins.mjs`.
+- Abonnement : abonnement.js `htmlAbonnement` (`.abo-page`, `.abo-r2`, `.abo-fs2`, `.abo-f2`). Test : `tests/test_lots_8_9.py`.
+
+## Lot R et lot RT du 31/10/2026 (reçu et encaissement ; référentiel RT ; outils cliniques)
+- Caisse (remplace en partie 19.5) : lieu `etablissements.modeHab` esp | carte | chq | vir (ancien `paiement: "cabinet"` lu comme esp, sinon vir) ; v2.js `modeHabituel`,
+  `fenetreRecu(o)` (« Nouveau reçu » : `pvPx` prix, `pvRem` remise, `pvM` total en lecture, `pvMode`, `pvRegle`), `prixVenu` ; montants `rdv[rid]` { brut (= total), px, rem, mode }
+  ou { tj, rem, mode } (hospitalisation : total = jours ouvrés × tj − rem, moteur/finances.js) ; modes `vir` (réglé) et `ap` (à payer, établissement) en plus de esp, carte,
+  chq, np, ae ; chimio : séance sans fenêtre (tarif de la séance), consultation du jour avec la fenêtre (`chVenuChimio`, `consRemJ`) ; serveur `appliquerPrix` (rem, px) ; bilan.js `ENC` "ap", `detailRecevoir`. Test `tests/test_lot_r.py`.
+- Référentiel RT (radiotherapie.js) : cartes `.rtr-cartes-h` (`carte(tr)`, `.ouv`), `rtrCtModif` / `rtrJeuModif` (fenêtre `#rtrCtEdZ`), `rtrJeuEnr` (`_contraintes.jeux`), `BB.jeuxRef`,
+  `rtrRvSup`, `.rtr-sup`, `.rtr-modb`, `.rtr-pas`, `AVERT_RT`. Test `tests/test_lot_rt.py`.
+- Outils cliniques : module `outils` (modules.js = functions/cabinets.js), menu `#outils[/tnm|ctcae|calc[/…]]`, `js/app/outilscliniques.js`, `js/donnees/outilscliniques.js`
+  (`TNM_LOCS`, `CALCS`, sources), `js/moteur/calculs.js` (test `node tests/moteur/test-calculs.mjs`) ; données `bibliotheques/tnm`, `tnm_<id>` (+ `pdf` : pages du manuel du cabinet, Storage `documentation/tnm-<id>-<ms>/`), `ctcae`, `ctcae_0…`, `esperanceVie` ;
+  CTCAE v6.0 fourni : `public/donnees-outils/ctcae-v6.json` (refait par `python3 outils/ctcae-pdf.py <pdf> <json>`), servi en `no-cache`.
+
+## Lot L du 31/10/2026 (lancement)
+- CGU : `public/cgu.html` (texte), `js/donnees/cgu.js` (`CGU.version` : la changer à chaque nouvelle version) ; v2.js `verifierCgu` (fenêtre `#cguFond`, `utilisateurs/{uid}.cgu`
+  { version, le, email, espace, cabinet } + `cguHist` ; règle `cguOk` : date du serveur) ; tests : le faux Firebase accepte d'office (`window.__cguV` de base.py), `window.__cguVierge` sinon.
+- Connexion (index.html) : « Poste partagé » (`browserSessionPersistence`), lien des CGU. En-têtes (firebase.json) : `Content-Security-Policy` **appliquée**, `Permissions-Policy`.
+- Erreurs : v2.js `noterErreurJs` (10 par page) → fonction `noterErreur` → `erreurs/{AAAA-MM-JJ}` (serveur seul) ; nuits : `noterNuit` → `plateforme/nuits` ; `etatPlateforme`,
+  `usageNuit` / `usageLire` (`plateforme/usage/mois/{AAAA-MM}`) ; logique pure `functions/plateforme.js` (`node functions/test-plateforme.js`) ; admin.js onglet `#etat`.
+- Import des patients : `js/app/importpatients.js` (carte de Paramètres › Export des données), `js/moteur/importpatients.js` ; `identite.numOrig` (ancien numéro, `numOrig` de v2.js).
+- Contrôle des dossiers : `js/moteur/controle.js` (`controlerDossier`, appelé au chargement ; `x.controle` = signalements, bandeau `.al-band.ctl` du dossier pour le médecin).
+- Cabinets : `proprietaire()` des règles = titulaire de cabinet-bentahila (uid) ; `estMembre()` permet les lectures d'un cabinet suspendu (`request.method`) ; `avisAdmin`
+  (jAdmin → avis + historique ; `bandeauxCabinet` de v2.js, `utilisateurs/{uid}.avisAdminVu`) ; `supprimerCabinet` = export final + `suppressionPrevue` (+30 j), `suppressionsNuit`,
+  `annulerSuppression` ; `invitations/{uid}_{e}` (creerMembre, `repondreInvitation`, `verifierInvitations` de v2.js) ; `demarrage` de listeCabinets (fiche du cabinet).
+- Guide : `guide/demarrage.md` → `public/guide/demarrage.html` par `python3 outils/guide-html.py` ; captures `tests/guide_captures.py` (jeu fictif). Lancement : `docs/lancement/`.
+- Test : `tests/test_lot_l.py` ; règles : `tests/regles/test-cgu.mjs`, cas L6 de `test-cabinets.mjs` (sur le Mac).
+
 ## Méthode de travail souhaitée
+- **Règles du travail par lots (31/10/2026)** : voir `FEUILLE-DE-ROUTE.md`, « Comment on travaille » (patch unique sans pousser ni mettre en ligne quand un autre Claude
+  applique ; auteur Rita Bentahila ; mise en page seulement si demandé ; texte ≥ 13 px, zones ≥ 40 / 44 px, 390 / 900 / 1 280 / 1 600 px ; pas de commentaire au milieu
+  d'une ligne ; JOURNAL + FEUILLE-DE-ROUTE (tout ce qui est fait coché) + CLAUDE.md à chaque lot ; jamais de vraie donnée ni de contenu protégé).
 - Réponses en français, directes ; l'utilisateur n'est pas développeur : commandes Terminal prêtes à copier.
 - Toujours tester (navigateur + bilan) avant livraison ; vérifier mobile (largeur 390 px sans débordement).
 - **Vérifier tout ce qu'un changement touche (consigne du 17/10/2026)** : avant de livrer, vérifier que le changement ne touche que ce qui est visé. S'il

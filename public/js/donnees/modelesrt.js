@@ -40,7 +40,13 @@ export const MODELES_RT0 = {
     '<table class="dc-ident"><tbody><tr><td><b>Patient : </b>{patient}</td><td><b>ID patient : </b>{id_patient}</td><td><b>Oncologue : </b>{medecin}</td></tr></tbody></table>' +
     "{tableau_seances}",
 };
-export const NOMS_RT = { pli: "Pli confidentiel (radiothérapie)", cr: "Compte rendu de fin de radiothérapie", rdv: "Calendrier de fin de radiothérapie" };
+// 31/10/2026 (lot 6.4, demande de Dr Bentahila) : le reçu (note d'honoraires) devient un modèle de la bibliothèque des courriers, modifiable par le
+// médecin (id rt-recu) ; même mise en page qu'avant (classes rc-…, v2.js htmlRecu), rempli à chaque reçu imprimé
+MODELES_RT0.recu = '<div class="rc-haut"><div class="rc-lieu">{lieu}</div><div class="rc-date">Date : {date}</div></div><div class="rc-titre">REÇU</div>' +
+  '<table class="rc-tab"><tbody><tr><th>N° de reçu</th><td>{numero}</td></tr><tr><th>Patient</th><td>{patient}</td></tr><tr><th>Médecin</th><td>{medecin}</td></tr>' +
+  '<tr><th>Prestation</th><td>{prestation}</td></tr><tr><th>Encaissement</th><td>{encaissement}</td></tr></tbody></table>' +
+  '<div class="rc-visa"><span>Visa accueil</span><b>{visa}</b><small>{heure}</small></div>{mentions}<p class="rc-sig">Cachet et signature</p>{pied}';
+export const NOMS_RT = { pli: "Pli confidentiel (radiothérapie)", cr: "Compte rendu de fin de radiothérapie", rdv: "Calendrier de fin de radiothérapie", recu: "Reçu (note d'honoraires)" };
 // Champs à insérer, par document : [clé, libellé]
 export const CHAMPS_RT = {
   pli: [["ville", "Ville"], ["ville_maj", "VILLE"], ["date_longue", "Date du jour"], ["patient", "Patient (civilité, nom, prénom)"], ["renseignements", "Renseignements cliniques (résumé du patient)"],
@@ -52,8 +58,11 @@ export const CHAMPS_RT = {
     ["bilan", "Bilan de contrôle"], ["signature", "Cachet et signature"]],
   rdv: [["debut", "Date de début"], ["fin", "Date de fin"], ["patient", "Patient"], ["id_patient", "ID patient (n° de dossier)"], ["medecin", "Oncologue (Dr NOM Prénom)"], ["radiotherapie", "Radiothérapie (acte)"], ["tableau_seances", "Tableau des séances"],
     ["note_calendrier", "Note sur le calcul des dates"]],
+  recu: [["lieu", "Lieu (en-tête Onco360)"], ["date", "Date du jour"], ["numero", "N° de reçu"], ["patient", "Patient et n° de dossier"], ["patient_nom", "Nom du patient"], ["dossier", "N° de dossier"],
+    ["medecin", "Médecin et spécialité"], ["medecin_nom", "Nom du médecin"], ["prestation", "Prestation et sa date"], ["prestation_lib", "Prestation"], ["date_acte", "Date de l'acte"], ["encaissement", "Encaissement (chiffres, lettres, mode)"],
+    ["montant", "Montant"], ["prix", "Prix affiché (avant remise)"], ["remise", "Remise"], ["total", "Total payé"], ["montant_lettres", "Montant en lettres"], ["mode", "Mode de paiement"], ["visa", "Visa accueil (qui imprime)"], ["heure", "Heure"], ["mentions", "Mentions (Paramètres › Impression)"], ["etablissement", "Établissement"], ["pied", "Pied de page (adresse)"]],
 };
 // Modèles de la bibliothèque des courriers (ajoutés à la liste du cabinet s'il ne les a pas encore modifiés)
-export const COURRIERS_RT0 = ["pli", "cr", "rdv"].map((t) => ({ id: "rt-" + t, rt: t, nom: NOMS_RT[t], html: MODELES_RT0[t] }));
+export const COURRIERS_RT0 = ["pli", "cr", "rdv", "recu"].map((t) => ({ id: "rt-" + t, rt: t, nom: NOMS_RT[t], html: MODELES_RT0[t] }));
 // Remplit un modèle : {clé} → valeur (HTML déjà préparé) ; clé inconnue laissée telle quelle
 export const remplirModele = (html, V) => String(html || "").replace(/\{([a-z_]+)\}/g, (m, k) => (k in V ? V[k] : m));

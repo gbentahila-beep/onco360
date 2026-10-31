@@ -52,7 +52,7 @@ async def main():
         pg2.errs += pg.errs; pg = pg2
         await pg.click('text=Créer la grille'); await pg.wait_for_timeout(500); tg = await pg.inner_text('#page')
         vals = await pg.evaluate("[...document.querySelectorAll('#page input')].map(i=>i.value).join('|')")
-        ok('Consultation de suivi' in tg and 'Séance de chimiothérapie' in vals and 'Clinique Atlas' in tg, 'grille créée avec toutes les activités (types de consultation : nom du référentiel, 3.13)')
+        ok('Consultation de suivi' in tg and 'Séance de chimiothérapie' in tg and 'Clinique Atlas' in tg, 'grille créée avec toutes les activités (types de consultation : nom du référentiel, 3.13 ; séance dans son cadre : lot 7.1)')
         await pg.set_viewport_size({'width': 390, 'height': 800}); await pg.evaluate("location.hash='accueil'"); await pg.wait_for_timeout(800)
         ok(await pg.evaluate("document.documentElement.scrollWidth<=390"), 'téléphone 390 px : rien ne déborde (accueil)')
         # Formule Oncologie – Pro retouchée : salle d'attente et RCP retirées, 1 lieu : menus et onglets cachés, limites
@@ -96,7 +96,7 @@ async def main():
         ok(pa.url.endswith('admin.html'), 'le compte d\'administration arrive sur la page Administration')
         ta = await pa.inner_text('body')
         ok('Cabinet Test' in ta and 'Dr Salma BENNANI' in ta and await pa.evaluate("document.querySelectorAll('tr.lc-l').length") == 2, 'onglet Cabinets : liste de 2 cabinets')
-        ok(await pa.evaluate("document.querySelectorAll('nav#onglets a').length") == 8, '8 onglets : Cabinets, Nouveau cabinet, Comptabilité, Par spécialité, Modules, Sauvegardes, Plateforme (S1, 21/10/2026), Journal')
+        ok(await pa.evaluate("document.querySelectorAll('nav#onglets a').length") == 9, '9 onglets : Cabinets, Nouveau cabinet, Comptabilité, Par spécialité, Modules, Sauvegardes, État de la plateforme (L1, 31/10/2026), Plateforme (S1, 21/10/2026), Journal')
         await pa.fill('#cQ', 'benn'); await pa.wait_for_timeout(300)
         ok(await pa.evaluate("document.querySelectorAll('tr.lc-l').length") == 1 and await pa.evaluate("document.activeElement.id") == 'cQ', 'recherche (« benn » → 1 cabinet), la saisie garde le focus')
         await pa.fill('#cQ', ''); await pa.wait_for_timeout(300)
@@ -142,7 +142,7 @@ async def main():
         ok(await pa.evaluate("document.querySelector('[data-op=\"modules\"] .bdg.rt') && document.querySelectorAll('[data-op=\"modules\"] [data-rev]').length") == 2 and 'Modifications non enregistrées' in await pa.inner_text('#fEtat'), 'réglage : sous-onglet Modules et limites en premier, « retouché » (modules, limites), modifications non enregistrées')
         ok(await pa.evaluate("getComputedStyle(document.querySelector('.pied.colle')).position") == 'sticky', 'bouton Enregistrer toujours visible')
         await pa.click('[data-fo="menu"]'); await pa.wait_for_timeout(200)
-        await pa.click('#fCorps [data-bas="accueil:0"]'); await pa.wait_for_timeout(200); await pa.uncheck('#fCorps [data-rcarte="stats"]'); await pa.wait_for_timeout(200); await pa.click('#fCorps [data-haut="menu:8"]'); await pa.wait_for_timeout(200)
+        await pa.click('#fCorps [data-bas="accueil:0"]'); await pa.wait_for_timeout(200); await pa.uncheck('#fCorps [data-rcarte="stats"]'); await pa.wait_for_timeout(200); await pa.click('#fCorps [data-haut="menu:9"]'); await pa.wait_for_timeout(200)
         ok(await pa.evaluate("[...document.querySelectorAll('[data-fo] .pt-r')].length") == 2, 'pastilles sur les sous-onglets retouchés (Modules, Menu)')
         await pa.click('[data-fo="param"]'); await pa.wait_for_timeout(200); await pa.uncheck('#fCorps [data-rsec="alertes"]'); await pa.wait_for_timeout(200); await pa.uncheck('#fCorps [data-rbib="examens"]'); await pa.wait_for_timeout(200)
         await pa.click('#fCorps [data-rev="bibliotheques"]'); await pa.wait_for_timeout(200)
@@ -156,7 +156,7 @@ async def main():
         ok(A['espace'] == 'cab-test' and A['formule'] == 'essentiel' and A['modules']['taches'] is False and A['modules']['rt'] is False and A['max']['assistante'] == 2 and A['max']['patients'] == 300, 'formule enregistrée (Oncologie – Essentiel, Tâches retiré, 2 secrétaires)')
         G = A['reglage']
         AC = (A.get('cab') or {}).get('accueil') or {} # 20/10/2026 : tableau de bord en miroir, dans les Paramètres du cabinet
-        ok(AC.get('ordre', [])[:2] == ['jour', 'ppas'] and AC.get('cartes', {}).get('stats') is False and G['menu'][7] == 'bilan' and G['fonctions']['agenda.whatsapp'] is False and G['sections']['alertes'] is False and G['bibliotheques']['examens'] is False, 'retouches enregistrées : ordre des cartes et carte (dans ses Paramètres), menu, fonction, onglet, bibliothèque')
+        ok(AC.get('ordre', [])[:2] == ['jour', 'ppas'] and AC.get('cartes', {}).get('stats') is False and G['menu'][8:11] == ['outils', 'radiotherapie', 'bilan'] and G['fonctions']['agenda.whatsapp'] is False and G['sections']['alertes'] is False and G['bibliotheques']['examens'] is False, 'retouches enregistrées : ordre des cartes et carte (dans ses Paramètres), menu, fonction, onglet, bibliothèque')
         # Modifier un cabinet (fenêtre)
         await pa.evaluate("window.__fonctions.infosCabinet=async(d)=>{window.__info=d;return {ok:true}};window.__fonctions.formulesEnregistrer=async(d)=>{window.__fml=d;return {formules:d.formules,cabinets:1}};0")
         await pa.click('[data-fiche="cab-test"]'); await pa.wait_for_timeout(300); await pa.click('[data-info="cab-test"]'); await pa.wait_for_timeout(300)

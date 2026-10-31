@@ -19,7 +19,7 @@ async def main():
         await ev("[...document.querySelectorAll('.rc')].find(e => /10:00/.test(e.innerText)).querySelector('.mpts button').click()"); await pg.wait_for_timeout(200)
         await ev("[...document.querySelectorAll('#ptsMenuF button')].find(b => b.textContent.trim() === 'Venu').click()"); await pg.wait_for_timeout(500)
         print('venu – champs :', await ev("[...document.querySelectorAll('#fenetreCorps label')].map(l=>l.textContent)"), '| NET affiché :', await ev("document.getElementById('fenetreCorps').innerText.includes('NET')"))
-        await pg.fill('#pvM','200'); await pg.click('#fOk'); await pg.wait_for_timeout(600)
+        await prix_total(pg, 200); await pg.click('#fOk'); await pg.wait_for_timeout(600)
         print('enregistré :', json.loads(await ev(f"window.__fs['{E}patientsFinances/{pid}'].montantsJson"))['rdv'].get('rTEST'))
         print('err', pg.errs); await b.close()
 asyncio.run(main())

@@ -45,7 +45,7 @@ async def main():
         ok(h.startswith('#radiotherapie/s/') and h.endswith('/prescription') and sel in await ev("document.querySelector('.rtr-t h2').innerText"), '↓ ↓ Entrée : le 2e schéma s\'ouvre (#radiotherapie/s/…/prescription)', [h, sel])
         ok(await ev("document.getElementById('rtr').classList.contains('seule')") and not await ev("!!document.getElementById('rtrListe')") and await ev("!!document.querySelector('.rtr-ret')"), '1 440 px : fiche en pleine page, « Retour à la liste »')
         r = await ev("document.querySelector('.rtr-res').textContent")
-        ok('Gy' in r and 'Validé' in r and 'Vérifié le' in r, 'en-tête : résumé de prescription, Validé, Vérifié le', r)
+        ok('Gy' in r and 'Validé' in r and 'Vérifié le' not in r, 'en-tête : résumé de prescription, Validé ; plus « Vérifié le » (RT.7)', r)
         # Retour à la liste : même recherche ; un autre schéma
         await pg.click('.rtr-ret'); await pg.wait_for_timeout(1200)
         ok(await ev("location.hash") == '#radiotherapie' and await ev("document.getElementById('rtrQ').value") == 'prostate 60' and await ev(LIGNES) == L, '« Retour à la liste » : la même recherche, la même liste')

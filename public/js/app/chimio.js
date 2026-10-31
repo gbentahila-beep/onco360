@@ -227,7 +227,9 @@ export function construireEncaissements(x, M) {
   const E = { rdv: {}, cons: {} };
   Object.entries((M && M.rdv) || {}).forEach(([rid, o]) => {
     if (!o) return;
-    if (o.v1 && o.prix != null) E.rdv[rid] = Object.assign({ m: num(o.prix), v1: true }, brutV1(x, rid, num(o.prix))); else if (o.tj != null) E.rdv[rid] = { tj: num(o.tj) }; else if (o.brut != null) E.rdv[rid] = Object.assign({ m: num(o.brut) }, o.mode ? { mode: o.mode } : {});
+    // lot R (31/10/2026) : remise (rem), prix affiché (px) et mode recopiés aussi pour l'hospitalisation
+    const plus = Object.assign({}, o.mode ? { mode: o.mode } : {}, num(o.rem) > 0 ? { rem: num(o.rem) } : {}, o.px != null ? { px: num(o.px) } : {});
+    if (o.v1 && o.prix != null) E.rdv[rid] = Object.assign({ m: num(o.prix), v1: true }, brutV1(x, rid, num(o.prix)), o.mode ? { mode: o.mode } : {}); else if (o.tj != null) E.rdv[rid] = Object.assign({ tj: num(o.tj) }, plus); else if (o.brut != null) E.rdv[rid] = Object.assign({ m: num(o.brut) }, plus);
   });
   const lignes = (x.P && x.P.lignes) || [];
   Object.entries((M && M.cures) || {}).forEach(([lid, cs]) => Object.entries(cs || {}).forEach(([n, c]) => {
@@ -238,7 +240,7 @@ export function construireEncaissements(x, M) {
     Object.entries(J).forEach(([j, m]) => {
       let d = +j === 1 ? (cu && cu.reelle) || (e && e.date) : ((sea.find((z) => z.j === +j) || {}).d || (sea.find((z) => z.j === +j) || {}).prevue);
       if (c.cons && c.cons.jour === "autre" && !c.consJ) d = c.cons.date || d;
-      E.cons[lid + "|" + n + "|" + j] = Object.assign({ m: m == null ? null : num(m), d: d || "", lib, n: +n, j: "J" + j }, (c.consModeJ || {})[j] ? { mode: c.consModeJ[j] } : {});
+      E.cons[lid + "|" + n + "|" + j] = Object.assign({ m: m == null ? null : num(m), d: d || "", lib, n: +n, j: "J" + j }, (c.consModeJ || {})[j] ? { mode: c.consModeJ[j] } : {}, num((c.consRemJ || {})[j]) > 0 ? { rem: num(c.consRemJ[j]) } : {});
     });
   }));
   return E;
@@ -302,8 +304,8 @@ export function htmlChimio(x) {
   if (!(P.lignes || []).length && !okT) return "";
   // à l'ouverture du dossier : la ligne en cours, sinon la dernière ; les autres fermées (11/10/2026)
   if (SEL.pid !== x.id) { SEL.pid = x.id; const lc = ligneCourante(P, ctx); SEL.l = lc != null ? lc : (P.lignes || []).length ? P.lignes.length - 1 : null; SEL.c = null; }
-  let h = '<section class="carte" id="cChimio"><div class="entete"><h3><span class="ic">' + A.ic("seringue") + '</span>Chimiothérapie</h3>' + (okT ? '<button class="bt clair petit" onclick="chNouvelleLigne(' + q1 + ')">' + A.ic("plus") + "Nouvelle ligne chimio</button>" : "") + "</div>";
-  if (!(P.lignes || []).length) h += '<p class="sous">Aucune ligne de chimiothérapie.</p>';
+  let h = '<section class="carte" id="cChimio"><div class="entete"><h3><span class="ic">' + A.ic("seringue") + '</span>Chimiothérapie</h3>' + (okT ? '<button class="bt clair petit" onclick="chNouvelleLigne(' + q1 + ')">' + A.ic("plus") + "Nouvelle prescription chimiothérapie</button>" : "") + "</div>"; // 3.1 (30/10/2026) : nom, bouton à gauche
+  if (!(P.lignes || []).length) h += A.etatVide({ ill: "chimio", titre: "Aucune chimiothérapie pour l'instant", txt: okT ? "« Nouvelle prescription chimiothérapie » pour en prescrire une." : "" }); // 3.4
   (P.lignes || []).forEach((L, i) => {
     // 3.7 (12/10/2026) : l'intention de la ligne (« Métastatique · 2e ligne »…) à la place de « Chimio · ligne n » ; en-tête raccourci (plus de
     // « Protocole : », date de début une seule fois : dans la période à droite)
@@ -319,7 +321,7 @@ function vueLigne(x, i) {
   const auc = (p.dr || []).some((d) => /AUC/.test(d.u)), ql = "'" + x.id + "'," + i;
   // 3.7 : plus de titre « Ligne 1 — protocole » (déjà dans l'en-tête de la ligne) ; « Arrêter la ligne » et « Supprimer » dans le menu ⋯
   let h = '<div class="acc-c"><div class="actr" style="justify-content:flex-start;margin-bottom:8px">' + b("Voir / modifier le protocole", "chProto(" + ql + ")") + (okT ? b(L.intent ? "Intention : " + esc(libIntention(L)) : "Intention de la ligne", "chIntention(" + ql + ")") : "") +
-    (okT ? (p.c && !L.arret ? b("+ 1 cure", "chAjouterCure(" + ql + ")") : "") + menu3([L.arret ? b("Reprendre la ligne", "chReprendre(" + ql + ")") : b("Arrêter la ligne", "chArreter(" + ql + ")", "rouge"), b("Supprimer la ligne", "chSupprLigne(" + ql + ")", "rouge")]) : "") + '<button class="mini aide-b" type="button" onclick="voirAides()" title="Afficher ou cacher les explications" aria-label="Explications">?</button></div>' +
+    (okT ? (p.c && !L.arret ? b("+ 1 cure", "chAjouterCure(" + ql + ")") : "") + menu3([L.arret ? b("Reprendre la ligne", "chReprendre(" + ql + ")") : b("Arrêter la ligne", "chArreter(" + ql + ")", "rouge"), b("Supprimer la ligne", "chSupprLigne(" + ql + ")", "rouge")]) : "") + "</div>" + // 3.9 (demande de Dr Bentahila) : plus de « ? » ; « ⋯ » aligné sur les boutons (v2.html)
     (L.arret ? '<p class="st" style="color:var(--rouge);margin:0 0 6px">Arrêtée le ' + A.dfrA(L.arret.date) + " – " + esc(L.arret.raison || "") + (L.arret.com ? " (" + esc(L.arret.com) + ")" : "") + "</p>" : "") +
     '<div class="tableau"><table class="tcures tsea t-lig"><tr><th>Cure</th><th>Prévue</th><th>Réalisée</th><th>Statut</th><th>Poids · ' + (auc ? "Cl · " : "") + "SC</th><th></th></tr>";
   s.E.forEach((e, k) => {
@@ -796,8 +798,8 @@ window.chAnnulerSeance = (id, i, k, j) => {
 // ───── Rendez-vous de chimio : « Venu » avec la fenêtre de prix, comme les autres rendez-vous (07/10/2026) ─────
 // Secrétaire (droits « encaissements » et « rendezvous », sans « finances ») : le prix est écrit par le serveur (prixConsultation)
 export const prixParServeur = () => !A.peut("finances") && A.peut("encaissements") && A.peut("rendezvous");
-async function prixChimioServeur(x, lid, n, j, m, date, lib, mode) {
-  await A.serveur("prixConsultation", Object.assign({ espace: A.ESPACE, patientId: x.id, lid, n, j, montant: m, d: date || "", lib: lib || "" }, mode ? { mode } : {}));
+async function prixChimioServeur(x, lid, n, j, m, date, lib, mode, rem) {
+  await A.serveur("prixConsultation", Object.assign({ espace: A.ESPACE, patientId: x.id, lid, n, j, montant: m, d: date || "", lib: lib || "" }, mode ? { mode } : {}, rem > 0 ? { rem } : {}));
   delete EC[x.id];
 }
 window.chVenuChimio = async (pid, lid, n, j, encaisser) => {
@@ -805,38 +807,35 @@ window.chVenuChimio = async (pid, lid, n, j, encaisser) => {
   const i = x.P.lignes.findIndex((z) => z.id === lid); if (i < 0) return;
   const L = x.P.lignes[i], { q, e } = etatCure(L, n - 1, x.P), sz = j > 1 ? seancesCure(L, e, D().ctx.bib).find((z) => z.j === j) : null;
   const date = j === 1 ? (e.st === "recue" ? e.c.reelle : e.date) : sz ? sz.d || sz.prevue : e.date;
-  let J = {}, mode0 = "";
-  if (sec) { const E = EC[x.id] || (await getDoc(doc(db, "espaces", A.ESPACE, "encaissements", x.id)).then((s) => (s.exists() ? JSON.parse(s.data().data || "{}") : null)).catch(() => null)); const v = E && E.cons && E.cons[lid + "|" + n + "|" + j]; if (v) { J[j] = v.m; mode0 = v.mode || ""; } }
+  let J = {}, mode0 = "", remS = 0;
+  if (sec) { const E = EC[x.id] || (await getDoc(doc(db, "espaces", A.ESPACE, "encaissements", x.id)).then((s) => (s.exists() ? JSON.parse(s.data().data || "{}") : null)).catch(() => null)); const v = E && E.cons && E.cons[lid + "|" + n + "|" + j]; if (v) { J[j] = v.m; mode0 = v.mode || ""; remS = v.rem || 0; } }
   else { const M = await chargerMontants(x), cc0 = (M.cures[lid] || {})[n]; J = consJours(cc0); mode0 = ((cc0 && cc0.consModeJ) || {})[j] || ""; }
-  // lieu « payé au cabinet » (19.5) : la secrétaire encaisse (mode de paiement, reçu) ; le médecin valide seulement → « à encaisser »
-  const lieuCab = A.payeCabinet(x), cab = lieuCab && A.encaisseIci(), ae = (k) => k === "np" || k === "ae", enc = cab && J[j] != null && ae(mode0);
-  const medCab = lieuCab && !A.encaisseIci(), dejaPaye = (!!mode0 && !ae(mode0)) || !!encaisser, encT = enc || (medCab && !!encaisser && J[j] != null && ae(mode0)); // médecin sans secrétaire : « Encaisser maintenant »
-  const tC = tarifDe(x, "cchimio", date);
-  const pp = A.prixPrevu(pid, "c-" + lid + "-" + n + "-" + j, date); // prix convenu d'avance dans la salle d'attente
-  const def = J[j] != null ? J[j] : pp != null ? pp : j === 1 ? tC || 0 : 0, fmt = (v) => A.fmtMil(v);
-  A.fenetre("<h3>" + A.esc(x.r.nm) + " – Chimiothérapie C" + n + " J" + j + '</h3><p class="sous">' + A.esc(q.nom) + (date ? " · " + A.cap(A.jourLong(date)) : "") + "</p>" +
-    '<div class="form"><div><label for="pvM">Montant de la consultation (DH)</label><input id="pvM" class="mt" inputmode="decimal" value="' + A.esc(fmt(def)) + '"></div>' + (cab ? A.htmlMode(mode0) : medCab ? '<div id="pvEncZ"' + (dejaPaye ? "" : ' class="cache"') + ">" + A.htmlMode(mode0).replace(/^<div>|<\/div>$/g, "") + "</div>" : "") + "</div>" +
-    (medCab ? '<label class="chk" style="margin:4px 0 6px"><input type="checkbox" id="pvEncK"' + (dejaPaye ? " checked" : "") + '> Encaisser maintenant (pas de secrétaire : le patient me paie)</label>' : "") +
-    '<p class="mesures">J1 : tarif de la consultation de chimiothérapie' + (tC != null ? " (" + fmt(tC) + " DH)" : "") + ". J8, J15… : 0 par défaut. Modifiez le montant en cas de réduction, de gratuité (0) ou de consultation facturée.</p>" + '<p class="mesures" id="pvRecu"></p>' +
-    '<div class="err" id="fErr"></div><div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Annuler</button>' + (cab || medCab ? '<button class="bt clair' + (medCab && !dejaPaye ? " cache" : "") + '" id="fOkR">' + A.ic("imprimer") + (encT ? "Encaisser et imprimer le reçu" : "Valider et imprimer le reçu") + "</button>" : "") + '<button class="bt vert" id="fOk">' + A.ic("check") + (encT ? "Encaisser" : "Valider : venu") + "</button></div>");
-  const cleR = "c-" + lid + "-" + n + "-" + j; let rcV = null; A.recuRemis(x, cleR).then((rc) => { rcV = rc; if (rc && document.getElementById("pvRecu")) document.getElementById("pvRecu").textContent = A.noteRecu(rc); }); // R-B5
-  const valider = async (recu) => {
-    const m = parseFloat(A.val("pvM").replace(/[\s\u202f\u00a0]/g, "").replace(",", ".")), mode = cab || (medCab && document.getElementById("pvEncK").checked) ? A.val("pvMode") : lieuCab ? "ae" : "";
-    if (isNaN(m) || m < 0) { A.erreur("Indiquez le montant (0 si rien à payer)."); return; }
-    if (!A.avertirPrixRecu(rcV, m)) return; // R-B5 : un reçu a déjà été remis pour un autre montant
-    const w = recu && mode !== "np" && m > 0 ? window.open("", "_blank") : null; // fenêtre d'impression ouverte tout de suite (bloqueur)
-    A.occupe(document.getElementById("fOk"), true);
-    try {
-      if (sec) await prixChimioServeur(x, lid, n, j, m, date, q.nom, mode);
-      else await majMontants(x, (M2) => { const a = M2.cures[lid] = M2.cures[lid] || {}, cc = a[n] = a[n] || {}; cc.consJ = Object.assign({}, consJours(cc), { [j]: m }); majCons(cc); const MJ = Object.assign({}, cc.consModeJ || {}); if (mode) MJ[j] = mode; else delete MJ[j]; if (Object.keys(MJ).length) cc.consModeJ = MJ; else delete cc.consModeJ; });
-      A.journal(x, "Chimiothérapie C" + n + " J" + j + " : venu (" + fmt(m) + " DH" + (mode === "ae" ? ", à encaisser" : mode ? ", " + A.libMode(mode) : "") + ")"); A.fermerFenetre(); A.toast("Enregistré."); A.salleVenuChimio(x, lid, n, j, true); A.pageDossier(x.id);
-      await A.noterPrixRecu(x, cleR, rcV, m);
-      if (w) A.imprimerRecu(w, x, { d: date || D().t, lib: "Consultation de chimiothérapie", m, mode, cle: cleR }); // sans le protocole (donnée médicale) ; clé = cleRecuCons (moteur/recus.js)
-    } catch (er) { if (w) w.close(); A.occupe(document.getElementById("fOk"), false); A.erreur(er.message || String(er)); }
+  // Lot R (31/10/2026, précisé par Dr Bentahila) : la séance (cure) se valide sans fenêtre au tarif de la séance (inchangé) ; la consultation du jour de chimio
+  // se valide avec la fenêtre « Nouveau reçu » : tarif de la consultation de chimio des Paramètres à J1 (ex. 300 DH), 0 les autres jours (ou prix payé
+  // d'avance), remise, mode, « Réglé en totalité » ; « Encaisser » et « Modifier le prix » ouvrent la même fenêtre
+  const tC = tarifDe(x, "cchimio", date), cleR = "c-" + lid + "-" + n + "-" + j, fmt = (v) => A.fmtMil(v);
+  const pp = A.prixPrevu(pid, cleR, date); // prix convenu d'avance dans la salle d'attente
+  const modeHab = A.modeHabituel(x.doc.etablissementId || "");
+  let rem0 = 0;
+  if (sec) rem0 = remS;
+  else { const M = await chargerMontants(x), cc0 = (M.cures[lid] || {})[n]; rem0 = num(((cc0 && cc0.consRemJ) || {})[j]) || 0; }
+  const ecrire = async (m, mode, rem) => {
+    if (sec) await prixChimioServeur(x, lid, n, j, m, date, q.nom, mode, rem);
+    else await majMontants(x, (M2) => { const a = M2.cures[lid] = M2.cures[lid] || {}, cc = a[n] = a[n] || {}; cc.consJ = Object.assign({}, consJours(cc), { [j]: m }); majCons(cc);
+      const MJ = Object.assign({}, cc.consModeJ || {}); if (mode) MJ[j] = mode; else delete MJ[j]; if (Object.keys(MJ).length) cc.consModeJ = MJ; else delete cc.consModeJ;
+      const RJ = Object.assign({}, cc.consRemJ || {}); if (rem > 0) RJ[j] = rem; else delete RJ[j]; if (Object.keys(RJ).length) cc.consRemJ = RJ; else delete cc.consRemJ; });
   };
-  document.getElementById("fOk").onclick = () => valider(false);
-  if (document.getElementById("fOkR")) document.getElementById("fOkR").onclick = () => valider(true);
-  const k0 = document.getElementById("pvEncK"); if (k0) k0.onchange = () => { document.getElementById("pvEncZ").classList.toggle("cache", !k0.checked); document.getElementById("fOkR").classList.toggle("cache", !k0.checked); };
+  const libP = (m, mode, rem) => fmt(m) + " DH" + (rem > 0 ? " (remise " + fmt(rem) + " DH)" : "") + (mode === "ae" ? ", à encaisser" : mode === "ap" ? ", à payer par l'établissement" : mode ? ", " + A.libMode(mode) : "");
+  const nouveau = J[j] == null, avance = nouveau && j === 1 && tC != null && pp != null && pp <= tC, m0 = !nouveau ? num(J[j]) || 0 : pp != null ? pp : j === 1 ? tC || 0 : 0;
+  A.fenetreRecu({ x, cleRecu: cleR, titre: encaisser ? "Encaisser" : nouveau ? "Nouveau reçu" : "Reçu de la consultation", nom: x.r.nm, dossier: A.numDossier(x), date: date ? A.dfrA(date) : "",
+    prestation: "Consultation de chimiothérapie C" + n + " J" + j + " · " + q.nom, px: avance ? tC : m0 + rem0, pxLibre: j > 1 || tC == null, nj: null, rem: avance ? tC - pp : rem0, mode: mode0, modeHab, regle: A.estRegle(mode0) || !!encaisser || (nouveau && pp != null),
+    okLib: encaisser ? "Encaisser" : nouveau ? "Valider : venu" : "Enregistrer", note: "J1 : tarif de la consultation de chimiothérapie" + (tC != null ? " (" + fmt(tC) + " DH)" : "") + ". J8, J15… : 0 par défaut. La remise ne vaut que pour cette consultation.",
+    valider: async ({ total, rem, mode, w, rcV }) => {
+      await ecrire(total, mode, rem);
+      A.journal(x, "Chimiothérapie C" + n + " J" + j + (nouveau ? " : venu (" : " : prix ") + libP(total, mode, rem) + (nouveau ? ")" : "")); A.fermerFenetre(); A.toast("Enregistré."); A.salleVenuChimio(x, lid, n, j, true); A.pageDossier(x.id);
+      await A.noterPrixRecu(x, cleR, rcV, total);
+      if (w) A.imprimerRecu(w, x, { d: date || D().t, lib: "Consultation de chimiothérapie", m: total, rem, mode, cle: cleR }); // sans le protocole (donnée médicale) ; clé = cleRecuCons (moteur/recus.js)
+    } });
 };
 window.chAnnulerVenuChimio = (pid, lid, n, j) => {
   const x = trouver(pid), sec = prixParServeur(); if (!x || !(A.peut("finances") || sec)) return;
@@ -1248,7 +1247,8 @@ export function activerDiag(idD, idP) {
   const i = document.getElementById(idD), s = document.getElementById(idD + "S"); if (!i || i.disabled) return;
   const sansAcc = (z) => String(z || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   const maj = () => { const m = sansAcc(i.value).split(/\s+/).filter(Boolean), l = listeDiag().filter((d) => m.every((w) => sansAcc(d).indexOf(w) >= 0)); s.innerHTML = l.length ? l.map((d) => '<div data-v="' + A.esc(d) + '">' + A.esc(d) + "</div>").join("") : '<div class="mesures" style="cursor:default">Pas dans la liste : le texte tapé sera gardé tel quel</div>'; s.classList.remove("cache"); };
-  i.oninput = maj; i.onfocus = maj; i.onblur = () => setTimeout(() => s.classList.add("cache"), 200);
+  // 31/10/2026 (demande de Dr Bentahila, 1.9) : diagnostic déjà rempli : pas de liste à l'ouverture du formulaire ni au clic, seulement après 2 lettres tapées
+  let tape = 0; i.oninput = () => { tape++; if (tape >= 2) maj(); else s.classList.add("cache"); }; i.onfocus = () => { tape = 0; }; i.onblur = () => setTimeout(() => s.classList.add("cache"), 200);
   s.onmousedown = (ev) => { const t = ev.target.closest("[data-v]"); if (!t) return; i.value = t.dataset.v; s.classList.add("cache"); i.dispatchEvent(new Event("change", { bubbles: true })); /* biomarqueurs (3.1) */ const p = document.getElementById(idP); if (p) setTimeout(() => p.focus(), 10); };
 }
 // Listes du cabinet : parametres/listes = { cor, mut } (ajouts aux listes de départ de donnees/listes.js) ; depuis le 08/10/2026
@@ -1285,8 +1285,11 @@ export function nouveauPatient(opts) {
   if (maxP != null && D().patients.length >= maxP) { alert("Votre formule Onco360 permet " + maxP + " dossiers patients : la limite est atteinte.\nContactez l'éditeur d'Onco360 pour passer à une formule supérieure."); return; }
   // 3.11 (12/10/2026) : même formulaire que « Modifier » (fiche réglable : parties, ordre, types) ; partie médicale seulement avec le droit
   // 20/10/2026 (demande de Dr Bentahila) : Identité et administratif seulement ; informations médicales et fiche tumeur : dans le dossier
-  A.fenetre("<h3>Nouveau patient</h3>" + ficheP.htmlFormulaire(null, { off: (p) => p === "clinique" && !okC, etabs: permis, nouveau: true, sec: "id" }) +
-    boutons("Créer le dossier")); // 26/10/2026 : mention du bas retirée (demande de Dr Bentahila) ; champs dans l'ordre de Paramètres › Fiche patient
+  // 31/10/2026 (demande de Dr Bentahila, 2.1) : en pleine page (menu et barre du haut gardés), en trois sous-parties (Identité, Contact, Couverture et parcours
+  // de soins) ; en bas : Annuler, Créer le patient. Depuis un nouveau rendez-vous (o.retour) : Annuler ramène au rendez-vous, tel qu'il était rempli
+  A.fenetre('<div class="pg-form"><h3>Nouveau patient</h3>' + ficheP.htmlFormulaire(null, { off: (p) => p === "clinique" && !okC, etabs: permis, nouveau: true, sec: "id" }) +
+    '<div class="err" id="fErr"></div><div class="boutons"><button class="bt gris" id="fAnn">Annuler</button><button class="bt plein" id="fOk">Créer le patient</button></div></div>', "page");
+  document.getElementById("fAnn").onclick = () => { if (o.retour) o.retour(); else A.fermerFenetre(); };
   if (okC) activerDiag("fDiag", "fDiagP");
   // nom tapé dans la recherche du rendez-vous : « NOM Prénom » → Nom, Prénom
   if (o.nom) { const m = String(o.nom).trim().split(/\s+/), n = document.getElementById("fNomF"), pr = document.getElementById("fPrenom"); if (n) n.value = (m.shift() || "").toUpperCase(); if (pr) pr.value = m.join(" "); }

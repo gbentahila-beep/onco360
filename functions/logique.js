@@ -292,10 +292,13 @@ function majCons(cc) {
 // (null pour une consultation de chimio : retirer la validation). Modifie M et E ; renvoie un libellé pour l'historique.
 // Mode de paiement (19.5, 10/10/2026 ; lieux « payé au cabinet ») : esp | carte | chq | np (non payé, à régler plus tard) |
 // ae (à encaisser : « Venu » validé par le médecin, la secrétaire encaisse ensuite)
-const MODES_PAIEMENT = ["esp", "carte", "chq", "np", "ae"];
+// Lot R (31/10/2026) : vir (virement reçu) ; ap (à payer : virement attendu de l'établissement) ; remise q.rem (DH) et prix affiché q.px
+const MODES_PAIEMENT = ["esp", "carte", "chq", "vir", "np", "ae", "ap"];
 function appliquerPrix(dossier, M, E, q) {
   const m = q.montant == null ? null : num(q.montant), mode = MODES_PAIEMENT.indexOf(q.mode) >= 0 ? q.mode : null;
   if (q.montant != null && (m == null || m < 0 || m > 1000000)) throw new Error("Montant invalide.");
+  const rem = q.rem == null || q.rem === "" ? 0 : num(q.rem), px = q.px == null || q.px === "" ? null : num(q.px);
+  if (rem == null || rem < 0 || rem > 1000000 || (px != null && (px < 0 || px > 1000000))) throw new Error("Remise invalide.");
   M.rdv = M.rdv || {}; M.cures = M.cures || {}; M.rt = M.rt || {}; E.rdv = E.rdv || {}; E.cons = E.cons || {};
   if (q.rdvId) {
     const r = JSON.parse(dossier.rdvsJson || "[]").find((v) => v.id === q.rdvId);
@@ -306,16 +309,17 @@ function appliquerPrix(dossier, M, E, q) {
     // 21/10/2026 : rendez-vous pris dans l'ancienne application, validé « Venu » maintenant (q.v1Prevu) : prix enregistré comme dans Onco360 (brut)
     if (o.v1 && q.v1Prevu && !hs) { delete o.v1; delete o.prix; }
     if (o.v1) throw new Error("Prix repris de l'ancienne application : seul le médecin peut le modifier.");
-    if (hs) { o.tj = m; delete o.brut; E.rdv[r.id] = { tj: m }; } else { o.brut = m; E.rdv[r.id] = { m }; }
-    if (mode && !hs) { o.mode = mode; E.rdv[r.id].mode = mode; } else delete o.mode;
-    return "Prix de la consultation du " + r.d + " : " + m + " DH";
+    if (hs) { o.tj = m; delete o.brut; delete o.px; E.rdv[r.id] = { tj: m }; } else { o.brut = m; E.rdv[r.id] = { m }; if (rem > 0 && px != null) { o.px = px; E.rdv[r.id].px = px; } else delete o.px; }
+    if (rem > 0) { o.rem = rem; E.rdv[r.id].rem = rem; } else delete o.rem;
+    if (mode) { o.mode = mode; E.rdv[r.id].mode = mode; } else delete o.mode;
+    return "Prix de la consultation du " + r.d + " : " + m + " DH" + (rem > 0 ? " (remise " + rem + " DH)" : "");
   }
   const n = parseInt(q.n, 10), j = parseInt(q.j, 10), L = JSON.parse(dossier.lignesJson || "[]").find((z) => z.id === q.lid);
   if (!L || !(n >= 1) || !(j >= 1) || !L.cures || !L.cures[n - 1]) throw new Error("Cure introuvable.");
   const a = M.cures[q.lid] = M.cures[q.lid] || {}, cc = a[n] = a[n] || {}, J = Object.assign({}, consJours(cc)), k = q.lid + "|" + n + "|" + j;
-  const MJ = Object.assign({}, cc.consModeJ || {});
-  if (m == null) { delete J[j]; delete E.cons[k]; delete MJ[j]; } else { J[j] = m; E.cons[k] = { m, d: String(q.d || "").slice(0, 10), lib: String(q.lib || "").slice(0, 120), n, j: "J" + j }; if (mode) { MJ[j] = mode; E.cons[k].mode = mode; } else delete MJ[j]; }
-  cc.consJ = J; majCons(cc); if (Object.keys(MJ).length) cc.consModeJ = MJ; else delete cc.consModeJ;
+  const MJ = Object.assign({}, cc.consModeJ || {}), RJ = Object.assign({}, cc.consRemJ || {});
+  if (m == null) { delete J[j]; delete E.cons[k]; delete MJ[j]; delete RJ[j]; } else { J[j] = m; E.cons[k] = { m, d: String(q.d || "").slice(0, 10), lib: String(q.lib || "").slice(0, 120), n, j: "J" + j }; if (mode) { MJ[j] = mode; E.cons[k].mode = mode; } else delete MJ[j]; if (rem > 0) { RJ[j] = rem; E.cons[k].rem = rem; } else delete RJ[j]; }
+  cc.consJ = J; majCons(cc); if (Object.keys(MJ).length) cc.consModeJ = MJ; else delete cc.consModeJ; if (Object.keys(RJ).length) cc.consRemJ = RJ; else delete cc.consRemJ;
   return "Chimiothérapie C" + n + " J" + j + (m == null ? " : statut annulé" : " : venu (" + m + " DH)");
 }
 

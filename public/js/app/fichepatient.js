@@ -31,7 +31,7 @@ export const aImprimer = (x) => champsFiche().filter((c) => c.imprimer && c.pres
 // Valeurs : identite.<clé> / clinique.<clé> (champs d'origine ; nom → nomF), extra.<id> (champs ajoutés) ; « oui / non + précision » :
 // texte dans la clé, oui / non dans drapeau(clé) (allergies : allergie).
 const ID = { nom: "fNomF", prenom: "fPrenom", ddn: "fDdn", sexe: "fSexe", taille: "fTaille", poids: "fPoids", diag: "fDiag", diagP: "fDiagP", cin: "fCin", tel: "fTel", tel2: "fTel2",
-  etab: "fEtab", ald: "fAld", cor: "fCor", mut: "fMut", adresse: "fAdr", email: "fMail" };
+  etab: "fEtab", ald: "fAld", cor: "fCor", mut: "fMut", numAdh: "fNumAdh", adresse: "fAdr", email: "fMail" };
 const idDe = (c) => ID[c.k] || (c.ajout ? "fx_" : "f_") + c.k;
 const idDrap = (c) => (c.k === "allergies" ? "f_allergie" : idDe(c) + "Oui"), idZone = (c) => (c.k === "allergies" ? "zAlD" : "z_" + idDe(c));
 const STO = { nom: "nomF" };
@@ -79,6 +79,30 @@ export const partiesPresentes = () => { const L = champsFiche().filter((c) => c.
 // toujours une ligne (v2.html) ; la colonne Patient, l'ordre enregistré et le formulaire « Nouveau patient » (ordre strict des Paramètres) ne changent pas.
 const SEUL = ["xtoms"], DEUX = ["xtctnm", "xtptnm"], PAIRES = [["taille", "poids"], ["atcdFam", "traitCours"], ["xtctnm", "xtptnm"], ["ald", "cor"], ["mut", "email"]];
 const rapprocher = (l) => { const r = l.slice(); PAIRES.forEach(([a, b]) => { const i = r.findIndex((c) => c.k === a), j = r.findIndex((c) => c.k === b); if (i < 0 || j < 0 || j === i + 1) return; const [cb] = r.splice(j, 1); r.splice(r.findIndex((c) => c.k === a) + 1, 0, cb); }); return r; };
+// 31/10/2026 (demande de Dr Bentahila, 2.1) : « Identité et administratif » en trois sous-parties, pour Nouveau patient (pleine page) et pour la rubrique
+// ouverte au centre du dossier (même formulaire) : Identité (nom et prénom, date de naissance, sexe, CIN / passeport), Contact (téléphone et 2e numéro,
+// e-mail et adresse), Couverture et parcours de soins (mutuelle et n° d'immatriculation / d'adhérent, établissement et correspondant, ALD, médecin du
+// patient). Toujours réglé par Paramètres › Dossier patient › Fiche patient : champs présents, noms et ordre (dans chaque sous-partie) ; un champ propre
+// au cabinet va dans la sous-partie du champ qui le précède. Paires côte à côte (PAIRES_ID) d'abord, champs seuls ensuite, deux par ligne : aucun trou.
+const GROUPES_ID = [["ident", "Identité", ["nom", "prenom", "ddn", "sexe", "cin"]], ["contact", "Contact", ["tel", "tel2", "email", "adresse"]], ["couv", "Couverture et parcours de soins", ["mut", "numAdh", "ald", "etab", "cor"]]];
+const PAIRES_ID = [["nom", "prenom"], ["tel", "tel2"], ["email", "adresse"], ["mut", "numAdh"], ["etab", "cor"]];
+function groupesId(l, champ, hMed) {
+  const G = {}; let g0 = "ident";
+  l.forEach((c) => { const g = (GROUPES_ID.find((z) => z[2].indexOf(c.k) >= 0) || [])[0] || g0; g0 = g; (G[g] = G[g] || []).push(c); });
+  return GROUPES_ID.map(([g, lib]) => {
+    const L = G[g] || [], pris = new Set(), paires = [], seuls = [], larges = [];
+    L.forEach((c) => { if (pris.has(c.k)) return; const p = PAIRES_ID.find((z) => z[0] === c.k || z[1] === c.k), autre = p && L.find((z) => z.k === (p[0] === c.k ? p[1] : p[0]));
+      if (autre) { const [a, b] = p[0] === c.k ? [c, autre] : [autre, c]; pris.add(a.k); pris.add(b.k); paires.push('<div class="fp-p">' + champ(a) + champ(b) + "</div>"); return; }
+      pris.add(c.k); const h = champ(c); if (!h) return; (/class="large"/.test(h.slice(0, 200)) && c.k !== "adresse" ? larges : seuls).push(h); });
+    if (g === "couv" && hMed) seuls.push(hMed);
+    const h = paires.join("") + seuls.join("") + larges.join(""); if (!h.replace(/<[^>]*>/g, "").trim() && !/<(input|select|textarea)/.test(h)) return "";
+    return '<section class="fp-g" data-g="' + g + '"><h5 class="soustitre fp-gt">' + lib + '</h5><div class="form fp-gf" data-sec="id">' + h + "</div></section>";
+  }).join("");
+}
+// Sexe (2.1) : deux boutons ; le choix est noté dans le champ caché (lu par lireFormulaire)
+document.addEventListener("click", (ev) => { const b = ev.target.closest && ev.target.closest(".fp-seg button"); if (!b || b.disabled) return;
+  const z = b.closest("[data-champ]"), i = z && z.querySelector("input[type=hidden]"); if (!i) return; const v = i.value === b.dataset.v ? "" : b.dataset.v; i.value = v;
+  z.querySelectorAll(".fp-seg button").forEach((y) => { y.classList.toggle("on", y.dataset.v === v); y.setAttribute("aria-pressed", String(y.dataset.v === v)); }); i.dispatchEvent(new Event("input", { bubbles: true })); });
 export function htmlFormulaire(x, o) {
   const esc = A.esc, doc = docVu(x), dg = diagDe(x), L = champsFiche().filter((c) => c.present && (!o.seul || c.k === o.seul)), pa = poidsVu(x); // o.seul (lot A) : un seul champ
   const champ = (c) => {
@@ -88,7 +112,10 @@ export function htmlFormulaire(x, o) {
     const enve = (h, cl) => '<div data-champ="' + c.k + '"' + (si || (large || cl ? ' class="' + (cl || "large") + '"' : "")) + (c.k === "cor" ? ' data-fn="listes.cor"' : "") + (c.k === "diag" ? ' style="position:relative"' : "") + ">" + h + "</div>";
     const sel = (opts) => '<select id="' + id + '"' + dis + ">" + opts.map(([val, lib]) => '<option value="' + esc(val) + '"' + (String(val) === String(V) ? " selected" : "") + ">" + esc(lib) + "</option>").join("") + "</select>";
     switch (c.type) {
-      case "sexe": return enve(lab + sel([["", ""], ["F", "Femme"], ["H", "Homme"]]), " ");
+      // 31/10/2026 (demande de Dr Bentahila, 2.1) : sexe = deux boutons Masculin / Féminin (valeurs H / F inchangées, dans un champ caché lu comme avant) ;
+      // un 2e clic sur le bouton choisi le retire
+      case "sexe": return enve('<label id="' + id + 'L">' + esc(c.lib) + '</label><input type="hidden" id="' + id + '" value="' + esc(V) + '"' + dis + '><div class="fp-seg" role="group" aria-labelledby="' + id + 'L">' +
+        [["H", "Masculin"], ["F", "Féminin"]].map(([k, l]) => '<button type="button" data-v="' + k + '" aria-pressed="' + (V === k) + '"' + (V === k ? ' class="on"' : "") + dis + ">" + l + "</button>").join("") + "</div>", " ");
       case "etab": { const l = o.etabs || []; if (!l.length) return ""; return enve(lab + sel(l.map((e) => [e.code, e.code + " – " + e.nom]).concat(V && !l.some((e) => e.code === V) ? [[V, V]] : [])), " "); }
       case "liste": if (c.k === "diag") return enve(lab + '<input id="' + id + '" autocomplete="off" value="' + esc(V) + '" placeholder="Tapez pour chercher : prostate, sein, neuro…"' + dis + '><div id="' + id + 'S" class="sug cache"></div>');
         return enve(lab + '<input id="' + id + '" list="' + (c.k === "cor" ? "lCor" : "lMut") + '" value="' + esc(V) + '" placeholder="Taper pour chercher, ou saisir…"' + dis + ">");
@@ -105,7 +132,9 @@ export function htmlFormulaire(x, o) {
     }
   };
   const S = secsDe(o);
-  return PARTIES_F.filter(([k]) => S.indexOf(k) >= 0).map(([k, lib]) => { const h = (o.nouveau ? (z) => z : rapprocher)(L.filter((c) => c.section === k)).map(champ).join("") + (k === "id" && !(o.nouveau && o.off && o.off("identite")) ? htmlMedecin(x, o) : ""); return h ? '<h4 class="soustitre fp-sec">' + lib + '</h4><div class="form" data-sec="' + k + '">' + h + "</div>" : ""; }).join("") +
+  return PARTIES_F.filter(([k]) => S.indexOf(k) >= 0).map(([k, lib]) => {
+    if (k === "id") { const g = groupesId(L.filter((c) => c.section === "id"), champ, !(o.nouveau && o.off && o.off("identite")) ? htmlMedecin(x, o) : ""); return g ? '<h4 class="soustitre fp-sec fp-sec-g">' + lib + "</h4>" + g : ""; }
+    const h = rapprocher(L.filter((c) => c.section === k)).map(champ).join(""); return h ? '<h4 class="soustitre fp-sec">' + lib + '</h4><div class="form" data-sec="' + k + '">' + h + "</div>" : ""; }).join("") +
     '<datalist id="lMut">' + (A.listeMut ? A.listeMut() : []).map((m) => '<option value="' + esc(m) + '">').join("") + '</datalist><datalist id="lCor">' + (A.listeCor ? A.listeCor() : []).map((m) => '<option value="' + esc(m) + '">').join("") + "</datalist>";
 }
 // Lecture du formulaire : { identite, clinique, etab, erreur } (copies des parties du dossier, champs modifiables seulement)

@@ -64,9 +64,11 @@ async def main():
         await ev(f"dosRubrique('{pid}','tum')"); await pg.wait_for_timeout(700)
         ok(await h('xtctnm') == await h('xtptnm') and await h('xtctnm') is not None, 'cTNM et pTNM sur la même ligne', [await h('xtctnm'), await h('xtptnm'), await ev("[...document.querySelectorAll('.form[data-sec] [data-champ]')].map(e=>e.dataset.champ+':'+e.className).join(' ')")])
         await ev(f"dosRubrique('{pid}','id')"); await pg.wait_for_timeout(700)
-        ok(await h('ald') == await h('cor') and await h('ald') is not None, 'ALD et Correspondant sur la même ligne', [await h('ald'), await h('cor')])
-        ok(await h('mut') == await h('email') and await h('mut') is not None, 'Mutuelle et E-mail sur la même ligne', [await h('mut'), await h('email')])
-        ok((await l('adresse') or 0) > 1.6 * (await l('mut') or 1), 'Adresse sur toute la ligne')
+        # 31/10/2026 (lot 2.1, demande de Dr Bentahila) : remplace les paires du 26/10 de l'identité (ALD et Correspondant, Mutuelle et E-mail, Adresse sur
+        # toute la ligne) : Mutuelle et N° d'immatriculation, Établissement et Correspondant, E-mail et Adresse
+        ok(await h('mut') == await h('numAdh') and await h('mut') is not None, 'Mutuelle et N° d\'immatriculation sur la même ligne', [await h('mut'), await h('numAdh')])
+        ok(await h('etab') == await h('cor') and await h('etab') is not None, 'Établissement et Correspondant sur la même ligne', [await h('etab'), await h('cor')])
+        ok(await h('email') == await h('adresse') and await h('email') is not None, 'E-mail et Adresse sur la même ligne', [await h('email'), await h('adresse')])
         ok(not pg.errs, 'aucune erreur JavaScript', pg.errs[:2]); await pg.close()
         await b.close()
     print(f'\n{ok_n} réussis, {ko_n} échoués')

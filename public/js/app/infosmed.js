@@ -73,7 +73,7 @@ export function htmlColonne(x) {
 }
 
 // Lignes de l'éditeur (petite fenêtre et formulaire entier) : libellé (liste du cabinet + saisie libre), dosage (traitement), note, ✕
-const ligneEd = (k, e) => '<div class="im-r"><input class="im-lib" data-k="' + k + '" autocomplete="off" onfocus="imSug(this)" oninput="imSug(this)" onkeydown="imSugTouche(event,this)" onblur="imSugFin(this)" value="' + A.esc((e && e.lib) || "") + '" placeholder="' + (k === "traitCours" ? "Médicament" : k === "allergies" ? "Allergie" : "Antécédent") + ' (liste ou saisie libre)" aria-label="Élément">' +
+const ligneEd = (k, e) => '<div class="im-r"><input class="im-lib" data-k="' + k + '" autocomplete="off" onfocus="this._t=0" oninput="this._t=(this._t||0)+1;imSug(this)" onkeydown="imSugTouche(event,this)" onblur="imSugFin(this)" value="' + A.esc((e && e.lib) || "") + '" placeholder="' + (k === "traitCours" ? "Médicament" : k === "allergies" ? "Allergie" : "Antécédent") + ' (liste ou saisie libre)" aria-label="Élément">' +
   (k === "traitCours" ? '<input class="im-dz" value="' + A.esc((e && e.dosage) || "") + '" placeholder="Dosage (facultatif)" aria-label="Dosage">' : "") +
   '<input class="im-no" value="' + A.esc((e && e.note) || "") + '" placeholder="Note (facultatif)" aria-label="Note">' +
   '<button type="button" class="ico im-x" onclick="imRetirer(this)" title="Supprimer cette ligne" aria-label="Supprimer cette ligne">✕</button></div>';
@@ -82,7 +82,8 @@ const ligneEd = (k, e) => '<div class="im-r"><input class="im-lib" data-k="' + k
 // frappe (mots dans n'importe quel ordre, sans accents), flèches et Entrée ; la saisie libre reste possible (ajoutée à la liste à l'enregistrement)
 window.imSug = (inp) => {
   // 26/10/2026 (2e demande de Dr Bentahila) : rien au clic sur un champ vide, la liste vient dès 2 lettres tapées
-  if (norm(inp.value).trim().length < 2) { const s0 = inp.parentNode.querySelector(".im-sug"); if (s0) s0.classList.add("cache"); return; }
+  // 31/10/2026 (1.9) : ligne déjà remplie : la liste ne s'ouvre qu'après 2 lettres tapées depuis l'arrivée dans le champ (inp._t)
+  if ((inp._t || 0) < 2 || norm(inp.value).trim().length < 2) { const s0 = inp.parentNode.querySelector(".im-sug"); if (s0) s0.classList.add("cache"); return; }
   const k = inp.dataset.k, mots = norm(inp.value).split(" ").filter(Boolean), deja = new Set([...inp.closest(".im-lignes").querySelectorAll(".im-lib")].filter((z) => z !== inp).map((z) => norm(z.value)));
   const L = listeMed(k).filter((t) => !deja.has(norm(t)) && mots.every((m) => norm(t).indexOf(m) >= 0)).slice(0, 80);
   let s = inp.parentNode.querySelector(".im-sug"); if (!s) { s = document.createElement("div"); s.className = "im-sug"; s.setAttribute("role", "listbox"); inp.parentNode.appendChild(s); }

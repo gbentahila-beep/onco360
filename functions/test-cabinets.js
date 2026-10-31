@@ -180,8 +180,8 @@ const echoue = (f) => { try { f(); return false; } catch (e) { return true; } };
   const E = (f) => F.etatFacturation(f, "2026-10-10").etat;
   ok(E(null) === "nonSuivi" && E({ mode: "gratuit" }) === "gratuit" && E({ mode: "essai", essaiFin: "2026-10-20" }) === "essai" && E({ mode: "essai", essaiFin: "2026-10-01" }) === "retard" && E({ mode: "mensuel", echeance: "2026-11-30" }) === "ajour" && E({ mode: "mensuel", echeance: "2026-10-20" }) === "renouveler" && E({ mode: "annuel", echeance: "2026-09-15" }) === "retard" && E({ mode: "mensuel", echeance: "2026-09-09" }) === "suspendre" && E({ mode: "mensuel", echeance: "2026-09-10" }) === "retard", "états : non suivi, gratuit, essai, à jour, à renouveler (15 j), retard, à suspendre (> 30 j)");
   const P = F.prixCabinet({ mode: "annuel" }, C.FORMULES.complet, "complet"), Q = F.prixCabinet({ mode: "mensuel", prix: 900 }, C.FORMULES["onco-pro"], "onco-pro");
-  ok(P.prix === 29900 && P.mensuel === 2492 && Q.prix === 900 && F.prixCabinet({ mode: "gratuit" }, C.FORMULES.complet, "complet").mensuel === 0, "prix : annuel du pack (équivalent mensuel), prix remisé, gratuit");
-  ok(C.formulesValides({ x1: { lib: "X", modules: [], max: {}, prix: { mois: "500", an: 5000 } } }).x1.prix.mois === 500 && C.formulesValides({ essentiel: { lib: "E", modules: [], max: {} } }).essentiel.prix.mois === 690, "prix d'un pack gardés ; pack enregistré sans prix : prix proposé");
+  ok(P.prix === 24900 && P.mensuel === 2075 && Q.prix === 900 && F.prixCabinet({ mode: "gratuit" }, C.FORMULES.complet, "complet").mensuel === 0, "prix : annuel du pack (équivalent mensuel), prix remisé, gratuit");
+  ok(C.formulesValides({ x1: { lib: "X", modules: [], max: {}, prix: { mois: "500", an: 5000 } } }).x1.prix.mois === 500 && C.formulesValides({ essentiel: { lib: "E", modules: [], max: {} } }).essentiel.prix.mois === 490, "prix d'un pack gardés ; pack enregistré sans prix : prix proposé");
   let er = ""; try { F.paiementNettoye({ d: "2026-10-10", m: 0 }); } catch (e) { er = e.message; } ok(/Montant/.test(er), "paiement sans montant refusé");
 })();
 // Comptabilité (18.2)

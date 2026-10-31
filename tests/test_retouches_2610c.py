@@ -70,7 +70,8 @@ async def main():
         tx = await ev("document.getElementById('fenetreCorps').innerText")
         ok('Nom et prénom obligatoires' not in tx and 'à remplir ensuite' not in tx, 'Nouveau patient : plus de mention en bas')
         o = await ev("(async()=>{const m=await import('./js/app/fichepatient.js');return [[...document.querySelectorAll('#fenetreCorps [data-champ]')].map(e=>e.dataset.champ),m.champsFiche().filter(c=>c.present&&c.section==='id').map(c=>c.k)]})()")
-        ok([k for k in o[0] if k in o[1]] == [k for k in o[1] if k in o[0]], 'Nouveau patient : champs dans l\'ordre de Paramètres › Fiche patient', o)
+        # 31/10/2026 (2.1, demande de Dr Bentahila) : trois sous-parties (Identité, Contact, Couverture et parcours de soins) ; tous les champs réglés sont là
+        ok(sorted(o[0]) == sorted(o[1] + (['medecin'] if 'medecin' in o[0] else [])), 'Nouveau patient : tous les champs de Paramètres › Fiche patient', o)
         await pg.keyboard.press('Escape'); await pg.wait_for_timeout(200)
         ok(not await ev("document.getElementById('fenetre').classList.contains('cache')"), 'Échap ne ferme pas une fenêtre avec des champs à remplir')
         await ev("fermerFenetre()")
@@ -82,9 +83,9 @@ async def main():
         ok(not pg.errs, 'aucune erreur JavaScript', pg.errs[:2]); await pg.close()
         print('Boutons principaux : même taille')
         pg = await ouvrir(b, s, w=1440); ev = pg.evaluate; H = []
-        for page, txt in [('accueil', 'Nouveau rendez-vous'), ('patients', 'Nouveau patient'), ('taches', 'Nouvelle tâche'), ('protocoles', 'Créer un protocole'), ('radiotherapie', 'Nouveau schéma'), ('agenda', 'Nouveau rendez-vous')]:
+        for page, txt in [('accueil', '^Patient$'), ('patients', '^Patient$'), ('taches', '^Tâche$'), ('protocoles', 'Créer un protocole'), ('radiotherapie', 'Nouveau schéma'), ('agenda', '^Rendez-vous$')]:  # 31/10/2026 : « + Patient », « + Tâche », « + Rendez-vous »
             await pg.goto(f'http://localhost:{PORT}/v2.html#{page}'); await pg.wait_for_timeout(2200)
-            H.append(await ev("(()=>{const b=[...document.querySelectorAll('#page button')].find(e=>e.offsetParent&&/" + txt + "/.test(e.textContent));if(!b)return null;const c=getComputedStyle(b);return [Math.round(b.getBoundingClientRect().height),c.fontSize,c.paddingLeft,c.backgroundColor,c.borderRadius]})()"))
+            H.append(await ev("(()=>{const b=[...document.querySelectorAll('#page button')].find(e=>e.offsetParent&&/" + txt + "/.test(e.textContent.trim()));if(!b)return null;const c=getComputedStyle(b);return [Math.round(b.getBoundingClientRect().height),c.fontSize,c.paddingLeft,c.backgroundColor,c.borderRadius]})()"))
         ok(None not in H and len(set(json.dumps(h) for h in H)) == 1, '+ Nouveau rendez-vous, patient, tâche, protocole, schéma : même hauteur, police, marges, couleur, arrondi', H)
         print('Paramètres › Laboratoires')
         await pg.goto(f'http://localhost:{PORT}/v2.html#parametres/laboratoires'); await pg.wait_for_timeout(2200)

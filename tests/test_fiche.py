@@ -19,7 +19,7 @@ async def main():
         # Sans réglage : fiche d'oncologie inchangée
         p0 = await ouvrir(b); await p0.goto(f'http://localhost:{PORT}/v2.html#patients'); await p0.wait_for_timeout(2000)
         await p0.evaluate("nouveauPatient()"); await p0.wait_for_timeout(400)
-        k0 = await p0.evaluate("[...document.querySelectorAll('#fenetre .form[data-sec] > [data-champ]')].filter(e=>e.style.display!=='none').map(e=>e.dataset.champ)") # 3.1 bis : fiche en parties
+        k0 = await p0.evaluate("[...document.querySelectorAll('#fenetre .form[data-sec] [data-champ]')].filter(e=>e.style.display!=='none').map(e=>e.dataset.champ)") # 3.1 bis : fiche en parties
         # 3.1 (12/10/2026) : la fiche tumeur (champs xt…) est ajoutée d'office aux cabinets d'oncologie ; aucun autre champ ajouté
         # 20/10/2026 : Nouveau patient = Identité et administratif seulement (informations médicales et fiche tumeur : dans le dossier)
         ok(k0[:4] == ['nom', 'prenom', 'ddn', 'sexe'] and 'ald' in k0 and not any(k.startswith('x') for k in k0) and not any(k in k0 for k in ('taille', 'poids', 'diag', 'allergies')), 'sans réglage : Nouveau patient = Identité et administratif seulement (ordre d\'aujourd\'hui, ALD présent, aucun champ médical ni de la fiche tumeur) ' + str(k0))
@@ -27,8 +27,9 @@ async def main():
         # Avec réglage
         pg = await ouvrir(b, S2); await pg.goto(f'http://localhost:{PORT}/v2.html#patients'); await pg.wait_for_timeout(2000)
         await pg.evaluate("nouveauPatient()"); await pg.wait_for_timeout(400)
-        k1 = await pg.evaluate("[...document.querySelectorAll('#fenetre .form > [data-champ]')].filter(e=>e.style.display!=='none').map(e=>e.dataset.champ)")
-        ok(k1[0] == 'mut' and 'ald' not in k1 and 'xgs001' not in k1 and 'xmt001' in k1, 'Nouveau patient : Mutuelle en premier, ALD retiré, champ du cabinet (identité) ; Groupe sanguin (informations médicales) non demandé ' + str(k1[:4]))
+        # 31/10/2026 (2.1) : trois sous-parties (Identité, Contact, Couverture et parcours de soins) ; l'ordre réglé est suivi dans chaque sous-partie
+        k1 = await pg.evaluate("[...document.querySelectorAll('#fenetre [data-g=couv] .form [data-champ]')].filter(e=>e.style.display!=='none').map(e=>e.dataset.champ)")
+        ok(k1[0] == 'mut' and 'ald' not in k1 and 'xgs001' not in k1 and 'xmt001' in k1, 'Nouveau patient : Mutuelle en premier (Couverture et parcours de soins), ALD retiré, champ du cabinet (identité) ; Groupe sanguin (informations médicales) non demandé ' + str(k1[:4]))
         ok(await pg.evaluate("document.querySelector('#fenetre [data-champ=\"tel\"] label').textContent") == 'Téléphone portable', 'nom affiché réglé par la spécialité : « Téléphone portable »')
         await pg.fill('#fNomF', 'Fiche'); await pg.fill('#fPrenom', 'Essai'); await pg.fill('#fx_xmt001', 'Dr Alami')
         await pg.click('#fOk'); await pg.wait_for_timeout(1200)

@@ -62,19 +62,21 @@ export function htmlAbonnement() {
   const E = o.etat || {}, et = E.etat, retard = et === "retard" || et === "suspendre", P = o.prixPack || {};
   const lib = { essai: "Essai", ajour: "Actif", renouveler: "À renouveler", retard: "Expiré", suspendre: "Expiré", gratuit: "Gratuit" }[et] || "";
   const cls = { essai: "b-co", ajour: "b-ch", renouveler: "b-or", retard: "b-al", suspendre: "b-al", gratuit: "b-ch" }[et] || "b-gr";
-  const carte = (mode, titre, prix, unite, extra, actuel) => '<div class="abo-f' + (actuel ? " actuel" : "") + '">' + (mode === "annuel" ? '<span class="abo-off">★ 2 mois offerts</span>' : "") + "<h4>" + titre + "</h4>" + extra +
-    '<div class="abo-px">' + (mode === "annuel" && P.mois ? '<s>' + dh(P.mois * 12) + "</s> " : "") + "<b>" + dh(prix) + "</b> / " + unite + "</div>" +
-    (actuel ? '<button class="bt clair" onclick="aboDemande(\'renouveler\')">Renouveler maintenant</button>' : '<button class="bt plein" onclick="aboDemande(\'' + mode + '\')">' + (mode === "annuel" ? "Passer à l'annuel" : "Passer au mensuel") + "</button>") + "</div>";
+  // 31/10/2026 (lot 6.7, d'après la photo envoyée par Dr Bentahila, dans le style d'Onco360) : titre de la page, puis une carte pour la formule
+  // (nom, état, échéance) et une carte par période (essai, prix en grand, action), l'annuelle avec « 2 mois offerts » et le prix barré
+  const carte = (mode, titre, prix, unite, extra, actuel) => '<section class="carte abo-f2' + (actuel ? " actuel" : "") + (mode === "annuel" ? " an" : "") + '">' + (mode === "annuel" ? '<span class="abo-off">' + A.ic("etoile") + "2 mois offerts</span>" : "") + "<h4>" + titre + "</h4>" + extra +
+    '<div class="abo-px2">' + (mode === "annuel" && P.mois ? '<s>' + dh(P.mois * 12) + "</s> " : "") + "<b>" + dh(prix) + " / " + unite + "</b></div>" +
+    (actuel ? '<button class="bt lien abo-lien" onclick="aboDemande(\'renouveler\')">Renouveler maintenant</button>' : '<button class="bt plein abo-bt" onclick="aboDemande(\'' + mode + '\')">' + (mode === "annuel" ? "Passer à l'annuel" : "Passer au mensuel") + "</button>") + "</section>";
   const actuel = o.mode === "annuel" ? "annuel" : o.mode === "mensuel" ? "mensuel" : "";
-  return '<section class="carte"><h3><span class="ic">' + A.ic("banque") + '</span>Mon abonnement</h3><p class="sous">Votre formule et son renouvellement.</p>' +
-    '<div class="abo-r"><div><b class="abo-n">' + esc(String(o.pack || "").toUpperCase()) + '</b> <span class="badge ' + cls + '">' + lib + "</span>" +
-    '<p class="abo-e2">' + A.ic("agenda") + (et === "essai" ? " Fin de l'essai gratuit : " : et === "gratuit" ? " Sans échéance" : " Prochaine échéance : ") + esc(dLong(E.fin)) + (retard ? ' <span style="color:var(--rouge)">(en retard de ' + E.jours + " j)</span>" : "") + "</p></div>" +
-    '<div class="mesures">' + esc(MODES[o.mode] || "") + (o.prix && (o.mode === "mensuel" || o.mode === "annuel") ? " · " + dh(o.prix) + (o.periode === "an" ? " / an" : " / mois") : "") + "</div></div>" +
-    (et === "gratuit" ? "" : '<div class="abo-fs">' + carte("mensuel", "Mensuel", P.mois, "mois", o.mode === "essai" ? '<span class="abo-ess">' + A.ic("horloge") + " Essai gratuit jusqu'au " + esc(dLong(o.essaiFin)) + "</span>" : "", actuel === "mensuel") +
-      carte("annuel", "Annuel", P.an, "an", P.mois && P.an ? '<span class="abo-ess vert">Vous économisez ' + dh(P.mois * 12 - P.an) + "</span>" : "", actuel === "annuel") + "</div>" +
-      '<p class="mesures" style="margin-top:10px">Prix TTC (TVA 20 % comprise). Le paiement se fait par virement ou par chèque' + (o.paiement && o.paiement.rib ? " — RIB : <b>" + esc(o.paiement.rib) + "</b>" + (o.paiement.banque ? " (" + esc(o.paiement.banque) + ")" : "") + (o.paiement.raison ? ", au nom de " + esc(o.paiement.raison) : "") : "") + " ; votre facture apparaît dans l'onglet Factures dès que le paiement est reçu.</p>") +
+  return '<div class="abo-page"><div class="abo-ent"><h2>Mon abonnement</h2><p class="sous">Gérez votre formule et son renouvellement.</p></div>' +
+    '<section class="carte abo-r2"><div class="abo-r2-g"><b class="abo-n">' + esc(String(o.pack || "").toUpperCase()) + '</b><span class="badge ' + cls + '">' + lib + "</span></div>" +
+    '<span class="abo-mode">' + esc(MODES[o.mode] || "") + (o.prix && (o.mode === "mensuel" || o.mode === "annuel") ? " · " + dh(o.prix) + (o.periode === "an" ? " / an" : " / mois") : "") + "</span>" +
+    '<p class="abo-e2">' + A.ic("agenda") + (et === "essai" ? " Fin de l'essai gratuit : " : et === "gratuit" ? " Sans échéance" : " Prochaine échéance : ") + esc(dLong(E.fin)) + (retard ? ' <span style="color:var(--rouge)">(en retard de ' + E.jours + " j)</span>" : "") + "</p></section>" +
+    (et === "gratuit" ? "" : '<div class="abo-fs2">' + carte("mensuel", "Mensuel", P.mois, "mois", o.mode === "essai" ? '<span class="abo-ess">' + A.ic("horloge") + " Essai gratuit jusqu'au " + esc(dLong(o.essaiFin)) + "</span>" : "", actuel === "mensuel") +
+      carte("annuel", "Annuel", P.an, "an", "", actuel === "annuel").replace("</b></div>", "</b></div>" + (P.mois && P.an ? '<span class="abo-ess or">Vous économisez ' + dh(P.mois * 12 - P.an) + "</span>" : "")) + "</div>" +
+      '<p class="mesures abo-note">Prix TTC (TVA 20 % comprise). Le paiement se fait par virement ou par chèque' + (o.paiement && o.paiement.rib ? " — RIB : <b>" + esc(o.paiement.rib) + "</b>" + (o.paiement.banque ? " (" + esc(o.paiement.banque) + ")" : "") + (o.paiement.raison ? ", au nom de " + esc(o.paiement.raison) : "") : "") + " ; votre facture apparaît dans l'onglet Factures dès que le paiement est reçu.</p>") +
     ((o.demandes || []).length ? '<div class="abo-dem">' + o.demandes.map((q) => "Demande envoyée le " + esc(new Date(q.le).toLocaleDateString("fr-FR")) + " : " + esc({ renouveler: "renouveler", annuel: "passer à l'annuel", mensuel: "passer au mensuel" }[q.type]) + " — en attente de l'équipe Onco360.").join("<br>") + "</div>" : "") +
-    "</section>";
+    "</div>";
 }
 window.aboDemande = (type) => {
   const L = { renouveler: "Renouveler mon abonnement", annuel: "Passer à l'abonnement annuel", mensuel: "Passer à l'abonnement mensuel" };

@@ -20,7 +20,8 @@ const typesGrille = () => (A.typesC ? A.typesC() : []).filter((t) => (t.rdv || t
 function lignesGrille(E) {
   const TC = typesGrille(); TC.forEach((t) => { if (!E.activites.some((a) => a.type === t.k)) E.activites.push({ type: t.k, libelle: t.nom, historique: [], _v: 1 }); });
   const rang = (a) => { const j = TC.findIndex((t) => t.k === a.type); return j < 0 ? 900 + (a.type === "seance" ? 0 : a.type === "rt" ? 1 : 2) : j; };
-  return E.activites.map((a, i) => [a, i, TC.find((t) => t.k === a.type) || null]).sort((x, y) => rang(x[0]) - rang(y[0]) || x[1] - y[1]);
+  // 31/10/2026 (lots 7.1 et 7.2) : « Séance de chimiothérapie » et « Radiothérapie (tarif de l'acte) » ont leur cadre (plus de ligne ici)
+  return E.activites.map((a, i) => [a, i, TC.find((t) => t.k === a.type) || null]).filter(([a]) => a.type !== "seance" && a.type !== "rt").sort((x, y) => rang(x[0]) - rang(y[0]) || x[1] - y[1]);
 }
 export function pageParametres() {
   const esc = A.esc;
@@ -51,16 +52,62 @@ export function pageParametres() {
       '<div class="actr" style="justify-content:flex-start;margin-top:8px"><button class="bt clair petit" onclick="cfOnglet(\'types\')">' + A.ic("plus") + 'Ajouter un type de consultation</button></div>';
   }
   h += "</section>";
+  if (ETAB) h += cadreSeance(etabs);
   h += '<section class="carte" data-fn="rt.tarifs"><h3><span class="ic">' + A.ic("radiation") + '</span>Actes de radiothérapie</h3>' +
     // R-D3 (20/10/2026, audit n° 6, C5) : taux commun, pour un lieu sans ligne « Radiothérapie » (avant : 60 % / 10 % pris sans le dire) ; vide = « sans tarif »
     '<div class="form" style="grid-template-columns:repeat(auto-fit,minmax(150px,200px));margin-bottom:6px" id="paTauxRT"><div><label for="paTrR">Taux commun : rétrocession %</label><input id="paTrR" inputmode="decimal" value="' + esc(ED.tauxRT && ED.tauxRT.retro != null ? fr(ED.tauxRT.retro) : "") + '" onchange="paTauxRT(\'retro\',this.value)"></div><div><label for="paTrI">Taux commun : impôt %</label><input id="paTrI" inputmode="decimal" value="' + esc(ED.tauxRT && ED.tauxRT.impot != null ? fr(ED.tauxRT.impot) : "") + '" onchange="paTauxRT(\'impot\',this.value)"></div></div>' +
     '' +
+    (etabs.length ? lignesLieux(etabs, "rt") : "") + '<h4 class="soustitre">Catalogue des actes</h4>' +
     '<div class="tableau" style="max-height:460px;overflow:auto"><table class="tcures"><tr><th>Acte</th><th style="width:160px">Prix (DH)</th><th></th></tr>' +
     ED.actesRT.map((a, i) => '<tr><td><input value="' + esc(a.nom) + '" style="width:100%" onchange="paActe(' + i + ',\'nom\',this.value)"></td><td><input class="mt" inputmode="decimal" style="max-width:130px" value="' + esc(mil(a.prix)) + '" onchange="paActe(' + i + ',\'prix\',this.value)"></td><td><button class="mini rouge" onclick="paSupActe(' + i + ')">✕</button></td></tr>').join("") + "</table></div>" +
     '<div class="actr" style="justify-content:flex-start;margin-top:8px"><button class="bt clair petit" onclick="paAjActe()">' + A.ic("plus") + 'Ajouter un acte</button><label style="display:flex;gap:8px;align-items:center;margin-left:auto;font-weight:bold;color:var(--doux);font-size:13px">Montant VMAT (DH) <input class="champ mt" inputmode="decimal" style="max-width:130px;font-size:15px;padding:8px" value="' + esc(mil(ED.vmat)) + '" onchange="paVmat(this.value)"></label></div></section>' +
     '<div class="barre-enr"><span id="paMod" class="mesures' + (MOD ? "" : " cache") + '">Modifications non enregistrées</span><button class="bt plein" id="paOk" onclick="paEnregistrer()" style="margin-left:auto"><svg class="pi"><use href="#i-enregistrer"/></svg>Enregistrer</button></div>';
   A.$("page").innerHTML = h;
 }
+// ───── 31/10/2026 (lots 7.1 à 7.3, demande et accord de Dr Bentahila du 29/10) : cadres « Séance de chimiothérapie » et « Actes de radiothérapie » :
+// tarif commun, puis une ligne par lieu d'exercice : « Tarif commun » (le lieu n'a pas de ligne propre) ou « Taux propres » (sa ligne, datée) ─────
+const ligneDe = (code, type) => { const e = ED.etablissements[code]; return e ? (e.activites || []).find((a) => a.type === type) || null : null; };
+const nomLieu = (c) => ((D().etabsTous || D().etabs).find((e) => e.code === c) || {}).nom || "";
+const champ = (v, fn, larg, dis) => '<input inputmode="decimal" style="max-width:' + larg + 'px" value="' + A.esc(v == null ? "" : mil(v)) + '"' + (dis ? " disabled" : ' onchange="' + fn + '"') + ">";
+function cadreSeance(etabs) {
+  const esc = A.esc, c = ED.seanceCommune, vc = c ? valeurAu(c, EFFET) || {} : {};
+  return '<section class="carte pa-seance"><h3><span class="ic">' + A.ic("seringue") + "</span>Séance de chimiothérapie</h3>" +
+    '<div class="form pa-eff" style="grid-template-columns:minmax(0,240px);margin-bottom:10px"><div><label for="paEffS">Date d\'effet des modifications</label><input id="paEffS" type="date" value="' + esc(EFFET) + '" onchange="paEffet(this.value)"></div></div>' +
+    '<div class="tableau"><table class="tcures"><tr><th>Tarif commun</th><th>Brut (DH)</th><th>Rétrocession %</th><th>Impôt %</th><th>Net (DH)</th><th>En vigueur depuis</th></tr>' +
+    '<tr><td><b>Lieux sans taux propres</b></td><td>' + champ(vc.brut, "paCom('brut',this.value)", 120) + "</td><td>" + champ(vc.retro, "paCom('retro',this.value)", 80) + "</td><td>" + champ(vc.impot, "paCom('impot',this.value)", 80) + "</td>" +
+    '<td class="calc">' + (vc.brut != null ? fr(net(vc.brut || 0, vc)) : "—") + "</td><td>" + (vc.depuis && vc.depuis > "2000-01-01" ? A.dfrA(vc.depuis) : vc.depuis ? "Origine" : "—") + "</td></tr></table></div>" +
+    lignesLieux(etabs, "seance") + "</section>";
+}
+function lignesLieux(etabs, type) {
+  const esc = A.esc, rt = type === "rt", com = rt ? ED.tauxRT || null : (ED.seanceCommune ? valeurAu(ED.seanceCommune, EFFET) : null);
+  return '<div class="tableau pa-lieux"><table class="tcures"><tr><th>Lieu d\'exercice</th><th>Tarif</th>' + (rt ? "" : "<th>Brut (DH)</th>") + "<th>Rétrocession %</th><th>Impôt %</th>" + (rt ? "" : "<th>Net (DH)</th>") + "<th>En vigueur depuis</th></tr>" +
+    etabs.map((code) => { const a = ligneDe(code, type), v = a ? valeurAu(a, EFFET) || {} : com || {}, q = "'" + esc(code) + "','" + type + "'";
+      return "<tr" + (a ? "" : ' class="pa-com"') + "><td><b>" + esc(code) + "</b>" + (nomLieu(code) ? '<div class="mesures">' + esc(nomLieu(code)) + "</div>" : "") + "</td>" +
+        '<td><select aria-label="Tarif de ' + esc(code) + '" onchange="paPropre(' + q + ',this.value)"><option value="com"' + (a ? "" : " selected") + '>Tarif commun</option><option value="pro"' + (a ? " selected" : "") + ">Taux propres</option></select></td>" +
+        (rt ? "" : "<td>" + champ(v.brut, "paValL(" + q + ",'brut',this.value)", 110, !a) + "</td>") +
+        "<td>" + champ(v.retro, "paValL(" + q + ",'retro',this.value)", 80, !a) + "</td><td>" + champ(v.impot, "paValL(" + q + ",'impot',this.value)", 80, !a) + "</td>" +
+        (rt ? "" : '<td class="calc">' + (v.brut != null ? fr(net(v.brut || 0, v)) : "—") + "</td>") +
+        "<td>" + (a ? (v.depuis && v.depuis > "2000-01-01" ? A.dfrA(v.depuis) : "Origine") : '<span class="mesures">tarif commun</span>') + "</td></tr>"; }).join("") + "</table></div>";
+}
+// Valeur datée (date d'effet) d'une ligne : nouvelle entrée, ou celle de même date
+const valDatee = (a, f, v) => { const cur = valeurAu(a, EFFET) || { depuis: EFFET, brut: null, retro: 0, impot: 0 };
+  let e = (a.historique || []).find((x) => x.depuis === EFFET);
+  if (!e) { e = { depuis: EFFET, brut: cur.brut, retro: cur.retro, impot: cur.impot }; (a.historique = a.historique || []).push(e); a.historique.sort((p, q) => p.depuis.localeCompare(q.depuis)); }
+  e[f] = num(v) == null ? (f === "brut" ? null : 0) : num(v); };
+window.paCom = (f, v) => { if (!ED.seanceCommune) ED.seanceCommune = { type: "seance", libelle: "Séance de chimiothérapie", historique: [] }; if (!ED.seanceCommune.historique.length) ED.seanceCommune.historique.push({ depuis: "2000-01-01", brut: 0, retro: 0, impot: 0 }); valDatee(ED.seanceCommune, f, v); modif(true); };
+window.paValL = (code, type, f, v) => { const a = ligneDe(code, type); if (!a) return; valDatee(a, f, v); modif(true); };
+window.paPropre = (code, type, v) => {
+  const rt = type === "rt", a = ligneDe(code, type);
+  if (v === "pro" && !a) {
+    const c = rt ? ED.tauxRT || { retro: 0, impot: 0 } : (ED.seanceCommune && valeurAu(ED.seanceCommune, EFFET)) || { brut: 0, retro: 0, impot: 0 };
+    if (!ED.etablissements[code]) ED.etablissements[code] = { activites: [] };
+    ED.etablissements[code].activites.push({ type, libelle: rt ? "Radiothérapie (tarif de l'acte)" : "Séance de chimiothérapie", historique: [{ depuis: "2000-01-01", brut: rt ? null : c.brut != null ? c.brut : 0, retro: c.retro || 0, impot: c.impot || 0 }] });
+  } else if (v === "com" && a) {
+    if (!confirm(code + " prendra le tarif commun" + (rt ? " de la radiothérapie" : " de la séance") + ", aussi pour les actes déjà faits (ses taux propres sont retirés à l'enregistrement).\n\nContinuer ?")) { pageParametres(); return; }
+    const L = ED.etablissements[code].activites; L.splice(L.indexOf(a), 1);
+  }
+  modif(true);
+};
 const modif = (re) => { MOD = true; if (re) pageParametres(); else { const m = A.$("paMod"); if (m) m.classList.remove("cache"); } };
 window.paEtab = (c) => { ETAB = c; pageParametres(); };
 window.paEffet = (v) => { EFFET = v || D().t; pageParametres(); };

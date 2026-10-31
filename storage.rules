@@ -9,12 +9,14 @@ service firebase.storage {
     // Cabinet non suspendu par l'administration (09/10/2026)
     function cabinetOk(e) { return firestore.get(/databases/(default)/documents/espaces/$(e)).data.get('actif', true) != false; }
     function etabPatient(e, p) { return firestore.get(/databases/(default)/documents/espaces/$(e)/patients/$(p)).data.etablissementId; }
-    function peut(e, p) {
-      return request.auth != null && cabinetOk(e) && membre(e).actif == true && membre(e).droits.documents == true
+    // L6 (c) (31/10/2026) : cabinet suspendu = lecture seule (les fichiers se lisent et s'exportent ; rien ne s'ajoute ni ne se retire)
+    function peutLire(e, p) {
+      return request.auth != null && membre(e).actif == true && membre(e).droits.documents == true
         && (membre(e).tousEtablissements == true || etabPatient(e, p) in membre(e).etablissements);
     }
+    function peut(e, p) { return cabinetOk(e) && peutLire(e, p); }
     match /espaces/{e}/patients/{p}/fichiers/{f}/{nom} {
-      allow read: if peut(e, p);
+      allow read: if peutLire(e, p);
       // 1.3 (11/10/2026) : PDF seulement (tout document est converti en PDF dans le navigateur avant l'envoi, décision du 11/10)
       allow create: if peut(e, p) && request.resource.size < 25 * 1024 * 1024 && request.resource.contentType == 'application/pdf'
         && request.resource.metadata.creePar == request.auth.uid;
@@ -23,7 +25,7 @@ service firebase.storage {
     }
     // Documentation du cabinet (bouton « Doc. », 08/10/2026) : PDF lus par les membres actifs, ajoutés et supprimés par le médecin
     match /espaces/{e}/documentation/{f}/{nom} {
-      allow read: if request.auth != null && cabinetOk(e) && membre(e).actif == true;
+      allow read: if request.auth != null && membre(e).actif == true;
       allow create: if request.auth != null && cabinetOk(e) && membre(e).actif == true && membre(e).role == 'medecin'
         && request.resource.size < 25 * 1024 * 1024 && request.resource.contentType == 'application/pdf';
       allow update: if false;
@@ -32,7 +34,8 @@ service firebase.storage {
     // Export complet du cabinet (étape 1.6, 11/10/2026) : fichier ZIP préparé par le serveur (exporterCabinet), lu par le médecin
     // titulaire seulement ; jamais écrit depuis le navigateur
     match /espaces/{e}/exports/{x}/{nom} {
-      allow read: if request.auth != null && cabinetOk(e) && firestore.get(/databases/(default)/documents/espaces/$(e)).data.titulaire == request.auth.uid;
+      // L6 (d) : lisible aussi quand le cabinet est suspendu (export final remis au médecin avant l'effacement)
+      allow read: if request.auth != null && firestore.get(/databases/(default)/documents/espaces/$(e)).data.titulaire == request.auth.uid;
       allow write: if false;
     }
     match /{tout=**} { allow read, write: if false; }

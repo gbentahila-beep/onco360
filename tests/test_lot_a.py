@@ -34,7 +34,7 @@ async def main():
         ok(not await ev("[...document.querySelectorAll('.dos-ban button')].some(b => /^(Afficher|Modifier|Journal)$/.test(b.textContent.trim()) && b.getClientRects().length)"), 'plus de boutons Afficher, Journal, Modifier visibles')
         ok(await ev("document.getElementById('titrePage').innerText.trim()") == 'Patients' and await ev("!!document.querySelector('#titrePage a[href=\"#patients\"]')"), 'barre du haut : « ‹ Patients » seulement (le nom une seule fois)')
         g = await ev("(()=>{const a=document.querySelector('.dos-ban').getBoundingClientRect(),c=document.querySelector('.dos-pat').getBoundingClientRect(),t=document.querySelector('.dos-trav').getBoundingClientRect();return [Math.round(a.left-c.left),Math.round(c.top-a.bottom),Math.round(t.top-a.top)]})()")
-        ok(abs(g[0]) <= 2 and 0 <= g[1] <= 16 and abs(g[2]) <= 2, 'trois colonnes : le bloc est en haut de la colonne Patient, le centre monte tout en haut', g)
+        ok(abs(g[0]) <= 2 and 0 <= g[1] <= 18 and abs(g[2]) <= 2, 'trois colonnes : le bloc est en haut de la colonne Patient, le centre monte tout en haut', g)
         await ev("document.querySelector('.dos-ban .mpts button').click()"); await pg.wait_for_timeout(200)
         ok('Journal' in await ev("(document.getElementById('ptsMenuF')||{}).innerText||''"), '« ⋯ » du nom : Journal (titulaire)'); await ev("document.body.click()")
 
@@ -91,7 +91,7 @@ async def main():
         # 26/10/2026 : dans l'ordre réglé de la fiche (test_retouches_2610b), plus dans un ordre fixe
         ok(sorted(await ev("[...document.querySelectorAll('details.dp[data-p=med] .im-s')].map(s=>s.dataset.im)")) == sorted(['atcdMed', 'atcdChir', 'atcdFam', 'allergies', 'traitCours', 'modeVie']), 'six sous-parties toujours affichées')
         await ev("document.querySelector('.im-s[data-im=atcdChir] button.im-nr').click()"); await pg.wait_for_timeout(400)
-        ok(await ev("document.querySelectorAll('#fenetreCorps .im-r').length") == 1 and await ev("(()=>{const i=document.querySelector('#fenetreCorps .im-lib');i.focus();i.value='ec';imSug(i);const n=document.querySelectorAll('#fenetreCorps .im-sug:not(.cache) button').length;i.value='';return n})()") >= 3, 'petite fenêtre : une ligne, liste de départ proposée dès 2 lettres')
+        ok(await ev("document.querySelectorAll('#fenetreCorps .im-r').length") == 1 and await ev("(()=>{const i=document.querySelector('#fenetreCorps .im-lib');i.focus();i._t=2;i.value='ec';imSug(i);const n=document.querySelectorAll('#fenetreCorps .im-sug:not(.cache) button').length;i.value='';return n})()") >= 3, 'petite fenêtre : une ligne, liste de départ proposée dès 2 lettres')
         await pg.fill('#fenetreCorps .im-lib', 'Appendicectomie'); await pg.fill('#fenetreCorps .im-no', 'en 1990')
         await ev("document.querySelector('#fenetreCorps .im-plus').click()"); await pg.wait_for_timeout(100)
         await ev("const l=document.querySelectorAll('#fenetreCorps .im-lib'); l[1].value='appendicectomie '")

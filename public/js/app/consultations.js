@@ -60,7 +60,8 @@ function modifsApres(c) {
 function htmlSignature(c) {
   const esc = A.esc, m = (c.modifs || []).map((z) => A.dfrA(jourDe(Date.parse(z.le))) + (z.parNom && z.parNom !== c.creeParNom ? " (" + z.parNom + ")" : "")), dj = [...new Set(m)];
   const sig = c.creeParNom ? "Signée le " + A.dfrA(c.o ? jourDe(c.o) : c.d) + " par " + c.creeParNom : "";
-  return sig || dj.length ? '<p class="mesures cs-sig">' + esc([sig, dj.length ? "modifiée le " + dj.join(", le ").replace(/, le ([^,]*)$/, " et le $1") : ""].filter(Boolean).join(" · ")) + "</p>" : "";
+  // 3.8 (30/10/2026, demande de Dr Bentahila) : « modifiée le … » : seulement la dernière date
+  return sig || dj.length ? '<p class="mesures cs-sig">' + esc([sig, dj.length ? "modifiée le " + dj[dj.length - 1] : ""].filter(Boolean).join(" · ")) + "</p>" : "";
 }
 // Lecture des consultations d'un patient (filtre d'établissement pour un membre limité à certains établissements)
 function charger(x) {
@@ -81,7 +82,7 @@ export const datesConsultations = (pid) => (CS[pid] || []).map((c) => c.d).filte
 // dossier, seule la dernière est dépliée ; « Tout déplier », « Notes seulement », Imprimer ; sur téléphone et tablette : les 10 dernières, puis
 // « Afficher les plus anciennes ». La barre des prescriptions est dans la barre d'actions du dossier (boutonsPrescription).
 const OUVS = {}, NSEUL = {}, PLUS = {}; // consultations dépliées (pid → Set), « Notes seulement », plus anciennes affichées (téléphone)
-const initiales = (n) => String(n || "").replace(/^(Dr|Pr|Mme|M)\.?\s+/i, "").split(/[\s-]+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+const initiales = (n) => String(n || "").replace(/\([^)]*\)/g, " ").replace(/^\s*(Dr|Pr|Mme|M)\.?\s+/i, "").split(/[\s-]+/).filter((w) => /^\p{L}/u.test(w)).slice(0, 2).map((w) => w[0]).join("").toUpperCase(); // 1.10 : parenthèses ignorées
 const typeCourt = (c) => { const t = c.type ? nomActuel(TL(), c.type) : ""; return t.replace(/^Consultation (d'|de |en cours de )?/i, "").replace(/^\w/, (m) => m.toUpperCase()) || c.titre || "Consultation"; };
 function ouvertes(pid) {
   const L = CS[pid] || [];
@@ -100,7 +101,7 @@ export function htmlConsultations(x) {
         '<button type="button" class="mini" onclick="csImprimer(' + q + ')">' + A.ic("imprimer") + "Imprimer</button>"].filter(Boolean)) : "") + "</div>";
   if (L === undefined) return h + '<p class="sous" style="margin:2px 0 0">Chargement des consultations…</p>';
   if (L === null) return h + '<p class="sous" style="margin:2px 0 0;color:var(--rouge)">Les consultations n\'ont pas pu être lues. Rechargez la page.</p>';
-  if (!L.length) return h + '<p class="vide-c">Aucune consultation.' + (peutEcrire() ? " « Nouvelle consultation » pour en ajouter une." : "") + "</p>";
+  if (!L.length) return h + A.etatVide({ ill: "consult", titre: "Aucune consultation pour l'instant", txt: peutEcrire() ? "« Nouvelle consultation » pour en ajouter une." : "" }); // 3.4 : état vide illustré
   setTimeout(apresAffichage, 0);
   const ouv = ouvertes(x.id);
   h += '<div class="cs-liste' + (PLUS[x.id] ? " tous" : "") + (ns ? " ns" : "") + '" id="csListe" data-defile="cs">';
@@ -111,7 +112,7 @@ export function htmlConsultations(x) {
     const pied = on && !ns ? '<div class="cs-pied">' + htmlSignature(c) + (peutEcrire() ? '<span class="actr">' + '<button class="mini" onclick="csModifier(' + qc + ')">Modifier</button>' + (peutSupprimer(c) ? '<button class="mini r" onclick="csSupprimer(' + qc + ')">Supprimer</button>' : "") + "</span>" : "") + "</div>" : "";
     h += '<div class="cs' + (on ? " on" : "") + '"><div class="cs-h"><button class="cs-t" aria-expanded="' + on + '" onclick="csTog(' + qc + ')" title="' + esc(A.dfrA(c.d) + " · " + nomCs(c) + (c.creeParNom ? " · " + c.creeParNom : "")) + '"><span class="fl">' + (on ? "▾" : "▸") + '</span><span class="dt">' + A.dfrA(c.d) + '</span><span class="ti">' + esc(typeCourt(c)) + '</span><span class="tt">' + esc(c.titre && typeCourt(c) !== c.titre ? c.titre : "") + "</span>" +
       // 19/10/2026 (demande de Dr Bentahila) : pliée ou dépliée, la même ligne : date · type · titre · ordonnances · initiales (plus le début de la note)
-      (nl ? '<span class="no" title="' + nl + " ordonnance" + (nl > 1 ? "s" : "") + '">' + A.ic("document") + nl + "</span>" : "") + '<span class="in' + (on && !ns ? " nom" : "") + '" title="' + esc(c.creeParNom || "") + '">' + esc(on && !ns ? c.creeParNom || "" : initiales(c.creeParNom)) + "</span></button></div>";
+      (nl ? '<span class="no" title="' + nl + " ordonnance" + (nl > 1 ? "s" : "") + '">' + A.ic("document") + nl + "</span>" : "") + '<span class="in' + (on || ns ? " nom" : "") + '" title="' + esc(c.creeParNom || "") + '">' + esc(on || ns ? c.creeParNom || "" : initiales(c.creeParNom)) + "</span></button></div>"; // 3.6 : « Notes seulement » : le nom entier (Dr Prénom Nom), plus les initiales
     if (on && ns) h += '<div class="cs-c">' + (c.note ? '<div class="cs-nl">' + esc(c.note) + "</div>" : '<span class="mesures">Pas de note.</span>') + "</div>";
     else if (on) {
       // Note : écrite directement dans la consultation ouverte, enregistrée toute seule (11/10/2026) ; « Modifier » pour le reste
@@ -148,6 +149,8 @@ export function boutonsPrescription(x) {
   const q = "'" + x.id + "'", n = {};
   (CS[x.id] || []).forEach((c) => (c.lignes || []).forEach((l) => { if (!l.annulee) n[l.t] = (n[l.t] || 0) + 1; })); // ordonnance annulée : pas comptée (R-E7)
   return ["medic", "ordo", "analyse", "exam", "courrier", "doc"].map((t) => FAMILLES.find((f) => f.t === t)).map((f) => '<div class="pr" data-mod="prescriptions" data-fn="prescriptions.' + f.t + '" data-bib="' + (BIB_DE[f.t] || "") + '"><button type="button" onclick="csPrescrire(' + q + ",'" + f.t + '\')" title="' + f.titre + ' : nouvelle prescription"><svg class="pi"><use href="#i-' + f.ic + '"/></svg><span class="lb">' + (f.t === "exam" ? '<span class="lg">Examens compl.</span><span class="sm">Examens</span>' : f.lib) + "</span>" + (n[f.t] ? '<small class="br-n" data-fn="prescriptions.compteur" title="' + n[f.t] + " déjà faite" + (n[f.t] > 1 ? "s" : "") + ' pour ce patient">' + n[f.t] + "</small>" : "") + '</button><button type="button" class="fl" data-fn="prescriptions.antecedents" onclick="csAntecedents(' + q + ",'" + f.t + '\')" title="' + f.titre + ' : antécédents des prescriptions" aria-label="' + f.titre + ' : antécédents des prescriptions">▾</button></div>').join("") +
+    // 31/10/2026 (lot 9.1) : « Feuille de soins » (CNOPS, CNSS ; feuillesoins.js), entre Doc. et + RCP, ouverte au centre
+    '<div class="pr" data-mod="prescriptions" data-fn="prescriptions.feuille"><button type="button" onclick="fsOuvrir(' + q + ')" title="Feuille de soins (CNOPS, CNSS) remplie pour le patient"><svg class="pi"><use href="#i-document"/></svg><span class="lb"><span class="lg">Feuille de soins</span><span class="sm">F. soins</span></span></button></div>' +
     // « + RCP » (09/10/2026, rcp.js) : inscription à la prochaine RCP ; flèche = inscriptions du patient
     '<div class="pr" data-mod="rcp"><button type="button" onclick="rcpInscrire(' + q + ')" title="Inscrire le patient à la prochaine RCP"><svg class="pi"><use href="#i-rcp"/></svg><span class="lb">+ RCP</span></button><button type="button" class="fl" onclick="rcpHistorique(' + q + ')" title="RCP du patient" aria-label="RCP du patient">▾</button></div>';
 }

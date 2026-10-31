@@ -182,7 +182,8 @@ const nbCom = (t) => (t.fil || []).filter((f) => f.c).length;
 // 26/10/2026 (style minimaliste) : plus de « ? » d'explication sur la page Tâches (aideQ retiré)
 // 26/10/2026 (demande de Dr Bentahila) : tâches en tableau (Tâche, Patient, Assignée à, Créée par, Échéance, Statut) ; un clic sur la rangée
 // ouvre la tâche ; le statut se change dans la rangée (menu À faire / En cours / Terminée) ; téléphone : une carte par tâche
-const initiales = (nom) => String(nom || "?").replace(/^(Dr|Pr)\.?\s+/i, "").split(/\s+/).filter(Boolean).slice(0, 2).map((m) => m[0]).join("").toUpperCase() || "?";
+// 31/10/2026 (1.10) : ce qui est entre parenthèses ne compte pas (« Onco360 (automatique) » → « O », plus « O( ») ; seulement les mots qui commencent par une lettre
+const initiales = (nom) => String(nom || "?").replace(/\([^)]*\)/g, " ").replace(/^\s*(Dr|Pr)\.?\s+/i, "").split(/\s+/).filter((m) => /^\p{L}/u.test(m)).slice(0, 2).map((m) => m[0]).join("").toUpperCase() || "?";
 const avatar = (nom, moi) => '<span class="ta-av">' + A.esc(initiales(nom)) + "</span><span class=\"ta-nm\">" + A.esc(moi ? "Moi" : nom || "?") + "</span>";
 const ENTETE = '<div class="ta-h" aria-hidden="true"><span>Tâche</span><span>Patient</span><span>Assignée à</span><span>Créée par</span><span>Échéance</span><span>Statut</span></div>';
 const tableau = (l) => (l.length ? '<div class="ta-tab">' + ENTETE + l.map(ligne).join("") + "</div>" : "");
@@ -251,7 +252,7 @@ function dessiner() {
   // Lot B (25/10/2026) : plus de titre ; Mes tâches / Toutes les tâches à gauche, Imprimer et « + Nouvelle tâche » à droite, sur la même ligne
   let h = '<div class="barre-page"><div class="ag-vues ta-vues">' + onglet("mes", "profil", "Mes tâches", nbOuv(mes)) + ongletT("toutes", "taches", '<span class="lg">Toutes les tâches</span><span class="sm">Toutes</span>', nbOuv(T)) + "</div>" +
     // Lot E (25/10/2026) : page témoin des règles communes (boutons b1 / b2 / b3, quatre tailles de texte, couleurs, états vides, fenêtres)
-    '<div class="bp-act"><button class="b2" id="taImp" onclick="taImprimer()" title="Imprimer la liste affichée (vue et filtres en cours)">' + A.ic("imprimer") + 'Imprimer</button><button class="b1" onclick="taNouvelle()">' + A.ic("plus") + "Nouvelle tâche</button></div></div>";
+    '<div class="bp-act"><button class="b2" id="taImp" onclick="taImprimer()" title="Imprimer la liste affichée (vue et filtres en cours)">' + A.ic("imprimer") + 'Imprimer</button><button class="b1" onclick="taNouvelle()">' + A.ic("plus") + "Tâche</button></div></div>";
   h += '<div class="ta-filtres"><div class="recherche">' + A.ic("loupe") + '<input id="taQ" type="search" placeholder="Rechercher : titre, patient, personne…" autocomplete="off" value="' + esc(F.q) + '"></div>' +
     (VUE === "toutes" ? sel("taFqui", "Responsable", F.qui, optsQui) : "") +
     sel("taFst", "Statut", F.st, [["ouv", "À faire et en cours"], ["afaire", "À faire"], ["encours", "En cours"], ["fait", "Terminées"], ["tous", "Tous les statuts"]]) +
@@ -283,8 +284,8 @@ function liste() {
     // 26/10/2026 (demande de Dr Bentahila) : aucune tâche = illustration, « Toutes les tâches au même endroit », texte, bouton Nouvelle tâche
     // tâches qui existaient, toutes terminées : la fête (26/10/2026, 2e série)
     if (!ouvertes.length) h += actifs ? vide("Aucune tâche ne correspond aux filtres.", '<button class="b2" onclick="taEffacer()">Effacer les filtres</button>')
-      : finies.length ? A.etatVide({ ill: "fete", titre: "Toutes les tâches sont terminées", bouton: '<button class="b2" onclick="taNouvelle()">' + A.ic("plus") + "Nouvelle tâche</button>" })
-      : A.etatVide({ ill: "taches", titre: "Toutes les tâches au même endroit", txt: "Créez des tâches pour vous-même et vos collègues\npour améliorer votre productivité.", bouton: '<button class="b2" onclick="taNouvelle()">' + A.ic("plus") + "Nouvelle tâche</button>" });
+      : finies.length ? A.etatVide({ ill: "fete", titre: "Toutes les tâches sont terminées", bouton: '<button class="b2" onclick="taNouvelle()">' + A.ic("plus") + "Tâche</button>" })
+      : A.etatVide({ ill: "taches", titre: "Toutes les tâches au même endroit", txt: "Créez des tâches pour vous-même et vos collègues\npour améliorer votre productivité.", bouton: '<button class="b2" onclick="taNouvelle()">' + A.ic("plus") + "Tâche</button>" });
     // 26/10/2026 : tâches terminées dans un cadre à part, plus bas, replié par défaut
     if (finies.length) hf = '<section class="carte ta-finies"><button type="button" class="ta-fin-t" aria-expanded="' + !!TERM + '" onclick="taTerminees()"><span class="fl">' + (TERM ? "▾" : "▸") + "</span>Tâches terminées<span class=\"n\">" + finies.length + "</span></button>" + (TERM ? '<div class="taches-finies">' + tableau(finies) + "</div>" : "") + "</section>";
   } else {

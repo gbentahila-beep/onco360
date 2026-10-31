@@ -17,7 +17,7 @@ async def main():
         t = (await pa.inner_text('.tuiles')).replace('\n', ' ')
         ok('900 DH Encaissé ce mois' in t and '32 390 DH Encaissé en 2026' in t, 'encaissé ce mois (900) et cette année (32 390, cabinet supprimé compris) · ' + t[:90])
         ok('900 DH À encaisser (30 j)' in t and '60 j : 1 800 DH' in t and '90 j : 2 700 DH' in t, 'à encaisser 30 / 60 / 90 jours (mensuel ; annuel hors fenêtre)')
-        ok('2 380 DH Impayés · 1 cabinet' in t and 'Fins d\'essai (30 j)' in t and '1 190 DH si tous' in t, 'impayés (2 mois × 1 190) et fins d\'essai')
+        ok('1 580 DH Impayés · 1 cabinet' in t and 'Fins d\'essai (30 j)' in t and '790 DH si tous' in t, 'impayés (2 mois × 790, prix L10) et fins d\'essai')
         await pa.select_option('#cpPer', 'tout'); await pa.wait_for_timeout(200)
         ok('32 390 DH · 4 paiements' in await pa.inner_text('#page') and 'Cabinet Epsilon (supprimé)' in await pa.inner_text('#page') and 'SARL Alpha' in await pa.inner_text('#page'), 'encaissements : tous les paiements, cabinet supprimé gardé, raison sociale')
         ok('Chèque' in await pa.inner_text('.rg') and 'Onco-radiothérapie – Clinique' in await pa.inner_text('.rg'), 'répartition par pack et par moyen')

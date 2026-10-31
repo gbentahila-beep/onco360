@@ -217,7 +217,8 @@ function dessinerListe() {
   jours.forEach((d) => {
     const l = L.filter((r) => r.d === d), nf = l.filter((r) => r.fait).length;
     h += '<div class="rcp-j"><h4>' + esc(A.cap(libDate(d))) + (estRcp(d, c) && c.heure ? " · " + esc(c.heure.replace(":", "h")) : "") + '<span class="mesures">' + (l.length ? l.length + " dossier" + (l.length > 1 ? "s" : "") + (nf ? " · " + nf + " fait" + (nf > 1 ? "s" : "") : "") : "aucun dossier inscrit") + "</span></h4>";
-    if (l.length) h += '<div class="rcp-l ent"><span>Patient</span><span>Question</span><span>Décision</span><span>Inscrit le</span><span class="c">Fait</span></div>' + l.map(ligneListe).join("");
+    // 31/10/2026 (lot 5.1, demande de Dr Bentahila) : tableau au modèle des Tâches
+    if (l.length) h += '<div class="ta-tab rcp-tab"><div class="ta-h rcp-g" aria-hidden="true"><span>Patient</span><span>Né(e) le</span><span>Question</span><span>Décision</span><span>Inscrit</span><span>Statut</span><span>Actions</span></div>' + l.map(ligneListe).join("") + "</div>";
     h += "</div>";
   });
   z.innerHTML = h + "</section>";
@@ -225,17 +226,29 @@ function dessinerListe() {
   $("rcpAu").onchange = () => { const v = $("rcpAu").value; if (!v) return; AU = v; if (AU < DU) DU = AU; dessinerListe(); };
 }
 function ligneListe(r) {
-  const esc = A.esc, x = patient(r.patientId), q = "'" + r.id + "'";
-  const age = x && x.P.ddn ? (() => { let a = +D().t.slice(0, 4) - +x.P.ddn.slice(0, 4); if (D().t.slice(5) < x.P.ddn.slice(5)) a--; return a + " ans"; })() : "";
-  return '<div class="rcp-l' + (r.fait ? " fait" : r.d < D().t ? " ret" : "") + '">' +
-    '<div class="rpat">' + (x ? '<button class="lien-l" onclick="rcpOuvrir(' + q + ')" title="Ouvrir le dossier (décision, puis Valider)">' + esc(nomDe(r)) + "</button>" : "<b>" + esc(nomDe(r)) + "</b>") +
-      '<div class="mesures">' + esc([age, x ? x.r.diag : ""].filter(Boolean).join(" · ")) + "</div></div>" +
+  const esc = A.esc, x = patient(r.patientId), q = "'" + r.id + "'", ddn = x && x.P.ddn;
+  const age = ddn ? (() => { let a = +D().t.slice(0, 4) - +ddn.slice(0, 4); if (D().t.slice(5) < ddn.slice(5)) a--; return a + " ans"; })() : "";
+  const st = r.fait ? "fait" : "afaire", ecr = peutEcrire();
+  return '<div class="ta-r rcp-g rcp-r st-' + (r.fait ? "fait" : "afaire") + (!r.fait && r.d < D().t ? " retard" : "") + '">' +
+    '<div class="c-p rpat">' + (x ? '<button class="lien-l" onclick="rcpOuvrir(' + q + ')" title="Ouvrir le dossier (décision, puis Valider)">' + esc(nomDe(r)) + "</button>" : "<b>" + esc(nomDe(r)) + "</b>") +
+      (x && x.r.diag ? '<span class="ta-s">' + esc(x.r.diag) + "</span>" : "") + "</div>" +
+    '<div class="c-n" data-l="Né(e) le">' + (ddn ? esc(A.dfrA(ddn)) + '<span class="ta-s">' + esc(age) + "</span>" : '<span class="mesures">—</span>') + "</div>" +
     '<div class="q" data-l="Question">' + esc(r.q || "") + "</div>" +
     '<div class="dec" data-l="Décision">' + (r.decisionTxt ? esc(r.decisionTxt) : r.decision ? "Saisie" : "") + "</div>" +
-    '<div class="ins mesures" data-l="Inscrit le">' + A.dfrA(r.ins) + (r.creeParNom ? "<br>" + esc(r.creeParNom) : "") + "</div>" +
-    '<div class="c"><label class="rcp-ck" title="' + (r.fait ? "Fait le " + A.dfrA(r.faitLe) + (r.faitParNom ? " par " + esc(r.faitParNom) : "") : "Cocher quand le dossier est passé en RCP") + '"><input type="checkbox"' + (r.fait ? " checked" : "") + (peutEcrire() ? "" : " disabled") + ' onchange="rcpFait(' + q + ',this)"><span>Fait</span></label>' +
-      (peutEcrire() ? '<button class="ico" title="Modifier l\'inscription" aria-label="Modifier l\'inscription" onclick="rcpModifier(' + q + ')"><svg class="pi"><use href="#i-crayon"/></svg></button>' + (peutSupprimer(r) ? '<button class="ico rouge" title="Désinscrire" aria-label="Désinscrire" onclick="rcpSupprimer(' + q + ')">✕</button>' : "") : "") + "</div></div>";
+    '<div class="ins" data-l="Inscrit">' + A.dfrA(r.ins) + (r.creeParNom ? '<span class="ta-s">' + esc(r.creeParNom) + "</span>" : "") + "</div>" +
+    '<div class="c-s"><select class="st" aria-label="Statut de l\'inscription"' + (ecr ? "" : " disabled") + ' title="' + (r.fait ? "Validé le " + A.dfrA(r.faitLe) + (r.faitParNom ? " par " + esc(r.faitParNom) : "") : "En attente de la RCP") + '" onchange="rcpStatut(' + q + ',this)">' +
+      [["afaire", "En attente"], ["fait", "Validé"]].map(([k, l]) => '<option value="' + k + '"' + (st === k ? " selected" : "") + ">" + l + "</option>").join("") + "</select></div>" +
+    '<div class="c-a">' + (ecr ? (r.fait ? '<button class="ico" title="Remettre en attente" aria-label="Remettre en attente" onclick="rcpMettre(' + q + ',false)"><svg class="pi"><use href="#i-sablier"/></svg></button>'
+      : '<button class="ico vert" title="Valider (passé en RCP)" aria-label="Valider" onclick="rcpMettre(' + q + ',true)"><svg class="pi"><use href="#i-check"/></svg></button>') +
+      '<button class="ico" title="Modifier l\'inscription" aria-label="Modifier l\'inscription" onclick="rcpModifier(' + q + ')"><svg class="pi"><use href="#i-crayon"/></svg></button>' +
+      (peutSupprimer(r) ? '<button class="ico rouge" title="Supprimer l\'inscription" aria-label="Supprimer l\'inscription" onclick="rcpSupprimer(' + q + ')"><svg class="pi"><use href="#i-corbeille"/></svg></button>' : "") : "") + "</div></div>";
 }
+window.rcpMettre = async (id, oui) => {
+  const r = trouver(id); if (!r || !peutEcrire() || !!r.fait === oui) return;
+  try { await marquer(r, oui); apresChangement(); }
+  catch (e) { A.toast(e && e.code === "permission-denied" ? "Vous n'avez pas le droit de modifier la RCP." : "Enregistrement impossible."); }
+};
+window.rcpStatut = (id, el) => { const r = trouver(id); if (!r) return; if (!peutEcrire()) { el.value = r.fait ? "fait" : "afaire"; return; } window.rcpMettre(id, el.value === "fait"); };
 window.rcpPer = (du, au) => { DU = du; AU = au; if (du.slice(0, 7) !== MOIS && au.slice(0, 7) !== MOIS) MOIS = du.slice(0, 7); dessinerListe(); };
 window.rcpMois = (n) => { const x = jour(MOIS + "-01"); x.setMonth(x.getMonth() + n); MOIS = iso(x).slice(0, 7); dessinerListe(); };
 window.rcpFiltre = (k) => { FILTRE = k; dessinerListe(); };

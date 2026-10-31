@@ -47,8 +47,8 @@ async def main():
         ok('Janvier à' in sp(await pg.inner_text('#page')), 'mois par mois : chiffres de l\'année toujours visibles')
         # R-D1 : consultation de chimio payée au J8 (200 DH) : un acte à sa date
         await pg.evaluate(f"location.hash='dossier/{PID}'"); await pg.wait_for_timeout(1200)
-        await pg.evaluate(f"chVenuChimio('{PID}','{LID}',1,8)"); await pg.wait_for_timeout(700)
-        await pg.fill('#pvM', '200'); await pg.click('#fOk'); await pg.wait_for_timeout(900)
+        await pg.evaluate(f"chVenuChimio('{PID}','{LID}',1,8)"); await pg.wait_for_timeout(900)
+        await prix_total(pg, 200); await pg.click('#fOk'); await pg.wait_for_timeout(900)
         fs = await pg.evaluate("window.__fs")
         M = json.loads(fs[E + 'patientsFinances/' + PID]['montantsJson']); Ec = json.loads(fs[E + 'encaissements/' + PID]['data'])
         ok(M['cures'][LID]['1']['consJ'].get('8') == 200 and Ec['cons'].get(LID + '|1|8', {}).get('m') == 200, 'J8 à 200 DH : montants et prix à encaisser écrits ensemble')
