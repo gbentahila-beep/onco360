@@ -895,7 +895,7 @@ refus reste valable pour des contraintes dans la prescription ou le dossier d'un
       chaque protocole défini anatomiquement (PTV = marges) ; chaque situation dit exactement quoi faire ; schémas manquants ajoutés.
 - [ ] États vides illustrés à étendre aux autres pages (Patients, Agenda, RCP, documents du dossier) si Dr Bentahila le souhaite.
 
-## Demandes du 31/10/2026, lots 1 et 2 (document « Onco360 — Demandes à faire » ; testé, **pas en ligne** : à mettre en ligne avec l'accord de Dr Bentahila)
+## Demandes du 31/10/2026, lots 1 et 2 (document « Onco360 — Demandes à faire » ; testé, **en ligne le 31/10/2026, version 20261031f**)
 Mise en page seulement : aucune police ni couleur changée. Test : `tests/test_lots_1_2.py` (1 600, 1 280, 900, 390 px). Le module Radiothérapie n'est pas touché (lot à part).
 - [x] 1.1 Boutons « + Patient » (tableau de bord, Patients), « + Rendez-vous » (tableau de bord, agenda, salle d'attente), « + Tâche » (Tâches) ; remplace « + Nouveau rendez-vous » du 30/10.
 - [x] 1.2 Bouton principal au même endroit et à la même hauteur partout (bord droit de la 1re ligne, 46 px) : Patients (recherche élargie, menus dessous), salle d'attente
@@ -923,7 +923,7 @@ Mise en page seulement : aucune police ni couleur changée. Test : `tests/test_l
 - [x] 2.5 Patients : « + Patient » à la hauteur de la recherche, menus dessous (patients, hôpitaux, statuts, localisations, stades, médecins).
 - [x] 2.6 Agenda : « ‹ 26 oct. – 1 nov. › » (période entre les flèches).
 
-## Demandes du 31/10/2026, lots 3 et 4 (même patch que les lots 1 et 2 ; testé, **pas en ligne** : à mettre en ligne avec l'accord de Dr Bentahila)
+## Demandes du 31/10/2026, lots 3 et 4 (même patch que les lots 1 et 2 ; testé, **en ligne le 31/10/2026, version 20261031f**)
 Mise en page seulement. Test : `tests/test_lots_3_4.py` (1 600, 1 280, 900, 390 px). Index Firestore ajoutés (`firebase deploy --only firestore:indexes`).
 - [x] 3.1 Onglets du dossier : « + Nouvelle consultation », « + Nouvelle prescription chimiothérapie », « + Nouvelle prescription radiothérapie » à gauche
   (Référentiel sous ⋯ à droite) ; Docs : « + Ajouter un document », puis la recherche, puis les types.
@@ -950,7 +950,7 @@ Mise en page seulement. Test : `tests/test_lots_3_4.py` (1 600, 1 280, 900, 390 
   fiche patient, Bilan (colonnes, règlements, export), Lieux d'exercice (« + Ajouter un établissement »), modules, exemples des courriers ; un nom « Hôpital » réglé
   par le cabinet pour ce champ est retiré une fois (`migrations.etab1031`). Gardé : « hôpital de jour » (le service des séances, pas un lieu).
 
-## Demandes du 31/10/2026, lots 5, 6 et 7 (même patch que les lots 1 à 4 ; testé, **pas en ligne** : à mettre en ligne avec l'accord de Dr Bentahila)
+## Demandes du 31/10/2026, lots 5, 6 et 7 (même patch que les lots 1 à 4 ; testé, **en ligne le 31/10/2026, version 20261031f**)
 Test : `tests/test_lots_5_7.py` (1 440 et 390 px) et `node tests/moteur/test-tarifs-communs.mjs`.
 - [x] 5.1 RCP : inscrits en tableau au modèle des Tâches (Patient, Né(e) le (âge), Question, Décision, Inscrit (date et par qui), Statut En attente / Validé,
   Actions Valider ou Remettre en attente, Modifier, Supprimer).
@@ -973,7 +973,7 @@ Test : `tests/test_lots_5_7.py` (1 440 et 390 px) et `node tests/moteur/test-tar
 - [x] 7.4 Bilan › versements et règlements : mode « Espèces » (filtre, colonne des totaux).
 - [x] 7.5 Bilan sur téléphone : grille à deux colonnes (Du et Au côte à côte), Actualiser et « ⋯ » sur la ligne du menu Référent.
 
-## Demandes du 31/10/2026, lots 8 et 9, et 6.7 (même patch que les lots 1 à 7 ; testé, **pas en ligne** : à mettre en ligne avec l'accord de Dr Bentahila)
+## Demandes du 31/10/2026, lots 8 et 9, et 6.7 (même patch que les lots 1 à 7 ; testé, **en ligne le 31/10/2026, version 20261031f**)
 Test : `tests/test_lots_8_9.py` (1 440 et 390 px) et `node tests/moteur/test-feuillesoins.mjs`.
 - [x] 8.1 Un protocole (Bibliothèques › Protocoles, et « Voir » depuis une prescription) s'ouvre en pleine page, mêmes actions qu'avant.
 - [x] 8.2 Fiche du protocole en cadres repliables alignés (même bord, même largeur) : Protocole, Prescription, Indications, Molécules, Remarques.
@@ -988,7 +988,7 @@ Test : `tests/test_lots_8_9.py` (1 440 et 390 px) et `node tests/moteur/test-feu
 - [x] 6.7 Mon abonnement : formule en cours, cartes Mensuel / Annuel (« 2 mois offerts », économie), « Passer à l'annuel », « Renouveler maintenant », RIB.
 - [x] Reçu et encaissement à la validation d'une consultation : fait dans le lot R (plus bas).
 
-## Demandes du 31/10/2026, lot R (reçu et encaissement) et lot RT (référentiel de radiothérapie, outils cliniques) (même patch que les lots 1 à 9 ; testé, **pas en ligne**)
+## Demandes du 31/10/2026, lot R (reçu et encaissement) et lot RT (référentiel de radiothérapie, outils cliniques) (même patch que les lots 1 à 9 ; testé, **en ligne le 31/10/2026, version 20261031f**)
 Tests : `tests/test_lot_r.py`, `tests/test_lot_rt.py` (1 440 et 390 px), `node tests/moteur/test-calculs.mjs`, `node functions/test-logique.js` (prixConsultation).
 Décisions de Dr Bentahila (31/10) : valider = « Venu » seulement ; pas de paiement partiel (remise en DH seulement) ; séances de chimio sans fenêtre ; mode habituel par lieu ;
 lot RT fait ici en entier (l'autre Claude ne touche plus radiotherapie.js avant d'avoir appliqué ce patch) ; RT.14 : structure + tableaux saisis par le cabinet (rien de l'AJCC recopié).
@@ -1017,7 +1017,7 @@ lot RT fait ici en entier (l'autre Claude ne touche plus radiotherapie.js avant 
 - [x] RT.16 / RT.17 26 calculateurs avec leur source (moteur/calculs.js) ; Stephenson, Partin, MSKCC, NSABP B-18 / B-27 : liens externes (outils protégés) ; espérance de vie :
   table du cabinet à remplir (`bibliotheques/esperanceVie`).
 
-## Demandes du 31/10/2026, lot L (lancement) (même patch que les lots 1 à 9, R et RT ; testé, **pas en ligne**)
+## Demandes du 31/10/2026, lot L (lancement) (même patch que les lots 1 à 9, R et RT ; testé, **en ligne le 31/10/2026, version 20261031f**)
 Tests : `tests/test_lot_l.py` (1 440 et 390 px, CSP appliquée), `node tests/moteur/test-importpatients.mjs`, `node tests/moteur/test-controle.mjs`, `node functions/test-plateforme.js` ;
 règles : `tests/regles/test-cgu.mjs` et 9 cas ajoutés à `test-cabinets.mjs` (**à lancer sur le Mac**, l'émulateur ne s'installe pas ici).
 Détail dans « Phase L » plus haut (cases cochées). En plus de la demande :
@@ -1027,7 +1027,13 @@ Détail dans « Phase L » plus haut (cases cochées). En plus de la demande :
 - [x] Tâches automatiques de la nuit : plus lancées pour un cabinet suspendu (lecture seule).
 - [x] Seuls le compte du Dr Bentahila et le compte de démonstration existent (Hamza Benzekri, 31/10) : pas de reprise d'anciens accès « autre cabinet » ; les deux
   comptes verront les CGU à leur prochaine connexion.
-- [ ] Reste : L4 (1) photos, L7 (3) clé web, L8 ; tests de règles et `npm run export` sur le Mac ; CGU relues par un juriste ; répétition générale (L11).
+- [x] (31/10, session d'application) Patch appliqué sur main (`git am`, sans conflit) ; contrôle complet Chrome + Safari / WebKit + règles + export sur le Mac.
+  Corrigé : `test-cabinets.mjs` (`suspendre` déclaré deux fois ; anciens cas « suspendu = plus aucun accès » alignés sur la lecture seule), `test-rtref.mjs`
+  (lecture d'un cabinet suspendu permise), `test_lots_8_9.py` (PDF sauté sous WebKit : Chromium seulement). Échecs venant d'ailleurs : `test-rtref-contenu` et
+  `test_rtref_fiche` (2 cas) échouent seulement avec le `contraintes.json` pas encore enregistré d'une autre session (verts sur une copie propre) ; à reprendre
+  par cette session avant d'enregistrer son fichier. Piège noté : un vieux serveur de test sur le port 8767 sert la copie principale, même lancé depuis une copie propre.
+- [x] **En ligne le 31/10/2026, version 20261031f** (accord de Dr Bentahila) : index, règles Firestore et Storage, puis site et fonctions ensemble, depuis une copie propre.
+- [ ] Reste : L4 (1) photos, L7 (3) clé web, L8 ; CGU relues par un juriste ; répétition générale (L11).
 
 ## À placer (nouveau plan)
 - (21/10, S5) **Vigilance des molécules, flacons et interactions ne sont pas dans le modèle des cabinets neufs** (`PARAMS_SPE` de functions/cabinets.js :
