@@ -48,7 +48,7 @@ await cas("refusé : accès désactivé", () => assertFails(getDoc(R("OFF"))));
 await cas("refusé : sans connexion", () => assertFails(getDoc(doc(env.unauthenticatedContext().firestore(), E("a") + "/referentielRT/pro-fav-60-20"))));
 await cas("refusé : module rt retiré de la formule", () => assertFails(getDoc(R("MED", "b"))));
 await cas("refusé : fonction rt.referentiel coupée", () => assertFails(getDoc(R("MED", "c"))));
-await cas("refusé : cabinet suspendu", () => assertFails(getDoc(R("MED", "s"))));
+await cas("cabinet suspendu : lecture encore permise (L6 c, lecture seule)", () => assertSucceeds(getDoc(R("MED", "s"))));
 await cas("refusé : médecin d'un autre cabinet", () => assertFails(getDoc(R("MEDX", "a"))));
 await cas("le médecin de l'autre cabinet lit le sien", () => assertSucceeds(getDoc(R("MEDX", "x"))));
 

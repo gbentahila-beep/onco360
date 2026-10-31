@@ -89,9 +89,9 @@ await cas("refusé : un titulaire de cabinet neuf modifie ses propres droits", (
 await cas("refusé : le titulaire B crée lui-même une fiche de membre (passe par le serveur)", () => assertFails(setDoc(doc(db("DRB"), B + "/membres/NOUV"), secretaire("Nouvelle"))));
 await cas("refusé : le titulaire B ajoute quelqu'un chez Dr Bentahila", () => assertFails(setDoc(doc(db("DRB"), A + "/membres/NOUV"), secretaire("Nouvelle"))));
 console.log("Cabinet suspendu");
-const suspendre = () => env.withSecurityRulesDisabled((c) => updateDoc(doc(c.firestore(), B), { actif: false }));
-await cas("refusé : le médecin d'un cabinet suspendu lit un patient", async () => { await suspendre(); await assertFails(getDoc(doc(db("DRB"), B + "/patients/pb"))); });
-await cas("refusé : la secrétaire d'un cabinet suspendu lit les membres / écrit", async () => { await suspendre(); await assertFails(getDocs(collection(db("SECB"), B + "/membres"))); await assertFails(setDoc(doc(db("SECB"), B + "/patients/x"), { identite: {}, etablissementId: "CLB", version: 1 })); });
+// L6 c (31/10/2026) : cabinet suspendu = lecture seule (avant : plus aucun accès)
+const suspendre = () => env.withSecurityRulesDisabled(async (c) => { await updateDoc(doc(c.firestore(), B), { actif: false }); });
+await cas("la secrétaire d'un cabinet suspendu lit encore les membres ; refusé : elle écrit", async () => { await suspendre(); await assertSucceeds(getDocs(collection(db("SECB"), B + "/membres"))); await assertFails(setDoc(doc(db("SECB"), B + "/patients/x"), { identite: {}, etablissementId: "CLB", version: 1 })); });
 await cas("le membre d'un cabinet suspendu lit encore la fiche du cabinet (message)", async () => { await suspendre(); await assertSucceeds(getDoc(doc(db("DRB"), B))); });
 await cas("refusé : un non-membre lit la fiche d'un cabinet", () => assertFails(getDoc(doc(db("SECA"), B))));
 await cas("refusé : le titulaire réactive lui-même son cabinet", async () => { await suspendre(); await assertFails(updateDoc(doc(db("DRB"), B), { actif: true })); });
@@ -120,7 +120,6 @@ const faux = () => env.authenticatedContext("FAUX", { email: "ritabentahila@gmai
 await cas("refusé : un autre compte avec l'adresse de Dr Bentahila n'a aucun pouvoir", async () => { await assertFails(getDoc(doc(faux(), A + "/patients/pa"))); await assertFails(getDoc(doc(faux(), "utilisateurs/SECA"))); });
 await cas("refusé : Dr Bentahila lit le profil d'un médecin d'un autre cabinet", () => assertFails(getDoc(doc(db("RITA"), "utilisateurs/DRB"))));
 await cas("refusé : Dr Bentahila ajoute un administrateur depuis le navigateur (console seulement)", () => assertFails(setDoc(doc(db("RITA"), "administrateurs/X"), { email: "x@y.ma" })));
-const suspendre = () => env.withSecurityRulesDisabled(async (c) => { await updateDoc(doc(c.firestore(), B), { actif: false }); });
 const hist = (u) => setDoc(doc(db(u), B + "/historique/h-" + u), { parUid: u, parNom: u, le: serverTimestamp(), patientId: "", patient: "", quoi: "essai" });
 await cas("cabinet actif : le titulaire écrit dans l'historique", () => assertSucceeds(hist("DRB")));
 await cas("cabinet suspendu : le titulaire lit encore ses dossiers", async () => { await suspendre(); await assertSucceeds(getDoc(doc(db("DRB"), B + "/patients/pb"))); });

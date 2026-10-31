@@ -1,3 +1,4 @@
+import os
 import pathlib; __file__=str(pathlib.Path(__file__).resolve()); exec(open(pathlib.Path(__file__).parent/'base.py').read())
 # Lots 8 et 9 et 6.7 (31/10/2026, demandes de Dr Bentahila) : protocole en pleine page, cadres repliables alignés, avertissement ; feuille de soins
 # (CNOPS, CNSS) depuis la barre du dossier et les actions rapides ; page Abonnement. Ordinateur 1 440 px, téléphone 390 px. Jeu fictif.
@@ -63,9 +64,11 @@ async def main():
         n0 = await ev("window.__win.length"); await pg.click('#fsImp'); await pg.wait_for_timeout(800)
         h = await ev(f"window.__win.length > {n0} ? window.__win[window.__win.length - 1].w.document._h : ''")
         ok('@page{size:A4 landscape;margin:0}' in h and h.count('class="fs-p"') == 2 and 'documents/feuilles/cnops-1.jpg' in h and 'fs-rond' in h, '9.2 : impression A4 paysage, deux pages, fond du formulaire, pli « non » entouré')
-        pp = await b.new_page(); await pp.set_content(h.replace('window.print()', '0').replace('src="http', 'data-src="http')); await pp.wait_for_timeout(300); pdf = await pp.pdf(prefer_css_page_size=True); await pp.close()
-        import re as _re
-        ok(len(_re.findall(rb'/Type\s*/Page[^s]', pdf)) == 2, '9.2 : la feuille tient sur deux pages A4 (une par page du formulaire)')
+        # Page.pdf n'existe qu'avec Chromium : sous WebKit (NAVIGATEUR=webkit), ce contrôle est fait par le passage Chrome
+        if os.environ.get('NAVIGATEUR') != 'webkit':
+            pp = await b.new_page(); await pp.set_content(h.replace('window.print()', '0').replace('src="http', 'data-src="http')); await pp.wait_for_timeout(300); pdf = await pp.pdf(prefer_css_page_size=True); await pp.close()
+            import re as _re
+            ok(len(_re.findall(rb'/Type\s*/Page[^s]', pdf)) == 2, '9.2 : la feuille tient sur deux pages A4 (une par page du formulaire)')
         ok(await ev(f"Object.values(window.__fs).some(d => d && typeof d.quoi === 'string' && d.quoi.indexOf('Feuille de soins CNOPS imprimée') === 0)") or True, 'noté dans l\'historique')
         await pg.click('#fsRet'); await pg.wait_for_timeout(500)
         ok(await ev("document.getElementById('fsTot') && document.getElementById('fsTot').textContent") == '450,50 DH', '« Modifier » : retour au formulaire, saisie gardée')
