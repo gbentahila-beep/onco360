@@ -1202,6 +1202,42 @@
      "note": "de la dose prescrite"
     }
    ]
+  },
+  {
+   "id": "ct-pal-garg",
+   "titre": "Réirradiation rachidienne en stéréotaxie 30 Gy / 5 fx (MD Anderson)",
+   "fractionnement": "30 Gy / 5 fx (27 Gy / 3 fx)",
+   "source": "MD Anderson (Garg 2011), méthodes",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmean",
+     "limitant": "< 10 Gy",
+     "note": "30 Gy / 5 fx ; < 9 Gy pour 27 Gy / 3 fx ; dose antérieure à la moelle < 45 Gy"
+    }
+   ]
+  },
+  {
+   "id": "ct-pal-lee2007",
+   "titre": "Réirradiation ORL en IMRT (Lee 2007)",
+   "fractionnement": "cumul des deux irradiations",
+   "source": "Memorial Sloan Kettering (Lee 2007), méthodes",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "≤ 50 Gy",
+     "note": "dose cumulée des deux irradiations"
+    },
+    {
+     "oar_id": "oar-tronc-cerebral",
+     "indicateur": "Dmax",
+     "limitant": "≤ 60 Gy",
+     "note": "dose cumulée des deux irradiations"
+    }
+   ]
   }
  ],
  "schemas": {
@@ -1465,6 +1501,16 @@
    "contraintes_ids": [
     "ct-uro-gec-ldr145"
    ]
+  },
+  "sr-reirr-5x6": {
+   "contraintes_ids": [
+    "ct-pal-garg"
+   ]
+  },
+  "re-orl-rcmi-60": {
+   "contraintes_ids": [
+    "ct-pal-lee2007"
+   ]
   }
  },
  "mentions": {
@@ -1510,6 +1556,10 @@
   "prostate",
   "vessie",
   "seminome",
-  "penis"
+  "penis",
+  "metastases_osseuses",
+  "sbrt_os",
+  "surrenale",
+  "reirradiation"
  ]
 }

@@ -205,7 +205,7 @@
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-re-orl",
    "contraintes_ids": [
-    "ct-reirr-moelle"
+    "ct-pal-lee2007"
    ],
    "points_attention": [
     "Survie meilleure si la réirradiation commence plus d'un an après la première RT : médiane 9,8 contre 5,8 mois (RTOG 9610)",
@@ -256,7 +256,8 @@
     "Glioblastome en récidive",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "re-sein-45-30",
@@ -292,7 +293,8 @@
     "Récidive mammaire homolatérale après traitement conservateur",
     "Normofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "re-rectum-30-108",
@@ -339,7 +341,8 @@
     "Récidive pelvienne d'un cancer du rectum déjà irradié",
     "Normofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "re-os-8-1",

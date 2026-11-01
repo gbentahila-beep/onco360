@@ -80,7 +80,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "su-service-45-5",
@@ -130,7 +131,8 @@
      "limitant": "= dose prescrite",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "su-60-8",
@@ -170,7 +172,8 @@
     "Métastase surrénalienne oligométastatique",
     "Stéréotaxie"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

@@ -86,7 +86,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "sr-3x8-service",
@@ -142,7 +143,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "sr-3x9-service",
@@ -199,7 +201,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "sr-3x10-service",
@@ -255,7 +258,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "sr-1x24",
@@ -311,7 +315,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "sr-reirr-5x6",
@@ -340,7 +345,7 @@
    "simulation_id": "sim-sr-service",
    "volumes_id": "vol-sr-service",
    "contraintes_ids": [
-    "ct-reirr-moelle"
+    "ct-pal-garg"
    ],
    "couverture": "Isodose de prescription englobant tout le PTV (Zelefsky 2021) ; couverture réduite au contact de la moelle si nécessaire pour respecter sa contrainte (consensus, Redmond 2017)",
    "date_verif": "2026-10-25",
@@ -422,7 +427,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

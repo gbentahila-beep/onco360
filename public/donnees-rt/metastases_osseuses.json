@@ -62,7 +62,8 @@
     "Métastase osseuse douloureuse non compliquée",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "mo-20-5",
@@ -100,7 +101,8 @@
     "Métastase osseuse douloureuse non compliquée",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "mo-24-6",
@@ -137,7 +139,8 @@
     "Métastase osseuse douloureuse non compliquée",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "mo-30-10",
@@ -175,7 +178,8 @@
     "Métastase osseuse douloureuse non compliquée",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "mc-postop-30-10",
@@ -211,7 +215,8 @@
     "Compression médullaire métastatique",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "mc-8-1",
@@ -247,7 +252,8 @@
     "Compression médullaire métastatique",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "mc-20-5",
@@ -284,7 +290,8 @@
     "Compression médullaire métastatique",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "mc-30-10",
@@ -321,7 +328,8 @@
     "Compression médullaire métastatique",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [
