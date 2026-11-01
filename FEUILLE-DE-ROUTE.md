@@ -1173,7 +1173,7 @@ Traitement en cours ; Tâches : Tâche, Patient, Assignée à, Créée par, Éch
   Refusé le 01/11 : P1 (bilan intercure coupé : c'est une « ) » manquante dans l'ordo type du cabinet, à corriger dans la bibliothèque, pas dans le
   code) ; P3 (garder la saisie ou demander en fermant l'aperçu) ; P8 (doublon de molécule dans un produit composé, CEDOL + paracétamol) ; P10
   (organisme de la feuille de soins d'après la mutuelle : seulement CNOPS et CNSS pour l'instant) ; P16 (« Moi-même » d'office dans « Pour qui »).
-  Sans réponse : P13 (« Renseignements cliniques » sur les demandes d'imagerie, note interne non imprimée).
+  Refusé aussi : P13 (« Renseignements cliniques » sur les demandes d'imagerie, note interne non imprimée).
 Avant chaque lot : maquette ou captures avant / après montrées à Dr Bentahila ; un lot = une session, test sur ordinateur et à 390 px.
 
 ## À placer (nouveau plan)
@@ -1193,7 +1193,7 @@ Avant chaque lot : maquette ou captures avant / après montrées à Dr Bentahila
   dates de cure modifiables seulement après « Modifier » ; libellés coupés des rendez-vous à venir et petites flèches ▾ (« pas grave ») ; d'après
   SmartDoc : en-tête du dossier déplacé (S8), mode consultation sans menu avec minuteur (S11), aperçu de l'ordonnance en direct (S12), âge calculé
   et étiquettes Facultatif / Obligatoire (S13), bouton Enregistrer en double (S14), « Appeler le suivant » (S16), « Confirmer le patient » au
-  rendez-vous (S17), accueil des Paramètres en cartes avec leur état (S18), guide dans l'application (S19), recherche Ctrl K des pages (S20), carte « Alertes cliniques du jour » (S7), tuiles de chiffres en haut de la Salle d'attente, nouveaux noms de colonnes, historique du dossier filtré par pastilles (S10) ; prescriptions (UX13) : aperçu fermé sans garder la saisie (P3), doublon de molécule des produits composés (P8), organisme de la feuille de soins d'après la mutuelle (P10), « Moi-même » d'office (P16) ;
+  rendez-vous (S17), accueil des Paramètres en cartes avec leur état (S18), guide dans l'application (S19), recherche Ctrl K des pages (S20), carte « Alertes cliniques du jour » (S7), tuiles de chiffres en haut de la Salle d'attente, nouveaux noms de colonnes, historique du dossier filtré par pastilles (S10) ; prescriptions (UX13) : aperçu fermé sans garder la saisie (P3), doublon de molécule des produits composés (P8), organisme de la feuille de soins d'après la mutuelle (P10), « Moi-même » d'office (P16), « Renseignements cliniques » de l'imagerie (P13) ;
   ne pas copier : thème vert foncé, titres de menu en majuscules, plan illustré de la salle, analyse IA.
 - **20/10/2026 (audits 10 et 11)** : tout l'**audit n° 9** (radiothérapie : lot RT-1 « séances reçues, motif d'arrêt, compteur, 1re séance un jour
   férié » (d. 4), lots RT-2 à RT-6, bibliothèque de contraintes de dose (d. 5)) ; écran « Corrections proposées » P1 (d. 10) ; écran de
