@@ -1,0 +1,1498 @@
+[
+ {
+  "id": "cb-d4ac1f3b",
+  "oar_id": "oar-arbre-bronchique",
+  "regime": "stereo",
+  "fx": 4,
+  "indicateur": "V33,5Gy",
+  "limitant": "< 4 cm³",
+  "source": "RecoRad 2025 (poumon)"
+ },
+ {
+  "id": "cb-ee55cf3a",
+  "oar_id": "oar-arbre-bronchique",
+  "regime": "stereo",
+  "fx": 4,
+  "indicateur": "V42,4Gy",
+  "limitant": "< 5 cm³",
+  "source": "RecoRad 2025 (poumon)"
+ },
+ {
+  "id": "cb-eb8d7be9",
+  "oar_id": "oar-arbre-bronchique",
+  "regime": "stereo",
+  "fx": 10,
+  "indicateur": "D4cm³",
+  "limitant": "≤ 45 Gy",
+  "source": "Gustave Roussy, stéréotaxie 2018"
+ },
+ {
+  "id": "cb-e91a1d50",
+  "oar_id": "oar-arbre-bronchique",
+  "regime": "stereo",
+  "fx": 10,
+  "indicateur": "D0,035cm³",
+  "limitant": "≤ 50 Gy",
+  "source": "Gustave Roussy, stéréotaxie 2018"
+ },
+ {
+  "id": "cb-328c0e64",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "hypo",
+  "fx": 15,
+  "loc": [
+   "poumon",
+   "mesotheliome",
+   "thymome"
+  ],
+  "indicateur": "Dmax",
+  "limitant": "≤ 39,5 Gy",
+  "source": "RecoRad 2025 (poumon)"
+ },
+ {
+  "id": "cb-f76987ba",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "hypo",
+  "fx": 15,
+  "loc": [
+   "poumon",
+   "mesotheliome",
+   "thymome"
+  ],
+  "indicateur": "Dmax (PRV 3 mm)",
+  "limitant": "≤ 42 Gy",
+  "source": "RecoRad 2025 (poumon)"
+ },
+ {
+  "id": "cb-755907d6",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "hypo",
+  "fx": 15,
+  "loc": [
+   "sein",
+   "sein_ccis"
+  ],
+  "indicateur": "Dmax",
+  "ideal": "≤ 37,8 Gy",
+  "limitant": "< 42 Gy",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-ed24277b",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "hypo",
+  "fx": 20,
+  "loc": [
+   "cavite_buccale",
+   "oropharynx",
+   "larynx",
+   "hypopharynx",
+   "cavum",
+   "sinus",
+   "glandes_salivaires",
+   "orl_palliatif"
+  ],
+  "indicateur": "D2%",
+  "limitant": "≤ 35 Gy",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-cde15706",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "hypo",
+  "fx": 20,
+  "loc": [
+   "cavite_buccale",
+   "oropharynx",
+   "larynx",
+   "hypopharynx",
+   "cavum",
+   "sinus",
+   "glandes_salivaires",
+   "orl_palliatif"
+  ],
+  "indicateur": "D2% (PRV 5 mm)",
+  "ideal": "≤ 35–39 Gy",
+  "limitant": "< 41 Gy",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-fad9f079",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "normo",
+  "indicateur": "Dmax si chevauchement du PRV",
+  "limitant": "≤ 50 Gy",
+  "source": "RecoRad 2025 (encéphale)"
+ },
+ {
+  "id": "cb-b5a1b6fe",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "normo",
+  "loc": [
+   "poumon",
+   "mesotheliome",
+   "thymome"
+  ],
+  "indicateur": "Dmax",
+  "limitant": "≤ 45–50 Gy",
+  "source": "RecoRad 2025 (poumon)"
+ },
+ {
+  "id": "cb-3102b6ca",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "normo",
+  "loc": [
+   "cavite_buccale",
+   "oropharynx",
+   "larynx",
+   "hypopharynx",
+   "cavum",
+   "sinus",
+   "glandes_salivaires",
+   "orl_palliatif"
+  ],
+  "indicateur": "Dmax",
+  "limitant": "≤ 45 Gy",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-559e949e",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "normo",
+  "loc": [
+   "cavite_buccale",
+   "oropharynx",
+   "larynx",
+   "hypopharynx",
+   "cavum",
+   "sinus",
+   "glandes_salivaires",
+   "orl_palliatif"
+  ],
+  "indicateur": "Dmax (PRV 5 mm)",
+  "limitant": "≤ 50 Gy",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-2a95e806",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "normo",
+  "loc": [
+   "sein",
+   "sein_ccis"
+  ],
+  "indicateur": "Dmax",
+  "limitant": "≤ 45 Gy",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-feb038ec",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "normo",
+  "loc": [
+   "sein",
+   "sein_ccis"
+  ],
+  "indicateur": "Dmax (PRV)",
+  "limitant": "< 50 Gy",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-945fa339",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "normo",
+  "loc": [
+   "prostate"
+  ],
+  "indicateur": "Dmax",
+  "limitant": "< 45 Gy",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-559a405b",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "normo",
+  "loc": [
+   "oesophage",
+   "estomac"
+  ],
+  "indicateur": "Dmax",
+  "limitant": "< 45 Gy",
+  "source": "RecoRad 2025 (œsophage)"
+ },
+ {
+  "id": "cb-370d5117",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "normo",
+  "loc": [
+   "pancreas"
+  ],
+  "indicateur": "D0,1cm³",
+  "limitant": "≤ 45 Gy",
+  "source": "RecoRad 2025 (pancréas)"
+ },
+ {
+  "id": "cb-dc709e71",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "normo",
+  "fx": 30,
+  "dpf": 1.5,
+  "indicateur": "Dmax",
+  "limitant": "≤ 42 Gy",
+  "source": "RecoRad 2025 (poumon)"
+ },
+ {
+  "id": "cb-cfbac959",
+  "oar_id": "oar-canal-medullaire",
+  "regime": "normo",
+  "fx": 33,
+  "indicateur": "Dmax",
+  "limitant": "< 45 Gy",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-af508555",
+  "oar_id": "oar-canal-parotidien",
+  "regime": "normo",
+  "indicateur": "Dmean (total)",
+  "limitant": "< 12 Gy",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-9bb42e9a",
+  "oar_id": "oar-cavite-orale",
+  "regime": "normo",
+  "indicateur": "Dmean (envahie)",
+  "ideal": "< 50 Gy",
+  "note": "cavité orale envahie",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-e5a1ba75",
+  "oar_id": "oar-chiasma",
+  "regime": "normo",
+  "indicateur": "Dmax si chevauchement du PRV",
+  "limitant": "≤ 60 Gy",
+  "source": "RecoRad 2025 (encéphale)"
+ },
+ {
+  "id": "cb-58059e70",
+  "oar_id": "oar-chiasma",
+  "regime": "normo",
+  "loc": [
+   "cavite_buccale",
+   "oropharynx",
+   "larynx",
+   "hypopharynx",
+   "cavum",
+   "sinus",
+   "glandes_salivaires",
+   "orl_palliatif"
+  ],
+  "indicateur": "Dmax",
+  "ideal": "≤ 54 Gy",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-e19b6a80",
+  "oar_id": "oar-chiasma",
+  "regime": "normo",
+  "loc": [
+   "cavite_buccale",
+   "oropharynx",
+   "larynx",
+   "hypopharynx",
+   "cavum",
+   "sinus",
+   "glandes_salivaires",
+   "orl_palliatif"
+  ],
+  "indicateur": "Dmax (PRV)",
+  "limitant": "≤ 60 Gy",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-ffd9098e",
+  "oar_id": "oar-cochlees",
+  "regime": "hypo",
+  "fx": 15,
+  "indicateur": "Dose",
+  "limitant": "ALARA",
+  "source": "RecoRad 2025 (encéphale)"
+ },
+ {
+  "id": "cb-6b07ea3c",
+  "oar_id": "oar-cochlees",
+  "regime": "normo",
+  "indicateur": "Dmean",
+  "ideal": "≤ 32 Gy",
+  "limitant": "≤ 45 Gy",
+  "note": "45 Gy = acceptable",
+  "source": "RecoRad 2025 (encéphale)"
+ },
+ {
+  "id": "cb-d7823f90",
+  "oar_id": "oar-cochlees",
+  "regime": "normo",
+  "loc": [
+   "cavite_buccale",
+   "oropharynx",
+   "larynx",
+   "hypopharynx",
+   "cavum",
+   "sinus",
+   "glandes_salivaires",
+   "orl_palliatif"
+  ],
+  "indicateur": "Dmean",
+  "ideal": "≤ 40–45 Gy",
+  "limitant": "≤ 55 Gy",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-d5521e48",
+  "oar_id": "oar-cochlees",
+  "regime": "normo",
+  "loc": [
+   "cavite_buccale",
+   "oropharynx",
+   "larynx",
+   "hypopharynx",
+   "cavum",
+   "sinus",
+   "glandes_salivaires",
+   "orl_palliatif"
+  ],
+  "indicateur": "V55Gy",
+  "ideal": "< 5 %",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-2024546b",
+  "oar_id": "oar-cochlees",
+  "regime": "normo",
+  "loc": [
+   "cavite_buccale",
+   "oropharynx",
+   "larynx",
+   "hypopharynx",
+   "cavum",
+   "sinus",
+   "glandes_salivaires",
+   "orl_palliatif"
+  ],
+  "indicateur": "V60Gy",
+  "limitant": "< 5 %",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-55ce7b55",
+  "oar_id": "oar-cochlees",
+  "regime": "normo",
+  "loc": [
+   "cavite_buccale",
+   "oropharynx",
+   "larynx",
+   "hypopharynx",
+   "cavum",
+   "sinus",
+   "glandes_salivaires",
+   "orl_palliatif"
+  ],
+  "indicateur": "Dmean (cisplatine)",
+  "ideal": "< 10 Gy",
+  "note": "idéalement, si chimiothérapie concomitante par cisplatine",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-446d2cff",
+  "oar_id": "oar-coeur",
+  "regime": "hypo",
+  "fx": 15,
+  "loc": [
+   "sein",
+   "sein_ccis"
+  ],
+  "indicateur": "Dmean (sein ou paroi + ganglions)",
+  "limitant": "< 5 Gy",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-1d068533",
+  "oar_id": "oar-coeur",
+  "regime": "hypo",
+  "fx": 15,
+  "loc": [
+   "sein",
+   "sein_ccis"
+  ],
+  "indicateur": "V17Gy (sein ou paroi + ganglions)",
+  "limitant": "≤ 10 %",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-6ebbcc87",
+  "oar_id": "oar-coeur",
+  "regime": "hypo",
+  "fx": 15,
+  "loc": [
+   "sein",
+   "sein_ccis"
+  ],
+  "indicateur": "V35Gy (sein ou paroi + ganglions)",
+  "limitant": "≤ 5 %",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-bcb5ef41",
+  "oar_id": "oar-coeur",
+  "regime": "hypo",
+  "fx": 15,
+  "loc": [
+   "sein",
+   "sein_ccis"
+  ],
+  "indicateur": "Dmean (inspiration bloquée)",
+  "limitant": "< 3 Gy",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-061d8064",
+  "oar_id": "oar-coeur",
+  "regime": "normo",
+  "loc": [
+   "sein",
+   "sein_ccis"
+  ],
+  "indicateur": "Dmean (sein ou paroi + ganglions)",
+  "limitant": "< 5 Gy",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-8241de92",
+  "oar_id": "oar-coeur",
+  "regime": "normo",
+  "loc": [
+   "sein",
+   "sein_ccis"
+  ],
+  "indicateur": "V20Gy (sein ou paroi + ganglions)",
+  "limitant": "≤ 10 %",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-5ad7d24f",
+  "oar_id": "oar-coeur",
+  "regime": "normo",
+  "loc": [
+   "sein",
+   "sein_ccis"
+  ],
+  "indicateur": "V40Gy (sein ou paroi + ganglions)",
+  "limitant": "≤ 5 %",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-a4fe7e7d",
+  "oar_id": "oar-coeur",
+  "regime": "normo",
+  "loc": [
+   "sein",
+   "sein_ccis"
+  ],
+  "indicateur": "Dmean (inspiration bloquée)",
+  "limitant": "< 2,5 Gy",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-2a3a5286",
+  "oar_id": "oar-cornees",
+  "regime": "normo",
+  "loc": [
+   "cavite_buccale",
+   "oropharynx",
+   "larynx",
+   "hypopharynx",
+   "cavum",
+   "sinus",
+   "glandes_salivaires",
+   "orl_palliatif"
+  ],
+  "indicateur": "Dmax",
+  "limitant": "< 40 Gy",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-4eca956c",
+  "oar_id": "oar-cristallins",
+  "regime": "normo",
+  "indicateur": "Dmax",
+  "ideal": "< 6 Gy",
+  "limitant": "≤ 10 Gy",
+  "note": "10 Gy = acceptable",
+  "source": "RecoRad 2025 (encéphale)"
+ },
+ {
+  "id": "cb-8730c3b5",
+  "oar_id": "oar-cristallins",
+  "regime": "normo",
+  "loc": [
+   "cavite_buccale",
+   "oropharynx",
+   "larynx",
+   "hypopharynx",
+   "cavum",
+   "sinus",
+   "glandes_salivaires",
+   "orl_palliatif"
+  ],
+  "indicateur": "Dmax",
+  "limitant": "≤ 6 Gy",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-52d12920",
+  "oar_id": "oar-duodenum",
+  "regime": "normo",
+  "indicateur": "V45Gy",
+  "limitant": "≤ 15 %",
+  "source": "RecoRad 2025 (pancréas)"
+ },
+ {
+  "id": "cb-3bdf0f80",
+  "oar_id": "oar-duodenum",
+  "regime": "stereo",
+  "fx": 5,
+  "indicateur": "D1cm³",
+  "ideal": "< 33 Gy",
+  "source": "RecoRad 2025 (pancréas)"
+ },
+ {
+  "id": "cb-0f537063",
+  "oar_id": "oar-duodenum",
+  "regime": "stereo",
+  "fx": 5,
+  "indicateur": "D9cm³",
+  "ideal": "< 15 Gy",
+  "source": "RecoRad 2025 (pancréas)"
+ },
+ {
+  "id": "cb-719fe3f2",
+  "oar_id": "oar-duodenum",
+  "regime": "stereo",
+  "fx": 5,
+  "indicateur": "D10cm³",
+  "limitant": "< 25 Gy",
+  "source": "RecoRad 2025 (pancréas)"
+ },
+ {
+  "id": "cb-d7707fc5",
+  "oar_id": "oar-duodenum",
+  "regime": "stereo",
+  "fx": 10,
+  "indicateur": "V40Gy",
+  "limitant": "≤ 0,5 cm³",
+  "source": "Gustave Roussy, stéréotaxie 2018"
+ },
+ {
+  "id": "cb-b15c1f09",
+  "oar_id": "oar-encephale-sain",
+  "regime": "stereo",
+  "fx": 3,
+  "indicateur": "V21Gy",
+  "limitant": "< 21 cm³",
+  "source": "RecoRad 2025 (encéphale)"
+ },
+ {
+  "id": "cb-f5f1d4da",
+  "oar_id": "oar-encephale-sain",
+  "regime": "stereo",
+  "fx": 5,
+  "indicateur": "V25Gy",
+  "limitant": "< 16 cm³",
+  "source": "RecoRad 2025 (encéphale)"
+ },
+ {
+  "id": "cb-5b66fd99",
+  "oar_id": "oar-estomac",
+  "regime": "normo",
+  "indicateur": "V45Gy",
+  "ideal": "≤ 75 cm³",
+  "limitant": "≤ 15 %",
+  "source": "RecoRad 2025 (pancréas)"
+ },
+ {
+  "id": "cb-62c0f48a",
+  "oar_id": "oar-estomac",
+  "regime": "normo",
+  "indicateur": "V30Gy",
+  "limitant": "< 50 %",
+  "source": "RecoRad 2025 (pancréas)"
+ },
+ {
+  "id": "cb-ddc07b23",
+  "oar_id": "oar-estomac",
+  "regime": "normo",
+  "loc": [
+   "foie"
+  ],
+  "indicateur": "V45Gy",
+  "limitant": "< 33,3 %",
+  "source": "RecoRad 2025 (foie)"
+ },
+ {
+  "id": "cb-b1160ac9",
+  "oar_id": "oar-estomac",
+  "regime": "stereo",
+  "fx": 5,
+  "indicateur": "D10cm³",
+  "limitant": "< 25 Gy",
+  "source": "RecoRad 2025 (pancréas)"
+ },
+ {
+  "id": "cb-6886be77",
+  "oar_id": "oar-foie",
+  "regime": "hypo",
+  "fx": 15,
+  "indicateur": "Dmean (foie sain, Child-Pugh A)",
+  "limitant": "< 20 Gy",
+  "source": "RecoRad 2025 (foie)"
+ },
+ {
+  "id": "cb-7c2bbfa2",
+  "oar_id": "oar-foie",
+  "regime": "hypo",
+  "fx": 15,
+  "indicateur": "Dmean (foie sain, Child-Pugh B7)",
+  "limitant": "< 16 Gy",
+  "source": "RecoRad 2025 (foie)"
+ },
+ {
+  "id": "cb-708ac594",
+  "oar_id": "oar-foie",
+  "regime": "hypo",
+  "fx": 15,
+  "loc": [
+   "sein",
+   "sein_ccis"
+  ],
+  "indicateur": "Dmean (sein droit)",
+  "limitant": "≤ 4 Gy",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-85658ea7",
+  "oar_id": "oar-foie",
+  "regime": "normo",
+  "indicateur": "Dmean (foie sain, Child-Pugh A)",
+  "limitant": "< 30 Gy",
+  "source": "RecoRad 2025 (foie)"
+ },
+ {
+  "id": "cb-fbe91037",
+  "oar_id": "oar-foie",
+  "regime": "normo",
+  "indicateur": "Dmean (foie sain, Child-Pugh B7)",
+  "limitant": "< 24 Gy",
+  "source": "RecoRad 2025 (foie)"
+ },
+ {
+  "id": "cb-621f7e91",
+  "oar_id": "oar-foie",
+  "regime": "normo",
+  "loc": [
+   "sein",
+   "sein_ccis"
+  ],
+  "indicateur": "Dmean (sein droit)",
+  "limitant": "≤ 4 Gy",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-b538bf20",
+  "oar_id": "oar-foie",
+  "regime": "stereo",
+  "fx": 3,
+  "indicateur": "Dmean (foie sain, Child-Pugh A)",
+  "limitant": "< 10–12 Gy",
+  "source": "RecoRad 2025 (foie)"
+ },
+ {
+  "id": "cb-0c4e156f",
+  "oar_id": "oar-foie",
+  "regime": "stereo",
+  "fx": 5,
+  "indicateur": "Dmean (foie sain, Child-Pugh A)",
+  "limitant": "< 13–15 Gy",
+  "source": "RecoRad 2025 (foie)"
+ },
+ {
+  "id": "cb-e3ffa3c1",
+  "oar_id": "oar-foie",
+  "regime": "stereo",
+  "fx": 5,
+  "indicateur": "D700cm³ (foie sain, Child-Pugh A)",
+  "limitant": "< 15 Gy",
+  "source": "RecoRad 2025 (foie)"
+ },
+ {
+  "id": "cb-96142ad2",
+  "oar_id": "oar-foie",
+  "regime": "stereo",
+  "fx": 5,
+  "indicateur": "Dmean (foie sain, Child-Pugh B7)",
+  "limitant": "< 8–10 Gy",
+  "source": "RecoRad 2025 (foie)"
+ },
+ {
+  "id": "cb-508b3788",
+  "oar_id": "oar-foie",
+  "regime": "stereo",
+  "fx": 5,
+  "indicateur": "D500cm³ (foie sain, Child-Pugh B7)",
+  "limitant": "< 10 Gy",
+  "source": "RecoRad 2025 (foie)"
+ },
+ {
+  "id": "cb-8a79718f",
+  "oar_id": "oar-foie",
+  "regime": "stereo",
+  "fx": 10,
+  "indicateur": "V24Gy (foie − CTV)",
+  "limitant": "≤ 50 %",
+  "source": "Gustave Roussy, stéréotaxie 2018"
+ },
+ {
+  "id": "cb-da0d5e67",
+  "oar_id": "oar-grele",
+  "regime": "hypo",
+  "fx": 20,
+  "dpf": 3,
+  "indicateur": "V12Gy",
+  "ideal": "< 830 cm³",
+  "note": "EQD2 (α/β = 2)",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-9be264f2",
+  "oar_id": "oar-grele",
+  "regime": "hypo",
+  "fx": 20,
+  "dpf": 3,
+  "indicateur": "V36Gy",
+  "ideal": "< 150 cm³",
+  "limitant": "< 200 cm³",
+  "note": "EQD2 (α/β = 2)",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-353a95ec",
+  "oar_id": "oar-grele",
+  "regime": "hypo",
+  "fx": 25,
+  "indicateur": "V50Gy",
+  "limitant": "< 110 cm³",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-7dbfe554",
+  "oar_id": "oar-grele",
+  "regime": "normo",
+  "loc": [
+   "pancreas"
+  ],
+  "indicateur": "V45Gy",
+  "limitant": "≤ 15 %",
+  "source": "RecoRad 2025 (pancréas)"
+ },
+ {
+  "id": "cb-ef0f4195",
+  "oar_id": "oar-grele",
+  "regime": "normo",
+  "loc": [
+   "pancreas"
+  ],
+  "indicateur": "V30Gy",
+  "limitant": "< 40 % ou 400 cm³",
+  "source": "RecoRad 2025 (pancréas)"
+ },
+ {
+  "id": "cb-7cb4ceee",
+  "oar_id": "oar-grele",
+  "regime": "normo",
+  "loc": [
+   "canal_anal"
+  ],
+  "indicateur": "V40Gy",
+  "limitant": "< 300 cm³",
+  "source": "RecoRad 2025 (canal anal)"
+ },
+ {
+  "id": "cb-f99f573b",
+  "oar_id": "oar-grele",
+  "regime": "normo",
+  "loc": [
+   "vessie"
+  ],
+  "indicateur": "V45Gy",
+  "ideal": "< 150 cm³",
+  "source": "RecoRad 2025 (vessie)"
+ },
+ {
+  "id": "cb-c23c37b4",
+  "oar_id": "oar-grele",
+  "regime": "normo",
+  "loc": [
+   "col",
+   "endometre",
+   "vagin",
+   "vulve"
+  ],
+  "indicateur": "V40Gy (boost ganglionnaire ou lombo-aortique)",
+  "limitant": "< 250 cm³",
+  "source": "RecoRad 2025 (gynécologie)"
+ },
+ {
+  "id": "cb-b561917f",
+  "oar_id": "oar-grele",
+  "regime": "normo",
+  "loc": [
+   "col",
+   "endometre",
+   "vagin",
+   "vulve"
+  ],
+  "indicateur": "V30Gy (boost ganglionnaire ou lombo-aortique)",
+  "limitant": "< 500 cm³",
+  "source": "RecoRad 2025 (gynécologie)"
+ },
+ {
+  "id": "cb-3ca127cf",
+  "oar_id": "oar-grele",
+  "regime": "normo",
+  "loc": [
+   "col",
+   "endometre",
+   "vagin",
+   "vulve"
+  ],
+  "indicateur": "Dmax (boost ganglionnaire ou lombo-aortique)",
+  "limitant": "< 57,5 Gy",
+  "source": "RecoRad 2025 (gynécologie)"
+ },
+ {
+  "id": "cb-5e54ad6b",
+  "oar_id": "oar-grele",
+  "regime": "normo",
+  "fx": 33,
+  "indicateur": "V45Gy",
+  "ideal": "< 150 cm³",
+  "limitant": "< 200 cm³",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-6ba2b073",
+  "oar_id": "oar-grele",
+  "regime": "stereo",
+  "fx": 5,
+  "indicateur": "D5cm³",
+  "ideal": "< 25 Gy",
+  "source": "RecoRad 2025 (pancréas)"
+ },
+ {
+  "id": "cb-2dbd0cd0",
+  "oar_id": "oar-grele",
+  "regime": "stereo",
+  "fx": 5,
+  "indicateur": "D10cm³",
+  "limitant": "< 25 Gy",
+  "source": "RecoRad 2025 (pancréas)"
+ },
+ {
+  "id": "cb-0276adac",
+  "oar_id": "oar-hypophyse",
+  "regime": "normo",
+  "loc": [
+   "cavite_buccale",
+   "oropharynx",
+   "larynx",
+   "hypopharynx",
+   "cavum",
+   "sinus",
+   "glandes_salivaires",
+   "orl_palliatif"
+  ],
+  "indicateur": "Dmax (cavum)",
+  "limitant": "≤ 65 Gy",
+  "note": "cancer du cavum",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-da5b2a6a",
+  "oar_id": "oar-moelle",
+  "regime": "normo",
+  "loc": [
+   "seminome"
+  ],
+  "indicateur": "Dose",
+  "limitant": "ALARA",
+  "source": "RecoRad 2025 (testicule)"
+ },
+ {
+  "id": "cb-e689bd9c",
+  "oar_id": "oar-nerfs-optiques",
+  "regime": "normo",
+  "indicateur": "Dmax si chevauchement du PRV",
+  "limitant": "≤ 60 Gy",
+  "source": "RecoRad 2025 (encéphale)"
+ },
+ {
+  "id": "cb-5f6b3c30",
+  "oar_id": "oar-paroi-thoracique",
+  "regime": "stereo",
+  "fx": 5,
+  "indicateur": "V45Gy",
+  "limitant": "< 5 cm³",
+  "source": "RecoRad 2025 (poumon)"
+ },
+ {
+  "id": "cb-ce5f2984",
+  "oar_id": "oar-parotides",
+  "regime": "hypo",
+  "fx": 10,
+  "indicateur": "Dose",
+  "limitant": "ALARA",
+  "source": "RecoRad 2025 (encéphale)"
+ },
+ {
+  "id": "cb-21d1ab0f",
+  "oar_id": "oar-parotides",
+  "regime": "hypo",
+  "fx": 15,
+  "indicateur": "Dose",
+  "limitant": "ALARA",
+  "source": "RecoRad 2025 (encéphale)"
+ },
+ {
+  "id": "cb-d3513192",
+  "oar_id": "oar-parotides",
+  "regime": "normo",
+  "loc": [
+   "glioblastome",
+   "gliome",
+   "metastases_cerebrales",
+   "meningiome",
+   "schwannome",
+   "hypophyse",
+   "craniopharyngiome",
+   "neurocytome",
+   "ependymome",
+   "medulloblastome"
+  ],
+  "indicateur": "Dose",
+  "limitant": "ALARA",
+  "source": "RecoRad 2025 (encéphale)"
+ },
+ {
+  "id": "cb-d2300ef7",
+  "oar_id": "oar-plexus-brachiaux",
+  "regime": "normo",
+  "loc": [
+   "sein",
+   "sein_ccis"
+  ],
+  "indicateur": "Dmax (GTV ganglionnaire)",
+  "limitant": "≤ 60–66 Gy",
+  "note": "si GTV ganglionnaire",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-d203b7ef",
+  "oar_id": "oar-plexus-brachiaux",
+  "regime": "normo",
+  "loc": [
+   "cavite_buccale",
+   "oropharynx",
+   "larynx",
+   "hypopharynx",
+   "cavum",
+   "sinus",
+   "glandes_salivaires",
+   "orl_palliatif"
+  ],
+  "indicateur": "Dmax",
+  "ideal": "< 60–66 Gy",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-8bd754e5",
+  "oar_id": "oar-plexus-brachiaux",
+  "regime": "stereo",
+  "fx": 1,
+  "indicateur": "V14Gy",
+  "limitant": "< 3 cm³",
+  "source": "RecoRad 2025 (poumon)"
+ },
+ {
+  "id": "cb-323794e6",
+  "oar_id": "oar-poumon-controlateral",
+  "regime": "hypo",
+  "fx": 15,
+  "indicateur": "V4,8Gy (sein ou paroi + ganglions)",
+  "ideal": "< 10 %",
+  "limitant": "< 15 %",
+  "note": "15 % = acceptable",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-b395f672",
+  "oar_id": "oar-poumon-controlateral",
+  "regime": "hypo",
+  "fx": 15,
+  "indicateur": "V2,5Gy (inspiration bloquée)",
+  "limitant": "< 3 %",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-00600e76",
+  "oar_id": "oar-poumon-controlateral",
+  "regime": "normo",
+  "indicateur": "V5Gy (sein ou paroi + ganglions)",
+  "limitant": "≤ 15 %",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-0f553242",
+  "oar_id": "oar-poumon-controlateral",
+  "regime": "stereo",
+  "fx": 5,
+  "indicateur": "V5Gy",
+  "limitant": "≤ 26 %",
+  "source": "Gustave Roussy, stéréotaxie 2018"
+ },
+ {
+  "id": "cb-8f9e1e8c",
+  "oar_id": "oar-poumon-homolateral",
+  "regime": "hypo",
+  "fx": 15,
+  "indicateur": "V20Gy (sein ou paroi)",
+  "limitant": "< 10 %",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-3e907792",
+  "oar_id": "oar-poumon-homolateral",
+  "regime": "hypo",
+  "fx": 15,
+  "indicateur": "V17Gy (sein ou paroi + ganglions)",
+  "limitant": "≤ 35 %",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-775025b6",
+  "oar_id": "oar-poumon-homolateral",
+  "regime": "hypo",
+  "fx": 15,
+  "indicateur": "V18Gy (inspiration bloquée)",
+  "limitant": "< 10 %",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-83aa3cf5",
+  "oar_id": "oar-poumon-homolateral",
+  "regime": "hypo",
+  "fx": 15,
+  "indicateur": "Dmean (inspiration bloquée)",
+  "limitant": "< 6 Gy",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-f35385df",
+  "oar_id": "oar-poumon-homolateral",
+  "regime": "normo",
+  "indicateur": "V20Gy (sein ou paroi + ganglions)",
+  "limitant": "≤ 35 %",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-5ca0becf",
+  "oar_id": "oar-poumon-homolateral",
+  "regime": "normo",
+  "indicateur": "Dmean (sein ou paroi + ganglions)",
+  "limitant": "≤ 18 Gy",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-255ed334",
+  "oar_id": "oar-poumon-homolateral",
+  "regime": "normo",
+  "indicateur": "V10Gy (sein ou paroi + ganglions)",
+  "limitant": "≤ 65 %",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-d0961fcd",
+  "oar_id": "oar-poumon-homolateral",
+  "regime": "normo",
+  "indicateur": "V5Gy (sein ou paroi + ganglions)",
+  "limitant": "≤ 75 %",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-f35e5220",
+  "oar_id": "oar-poumons",
+  "regime": "normo",
+  "indicateur": "V20Gy (poumon unique, après pneumonectomie)",
+  "limitant": "≤ 20 %",
+  "source": "RecoRad 2025 (poumon)"
+ },
+ {
+  "id": "cb-fbaac842",
+  "oar_id": "oar-poumons",
+  "regime": "normo",
+  "fx": 30,
+  "dpf": 1.5,
+  "indicateur": "V20Gy (poumons − PTV)",
+  "limitant": "≤ 35 %",
+  "source": "RecoRad 2025 (poumon)"
+ },
+ {
+  "id": "cb-c2a6b073",
+  "oar_id": "oar-poumons",
+  "regime": "stereo",
+  "fx": 10,
+  "indicateur": "V20Gy (poumons − ITV)",
+  "limitant": "≤ 4–10 %",
+  "source": "Gustave Roussy, stéréotaxie 2018"
+ },
+ {
+  "id": "cb-a77617a1",
+  "oar_id": "oar-poumons",
+  "regime": "stereo",
+  "fx": 10,
+  "indicateur": "V2,5Gy (poumons − ITV)",
+  "limitant": "≤ 35 %",
+  "source": "Gustave Roussy, stéréotaxie 2018"
+ },
+ {
+  "id": "cb-f3e2ee37",
+  "oar_id": "oar-poumons",
+  "regime": "stereo",
+  "fx": 10,
+  "indicateur": "Dmean (poumons − ITV)",
+  "limitant": "≤ 10 Gy",
+  "source": "Gustave Roussy, stéréotaxie 2018"
+ },
+ {
+  "id": "cb-fecad46b",
+  "oar_id": "oar-queue-cheval",
+  "regime": "normo",
+  "fx": 33,
+  "indicateur": "Dmax",
+  "limitant": "< 50 Gy",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-917096f6",
+  "oar_id": "oar-rectum",
+  "regime": "hypo",
+  "fx": 20,
+  "dpf": 2.625,
+  "indicateur": "V48Gy",
+  "limitant": "< 50 %",
+  "note": "organe entier",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-1f3ec4c2",
+  "oar_id": "oar-rectum",
+  "regime": "hypo",
+  "fx": 20,
+  "dpf": 2.625,
+  "indicateur": "V52,5Gy",
+  "limitant": "< 30 %",
+  "note": "organe entier",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-24b83950",
+  "oar_id": "oar-rectum",
+  "regime": "hypo",
+  "fx": 20,
+  "dpf": 3,
+  "indicateur": "V37Gy",
+  "limitant": "< 50 %",
+  "note": "paroi rectale",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-6fd2f392",
+  "oar_id": "oar-rectum",
+  "regime": "hypo",
+  "fx": 20,
+  "dpf": 3,
+  "indicateur": "V46Gy",
+  "limitant": "< 30 %",
+  "note": "paroi rectale",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-125c625d",
+  "oar_id": "oar-rectum",
+  "regime": "hypo",
+  "fx": 25,
+  "indicateur": "V65Gy",
+  "limitant": "< 30 %",
+  "note": "organe entier",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-6f4de8c6",
+  "oar_id": "oar-rectum",
+  "regime": "hypo",
+  "fx": 25,
+  "indicateur": "V70Gy",
+  "limitant": "< 15 %",
+  "note": "organe entier",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-3ce6ac28",
+  "oar_id": "oar-rectum",
+  "regime": "normo",
+  "loc": [
+   "prostate"
+  ],
+  "indicateur": "V65Gy",
+  "limitant": "< 35 %",
+  "note": "organe entier",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-15403f50",
+  "oar_id": "oar-rectum",
+  "regime": "normo",
+  "loc": [
+   "prostate"
+  ],
+  "indicateur": "V70Gy",
+  "limitant": "< 25 %",
+  "note": "organe entier",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-cbebf72f",
+  "oar_id": "oar-rectum",
+  "regime": "normo",
+  "fx": 33,
+  "indicateur": "V65Gy",
+  "ideal": "< 25 %",
+  "limitant": "< 35 %",
+  "note": "organe entier",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-e40c439d",
+  "oar_id": "oar-reins",
+  "regime": "normo",
+  "indicateur": "V18Gy",
+  "limitant": "≤ 50 %",
+  "source": "RecoRad 2025 (pancréas)"
+ },
+ {
+  "id": "cb-d30107c2",
+  "oar_id": "oar-reins",
+  "regime": "stereo",
+  "fx": 1,
+  "indicateur": "V10Gy (rein unique)",
+  "limitant": "< 33 %",
+  "source": "RecoRad 2025 (rein)"
+ },
+ {
+  "id": "cb-c71287b1",
+  "oar_id": "oar-reins",
+  "regime": "stereo",
+  "fx": 3,
+  "indicateur": "V10Gy (rein unique)",
+  "limitant": "< 33 %",
+  "source": "RecoRad 2025 (rein)"
+ },
+ {
+  "id": "cb-2314dfa5",
+  "oar_id": "oar-tete-humerale",
+  "regime": "hypo",
+  "fx": 15,
+  "indicateur": "Dose",
+  "limitant": "ALARA",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-53ef008d",
+  "oar_id": "oar-tete-humerale",
+  "regime": "normo",
+  "indicateur": "Dose",
+  "limitant": "ALARA",
+  "source": "RecoRad 2025 (sein)"
+ },
+ {
+  "id": "cb-2dc743c5",
+  "oar_id": "oar-tetes-femorales",
+  "regime": "hypo",
+  "fx": 20,
+  "dpf": 2.625,
+  "indicateur": "V43Gy",
+  "limitant": "< 5 %",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-5c26f205",
+  "oar_id": "oar-tetes-femorales",
+  "regime": "hypo",
+  "fx": 20,
+  "dpf": 3,
+  "indicateur": "V43Gy",
+  "limitant": "< 5 %",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-7b40344b",
+  "oar_id": "oar-tetes-femorales",
+  "regime": "normo",
+  "fx": 33,
+  "indicateur": "V50Gy",
+  "limitant": "< 5–10 %",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-2cd7bfce",
+  "oar_id": "oar-tronc-cerebral",
+  "regime": "hypo",
+  "fx": 20,
+  "indicateur": "D2% (PRV 5 mm)",
+  "ideal": "< 42–45 Gy",
+  "limitant": "< 50 Gy",
+  "source": "RecoRad 2025 (ORL)"
+ },
+ {
+  "id": "cb-2519231d",
+  "oar_id": "oar-vessie",
+  "regime": "normo",
+  "loc": [
+   "prostate"
+  ],
+  "indicateur": "V70Gy",
+  "limitant": "< 35 %",
+  "note": "organe entier",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-0b5b7159",
+  "oar_id": "oar-vessie",
+  "regime": "normo",
+  "loc": [
+   "prostate"
+  ],
+  "indicateur": "V75Gy",
+  "limitant": "< 25 %",
+  "note": "organe entier",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-b5613d61",
+  "oar_id": "oar-vessie",
+  "regime": "stereo",
+  "fx": 5,
+  "indicateur": "V37Gy",
+  "ideal": "< 5 cm³",
+  "limitant": "< 10 cm³",
+  "note": "organe entier",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-3808fb93",
+  "oar_id": "oar-moelle",
+  "regime": "hypo",
+  "fx": 25,
+  "indicateur": "Dmax",
+  "limitant": "< 45 Gy",
+  "note": "valeur donnée pour le canal médullaire",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-781986b7",
+  "oar_id": "oar-moelle",
+  "regime": "normo",
+  "fx": 30,
+  "dpf": 1.5,
+  "indicateur": "Dmax",
+  "limitant": "≤ 42 Gy",
+  "note": "valeur donnée pour le canal médullaire",
+  "source": "RecoRad 2025 (poumon)"
+ },
+ {
+  "id": "cb-15c01a18",
+  "oar_id": "oar-moelle",
+  "regime": "normo",
+  "fx": 33,
+  "indicateur": "Dmax",
+  "limitant": "< 45 Gy",
+  "note": "valeur donnée pour le canal médullaire",
+  "source": "RecoRad 2025 (prostate)"
+ },
+ {
+  "id": "cb-95d6c273",
+  "oar_id": "oar-corps",
+  "regime": "normo",
+  "indicateur": "V43Gy",
+  "ideal": "< 2200 cm³",
+  "source": "Institut Curie 2021 (protocoles col-vagin, endomètre-col post-opératoire, vulve)"
+ },
+ {
+  "id": "cb-f25f639d",
+  "oar_id": "oar-cotes",
+  "regime": "stereo",
+  "fx": 3,
+  "indicateur": "D5cc",
+  "ideal": "< 40 Gy",
+  "limitant": "< 42 Gy",
+  "source": "Institut Curie, SBRT d'un nodule pulmonaire, version du 05/12/2021 (KEYNOTE-867, RTOG 0813, Ma 2019, HyTEC 2021)"
+ },
+ {
+  "id": "cb-4453d006",
+  "oar_id": "oar-cotes",
+  "regime": "stereo",
+  "fx": 5,
+  "indicateur": "D5cc",
+  "ideal": "< 45 Gy",
+  "limitant": "< 47,3 Gy",
+  "source": "Institut Curie, SBRT d'un nodule pulmonaire, version du 05/12/2021 (RTOG 0813, Manyam 2020, SABR UK v6.1)"
+ },
+ {
+  "id": "cb-9b5728c3",
+  "oar_id": "oar-bandelettes-optiques",
+  "regime": "normo",
+  "indicateur": "Dmax si chevauchement du PRV",
+  "limitant": "≤ 60 Gy",
+  "note": "même valeur que : Chiasma optique",
+  "source": "RecoRad 2025 (encéphale)"
+ },
+ {
+  "id": "cb-54392006",
+  "oar_id": "oar-bandelettes-optiques",
+  "regime": "normo",
+  "loc": [
+   "cavite_buccale",
+   "oropharynx",
+   "larynx",
+   "hypopharynx",
+   "cavum",
+   "sinus",
+   "glandes_salivaires",
+   "orl_palliatif"
+  ],
+  "indicateur": "Dmax (PRV)",
+  "limitant": "≤ 60 Gy",
+  "note": "même valeur que : Chiasma optique",
+  "source": "RecoRad 2025 (ORL)"
+ }
+]

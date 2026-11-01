@@ -1,0 +1,8424 @@
+{
+ "ajouts": [
+  {
+   "oar_id": "oar-arbre-bronchique",
+   "g": 10,
+   "c": "D0.035 cc ≤ 59 Gy",
+   "prv": "",
+   "org": "Proximal_Bronchial_Tree",
+   "src": [
+    "VA 🥇 Lung 2023",
+    "VA/ASTRO PRO '26",
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-arbre-bronchique",
+   "g": 10,
+   "c": "V52 Gy ≤ 5 cc",
+   "prv": "",
+   "org": "Proximal_Bronchial_Tree",
+   "src": [
+    "VA 🥇 Lung 2023",
+    "VA/ASTRO PRO '26",
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-bulbe",
+   "g": 5,
+   "c": "D0.1 cc ≤ 50 Gy",
+   "prv": "",
+   "org": "PenileBulb",
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Erectile dysfunction",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "TG-101, UK SAB"
+    ],
+    "effet_fr": "dysfonction érectile"
+   }
+  },
+  {
+   "oar_id": "oar-bulbe",
+   "g": 5,
+   "c": "V30 -50 Gy ≤ 3 cc",
+   "prv": "",
+   "org": "PenileBulb",
+   "src": [
+    "TG-101",
+    "Timmerman",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-cavite-orale",
+   "g": "N",
+   "c": "D0.03 cc ≤ 60 Gy",
+   "prv": "",
+   "org": "Oral_Cavity",
+   "src": [
+    "VA 🥇 H&N 2022",
+    "VA/ASTRO PRO '26",
+    "RTOG 1016",
+    "NRG HN003"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "H&N",
+    "effet": "Xerostomia, dysgeusia, oral mucositis",
+    "ab": "3",
+    "refs": [
+     "Little IJROBP '12",
+     "Katsoulakis PRO '22"
+    ],
+    "effet_fr": "xérostomie, dysgueusie, mucite"
+   }
+  },
+  {
+   "oar_id": "oar-cochlees",
+   "g": 15,
+   "c": "D0.035 -0.1 cc ≤ 33 Gy",
+   "prv": "",
+   "org": "Cochlea",
+   "src": [
+    "Timmerman '21",
+    "EA2183",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-cochlees",
+   "g": 15,
+   "c": "V30 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "Cochlea",
+   "src": [
+    "Timmerman '21",
+    "EA2183",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-cochlees",
+   "g": "N",
+   "c": "V55 -60 Gy ≤ 5%",
+   "prv": "",
+   "org": "Cochlea",
+   "src": [
+    "DAHANCA 20",
+    "DAHANCA 25"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": true,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-cochlees",
+   "g": "N",
+   "c": "Dmean ≤ 35 -45 Gy",
+   "prv": "",
+   "org": "Cochlea",
+   "src": [
+    "NRG Heme '26",
+    "CORSAIR"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": true,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-coeur",
+   "g": "N",
+   "c": "V50 Gy ≤ 25-33%",
+   "prv": "",
+   "org": "Heart",
+   "src": [
+    "RTOG 0617"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "NSCLC",
+    "effet": "G3+ Pericarditis",
+    "ab": "3",
+    "refs": [
+     "Speirs JTO '16",
+     "NCCN NSCLC"
+    ],
+    "effet_fr": "péricardite grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-coeur",
+   "g": "N",
+   "c": "V40 Gy ≤ 20%",
+   "prv": "",
+   "org": "Heart",
+   "src": [
+    "NCCN NSCLC 3.2026",
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Thyroid",
+    "effet": "G3+ Pericarditis",
+    "ab": "3",
+    "refs": [
+     "Timmerman '21"
+    ],
+    "effet_fr": "péricardite grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-coeur",
+   "g": 3,
+   "c": "D0.035 -0.1 cc ≤ 30 Gy",
+   "prv": "",
+   "org": "Heart",
+   "src": [
+    "DOSE-Pro Thoracic",
+    "NCCN NSCLC 3.2026",
+    "VA/ASTRO PRO '26",
+    "TG-101",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "RTOG 0618",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-colon",
+   "g": 5,
+   "c": "D1.5 cc ≤ 42 Gy",
+   "prv": "PRV 3 mm",
+   "org": "Bowel_Large",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Kidney",
+    "effet": "Colitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Timmerman '21"
+    ],
+    "effet_fr": "colite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-colon",
+   "g": 5,
+   "c": "V32 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "Bowel_Large",
+   "src": [
+    "UK SABR '17",
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Mandatory"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Colitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "UK SABR '17, P"
+    ],
+    "effet_fr": "colite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-cristallins",
+   "g": "N",
+   "c": "Dmax ≤ 6 -10 Gy",
+   "prv": "",
+   "org": "Lens",
+   "src": [
+    "ESTRO-EANO GBM"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-duodenum",
+   "g": "N",
+   "c": "V55 Gy ≤ 1 cc",
+   "prv": "",
+   "org": "Duodenum",
+   "src": [],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Gynecological",
+    "ab": "3",
+    "refs": [
+     "George Clin Onc '20",
+     "Lakomy PRO '21"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-duodenum",
+   "g": "N",
+   "c": "V55 Gy ≤ 5 -15 cc",
+   "prv": "",
+   "org": "Duodenum",
+   "src": [
+    "NCCN Cervical 2.2026",
+    "EMBRACE II"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Gynecological",
+    "ab": "3",
+    "refs": [
+     "Verma IJROBP '14",
+     "Lakomy PRO '21"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-duodenum",
+   "g": 1,
+   "c": "V20 Gy ≤ 3 cc",
+   "prv": "",
+   "org": "Duodenum",
+   "src": [],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Pancreas",
+    "effet": "Ulceration",
+    "ab": "3",
+    "refs": [
+     "Murphy IJROBP '10"
+    ],
+    "effet_fr": "ulcération"
+   }
+  },
+  {
+   "oar_id": "oar-duodenum",
+   "g": 3,
+   "c": "V12.5 Gy ≤ 30 cc",
+   "prv": "PRV 1.5-3 mm",
+   "org": "Duodenum",
+   "src": [
+    "IROCK"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Kidney",
+    "ab": "3",
+    "refs": [
+     "Correa J Uro '19 (Table S2)"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-encephale",
+   "g": "N",
+   "c": "D0.035 cc ≤ 68 Gy",
+   "prv": "",
+   "org": "Brain",
+   "src": [
+    "DAHANCA 20",
+    "DAHANCA 25"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "H&N",
+    "ab": "2",
+    "refs": [
+     "DAHANCA 20, DA"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-encephale",
+   "g": "N",
+   "c": "V58 Gy ≤ 1 cc",
+   "prv": "",
+   "org": "Brain",
+   "src": [
+    "DAHANCA 20",
+    "DAHANCA 25"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "H&N",
+    "ab": "3",
+    "refs": [
+     "DAHANCA 20, DA"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-encephale-sain",
+   "g": 1,
+   "c": "V5 Gy ≤ 50%",
+   "prv": "",
+   "org": "Brain-GTV",
+   "src": [
+    "UK SABR '17",
+    "QUANTEC",
+    "CORSAIR"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "effet": "Cognitive Deterioration",
+    "ab": "2",
+    "refs": [
+     "UK SABR '17, Q"
+    ],
+    "effet_fr": "déclin cognitif"
+   }
+  },
+  {
+   "oar_id": "oar-encephale-sain",
+   "g": 1,
+   "c": "V12 Gy ≤ 10 cc",
+   "prv": "",
+   "org": "Brain-GTV",
+   "src": [
+    "UK SABR '17",
+    "QUANTEC",
+    "HyTEC",
+    "CORSAIR"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": true,
+   "sit": [
+    "Intact"
+   ],
+   "det": {
+    "site": "AVM",
+    "effet": "Symptomatic necrosis",
+    "ab": "2",
+    "refs": [
+     "Milano IJROBP '21",
+     "Grimm IJROBP '21",
+     "UK SABR '17, Q"
+    ],
+    "effet_fr": "radionécrose symptomatique"
+   }
+  },
+  {
+   "oar_id": "oar-estomac",
+   "g": 1,
+   "c": "D0.1 cc ≤ 12.4 Gy",
+   "prv": "",
+   "org": "Stomach",
+   "src": [
+    "TG-101",
+    "Timmerman",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "RTOG 0915",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-estomac",
+   "g": 5,
+   "c": "V30 Gy ≤ 2 cc",
+   "prv": "PRV 5 mm",
+   "org": "Stomach",
+   "src": [],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-foie",
+   "g": 3,
+   "c": "V15 Gy ≤ 50%",
+   "prv": "",
+   "org": "Liver",
+   "src": [
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "CORSAIR"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "G3+ RILD",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "UK SABR '17, P"
+    ],
+    "effet_fr": "hépatopathie radique grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-foie",
+   "g": 5,
+   "c": "V10 Gy ≤ 70%",
+   "prv": "",
+   "org": "Liver",
+   "src": [
+    "UK SABR '17",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "imp": [
+    "Optimal"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "effet": "G3+ RILD",
+    "ab": "3",
+    "refs": [
+     "UK SABR '17, U"
+    ],
+    "effet_fr": "hépatopathie radique grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-glandes-lacrymales",
+   "g": "N",
+   "c": "V20 Gy ≤ 80-≥80%",
+   "prv": "",
+   "org": "Lacrimal_Glnd",
+   "src": [
+    "NCCN Hodgkin 1.2026",
+    "NRG Heme '26",
+    "CORSAIR"
+   ],
+   "imp": [
+    "Recommended"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Heme",
+    "effet": "Xerophthalmia",
+    "ab": "3",
+    "refs": [
+     "Wang IJROBP '19",
+     "NCCN Hodgkin",
+     "CORSAIR"
+    ],
+    "effet_fr": "xérophtalmie"
+   }
+  },
+  {
+   "oar_id": "oar-grele",
+   "g": 5,
+   "c": "V20 Gy ≤ 50 cc",
+   "prv": "",
+   "org": "Bowel_Small",
+   "src": [
+    "VA 🥇 Rectal 2022",
+    "VA/ASTRO PRO '26"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Rectal",
+    "effet": "Enteritis/obstruction",
+    "ab": "3",
+    "refs": [
+     "Fields ARO '19",
+     "Park PRO '22"
+    ],
+    "effet_fr": "entérite, occlusion"
+   }
+  },
+  {
+   "oar_id": "oar-grele",
+   "g": 20,
+   "c": "V13 Gy ≤ 830 cc",
+   "prv": "",
+   "org": "Bowel_Bag",
+   "src": [
+    "Noël 2025 SFRO",
+    "RADICALS"
+   ],
+   "imp": [
+    "Optimal"
+   ],
+   "hy": false,
+   "sit": [
+    "Postop"
+   ],
+   "det": {
+    "site": "Prostate",
+    "ab": "3"
+   }
+  },
+  {
+   "oar_id": "oar-grele",
+   "g": "N",
+   "c": "V50 Gy ≤ 5 -10 cc",
+   "prv": "",
+   "org": "Bowel_Bag",
+   "src": [],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Cervix",
+    "ab": "3",
+    "refs": [
+     "ESTRO ACROP Pancreas '20"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-grele",
+   "g": "N",
+   "c": "V40 Gy ≤ 30-70%",
+   "prv": "",
+   "org": "Bowel_Bag",
+   "src": [
+    "NCCN Cervical 2.2026",
+    "RTOG 1203",
+    "RTOG 0418",
+    "RTOG 0724",
+    "NRG GU001",
+    "TIME-C"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Cervix",
+    "ab": "3",
+    "refs": []
+   }
+  },
+  {
+   "oar_id": "oar-grele",
+   "g": "N",
+   "c": "D0 cc ≤ 74 Gy",
+   "prv": "",
+   "org": "Bowel_Loop",
+   "src": [
+    "RAIDER"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Bladder",
+    "effet": "Enteritis/obstruction",
+    "ab": "3",
+    "effet_fr": "entérite, occlusion"
+   }
+  },
+  {
+   "oar_id": "oar-grele",
+   "g": "N",
+   "c": "V65 Gy ≤ 23 -40 cc",
+   "prv": "",
+   "org": "Bowel_Loop",
+   "src": [
+    "RAIDER"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Bladder",
+    "effet": "Enteritis/obstruction",
+    "ab": "3",
+    "effet_fr": "entérite, occlusion"
+   }
+  },
+  {
+   "oar_id": "oar-grele",
+   "g": "N",
+   "c": "V60 Gy ≤ 73 -98 cc",
+   "prv": "",
+   "org": "Bowel_Loop",
+   "src": [
+    "RAIDER"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Bladder",
+    "effet": "Enteritis/obstruction",
+    "ab": "3",
+    "effet_fr": "entérite, occlusion"
+   }
+  },
+  {
+   "oar_id": "oar-grele",
+   "g": "N",
+   "c": "D0.035 cc ≤ 57.5 Gy",
+   "prv": "",
+   "org": "Bowel_Loop",
+   "src": [
+    "Noël 2025 SFRO",
+    "EMBRACE II"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Cervix",
+    "ab": "3",
+    "refs": [
+     "Noël 2025 SFRO",
+     "Noël 2025 SFRO"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-grele",
+   "g": 3,
+   "c": "V25.2 Gy ≤ 0.035 -0.5 cc",
+   "prv": "",
+   "org": "Bowel_Small",
+   "src": [
+    "ASTRO Liver 2021",
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "CORSAIR"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-grele",
+   "g": 3,
+   "c": "D30 cc ≤ 12.5 Gy",
+   "prv": "PRV 1.5-3 mm",
+   "org": "Bowel_Small",
+   "src": [
+    "IROCK",
+    "FASTRACK II"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Kidney",
+    "effet": "Enteritis/obstruction",
+    "ab": "3",
+    "refs": [
+     "Correa J Uro '19 (Table S2)",
+     "Siva Lanc Onc '24"
+    ],
+    "effet_fr": "entérite, occlusion"
+   }
+  },
+  {
+   "oar_id": "oar-grele",
+   "g": 3,
+   "c": "D30 cc ≤ 12.5 Gy",
+   "prv": "",
+   "org": "Bowel_Small",
+   "src": [
+    "Noël 2025 SFRO"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-gros-vaisseaux",
+   "g": 5,
+   "c": "V53 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "GreatVes",
+   "src": [
+    "Noël 2025 SFRO"
+   ],
+   "imp": [
+    "Mandatory"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-hippocampes",
+   "g": "N",
+   "c": "V7.2 Gy ≤ 40%",
+   "prv": "",
+   "org": "Hippocampus",
+   "src": [
+    "DAHANCA 20",
+    "CORSAIR",
+    "DAHANCA 25"
+   ],
+   "imp": [
+    "Optimal"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "H&N",
+    "effet": "Memory loss (short term), free delayed recall",
+    "ab": "2",
+    "refs": [
+     "Gondi IJROBP '13",
+     "Redmond ASTRO '20",
+     "DAHANCA 20, CO"
+    ],
+    "effet_fr": "troubles de la mémoire (rappel différé)"
+   }
+  },
+  {
+   "oar_id": "oar-hypophyse",
+   "g": 15,
+   "c": "D ≤ 100-40.5 Gy",
+   "prv": "",
+   "org": "Pituitary",
+   "src": [
+    "Noël 2025 SFRO"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-moelle",
+   "g": 1,
+   "c": "V10 Gy ≤ 0.35 cc",
+   "prv": "PRV 1.5-3 mm",
+   "org": "SpinalCord",
+   "src": [
+    "UK SABR '17",
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "RTOG 0915",
+    "NRG BR002",
+    "RTOG 0631",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "NSCLC",
+    "effet": "G3+ Myelitis",
+    "ab": "2",
+    "refs": [
+     "Gerhard PRO '21",
+     "UK SABR '17, T"
+    ],
+    "effet_fr": "myélite grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-moelle",
+   "g": 3,
+   "c": "V15.9 Gy ≤ 0.35 cc",
+   "prv": "PRV 1.5-3 mm",
+   "org": "SpinalCord",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-oesophage",
+   "g": 3,
+   "c": "V25.2 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "Esophagus",
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Esophagitis",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "TG-101, UK SAB"
+    ],
+    "effet_fr": "œsophagite"
+   }
+  },
+  {
+   "oar_id": "oar-oesophage",
+   "g": 5,
+   "c": "D0.5 cc ≤ 32 -34 Gy",
+   "prv": "",
+   "org": "Esophagus",
+   "src": [
+    "VA/ASTRO PRO '26",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "CORSAIR",
+    "RTOG 1112"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Esophagitis",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "UK SABR '17, P"
+    ],
+    "effet_fr": "œsophagite"
+   }
+  },
+  {
+   "oar_id": "oar-oesophage",
+   "g": 8,
+   "c": "V40 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "Esophagus",
+   "src": [
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "LungTECH"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Esophagitis",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "UK SABR '17, P"
+    ],
+    "effet_fr": "œsophagite"
+   }
+  },
+  {
+   "oar_id": "oar-paroi-thoracique",
+   "g": 1,
+   "c": "D1 cc ≤ 30.2 Gy",
+   "prv": "",
+   "org": "ChestWall",
+   "src": [
+    "VA/ASTRO PRO '26",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Pain or fracture",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "Manyam PRO '19"
+    ],
+    "effet_fr": "douleur ou fracture"
+   }
+  },
+  {
+   "oar_id": "oar-paroi-thoracique",
+   "g": 1,
+   "c": "D5 cc ≤ 27.2 Gy",
+   "prv": "",
+   "org": "ChestWall",
+   "src": [
+    "VA/ASTRO PRO '26",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-paroi-thoracique",
+   "g": 1,
+   "c": "V11 Gy ≤ 28 cc",
+   "prv": "",
+   "org": "ChestWall",
+   "src": [
+    "TG-101",
+    "CORSAIR"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Pain or fracture",
+    "ab": "3",
+    "refs": [
+     "TG-101, CORSAI"
+    ],
+    "effet_fr": "douleur ou fracture"
+   }
+  },
+  {
+   "oar_id": "oar-paroi-thoracique",
+   "g": 3,
+   "c": "V37 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "ChestWall",
+   "src": [
+    "UK SABR '17",
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Pain or fracture",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "UK SABR '17, P"
+    ],
+    "effet_fr": "douleur ou fracture"
+   }
+  },
+  {
+   "oar_id": "oar-paroi-thoracique",
+   "g": 4,
+   "c": "V30 Gy ≤ 30 -70 cc",
+   "prv": "",
+   "org": "ChestWall",
+   "src": [
+    "UK SABR '17",
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "NSCLC",
+    "effet": "Pain or fracture",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "UK SABR '17, P"
+    ],
+    "effet_fr": "douleur ou fracture"
+   }
+  },
+  {
+   "oar_id": "oar-paroi-thoracique",
+   "g": 5,
+   "c": "V39 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "ChestWall",
+   "src": [
+    "UK SABR '17",
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Pain or fracture",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "UK SABR '17, P"
+    ],
+    "effet_fr": "douleur ou fracture"
+   }
+  },
+  {
+   "oar_id": "oar-paroi-thoracique",
+   "g": 5,
+   "c": "V32 Gy ≤ 30 -70 cc",
+   "prv": "",
+   "org": "ChestWall",
+   "src": [
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "CORSAIR"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Pain or fracture",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "UK SABR '17, P"
+    ],
+    "effet_fr": "douleur ou fracture"
+   }
+  },
+  {
+   "oar_id": "oar-paroi-thoracique",
+   "g": 8,
+   "c": "V39 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "ChestWall",
+   "src": [
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "CORSAIR",
+    "LungTECH"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Pain or fracture",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "UK SABR '17, P"
+    ],
+    "effet_fr": "douleur ou fracture"
+   }
+  },
+  {
+   "oar_id": "oar-paroi-thoracique",
+   "g": 8,
+   "c": "V35 Gy ≤ 30 cc",
+   "prv": "",
+   "org": "ChestWall",
+   "src": [
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "CORSAIR",
+    "DAHANCA 20",
+    "LungTECH"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Pain or fracture",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "UK SABR '17, P"
+    ],
+    "effet_fr": "douleur ou fracture"
+   }
+  },
+  {
+   "oar_id": "oar-parotides",
+   "g": 10,
+   "c": "D0.035 cc ≤ 21.3 Gy",
+   "prv": "",
+   "org": "Parotids (Each)",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-parotides",
+   "g": 10,
+   "c": "Dmean ≤ 17.7 Gy",
+   "prv": "",
+   "org": "Parotids (Each)",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-parotides",
+   "g": 10,
+   "c": "V14.1 Gy ≤ 7 cc",
+   "prv": "",
+   "org": "Parotids (Each)",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-parotides",
+   "g": 15,
+   "c": "D0.035 cc ≤ 27 Gy",
+   "prv": "",
+   "org": "Parotids (Each)",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-parotides",
+   "g": 15,
+   "c": "Dmean ≤ 22.5 Gy",
+   "prv": "",
+   "org": "Parotids (Each)",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-parotides",
+   "g": 15,
+   "c": "V18 Gy ≤ 7 cc",
+   "prv": "",
+   "org": "Parotids (Each)",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-peau",
+   "g": 1,
+   "c": "D1.5 cc ≤ 18 Gy",
+   "prv": "",
+   "org": "Skin",
+   "src": [
+    "IROCK"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Kidney",
+    "effet": "Ulceration",
+    "ab": "3",
+    "refs": [
+     "Correa J Uro '19 (Table S2)",
+     "Dhar IJROBP '26"
+    ],
+    "effet_fr": "ulcération"
+   }
+  },
+  {
+   "oar_id": "oar-peau",
+   "g": 3,
+   "c": "D1.5 cc ≤ 30 Gy",
+   "prv": "PRV 1.5-3 mm",
+   "org": "Skin",
+   "src": [
+    "Noël 2025 SFRO",
+    "IROCK"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Kidney",
+    "effet": "Ulceration",
+    "ab": "3",
+    "refs": [
+     "Correa J Uro '19 (Table S2)",
+     "Dhar IJROBP '26",
+     "Noël 2025 SFRO"
+    ],
+    "effet_fr": "ulcération"
+   }
+  },
+  {
+   "oar_id": "oar-peau",
+   "g": 5,
+   "c": "D10 cc ≤ 36.5 Gy",
+   "prv": "",
+   "org": "Skin",
+   "src": [
+    "DOSE-Pro Thoracic",
+    "TG-101",
+    "UK SABR '17",
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "IROCK",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Ulceration",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "Dhar IJROBP '26",
+     "TG-101, UK SAB"
+    ],
+    "effet_fr": "ulcération"
+   }
+  },
+  {
+   "oar_id": "oar-peau",
+   "g": 5,
+   "c": "D1.5 cc ≤ 24 -30 Gy",
+   "prv": "",
+   "org": "Skin",
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Kidney",
+    "effet": "Ulceration",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "UK SABR '22, C"
+    ],
+    "effet_fr": "ulcération"
+   }
+  },
+  {
+   "oar_id": "oar-poumon-controlateral",
+   "g": "N",
+   "c": "V20 Gy ≤ 6.3-7%",
+   "prv": "",
+   "org": "Lung_Contra",
+   "src": [
+    "VA 🥇 Lung 2023"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Mesothelioma",
+    "effet": "G5 Pneumonitis",
+    "ab": "3",
+    "refs": [
+     "MDACC Rice IJROBP '07",
+     "Puckett PRO '23"
+    ],
+    "effet_fr": "pneumopathie mortelle (grade 5)"
+   }
+  },
+  {
+   "oar_id": "oar-poumon-controlateral",
+   "g": 5,
+   "c": "V5 Gy ≤ 10%",
+   "prv": "",
+   "org": "Lung_Contra",
+   "src": [
+    "CORSAIR",
+    "Florence"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-poumons",
+   "g": "N",
+   "c": "V5 Gy ≤ 60-65%",
+   "prv": "",
+   "org": "Lungs",
+   "src": [
+    "DOSE-Pro Thoracic",
+    "QUANTEC",
+    "RTOG 1308",
+    "NRG DT001"
+   ],
+   "imp": [
+    "Informational"
+   ],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "NSCLC",
+    "effet": "G3+ Pneumonitis",
+    "ab": "3",
+    "refs": [
+     "Tsukita RTO '21",
+     "QUANTEC"
+    ],
+    "effet_fr": "pneumopathie grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-poumons",
+   "g": "N",
+   "c": "D100% ≤ 15 Gy",
+   "prv": "",
+   "org": "Lungs",
+   "src": [
+    "AEWS 1031",
+    "AREN 1921"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Pediatrics",
+    "ab": "3",
+    "refs": []
+   }
+  },
+  {
+   "oar_id": "oar-poumons",
+   "g": 10,
+   "c": "V16 Gy ≤ 30-32%",
+   "prv": "",
+   "org": "Lungs",
+   "src": [
+    "VA 🥇 Lung 2023",
+    "VA/ASTRO PRO '26"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-poumons",
+   "g": 10,
+   "c": "Dmean ≤ 12 Gy",
+   "prv": "",
+   "org": "Lungs",
+   "src": [
+    "VA 🥇 Lung 2023",
+    "VA/ASTRO PRO '26"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 20,
+   "c": "V60 Gy ≤ 0.01-1%",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "NRG Prostate 2020",
+    "VA 🥇 Prostate 2022",
+    "CHHiP"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [
+    "Intact"
+   ],
+   "det": {
+    "site": "Prostate",
+    "effet": "Proctitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Wilkins IJROBP '20"
+    ],
+    "effet_fr": "rectite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": "N",
+   "c": "V30 Gy ≤ 80%",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "RAIDER",
+    "PIVOTAL"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Bladder",
+    "effet": "Proctitis/Fistula",
+    "ab": "3",
+    "refs": [],
+    "effet_fr": "rectite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 5,
+   "c": "V39 Gy ≤ Circumference: 33%",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "HyTEC",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Prostate",
+    "effet": "Proctitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Folkert IJROBP '21",
+     "Prostate SBRT HyTEC",
+     "HyTEC"
+    ],
+    "effet_fr": "rectite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 5,
+   "c": "D0.035 -1 cc ≤ 38.06 -40 Gy",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "TG-101",
+    "NRG GU005",
+    "RTOG 0938"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Prostate",
+    "effet": "Proctitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Folkert IJROBP '21",
+     "TG-101"
+    ],
+    "effet_fr": "rectite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 5,
+   "c": "V24 Gy ≤ Circumference: 50%",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "HyTEC",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Prostate",
+    "effet": "Proctitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Folkert IJROBP '21",
+     "Prostate SBRT HyTEC",
+     "HyTEC"
+    ],
+    "effet_fr": "rectite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-reins",
+   "g": "N",
+   "c": "V30 Gy ≤ 20%",
+   "prv": "",
+   "org": "Kidney_Cortex",
+   "src": [
+    "QUANTEC"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "ab": "3",
+    "refs": [
+     "QUANTEC"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-reins",
+   "g": "N",
+   "c": "D100% ≤ 14.4 Gy",
+   "prv": "",
+   "org": "Kidney_Cortex",
+   "src": [
+    "AEWS 1031"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Pediatrics",
+    "ab": "3",
+    "refs": []
+   }
+  },
+  {
+   "oar_id": "oar-reins",
+   "g": "N",
+   "c": "V10 Gy ≤ 30%",
+   "prv": "",
+   "org": "Kidney_Cortex",
+   "src": [
+    "NCCN Hodgkin 1.2026",
+    "CORSAIR"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Heme",
+    "effet": "Renal Insufficiency",
+    "ab": "3",
+    "refs": [
+     "May IJROBP '10",
+     "Inaba RTO '16",
+     "CORSAIR"
+    ],
+    "effet_fr": "insuffisance rénale"
+   }
+  },
+  {
+   "oar_id": "oar-reins",
+   "g": 3,
+   "c": "Dmean ≤ 8.5 Gy",
+   "prv": "",
+   "org": "Kidney_Cortex",
+   "src": [
+    "TG-101",
+    "Timmerman",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Grade 3+ renal function",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "TG-101, Timmer"
+    ],
+    "effet_fr": "atteinte rénale grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-reins",
+   "g": 10,
+   "c": "V10 Gy ≤ 10%",
+   "prv": "",
+   "org": "Kidney_Cortex",
+   "src": [
+    "UK SABR '17",
+    "RTOG 0438"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "effet": "Basic Renal Function",
+    "ab": "3",
+    "refs": [
+     "UK SABR '17"
+    ],
+    "effet_fr": "fonction rénale"
+   }
+  },
+  {
+   "oar_id": "oar-sigmoide",
+   "g": 5,
+   "c": "V32 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "Sigmoid_Colon",
+   "src": [
+    "UK SABR '17",
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Colitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "UK SABR '17, P"
+    ],
+    "effet_fr": "colite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-sigmoide",
+   "g": "N",
+   "c": "V57.5 Gy ≤ 0.035 cc",
+   "prv": "",
+   "org": "Sigmoid_Colon",
+   "src": [
+    "Noël 2025 SFRO",
+    "EMBRACE II"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Cervix",
+    "effet": "Colitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Noël 2025 SFRO",
+     "Noël 2025 SFRO"
+    ],
+    "effet_fr": "colite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-testicule-controlateral",
+   "g": "N",
+   "c": "Dmean ≤ 2 -12 Gy",
+   "prv": "",
+   "org": "Testis",
+   "src": [
+    "NCCN Hodgkin 1.2026",
+    "PENTEC"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-tetes-femorales",
+   "g": 20,
+   "c": "V41.7 Gy ≤ 50%",
+   "prv": "",
+   "org": "Femur_Head",
+   "src": [
+    "RAIDER",
+    "S2427"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Bladder",
+    "effet": "Necrosis",
+    "ab": "3",
+    "refs": [],
+    "effet_fr": "nécrose"
+   }
+  },
+  {
+   "oar_id": "oar-tronc-cerebral",
+   "g": 15,
+   "c": "V40 Gy ≤ 5 cc",
+   "prv": "",
+   "org": "Brainstem",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "effet": "G3+ cranial neuropathy",
+    "ab": "2",
+    "refs": [
+     "Timmerman '21"
+    ],
+    "effet_fr": "neuropathie crânienne grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-tronc-cerebral",
+   "g": 20,
+   "c": "D0.035 cc ≤ 50 Gy",
+   "prv": "",
+   "org": "Brainstem",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "effet": "G3+ cranial neuropathy",
+    "ab": "2",
+    "refs": [
+     "Timmerman '21"
+    ],
+    "effet_fr": "neuropathie crânienne grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-tronc-cerebral",
+   "g": 20,
+   "c": "V44 Gy ≤ 5 cc",
+   "prv": "",
+   "org": "Brainstem",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-tronc-cerebral",
+   "g": "N",
+   "c": "V59 Gy ≤ 1 -10 cc",
+   "prv": "",
+   "org": "Brainstem",
+   "src": [
+    "ESTRO-EANO GBM",
+    "QUANTEC",
+    "CORSAIR"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "effet": "G3+ cranial neuropathy",
+    "ab": "2",
+    "refs": [
+     "QUANTEC, CORSA"
+    ],
+    "effet_fr": "neuropathie crânienne grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-tronc-cerebral",
+   "g": 1,
+   "c": "D0.5 cc ≤ 10 Gy",
+   "prv": "",
+   "org": "Brainstem",
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "Timmerman '21",
+    "CORSAIR",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "G3+ cranial neuropathy",
+    "ab": "2",
+    "refs": [
+     "TG-101, UK SAB"
+    ],
+    "effet_fr": "neuropathie crânienne grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-uretre",
+   "g": 5,
+   "c": "D0.035 -0.5 cc ≤ 45 Gy",
+   "prv": "",
+   "org": "Ureter/Urethra",
+   "src": [
+    "Timmerman",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 5,
+   "c": "D0.035 -0.5 cc ≤ 38 Gy",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "TG-101",
+    "Timmerman",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Cystitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "TG-101, Timmer"
+    ],
+    "effet_fr": "cystite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 5,
+   "c": "V37 Gy ≤ 5 -10 cc",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "CORSAIR",
+    "PACE",
+    "hypo-FLAME"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Prostate",
+    "effet": "Cystitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "hypo-FLAME (Draulans RTO '20)",
+     "CORSAIR"
+    ],
+    "effet_fr": "cystite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 5,
+   "c": "Dmean ≤ 32 Gy",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Cystitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "PRO Oligo '21"
+    ],
+    "effet_fr": "cystite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 5,
+   "c": "V15 Gy ≤ 50%",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "VA 🥇 Rectal 2022",
+    "VA/ASTRO PRO '26",
+    "NRG GU005"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Prostate",
+    "effet": "Cystitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "hypo-FLAME (Draulans RTO '20)",
+     "Park PRO '22"
+    ],
+    "effet_fr": "cystite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": "N",
+   "c": "V50 Gy ≤ 50%",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "VA 🥇 Prostate 2022",
+    "VA/ASTRO PRO '26",
+    "PACE",
+    "CHHiP",
+    "PIVOTAL"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [
+    "Intact"
+   ],
+   "det": {
+    "site": "Prostate",
+    "effet": "Cystitis/Fistula",
+    "ab": "3",
+    "refs": [],
+    "effet_fr": "cystite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": "N",
+   "c": "Dmean ≤ 40 -44 Gy",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "VA 🥇 Rectal 2022",
+    "NRG Heme '26",
+    "VA/ASTRO PRO '26",
+    "NRG GI002",
+    "PROSPECT"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Rectal",
+    "effet": "Cystitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Park PRO '22"
+    ],
+    "effet_fr": "cystite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 3,
+   "c": "D0.035 -0.1 cc ≤ 28.2 -33 Gy",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Cystitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "TG-101, UK SAB"
+    ],
+    "effet_fr": "cystite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 3,
+   "c": "Dmean ≤ 26 Gy",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Cystitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "PRO Oligo '21"
+    ],
+    "effet_fr": "cystite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-moelle",
+   "g": 20,
+   "c": "V42 Gy ≤ 5.0 cc",
+   "prv": "PRV 1.5-3 mm",
+   "org": "SpinalCord",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-moelle",
+   "g": 4,
+   "c": "V15.9 Gy ≤ 0.35 cc",
+   "prv": "PRV 1.5-3 mm",
+   "org": "SpinalCord",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-bulbe",
+   "g": "N",
+   "c": "V50 Gy ≤ 50%",
+   "prv": "",
+   "org": "PenileBulb",
+   "src": [
+    "NRG Prostate 2020"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Prostate",
+    "effet": "Erectile dysfunction",
+    "ab": "3",
+    "refs": [],
+    "effet_fr": "dysfonction érectile"
+   }
+  },
+  {
+   "oar_id": "oar-hypothalamus",
+   "g": "N",
+   "c": "Dmax ≤ 56 Gy",
+   "prv": "",
+   "org": "Hypothalamus",
+   "src": [
+    "LymphoTEC"
+   ],
+   "imp": [
+    "Can"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-plexus-sacre",
+   "g": "N",
+   "c": "D0.035 cc ≤ 54 -60 Gy",
+   "prv": "",
+   "org": "SacralPlex",
+   "src": [
+    "NRG Heme '26",
+    "Timmerman '21",
+    "CORSAIR",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Heme",
+    "effet": "Neuropathy",
+    "ab": "2",
+    "refs": [
+     "Timmerman '21,"
+    ],
+    "effet_fr": "neuropathie"
+   }
+  },
+  {
+   "oar_id": "oar-cotes",
+   "g": 3,
+   "c": "V30 Gy ≤ 30 cc",
+   "prv": "",
+   "org": "Rib",
+   "src": [
+    "TG-101",
+    "PRO Oligo '21",
+    "CORSAIR"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Pain or fracture",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "TG-101, PRO Ol"
+    ],
+    "effet_fr": "douleur ou fracture"
+   }
+  },
+  {
+   "oar_id": "oar-hypophyse",
+   "g": 1,
+   "c": "Dmean ≤ 9 Gy",
+   "prv": "",
+   "org": "Pituitary",
+   "src": [
+    "CORSAIR"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-hypophyse",
+   "g": 5,
+   "c": "V7.3 Gy ≤ 40%",
+   "prv": "",
+   "org": "Pituitary",
+   "src": [],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-sigmoide",
+   "g": 1,
+   "c": "D0.035 -0.1 cc ≤ 18.4 Gy",
+   "prv": "",
+   "org": "Sigmoid_Colon",
+   "src": [
+    "TG-101",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "RTOG 0631"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Colitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "TG-101, PRO Ol"
+    ],
+    "effet_fr": "colite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-voie-biliaire",
+   "g": 8,
+   "c": "D0.035 cc ≤ 48 Gy",
+   "prv": "",
+   "org": "Biliary_Tree",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 1,
+   "c": "D0.035 cc ≤ 25 Gy",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "Timmerman",
+    "Timmerman '21",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 1,
+   "c": "D0.1 cc ≤ 18.4 Gy",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Cystitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "UK SABR '22, C"
+    ],
+    "effet_fr": "cystite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 4,
+   "c": "D0.1 cc ≤ 33.2 -34.5 Gy",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Cystitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "PRO Oligo '21"
+    ],
+    "effet_fr": "cystite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 4,
+   "c": "Dmean ≤ 29 Gy",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Cystitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "PRO Oligo '21"
+    ],
+    "effet_fr": "cystite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 4,
+   "c": "V17.6 Gy ≤ 15 cc",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Cystitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "PRO Oligo '21"
+    ],
+    "effet_fr": "cystite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 8,
+   "c": "D0.035 cc ≤ 44.8 Gy",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 8,
+   "c": "V22.4 Gy ≤ 15 cc",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 10,
+   "c": "D0.035 cc ≤ 53 Gy",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 10,
+   "c": "V48 Gy ≤ 90 cc",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 10,
+   "c": "V45 Gy ≤ 125 cc",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 15,
+   "c": "D0.035 cc ≤ 61.5 Gy",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 15,
+   "c": "V55.5 Gy ≤ 90 cc",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 15,
+   "c": "V52.5 Gy ≤ 125 cc",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 28,
+   "c": "V65 Gy ≤ 15%",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "NRG Prostate 2020",
+    "VA 🥇 Prostate 2022"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Prostate",
+    "effet": "Cystitis/Fistula",
+    "ab": "3",
+    "effet_fr": "cystite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-vessie",
+   "g": 28,
+   "c": "V45 Gy ≤ 45%",
+   "prv": "",
+   "org": "Bladder",
+   "src": [
+    "NRG Prostate 2020"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Prostate",
+    "effet": "Cystitis/Fistula",
+    "ab": "3",
+    "effet_fr": "cystite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-grele",
+   "g": 28,
+   "c": "V40 Gy ≤ 1%",
+   "prv": "",
+   "org": "Bowel_Small",
+   "src": [
+    "VA 🥇 Prostate 2022",
+    "VA/ASTRO PRO '26"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [
+    "Intact"
+   ],
+   "det": {
+    "site": "Prostate",
+    "effet": "Enteritis/obstruction",
+    "ab": "3",
+    "effet_fr": "entérite, occlusion"
+   }
+  },
+  {
+   "oar_id": "oar-colon",
+   "g": 4,
+   "c": "D0.035 -0.1 cc ≤ 33.2 Gy",
+   "prv": "",
+   "org": "Bowel_Large",
+   "src": [
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Colitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "PRO Oligo '21"
+    ],
+    "effet_fr": "colite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-colon",
+   "g": 8,
+   "c": "D0.035 cc ≤ 57.5 Gy",
+   "prv": "",
+   "org": "Bowel_Large",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-colon",
+   "g": 8,
+   "c": "V35.2 Gy ≤ 20 cc",
+   "prv": "",
+   "org": "Bowel_Large",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-colon",
+   "g": 20,
+   "c": "D0.035 -0.1 cc ≤ 50 Gy",
+   "prv": "",
+   "org": "Bowel_Large",
+   "src": [
+    "NRG Prostate 2020"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-colon",
+   "g": 28,
+   "c": "V50 Gy ≤ 1%",
+   "prv": "",
+   "org": "Bowel_Large",
+   "src": [
+    "VA 🥇 Prostate 2022",
+    "VA/ASTRO PRO '26"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [
+    "Intact"
+   ],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-grele",
+   "g": 8,
+   "c": "D0.035 cc ≤ 40 Gy",
+   "prv": "",
+   "org": "Bowel_Small",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-grele",
+   "g": 8,
+   "c": "V28.8 Gy ≤ 30 cc",
+   "prv": "",
+   "org": "Bowel_Small",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-encephale",
+   "g": 1,
+   "c": "V12 Gy ≤ 8.0 -8.5 cc",
+   "prv": "",
+   "org": "Brain",
+   "src": [
+    "HyTEC"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "ab": "2",
+    "refs": [
+     "Blonigen IJROBP '10",
+     "Minniti Rad Onc '11",
+     "HyTEC"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-encephale",
+   "g": 25,
+   "c": "D0.035 cc ≤ 60 Gy",
+   "prv": "",
+   "org": "Brain",
+   "src": [],
+   "imp": [
+    "Absolute"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "H&N: Oropharynx",
+    "ab": "2",
+    "refs": [
+     "Meade Clin Onc '18"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-encephale",
+   "g": 25,
+   "c": "V58 Gy ≤ 1 cc",
+   "prv": "",
+   "org": "Brain",
+   "src": [],
+   "imp": [
+    "Absolute"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "H&N: Oropharynx",
+    "ab": "2",
+    "refs": [
+     "Meade Clin Onc '18"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-tronc-cerebral",
+   "g": 2,
+   "c": "D0.035 cc ≤ 19.1 Gy",
+   "prv": "",
+   "org": "Brainstem",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "effet": "G3+ cranial neuropathy",
+    "ab": "2",
+    "refs": [
+     "Timmerman '21"
+    ],
+    "effet_fr": "neuropathie crânienne grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-tronc-cerebral",
+   "g": 2,
+   "c": "V13 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "Brainstem",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "effet": "G3+ cranial neuropathy",
+    "ab": "2",
+    "refs": [
+     "Timmerman '21"
+    ],
+    "effet_fr": "neuropathie crânienne grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-tronc-cerebral",
+   "g": 4,
+   "c": "D0.035 cc ≤ 27.2 Gy",
+   "prv": "",
+   "org": "Brainstem",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "effet": "G3+ cranial neuropathy",
+    "ab": "2",
+    "refs": [
+     "Timmerman '21"
+    ],
+    "effet_fr": "neuropathie crânienne grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-tronc-cerebral",
+   "g": 4,
+   "c": "V20.8 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "Brainstem",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-tronc-cerebral",
+   "g": 8,
+   "c": "D0.035 cc ≤ 37.6 Gy",
+   "prv": "",
+   "org": "Brainstem",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "effet": "G3+ cranial neuropathy",
+    "ab": "2",
+    "refs": [
+     "Timmerman '21"
+    ],
+    "effet_fr": "neuropathie crânienne grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-tronc-cerebral",
+   "g": 8,
+   "c": "V27.2 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "Brainstem",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "effet": "G3+ cranial neuropathy",
+    "ab": "2",
+    "refs": [
+     "Timmerman '21"
+    ],
+    "effet_fr": "neuropathie crânienne grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-tronc-cerebral",
+   "g": 25,
+   "c": "D0.035 -0.1 cc ≤ 50 Gy",
+   "prv": "PRV 1.5-3 mm",
+   "org": "Brainstem",
+   "src": [],
+   "imp": [
+    "Absolute"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "H&N: Oropharynx",
+    "ab": "3",
+    "refs": [
+     "Meade Clin Onc '18"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-tronc-cerebral",
+   "g": 25,
+   "c": "V48 Gy ≤ 1 cc",
+   "prv": "PRV 1.5-3 mm",
+   "org": "Brainstem",
+   "src": [],
+   "imp": [
+    "Absolute"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-queue-cheval",
+   "g": 1,
+   "c": "D0.035 cc ≤ 16 Gy",
+   "prv": "PRV 0 mm",
+   "org": "CaudaEquina",
+   "src": [
+    "Timmerman",
+    "TG-101",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "UK SABR '17",
+    "CORSAIR",
+    "RTOG 0631",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "G3+ Neuritis",
+    "ab": "2",
+    "refs": [
+     "Gerhard PRO '21",
+     "Dunne IJROBP '21",
+     "Timmerman, TG-"
+    ],
+    "effet_fr": "névrite grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-queue-cheval",
+   "g": 1,
+   "c": "V14 Gy ≤ 5 cc",
+   "prv": "PRV 0 mm",
+   "org": "CaudaEquina",
+   "src": [
+    "Timmerman",
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "RTOG 0631",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "G3+ Neuritis",
+    "ab": "2",
+    "refs": [
+     "Gerhard PRO '21",
+     "Dunne IJROBP '21",
+     "Timmerman, TG-"
+    ],
+    "effet_fr": "névrite grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-queue-cheval",
+   "g": 2,
+   "c": "D0.035 cc ≤ 17 Gy",
+   "prv": "PRV 0 mm",
+   "org": "CaudaEquina",
+   "src": [
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "Sunnybrook"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "G3+ Neuritis",
+    "ab": "2",
+    "refs": [
+     "Gerhard PRO '21",
+     "Dunne IJROBP '21",
+     "PRO Oligo '21,"
+    ],
+    "effet_fr": "névrite grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-queue-cheval",
+   "g": 4,
+   "c": "D0.035 cc ≤ 28.8 Gy",
+   "prv": "PRV 0 mm",
+   "org": "CaudaEquina",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "G3+ Neuritis",
+    "ab": "2",
+    "refs": [
+     "Dunne IJROBP '21",
+     "Timmerman '21"
+    ],
+    "effet_fr": "névrite grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-queue-cheval",
+   "g": 4,
+   "c": "V26 Gy ≤ 5 cc",
+   "prv": "PRV 0 mm",
+   "org": "CaudaEquina",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "G3+ Neuritis",
+    "ab": "2",
+    "refs": [
+     "Dunne IJROBP '21",
+     "Timmerman '21"
+    ],
+    "effet_fr": "névrite grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-queue-cheval",
+   "g": 4,
+   "c": "V13.6 Gy ≤ 1.2 cc",
+   "prv": "PRV 0 mm",
+   "org": "CaudaEquina",
+   "src": [
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "G3+ Neuritis",
+    "ab": "2",
+    "refs": [
+     "Gerhard PRO '21",
+     "Dunne IJROBP '21",
+     "PRO Oligo '21"
+    ],
+    "effet_fr": "névrite grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-queue-cheval",
+   "g": 8,
+   "c": "D0.035 -0.1 cc ≤ 38.4 Gy",
+   "prv": "PRV 0 mm",
+   "org": "CaudaEquina",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-queue-cheval",
+   "g": 8,
+   "c": "V34 Gy ≤ 5 cc",
+   "prv": "PRV 0 mm",
+   "org": "CaudaEquina",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-queue-cheval",
+   "g": 10,
+   "c": "D0.035 cc ≤ 41 Gy",
+   "prv": "PRV 0 mm",
+   "org": "CaudaEquina",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-queue-cheval",
+   "g": 10,
+   "c": "V35 Gy ≤ 5 cc",
+   "prv": "PRV 0 mm",
+   "org": "CaudaEquina",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-queue-cheval",
+   "g": 15,
+   "c": "D0.035 cc ≤ 48 Gy",
+   "prv": "PRV 0 mm",
+   "org": "CaudaEquina",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-queue-cheval",
+   "g": 15,
+   "c": "V40.5 Gy ≤ 5 cc",
+   "prv": "PRV 0 mm",
+   "org": "CaudaEquina",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-cochlees",
+   "g": 4,
+   "c": "D0.1 cc ≤ 22.5 Gy",
+   "prv": "",
+   "org": "Cochlea",
+   "src": [
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "G3+ Hearing loss",
+    "ab": "2",
+    "refs": [
+     "Gerhard PRO '21",
+     "PRO Oligo '21"
+    ],
+    "effet_fr": "surdité grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-cochlees",
+   "g": 8,
+   "c": "D0.035 cc ≤ 26.4 Gy",
+   "prv": "",
+   "org": "Cochlea",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-cochlees",
+   "g": 10,
+   "c": "D0.035 cc ≤ 27 Gy",
+   "prv": "",
+   "org": "Cochlea",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-cochlees",
+   "g": 10,
+   "c": "V25 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "Cochlea",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-cochlees",
+   "g": 20,
+   "c": "D0.035 cc ≤ 36 Gy",
+   "prv": "",
+   "org": "Cochlea",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-cochlees",
+   "g": 20,
+   "c": "V32 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "Cochlea",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-cochlees",
+   "g": 25,
+   "c": "Dmean ≤ 35 Gy",
+   "prv": "PRV 1.5-3 mm",
+   "org": "Cochlea",
+   "src": [],
+   "imp": [
+    "Recommended"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-constricteur-inf",
+   "g": "N",
+   "c": "V50 Gy ≤ 51%",
+   "prv": "",
+   "org": "Constrict_Musc_I",
+   "src": [
+    "Noël 2025 SFRO"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-constricteur-inf",
+   "g": "N",
+   "c": "V40 Gy ≤ 41%",
+   "prv": "",
+   "org": "Constrict_Musc_I",
+   "src": [
+    "Noël 2025 SFRO"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-constricteur-inf",
+   "g": "N",
+   "c": "Dmean ≤ 30 -55 Gy",
+   "prv": "",
+   "org": "Constrict_Musc_I",
+   "src": [
+    "DAHANCA 20",
+    "CORSAIR",
+    "DAHANCA 25"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "H&N",
+    "effet": "Laryngeal edema, dysphagia",
+    "ab": "3",
+    "refs": [
+     "Eisbruch IJROBP '11",
+     "Mavroidis RTO '17",
+     "DAHANCA 20, CO"
+    ],
+    "effet_fr": "œdème laryngé, dysphagie"
+   }
+  },
+  {
+   "oar_id": "oar-constricteur-moyen",
+   "g": "N",
+   "c": "Dmean ≤ 50 -55 Gy",
+   "prv": "",
+   "org": "Constrict_Musc_M",
+   "src": [
+    "DAHANCA 20",
+    "CORSAIR",
+    "DAHANCA 25"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "H&N",
+    "effet": "Laryngeal edema, dysphagia",
+    "ab": "3",
+    "refs": [
+     "Mavroidis RTO '17",
+     "DAHANCA 20, CO"
+    ],
+    "effet_fr": "œdème laryngé, dysphagie"
+   }
+  },
+  {
+   "oar_id": "oar-constricteur-sup",
+   "g": "N",
+   "c": "Dmean ≤ 50 -55 Gy",
+   "prv": "",
+   "org": "Constrict_Musc_S",
+   "src": [
+    "DAHANCA 20",
+    "CORSAIR",
+    "DAHANCA 25"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "H&N",
+    "effet": "Laryngeal edema, dysphagia",
+    "ab": "3",
+    "refs": [
+     "Eisbruch IJROBP '11",
+     "Mavroidis RTO '17",
+     "DAHANCA 20, CO"
+    ],
+    "effet_fr": "œdème laryngé, dysphagie"
+   }
+  },
+  {
+   "oar_id": "oar-coronaires",
+   "g": "N",
+   "c": "Avoid Hotspot",
+   "prv": "",
+   "org": "Coronary_Vessels",
+   "src": [
+    "NCCN Hodgkin 1.2026",
+    "FIL Chest",
+    "CORSAIR"
+   ],
+   "imp": [
+    "Informational"
+   ],
+   "hy": true,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-corps-calleux",
+   "g": "N",
+   "c": "Dmean ≤ 24 Gy",
+   "prv": "",
+   "org": "Corpus_Callosum",
+   "src": [
+    "Florida - Peds"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-retines",
+   "g": 1,
+   "c": "D0.1 -0.2 cc ≤ 8 Gy",
+   "prv": "",
+   "org": "EyeBack/Retina",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-retines",
+   "g": 3,
+   "c": "V21.9 Gy ≤ 5 cc",
+   "prv": "",
+   "org": "EyeBack/Retina",
+   "src": [
+    "TG-101",
+    "Timmerman",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-retines",
+   "g": 3,
+   "c": "D0.035 cc ≤ 17.4 Gy",
+   "prv": "",
+   "org": "EyeBack/Retina",
+   "src": [
+    "TG-101",
+    "HyTEC",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-retines",
+   "g": 5,
+   "c": "D0.1 cc ≤ 32 Gy",
+   "prv": "",
+   "org": "EyeBack/Retina",
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "NRG BR002"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-retines",
+   "g": 5,
+   "c": "V30 Gy ≤ 5 cc",
+   "prv": "",
+   "org": "EyeBack/Retina",
+   "src": [
+    "TG-101",
+    "NRG BR002"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-segment-anterieur",
+   "g": "N",
+   "c": "D0.035 cc ≤ 35 Gy",
+   "prv": "PRV 3 mm",
+   "org": "EyeFront",
+   "src": [
+    "DAHANCA 20",
+    "DAHANCA 25"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "H&N",
+    "ab": "2",
+    "refs": [
+     "DAHANCA 20, DA"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-femurs",
+   "g": "N",
+   "c": "Dmean ≤ 37 Gy",
+   "prv": "",
+   "org": "Femur",
+   "src": [],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Sarcoma",
+    "effet": "Necrosis",
+    "ab": "3",
+    "refs": [
+     "Dickie IJROBP '09",
+     "Casey ASO '20"
+    ],
+    "effet_fr": "nécrose"
+   }
+  },
+  {
+   "oar_id": "oar-femurs",
+   "g": 5,
+   "c": "V30 Gy ≤ 10 cc",
+   "prv": "",
+   "org": "Femur",
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Necrosis",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "TG-101, UK SAB"
+    ],
+    "effet_fr": "nécrose"
+   }
+  },
+  {
+   "oar_id": "oar-tetes-femorales",
+   "g": 8,
+   "c": "V35 Gy ≤ 10 cc",
+   "prv": "",
+   "org": "Femur_Head",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-tetes-femorales",
+   "g": 10,
+   "c": "D0.035 cc ≤ 43.5 Gy",
+   "prv": "",
+   "org": "Femur_Head",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-tetes-femorales",
+   "g": 10,
+   "c": "V38 -39.1 Gy ≤ 10 cc",
+   "prv": "",
+   "org": "Femur_Head",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-tetes-femorales",
+   "g": 15,
+   "c": "D0.035 cc ≤ 46.5 Gy",
+   "prv": "",
+   "org": "Femur_Head",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-tetes-femorales",
+   "g": 15,
+   "c": "V40 Gy ≤ 10 cc",
+   "prv": "",
+   "org": "Femur_Head",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-tetes-femorales",
+   "g": 28,
+   "c": "V50 Gy ≤ 1%",
+   "prv": "",
+   "org": "Femur_Head",
+   "src": [
+    "NRG Prostate 2020"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Prostate",
+    "effet": "Necrosis",
+    "ab": "3",
+    "effet_fr": "nécrose"
+   }
+  },
+  {
+   "oar_id": "oar-cartilages-croissance",
+   "g": "N",
+   "c": "D0.035 cc ≤ 3 -6 Gy",
+   "prv": "",
+   "org": "GrowthPlate",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Heme",
+    "ab": "3",
+    "refs": [
+     "Lee IJROBP '17",
+     "Timmerman '21"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-crete-iliaque",
+   "g": "N",
+   "c": "V50 Gy ≤ 5%",
+   "prv": "",
+   "org": "Iliac_Crest",
+   "src": [
+    "NCCN Anal 1.2026",
+    "RTOG 0529"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-crete-iliaque",
+   "g": "N",
+   "c": "V40 Gy ≤ 35%",
+   "prv": "",
+   "org": "Iliac_Crest",
+   "src": [
+    "NCCN Anal 1.2026",
+    "RTOG 0529"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-crete-iliaque",
+   "g": "N",
+   "c": "V30 Gy ≤ 50%",
+   "prv": "",
+   "org": "Iliac_Crest",
+   "src": [
+    "NCCN Anal 1.2026",
+    "RTOG 0529"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-articulation",
+   "g": "N",
+   "c": "V50 Gy ≤ 50-60%",
+   "prv": "",
+   "org": "Joint_Spc/Bone",
+   "src": [
+    "RTOG 0630"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Sarcoma",
+    "ab": "3",
+    "refs": [
+     "Lee IJROBP '17"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-hile-renal",
+   "g": 8,
+   "c": "V28 Gy ≤ 15 cc",
+   "prv": "",
+   "org": "Kidney_Hilum",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-hile-renal",
+   "g": 10,
+   "c": "V30.7 Gy ≤ 15 cc",
+   "prv": "",
+   "org": "Kidney_Hilum",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-hile-renal",
+   "g": 15,
+   "c": "V37.5 Gy ≤ 15 cc",
+   "prv": "",
+   "org": "Kidney_Hilum",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-circonflexe",
+   "g": "N",
+   "c": "V15 Gy ≤ 14%",
+   "prv": "",
+   "org": "L_Circumflex_A",
+   "src": [
+    "NCCN Hodgkin 1.2026"
+   ],
+   "imp": [
+    "Informational"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-circonflexe",
+   "g": 1,
+   "c": "D0.035 cc ≤ 12 -14 Gy",
+   "prv": "",
+   "org": "L_Circumflex_A",
+   "src": [
+    "CORSAIR"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-glandes-lacrymales",
+   "g": 1,
+   "c": "Dmax ≤ 5 Gy",
+   "prv": "",
+   "org": "Lacrimal_Glnd",
+   "src": [
+    "CORSAIR"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-glandes-lacrymales",
+   "g": 3,
+   "c": "Dmax ≤ 5 -15 Gy",
+   "prv": "",
+   "org": "Lacrimal_Glnd",
+   "src": [
+    "CORSAIR"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-glandes-lacrymales",
+   "g": 5,
+   "c": "Dmax ≤ 5 -15 Gy",
+   "prv": "",
+   "org": "Lacrimal_Glnd",
+   "src": [
+    "CORSAIR"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-glandes-lacrymales",
+   "g": 10,
+   "c": "D0.035 cc ≤ 23.6 Gy",
+   "prv": "",
+   "org": "Lacrimal_Glnd",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-iva",
+   "g": 1,
+   "c": "D0.035 cc ≤ 12 -14 Gy",
+   "prv": "",
+   "org": "LAD_A",
+   "src": [
+    "CORSAIR"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-larynx",
+   "g": 1,
+   "c": "D0.035 -0.1 cc ≤ 20.2 Gy",
+   "prv": "",
+   "org": "Larynx",
+   "src": [
+    "CORSAIR",
+    "RTOG 0631"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-larynx",
+   "g": 10,
+   "c": "D0.035 cc ≤ 45 Gy",
+   "prv": "",
+   "org": "Larynx",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-larynx",
+   "g": 15,
+   "c": "D0.035 cc ≤ 52.5 Gy",
+   "prv": "",
+   "org": "Larynx",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-larynx-glottique",
+   "g": "N",
+   "c": "Dmean ≤ 40 Gy",
+   "prv": "",
+   "org": "Larynx_G",
+   "src": [
+    "QUANTEC",
+    "DAHANCA 25"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "H&N",
+    "effet": "Necrosis, laryngeal edema, Dysphagia and aspiration",
+    "ab": "3",
+    "refs": [
+     "Anderson Acta Oncologica '14",
+     "QUANTEC, DAHAN"
+    ],
+    "effet_fr": "nécrose, œdème laryngé, dysphagie, inhalation"
+   }
+  },
+  {
+   "oar_id": "oar-larynx-supraglottique",
+   "g": "N",
+   "c": "Dmean ≤ 40 Gy",
+   "prv": "",
+   "org": "Larynx_SG",
+   "src": [
+    "QUANTEC",
+    "DAHANCA 20",
+    "DAHANCA 25",
+    "NRG HN005"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "H&N",
+    "effet": "Necrosis, laryngeal edema, Dysphagia and aspiration",
+    "ab": "3",
+    "refs": [
+     "Anderson Acta Oncologica '14",
+     "QUANTEC, DAHAN"
+    ],
+    "effet_fr": "nécrose, œdème laryngé, dysphagie, inhalation"
+   }
+  },
+  {
+   "oar_id": "oar-cristallins",
+   "g": 10,
+   "c": "D0.035 cc ≤ 7 Gy",
+   "prv": "",
+   "org": "Lens",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-cristallins",
+   "g": 15,
+   "c": "D0.035 cc ≤ 9 Gy",
+   "prv": "",
+   "org": "Lens",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-cristallins",
+   "g": 20,
+   "c": "D0.035 cc ≤ 10 Gy",
+   "prv": "",
+   "org": "Lens",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-cristallins",
+   "g": 25,
+   "c": "D0.035 -0.1 cc ≤ 5 Gy",
+   "prv": "",
+   "org": "Lens",
+   "src": [],
+   "imp": [
+    "Recommended"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-foie",
+   "g": 8,
+   "c": "CV 24.8 Gy* ≥ 700 cc",
+   "prv": "",
+   "org": "Liver",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-os-longs",
+   "g": "N",
+   "c": "V40 Gy ≤ 35-64%",
+   "prv": "",
+   "org": "Long_Bone",
+   "src": [
+    "NCCN Hodgkin 1.2026",
+    "NRG Heme '26"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Heme",
+    "effet": "Fracture",
+    "ab": "3",
+    "refs": [
+     "Dickie IJROBP '09",
+     "Casey ASO '21"
+    ],
+    "effet_fr": "fracture"
+   }
+  },
+  {
+   "oar_id": "oar-poumons",
+   "g": "BID",
+   "c": "V20 Gy ≤ 40%",
+   "prv": "",
+   "org": "Lungs",
+   "src": [
+    "CALGB 30610",
+    "RTOG 0538"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [
+    "Intact"
+   ],
+   "det": {
+    "site": "SCLC",
+    "ab": "3",
+    "refs": []
+   }
+  },
+  {
+   "oar_id": "oar-poumons",
+   "g": "BID",
+   "c": "Dmean ≤ 20 Gy",
+   "prv": "",
+   "org": "Lungs",
+   "src": [
+    "CALGB 30610",
+    "RTOG 0538"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [
+    "Intact"
+   ],
+   "det": {
+    "site": "SCLC",
+    "ab": "3",
+    "refs": []
+   }
+  },
+  {
+   "oar_id": "oar-chiasma",
+   "g": 4,
+   "c": "D0.1 cc ≤ 22.5 Gy",
+   "prv": "",
+   "org": "OpticChiasm",
+   "src": [
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "G3+ optic neuritis",
+    "ab": "2",
+    "refs": [
+     "Gerhard PRO '21",
+     "PRO Oligo '21"
+    ],
+    "effet_fr": "névrite optique grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-chiasma",
+   "g": 8,
+   "c": "D0.035 cc ≤ 29.6 Gy",
+   "prv": "",
+   "org": "OpticChiasm",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-chiasma",
+   "g": 25,
+   "c": "D0.035 -0.1 cc ≤ 50 Gy",
+   "prv": "PRV 1.5-3 mm",
+   "org": "OpticChiasm",
+   "src": [],
+   "imp": [
+    "Absolute"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-nerfs-optiques",
+   "g": 20,
+   "c": "D0.035 cc ≤ 48 Gy",
+   "prv": "",
+   "org": "OpticNrv",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-nerfs-optiques",
+   "g": 20,
+   "c": "V42 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "OpticNrv",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-nerfs-optiques",
+   "g": 25,
+   "c": "D0.035 -0.1 cc ≤ 50 Gy",
+   "prv": "PRV 1.5-3 mm",
+   "org": "OpticNrv",
+   "src": [],
+   "imp": [
+    "Absolute"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "H&N: Oropharynx",
+    "ab": "3",
+    "refs": [
+     "Meade Clin Onc '18"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-yeux",
+   "g": 3,
+   "c": "D0.1 cc ≤ 26 Gy",
+   "prv": "",
+   "org": "Orbit",
+   "src": [
+    "Timmerman",
+    "UK SABR '17",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-yeux",
+   "g": 3,
+   "c": "D0.1 cc ≤ 24 Gy",
+   "prv": "",
+   "org": "Orbit",
+   "src": [
+    "TG-101",
+    "UK SABR '17"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-yeux",
+   "g": 3,
+   "c": "V24 -26 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "Orbit",
+   "src": [
+    "UK SABR '17"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-yeux",
+   "g": 3,
+   "c": "V20.4 -22 Gy ≤ 3 cc",
+   "prv": "",
+   "org": "Orbit",
+   "src": [
+    "TG-101",
+    "Timmerman",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-yeux",
+   "g": 5,
+   "c": "D0.1 cc ≤ 30.5 Gy",
+   "prv": "",
+   "org": "Orbit",
+   "src": [
+    "TG-101",
+    "Timmerman",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-yeux",
+   "g": 5,
+   "c": "V27 -29 Gy ≤ 0.5 cc",
+   "prv": "",
+   "org": "Orbit",
+   "src": [
+    "UK SABR '17"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-yeux",
+   "g": 25,
+   "c": "D0.035 -0.1 cc ≤ 40 Gy",
+   "prv": "",
+   "org": "Orbit",
+   "src": [],
+   "imp": [
+    "Absolute"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "H&N: Oropharynx",
+    "ab": "3",
+    "refs": [
+     "Meade Clin Onc '18"
+    ]
+   }
+  },
+  {
+   "oar_id": "oar-bulbe",
+   "g": 1,
+   "c": "D0.1 cc ≤ 14 -34 Gy",
+   "prv": "",
+   "org": "PenileBulb",
+   "src": [
+    "TG-101",
+    "PRO Oligo '21",
+    "CORSAIR"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-bulbe",
+   "g": 1,
+   "c": "V14 -16 Gy ≤ 3 cc",
+   "prv": "",
+   "org": "PenileBulb",
+   "src": [
+    "TG-101",
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-bulbe",
+   "g": 3,
+   "c": "V21.9 -25 Gy ≤ 3 cc",
+   "prv": "",
+   "org": "PenileBulb",
+   "src": [
+    "TG-101",
+    "Timmerman",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-bulbe",
+   "g": 8,
+   "c": "V35 Gy ≤ 3 cc",
+   "prv": "",
+   "org": "PenileBulb",
+   "src": [],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Prostate",
+    "effet": "Erectile dysfunction",
+    "ab": "3",
+    "refs": [],
+    "effet_fr": "dysfonction érectile"
+   }
+  },
+  {
+   "oar_id": "oar-bulbe",
+   "g": 20,
+   "c": "V48 Gy ≤ 10%",
+   "prv": "",
+   "org": "PenileBulb",
+   "src": [
+    "VA 🥇 Prostate 2022",
+    "VA/ASTRO PRO '26",
+    "PIVOTALboost",
+    "PACE"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [
+    "Intact"
+   ],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-pharynx",
+   "g": "N",
+   "c": "V60 Gy ≤ 15%",
+   "prv": "",
+   "org": "Pharynx_Post_Wall",
+   "src": [
+    "RTOG 1016"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-pharynx",
+   "g": "N",
+   "c": "Dmean ≤ 45 Gy",
+   "prv": "",
+   "org": "Pharynx_Post_Wall",
+   "src": [
+    "RTOG 1016",
+    "NRG HN005"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-artere-pulmonaire",
+   "g": 1,
+   "c": "D0.1 cc ≤ 22 Gy",
+   "prv": "",
+   "org": "Pulmonary_A",
+   "src": [
+    "NCCN NSCLC 3.2026",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "NSCLC",
+    "effet": "G3+ Pericarditis",
+    "ab": "3",
+    "refs": [
+     "NCCN NSCLC",
+     "UK SABR '22, C"
+    ],
+    "effet_fr": "péricardite grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-artere-pulmonaire",
+   "g": 3,
+   "c": "D0.035 -0.1 cc ≤ 30 Gy",
+   "prv": "",
+   "org": "Pulmonary_A",
+   "src": [
+    "UK SABR '22"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-artere-pulmonaire",
+   "g": 5,
+   "c": "D0.1 cc ≤ 29 -38 Gy",
+   "prv": "",
+   "org": "Pulmonary_A",
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Pancreas",
+    "effet": "G3+ Pericarditis",
+    "ab": "3",
+    "refs": [
+     "UK SABR '22, C"
+    ],
+    "effet_fr": "péricardite grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-artere-pulmonaire",
+   "g": 8,
+   "c": "D0.1 cc ≤ 46 Gy",
+   "prv": "",
+   "org": "Pulmonary_A",
+   "src": [
+    "UK SABR '22"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "G3+ Pericarditis",
+    "ab": "3",
+    "refs": [
+     "UK SABR '22"
+    ],
+    "effet_fr": "péricardite grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-coronaire-droite",
+   "g": "N",
+   "c": "Dmean ≤ 5 Gy",
+   "prv": "",
+   "org": "R_Coronary_A",
+   "src": [
+    "NCCN Hodgkin 1.2026"
+   ],
+   "imp": [
+    "Informational"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-coronaire-droite",
+   "g": 1,
+   "c": "D0.035 cc ≤ 12 Gy",
+   "prv": "",
+   "org": "R_Coronary_A",
+   "src": [
+    "CORSAIR"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 1,
+   "c": "V39 Gy ≤ 3.5 cc",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "Timmerman",
+    "PRO Oligo '21",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 1,
+   "c": "D0.035 -0.1 cc ≤ 18.4 -44.2 Gy",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "TG-101",
+    "PRO Oligo '21",
+    "RTOG 0631"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 8,
+   "c": "D0.035 cc ≤ 61.5 Gy",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 8,
+   "c": "V56 Gy ≤ 3.5 cc",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 8,
+   "c": "V45 Gy ≤ 20 cc",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 10,
+   "c": "D0.035 cc ≤ 65 Gy",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 10,
+   "c": "V52 Gy ≤ 10 cc",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 10,
+   "c": "V49 Gy ≤ 20 cc",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 15,
+   "c": "D0.035 cc ≤ 70.5 Gy",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 15,
+   "c": "V60 Gy ≤ 10 cc",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 15,
+   "c": "V57 Gy ≤ 20 cc",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 28,
+   "c": "V65 Gy ≤ 15%",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "NRG Prostate 2020"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Prostate",
+    "effet": "Proctitis/Fistula",
+    "ab": "3",
+    "effet_fr": "rectite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-rectum",
+   "g": 28,
+   "c": "V45 Gy ≤ 45%",
+   "prv": "",
+   "org": "Rectum",
+   "src": [
+    "RTOG 0415",
+    "NRG GU005"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Prostate",
+    "effet": "Proctitis/Fistula",
+    "ab": "3",
+    "effet_fr": "rectite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-cotes",
+   "g": 1,
+   "c": "D0.035 cc ≤ 30 -33 Gy",
+   "prv": "",
+   "org": "Rib",
+   "src": [
+    "NCCN NSCLC 3.2026",
+    "TG-101",
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "CORSAIR",
+    "RTOG 0915",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "NSCLC",
+    "effet": "Pain or fracture",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "NCCN NSCLC",
+     "TG-101, Timmer"
+    ],
+    "effet_fr": "douleur ou fracture"
+   }
+  },
+  {
+   "oar_id": "oar-cotes",
+   "g": 1,
+   "c": "V22 Gy ≤ 1 cc",
+   "prv": "",
+   "org": "Rib",
+   "src": [
+    "VA/ASTRO PRO '26",
+    "TG-101",
+    "PRO Oligo '21",
+    "CORSAIR",
+    "RTOG 0915"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "NSCLC",
+    "effet": "Pain or fracture",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "TG-101, PRO Ol"
+    ],
+    "effet_fr": "douleur ou fracture"
+   }
+  },
+  {
+   "oar_id": "oar-plexus-sacre",
+   "g": 1,
+   "c": "D0.035 cc ≤ 16 -18 Gy",
+   "prv": "",
+   "org": "SacralPlex",
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "RTOG 0631",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Neuropathy",
+    "ab": "2",
+    "refs": [
+     "Gerhard PRO '21",
+     "TG-101, UK SAB"
+    ],
+    "effet_fr": "neuropathie"
+   }
+  },
+  {
+   "oar_id": "oar-plexus-sacre",
+   "g": 1,
+   "c": "V14.4 Gy ≤ 5 cc",
+   "prv": "",
+   "org": "SacralPlex",
+   "src": [
+    "Timmerman",
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "RTOG 0631",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Neuropathy",
+    "ab": "2",
+    "refs": [
+     "Gerhard PRO '21",
+     "Timmerman, TG-"
+    ],
+    "effet_fr": "neuropathie"
+   }
+  },
+  {
+   "oar_id": "oar-plexus-sacre",
+   "g": 4,
+   "c": "D0.035 cc ≤ 23.8 -28.3 Gy",
+   "prv": "",
+   "org": "SacralPlex",
+   "src": [
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Neuropathy",
+    "ab": "2",
+    "refs": [
+     "Gerhard PRO '21",
+     "PRO Oligo '21"
+    ],
+    "effet_fr": "neuropathie"
+   }
+  },
+  {
+   "oar_id": "oar-plexus-sacre",
+   "g": 8,
+   "c": "D0.035 cc ≤ 38.4 Gy",
+   "prv": "",
+   "org": "SacralPlex",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-plexus-sacre",
+   "g": 8,
+   "c": "V34 Gy ≤ 5 cc",
+   "prv": "",
+   "org": "SacralPlex",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-plexus-sacre",
+   "g": 10,
+   "c": "D0.035 cc ≤ 41 Gy",
+   "prv": "",
+   "org": "SacralPlex",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-plexus-sacre",
+   "g": 10,
+   "c": "V35 Gy ≤ 5 cc",
+   "prv": "",
+   "org": "SacralPlex",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-plexus-sacre",
+   "g": 15,
+   "c": "D0.035 cc ≤ 48 Gy",
+   "prv": "",
+   "org": "SacralPlex",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-plexus-sacre",
+   "g": 15,
+   "c": "V40.5 Gy ≤ 5 cc",
+   "prv": "",
+   "org": "SacralPlex",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-sigmoide",
+   "g": 4,
+   "c": "D0.035 -0.1 cc ≤ 33.2 Gy",
+   "prv": "",
+   "org": "Sigmoid_Colon",
+   "src": [
+    "PRO Oligo '21"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "Colitis/Fistula",
+    "ab": "3",
+    "refs": [
+     "Gerhard PRO '21",
+     "PRO Oligo '21"
+    ],
+    "effet_fr": "colite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-sigmoide",
+   "g": 8,
+   "c": "D0.035 cc ≤ 57.5 Gy",
+   "prv": "",
+   "org": "Sigmoid_Colon",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-sigmoide",
+   "g": 8,
+   "c": "D0.035 -0.1 cc ≤ 46 Gy",
+   "prv": "",
+   "org": "Sigmoid_Colon",
+   "src": [
+    "PRO Oligo '21"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-sigmoide",
+   "g": 8,
+   "c": "V35.2 Gy ≤ 20 cc",
+   "prv": "",
+   "org": "Sigmoid_Colon",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-sigmoide",
+   "g": 15,
+   "c": "D0.035 cc ≤ 64.5 Gy",
+   "prv": "",
+   "org": "Sigmoid_Colon",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-sigmoide",
+   "g": 15,
+   "c": "V47 Gy ≤ 20 cc",
+   "prv": "",
+   "org": "Sigmoid_Colon",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-sigmoide",
+   "g": 28,
+   "c": "D0.03 cc ≤ 55 -60 Gy",
+   "prv": "",
+   "org": "Sigmoid_Colon",
+   "src": [
+    "VA/ASTRO PRO '26",
+    "NRG GU013"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Prostate",
+    "effet": "Colitis/Fistula",
+    "ab": "3",
+    "effet_fr": "colite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-sigmoide",
+   "g": 28,
+   "c": "D1% ≤ 50 Gy",
+   "prv": "",
+   "org": "Sigmoid_Colon",
+   "src": [
+    "VA/ASTRO PRO '26"
+   ],
+   "imp": [
+    "Should"
+   ],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Prostate",
+    "effet": "Colitis/Fistula",
+    "ab": "3",
+    "effet_fr": "colite, fistule"
+   }
+  },
+  {
+   "oar_id": "oar-peau",
+   "g": 10,
+   "c": "D0.035 cc ≤ 48.9 Gy",
+   "prv": "",
+   "org": "Skin",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-peau",
+   "g": 10,
+   "c": "V46.3 Gy ≤ 10 cc",
+   "prv": "",
+   "org": "Skin",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-peau",
+   "g": 15,
+   "c": "D0.035 cc ≤ 57 Gy",
+   "prv": "",
+   "org": "Skin",
+   "src": [
+    "Timmerman '21",
+    "EA2183",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-peau",
+   "g": 15,
+   "c": "V54 Gy ≤ 10 cc",
+   "prv": "",
+   "org": "Skin",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-bande-cutanee",
+   "g": "N",
+   "c": "V20 Gy ≤ 50-60%",
+   "prv": "",
+   "org": "Skin_LongStrip",
+   "src": [
+    "RTOG 0631",
+    "NRG DT001"
+   ],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {
+    "site": "Sarcoma",
+    "effet": "Ulceration",
+    "ab": "3",
+    "refs": [],
+    "effet_fr": "ulcération"
+   }
+  },
+  {
+   "oar_id": "oar-bande-cutanee",
+   "g": 5,
+   "c": "V12 Gy ≤ 10%",
+   "prv": "",
+   "org": "Skin_LongStrip",
+   "src": [
+    "UCLA"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-moelle",
+   "g": "BID",
+   "c": "D0.03 cc ≤ 36 -41 Gy",
+   "prv": "PRV 1.5-3 mm",
+   "org": "SpinalCord",
+   "src": [
+    "DOSE-Pro Thoracic",
+    "CALGB 30610",
+    "RTOG 0538",
+    "NRG LU005"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [
+    "Intact"
+   ],
+   "det": {
+    "site": "SCLC",
+    "effet": "G3+ Myelitis",
+    "ab": "2",
+    "refs": [
+     "Turrisi NEJM '99"
+    ],
+    "effet_fr": "myélite grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-moelle",
+   "g": 2,
+   "c": "D0.035 cc ≤ 17 Gy",
+   "prv": "PRV 2 mm",
+   "org": "SpinalCord",
+   "src": [
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "SC.24",
+    "Sunnybrook"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {
+    "site": "Oligomets",
+    "effet": "G3+ Myelitis",
+    "ab": "2",
+    "refs": [
+     "Image-Guided Hypofractionated Stereotactic Radiosurgery '22",
+     "PRO Oligo '21,"
+    ],
+    "effet_fr": "myélite grade ≥ 3"
+   }
+  },
+  {
+   "oar_id": "oar-moelle",
+   "g": 6,
+   "c": "D0.1 cc ≤ 22 -29 Gy",
+   "prv": "PRV 1.5-3 mm",
+   "org": "SpinalCord",
+   "src": [
+    "PRO Oligo '21"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-estomac",
+   "g": 8,
+   "c": "D0.035 cc ≤ 42 Gy",
+   "prv": "",
+   "org": "Stomach",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-estomac",
+   "g": 20,
+   "c": "D0.035 cc ≤ 54 Gy",
+   "prv": "",
+   "org": "Stomach",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-glandes-sous-max",
+   "g": 5,
+   "c": "Dmean ≤ 25 Gy",
+   "prv": "",
+   "org": "Submand_Glnd_Ipsi",
+   "src": [
+    "NRG H&N SBRT"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [
+    "Re-irradiation"
+   ],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-glandes-sous-max",
+   "g": 10,
+   "c": "Dmean ≤ 17.7 Gy",
+   "prv": "",
+   "org": "Submands_Glnd",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-glandes-sous-max",
+   "g": 15,
+   "c": "Dmean ≤ 22.5 Gy",
+   "prv": "",
+   "org": "Submands_Glnd",
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-uretre",
+   "g": 1,
+   "c": "D0.035 -0.1 cc ≤ 35 Gy",
+   "prv": "",
+   "org": "Ureter/Urethra",
+   "src": [
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-uretre",
+   "g": 3,
+   "c": "D0.035 -0.5 cc ≤ 40 Gy",
+   "prv": "",
+   "org": "Ureter/Urethra",
+   "src": [
+    "Timmerman",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-uretre",
+   "g": 20,
+   "c": "V64.2 -68.2 Gy ≤ 0.03 cc",
+   "prv": "",
+   "org": "Ureter/Urethra",
+   "src": [
+    "NRG GU013"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-uretre",
+   "g": 20,
+   "c": "V62.4 -67.3 Gy ≤ 2%",
+   "prv": "",
+   "org": "Ureter/Urethra",
+   "src": [
+    "DELINEATE"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-uretre",
+   "g": 20,
+   "c": "V107-110% ≤ 0.03 cc",
+   "prv": "",
+   "org": "Ureter/Urethra",
+   "src": [
+    "NRG GU013"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-uretre",
+   "g": 28,
+   "c": "V74.9 -77 Gy ≤ 0.03 cc",
+   "prv": "",
+   "org": "Ureter/Urethra",
+   "src": [
+    "NRG GU013"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-uretre",
+   "g": 28,
+   "c": "V107-110% ≤ 0.03 cc",
+   "prv": "",
+   "org": "Ureter/Urethra",
+   "src": [
+    "NRG GU013"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-uretre",
+   "g": 25,
+   "c": "V72.76  -74.8 Gy ≤ 0.03 cc",
+   "prv": "",
+   "org": "Ureter/Urethra",
+   "src": [
+    "NRG GU013"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-uretre",
+   "g": 25,
+   "c": "V107-110% ≤ 0.03 cc",
+   "prv": "",
+   "org": "Ureter/Urethra",
+   "src": [
+    "NRG GU013"
+   ],
+   "imp": [
+    "Must"
+   ],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-corps-vertebraux",
+   "g": "N",
+   "c": "18 -20 Gy ALARA",
+   "prv": "",
+   "org": "VB",
+   "src": [],
+   "imp": [],
+   "hy": true,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-corps-vertebraux",
+   "g": 1,
+   "c": "V24 Gy ≤ 0%",
+   "prv": "",
+   "org": "VB",
+   "src": [
+    "NRG BR002",
+    "RTOG 0631",
+    "RTOG 0915"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  },
+  {
+   "oar_id": "oar-corps-vertebraux",
+   "g": 1,
+   "c": "V20 Gy ≤ 24%",
+   "prv": "",
+   "org": "VB",
+   "src": [
+    "NRG BR002",
+    "RTOG 0631",
+    "RTOG 0915"
+   ],
+   "imp": [],
+   "hy": false,
+   "sit": [],
+   "det": {}
+  }
+ ],
+ "sources_plus": {
+  "cb-022debd7": {
+   "src": [
+    "NCIC CTV BR.25"
+   ],
+   "effet": ""
+  },
+  "cb-d39b2501": {
+   "src": [
+    "NCCN NSCLC 3.2026",
+    "VA/ASTRO PRO '26",
+    "TG-101",
+    "Timmerman",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "RTOG 0915",
+    "NRG BR002",
+    "RTOG 0631",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-7ea7e8e5": {
+   "src": [
+    "NCCN NSCLC 3.2026",
+    "UK SABR '17",
+    "TG-101",
+    "PRO Oligo '21",
+    "DOSE-Pro Thoracic",
+    "VA/ASTRO PRO '26",
+    "UK SABR '22"
+   ],
+   "effet": ""
+  },
+  "cb-38642b6c": {
+   "src": [
+    "NCCN NSCLC 3.2026",
+    "RTOG 0813",
+    "Timmerman",
+    "TG-101",
+    "PRO Oligo '21",
+    "NRG BR002",
+    "UTSW",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-28c341e4": {
+   "src": [
+    "VA 🥇 Prostate 2022",
+    "VA/ASTRO PRO '26",
+    "CORSAIR",
+    "PACE"
+   ],
+   "effet": ""
+  },
+  "cb-f02a6dbe": {
+   "src": [
+    "NCCN NSCLC 3.2026",
+    "VA/ASTRO PRO '26",
+    "HyTEC",
+    "TG-101",
+    "UK SABR '17",
+    "Timmerman",
+    "QUANTEC",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "RTOG 0915",
+    "RTOG 0631",
+    "NRG BR002",
+    "IROCK",
+    "UTSW",
+    "FASTRACK II"
+   ],
+   "effet": ""
+  },
+  "cb-96cf1348": {
+   "src": [
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "NRG BR002",
+    "UTSW",
+    "Noël 2025 SFRO",
+    "VA/ASTRO PRO '26",
+    "HyTEC",
+    "UK SABR '22",
+    "CORSAIR",
+    "FASTRACK II",
+    "IROCK"
+   ],
+   "effet": ""
+  },
+  "cb-11895ff5": {
+   "src": [
+    "Noël 2025 SFRO"
+   ],
+   "effet": ""
+  },
+  "cb-d2238ce0": {
+   "src": [
+    "Noël 2025 SFRO",
+    "VA/ASTRO PRO '26",
+    "HyTEC",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-404d9d6c": {
+   "src": [
+    "DAHANCA 20",
+    "NRG HN005",
+    "VA 🥇 H&N 2022",
+    "VA/ASTRO PRO '26",
+    "ASTRO HPV+ OP SqCC '...",
+    "DAHANCA 25",
+    "RTOG 1016",
+    "NRG HN003",
+    "NRG Heme '26",
+    "QUANTEC",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-18a1e7be": {
+   "src": [
+    "DAHANCA 25"
+   ],
+   "effet": ""
+  },
+  "cb-c8a5dfba": {
+   "src": [
+    "DAHANCA 20",
+    "QUANTEC",
+    "DAHANCA 25",
+    "Noël 2025 SFRO",
+    "ESTRO-EANO GBM",
+    "NCCN H&N 1.2026",
+    "CORSAIR",
+    "Florida",
+    "RTOG 0539",
+    "NRG Heme '26",
+    "NCCN Peds MB 1.2026"
+   ],
+   "effet": ""
+  },
+  "cb-04984805": {
+   "src": [
+    "UK SABR '17",
+    "TG-101",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-b885b1fe": {
+   "src": [
+    "UK SABR '22",
+    "Noël 2025 SFRO",
+    "UK SABR '17"
+   ],
+   "effet": ""
+  },
+  "cb-02b7b0e1": {
+   "src": [
+    "TG-101",
+    "HyTEC",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UTSW",
+    "UK SABR '22",
+    "Noël 2025 SFRO",
+    "UK SABR '17"
+   ],
+   "effet": ""
+  },
+  "cb-58dcc70f": {
+   "src": [
+    "Florida",
+    "UK SABR '17",
+    "TG-101",
+    "QUANTEC",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "CORSAIR",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-9a8109bd": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-08c57249": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-4533e157": {
+   "src": [
+    "UK SABR '17",
+    "TG-101",
+    "PRO Oligo '21"
+   ],
+   "effet": ""
+  },
+  "cb-2779f14d": {
+   "src": [
+    "UK SABR '22"
+   ],
+   "effet": ""
+  },
+  "cb-d818c4e1": {
+   "src": [
+    "NCIC CTV BR.25"
+   ],
+   "effet": ""
+  },
+  "cb-c4d2c7fd": {
+   "src": [
+    "NCCN Hodgkin 1.2026",
+    "NRG Heme '26",
+    "ILROG",
+    "FIL Chest",
+    "CORSAIR",
+    "QUANTEC"
+   ],
+   "effet": ""
+  },
+  "cb-9aa0cb65": {
+   "src": [
+    "RTOG 1308",
+    "CALGB 80803"
+   ],
+   "effet": ""
+  },
+  "cb-4e8c9d76": {
+   "src": [
+    "NCCN NSCLC 3.2026",
+    "VA/ASTRO PRO '26",
+    "TG-101",
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "RTOG 0631",
+    "RTOG 0915",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-572554c9": {
+   "src": [
+    "UK SABR '22"
+   ],
+   "effet": ""
+  },
+  "cb-3130315e": {
+   "src": [
+    "ASTRO Liver 2021",
+    "VA/ASTRO PRO '26",
+    "HYPORT-STS",
+    "MDACC"
+   ],
+   "effet": ""
+  },
+  "cb-6d84d23f": {
+   "src": [
+    "ASTRO Liver 2021",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-bbead162": {
+   "src": [
+    "QUANTEC",
+    "CORSAIR",
+    "Florida",
+    "NRG Heme '26"
+   ],
+   "effet": ""
+  },
+  "cb-c4068ca8": {
+   "src": [
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-095e5617": {
+   "src": [
+    "Timmerman '21",
+    "SUNSET",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-668814b7": {
+   "src": [
+    "NCCN Pancreas 2.2025",
+    "NRG Heme '26",
+    "CORSAIR",
+    "ASTRO Liver 2021"
+   ],
+   "effet": ""
+  },
+  "cb-bef2e56f": {
+   "src": [
+    "Noël 2025 SFRO"
+   ],
+   "effet": ""
+  },
+  "cb-a93ea679": {
+   "src": [
+    "TG-101",
+    "Timmerman",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW",
+    "IROCK"
+   ],
+   "effet": ""
+  },
+  "cb-a61aa1b2": {
+   "src": [
+    "IROCK",
+    "TG-101",
+    "QUANTEC",
+    "PRO Oligo '21",
+    "UK SABR '22"
+   ],
+   "effet": ""
+  },
+  "cb-ff16463d": {
+   "src": [
+    "IROCK",
+    "ASTRO Liver 2021",
+    "VA/ASTRO PRO '26",
+    "TG-101",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "UK SABR '17",
+    "CORSAIR",
+    "Noël 2025 SFRO"
+   ],
+   "effet": ""
+  },
+  "cb-2b17ab47": {
+   "src": [
+    "ASTRO Liver 2021",
+    "VA/ASTRO PRO '26",
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "CORSAIR",
+    "UK SABR '22"
+   ],
+   "effet": ""
+  },
+  "cb-3fc36b96": {
+   "src": [
+    "Noël 2025 SFRO",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "CORSAIR",
+    "Miami SMART",
+    "NRG BR002"
+   ],
+   "effet": ""
+  },
+  "cb-8c4ef53f": {
+   "src": [
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UTSW",
+    "ASTRO Liver 2021",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-68d4e1b3": {
+   "src": [
+    "VA/ASTRO PRO '26",
+    "UK SABR '17",
+    "CORSAIR",
+    "ASTRO Liver 2021",
+    "PRO Oligo '21",
+    "UK SABR '22"
+   ],
+   "effet": ""
+  },
+  "cb-c6b38ad1": {
+   "src": [
+    "HyTEC",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-163e5dc4": {
+   "src": [
+    "ASTRO Liver 2021"
+   ],
+   "effet": ""
+  },
+  "cb-2e7a4a30": {
+   "src": [
+    "NRG Pancreas 2024",
+    "Timmerman '21",
+    "UTSW",
+    "NCCN Pancreas 2.2025",
+    "ASTRO Liver 2021",
+    "NRG Heme '26",
+    "CORSAIR",
+    "NCCN Hodgkin 1.2026",
+    "QUANTEC",
+    "Florida"
+   ],
+   "effet": ""
+  },
+  "cb-3e1b333f": {
+   "src": [
+    "Noël 2025 SFRO"
+   ],
+   "effet": ""
+  },
+  "cb-3ad13a75": {
+   "src": [
+    "TG-101",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "RTOG 0631",
+    "RTOG 0915"
+   ],
+   "effet": ""
+  },
+  "cb-ce098102": {
+   "src": [
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "NRG BR002",
+    "IROCK",
+    "FASTRACK II",
+    "UTSW",
+    "ASTRO Liver 2021",
+    "VA/ASTRO PRO '26",
+    "TG-101",
+    "UK SABR '22",
+    "CORSAIR",
+    "UK SABR '17"
+   ],
+   "effet": ""
+  },
+  "cb-01ff3827": {
+   "src": [
+    "ASTRO Liver 2021",
+    "TG-101",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-5f75cea8": {
+   "src": [
+    "Timmerman",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-59462115": {
+   "src": [
+    "Timmerman",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-883d09aa": {
+   "src": [
+    "UK SABR '17",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-c3e109f1": {
+   "src": [
+    "NRG Heme '26",
+    "ASTRO Gastric '25",
+    "NCCN Pancreas 2.2025",
+    "Noël 2025 SFRO",
+    "QUANTEC",
+    "ASTRO Liver 2021",
+    "RTOG 1010"
+   ],
+   "effet": ""
+  },
+  "cb-05c051dd": {
+   "src": [
+    "ASTRO Liver 2021",
+    "HyTEC",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "IROCK"
+   ],
+   "effet": ""
+  },
+  "cb-beff3550": {
+   "src": [
+    "ASTRO Liver 2021",
+    "VA/ASTRO PRO '26",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "ASTRO Pancreas '26",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-c4722b48": {
+   "src": [
+    "ARST 1431",
+    "Florida - Peds",
+    "DAHANCA 20",
+    "DAHANCA 25",
+    "Noël 2025 SFRO"
+   ],
+   "effet": ""
+  },
+  "cb-3fb10d2e": {
+   "src": [
+    "VA 🥇 H&N 2022",
+    "VA/ASTRO PRO '26",
+    "QUANTEC",
+    "RTOG 1016",
+    "NRG HN005",
+    "ASTRO HPV+ OP SqCC '...",
+    "NRG Heme '26",
+    "CORSAIR",
+    "DAHANCA 25",
+    "NCCN H&N 1.2026",
+    "DAHANCA 20",
+    "Florida",
+    "Timmerman '21"
+   ],
+   "effet": ""
+  },
+  "cb-163379fc": {
+   "src": [
+    "CORSAIR",
+    "hypo-FLAME",
+    "Noël 2025 SFRO",
+    "TG-101",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "NRG GU013",
+    "VA 🥇 Rectal 2022",
+    "VA/ASTRO PRO '26"
+   ],
+   "effet": ""
+  },
+  "cb-27d94770": {
+   "src": [
+    "Noël 2025 SFRO",
+    "TG-101",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-5de4f4ea": {
+   "src": [
+    "ASTRO Liver 2021",
+    "NRG Pancreas 2024",
+    "VA/ASTRO PRO '26"
+   ],
+   "effet": ""
+  },
+  "cb-950f9a3e": {
+   "src": [
+    "NRG Heme '26",
+    "QUANTEC",
+    "CORSAIR",
+    "NCCN Gastric 2.2026",
+    "NCCN EsophGEJ 2.2026",
+    "RAIDER"
+   ],
+   "effet": ""
+  },
+  "cb-8bacdd00": {
+   "src": [
+    "IROCK",
+    "FASTRACK II",
+    "TG-101",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "RTOG 0631"
+   ],
+   "effet": ""
+  },
+  "cb-3cf0c392": {
+   "src": [
+    "IROCK",
+    "FASTRACK II",
+    "TG-101",
+    "QUANTEC",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "RTOG 0631"
+   ],
+   "effet": ""
+  },
+  "cb-e7b1475d": {
+   "src": [
+    "IROCK",
+    "FASTRACK II",
+    "ASTRO Liver 2021",
+    "VA/ASTRO PRO '26",
+    "TG-101",
+    "PRO Oligo '21",
+    "UK SABR '22"
+   ],
+   "effet": ""
+  },
+  "cb-55f5b5f0": {
+   "src": [
+    "DOSE-Pro Thoracic",
+    "VA/ASTRO PRO '26",
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-20f09b23": {
+   "src": [
+    "UK SABR '17",
+    "TG-101",
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-645a1fb0": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-f779e662": {
+   "src": [
+    "NRG Heme '26",
+    "CORSAIR",
+    "Noël 2025 SFRO",
+    "NRG CC001",
+    "RTOG 0933",
+    "PREMER"
+   ],
+   "effet": ""
+  },
+  "cb-c258cf0e": {
+   "src": [
+    "NRG Heme '26",
+    "CORSAIR",
+    "Noël 2025 SFRO",
+    "NRG CC001",
+    "RTOG 0933",
+    "PREMER"
+   ],
+   "effet": ""
+  },
+  "cb-f8a52510": {
+   "src": [
+    "ESTRO-EANO GBM",
+    "CORSAIR",
+    "Noël 2025 SFRO"
+   ],
+   "effet": ""
+  },
+  "cb-a8d7ad72": {
+   "src": [
+    "NRG Heme '26",
+    "NCCN Hodgkin 1.2026",
+    "DAHANCA 20",
+    "DAHANCA 25"
+   ],
+   "effet": ""
+  },
+  "cb-c4047a06": {
+   "src": [
+    "QUANTEC",
+    "CORSAIR",
+    "RTOG 1016"
+   ],
+   "effet": ""
+  },
+  "cb-ec94498a": {
+   "src": [
+    "VA 🥇 H&N 2022",
+    "VA/ASTRO PRO '26",
+    "NCCN H&N 1.2026",
+    "NRG HN003"
+   ],
+   "effet": ""
+  },
+  "cb-62f395d5": {
+   "src": [
+    "DAHANCA 20",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-e96dd7e0": {
+   "src": [
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-7d2c1f87": {
+   "src": [
+    "DAHANCA 20",
+    "DAHANCA 25",
+    "VA 🥇 H&N 2022",
+    "VA/ASTRO PRO '26",
+    "NCCN H&N 1.2026",
+    "CORSAIR",
+    "NRG HN005"
+   ],
+   "effet": ""
+  },
+  "cb-4c3875b1": {
+   "src": [
+    "NRG Pancreas 2024",
+    "NCCN NSCLC 3.2026",
+    "DAHANCA 20",
+    "DAHANCA 25",
+    "Florida",
+    "VA 🥇 H&N 2022",
+    "QUANTEC",
+    "NRG HN003",
+    "NCCN H&N 1.2026",
+    "NCCN Pancreas 2.2025",
+    "VA/ASTRO PRO '26",
+    "RTOG 0617",
+    "ARST 1431",
+    "NRG DT001",
+    "VA 🥇 Breast 2022",
+    "NCCN EsophGEJ 2.2026",
+    "NCCN Gastric 2.2026",
+    "DOSE-Pro Thoracic",
+    "NRG Heme '26",
+    "ASTRO Gastric '25",
+    "NCCN Cervical 2.2026",
+    "ASTRO Pancreas '26",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-e28baa68": {
+   "src": [
+    "NCCN NSCLC 3.2026",
+    "HyTEC",
+    "TG-101",
+    "UK SABR '17",
+    "Timmerman",
+    "QUANTEC",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "RTOG 0915",
+    "RTOG 0631",
+    "NRG BR002",
+    "IROCK",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-01d6a013": {
+   "src": [
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "NRG BR002",
+    "UTSW",
+    "TG-101",
+    "UK SABR '17",
+    "MSKCC",
+    "HyTEC",
+    "UK SABR '22",
+    "CORSAIR",
+    "DOSE-Pro Thoracic",
+    "NCCN NSCLC 3.2026",
+    "RTOG 0618",
+    "IROCK"
+   ],
+   "effet": ""
+  },
+  "cb-85b5d481": {
+   "src": [
+    "NCCN NSCLC 3.2026",
+    "TG-101",
+    "Timmerman",
+    "PRO Oligo '21",
+    "CORSAIR",
+    "SUNSET",
+    "RTOG 0813",
+    "UTSW",
+    "UCLA",
+    "Noël 2025 SFRO",
+    "NRG BR002",
+    "DOSE-Pro Thoracic",
+    "HyTEC",
+    "UK SABR '22",
+    "UK SABR '17",
+    "Timmerman '21"
+   ],
+   "effet": ""
+  },
+  "cb-bb4d2140": {
+   "src": [
+    "HyTEC",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-b505971c": {
+   "src": [
+    "NCCN Cervical 2.2026",
+    "RTOG 0418",
+    "RTOG 1203",
+    "TIME-C"
+   ],
+   "effet": ""
+  },
+  "cb-90965725": {
+   "src": [
+    "DAHANCA 25"
+   ],
+   "effet": ""
+  },
+  "cb-eba0f154": {
+   "src": [
+    "ESTRO-EANO GBM",
+    "CORSAIR",
+    "NRG Heme '26",
+    "NCCN Peds MB 1.2026"
+   ],
+   "effet": ""
+  },
+  "cb-076bc874": {
+   "src": [
+    "Florida",
+    "UK SABR '17",
+    "TG-101",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-86198f88": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-f5451fc4": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR",
+    "Noël 2025 SFRO"
+   ],
+   "effet": ""
+  },
+  "cb-90c685fb": {
+   "src": [
+    "NCIC CTV BR.25"
+   ],
+   "effet": ""
+  },
+  "cb-8b79400c": {
+   "src": [
+    "DOSE-Pro Thoracic",
+    "VA 🥇 Lung 2023",
+    "NCCN NSCLC 3.2026",
+    "VA/ASTRO PRO '26"
+   ],
+   "effet": ""
+  },
+  "cb-569ef9a1": {
+   "src": [
+    "VA 🥇 H&N 2022",
+    "VA/ASTRO PRO '26",
+    "NRG HN003",
+    "NCCN NSCLC 3.2026",
+    "QUANTEC",
+    "CORSAIR",
+    "RTOG 0617",
+    "NRG Heme '26",
+    "NCCN Peds MB 1.2026"
+   ],
+   "effet": ""
+  },
+  "cb-2975dc26": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-5b563518": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-4ed248f7": {
+   "src": [
+    "NCCN NSCLC 3.2026",
+    "RTOG 0813",
+    "Timmerman",
+    "TG-101",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-a1dfa0bc": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-63c1556a": {
+   "src": [
+    "NCCN H&N 1.2026",
+    "DAHANCA 20",
+    "DAHANCA 25",
+    "RTOG 1016",
+    "NRG HN005"
+   ],
+   "effet": ""
+  },
+  "cb-0008f18f": {
+   "src": [
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "CORSAIR",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-0fdb921a": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-d9303cb8": {
+   "src": [
+    "DOSE-Pro Thoracic",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-38b65df1": {
+   "src": [
+    "Timmerman",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-d9811151": {
+   "src": [
+    "VA/ASTRO PRO '26",
+    "ASTRO HPV+ OP SqCC '...",
+    "NRG Heme '26",
+    "CORSAIR",
+    "VA 🥇 H&N 2022",
+    "DAHANCA 20",
+    "QUANTEC",
+    "DAHANCA 25",
+    "Florida",
+    "PENTEC",
+    "Timmerman '21",
+    "NRG HN005"
+   ],
+   "effet": ""
+  },
+  "cb-ab7e7c83": {
+   "src": [
+    "VA/ASTRO PRO '26",
+    "UK SABR '22"
+   ],
+   "effet": ""
+  },
+  "cb-a4b4813d": {
+   "src": [
+    "VA/ASTRO PRO '26",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-bf7dfc0d": {
+   "src": [
+    "VA/ASTRO PRO '26",
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-43ac2a0c": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR",
+    "TG-101",
+    "UK SABR '17",
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "NRG BR002",
+    "IROCK",
+    "UTSW",
+    "DOSE-Pro Thoracic"
+   ],
+   "effet": ""
+  },
+  "cb-8fbb8b79": {
+   "src": [
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-5cfe66d0": {
+   "src": [
+    "VA 🥇 Lung 2023",
+    "VA/ASTRO PRO '26",
+    "VA 🥇 Breast 2022",
+    "Timmerman '21",
+    "CORSAIR",
+    "RTOG 0617",
+    "NRG HN005",
+    "UTSW",
+    "Florida",
+    "NRG Heme '26",
+    "ASTRO PMRT '25"
+   ],
+   "effet": ""
+  },
+  "cb-cc0ee1dd": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-106836d9": {
+   "src": [
+    "NCCN NSCLC 3.2026",
+    "UK SABR '17",
+    "TG-101",
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UTSW",
+    "VA/ASTRO PRO '26",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-4ae44786": {
+   "src": [
+    "VA/ASTRO PRO '26",
+    "UTSW",
+    "DOSE-Pro Thoracic",
+    "NCCN NSCLC 3.2026",
+    "TG-101",
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "RTOG 0813",
+    "SUNSET"
+   ],
+   "effet": ""
+  },
+  "cb-38b76e36": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-94f4245f": {
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002"
+   ],
+   "effet": ""
+  },
+  "cb-cce75084": {
+   "src": [
+    "TG-101",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-d6baa346": {
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-53d338c2": {
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-3c4ce2dc": {
+   "src": [
+    "VA 🥇 Breast 2022",
+    "ASTRO PMRT '25",
+    "VA/ASTRO PRO '26",
+    "RTOG 1005",
+    "NSABP B-51",
+    "DBCG SKAGEN"
+   ],
+   "effet": ""
+  },
+  "cb-d372ee1c": {
+   "src": [
+    "NCCN Hodgkin 1.2026",
+    "FIL Chest",
+    "PENTEC",
+    "CORSAIR",
+    "NCCN NSCLC 3.2026",
+    "QUANTEC",
+    "RTOG 0617",
+    "RTOG 1308",
+    "RTOG 1010",
+    "NRG Heme '26",
+    "NCCN Gastric 2.2026",
+    "NCCN EsophGEJ 2.2026"
+   ],
+   "effet": ""
+  },
+  "cb-17010bf8": {
+   "src": [
+    "NCCN Hodgkin 1.2026",
+    "NCCN Wilms 2.2025",
+    "ILROG",
+    "FIL Chest",
+    "CORSAIR",
+    "AEWS 1031",
+    "AREN 1921",
+    "NRG Heme '26"
+   ],
+   "effet": ""
+  },
+  "cb-e3b62195": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-8637d59a": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-a4e87578": {
+   "src": [
+    "DOSE-Pro Thoracic",
+    "UK SABR '22",
+    "HyTEC",
+    "PRO Oligo '21",
+    "CORSAIR",
+    "VA/ASTRO PRO '26"
+   ],
+   "effet": ""
+  },
+  "cb-07649a3e": {
+   "src": [
+    "DOSE-Pro Thoracic",
+    "VA/ASTRO PRO '26",
+    "UK SABR '17",
+    "HyTEC",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-7c0524c2": {
+   "src": [
+    "VA/ASTRO PRO '26",
+    "UK SABR '17",
+    "HyTEC",
+    "PRO Oligo '21"
+   ],
+   "effet": ""
+  },
+  "cb-4a7e3d3c": {
+   "src": [
+    "VA/ASTRO PRO '26",
+    "HyTEC",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-83ae2da8": {
+   "src": [
+    "DOSE-Pro Thoracic",
+    "VA/ASTRO PRO '26",
+    "HyTEC",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-1598438a": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-bc011ce3": {
+   "src": [
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "LungTECH"
+   ],
+   "effet": ""
+  },
+  "cb-7cc69efb": {
+   "src": [
+    "Timmerman '21",
+    "UTSW",
+    "NRG Heme '26"
+   ],
+   "effet": ""
+  },
+  "cb-c0724a1d": {
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-d17f8053": {
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-ae1caf43": {
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-5627470a": {
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-9be9899f": {
+   "src": [
+    "RAIDER",
+    "S2427",
+    "PIVOTALboost",
+    "DELINEATE",
+    "NRG GU013",
+    "RADICALS",
+    "STAMPEDE M1"
+   ],
+   "effet": ""
+  },
+  "cb-7e10916d": {
+   "src": [
+    "RAIDER",
+    "S2427",
+    "PIVOTALboost",
+    "DELINEATE"
+   ],
+   "effet": ""
+  },
+  "cb-b48f6706": {
+   "src": [
+    "RAIDER",
+    "S2427"
+   ],
+   "effet": ""
+  },
+  "cb-75da63da": {
+   "src": [
+    "RAIDER",
+    "QUANTEC",
+    "CORSAIR",
+    "RTOG 0415",
+    "PACE",
+    "RTOG 0815",
+    "RTOG 0534",
+    "SPPORT"
+   ],
+   "effet": ""
+  },
+  "cb-e0884f6c": {
+   "src": [
+    "RAIDER",
+    "NRG GU013",
+    "QUANTEC",
+    "CORSAIR",
+    "PACE",
+    "FLAME",
+    "PIVOTAL"
+   ],
+   "effet": ""
+  },
+  "cb-36ea88de": {
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21"
+   ],
+   "effet": ""
+  },
+  "cb-e8c84840": {
+   "src": [
+    "UK SABR '17"
+   ],
+   "effet": ""
+  },
+  "cb-d6334b40": {
+   "src": [
+    "NCCN Hodgkin 1.2026",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-9ec99b47": {
+   "src": [
+    "NCCN Gastric 2.2026",
+    "NCCN EsophGEJ 2.2026",
+    "NCCN Pancreas 2.2025",
+    "NRG Heme '26",
+    "QUANTEC",
+    "CORSAIR",
+    "Florida",
+    "NCCN Cervical 2.2026",
+    "EMBRACE II",
+    "Noël 2025 SFRO"
+   ],
+   "effet": ""
+  },
+  "cb-756d4419": {
+   "src": [
+    "CORSAIR",
+    "IROCK",
+    "FASTRACK II",
+    "UK SABR '22",
+    "RTOG 0631"
+   ],
+   "effet": ""
+  },
+  "cb-09b804bf": {
+   "src": [
+    "CORSAIR",
+    "IROCK",
+    "UK SABR '22",
+    "FASTRACK II",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-deff5853": {
+   "src": [
+    "UK SABR '17",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-4f72391f": {
+   "src": [
+    "UK SABR '17",
+    "UK SABR '22",
+    "CORSAIR",
+    "UCLA"
+   ],
+   "effet": ""
+  },
+  "cb-4d28f73b": {
+   "src": [
+    "DAHANCA 25"
+   ],
+   "effet": ""
+  },
+  "cb-eeb0b569": {
+   "src": [
+    "DAHANCA 20",
+    "DAHANCA 25",
+    "Florida",
+    "NRG Heme '26",
+    "Timmerman '21",
+    "Noël 2025 SFRO",
+    "UTSW",
+    "NCCN Hodgkin 1.2026"
+   ],
+   "effet": ""
+  },
+  "cb-75c55322": {
+   "src": [
+    "UK SABR '22"
+   ],
+   "effet": ""
+  },
+  "cb-a78e3c89": {
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "Timmerman",
+    "PRO Oligo '21",
+    "Timmerman '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "NRG BR002",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-d1db4d4f": {
+   "src": [
+    "VA 🥇 Prostate 2022",
+    "VA/ASTRO PRO '26",
+    "CORSAIR",
+    "PACE",
+    "NRG GU013"
+   ],
+   "effet": ""
+  },
+  "cb-d8f61497": {
+   "src": [
+    "NRG Prostate 2020",
+    "RAIDER"
+   ],
+   "effet": ""
+  },
+  "cb-e56c5e10": {
+   "src": [],
+   "effet": ""
+  },
+  "cb-0bd18831": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-f19844cc": {
+   "src": [
+    "UK SABR '22",
+    "CORSAIR",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-41a041d8": {
+   "src": [
+    "DAHANCA 20",
+    "DAHANCA 25"
+   ],
+   "effet": ""
+  },
+  "cb-f0cf10a2": {
+   "src": [
+    "NCIC CTV BR.25"
+   ],
+   "effet": ""
+  },
+  "cb-77f43e3d": {
+   "src": [
+    "NCCN NSCLC 3.2026",
+    "VA/ASTRO PRO '26",
+    "TG-101",
+    "Timmerman",
+    "PRO Oligo '21",
+    "UK SABR '22",
+    "CORSAIR",
+    "RTOG 0915",
+    "NRG BR002",
+    "RTOG 0631",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-642338c0": {
+   "src": [
+    "VA/ASTRO PRO '26",
+    "UK SABR '22",
+    "NCCN NSCLC 3.2026",
+    "UK SABR '17",
+    "TG-101",
+    "PRO Oligo '21",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-df027d08": {
+   "src": [
+    "VA/ASTRO PRO '26",
+    "Timmerman",
+    "TG-101",
+    "PRO Oligo '21",
+    "NRG BR002",
+    "UTSW",
+    "UK SABR '22",
+    "CORSAIR",
+    "NCCN NSCLC 3.2026",
+    "RTOG 0813"
+   ],
+   "effet": ""
+  },
+  "cb-5918fd6c": {
+   "src": [
+    "VA/ASTRO PRO '26",
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-e0cb96fa": {
+   "src": [
+    "Timmerman '21",
+    "UTSW",
+    "RTOG 1205"
+   ],
+   "effet": ""
+  },
+  "cb-d787f324": {
+   "src": [
+    "DAHANCA 25",
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-30659224": {
+   "src": [
+    "Noël 2025 SFRO",
+    "ESTRO-EANO GBM",
+    "DAHANCA 25",
+    "UTSW",
+    "NRG Heme '26",
+    "VA 🥇 H&N 2022",
+    "VA/ASTRO PRO '26",
+    "RTOG 1016",
+    "NRG HN003"
+   ],
+   "effet": ""
+  },
+  "cb-012fc628": {
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "Timmerman '21",
+    "CORSAIR",
+    "UTSW",
+    "UK SABR '22",
+    "Noël 2025 SFRO"
+   ],
+   "effet": ""
+  },
+  "cb-ae745450": {
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "Timmerman '21",
+    "CORSAIR",
+    "UTSW",
+    "UK SABR '22",
+    "Noël 2025 SFRO"
+   ],
+   "effet": ""
+  },
+  "cb-698e8444": {
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "Timmerman '21",
+    "CORSAIR",
+    "UTSW",
+    "UK SABR '22",
+    "Noël 2025 SFRO"
+   ],
+   "effet": ""
+  },
+  "cb-1d7de18a": {
+   "src": [
+    "DELINEATE",
+    "NRG Prostate 2020"
+   ],
+   "effet": ""
+  },
+  "cb-9d08398d": {
+   "src": [
+    "DELINEATE"
+   ],
+   "effet": ""
+  },
+  "cb-ceeb149d": {
+   "src": [
+    "VA 🥇 Prostate 2022",
+    "VA/ASTRO PRO '26",
+    "QUANTEC",
+    "CORSAIR",
+    "RTOG 0415",
+    "RTOG 0815",
+    "NRG GU013",
+    "RTOG 0126",
+    "Noël 2025 SFRO"
+   ],
+   "effet": ""
+  },
+  "cb-b33d9252": {
+   "src": [
+    "VA 🥇 Rectal 2022",
+    "VA/ASTRO PRO '26",
+    "RTOG 0822"
+   ],
+   "effet": ""
+  },
+  "cb-63d56628": {
+   "src": [
+    "CORSAIR",
+    "RTOG 0825"
+   ],
+   "effet": ""
+  },
+  "cb-75d98c6c": {
+   "src": [
+    "UK SABR '17",
+    "UK SABR '22",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-837c49f8": {
+   "src": [
+    "DAHANCA 25",
+    "NRG LU004"
+   ],
+   "effet": ""
+  },
+  "cb-cdc34b7b": {
+   "src": [
+    "Timmerman '21",
+    "UTSW"
+   ],
+   "effet": ""
+  },
+  "cb-c18b8709": {
+   "src": [
+    "VA 🥇 Prostate 2022",
+    "VA/ASTRO PRO '26",
+    "QUANTEC",
+    "RTOG 0415",
+    "RTOG 0815"
+   ],
+   "effet": ""
+  },
+  "cb-125dc775": {
+   "src": [
+    "NCCN Hodgkin 1.2026",
+    "PENTEC",
+    "EMBRACE II"
+   ],
+   "effet": ""
+  },
+  "cb-54ffa797": {
+   "src": [
+    "TG-101",
+    "CORSAIR"
+   ],
+   "effet": ""
+  },
+  "cb-866a5edc": {
+   "src": [
+    "TG-101",
+    "UK SABR '17",
+    "PRO Oligo '21",
+    "UK SABR '22"
+   ],
+   "effet": ""
+  }
+ },
+ "gardes": [
+  "cb-0008f18f",
+  "cb-00d90227",
+  "cb-00e2d976",
+  "cb-012fc628",
+  "cb-019e482a",
+  "cb-01d6a013",
+  "cb-01f6833a",
+  "cb-01ff3827",
+  "cb-022aff77",
+  "cb-022debd7",
+  "cb-026ae529",
+  "cb-0286cfb4",
+  "cb-02b60dbc",
+  "cb-02b7b0e1",
+  "cb-02e6554c",
+  "cb-04984805",
+  "cb-05c051dd",
+  "cb-062d3726",
+  "cb-0647c58b",
+  "cb-0648df71",
+  "cb-07649a3e",
+  "cb-076bc874",
+  "cb-078c918b",
+  "cb-07a7a544",
+  "cb-08402d8c",
+  "cb-08c57249",
+  "cb-08e52078",
+  "cb-095e5617",
+  "cb-09b804bf",
+  "cb-09e59b77",
+  "cb-0a6be6f3",
+  "cb-0a914e05",
+  "cb-0aa220c5",
+  "cb-0b2eba01",
+  "cb-0bd18831",
+  "cb-0c3df570",
+  "cb-0c8209f7",
+  "cb-0cc60b59",
+  "cb-0d6dae14",
+  "cb-0da9de12",
+  "cb-0dfc6ecc",
+  "cb-0ee02f99",
+  "cb-0ef0904d",
+  "cb-0fcf5596",
+  "cb-0fdb921a",
+  "cb-106836d9",
+  "cb-10a6e8c6",
+  "cb-10ee0c77",
+  "cb-10ee1e03",
+  "cb-110f26da",
+  "cb-11159861",
+  "cb-1128a8b1",
+  "cb-113fcb3e",
+  "cb-1175fd5d",
+  "cb-117ec7af",
+  "cb-11895ff5",
+  "cb-125dc775",
+  "cb-127e7309",
+  "cb-12d99495",
+  "cb-132bf3bf",
+  "cb-13fa0618",
+  "cb-14ed0226",
+  "cb-1544a68a",
+  "cb-1598438a",
+  "cb-163379fc",
+  "cb-163e5dc4",
+  "cb-17010bf8",
+  "cb-17bea82c",
+  "cb-181c11cb",
+  "cb-187821ff",
+  "cb-18a1e7be",
+  "cb-1904719c",
+  "cb-1910e488",
+  "cb-198023fa",
+  "cb-19810ef6",
+  "cb-19fa47b8",
+  "cb-1a8a5b93",
+  "cb-1a95d0f7",
+  "cb-1ae915c8",
+  "cb-1bdaaf58",
+  "cb-1c1ca466",
+  "cb-1c34ba5c",
+  "cb-1cc8cf4c",
+  "cb-1d7de18a",
+  "cb-1d7ec9d8",
+  "cb-1d92aa11",
+  "cb-1df3763d",
+  "cb-1ee075ac",
+  "cb-204994f4",
+  "cb-20be3251",
+  "cb-20f09b23",
+  "cb-212265d2",
+  "cb-2151b1ab",
+  "cb-21b3cf9f",
+  "cb-21dabc03",
+  "cb-21e04abb",
+  "cb-2220bc14",
+  "cb-2260fd5b",
+  "cb-22865b10",
+  "cb-2291fc7a",
+  "cb-22a17db5",
+  "cb-22e73892",
+  "cb-22f03cb5",
+  "cb-231910c8",
+  "cb-23d306e7",
+  "cb-2435b0d5",
+  "cb-245eae48",
+  "cb-24697c06",
+  "cb-24983022",
+  "cb-2499f1fd",
+  "cb-24b16792",
+  "cb-24dc6bd3",
+  "cb-26028549",
+  "cb-26db20a8",
+  "cb-271cfcfb",
+  "cb-273aad31",
+  "cb-27537174",
+  "cb-2779f14d",
+  "cb-27d94770",
+  "cb-28673821",
+  "cb-28c341e4",
+  "cb-28c3ce6e",
+  "cb-29060709",
+  "cb-293bab1a",
+  "cb-2975dc26",
+  "cb-29e6ff6b",
+  "cb-2a5791fe",
+  "cb-2ad3222a",
+  "cb-2b17ab47",
+  "cb-2bf5704f",
+  "cb-2c31e3f0",
+  "cb-2d09c251",
+  "cb-2d69a9e3",
+  "cb-2dd66c6f",
+  "cb-2e7a4a30",
+  "cb-2ec0f49a",
+  "cb-2ed03f9a",
+  "cb-2f199c9b",
+  "cb-2f5cf18d",
+  "cb-2fe8375b",
+  "cb-30012d0e",
+  "cb-301b3ea2",
+  "cb-30659224",
+  "cb-3124a1b9",
+  "cb-3130315e",
+  "cb-31bcf366",
+  "cb-32ca1628",
+  "cb-346ba2cf",
+  "cb-34a752ee",
+  "cb-354fe299",
+  "cb-3580e12e",
+  "cb-36ea88de",
+  "cb-3732cbf2",
+  "cb-377babc5",
+  "cb-3786f58c",
+  "cb-37cc4881",
+  "cb-37d1ff99",
+  "cb-37fa42e8",
+  "cb-38642b6c",
+  "cb-389cafc3",
+  "cb-38b65df1",
+  "cb-38b76e36",
+  "cb-38cca38b",
+  "cb-38cef666",
+  "cb-394144ab",
+  "cb-3961d8a5",
+  "cb-39f2e1d4",
+  "cb-3a28255c",
+  "cb-3a2ecb11",
+  "cb-3ad13a75",
+  "cb-3b396eb4",
+  "cb-3c4ce2dc",
+  "cb-3c637bd0",
+  "cb-3cf0c392",
+  "cb-3d310414",
+  "cb-3e1b1532",
+  "cb-3e1b333f",
+  "cb-3e50d0e3",
+  "cb-3ecaf4f5",
+  "cb-3fb10d2e",
+  "cb-3fc36b96",
+  "cb-3fd2d9ee",
+  "cb-403f214c",
+  "cb-404d9d6c",
+  "cb-4116e4ff",
+  "cb-41a041d8",
+  "cb-41ae9317",
+  "cb-4231e7b8",
+  "cb-42487d64",
+  "cb-426cc8c1",
+  "cb-42c61678",
+  "cb-42da84ea",
+  "cb-4394a261",
+  "cb-43ac2a0c",
+  "cb-43d00ee3",
+  "cb-44280c6c",
+  "cb-4433bc21",
+  "cb-444623f8",
+  "cb-4533e157",
+  "cb-4544d42d",
+  "cb-4637771a",
+  "cb-463d26ac",
+  "cb-46590da9",
+  "cb-4731e3c0",
+  "cb-47361b92",
+  "cb-47898f21",
+  "cb-47bb086d",
+  "cb-4868b8da",
+  "cb-49292262",
+  "cb-49312d37",
+  "cb-49f2a67f",
+  "cb-4a03b37b",
+  "cb-4a572833",
+  "cb-4a7e3d3c",
+  "cb-4a80450e",
+  "cb-4a96fc71",
+  "cb-4add27b9",
+  "cb-4ae3052b",
+  "cb-4ae44786",
+  "cb-4b290e3b",
+  "cb-4babee8a",
+  "cb-4bf2a09d",
+  "cb-4c3875b1",
+  "cb-4c4794fa",
+  "cb-4cbe3049",
+  "cb-4d28f73b",
+  "cb-4e639030",
+  "cb-4e64b4a7",
+  "cb-4e8c9d76",
+  "cb-4eb60bee",
+  "cb-4ed248f7",
+  "cb-4f2c267a",
+  "cb-4f72391f",
+  "cb-4f86a131",
+  "cb-4f8da44b",
+  "cb-4fd8c207",
+  "cb-4fdcc32c",
+  "cb-4ffadd35",
+  "cb-502d569d",
+  "cb-5129169a",
+  "cb-5192409b",
+  "cb-51972a98",
+  "cb-51ad3ffe",
+  "cb-524dba99",
+  "cb-52639252",
+  "cb-526b3402",
+  "cb-52de0281",
+  "cb-5343b13f",
+  "cb-53d338c2",
+  "cb-54279359",
+  "cb-543c53cc",
+  "cb-543d0f7f",
+  "cb-54ffa797",
+  "cb-55f5b5f0",
+  "cb-5627470a",
+  "cb-569ef9a1",
+  "cb-56f4a382",
+  "cb-572554c9",
+  "cb-57a41efc",
+  "cb-5861cdd2",
+  "cb-58d39efd",
+  "cb-58dcc70f",
+  "cb-5918fd6c",
+  "cb-59462115",
+  "cb-596b80b5",
+  "cb-59a9011b",
+  "cb-5b17ac7e",
+  "cb-5b563518",
+  "cb-5be15272",
+  "cb-5c09136c",
+  "cb-5c9a00fa",
+  "cb-5cedb703",
+  "cb-5cfe66d0",
+  "cb-5d53c45d",
+  "cb-5de4f4ea",
+  "cb-5e1f1502",
+  "cb-5e52804b",
+  "cb-5ef41ccb",
+  "cb-5f189132",
+  "cb-5f25eaba",
+  "cb-5f75cea8",
+  "cb-5fba6617",
+  "cb-5ff76ff2",
+  "cb-604f9678",
+  "cb-60b27ead",
+  "cb-61e82da2",
+  "cb-62f395d5",
+  "cb-63332ea9",
+  "cb-6347f1dc",
+  "cb-636d1584",
+  "cb-63bd7770",
+  "cb-63c1556a",
+  "cb-63d56628",
+  "cb-63d92ee9",
+  "cb-63e32c86",
+  "cb-642338c0",
+  "cb-645a1fb0",
+  "cb-64a5b53c",
+  "cb-65125d7b",
+  "cb-651cc786",
+  "cb-66063f39",
+  "cb-661574ef",
+  "cb-6638a0a7",
+  "cb-668814b7",
+  "cb-66ab58c7",
+  "cb-68d4e1b3",
+  "cb-698e8444",
+  "cb-69c2774a",
+  "cb-6ae5c042",
+  "cb-6b3560b2",
+  "cb-6bd6da7e",
+  "cb-6c0828c0",
+  "cb-6c130b1c",
+  "cb-6c82cc10",
+  "cb-6cb308d4",
+  "cb-6d84d23f",
+  "cb-6d8888dc",
+  "cb-6dd56edf",
+  "cb-6f941b76",
+  "cb-6fe3e1f0",
+  "cb-6ff68272",
+  "cb-7027da04",
+  "cb-707c4ed8",
+  "cb-709340bd",
+  "cb-70eb1a59",
+  "cb-710719d5",
+  "cb-718bc667",
+  "cb-7202e07c",
+  "cb-7211705a",
+  "cb-7292daa1",
+  "cb-732df778",
+  "cb-73564f4f",
+  "cb-73967899",
+  "cb-73ed5b55",
+  "cb-74155553",
+  "cb-74991f07",
+  "cb-74badeb1",
+  "cb-756d4419",
+  "cb-7588e9f6",
+  "cb-75c55322",
+  "cb-75d98c6c",
+  "cb-75da63da",
+  "cb-75e90dc2",
+  "cb-766e5fd5",
+  "cb-7689c2c0",
+  "cb-76fc247a",
+  "cb-77e62d26",
+  "cb-77f43e3d",
+  "cb-78194003",
+  "cb-781eff44",
+  "cb-7851fd1f",
+  "cb-78c1e4c0",
+  "cb-792b578f",
+  "cb-79e69c99",
+  "cb-7a0e33e4",
+  "cb-7a4493a2",
+  "cb-7a54d90b",
+  "cb-7a6f4533",
+  "cb-7a80ad2a",
+  "cb-7a8eb9bb",
+  "cb-7aaa443b",
+  "cb-7ae3a8cc",
+  "cb-7b249133",
+  "cb-7b5bdff0",
+  "cb-7b6a8731",
+  "cb-7c047234",
+  "cb-7c0524c2",
+  "cb-7c092a64",
+  "cb-7c219921",
+  "cb-7c5f4635",
+  "cb-7cbc809d",
+  "cb-7cc69efb",
+  "cb-7d1555b4",
+  "cb-7d2c1f87",
+  "cb-7d8bb0fe",
+  "cb-7e10916d",
+  "cb-7e81eb64",
+  "cb-7ea7e8e5",
+  "cb-7eed8303",
+  "cb-7f8de2bb",
+  "cb-7f92d5bd",
+  "cb-7fb4a30d",
+  "cb-7ff0124f",
+  "cb-7ff159e7",
+  "cb-80918a38",
+  "cb-812fa858",
+  "cb-81ec1daf",
+  "cb-82423150",
+  "cb-82baa354",
+  "cb-82cb7d16",
+  "cb-835b825a",
+  "cb-837c49f8",
+  "cb-83ae2da8",
+  "cb-853f76a9",
+  "cb-85b5d481",
+  "cb-85c9c5f0",
+  "cb-85f7e89c",
+  "cb-86198f88",
+  "cb-8637d59a",
+  "cb-866a5edc",
+  "cb-8705923a",
+  "cb-87b99f20",
+  "cb-88163eea",
+  "cb-883d09aa",
+  "cb-88b02f55",
+  "cb-89470fe8",
+  "cb-89551b35",
+  "cb-89b7d109",
+  "cb-89de8a9d",
+  "cb-8a035607",
+  "cb-8b79400c",
+  "cb-8bacdd00",
+  "cb-8c4ef53f",
+  "cb-8cbff1a7",
+  "cb-8d8beee7",
+  "cb-8dbf8a27",
+  "cb-8e2f1f1f",
+  "cb-8ec86c3f",
+  "cb-8ef1867e",
+  "cb-8f976158",
+  "cb-8fbb8b79",
+  "cb-8fd4a886",
+  "cb-8fee1efb",
+  "cb-8ffd60ef",
+  "cb-90148256",
+  "cb-90329de7",
+  "cb-90965725",
+  "cb-90c685fb",
+  "cb-913d44b3",
+  "cb-91efec1a",
+  "cb-9305469f",
+  "cb-933bc602",
+  "cb-9387ecdd",
+  "cb-94f4245f",
+  "cb-950f9a3e",
+  "cb-954a2574",
+  "cb-962fdb9b",
+  "cb-965d7bec",
+  "cb-96cf1348",
+  "cb-96e3e44b",
+  "cb-97297740",
+  "cb-97ab2537",
+  "cb-98268c60",
+  "cb-985458b7",
+  "cb-99247f42",
+  "cb-992e8196",
+  "cb-993571d7",
+  "cb-998b2ce9",
+  "cb-99d313a0",
+  "cb-9a8109bd",
+  "cb-9a953d37",
+  "cb-9aa0cb65",
+  "cb-9be9899f",
+  "cb-9c014c1b",
+  "cb-9c58eae7",
+  "cb-9ceaa08c",
+  "cb-9d08398d",
+  "cb-9d882d3b",
+  "cb-9ec99b47",
+  "cb-9ed3b616",
+  "cb-9f3998e9",
+  "cb-9fe65bc3",
+  "cb-a001381e",
+  "cb-a06b1121",
+  "cb-a120fc93",
+  "cb-a14fc81d",
+  "cb-a1734ba7",
+  "cb-a1dfa0bc",
+  "cb-a23a960f",
+  "cb-a240de30",
+  "cb-a39d7fc9",
+  "cb-a47cbf7e",
+  "cb-a4b4813d",
+  "cb-a4e87578",
+  "cb-a61aa1b2",
+  "cb-a66f5f00",
+  "cb-a6b161c7",
+  "cb-a6bf6861",
+  "cb-a78e3c89",
+  "cb-a871b9a1",
+  "cb-a8b5295a",
+  "cb-a8d7ad72",
+  "cb-a93ea679",
+  "cb-a9b31c96",
+  "cb-aa0f7d3d",
+  "cb-aa4c70d4",
+  "cb-aa852bca",
+  "cb-ab1aea5f",
+  "cb-ab7e7c83",
+  "cb-ab950832",
+  "cb-ac0313e0",
+  "cb-ac173bd4",
+  "cb-ac27cc1b",
+  "cb-ada584a6",
+  "cb-ada8ec72",
+  "cb-adde1de1",
+  "cb-ae1caf43",
+  "cb-ae60415f",
+  "cb-ae745450",
+  "cb-afa7950e",
+  "cb-affeae47",
+  "cb-b2278ff2",
+  "cb-b27975d7",
+  "cb-b30c0763",
+  "cb-b3114c10",
+  "cb-b33d9252",
+  "cb-b3734382",
+  "cb-b41021cf",
+  "cb-b416341e",
+  "cb-b42544d6",
+  "cb-b46a29ef",
+  "cb-b4872519",
+  "cb-b48f6706",
+  "cb-b4afbb98",
+  "cb-b505971c",
+  "cb-b68c4ee6",
+  "cb-b6ba8261",
+  "cb-b6d896ec",
+  "cb-b885b1fe",
+  "cb-b99047fd",
+  "cb-ba93abd0",
+  "cb-bb4d2140",
+  "cb-bb691c15",
+  "cb-bbcf8ac8",
+  "cb-bbead162",
+  "cb-bc011ce3",
+  "cb-bcce4254",
+  "cb-bcd645af",
+  "cb-bd3471e4",
+  "cb-bd8734c4",
+  "cb-bdaf14a1",
+  "cb-bef2e56f",
+  "cb-beff3550",
+  "cb-bf5b7231",
+  "cb-bf5d4f92",
+  "cb-bf7dfc0d",
+  "cb-bfabdc50",
+  "cb-c0014f34",
+  "cb-c0724a1d",
+  "cb-c0b94e80",
+  "cb-c18b8709",
+  "cb-c1a46c38",
+  "cb-c1bee76f",
+  "cb-c258cf0e",
+  "cb-c2ae9ed1",
+  "cb-c2b9c955",
+  "cb-c389621b",
+  "cb-c391aebe",
+  "cb-c3ab38d9",
+  "cb-c3e109f1",
+  "cb-c4047a06",
+  "cb-c4068ca8",
+  "cb-c41fbd5f",
+  "cb-c45b7bf9",
+  "cb-c4722b48",
+  "cb-c4adaefb",
+  "cb-c4c6a67b",
+  "cb-c4d2c7fd",
+  "cb-c5075d6e",
+  "cb-c525f2f4",
+  "cb-c6b38ad1",
+  "cb-c71fa5b0",
+  "cb-c7539803",
+  "cb-c7dc5560",
+  "cb-c822add4",
+  "cb-c8a5dfba",
+  "cb-c8e4bb29",
+  "cb-c9641c47",
+  "cb-c99955a2",
+  "cb-ca10762a",
+  "cb-caa8cec5",
+  "cb-cad2c01c",
+  "cb-caff3bd6",
+  "cb-cb640bf6",
+  "cb-cc0ee1dd",
+  "cb-cce75084",
+  "cb-cd40c3a7",
+  "cb-cd60b3c1",
+  "cb-cda1cab3",
+  "cb-cdc34b7b",
+  "cb-cdeb2bc4",
+  "cb-ce098102",
+  "cb-ceaeb64d",
+  "cb-ceeb149d",
+  "cb-cf02455b",
+  "cb-d004fa7d",
+  "cb-d06230dc",
+  "cb-d09eb8b7",
+  "cb-d11dea81",
+  "cb-d14cb6b7",
+  "cb-d17f8053",
+  "cb-d1a9ebcb",
+  "cb-d1db4d4f",
+  "cb-d1e9b832",
+  "cb-d2238ce0",
+  "cb-d265d21c",
+  "cb-d2bb0374",
+  "cb-d372ee1c",
+  "cb-d39b2501",
+  "cb-d3e13b3c",
+  "cb-d42de528",
+  "cb-d472c56f",
+  "cb-d4a037a9",
+  "cb-d4ba1232",
+  "cb-d4f2f158",
+  "cb-d5887d6f",
+  "cb-d60fdb54",
+  "cb-d631b1bf",
+  "cb-d6334b40",
+  "cb-d63a29a2",
+  "cb-d6baa346",
+  "cb-d787f324",
+  "cb-d7c1cc0d",
+  "cb-d7d73292",
+  "cb-d818c4e1",
+  "cb-d8a22441",
+  "cb-d8f61497",
+  "cb-d9303cb8",
+  "cb-d964cece",
+  "cb-d97f5079",
+  "cb-d9811151",
+  "cb-da93b4f0",
+  "cb-da9507eb",
+  "cb-da981181",
+  "cb-dac827da",
+  "cb-dc07cc1e",
+  "cb-dc4e98d8",
+  "cb-dd7d6946",
+  "cb-defb0896",
+  "cb-deff5853",
+  "cb-df027d08",
+  "cb-df1b52e8",
+  "cb-df6a0f24",
+  "cb-df921ad4",
+  "cb-dfa30197",
+  "cb-e04ceef6",
+  "cb-e04ebd11",
+  "cb-e05b45d5",
+  "cb-e0884f6c",
+  "cb-e0ba995f",
+  "cb-e0cb96fa",
+  "cb-e15c3262",
+  "cb-e2583fbb",
+  "cb-e28baa68",
+  "cb-e2de095b",
+  "cb-e3b62195",
+  "cb-e4472f88",
+  "cb-e4523ebb",
+  "cb-e4652495",
+  "cb-e47aa194",
+  "cb-e4839908",
+  "cb-e4e1b2f9",
+  "cb-e5210818",
+  "cb-e56c5e10",
+  "cb-e58ff72f",
+  "cb-e59aef45",
+  "cb-e67b1717",
+  "cb-e6cfb25b",
+  "cb-e6fc8d86",
+  "cb-e7b1475d",
+  "cb-e806ec54",
+  "cb-e8532e2a",
+  "cb-e85fa852",
+  "cb-e894161d",
+  "cb-e8b473a5",
+  "cb-e8c3c5ff",
+  "cb-e8c84840",
+  "cb-e8f585ee",
+  "cb-e96dd7e0",
+  "cb-e98b918f",
+  "cb-ea56b479",
+  "cb-ead5253b",
+  "cb-eb04aa3d",
+  "cb-eba0f154",
+  "cb-ec37b285",
+  "cb-ec463963",
+  "cb-ec78b377",
+  "cb-ec94498a",
+  "cb-ee0e5644",
+  "cb-eeb0b569",
+  "cb-eed147ca",
+  "cb-eed3334e",
+  "cb-ef11f78c",
+  "cb-efa65ca8",
+  "cb-f02a6dbe",
+  "cb-f07aa49f",
+  "cb-f0cf10a2",
+  "cb-f0ff8b42",
+  "cb-f1818d6b",
+  "cb-f181b391",
+  "cb-f19844cc",
+  "cb-f2c2f4f7",
+  "cb-f381ace9",
+  "cb-f392dca3",
+  "cb-f3d5e191",
+  "cb-f4268cee",
+  "cb-f42a51f8",
+  "cb-f4594656",
+  "cb-f4ba567d",
+  "cb-f5451fc4",
+  "cb-f5c36845",
+  "cb-f74c3512",
+  "cb-f779e662",
+  "cb-f785735b",
+  "cb-f8a52510",
+  "cb-f90841f4",
+  "cb-f9b44db4",
+  "cb-f9bc775f",
+  "cb-f9cb0f6e",
+  "cb-fada7724",
+  "cb-fb4249b5",
+  "cb-fbd046e1",
+  "cb-fbe49ea0",
+  "cb-fc06997b",
+  "cb-fc1a8a47",
+  "cb-fc975adc",
+  "cb-fcf9d300",
+  "cb-fdcf6369",
+  "cb-fe8455ab",
+  "cb-fead1999",
+  "cb-ff16463d",
+  "cb-ff2d2778",
+  "cb-ffb67966",
+  "cb-ffb91836"
+ ]
+}

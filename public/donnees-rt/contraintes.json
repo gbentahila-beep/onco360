@@ -1,7 +1,7 @@
 {
  "version": "2026-10-25",
  "format": 2,
- "note": "Base : une contrainte par OAR et par régime (normofractionné, hypofractionné, stéréotaxie selon le nombre de fractions), d'après RecoRad 2025 ; précisions par localisation (loc) ; jeux des essais et de la curiethérapie gardés (essais).",
+ "note": "Base : une contrainte par OAR et par régime (normofractionné, hypofractionné, stéréotaxie selon le nombre de fractions), d'après RecoRad 2025 ; précisions par localisation (loc) ; jeux des essais et de la curiethérapie gardés (essais). Choix du 30/10/2026 : lignes gardées par Dr Bentahila, sources des essais ajoutées quand RadOncCalc donne le même paramètre, lignes des essais (High Yield, Must) ajoutées.",
  "aide": {
   "ideal": "Objectif optimal : à atteindre si possible, sans bloquer la validation du plan.",
   "limitant": "Contrainte à ne pas dépasser (ou valeur acceptable), sauf avis médical."
@@ -14,7 +14,7 @@
    "fx": 15,
    "indicateur": "Dmax",
    "limitant": "< 66 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; NCIC CTV BR.25"
   },
   {
    "id": "cb-f381ace9",
@@ -32,7 +32,7 @@
    "fx": 1,
    "indicateur": "Dmax",
    "limitant": "< 20,2–30 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; VA/ASTRO PRO '26 ; TG-101 ; Timmerman ; PRO Oligo '21 ; UK SABR '22 ; RTOG 0915 ; NRG BR002 ; RTOG 0631 ; UTSW"
   },
   {
    "id": "cb-74badeb1",
@@ -50,7 +50,7 @@
    "fx": 3,
    "indicateur": "Dmax",
    "limitant": "< 32–43 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; UK SABR '17 ; TG-101 ; PRO Oligo '21 ; DOSE-Pro Thoracic ; VA/ASTRO PRO '26 ; UK SABR '22"
   },
   {
    "id": "cb-019e482a",
@@ -81,24 +81,6 @@
    "source": "RecoRad 2025 (poumon)"
   },
   {
-   "id": "cb-d4ac1f3b",
-   "oar_id": "oar-arbre-bronchique",
-   "regime": "stereo",
-   "fx": 4,
-   "indicateur": "V33,5Gy",
-   "limitant": "< 4 cm³",
-   "source": "RecoRad 2025 (poumon)"
-  },
-  {
-   "id": "cb-ee55cf3a",
-   "oar_id": "oar-arbre-bronchique",
-   "regime": "stereo",
-   "fx": 4,
-   "indicateur": "V42,4Gy",
-   "limitant": "< 5 cm³",
-   "source": "RecoRad 2025 (poumon)"
-  },
-  {
    "id": "cb-38642b6c",
    "oar_id": "oar-arbre-bronchique",
    "regime": "stereo",
@@ -107,7 +89,7 @@
    "ideal": "< 35 Gy",
    "limitant": "< 38 Gy",
    "note": "lésion centrale : Dmax < 50 Gy, V33,5Gy < 4 cm³, V45Gy < 4 cm³",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; RTOG 0813 ; Timmerman ; TG-101 ; PRO Oligo '21 ; NRG BR002 ; UTSW ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-24983022",
@@ -129,24 +111,6 @@
    "source": "RecoRad 2025 (poumon)"
   },
   {
-   "id": "cb-eb8d7be9",
-   "oar_id": "oar-arbre-bronchique",
-   "regime": "stereo",
-   "fx": 10,
-   "indicateur": "D4cm³",
-   "limitant": "≤ 45 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018"
-  },
-  {
-   "id": "cb-e91a1d50",
-   "oar_id": "oar-arbre-bronchique",
-   "regime": "stereo",
-   "fx": 10,
-   "indicateur": "D0,035cm³",
-   "limitant": "≤ 50 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018"
-  },
-  {
    "id": "cb-6bd6da7e",
    "oar_id": "oar-atm",
    "regime": "normo",
@@ -162,7 +126,7 @@
    "fx": 5,
    "indicateur": "V29,5Gy",
    "limitant": "< 50 %",
-   "source": "RecoRad 2025 (prostate)"
+   "source": "RecoRad 2025 (prostate) ; VA Prostate 2022 ; VA/ASTRO PRO '26 ; CORSAIR ; PACE"
   },
   {
    "id": "cb-b27975d7",
@@ -175,48 +139,6 @@
    "source": "RecoRad 2025 (encéphale)"
   },
   {
-   "id": "cb-328c0e64",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "hypo",
-   "fx": 15,
-   "loc": [
-    "poumon",
-    "mesotheliome",
-    "thymome"
-   ],
-   "indicateur": "Dmax",
-   "limitant": "≤ 39,5 Gy",
-   "source": "RecoRad 2025 (poumon)"
-  },
-  {
-   "id": "cb-f76987ba",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "hypo",
-   "fx": 15,
-   "loc": [
-    "poumon",
-    "mesotheliome",
-    "thymome"
-   ],
-   "indicateur": "Dmax (PRV 3 mm)",
-   "limitant": "≤ 42 Gy",
-   "source": "RecoRad 2025 (poumon)"
-  },
-  {
-   "id": "cb-755907d6",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "hypo",
-   "fx": 15,
-   "loc": [
-    "sein",
-    "sein_ccis"
-   ],
-   "indicateur": "Dmax",
-   "ideal": "≤ 37,8 Gy",
-   "limitant": "< 42 Gy",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
    "id": "cb-73967899",
    "oar_id": "oar-canal-medullaire",
    "regime": "hypo",
@@ -224,45 +146,6 @@
    "indicateur": "Dmax",
    "limitant": "≤ 43 Gy",
    "source": "RecoRad 2025 (poumon)"
-  },
-  {
-   "id": "cb-ed24277b",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "hypo",
-   "fx": 20,
-   "loc": [
-    "cavite_buccale",
-    "oropharynx",
-    "larynx",
-    "hypopharynx",
-    "cavum",
-    "sinus",
-    "glandes_salivaires",
-    "orl_palliatif"
-   ],
-   "indicateur": "D2%",
-   "limitant": "≤ 35 Gy",
-   "source": "RecoRad 2025 (ORL)"
-  },
-  {
-   "id": "cb-cde15706",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "hypo",
-   "fx": 20,
-   "loc": [
-    "cavite_buccale",
-    "oropharynx",
-    "larynx",
-    "hypopharynx",
-    "cavum",
-    "sinus",
-    "glandes_salivaires",
-    "orl_palliatif"
-   ],
-   "indicateur": "D2% (PRV 5 mm)",
-   "ideal": "≤ 35–39 Gy",
-   "limitant": "< 41 Gy",
-   "source": "RecoRad 2025 (ORL)"
   },
   {
    "id": "cb-f07aa49f",
@@ -282,140 +165,6 @@
    "source": "RecoRad 2025 (encéphale)"
   },
   {
-   "id": "cb-fad9f079",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "normo",
-   "indicateur": "Dmax si chevauchement du PRV",
-   "limitant": "≤ 50 Gy",
-   "source": "RecoRad 2025 (encéphale)"
-  },
-  {
-   "id": "cb-b5a1b6fe",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "normo",
-   "loc": [
-    "poumon",
-    "mesotheliome",
-    "thymome"
-   ],
-   "indicateur": "Dmax",
-   "limitant": "≤ 45–50 Gy",
-   "source": "RecoRad 2025 (poumon)"
-  },
-  {
-   "id": "cb-3102b6ca",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "normo",
-   "loc": [
-    "cavite_buccale",
-    "oropharynx",
-    "larynx",
-    "hypopharynx",
-    "cavum",
-    "sinus",
-    "glandes_salivaires",
-    "orl_palliatif"
-   ],
-   "indicateur": "Dmax",
-   "limitant": "≤ 45 Gy",
-   "source": "RecoRad 2025 (ORL)"
-  },
-  {
-   "id": "cb-559e949e",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "normo",
-   "loc": [
-    "cavite_buccale",
-    "oropharynx",
-    "larynx",
-    "hypopharynx",
-    "cavum",
-    "sinus",
-    "glandes_salivaires",
-    "orl_palliatif"
-   ],
-   "indicateur": "Dmax (PRV 5 mm)",
-   "limitant": "≤ 50 Gy",
-   "source": "RecoRad 2025 (ORL)"
-  },
-  {
-   "id": "cb-2a95e806",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "normo",
-   "loc": [
-    "sein",
-    "sein_ccis"
-   ],
-   "indicateur": "Dmax",
-   "limitant": "≤ 45 Gy",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-feb038ec",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "normo",
-   "loc": [
-    "sein",
-    "sein_ccis"
-   ],
-   "indicateur": "Dmax (PRV)",
-   "limitant": "< 50 Gy",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-945fa339",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "normo",
-   "loc": [
-    "prostate"
-   ],
-   "indicateur": "Dmax",
-   "limitant": "< 45 Gy",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
-   "id": "cb-559a405b",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "normo",
-   "loc": [
-    "oesophage",
-    "estomac"
-   ],
-   "indicateur": "Dmax",
-   "limitant": "< 45 Gy",
-   "source": "RecoRad 2025 (œsophage)"
-  },
-  {
-   "id": "cb-370d5117",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "normo",
-   "loc": [
-    "pancreas"
-   ],
-   "indicateur": "D0,1cm³",
-   "limitant": "≤ 45 Gy",
-   "source": "RecoRad 2025 (pancréas)"
-  },
-  {
-   "id": "cb-dc709e71",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "normo",
-   "fx": 30,
-   "dpf": 1.5,
-   "indicateur": "Dmax",
-   "limitant": "≤ 42 Gy",
-   "source": "RecoRad 2025 (poumon)"
-  },
-  {
-   "id": "cb-cfbac959",
-   "oar_id": "oar-canal-medullaire",
-   "regime": "normo",
-   "fx": 33,
-   "indicateur": "Dmax",
-   "limitant": "< 45 Gy",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
    "id": "cb-f02a6dbe",
    "oar_id": "oar-canal-medullaire",
    "regime": "stereo",
@@ -423,7 +172,7 @@
    "indicateur": "Dmax",
    "ideal": "< 12,4 Gy",
    "limitant": "< 14 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; VA/ASTRO PRO '26 ; HyTEC ; TG-101 ; UK SABR '17 ; Timmerman ; QUANTEC ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; RTOG 0915 ; RTOG 0631 ; NRG BR002 ; IROCK ; UTSW ; FASTRACK II"
   },
   {
    "id": "cb-96cf1348",
@@ -432,7 +181,7 @@
    "fx": 3,
    "indicateur": "Dmax",
    "limitant": "< 20,3–22,5 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; NRG BR002 ; UTSW ; Noël 2025 SFRO ; VA/ASTRO PRO '26 ; HyTEC ; UK SABR '22 ; CORSAIR ; FASTRACK II ; IROCK"
   },
   {
    "id": "cb-caa8cec5",
@@ -450,7 +199,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "limitant": "< 25,3–28 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; Noël 2025 SFRO"
   },
   {
    "id": "cb-a8b5295a",
@@ -471,7 +220,7 @@
    "fx": 8,
    "indicateur": "Dmax",
    "limitant": "< 33,6 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; Noël 2025 SFRO ; VA/ASTRO PRO '26 ; HyTEC ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-6f941b76",
@@ -479,14 +228,6 @@
    "regime": "normo",
    "indicateur": "Dmean (intraglandulaire)",
    "limitant": "< 14 Gy",
-   "source": "RecoRad 2025 (ORL)"
-  },
-  {
-   "id": "cb-af508555",
-   "oar_id": "oar-canal-parotidien",
-   "regime": "normo",
-   "indicateur": "Dmean (total)",
-   "limitant": "< 12 Gy",
    "source": "RecoRad 2025 (ORL)"
   },
   {
@@ -524,7 +265,7 @@
    "indicateur": "Dmean",
    "limitant": "< 30 Gy",
    "note": "cavité orale non envahie",
-   "source": "RecoRad 2025 (ORL)"
+   "source": "RecoRad 2025 (ORL) ; DAHANCA 20 ; NRG HN005 ; VA H&N 2022 ; VA/ASTRO PRO '26 ; ASTRO HPV+ OP SqCC '... ; DAHANCA 25 ; RTOG 1016 ; NRG HN003 ; NRG Heme '26 ; QUANTEC ; CORSAIR"
   },
   {
    "id": "cb-bbcf8ac8",
@@ -532,15 +273,6 @@
    "regime": "normo",
    "indicateur": "V30Gy",
    "limitant": "< 73 %",
-   "source": "RecoRad 2025 (ORL)"
-  },
-  {
-   "id": "cb-9bb42e9a",
-   "oar_id": "oar-cavite-orale",
-   "regime": "normo",
-   "indicateur": "Dmean (envahie)",
-   "ideal": "< 50 Gy",
-   "note": "cavité orale envahie",
    "source": "RecoRad 2025 (ORL)"
   },
   {
@@ -560,7 +292,7 @@
    "indicateur": "Dmax",
    "limitant": "≤ dose prescrite",
    "note": "EQD2",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; DAHANCA 25"
   },
   {
    "id": "cb-c8a5dfba",
@@ -568,51 +300,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "ideal": "≤ 54 Gy",
-   "source": "RecoRad 2025 (encéphale)"
-  },
-  {
-   "id": "cb-e5a1ba75",
-   "oar_id": "oar-chiasma",
-   "regime": "normo",
-   "indicateur": "Dmax si chevauchement du PRV",
-   "limitant": "≤ 60 Gy",
-   "source": "RecoRad 2025 (encéphale)"
-  },
-  {
-   "id": "cb-58059e70",
-   "oar_id": "oar-chiasma",
-   "regime": "normo",
-   "loc": [
-    "cavite_buccale",
-    "oropharynx",
-    "larynx",
-    "hypopharynx",
-    "cavum",
-    "sinus",
-    "glandes_salivaires",
-    "orl_palliatif"
-   ],
-   "indicateur": "Dmax",
-   "ideal": "≤ 54 Gy",
-   "source": "RecoRad 2025 (ORL)"
-  },
-  {
-   "id": "cb-e19b6a80",
-   "oar_id": "oar-chiasma",
-   "regime": "normo",
-   "loc": [
-    "cavite_buccale",
-    "oropharynx",
-    "larynx",
-    "hypopharynx",
-    "cavum",
-    "sinus",
-    "glandes_salivaires",
-    "orl_palliatif"
-   ],
-   "indicateur": "Dmax (PRV)",
-   "limitant": "≤ 60 Gy",
-   "source": "RecoRad 2025 (ORL)"
+   "source": "RecoRad 2025 (encéphale) ; DAHANCA 20 ; QUANTEC ; DAHANCA 25 ; Noël 2025 SFRO ; ESTRO-EANO GBM ; NCCN H&N 1.2026 ; CORSAIR ; Florida ; RTOG 0539 ; NRG Heme '26 ; NCCN Peds MB 1.2026"
   },
   {
    "id": "cb-04984805",
@@ -622,7 +310,7 @@
    "indicateur": "Dmax",
    "ideal": "< 8 Gy",
    "limitant": "< 10 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; UK SABR '17 ; TG-101 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; UTSW"
   },
   {
    "id": "cb-b885b1fe",
@@ -632,7 +320,7 @@
    "indicateur": "Dmax",
    "ideal": "< 15 Gy",
    "limitant": "< 20 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; UK SABR '22 ; Noël 2025 SFRO ; UK SABR '17"
   },
   {
    "id": "cb-02b7b0e1",
@@ -642,100 +330,7 @@
    "indicateur": "Dmax",
    "ideal": "< 22,5 Gy",
    "limitant": "< 25 Gy",
-   "source": "RecoRad 2025 (encéphale)"
-  },
-  {
-   "id": "cb-ffd9098e",
-   "oar_id": "oar-cochlees",
-   "regime": "hypo",
-   "fx": 15,
-   "indicateur": "Dose",
-   "limitant": "ALARA",
-   "source": "RecoRad 2025 (encéphale)"
-  },
-  {
-   "id": "cb-6b07ea3c",
-   "oar_id": "oar-cochlees",
-   "regime": "normo",
-   "indicateur": "Dmean",
-   "ideal": "≤ 32 Gy",
-   "limitant": "≤ 45 Gy",
-   "note": "45 Gy = acceptable",
-   "source": "RecoRad 2025 (encéphale)"
-  },
-  {
-   "id": "cb-d7823f90",
-   "oar_id": "oar-cochlees",
-   "regime": "normo",
-   "loc": [
-    "cavite_buccale",
-    "oropharynx",
-    "larynx",
-    "hypopharynx",
-    "cavum",
-    "sinus",
-    "glandes_salivaires",
-    "orl_palliatif"
-   ],
-   "indicateur": "Dmean",
-   "ideal": "≤ 40–45 Gy",
-   "limitant": "≤ 55 Gy",
-   "source": "RecoRad 2025 (ORL)"
-  },
-  {
-   "id": "cb-d5521e48",
-   "oar_id": "oar-cochlees",
-   "regime": "normo",
-   "loc": [
-    "cavite_buccale",
-    "oropharynx",
-    "larynx",
-    "hypopharynx",
-    "cavum",
-    "sinus",
-    "glandes_salivaires",
-    "orl_palliatif"
-   ],
-   "indicateur": "V55Gy",
-   "ideal": "< 5 %",
-   "source": "RecoRad 2025 (ORL)"
-  },
-  {
-   "id": "cb-2024546b",
-   "oar_id": "oar-cochlees",
-   "regime": "normo",
-   "loc": [
-    "cavite_buccale",
-    "oropharynx",
-    "larynx",
-    "hypopharynx",
-    "cavum",
-    "sinus",
-    "glandes_salivaires",
-    "orl_palliatif"
-   ],
-   "indicateur": "V60Gy",
-   "limitant": "< 5 %",
-   "source": "RecoRad 2025 (ORL)"
-  },
-  {
-   "id": "cb-55ce7b55",
-   "oar_id": "oar-cochlees",
-   "regime": "normo",
-   "loc": [
-    "cavite_buccale",
-    "oropharynx",
-    "larynx",
-    "hypopharynx",
-    "cavum",
-    "sinus",
-    "glandes_salivaires",
-    "orl_palliatif"
-   ],
-   "indicateur": "Dmean (cisplatine)",
-   "ideal": "< 10 Gy",
-   "note": "idéalement, si chimiothérapie concomitante par cisplatine",
-   "source": "RecoRad 2025 (ORL)"
+   "source": "RecoRad 2025 (encéphale) ; TG-101 ; HyTEC ; PRO Oligo '21 ; Timmerman '21 ; UTSW ; UK SABR '22 ; Noël 2025 SFRO ; UK SABR '17"
   },
   {
    "id": "cb-97ab2537",
@@ -753,7 +348,7 @@
    "fx": 1,
    "indicateur": "Dmax",
    "limitant": "< 9 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; Florida ; UK SABR '17 ; TG-101 ; QUANTEC ; PRO Oligo '21 ; Timmerman '21 ; CORSAIR ; UTSW"
   },
   {
    "id": "cb-9a8109bd",
@@ -762,7 +357,7 @@
    "fx": 3,
    "indicateur": "Dmean",
    "ideal": "< 17,1 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-87b99f20",
@@ -780,7 +375,7 @@
    "fx": 5,
    "indicateur": "Dmean",
    "ideal": "< 25 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-4533e157",
@@ -789,7 +384,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "limitant": "< 22 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; UK SABR '17 ; TG-101 ; PRO Oligo '21"
   },
   {
    "id": "cb-d472c56f",
@@ -816,7 +411,7 @@
    "fx": 15,
    "indicateur": "Dmax",
    "limitant": "< 66 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; NCIC CTV BR.25"
   },
   {
    "id": "cb-a6b161c7",
@@ -867,45 +462,6 @@
    "source": "RecoRad 2025 (sein)"
   },
   {
-   "id": "cb-446d2cff",
-   "oar_id": "oar-coeur",
-   "regime": "hypo",
-   "fx": 15,
-   "loc": [
-    "sein",
-    "sein_ccis"
-   ],
-   "indicateur": "Dmean (sein ou paroi + ganglions)",
-   "limitant": "< 5 Gy",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-1d068533",
-   "oar_id": "oar-coeur",
-   "regime": "hypo",
-   "fx": 15,
-   "loc": [
-    "sein",
-    "sein_ccis"
-   ],
-   "indicateur": "V17Gy (sein ou paroi + ganglions)",
-   "limitant": "≤ 10 %",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-6ebbcc87",
-   "oar_id": "oar-coeur",
-   "regime": "hypo",
-   "fx": 15,
-   "loc": [
-    "sein",
-    "sein_ccis"
-   ],
-   "indicateur": "V35Gy (sein ou paroi + ganglions)",
-   "limitant": "≤ 5 %",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
    "id": "cb-7f8de2bb",
    "oar_id": "oar-coeur",
    "regime": "hypo",
@@ -918,19 +474,6 @@
    "ideal": "< 2 %",
    "limitant": "< 10 %",
    "note": "10 % = acceptable",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-bcb5ef41",
-   "oar_id": "oar-coeur",
-   "regime": "hypo",
-   "fx": 15,
-   "loc": [
-    "sein",
-    "sein_ccis"
-   ],
-   "indicateur": "Dmean (inspiration bloquée)",
-   "limitant": "< 3 Gy",
    "source": "RecoRad 2025 (sein)"
   },
   {
@@ -958,7 +501,7 @@
    "indicateur": "V30Gy",
    "ideal": "< 30 %",
    "limitant": "≤ 40 %",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; RTOG 1308 ; CALGB 80803"
   },
   {
    "id": "cb-c4d2c7fd",
@@ -966,7 +509,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "limitant": "≤ 10–20 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; NCCN Hodgkin 1.2026 ; NRG Heme '26 ; ILROG ; FIL Chest ; CORSAIR ; QUANTEC"
   },
   {
    "id": "cb-82cb7d16",
@@ -1005,54 +548,6 @@
    "source": "RecoRad 2025 (sein)"
   },
   {
-   "id": "cb-061d8064",
-   "oar_id": "oar-coeur",
-   "regime": "normo",
-   "loc": [
-    "sein",
-    "sein_ccis"
-   ],
-   "indicateur": "Dmean (sein ou paroi + ganglions)",
-   "limitant": "< 5 Gy",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-8241de92",
-   "oar_id": "oar-coeur",
-   "regime": "normo",
-   "loc": [
-    "sein",
-    "sein_ccis"
-   ],
-   "indicateur": "V20Gy (sein ou paroi + ganglions)",
-   "limitant": "≤ 10 %",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-5ad7d24f",
-   "oar_id": "oar-coeur",
-   "regime": "normo",
-   "loc": [
-    "sein",
-    "sein_ccis"
-   ],
-   "indicateur": "V40Gy (sein ou paroi + ganglions)",
-   "limitant": "≤ 5 %",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-a4fe7e7d",
-   "oar_id": "oar-coeur",
-   "regime": "normo",
-   "loc": [
-    "sein",
-    "sein_ccis"
-   ],
-   "indicateur": "Dmean (inspiration bloquée)",
-   "limitant": "< 2,5 Gy",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
    "id": "cb-da9507eb",
    "oar_id": "oar-coeur",
    "regime": "normo",
@@ -1083,7 +578,7 @@
    "fx": 1,
    "indicateur": "Dmax",
    "limitant": "< 22 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; VA/ASTRO PRO '26 ; TG-101 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; RTOG 0631 ; RTOG 0915 ; NRG BR002 ; UTSW"
   },
   {
    "id": "cb-5e1f1502",
@@ -1131,7 +626,7 @@
    "ideal": "< 29 Gy",
    "limitant": "< 38 Gy",
    "note": "lésion centrale : Dmax < 50 Gy, V32Gy ≤ 15 cm³",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; UK SABR '22"
   },
   {
    "id": "cb-572554c9",
@@ -1142,7 +637,7 @@
    "ideal": "< 40 Gy",
    "limitant": "< 46 Gy",
    "note": "lésion centrale : Dmax < 50–60 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; UK SABR '22"
   },
   {
    "id": "cb-346ba2cf",
@@ -1169,7 +664,7 @@
    "fx": 15,
    "indicateur": "D0,03cm³",
    "limitant": "< 45 Gy",
-   "source": "RecoRad 2025 (foie)"
+   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021 ; VA/ASTRO PRO '26 ; HYPORT-STS ; MDACC"
   },
   {
    "id": "cb-a39d7fc9",
@@ -1257,7 +752,7 @@
    "fx": 5,
    "indicateur": "D0,03cm³",
    "limitant": "< 34 Gy",
-   "source": "RecoRad 2025 (foie)"
+   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-e8532e2a",
@@ -1352,7 +847,7 @@
    "ideal": "< 45 Gy",
    "limitant": "< 55 Gy",
    "note": "55 Gy = acceptable",
-   "source": "RecoRad 2025 (ORL)"
+   "source": "RecoRad 2025 (ORL) ; QUANTEC ; CORSAIR ; Florida ; NRG Heme '26"
   },
   {
    "id": "cb-d97f5079",
@@ -1371,24 +866,6 @@
    "source": "RecoRad 2025 (encéphale)"
   },
   {
-   "id": "cb-2a3a5286",
-   "oar_id": "oar-cornees",
-   "regime": "normo",
-   "loc": [
-    "cavite_buccale",
-    "oropharynx",
-    "larynx",
-    "hypopharynx",
-    "cavum",
-    "sinus",
-    "glandes_salivaires",
-    "orl_palliatif"
-   ],
-   "indicateur": "Dmax",
-   "limitant": "< 40 Gy",
-   "source": "RecoRad 2025 (ORL)"
-  },
-  {
    "id": "cb-aa0f7d3d",
    "oar_id": "oar-cornees",
    "regime": "stereo",
@@ -1398,41 +875,13 @@
    "source": "RecoRad 2025 (encéphale)"
   },
   {
-   "id": "cb-4eca956c",
-   "oar_id": "oar-cristallins",
-   "regime": "normo",
-   "indicateur": "Dmax",
-   "ideal": "< 6 Gy",
-   "limitant": "≤ 10 Gy",
-   "note": "10 Gy = acceptable",
-   "source": "RecoRad 2025 (encéphale)"
-  },
-  {
-   "id": "cb-8730c3b5",
-   "oar_id": "oar-cristallins",
-   "regime": "normo",
-   "loc": [
-    "cavite_buccale",
-    "oropharynx",
-    "larynx",
-    "hypopharynx",
-    "cavum",
-    "sinus",
-    "glandes_salivaires",
-    "orl_palliatif"
-   ],
-   "indicateur": "Dmax",
-   "limitant": "≤ 6 Gy",
-   "source": "RecoRad 2025 (ORL)"
-  },
-  {
    "id": "cb-c4068ca8",
    "oar_id": "oar-cristallins",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 3 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; UK SABR '17 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-b3734382",
@@ -1487,7 +936,7 @@
    "fx": 15,
    "indicateur": "D0,03cm³",
    "limitant": "< 45 Gy",
-   "source": "RecoRad 2025 (foie)"
+   "source": "RecoRad 2025 (foie) ; Timmerman '21 ; SUNSET ; UTSW"
   },
   {
    "id": "cb-668814b7",
@@ -1495,7 +944,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "limitant": "≤ 55 Gy",
-   "source": "RecoRad 2025 (pancréas)"
+   "source": "RecoRad 2025 (pancréas) ; NCCN Pancreas 2.2025 ; NRG Heme '26 ; CORSAIR ; ASTRO Liver 2021"
   },
   {
    "id": "cb-bef2e56f",
@@ -1504,15 +953,7 @@
    "indicateur": "V50Gy",
    "ideal": "≤ 10 cm³",
    "limitant": "≤ 10 %",
-   "source": "RecoRad 2025 (pancréas)"
-  },
-  {
-   "id": "cb-52d12920",
-   "oar_id": "oar-duodenum",
-   "regime": "normo",
-   "indicateur": "V45Gy",
-   "limitant": "≤ 15 %",
-   "source": "RecoRad 2025 (pancréas)"
+   "source": "RecoRad 2025 (pancréas) ; Noël 2025 SFRO"
   },
   {
    "id": "cb-66063f39",
@@ -1551,7 +992,7 @@
    "fx": 1,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 12,4 Gy",
-   "source": "RecoRad 2025 (rein)"
+   "source": "RecoRad 2025 (rein) ; IROCK ; TG-101 ; QUANTEC ; PRO Oligo '21 ; UK SABR '22"
   },
   {
    "id": "cb-a93ea679",
@@ -1560,7 +1001,7 @@
    "fx": 1,
    "indicateur": "D10cm³",
    "limitant": "≤ 9 Gy",
-   "source": "RecoRad 2025 (rein)"
+   "source": "RecoRad 2025 (rein) ; TG-101 ; Timmerman ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW ; IROCK"
   },
   {
    "id": "cb-ff16463d",
@@ -1569,7 +1010,7 @@
    "fx": 3,
    "indicateur": "D0,03cm³",
    "limitant": "< 22 Gy",
-   "source": "RecoRad 2025 (foie)"
+   "source": "RecoRad 2025 (foie) ; IROCK ; ASTRO Liver 2021 ; VA/ASTRO PRO '26 ; TG-101 ; PRO Oligo '21 ; UK SABR '22 ; UK SABR '17 ; CORSAIR ; Noël 2025 SFRO"
   },
   {
    "id": "cb-2b17ab47",
@@ -1578,7 +1019,7 @@
    "fx": 3,
    "indicateur": "D5cm³",
    "limitant": "< 16,5 Gy",
-   "source": "RecoRad 2025 (foie)"
+   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021 ; VA/ASTRO PRO '26 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; CORSAIR ; UK SABR '22"
   },
   {
    "id": "cb-9a953d37",
@@ -1611,7 +1052,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "ideal": "< 32–35 Gy",
-   "source": "RecoRad 2025 (pancréas)"
+   "source": "RecoRad 2025 (pancréas) ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UTSW ; ASTRO Liver 2021 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-ac27cc1b",
@@ -1630,16 +1071,7 @@
    "fx": 5,
    "indicateur": "D0,5cm³",
    "limitant": "< 35 Gy",
-   "source": "RecoRad 2025 (pancréas)"
-  },
-  {
-   "id": "cb-3bdf0f80",
-   "oar_id": "oar-duodenum",
-   "regime": "stereo",
-   "fx": 5,
-   "indicateur": "D1cm³",
-   "ideal": "< 33 Gy",
-   "source": "RecoRad 2025 (pancréas)"
+   "source": "RecoRad 2025 (pancréas) ; Noël 2025 SFRO ; UK SABR '17 ; PRO Oligo '21 ; CORSAIR ; Miami SMART ; NRG BR002"
   },
   {
    "id": "cb-68d4e1b3",
@@ -1648,25 +1080,7 @@
    "fx": 5,
    "indicateur": "D5cm³",
    "ideal": "< 25 Gy",
-   "source": "RecoRad 2025 (pancréas)"
-  },
-  {
-   "id": "cb-0f537063",
-   "oar_id": "oar-duodenum",
-   "regime": "stereo",
-   "fx": 5,
-   "indicateur": "D9cm³",
-   "ideal": "< 15 Gy",
-   "source": "RecoRad 2025 (pancréas)"
-  },
-  {
-   "id": "cb-719fe3f2",
-   "oar_id": "oar-duodenum",
-   "regime": "stereo",
-   "fx": 5,
-   "indicateur": "D10cm³",
-   "limitant": "< 25 Gy",
-   "source": "RecoRad 2025 (pancréas)"
+   "source": "RecoRad 2025 (pancréas) ; VA/ASTRO PRO '26 ; UK SABR '17 ; CORSAIR ; ASTRO Liver 2021 ; PRO Oligo '21 ; UK SABR '22"
   },
   {
    "id": "cb-eed147ca",
@@ -1742,15 +1156,6 @@
    "fx": 10,
    "indicateur": "V37Gy",
    "limitant": "≤ 1 cm³",
-   "source": "Gustave Roussy, stéréotaxie 2018"
-  },
-  {
-   "id": "cb-d7707fc5",
-   "oar_id": "oar-duodenum",
-   "regime": "stereo",
-   "fx": 10,
-   "indicateur": "V40Gy",
-   "limitant": "≤ 0,5 cm³",
    "source": "Gustave Roussy, stéréotaxie 2018"
   },
   {
@@ -1833,7 +1238,7 @@
    "fx": 5,
    "indicateur": "V24Gy",
    "limitant": "< 20 cm³",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; HyTEC ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-44280c6c",
@@ -1871,15 +1276,6 @@
    "source": "RecoRad 2025 (encéphale)"
   },
   {
-   "id": "cb-b15c1f09",
-   "oar_id": "oar-encephale-sain",
-   "regime": "stereo",
-   "fx": 3,
-   "indicateur": "V21Gy",
-   "limitant": "< 21 cm³",
-   "source": "RecoRad 2025 (encéphale)"
-  },
-  {
    "id": "cb-5343b13f",
    "oar_id": "oar-encephale-sain",
    "regime": "stereo",
@@ -1907,22 +1303,13 @@
    "source": "RecoRad 2025 (encéphale)"
   },
   {
-   "id": "cb-f5f1d4da",
-   "oar_id": "oar-encephale-sain",
-   "regime": "stereo",
-   "fx": 5,
-   "indicateur": "V25Gy",
-   "limitant": "< 16 cm³",
-   "source": "RecoRad 2025 (encéphale)"
-  },
-  {
    "id": "cb-163e5dc4",
    "oar_id": "oar-estomac",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "D0,03cm³",
    "limitant": "< 42 Gy",
-   "source": "RecoRad 2025 (foie)"
+   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021"
   },
   {
    "id": "cb-2e7a4a30",
@@ -1930,7 +1317,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "limitant": "≤ 55 Gy",
-   "source": "RecoRad 2025 (pancréas)"
+   "source": "RecoRad 2025 (pancréas) ; NRG Pancreas 2024 ; Timmerman '21 ; UTSW ; NCCN Pancreas 2.2025 ; ASTRO Liver 2021 ; NRG Heme '26 ; CORSAIR ; NCCN Hodgkin 1.2026 ; QUANTEC ; Florida"
   },
   {
    "id": "cb-3e1b333f",
@@ -1938,16 +1325,7 @@
    "regime": "normo",
    "indicateur": "V50Gy",
    "limitant": "≤ 10 %",
-   "source": "RecoRad 2025 (pancréas)"
-  },
-  {
-   "id": "cb-5b66fd99",
-   "oar_id": "oar-estomac",
-   "regime": "normo",
-   "indicateur": "V45Gy",
-   "ideal": "≤ 75 cm³",
-   "limitant": "≤ 15 %",
-   "source": "RecoRad 2025 (pancréas)"
+   "source": "RecoRad 2025 (pancréas) ; Noël 2025 SFRO"
   },
   {
    "id": "cb-09e59b77",
@@ -1955,14 +1333,6 @@
    "regime": "normo",
    "indicateur": "V35Gy",
    "limitant": "< 20 %",
-   "source": "RecoRad 2025 (pancréas)"
-  },
-  {
-   "id": "cb-62c0f48a",
-   "oar_id": "oar-estomac",
-   "regime": "normo",
-   "indicateur": "V30Gy",
-   "limitant": "< 50 %",
    "source": "RecoRad 2025 (pancréas)"
   },
   {
@@ -1985,17 +1355,6 @@
    ],
    "indicateur": "V40Gy",
    "limitant": "< 66,7 %",
-   "source": "RecoRad 2025 (foie)"
-  },
-  {
-   "id": "cb-ddc07b23",
-   "oar_id": "oar-estomac",
-   "regime": "normo",
-   "loc": [
-    "foie"
-   ],
-   "indicateur": "V45Gy",
-   "limitant": "< 33,3 %",
    "source": "RecoRad 2025 (foie)"
   },
   {
@@ -2025,7 +1384,7 @@
    "fx": 1,
    "indicateur": "D5cm³",
    "limitant": "≤ 22,5 Gy",
-   "source": "RecoRad 2025 (rein)"
+   "source": "RecoRad 2025 (rein) ; TG-101 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; RTOG 0631 ; RTOG 0915"
   },
   {
    "id": "cb-ce098102",
@@ -2034,7 +1393,7 @@
    "fx": 3,
    "indicateur": "D0,03cm³",
    "limitant": "< 22 Gy",
-   "source": "RecoRad 2025 (foie)"
+   "source": "RecoRad 2025 (foie) ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; NRG BR002 ; IROCK ; FASTRACK II ; UTSW ; ASTRO Liver 2021 ; VA/ASTRO PRO '26 ; TG-101 ; UK SABR '22 ; CORSAIR ; UK SABR '17"
   },
   {
    "id": "cb-01ff3827",
@@ -2043,7 +1402,7 @@
    "fx": 3,
    "indicateur": "D10cm³",
    "limitant": "< 16,5 Gy",
-   "source": "RecoRad 2025 (foie)"
+   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021 ; TG-101 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-e4652495",
@@ -2076,7 +1435,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "ideal": "< 32–35 Gy",
-   "source": "RecoRad 2025 (pancréas)"
+   "source": "RecoRad 2025 (pancréas) ; Timmerman ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
   },
   {
    "id": "cb-6347f1dc",
@@ -2096,7 +1455,7 @@
    "indicateur": "D0,5cm³",
    "ideal": "< 33 Gy",
    "limitant": "< 35 Gy",
-   "source": "RecoRad 2025 (pancréas)"
+   "source": "RecoRad 2025 (pancréas) ; Timmerman ; UK SABR '17 ; PRO Oligo '21 ; NRG BR002 ; UTSW"
   },
   {
    "id": "cb-543d0f7f",
@@ -2108,22 +1467,13 @@
    "source": "RecoRad 2025 (pancréas)"
   },
   {
-   "id": "cb-b1160ac9",
-   "oar_id": "oar-estomac",
-   "regime": "stereo",
-   "fx": 5,
-   "indicateur": "D10cm³",
-   "limitant": "< 25 Gy",
-   "source": "RecoRad 2025 (pancréas)"
-  },
-  {
    "id": "cb-883d09aa",
    "oar_id": "oar-estomac",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "D50cm³",
    "ideal": "< 12 Gy",
-   "source": "RecoRad 2025 (pancréas)"
+   "source": "RecoRad 2025 (pancréas) ; UK SABR '17 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-2f199c9b",
@@ -2223,24 +1573,6 @@
    "source": "RecoRad 2025 (foie)"
   },
   {
-   "id": "cb-6886be77",
-   "oar_id": "oar-foie",
-   "regime": "hypo",
-   "fx": 15,
-   "indicateur": "Dmean (foie sain, Child-Pugh A)",
-   "limitant": "< 20 Gy",
-   "source": "RecoRad 2025 (foie)"
-  },
-  {
-   "id": "cb-7c2bbfa2",
-   "oar_id": "oar-foie",
-   "regime": "hypo",
-   "fx": 15,
-   "indicateur": "Dmean (foie sain, Child-Pugh B7)",
-   "limitant": "< 16 Gy",
-   "source": "RecoRad 2025 (foie)"
-  },
-  {
    "id": "cb-52de0281",
    "oar_id": "oar-foie",
    "regime": "hypo",
@@ -2254,41 +1586,12 @@
    "source": "RecoRad 2025 (sein)"
   },
   {
-   "id": "cb-708ac594",
-   "oar_id": "oar-foie",
-   "regime": "hypo",
-   "fx": 15,
-   "loc": [
-    "sein",
-    "sein_ccis"
-   ],
-   "indicateur": "Dmean (sein droit)",
-   "limitant": "≤ 4 Gy",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
    "id": "cb-c3e109f1",
    "oar_id": "oar-foie",
    "regime": "normo",
    "indicateur": "Dmean (foie sain non cirrhotique)",
    "limitant": "< 32 Gy",
-   "source": "RecoRad 2025 (foie)"
-  },
-  {
-   "id": "cb-85658ea7",
-   "oar_id": "oar-foie",
-   "regime": "normo",
-   "indicateur": "Dmean (foie sain, Child-Pugh A)",
-   "limitant": "< 30 Gy",
-   "source": "RecoRad 2025 (foie)"
-  },
-  {
-   "id": "cb-fbe91037",
-   "oar_id": "oar-foie",
-   "regime": "normo",
-   "indicateur": "Dmean (foie sain, Child-Pugh B7)",
-   "limitant": "< 24 Gy",
-   "source": "RecoRad 2025 (foie)"
+   "source": "RecoRad 2025 (foie) ; NRG Heme '26 ; ASTRO Gastric '25 ; NCCN Pancreas 2.2025 ; Noël 2025 SFRO ; QUANTEC ; ASTRO Liver 2021 ; RTOG 1010"
   },
   {
    "id": "cb-df1b52e8",
@@ -2371,18 +1674,6 @@
    "source": "RecoRad 2025 (sein)"
   },
   {
-   "id": "cb-621f7e91",
-   "oar_id": "oar-foie",
-   "regime": "normo",
-   "loc": [
-    "sein",
-    "sein_ccis"
-   ],
-   "indicateur": "Dmean (sein droit)",
-   "limitant": "≤ 4 Gy",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
    "id": "cb-32ca1628",
    "oar_id": "oar-foie",
    "regime": "stereo",
@@ -2399,7 +1690,7 @@
    "fx": 3,
    "indicateur": "Dmean (foie sain non cirrhotique)",
    "limitant": "< 12–15 Gy",
-   "source": "RecoRad 2025 (foie)"
+   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021 ; HyTEC ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; IROCK"
   },
   {
    "id": "cb-2151b1ab",
@@ -2408,15 +1699,6 @@
    "fx": 3,
    "indicateur": "D700cm³ (foie sain non cirrhotique)",
    "limitant": "< 19 Gy",
-   "source": "RecoRad 2025 (foie)"
-  },
-  {
-   "id": "cb-b538bf20",
-   "oar_id": "oar-foie",
-   "regime": "stereo",
-   "fx": 3,
-   "indicateur": "Dmean (foie sain, Child-Pugh A)",
-   "limitant": "< 10–12 Gy",
    "source": "RecoRad 2025 (foie)"
   },
   {
@@ -2448,7 +1730,7 @@
    "fx": 5,
    "indicateur": "Dmean (foie sain non cirrhotique)",
    "limitant": "< 15–18 Gy",
-   "source": "RecoRad 2025 (foie)"
+   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021 ; VA/ASTRO PRO '26 ; UK SABR '17 ; PRO Oligo '21 ; ASTRO Pancreas '26 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-2c31e3f0",
@@ -2457,42 +1739,6 @@
    "fx": 5,
    "indicateur": "D700cm³ (foie sain non cirrhotique)",
    "limitant": "< 21 Gy",
-   "source": "RecoRad 2025 (foie)"
-  },
-  {
-   "id": "cb-0c4e156f",
-   "oar_id": "oar-foie",
-   "regime": "stereo",
-   "fx": 5,
-   "indicateur": "Dmean (foie sain, Child-Pugh A)",
-   "limitant": "< 13–15 Gy",
-   "source": "RecoRad 2025 (foie)"
-  },
-  {
-   "id": "cb-e3ffa3c1",
-   "oar_id": "oar-foie",
-   "regime": "stereo",
-   "fx": 5,
-   "indicateur": "D700cm³ (foie sain, Child-Pugh A)",
-   "limitant": "< 15 Gy",
-   "source": "RecoRad 2025 (foie)"
-  },
-  {
-   "id": "cb-96142ad2",
-   "oar_id": "oar-foie",
-   "regime": "stereo",
-   "fx": 5,
-   "indicateur": "Dmean (foie sain, Child-Pugh B7)",
-   "limitant": "< 8–10 Gy",
-   "source": "RecoRad 2025 (foie)"
-  },
-  {
-   "id": "cb-508b3788",
-   "oar_id": "oar-foie",
-   "regime": "stereo",
-   "fx": 5,
-   "indicateur": "D500cm³ (foie sain, Child-Pugh B7)",
-   "limitant": "< 10 Gy",
    "source": "RecoRad 2025 (foie)"
   },
   {
@@ -2581,15 +1827,6 @@
    "source": "Gustave Roussy, stéréotaxie 2018"
   },
   {
-   "id": "cb-8a79718f",
-   "oar_id": "oar-foie",
-   "regime": "stereo",
-   "fx": 10,
-   "indicateur": "V24Gy (foie − CTV)",
-   "limitant": "≤ 50 %",
-   "source": "Gustave Roussy, stéréotaxie 2018"
-  },
-  {
    "id": "cb-c4c6a67b",
    "oar_id": "oar-foie",
    "regime": "stereo",
@@ -2621,7 +1858,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "ideal": "≤ 25 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; ARST 1431 ; Florida - Peds ; DAHANCA 20 ; DAHANCA 25 ; Noël 2025 SFRO"
   },
   {
    "id": "cb-a1734ba7",
@@ -2666,7 +1903,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "ideal": "≤ 35 Gy",
-   "source": "RecoRad 2025 (ORL)"
+   "source": "RecoRad 2025 (ORL) ; VA H&N 2022 ; VA/ASTRO PRO '26 ; QUANTEC ; RTOG 1016 ; NRG HN005 ; ASTRO HPV+ OP SqCC '... ; NRG Heme '26 ; CORSAIR ; DAHANCA 25 ; NCCN H&N 1.2026 ; DAHANCA 20 ; Florida ; Timmerman '21"
   },
   {
    "id": "cb-27d94770",
@@ -2675,7 +1912,7 @@
    "fx": 5,
    "indicateur": "V25Gy",
    "limitant": "< 5 cm³",
-   "source": "RecoRad 2025 (rectum)"
+   "source": "RecoRad 2025 (rectum) ; Noël 2025 SFRO ; TG-101 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-5de4f4ea",
@@ -2684,7 +1921,7 @@
    "fx": 15,
    "indicateur": "D0,03cm³",
    "limitant": "< 45 Gy",
-   "source": "RecoRad 2025 (foie)"
+   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021 ; NRG Pancreas 2024 ; VA/ASTRO PRO '26"
   },
   {
    "id": "cb-245eae48",
@@ -2719,44 +1956,12 @@
    "source": "RecoRad 2025 (prostate)"
   },
   {
-   "id": "cb-da0d5e67",
-   "oar_id": "oar-grele",
-   "regime": "hypo",
-   "fx": 20,
-   "dpf": 3,
-   "indicateur": "V12Gy",
-   "ideal": "< 830 cm³",
-   "note": "EQD2 (α/β = 2)",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
-   "id": "cb-9be264f2",
-   "oar_id": "oar-grele",
-   "regime": "hypo",
-   "fx": 20,
-   "dpf": 3,
-   "indicateur": "V36Gy",
-   "ideal": "< 150 cm³",
-   "limitant": "< 200 cm³",
-   "note": "EQD2 (α/β = 2)",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
    "id": "cb-63e32c86",
    "oar_id": "oar-grele",
    "regime": "hypo",
    "fx": 25,
    "indicateur": "V45Gy",
    "limitant": "< 158 cm³",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
-   "id": "cb-353a95ec",
-   "oar_id": "oar-grele",
-   "regime": "hypo",
-   "fx": 25,
-   "indicateur": "V50Gy",
-   "limitant": "< 110 cm³",
    "source": "RecoRad 2025 (prostate)"
   },
   {
@@ -2800,7 +2005,7 @@
    "regime": "normo",
    "indicateur": "V45Gy",
    "limitant": "< 150 cm³",
-   "source": "RecoRad 2025 (rectum)"
+   "source": "RecoRad 2025 (rectum) ; NRG Heme '26 ; QUANTEC ; CORSAIR ; NCCN Gastric 2.2026 ; NCCN EsophGEJ 2.2026 ; RAIDER"
   },
   {
    "id": "cb-3961d8a5",
@@ -2826,17 +2031,6 @@
    "source": "RecoRad 2025 (pancréas)"
   },
   {
-   "id": "cb-7dbfe554",
-   "oar_id": "oar-grele",
-   "regime": "normo",
-   "loc": [
-    "pancreas"
-   ],
-   "indicateur": "V45Gy",
-   "limitant": "≤ 15 %",
-   "source": "RecoRad 2025 (pancréas)"
-  },
-  {
    "id": "cb-30012d0e",
    "oar_id": "oar-grele",
    "regime": "normo",
@@ -2845,17 +2039,6 @@
    ],
    "indicateur": "V40Gy",
    "limitant": "< 30 % ou 200 cm³",
-   "source": "RecoRad 2025 (pancréas)"
-  },
-  {
-   "id": "cb-ef0f4195",
-   "oar_id": "oar-grele",
-   "regime": "normo",
-   "loc": [
-    "pancreas"
-   ],
-   "indicateur": "V30Gy",
-   "limitant": "< 40 % ou 400 cm³",
    "source": "RecoRad 2025 (pancréas)"
   },
   {
@@ -2892,17 +2075,6 @@
    "source": "RecoRad 2025 (canal anal)"
   },
   {
-   "id": "cb-7cb4ceee",
-   "oar_id": "oar-grele",
-   "regime": "normo",
-   "loc": [
-    "canal_anal"
-   ],
-   "indicateur": "V40Gy",
-   "limitant": "< 300 cm³",
-   "source": "RecoRad 2025 (canal anal)"
-  },
-  {
    "id": "cb-4f86a131",
    "oar_id": "oar-grele",
    "regime": "normo",
@@ -2924,17 +2096,6 @@
    ],
    "indicateur": "V40Gy",
    "ideal": "< 200 cm³",
-   "source": "RecoRad 2025 (vessie)"
-  },
-  {
-   "id": "cb-f99f573b",
-   "oar_id": "oar-grele",
-   "regime": "normo",
-   "loc": [
-    "vessie"
-   ],
-   "indicateur": "V45Gy",
-   "ideal": "< 150 cm³",
    "source": "RecoRad 2025 (vessie)"
   },
   {
@@ -3006,48 +2167,6 @@
    "source": "RecoRad 2025 (gynécologie)"
   },
   {
-   "id": "cb-c23c37b4",
-   "oar_id": "oar-grele",
-   "regime": "normo",
-   "loc": [
-    "col",
-    "endometre",
-    "vagin",
-    "vulve"
-   ],
-   "indicateur": "V40Gy (boost ganglionnaire ou lombo-aortique)",
-   "limitant": "< 250 cm³",
-   "source": "RecoRad 2025 (gynécologie)"
-  },
-  {
-   "id": "cb-b561917f",
-   "oar_id": "oar-grele",
-   "regime": "normo",
-   "loc": [
-    "col",
-    "endometre",
-    "vagin",
-    "vulve"
-   ],
-   "indicateur": "V30Gy (boost ganglionnaire ou lombo-aortique)",
-   "limitant": "< 500 cm³",
-   "source": "RecoRad 2025 (gynécologie)"
-  },
-  {
-   "id": "cb-3ca127cf",
-   "oar_id": "oar-grele",
-   "regime": "normo",
-   "loc": [
-    "col",
-    "endometre",
-    "vagin",
-    "vulve"
-   ],
-   "indicateur": "Dmax (boost ganglionnaire ou lombo-aortique)",
-   "limitant": "< 57,5 Gy",
-   "source": "RecoRad 2025 (gynécologie)"
-  },
-  {
    "id": "cb-4a03b37b",
    "oar_id": "oar-grele",
    "regime": "normo",
@@ -3069,23 +2188,13 @@
    "source": "RecoRad 2025 (prostate)"
   },
   {
-   "id": "cb-5e54ad6b",
-   "oar_id": "oar-grele",
-   "regime": "normo",
-   "fx": 33,
-   "indicateur": "V45Gy",
-   "ideal": "< 150 cm³",
-   "limitant": "< 200 cm³",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
    "id": "cb-8bacdd00",
    "oar_id": "oar-grele",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D0,03cm³",
    "limitant": "< 26 Gy",
-   "source": "RecoRad 2025 (rein)"
+   "source": "RecoRad 2025 (rein) ; IROCK ; FASTRACK II ; TG-101 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; RTOG 0631"
   },
   {
    "id": "cb-3cf0c392",
@@ -3094,7 +2203,7 @@
    "fx": 1,
    "indicateur": "D5cm³",
    "limitant": "< 22,5 Gy",
-   "source": "RecoRad 2025 (rein)"
+   "source": "RecoRad 2025 (rein) ; IROCK ; FASTRACK II ; TG-101 ; QUANTEC ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; RTOG 0631"
   },
   {
    "id": "cb-7c5f4635",
@@ -3124,7 +2233,7 @@
    "fx": 3,
    "indicateur": "D0,03cm³",
    "limitant": "< 25 Gy",
-   "source": "RecoRad 2025 (foie)"
+   "source": "RecoRad 2025 (foie) ; IROCK ; FASTRACK II ; ASTRO Liver 2021 ; VA/ASTRO PRO '26 ; TG-101 ; PRO Oligo '21 ; UK SABR '22"
   },
   {
    "id": "cb-d4a037a9",
@@ -3178,7 +2287,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "ideal": "< 32–35 Gy",
-   "source": "RecoRad 2025 (pancréas)"
+   "source": "RecoRad 2025 (pancréas) ; CORSAIR ; hypo-FLAME ; Noël 2025 SFRO ; TG-101 ; PRO Oligo '21 ; UK SABR '22 ; NRG GU013 ; VA Rectal 2022 ; VA/ASTRO PRO '26"
   },
   {
    "id": "cb-ead5253b",
@@ -3198,24 +2307,6 @@
    "indicateur": "D0,5cm³",
    "ideal": "< 30 Gy",
    "limitant": "< 35 Gy",
-   "source": "RecoRad 2025 (pancréas)"
-  },
-  {
-   "id": "cb-6ba2b073",
-   "oar_id": "oar-grele",
-   "regime": "stereo",
-   "fx": 5,
-   "indicateur": "D5cm³",
-   "ideal": "< 25 Gy",
-   "source": "RecoRad 2025 (pancréas)"
-  },
-  {
-   "id": "cb-2dbd0cd0",
-   "oar_id": "oar-grele",
-   "regime": "stereo",
-   "fx": 5,
-   "indicateur": "D10cm³",
-   "limitant": "< 25 Gy",
    "source": "RecoRad 2025 (pancréas)"
   },
   {
@@ -3382,7 +2473,7 @@
    "fx": 3,
    "indicateur": "Dmax",
    "limitant": "< 45 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; VA/ASTRO PRO '26 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
   },
   {
    "id": "cb-a9b31c96",
@@ -3409,7 +2500,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "limitant": "< 53 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; UK SABR '17 ; TG-101 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
   },
   {
    "id": "cb-37d1ff99",
@@ -3440,7 +2531,7 @@
    "indicateur": "Dmax",
    "ideal": "< 60 Gy",
    "limitant": "< 65 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-d09eb8b7",
@@ -3516,7 +2607,7 @@
    "fx": 10,
    "indicateur": "D100%",
    "limitant": "≤ 9 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; NRG Heme '26 ; CORSAIR ; Noël 2025 SFRO ; NRG CC001 ; RTOG 0933 ; PREMER"
   },
   {
    "id": "cb-c258cf0e",
@@ -3525,7 +2616,7 @@
    "fx": 10,
    "indicateur": "Dmax",
    "limitant": "≤ 16 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; NRG Heme '26 ; CORSAIR ; Noël 2025 SFRO ; NRG CC001 ; RTOG 0933 ; PREMER"
   },
   {
    "id": "cb-7689c2c0",
@@ -3579,7 +2670,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "ideal": "≤ 50 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; ESTRO-EANO GBM ; CORSAIR ; Noël 2025 SFRO"
   },
   {
    "id": "cb-a8d7ad72",
@@ -3587,7 +2678,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "ideal": "≤ 30–45 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; NRG Heme '26 ; NCCN Hodgkin 1.2026 ; DAHANCA 20 ; DAHANCA 25"
   },
   {
    "id": "cb-19810ef6",
@@ -3623,25 +2714,6 @@
    ],
    "indicateur": "Dmean",
    "ideal": "≤ 20 Gy",
-   "source": "RecoRad 2025 (ORL)"
-  },
-  {
-   "id": "cb-0276adac",
-   "oar_id": "oar-hypophyse",
-   "regime": "normo",
-   "loc": [
-    "cavite_buccale",
-    "oropharynx",
-    "larynx",
-    "hypopharynx",
-    "cavum",
-    "sinus",
-    "glandes_salivaires",
-    "orl_palliatif"
-   ],
-   "indicateur": "Dmax (cavum)",
-   "limitant": "≤ 65 Gy",
-   "note": "cancer du cavum",
    "source": "RecoRad 2025 (ORL)"
   },
   {
@@ -3712,7 +2784,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "ideal": "< 30–40 Gy",
-   "source": "RecoRad 2025 (ORL)"
+   "source": "RecoRad 2025 (ORL) ; VA H&N 2022 ; VA/ASTRO PRO '26 ; NCCN H&N 1.2026 ; NRG HN003"
   },
   {
    "id": "cb-c4047a06",
@@ -3720,7 +2792,7 @@
    "regime": "normo",
    "indicateur": "V50Gy",
    "ideal": "< 27 %",
-   "source": "RecoRad 2025 (ORL)"
+   "source": "RecoRad 2025 (ORL) ; QUANTEC ; CORSAIR ; RTOG 1016"
   },
   {
    "id": "cb-62f395d5",
@@ -3729,7 +2801,7 @@
    "indicateur": "Dmean",
    "ideal": "≤ 20 Gy",
    "limitant": "≤ 30–50 Gy",
-   "source": "RecoRad 2025 (ORL)"
+   "source": "RecoRad 2025 (ORL) ; DAHANCA 20 ; CORSAIR"
   },
   {
    "id": "cb-e96dd7e0",
@@ -3738,7 +2810,7 @@
    "indicateur": "Dmax (cavum)",
    "ideal": "< 65 Gy (stade précoce) ; < 70 Gy (stade avancé)",
    "note": "cancer du cavum",
-   "source": "RecoRad 2025 (ORL)"
+   "source": "RecoRad 2025 (ORL) ; CORSAIR"
   },
   {
    "id": "cb-3d310414",
@@ -3756,7 +2828,7 @@
    "indicateur": "Dmax",
    "ideal": "< 65 Gy",
    "note": "ou D5 % < 70 Gy",
-   "source": "RecoRad 2025 (ORL)"
+   "source": "RecoRad 2025 (ORL) ; DAHANCA 20 ; DAHANCA 25 ; VA H&N 2022 ; VA/ASTRO PRO '26 ; NCCN H&N 1.2026 ; CORSAIR ; NRG HN005"
   },
   {
    "id": "cb-eed3334e",
@@ -3789,18 +2861,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "limitant": "< 45 Gy",
-   "source": "RecoRad 2025 (gynécologie)"
-  },
-  {
-   "id": "cb-da5b2a6a",
-   "oar_id": "oar-moelle",
-   "regime": "normo",
-   "loc": [
-    "seminome"
-   ],
-   "indicateur": "Dose",
-   "limitant": "ALARA",
-   "source": "RecoRad 2025 (testicule)"
+   "source": "RecoRad 2025 (gynécologie) ; NRG Pancreas 2024 ; NCCN NSCLC 3.2026 ; DAHANCA 20 ; DAHANCA 25 ; Florida ; VA H&N 2022 ; QUANTEC ; NRG HN003 ; NCCN H&N 1.2026 ; NCCN Pancreas 2.2025 ; VA/ASTRO PRO '26 ; RTOG 0617 ; ARST 1431 ; NRG DT001 ; VA Breast 2022 ; NCCN EsophGEJ 2.2026 ; NCCN Gastric 2.2026 ; DOSE-Pro Thoracic ; NRG Heme '26 ; ASTRO Gastric '25 ; NCCN Cervical 2.2026 ; ASTRO Pancreas '26 ; CORSAIR"
   },
   {
    "id": "cb-e28baa68",
@@ -3809,7 +2870,7 @@
    "fx": 1,
    "indicateur": "D0,03cm³",
    "limitant": "< 12 Gy",
-   "source": "RecoRad 2025 (rein)"
+   "source": "RecoRad 2025 (rein) ; NCCN NSCLC 3.2026 ; HyTEC ; TG-101 ; UK SABR '17 ; Timmerman ; QUANTEC ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; RTOG 0915 ; RTOG 0631 ; NRG BR002 ; IROCK ; UTSW"
   },
   {
    "id": "cb-01d6a013",
@@ -3818,7 +2879,7 @@
    "fx": 3,
    "indicateur": "D0,03cm³",
    "limitant": "< 18 Gy",
-   "source": "RecoRad 2025 (rein)"
+   "source": "RecoRad 2025 (rein) ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; NRG BR002 ; UTSW ; TG-101 ; UK SABR '17 ; MSKCC ; HyTEC ; UK SABR '22 ; CORSAIR ; DOSE-Pro Thoracic ; NCCN NSCLC 3.2026 ; RTOG 0618 ; IROCK"
   },
   {
    "id": "cb-85b5d481",
@@ -3828,7 +2889,7 @@
    "indicateur": "D0,035cm³",
    "limitant": "< 28 Gy",
    "note": "Timmerman",
-   "source": "RecoRad 2025 (rein)"
+   "source": "RecoRad 2025 (rein) ; NCCN NSCLC 3.2026 ; TG-101 ; Timmerman ; PRO Oligo '21 ; CORSAIR ; SUNSET ; RTOG 0813 ; UTSW ; UCLA ; Noël 2025 SFRO ; NRG BR002 ; DOSE-Pro Thoracic ; HyTEC ; UK SABR '22 ; UK SABR '17 ; Timmerman '21"
   },
   {
    "id": "cb-e8f585ee",
@@ -3856,7 +2917,7 @@
    "fx": 8,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 32 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; HyTEC ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-c99955a2",
@@ -3906,7 +2967,7 @@
    "regime": "normo",
    "indicateur": "V40Gy",
    "ideal": "< 37 %",
-   "source": "RecoRad 2025 (gynécologie)"
+   "source": "RecoRad 2025 (gynécologie) ; NCCN Cervical 2.2026 ; RTOG 0418 ; RTOG 1203 ; TIME-C"
   },
   {
    "id": "cb-e6fc8d86",
@@ -3936,7 +2997,7 @@
    "indicateur": "Dmax",
    "limitant": "≤ 47,3 Gy",
    "note": "EQD2",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; DAHANCA 25"
   },
   {
    "id": "cb-eba0f154",
@@ -3945,15 +3006,7 @@
    "indicateur": "Dmax",
    "ideal": "≤ 54 Gy",
    "limitant": "≤ 55 Gy",
-   "source": "RecoRad 2025 (encéphale)"
-  },
-  {
-   "id": "cb-e689bd9c",
-   "oar_id": "oar-nerfs-optiques",
-   "regime": "normo",
-   "indicateur": "Dmax si chevauchement du PRV",
-   "limitant": "≤ 60 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; ESTRO-EANO GBM ; CORSAIR ; NRG Heme '26 ; NCCN Peds MB 1.2026"
   },
   {
    "id": "cb-076bc874",
@@ -3963,7 +3016,7 @@
    "indicateur": "Dmax",
    "ideal": "< 8 Gy",
    "limitant": "< 10 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; Florida ; UK SABR '17 ; TG-101 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; UTSW"
   },
   {
    "id": "cb-86198f88",
@@ -3973,7 +3026,7 @@
    "indicateur": "Dmax",
    "ideal": "< 13,7 Gy",
    "limitant": "< 20 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-f5451fc4",
@@ -3983,7 +3036,7 @@
    "indicateur": "Dmax",
    "ideal": "< 22,5 Gy",
    "limitant": "< 25 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; UK SABR '22 ; CORSAIR ; Noël 2025 SFRO"
   },
   {
    "id": "cb-90c685fb",
@@ -3992,7 +3045,7 @@
    "fx": 15,
    "indicateur": "Dmax",
    "limitant": "< 50,5 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; NCIC CTV BR.25"
   },
   {
    "id": "cb-e05b45d5",
@@ -4053,7 +3106,7 @@
    "regime": "normo",
    "indicateur": "V60Gy",
    "limitant": "≤ 30 %",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; VA Lung 2023 ; NCCN NSCLC 3.2026 ; VA/ASTRO PRO '26"
   },
   {
    "id": "cb-2ec0f49a",
@@ -4069,7 +3122,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "limitant": "≤ 28–34 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; VA H&N 2022 ; VA/ASTRO PRO '26 ; NRG HN003 ; NCCN NSCLC 3.2026 ; QUANTEC ; CORSAIR ; RTOG 0617 ; NRG Heme '26 ; NCCN Peds MB 1.2026"
   },
   {
    "id": "cb-b99047fd",
@@ -4132,7 +3185,7 @@
    "fx": 1,
    "indicateur": "Dmax",
    "limitant": "< 15,4–24 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-4fd8c207",
@@ -4171,7 +3224,7 @@
    "fx": 3,
    "indicateur": "Dmax",
    "limitant": "< 25,2–32,4 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-f9b44db4",
@@ -4228,7 +3281,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "limitant": "< 32–38 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; RTOG 0813 ; Timmerman ; TG-101 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
   },
   {
    "id": "cb-c2ae9ed1",
@@ -4258,7 +3311,7 @@
    "fx": 8,
    "indicateur": "Dmax",
    "limitant": "< 43,2 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-7eed8303",
@@ -4294,7 +3347,7 @@
    "indicateur": "Dmean",
    "ideal": "≤ 30–35 Gy",
    "note": "œsophage cervical, bouche œsophagienne et muscle cricopharyngien",
-   "source": "RecoRad 2025 (ORL)"
+   "source": "RecoRad 2025 (ORL) ; NCCN H&N 1.2026 ; DAHANCA 20 ; DAHANCA 25 ; RTOG 1016 ; NRG HN005"
   },
   {
    "id": "cb-89b7d109",
@@ -4447,7 +3500,7 @@
    "fx": 1,
    "indicateur": "Dmax",
    "ideal": "< 30 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; CORSAIR ; UTSW"
   },
   {
    "id": "cb-0fdb921a",
@@ -4456,7 +3509,7 @@
    "fx": 3,
    "indicateur": "Dmax",
    "limitant": "< 36,9–50 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-d9303cb8",
@@ -4465,7 +3518,7 @@
    "fx": 3,
    "indicateur": "V30Gy",
    "limitant": "< 30 cm³",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; UK SABR '17 ; PRO Oligo '21 ; CORSAIR"
   },
   {
    "id": "cb-3a28255c",
@@ -4483,7 +3536,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "limitant": "< 43–57 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; Timmerman ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; UTSW"
   },
   {
    "id": "cb-eb04aa3d",
@@ -4492,15 +3545,6 @@
    "fx": 5,
    "indicateur": "V60Gy",
    "limitant": "< 3 cm³",
-   "source": "RecoRad 2025 (poumon)"
-  },
-  {
-   "id": "cb-5f6b3c30",
-   "oar_id": "oar-paroi-thoracique",
-   "regime": "stereo",
-   "fx": 5,
-   "indicateur": "V45Gy",
-   "limitant": "< 5 cm³",
    "source": "RecoRad 2025 (poumon)"
   },
   {
@@ -4531,24 +3575,6 @@
    "source": "Gustave Roussy, stéréotaxie 2018"
   },
   {
-   "id": "cb-ce5f2984",
-   "oar_id": "oar-parotides",
-   "regime": "hypo",
-   "fx": 10,
-   "indicateur": "Dose",
-   "limitant": "ALARA",
-   "source": "RecoRad 2025 (encéphale)"
-  },
-  {
-   "id": "cb-21d1ab0f",
-   "oar_id": "oar-parotides",
-   "regime": "hypo",
-   "fx": 15,
-   "indicateur": "Dose",
-   "limitant": "ALARA",
-   "source": "RecoRad 2025 (encéphale)"
-  },
-  {
    "id": "cb-b46a29ef",
    "oar_id": "oar-parotides",
    "regime": "hypo",
@@ -4573,7 +3599,7 @@
    "indicateur": "Dmean (les deux)",
    "ideal": "≤ 26 Gy",
    "note": "irradiation bilatérale",
-   "source": "RecoRad 2025 (ORL)"
+   "source": "RecoRad 2025 (ORL) ; VA/ASTRO PRO '26 ; ASTRO HPV+ OP SqCC '... ; NRG Heme '26 ; CORSAIR ; VA H&N 2022 ; DAHANCA 20 ; QUANTEC ; DAHANCA 25 ; Florida ; PENTEC ; Timmerman '21 ; NRG HN005"
   },
   {
    "id": "cb-9c58eae7",
@@ -4594,33 +3620,13 @@
    "source": "RecoRad 2025 (ORL)"
   },
   {
-   "id": "cb-d3513192",
-   "oar_id": "oar-parotides",
-   "regime": "normo",
-   "loc": [
-    "glioblastome",
-    "gliome",
-    "metastases_cerebrales",
-    "meningiome",
-    "schwannome",
-    "hypophyse",
-    "craniopharyngiome",
-    "neurocytome",
-    "ependymome",
-    "medulloblastome"
-   ],
-   "indicateur": "Dose",
-   "limitant": "ALARA",
-   "source": "RecoRad 2025 (encéphale)"
-  },
-  {
    "id": "cb-ab7e7c83",
    "oar_id": "oar-peau",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "Dmax",
    "limitant": "< 26 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; UK SABR '22"
   },
   {
    "id": "cb-a4b4813d",
@@ -4629,7 +3635,7 @@
    "fx": 1,
    "indicateur": "V23Gy",
    "limitant": "< 10 cm³",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-273aad31",
@@ -4650,7 +3656,7 @@
    "fx": 3,
    "indicateur": "Dmax",
    "ideal": "< 33 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; CORSAIR ; NRG BR002 ; UTSW"
   },
   {
    "id": "cb-8fd4a886",
@@ -4698,7 +3704,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "ideal": "< 39,5 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR ; TG-101 ; UK SABR '17 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; NRG BR002 ; IROCK ; UTSW ; DOSE-Pro Thoracic"
   },
   {
    "id": "cb-88b02f55",
@@ -4729,7 +3735,7 @@
    "fx": 8,
    "indicateur": "Dmax",
    "ideal": "< 45,6 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-596b80b5",
@@ -4798,7 +3804,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "limitant": "≤ 60–66 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; VA Lung 2023 ; VA/ASTRO PRO '26 ; VA Breast 2022 ; Timmerman '21 ; CORSAIR ; RTOG 0617 ; NRG HN005 ; UTSW ; Florida ; NRG Heme '26 ; ASTRO PMRT '25"
   },
   {
    "id": "cb-394144ab",
@@ -4810,19 +3816,6 @@
    ],
    "indicateur": "Dmax",
    "limitant": "≤ 54 Gy",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-d2300ef7",
-   "oar_id": "oar-plexus-brachiaux",
-   "regime": "normo",
-   "loc": [
-    "sein",
-    "sein_ccis"
-   ],
-   "indicateur": "Dmax (GTV ganglionnaire)",
-   "limitant": "≤ 60–66 Gy",
-   "note": "si GTV ganglionnaire",
    "source": "RecoRad 2025 (sein)"
   },
   {
@@ -4842,24 +3835,6 @@
    "indicateur": "Dmax",
    "limitant": "< 60 Gy",
    "note": "sans chevauchement du PTV haut risque",
-   "source": "RecoRad 2025 (ORL)"
-  },
-  {
-   "id": "cb-d203b7ef",
-   "oar_id": "oar-plexus-brachiaux",
-   "regime": "normo",
-   "loc": [
-    "cavite_buccale",
-    "oropharynx",
-    "larynx",
-    "hypopharynx",
-    "cavum",
-    "sinus",
-    "glandes_salivaires",
-    "orl_palliatif"
-   ],
-   "indicateur": "Dmax",
-   "ideal": "< 60–66 Gy",
    "source": "RecoRad 2025 (ORL)"
   },
   {
@@ -4898,7 +3873,7 @@
    "fx": 1,
    "indicateur": "Dmax",
    "limitant": "< 15–16,4 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-42487d64",
@@ -4910,22 +3885,13 @@
    "source": "RecoRad 2025 (poumon)"
   },
   {
-   "id": "cb-8bd754e5",
-   "oar_id": "oar-plexus-brachiaux",
-   "regime": "stereo",
-   "fx": 1,
-   "indicateur": "V14Gy",
-   "limitant": "< 3 cm³",
-   "source": "RecoRad 2025 (poumon)"
-  },
-  {
    "id": "cb-106836d9",
    "oar_id": "oar-plexus-brachiaux",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "Dmax",
    "limitant": "< 24–26 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; UK SABR '17 ; TG-101 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; UTSW ; VA/ASTRO PRO '26 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-c8e4bb29",
@@ -4971,7 +3937,7 @@
    "indicateur": "Dmax",
    "ideal": "< 30,5 Gy",
    "limitant": "< 32,5 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; UTSW ; DOSE-Pro Thoracic ; NCCN NSCLC 3.2026 ; TG-101 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; RTOG 0813 ; SUNSET"
   },
   {
    "id": "cb-b4afbb98",
@@ -4990,7 +3956,7 @@
    "indicateur": "Dmax",
    "ideal": "< 35 Gy",
    "limitant": "< 39,2 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-b41021cf",
@@ -5017,7 +3983,7 @@
    "fx": 3,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 24 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; NRG BR002"
   },
   {
    "id": "cb-cce75084",
@@ -5026,7 +3992,7 @@
    "fx": 3,
    "indicateur": "V22,5Gy",
    "limitant": "≤ 5 cm³",
-   "source": "Gustave Roussy, stéréotaxie 2018"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
   },
   {
    "id": "cb-d6baa346",
@@ -5035,7 +4001,7 @@
    "fx": 5,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 32 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
   },
   {
    "id": "cb-53d338c2",
@@ -5044,7 +4010,7 @@
    "fx": 5,
    "indicateur": "V30Gy",
    "limitant": "≤ 5 cm³",
-   "source": "Gustave Roussy, stéréotaxie 2018"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
   },
   {
    "id": "cb-0ef0904d",
@@ -5076,26 +4042,6 @@
    "source": "RecoRad 2025 (sein)"
   },
   {
-   "id": "cb-323794e6",
-   "oar_id": "oar-poumon-controlateral",
-   "regime": "hypo",
-   "fx": 15,
-   "indicateur": "V4,8Gy (sein ou paroi + ganglions)",
-   "ideal": "< 10 %",
-   "limitant": "< 15 %",
-   "note": "15 % = acceptable",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-b395f672",
-   "oar_id": "oar-poumon-controlateral",
-   "regime": "hypo",
-   "fx": 15,
-   "indicateur": "V2,5Gy (inspiration bloquée)",
-   "limitant": "< 3 %",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
    "id": "cb-c1a46c38",
    "oar_id": "oar-poumon-controlateral",
    "regime": "hypo",
@@ -5115,27 +4061,10 @@
    "source": "RecoRad 2025 (sein)"
   },
   {
-   "id": "cb-00600e76",
-   "oar_id": "oar-poumon-controlateral",
-   "regime": "normo",
-   "indicateur": "V5Gy (sein ou paroi + ganglions)",
-   "limitant": "≤ 15 %",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
    "id": "cb-f785735b",
    "oar_id": "oar-poumon-controlateral",
    "regime": "stereo",
    "fx": 3,
-   "indicateur": "V5Gy",
-   "limitant": "≤ 26 %",
-   "source": "Gustave Roussy, stéréotaxie 2018"
-  },
-  {
-   "id": "cb-0f553242",
-   "oar_id": "oar-poumon-controlateral",
-   "regime": "stereo",
-   "fx": 5,
    "indicateur": "V5Gy",
    "limitant": "≤ 26 %",
    "source": "Gustave Roussy, stéréotaxie 2018"
@@ -5196,15 +4125,6 @@
    "source": "RecoRad 2025 (sein)"
   },
   {
-   "id": "cb-8f9e1e8c",
-   "oar_id": "oar-poumon-homolateral",
-   "regime": "hypo",
-   "fx": 15,
-   "indicateur": "V20Gy (sein ou paroi)",
-   "limitant": "< 10 %",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
    "id": "cb-5c09136c",
    "oar_id": "oar-poumon-homolateral",
    "regime": "hypo",
@@ -5223,39 +4143,12 @@
    "source": "RecoRad 2025 (sein)"
   },
   {
-   "id": "cb-3e907792",
-   "oar_id": "oar-poumon-homolateral",
-   "regime": "hypo",
-   "fx": 15,
-   "indicateur": "V17Gy (sein ou paroi + ganglions)",
-   "limitant": "≤ 35 %",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-775025b6",
-   "oar_id": "oar-poumon-homolateral",
-   "regime": "hypo",
-   "fx": 15,
-   "indicateur": "V18Gy (inspiration bloquée)",
-   "limitant": "< 10 %",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-83aa3cf5",
-   "oar_id": "oar-poumon-homolateral",
-   "regime": "hypo",
-   "fx": 15,
-   "indicateur": "Dmean (inspiration bloquée)",
-   "limitant": "< 6 Gy",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
    "id": "cb-3c4ce2dc",
    "oar_id": "oar-poumon-homolateral",
    "regime": "normo",
    "indicateur": "V20Gy (sein ou paroi)",
    "limitant": "≤ 25 %",
-   "source": "RecoRad 2025 (sein)"
+   "source": "RecoRad 2025 (sein) ; VA Breast 2022 ; ASTRO PMRT '25 ; VA/ASTRO PRO '26 ; RTOG 1005 ; NSABP B-51 ; DBCG SKAGEN"
   },
   {
    "id": "cb-113fcb3e",
@@ -5283,38 +4176,6 @@
    "ideal": "≤ 50 %",
    "limitant": "≤ 55 %",
    "note": "55 % = acceptable",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-f35385df",
-   "oar_id": "oar-poumon-homolateral",
-   "regime": "normo",
-   "indicateur": "V20Gy (sein ou paroi + ganglions)",
-   "limitant": "≤ 35 %",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-5ca0becf",
-   "oar_id": "oar-poumon-homolateral",
-   "regime": "normo",
-   "indicateur": "Dmean (sein ou paroi + ganglions)",
-   "limitant": "≤ 18 Gy",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-255ed334",
-   "oar_id": "oar-poumon-homolateral",
-   "regime": "normo",
-   "indicateur": "V10Gy (sein ou paroi + ganglions)",
-   "limitant": "≤ 65 %",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-d0961fcd",
-   "oar_id": "oar-poumon-homolateral",
-   "regime": "normo",
-   "indicateur": "V5Gy (sein ou paroi + ganglions)",
-   "limitant": "≤ 75 %",
    "source": "RecoRad 2025 (sein)"
   },
   {
@@ -5368,7 +4229,7 @@
    "regime": "normo",
    "indicateur": "V20Gy (poumons − PTV)",
    "limitant": "≤ 30–35 %",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; NCCN Hodgkin 1.2026 ; NCCN Wilms 2.2025 ; ILROG ; FIL Chest ; CORSAIR ; AEWS 1031 ; AREN 1921 ; NRG Heme '26"
   },
   {
    "id": "cb-d372ee1c",
@@ -5378,21 +4239,13 @@
    "ideal": "≤ 15 Gy",
    "limitant": "< 20 Gy",
    "note": "20 Gy = acceptable",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; NCCN Hodgkin 1.2026 ; FIL Chest ; PENTEC ; CORSAIR ; NCCN NSCLC 3.2026 ; QUANTEC ; RTOG 0617 ; RTOG 1308 ; RTOG 1010 ; NRG Heme '26 ; NCCN Gastric 2.2026 ; NCCN EsophGEJ 2.2026"
   },
   {
    "id": "cb-38cef666",
    "oar_id": "oar-poumons",
    "regime": "normo",
    "indicateur": "V30Gy (poumons − PTV)",
-   "limitant": "≤ 20 %",
-   "source": "RecoRad 2025 (poumon)"
-  },
-  {
-   "id": "cb-f35e5220",
-   "oar_id": "oar-poumons",
-   "regime": "normo",
-   "indicateur": "V20Gy (poumon unique, après pneumonectomie)",
    "limitant": "≤ 20 %",
    "source": "RecoRad 2025 (poumon)"
   },
@@ -5433,16 +4286,6 @@
    "source": "RecoRad 2025 (œsophage)"
   },
   {
-   "id": "cb-fbaac842",
-   "oar_id": "oar-poumons",
-   "regime": "normo",
-   "fx": 30,
-   "dpf": 1.5,
-   "indicateur": "V20Gy (poumons − PTV)",
-   "limitant": "≤ 35 %",
-   "source": "RecoRad 2025 (poumon)"
-  },
-  {
    "id": "cb-8637d59a",
    "oar_id": "oar-poumons",
    "regime": "stereo",
@@ -5450,7 +4293,7 @@
    "indicateur": "V20Gy (poumons − ITV)",
    "ideal": "< 10 %",
    "limitant": "< 15 %",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-e3b62195",
@@ -5459,7 +4302,7 @@
    "fx": 1,
    "indicateur": "Dmean (poumons − ITV)",
    "limitant": "≤ 8 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-78c1e4c0",
@@ -5488,7 +4331,7 @@
    "indicateur": "V20Gy (poumons − ITV)",
    "ideal": "< 10 %",
    "limitant": "< 15 %",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; VA/ASTRO PRO '26 ; UK SABR '17 ; HyTEC ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-a4e87578",
@@ -5497,7 +4340,7 @@
    "fx": 3,
    "indicateur": "Dmean (poumons − ITV)",
    "limitant": "≤ 8 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; UK SABR '22 ; HyTEC ; PRO Oligo '21 ; CORSAIR ; VA/ASTRO PRO '26"
   },
   {
    "id": "cb-41ae9317",
@@ -5525,7 +4368,7 @@
    "indicateur": "V20Gy (poumons − ITV)",
    "ideal": "< 10 %",
    "limitant": "< 15 %",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; UK SABR '17 ; HyTEC ; PRO Oligo '21"
   },
   {
    "id": "cb-fbe49ea0",
@@ -5562,7 +4405,7 @@
    "indicateur": "V20Gy (poumons − ITV)",
    "ideal": "< 10 %",
    "limitant": "< 15 %",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; VA/ASTRO PRO '26 ; HyTEC ; UK SABR '17 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-4a7e3d3c",
@@ -5571,7 +4414,7 @@
    "fx": 5,
    "indicateur": "Dmean (poumons − ITV)",
    "limitant": "≤ 8 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; HyTEC ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-bc011ce3",
@@ -5581,7 +4424,7 @@
    "indicateur": "V20Gy (poumons − ITV)",
    "ideal": "< 10 %",
    "limitant": "< 15 %",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; UK SABR '17 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; LungTECH"
   },
   {
    "id": "cb-1598438a",
@@ -5590,34 +4433,7 @@
    "fx": 8,
    "indicateur": "Dmean (poumons − ITV)",
    "limitant": "≤ 8 Gy",
-   "source": "RecoRad 2025 (poumon)"
-  },
-  {
-   "id": "cb-c2a6b073",
-   "oar_id": "oar-poumons",
-   "regime": "stereo",
-   "fx": 10,
-   "indicateur": "V20Gy (poumons − ITV)",
-   "limitant": "≤ 4–10 %",
-   "source": "Gustave Roussy, stéréotaxie 2018"
-  },
-  {
-   "id": "cb-a77617a1",
-   "oar_id": "oar-poumons",
-   "regime": "stereo",
-   "fx": 10,
-   "indicateur": "V2,5Gy (poumons − ITV)",
-   "limitant": "≤ 35 %",
-   "source": "Gustave Roussy, stéréotaxie 2018"
-  },
-  {
-   "id": "cb-f3e2ee37",
-   "oar_id": "oar-poumons",
-   "regime": "stereo",
-   "fx": 10,
-   "indicateur": "Dmean (poumons − ITV)",
-   "limitant": "≤ 10 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018"
+   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-7cc69efb",
@@ -5625,16 +4441,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "limitant": "< 50 Gy",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
-   "id": "cb-fecad46b",
-   "oar_id": "oar-queue-cheval",
-   "regime": "normo",
-   "fx": 33,
-   "indicateur": "Dmax",
-   "limitant": "< 50 Gy",
-   "source": "RecoRad 2025 (prostate)"
+   "source": "RecoRad 2025 (prostate) ; Timmerman '21 ; UTSW ; NRG Heme '26"
   },
   {
    "id": "cb-c0724a1d",
@@ -5643,7 +4450,7 @@
    "fx": 3,
    "indicateur": "D0,035cm³ (PRV)",
    "limitant": "≤ 24 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-d17f8053",
@@ -5652,7 +4459,7 @@
    "fx": 3,
    "indicateur": "V21,9Gy",
    "limitant": "≤ 5 cm³",
-   "source": "Gustave Roussy, stéréotaxie 2018"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
   },
   {
    "id": "cb-ae1caf43",
@@ -5661,7 +4468,7 @@
    "fx": 5,
    "indicateur": "D0,035cm³ (PRV)",
    "limitant": "≤ 32 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
   },
   {
    "id": "cb-5627470a",
@@ -5670,7 +4477,7 @@
    "fx": 5,
    "indicateur": "V30Gy",
    "limitant": "≤ 5 cm³",
-   "source": "Gustave Roussy, stéréotaxie 2018"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
   },
   {
    "id": "cb-12d99495",
@@ -5714,7 +4521,7 @@
    "fx": 20,
    "indicateur": "V50Gy",
    "limitant": "< 50 %",
-   "source": "RecoRad 2025 (vessie)"
+   "source": "RecoRad 2025 (vessie) ; RAIDER ; S2427 ; PIVOTALboost ; DELINEATE ; NRG GU013 ; RADICALS ; STAMPEDE M1"
   },
   {
    "id": "cb-b48f6706",
@@ -5725,7 +4532,7 @@
    "indicateur": "V24Gy",
    "limitant": "< 80 %",
    "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
+   "source": "RecoRad 2025 (prostate) ; RAIDER ; S2427"
   },
   {
    "id": "cb-2ad3222a",
@@ -5747,51 +4554,7 @@
    "indicateur": "V40Gy",
    "limitant": "< 60 %",
    "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
-   "id": "cb-917096f6",
-   "oar_id": "oar-rectum",
-   "regime": "hypo",
-   "fx": 20,
-   "dpf": 2.625,
-   "indicateur": "V48Gy",
-   "limitant": "< 50 %",
-   "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
-   "id": "cb-1f3ec4c2",
-   "oar_id": "oar-rectum",
-   "regime": "hypo",
-   "fx": 20,
-   "dpf": 2.625,
-   "indicateur": "V52,5Gy",
-   "limitant": "< 30 %",
-   "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
-   "id": "cb-24b83950",
-   "oar_id": "oar-rectum",
-   "regime": "hypo",
-   "fx": 20,
-   "dpf": 3,
-   "indicateur": "V37Gy",
-   "limitant": "< 50 %",
-   "note": "paroi rectale",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
-   "id": "cb-6fd2f392",
-   "oar_id": "oar-rectum",
-   "regime": "hypo",
-   "fx": 20,
-   "dpf": 3,
-   "indicateur": "V46Gy",
-   "limitant": "< 30 %",
-   "note": "paroi rectale",
-   "source": "RecoRad 2025 (prostate)"
+   "source": "RecoRad 2025 (prostate) ; RAIDER ; S2427 ; PIVOTALboost ; DELINEATE"
   },
   {
    "id": "cb-4f8da44b",
@@ -5814,26 +4577,6 @@
    "source": "RecoRad 2025 (prostate)"
   },
   {
-   "id": "cb-125c625d",
-   "oar_id": "oar-rectum",
-   "regime": "hypo",
-   "fx": 25,
-   "indicateur": "V65Gy",
-   "limitant": "< 30 %",
-   "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
-   "id": "cb-6f4de8c6",
-   "oar_id": "oar-rectum",
-   "regime": "hypo",
-   "fx": 25,
-   "indicateur": "V70Gy",
-   "limitant": "< 15 %",
-   "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
    "id": "cb-7202e07c",
    "oar_id": "oar-rectum",
    "regime": "hypo",
@@ -5849,7 +4592,7 @@
    "regime": "normo",
    "indicateur": "V45Gy",
    "limitant": "< 50 %",
-   "source": "RecoRad 2025 (vessie)"
+   "source": "RecoRad 2025 (vessie) ; RAIDER ; NRG GU013 ; QUANTEC ; CORSAIR ; PACE ; FLAME ; PIVOTAL"
   },
   {
    "id": "cb-75da63da",
@@ -5857,7 +4600,7 @@
    "regime": "normo",
    "indicateur": "V60Gy",
    "limitant": "< 40 %",
-   "source": "RecoRad 2025 (vessie)"
+   "source": "RecoRad 2025 (vessie) ; RAIDER ; QUANTEC ; CORSAIR ; RTOG 0415 ; PACE ; RTOG 0815 ; RTOG 0534 ; SPPORT"
   },
   {
    "id": "cb-46590da9",
@@ -5926,30 +4669,6 @@
    "source": "RecoRad 2025 (prostate)"
   },
   {
-   "id": "cb-3ce6ac28",
-   "oar_id": "oar-rectum",
-   "regime": "normo",
-   "loc": [
-    "prostate"
-   ],
-   "indicateur": "V65Gy",
-   "limitant": "< 35 %",
-   "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
-   "id": "cb-15403f50",
-   "oar_id": "oar-rectum",
-   "regime": "normo",
-   "loc": [
-    "prostate"
-   ],
-   "indicateur": "V70Gy",
-   "limitant": "< 25 %",
-   "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
    "id": "cb-ec37b285",
    "oar_id": "oar-rectum",
    "regime": "normo",
@@ -5993,24 +4712,13 @@
    "source": "RecoRad 2025 (prostate)"
   },
   {
-   "id": "cb-cbebf72f",
-   "oar_id": "oar-rectum",
-   "regime": "normo",
-   "fx": 33,
-   "indicateur": "V65Gy",
-   "ideal": "< 25 %",
-   "limitant": "< 35 %",
-   "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
    "id": "cb-36ea88de",
    "oar_id": "oar-rectum",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "D0,5cm³",
    "limitant": "≤ 28,2 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21"
   },
   {
    "id": "cb-01f6833a",
@@ -6049,7 +4757,7 @@
    "indicateur": "V36Gy",
    "limitant": "< 1 cm³",
    "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
+   "source": "RecoRad 2025 (prostate) ; UK SABR '17"
   },
   {
    "id": "cb-74991f07",
@@ -6075,7 +4783,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "limitant": "< 18 Gy",
-   "source": "RecoRad 2025 (pancréas)"
+   "source": "RecoRad 2025 (pancréas) ; NCCN Gastric 2.2026 ; NCCN EsophGEJ 2.2026 ; NCCN Pancreas 2.2025 ; NRG Heme '26 ; QUANTEC ; CORSAIR ; Florida ; NCCN Cervical 2.2026 ; EMBRACE II ; Noël 2025 SFRO"
   },
   {
    "id": "cb-d6334b40",
@@ -6083,15 +4791,7 @@
    "regime": "normo",
    "indicateur": "V20Gy",
    "limitant": "≤ 32 %",
-   "source": "RecoRad 2025 (pancréas)"
-  },
-  {
-   "id": "cb-e40c439d",
-   "oar_id": "oar-reins",
-   "regime": "normo",
-   "indicateur": "V18Gy",
-   "limitant": "≤ 50 %",
-   "source": "RecoRad 2025 (pancréas)"
+   "source": "RecoRad 2025 (pancréas) ; NCCN Hodgkin 1.2026 ; CORSAIR"
   },
   {
    "id": "cb-2435b0d5",
@@ -6183,7 +4883,7 @@
    "fx": 1,
    "indicateur": "V10Gy (rein controlatéral)",
    "limitant": "≤ 33 %",
-   "source": "RecoRad 2025 (rein)"
+   "source": "RecoRad 2025 (rein) ; CORSAIR ; IROCK ; FASTRACK II ; UK SABR '22 ; RTOG 0631"
   },
   {
    "id": "cb-524dba99",
@@ -6196,22 +4896,13 @@
    "source": "RecoRad 2025 (rein)"
   },
   {
-   "id": "cb-d30107c2",
-   "oar_id": "oar-reins",
-   "regime": "stereo",
-   "fx": 1,
-   "indicateur": "V10Gy (rein unique)",
-   "limitant": "< 33 %",
-   "source": "RecoRad 2025 (rein)"
-  },
-  {
    "id": "cb-09b804bf",
    "oar_id": "oar-reins",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "V10Gy (rein controlatéral)",
    "limitant": "≤ 33 %",
-   "source": "RecoRad 2025 (rein)"
+   "source": "RecoRad 2025 (rein) ; CORSAIR ; IROCK ; UK SABR '22 ; FASTRACK II ; UTSW"
   },
   {
    "id": "cb-0ee02f99",
@@ -6221,15 +4912,6 @@
    "indicateur": "D1,5cm³ et V10Gy (rein homolatéral − ITV)",
    "limitant": "ALARA",
    "note": "limiter le volume des zones de dose élevée (> isodose 50 %)",
-   "source": "RecoRad 2025 (rein)"
-  },
-  {
-   "id": "cb-c71287b1",
-   "oar_id": "oar-reins",
-   "regime": "stereo",
-   "fx": 3,
-   "indicateur": "V10Gy (rein unique)",
-   "limitant": "< 33 %",
    "source": "RecoRad 2025 (rein)"
   },
   {
@@ -6257,7 +4939,7 @@
    "fx": 5,
    "indicateur": "Dmean",
    "ideal": "< 10 Gy",
-   "source": "RecoRad 2025 (pancréas)"
+   "source": "RecoRad 2025 (pancréas) ; UK SABR '17 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-4f72391f",
@@ -6267,7 +4949,7 @@
    "indicateur": "V10Gy (rein unique)",
    "ideal": "< 10 %",
    "limitant": "< 45 %",
-   "source": "RecoRad 2025 (pancréas)"
+   "source": "RecoRad 2025 (pancréas) ; UK SABR '17 ; UK SABR '22 ; CORSAIR ; UCLA"
   },
   {
    "id": "cb-1910e488",
@@ -6343,7 +5025,7 @@
    "fx": 15,
    "indicateur": "Dmax",
    "ideal": "< 4 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; DAHANCA 25"
   },
   {
    "id": "cb-eeb0b569",
@@ -6351,7 +5033,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "limitant": "≤ 45 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; DAHANCA 20 ; DAHANCA 25 ; Florida ; NRG Heme '26 ; Timmerman '21 ; Noël 2025 SFRO ; UTSW ; NCCN Hodgkin 1.2026"
   },
   {
    "id": "cb-bb691c15",
@@ -6485,30 +5167,13 @@
    "source": "RecoRad 2025 (testicule)"
   },
   {
-   "id": "cb-2314dfa5",
-   "oar_id": "oar-tete-humerale",
-   "regime": "hypo",
-   "fx": 15,
-   "indicateur": "Dose",
-   "limitant": "ALARA",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
-   "id": "cb-53ef008d",
-   "oar_id": "oar-tete-humerale",
-   "regime": "normo",
-   "indicateur": "Dose",
-   "limitant": "ALARA",
-   "source": "RecoRad 2025 (sein)"
-  },
-  {
    "id": "cb-a78e3c89",
    "oar_id": "oar-tetes-femorales",
    "regime": "hypo",
    "fx": 5,
    "indicateur": "V30Gy",
    "limitant": "< 10 cm³",
-   "source": "RecoRad 2025 (rectum)"
+   "source": "RecoRad 2025 (rectum) ; TG-101 ; UK SABR '17 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
   },
   {
    "id": "cb-99247f42",
@@ -6518,26 +5183,6 @@
    "indicateur": "V50Gy",
    "limitant": "< 5 %",
    "source": "RecoRad 2025 (vessie)"
-  },
-  {
-   "id": "cb-2dc743c5",
-   "oar_id": "oar-tetes-femorales",
-   "regime": "hypo",
-   "fx": 20,
-   "dpf": 2.625,
-   "indicateur": "V43Gy",
-   "limitant": "< 5 %",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
-   "id": "cb-5c26f205",
-   "oar_id": "oar-tetes-femorales",
-   "regime": "hypo",
-   "fx": 20,
-   "dpf": 3,
-   "indicateur": "V43Gy",
-   "limitant": "< 5 %",
-   "source": "RecoRad 2025 (prostate)"
   },
   {
    "id": "cb-e6cfb25b",
@@ -6562,7 +5207,7 @@
    "regime": "normo",
    "indicateur": "V50Gy",
    "limitant": "< 2 %",
-   "source": "RecoRad 2025 (rectum)"
+   "source": "RecoRad 2025 (rectum) ; NRG Prostate 2020 ; RAIDER"
   },
   {
    "id": "cb-7d8bb0fe",
@@ -6612,22 +5257,13 @@
    "source": "RecoRad 2025 (prostate)"
   },
   {
-   "id": "cb-7b40344b",
-   "oar_id": "oar-tetes-femorales",
-   "regime": "normo",
-   "fx": 33,
-   "indicateur": "V50Gy",
-   "limitant": "< 5–10 %",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
    "id": "cb-0bd18831",
    "oar_id": "oar-tetes-femorales",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "V14Gy",
    "limitant": "≤ 10 cm³",
-   "source": "Gustave Roussy, stéréotaxie 2018"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-f19844cc",
@@ -6636,7 +5272,7 @@
    "fx": 3,
    "indicateur": "V21,9Gy",
    "limitant": "≤ 10 cm³",
-   "source": "Gustave Roussy, stéréotaxie 2018"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; UK SABR '22 ; CORSAIR ; UTSW"
   },
   {
    "id": "cb-d1db4d4f",
@@ -6645,7 +5281,7 @@
    "fx": 5,
    "indicateur": "V14,5Gy",
    "limitant": "< 5 %",
-   "source": "RecoRad 2025 (prostate)"
+   "source": "RecoRad 2025 (prostate) ; VA Prostate 2022 ; VA/ASTRO PRO '26 ; CORSAIR ; PACE ; NRG GU013"
   },
   {
    "id": "cb-51972a98",
@@ -6662,7 +5298,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "limitant": "< 40–45 Gy",
-   "source": "RecoRad 2025 (ORL)"
+   "source": "RecoRad 2025 (ORL) ; DAHANCA 20 ; DAHANCA 25"
   },
   {
    "id": "cb-49312d37",
@@ -6711,7 +5347,7 @@
    "fx": 15,
    "indicateur": "Dmax",
    "limitant": "< 66 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; NCIC CTV BR.25"
   },
   {
    "id": "cb-60b27ead",
@@ -6729,7 +5365,7 @@
    "fx": 1,
    "indicateur": "Dmax",
    "limitant": "< 20,2–30 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; VA/ASTRO PRO '26 ; TG-101 ; Timmerman ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; RTOG 0915 ; NRG BR002 ; RTOG 0631 ; UTSW"
   },
   {
    "id": "cb-fb4249b5",
@@ -6747,7 +5383,7 @@
    "fx": 3,
    "indicateur": "Dmax",
    "limitant": "< 32–43 Gy",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; UK SABR '22 ; NCCN NSCLC 3.2026 ; UK SABR '17 ; TG-101 ; PRO Oligo '21 ; CORSAIR"
   },
   {
    "id": "cb-28c3ce6e",
@@ -6804,7 +5440,7 @@
    "ideal": "< 35 Gy",
    "limitant": "< 38 Gy",
    "note": "lésion centrale : Dmax < 50 Gy, V33,5Gy < 4 cm³, V45Gy < 4 cm³",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; Timmerman ; TG-101 ; PRO Oligo '21 ; NRG BR002 ; UTSW ; UK SABR '22 ; CORSAIR ; NCCN NSCLC 3.2026 ; RTOG 0813"
   },
   {
    "id": "cb-ee0e5644",
@@ -6823,7 +5459,7 @@
    "indicateur": "Dmax",
    "limitant": "< 40 Gy",
    "note": "lésion centrale ou ultracentrale : Dmax < 56–60 Gy ; V50Gy (valeur absente de l'article)",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; Timmerman '21 ; UTSW"
   },
   {
    "id": "cb-e0cb96fa",
@@ -6832,7 +5468,7 @@
    "fx": 10,
    "indicateur": "Dmax",
    "limitant": "≤ dose prescrite",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; Timmerman '21 ; UTSW ; RTOG 1205"
   },
   {
    "id": "cb-d787f324",
@@ -6842,7 +5478,7 @@
    "indicateur": "Dmax",
    "limitant": "≤ dose prescrite",
    "note": "EQD2",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; DAHANCA 25 ; Timmerman '21 ; UTSW"
   },
   {
    "id": "cb-2a5791fe",
@@ -6854,22 +5490,12 @@
    "source": "RecoRad 2025 (ORL)"
   },
   {
-   "id": "cb-2cd7bfce",
-   "oar_id": "oar-tronc-cerebral",
-   "regime": "hypo",
-   "fx": 20,
-   "indicateur": "D2% (PRV 5 mm)",
-   "ideal": "< 42–45 Gy",
-   "limitant": "< 50 Gy",
-   "source": "RecoRad 2025 (ORL)"
-  },
-  {
    "id": "cb-30659224",
    "oar_id": "oar-tronc-cerebral",
    "regime": "normo",
    "indicateur": "Dmax",
    "ideal": "≤ 54 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; Noël 2025 SFRO ; ESTRO-EANO GBM ; DAHANCA 25 ; UTSW ; NRG Heme '26 ; VA H&N 2022 ; VA/ASTRO PRO '26 ; RTOG 1016 ; NRG HN003"
   },
   {
    "id": "cb-0a6be6f3",
@@ -6949,7 +5575,7 @@
    "indicateur": "Dmax",
    "ideal": "< 10 Gy",
    "limitant": "< 15 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; TG-101 ; UK SABR '17 ; Timmerman '21 ; CORSAIR ; UTSW ; UK SABR '22 ; Noël 2025 SFRO"
   },
   {
    "id": "cb-ae745450",
@@ -6959,7 +5585,7 @@
    "indicateur": "Dmax",
    "ideal": "< 18 Gy",
    "limitant": "< 23,1 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; TG-101 ; UK SABR '17 ; Timmerman '21 ; CORSAIR ; UTSW ; UK SABR '22 ; Noël 2025 SFRO"
   },
   {
    "id": "cb-698e8444",
@@ -6969,7 +5595,7 @@
    "indicateur": "Dmax",
    "ideal": "< 23 Gy",
    "limitant": "< 31 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; TG-101 ; UK SABR '17 ; Timmerman '21 ; CORSAIR ; UTSW ; UK SABR '22 ; Noël 2025 SFRO"
   },
   {
    "id": "cb-7a80ad2a",
@@ -7033,7 +5659,7 @@
    "indicateur": "V48Gy",
    "limitant": "< 50 %",
    "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
+   "source": "RecoRad 2025 (prostate) ; DELINEATE"
   },
   {
    "id": "cb-c391aebe",
@@ -7088,7 +5714,7 @@
    "indicateur": "V60Gy",
    "limitant": "< 5 %",
    "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
+   "source": "RecoRad 2025 (prostate) ; DELINEATE ; NRG Prostate 2020"
   },
   {
    "id": "cb-1df3763d",
@@ -7134,7 +5760,7 @@
    "regime": "normo",
    "indicateur": "V40Gy",
    "ideal": "< 35 %",
-   "source": "RecoRad 2025 (rectum)"
+   "source": "RecoRad 2025 (rectum) ; VA Rectal 2022 ; VA/ASTRO PRO '26 ; RTOG 0822"
   },
   {
    "id": "cb-90329de7",
@@ -7236,30 +5862,6 @@
    "source": "RecoRad 2025 (prostate)"
   },
   {
-   "id": "cb-2519231d",
-   "oar_id": "oar-vessie",
-   "regime": "normo",
-   "loc": [
-    "prostate"
-   ],
-   "indicateur": "V70Gy",
-   "limitant": "< 35 %",
-   "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
-   "id": "cb-0b5b7159",
-   "oar_id": "oar-vessie",
-   "regime": "normo",
-   "loc": [
-    "prostate"
-   ],
-   "indicateur": "V75Gy",
-   "limitant": "< 25 %",
-   "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
    "id": "cb-73564f4f",
    "oar_id": "oar-vessie",
    "regime": "normo",
@@ -7277,7 +5879,7 @@
    "indicateur": "V65Gy",
    "limitant": "< 50 %",
    "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
+   "source": "RecoRad 2025 (prostate) ; VA Prostate 2022 ; VA/ASTRO PRO '26 ; QUANTEC ; CORSAIR ; RTOG 0415 ; RTOG 0815 ; NRG GU013 ; RTOG 0126 ; Noël 2025 SFRO"
   },
   {
    "id": "cb-08e52078",
@@ -7304,17 +5906,6 @@
    "fx": 5,
    "indicateur": "V18,1Gy",
    "limitant": "< 40 %",
-   "note": "organe entier",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
-   "id": "cb-b5613d61",
-   "oar_id": "oar-vessie",
-   "regime": "stereo",
-   "fx": 5,
-   "indicateur": "V37Gy",
-   "ideal": "< 5 cm³",
-   "limitant": "< 10 cm³",
    "note": "organe entier",
    "source": "RecoRad 2025 (prostate)"
   },
@@ -7455,7 +6046,7 @@
    "regime": "normo",
    "indicateur": "Dmax (globe)",
    "limitant": "≤ 50 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; CORSAIR ; RTOG 0825"
   },
   {
    "id": "cb-00e2d976",
@@ -7537,7 +6128,7 @@
    "fx": 1,
    "indicateur": "D0,1cm³",
    "limitant": "< 8 Gy",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; UK SABR '17 ; UK SABR '22 ; CORSAIR"
   },
   {
    "id": "cb-837c49f8",
@@ -7547,7 +6138,7 @@
    "indicateur": "Dmax",
    "limitant": "≤ 38,5 Gy",
    "note": "EQD2 ; valeur donnée pour le canal médullaire",
-   "source": "RecoRad 2025 (encéphale)"
+   "source": "RecoRad 2025 (encéphale) ; DAHANCA 25 ; NRG LU004"
   },
   {
    "id": "cb-4c4794fa",
@@ -7560,37 +6151,6 @@
    "source": "RecoRad 2025 (poumon)"
   },
   {
-   "id": "cb-3808fb93",
-   "oar_id": "oar-moelle",
-   "regime": "hypo",
-   "fx": 25,
-   "indicateur": "Dmax",
-   "limitant": "< 45 Gy",
-   "note": "valeur donnée pour le canal médullaire",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
-   "id": "cb-781986b7",
-   "oar_id": "oar-moelle",
-   "regime": "normo",
-   "fx": 30,
-   "dpf": 1.5,
-   "indicateur": "Dmax",
-   "limitant": "≤ 42 Gy",
-   "note": "valeur donnée pour le canal médullaire",
-   "source": "RecoRad 2025 (poumon)"
-  },
-  {
-   "id": "cb-15c01a18",
-   "oar_id": "oar-moelle",
-   "regime": "normo",
-   "fx": 33,
-   "indicateur": "Dmax",
-   "limitant": "< 45 Gy",
-   "note": "valeur donnée pour le canal médullaire",
-   "source": "RecoRad 2025 (prostate)"
-  },
-  {
    "id": "cb-cdc34b7b",
    "oar_id": "oar-moelle",
    "regime": "stereo",
@@ -7598,7 +6158,7 @@
    "indicateur": "Dmax",
    "limitant": "< 26 Gy",
    "note": "valeur donnée pour le canal médullaire",
-   "source": "RecoRad 2025 (poumon)"
+   "source": "RecoRad 2025 (poumon) ; Timmerman '21 ; UTSW"
   },
   {
    "id": "cb-22f03cb5",
@@ -7643,7 +6203,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "limitant": "≤ 52,5 Gy",
-   "source": "RecoRad 2022 (autres contraintes publiées) ; RTOG 0415"
+   "source": "RecoRad 2022 (autres contraintes publiées) ; RTOG 0415 ; VA Prostate 2022 ; VA/ASTRO PRO '26 ; QUANTEC ; RTOG 0815"
   },
   {
    "id": "cb-993571d7",
@@ -7670,7 +6230,7 @@
    "indicateur": "Dmean",
    "limitant": "≤ 6–10 Gy",
    "note": "aussi basse que possible si une préservation de la fonction ovarienne est recherchée",
-   "source": "RecoRad 2022"
+   "source": "RecoRad 2022 ; NCCN Hodgkin 1.2026 ; PENTEC ; EMBRACE II"
   },
   {
    "id": "cb-377babc5",
@@ -7891,14 +6451,6 @@
    "source": "Institut Curie 2021 (protocoles col-vagin, endomètre-col post-opératoire, vulve)"
   },
   {
-   "id": "cb-95d6c273",
-   "oar_id": "oar-corps",
-   "regime": "normo",
-   "indicateur": "V43Gy",
-   "ideal": "< 2200 cm³",
-   "source": "Institut Curie 2021 (protocoles col-vagin, endomètre-col post-opératoire, vulve)"
-  },
-  {
    "id": "cb-7c219921",
    "oar_id": "oar-plexus-sacre",
    "regime": "normo",
@@ -8035,16 +6587,6 @@
    "source": "Gustave Roussy, RCMI des cancers de la tête et du cou, RLS-PTC-002-V02 (2017)"
   },
   {
-   "id": "cb-f25f639d",
-   "oar_id": "oar-cotes",
-   "regime": "stereo",
-   "fx": 3,
-   "indicateur": "D5cc",
-   "ideal": "< 40 Gy",
-   "limitant": "< 42 Gy",
-   "source": "Institut Curie, SBRT d'un nodule pulmonaire, version du 05/12/2021 (KEYNOTE-867, RTOG 0813, Ma 2019, HyTEC 2021)"
-  },
-  {
    "id": "cb-54ffa797",
    "oar_id": "oar-cotes",
    "regime": "stereo",
@@ -8052,7 +6594,7 @@
    "indicateur": "D0,03cc",
    "ideal": "< 50 Gy",
    "limitant": "< 52,5 Gy",
-   "source": "Institut Curie, SBRT d'un nodule pulmonaire, version du 05/12/2021 (KEYNOTE-867, RTOG 0813, Ma 2019, HyTEC 2021)"
+   "source": "Institut Curie, SBRT d'un nodule pulmonaire, version du 05/12/2021 (KEYNOTE-867, RTOG 0813, Ma 2019, HyTEC 2021) ; TG-101 ; CORSAIR"
   },
   {
    "id": "cb-9f3998e9",
@@ -8073,16 +6615,6 @@
    "ideal": "< 54 Gy",
    "limitant": "< 56,7 Gy",
    "source": "Institut Curie, SBRT d'un nodule pulmonaire, version du 05/12/2021"
-  },
-  {
-   "id": "cb-4453d006",
-   "oar_id": "oar-cotes",
-   "regime": "stereo",
-   "fx": 5,
-   "indicateur": "D5cc",
-   "ideal": "< 45 Gy",
-   "limitant": "< 47,3 Gy",
-   "source": "Institut Curie, SBRT d'un nodule pulmonaire, version du 05/12/2021 (RTOG 0813, Manyam 2020, SABR UK v6.1)"
   },
   {
    "id": "cb-c71fa5b0",
@@ -8318,15 +6850,6 @@
    "source": "RecoRad 2025 (encéphale)"
   },
   {
-   "id": "cb-9b5728c3",
-   "oar_id": "oar-bandelettes-optiques",
-   "regime": "normo",
-   "indicateur": "Dmax si chevauchement du PRV",
-   "limitant": "≤ 60 Gy",
-   "note": "même valeur que : Chiasma optique",
-   "source": "RecoRad 2025 (encéphale)"
-  },
-  {
    "id": "cb-28673821",
    "oar_id": "oar-bandelettes-optiques",
    "regime": "normo",
@@ -8342,25 +6865,6 @@
    ],
    "indicateur": "Dmax",
    "ideal": "≤ 54 Gy",
-   "note": "même valeur que : Chiasma optique",
-   "source": "RecoRad 2025 (ORL)"
-  },
-  {
-   "id": "cb-54392006",
-   "oar_id": "oar-bandelettes-optiques",
-   "regime": "normo",
-   "loc": [
-    "cavite_buccale",
-    "oropharynx",
-    "larynx",
-    "hypopharynx",
-    "cavum",
-    "sinus",
-    "glandes_salivaires",
-    "orl_palliatif"
-   ],
-   "indicateur": "Dmax (PRV)",
-   "limitant": "≤ 60 Gy",
    "note": "même valeur que : Chiasma optique",
    "source": "RecoRad 2025 (ORL)"
   },
@@ -8415,7 +6919,7 @@
    "indicateur": "D0,03cm³",
    "limitant": "< 28 Gy",
    "note": "même valeur que : Côlon",
-   "source": "RecoRad 2025 (foie)"
+   "source": "RecoRad 2025 (foie) ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; UK SABR '22"
   },
   {
    "id": "cb-4b290e3b",
@@ -8448,7 +6952,7 @@
    "indicateur": "D0,03cm³",
    "limitant": "< 34 Gy",
    "note": "même valeur que : Côlon",
-   "source": "RecoRad 2025 (foie)"
+   "source": "RecoRad 2025 (foie) ; UK SABR '22"
   },
   {
    "id": "cb-bfabdc50",
@@ -8709,6 +7213,3020 @@
    "ideal": "Aussi basse que possible",
    "note": "Pas une limite de validation du plan (Curie) ; même valeur que : Hippocampes",
    "source": "Institut Curie, stéréotaxie des métastases cérébrales (version de travail du 05/12/2021), d'après l'AAPM"
+  },
+  {
+   "id": "cr-649cbc34",
+   "oar_id": "oar-arbre-bronchique",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 59 Gy",
+   "source": "VA Lung 2023 ; VA/ASTRO PRO '26 ; Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-a3831756",
+   "oar_id": "oar-arbre-bronchique",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 59 Gy",
+   "source": "VA Lung 2023 ; VA/ASTRO PRO '26 ; Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-69606f58",
+   "oar_id": "oar-arbre-bronchique",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "V52Gy",
+   "limitant": "≤ 5 cm³",
+   "source": "VA Lung 2023 ; VA/ASTRO PRO '26 ; Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-e6d2e9a7",
+   "oar_id": "oar-arbre-bronchique",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "V52Gy",
+   "limitant": "≤ 5 cm³",
+   "source": "VA Lung 2023 ; VA/ASTRO PRO '26 ; Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-66644ad1",
+   "oar_id": "oar-bulbe",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "D0,1cm³",
+   "limitant": "≤ 50 Gy",
+   "source": "TG-101 ; UK SABR '17 ; PRO Oligo '21",
+   "effet": "dysfonction érectile"
+  },
+  {
+   "id": "cr-7584613b",
+   "oar_id": "oar-bulbe",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V30–50Gy",
+   "limitant": "≤ 3 cm³",
+   "source": "TG-101 ; Timmerman ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; CORSAIR ; NRG BR002 ; UTSW"
+  },
+  {
+   "id": "cr-b0fb868d",
+   "oar_id": "oar-cavite-orale",
+   "regime": "normo",
+   "indicateur": "D0,03cm³",
+   "limitant": "≤ 60 Gy",
+   "source": "VA H&N 2022 ; VA/ASTRO PRO '26 ; RTOG 1016 ; NRG HN003",
+   "effet": "xérostomie, dysgueusie, mucite"
+  },
+  {
+   "id": "cr-3f727e10",
+   "oar_id": "oar-cochlees",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 33 Gy",
+   "source": "Timmerman '21 ; EA2183 ; UTSW"
+  },
+  {
+   "id": "cr-93763f50",
+   "oar_id": "oar-cochlees",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "V30Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "Timmerman '21 ; EA2183 ; UTSW"
+  },
+  {
+   "id": "cr-2e5f9cad",
+   "oar_id": "oar-cochlees",
+   "regime": "normo",
+   "indicateur": "V55–60Gy",
+   "limitant": "≤ 5 %",
+   "source": "DAHANCA 20 ; DAHANCA 25"
+  },
+  {
+   "id": "cr-123e1b6f",
+   "oar_id": "oar-cochlees",
+   "regime": "normo",
+   "indicateur": "Dmean",
+   "limitant": "≤ 35–45 Gy",
+   "source": "NRG Heme '26 ; CORSAIR"
+  },
+  {
+   "id": "cr-46532429",
+   "oar_id": "oar-coeur",
+   "regime": "normo",
+   "indicateur": "V50Gy",
+   "limitant": "≤ 25-33 %",
+   "source": "RTOG 0617",
+   "effet": "péricardite grade ≥ 3"
+  },
+  {
+   "id": "cr-85b54f45",
+   "oar_id": "oar-coeur",
+   "regime": "normo",
+   "indicateur": "V40Gy",
+   "limitant": "≤ 20 %",
+   "source": "NCCN NSCLC 3.2026 ; Timmerman '21 ; UTSW",
+   "effet": "péricardite grade ≥ 3"
+  },
+  {
+   "id": "cr-1108ab35",
+   "oar_id": "oar-coeur",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 30 Gy",
+   "source": "DOSE-Pro Thoracic ; NCCN NSCLC 3.2026 ; VA/ASTRO PRO '26 ; TG-101 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; RTOG 0618 ; UTSW"
+  },
+  {
+   "id": "cr-7e67e626",
+   "oar_id": "oar-colon",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "D1,5cm³",
+   "limitant": "≤ 42 Gy",
+   "note": "PRV, marge 3 mm",
+   "source": "Timmerman '21 ; UTSW",
+   "effet": "colite, fistule"
+  },
+  {
+   "id": "cr-8ffff773",
+   "oar_id": "oar-colon",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V32Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "UK SABR '17 ; PRO Oligo '21",
+   "effet": "colite, fistule"
+  },
+  {
+   "id": "cr-2769cc02",
+   "oar_id": "oar-cristallins",
+   "regime": "normo",
+   "indicateur": "Dmax",
+   "limitant": "≤ 6–10 Gy",
+   "source": "ESTRO-EANO GBM"
+  },
+  {
+   "id": "cr-0bc26266",
+   "oar_id": "oar-duodenum",
+   "regime": "normo",
+   "indicateur": "V55Gy",
+   "limitant": "≤ 1 cm³",
+   "source": "George Clin Onc '20 ; Lakomy PRO '21"
+  },
+  {
+   "id": "cr-10ce993d",
+   "oar_id": "oar-duodenum",
+   "regime": "normo",
+   "indicateur": "V55Gy",
+   "limitant": "≤ 5–15 cm³",
+   "source": "NCCN Cervical 2.2026 ; EMBRACE II"
+  },
+  {
+   "id": "cr-a860c11e",
+   "oar_id": "oar-duodenum",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "V20Gy",
+   "limitant": "≤ 3 cm³",
+   "source": "Murphy IJROBP '10",
+   "effet": "ulcération"
+  },
+  {
+   "id": "cr-5de8dccb",
+   "oar_id": "oar-duodenum",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "V12,5Gy",
+   "limitant": "≤ 30 cm³",
+   "note": "PRV, marge 1,5-3 mm",
+   "source": "IROCK"
+  },
+  {
+   "id": "cr-ff03536f",
+   "oar_id": "oar-encephale",
+   "regime": "normo",
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 68 Gy",
+   "source": "DAHANCA 20 ; DAHANCA 25"
+  },
+  {
+   "id": "cr-c9713d44",
+   "oar_id": "oar-encephale",
+   "regime": "normo",
+   "indicateur": "V58Gy",
+   "limitant": "≤ 1 cm³",
+   "source": "DAHANCA 20 ; DAHANCA 25"
+  },
+  {
+   "id": "cr-f39c80b1",
+   "oar_id": "oar-encephale-sain",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "V5Gy",
+   "limitant": "≤ 50 %",
+   "source": "UK SABR '17 ; QUANTEC ; CORSAIR",
+   "effet": "déclin cognitif"
+  },
+  {
+   "id": "cr-7232a3c6",
+   "oar_id": "oar-encephale-sain",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "V12Gy",
+   "limitant": "≤ 10 cm³",
+   "source": "UK SABR '17 ; QUANTEC ; HyTEC ; CORSAIR",
+   "effet": "radionécrose symptomatique"
+  },
+  {
+   "id": "cr-aa777237",
+   "oar_id": "oar-estomac",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,1cm³",
+   "limitant": "≤ 12,4 Gy",
+   "source": "TG-101 ; Timmerman ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; RTOG 0915 ; UTSW"
+  },
+  {
+   "id": "cr-62f89b30",
+   "oar_id": "oar-estomac",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V30Gy",
+   "limitant": "≤ 2 cm³",
+   "note": "PRV, marge 5 mm",
+   "source": "Source à préciser"
+  },
+  {
+   "id": "cr-0c92b310",
+   "oar_id": "oar-foie",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "V15Gy",
+   "limitant": "≤ 50 %",
+   "source": "UK SABR '17 ; PRO Oligo '21 ; CORSAIR",
+   "effet": "hépatopathie radique grade ≥ 3"
+  },
+  {
+   "id": "cr-716fd935",
+   "oar_id": "oar-foie",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V10Gy",
+   "limitant": "≤ 70 %",
+   "source": "UK SABR '17 ; UK SABR '22 ; CORSAIR",
+   "effet": "hépatopathie radique grade ≥ 3"
+  },
+  {
+   "id": "cr-ba5c2daa",
+   "oar_id": "oar-glandes-lacrymales",
+   "regime": "normo",
+   "indicateur": "V20Gy",
+   "limitant": "≤ 80-≥80 %",
+   "source": "NCCN Hodgkin 1.2026 ; NRG Heme '26 ; CORSAIR",
+   "effet": "xérophtalmie"
+  },
+  {
+   "id": "cr-9929fffc",
+   "oar_id": "oar-grele",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V20Gy",
+   "limitant": "≤ 50 cm³",
+   "source": "VA Rectal 2022 ; VA/ASTRO PRO '26",
+   "effet": "entérite, occlusion"
+  },
+  {
+   "id": "cr-2b06d876",
+   "oar_id": "oar-grele",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "V13Gy",
+   "limitant": "≤ 830 cm³",
+   "source": "Noël 2025 SFRO ; RADICALS"
+  },
+  {
+   "id": "cr-0f5b487c",
+   "oar_id": "oar-grele",
+   "regime": "normo",
+   "indicateur": "V50Gy",
+   "limitant": "≤ 5–10 cm³",
+   "source": "ESTRO ACROP Pancreas '20"
+  },
+  {
+   "id": "cr-79b3d0ef",
+   "oar_id": "oar-grele",
+   "regime": "normo",
+   "indicateur": "V40Gy",
+   "limitant": "≤ 30-70 %",
+   "source": "NCCN Cervical 2.2026 ; RTOG 1203 ; RTOG 0418 ; RTOG 0724 ; NRG GU001 ; TIME-C"
+  },
+  {
+   "id": "cr-cf27af4e",
+   "oar_id": "oar-grele",
+   "regime": "normo",
+   "indicateur": "D0cm³",
+   "limitant": "≤ 74 Gy",
+   "source": "RAIDER",
+   "effet": "entérite, occlusion"
+  },
+  {
+   "id": "cr-de08e75c",
+   "oar_id": "oar-grele",
+   "regime": "normo",
+   "indicateur": "V65Gy",
+   "limitant": "≤ 23–40 cm³",
+   "source": "RAIDER",
+   "effet": "entérite, occlusion"
+  },
+  {
+   "id": "cr-213412ef",
+   "oar_id": "oar-grele",
+   "regime": "normo",
+   "indicateur": "V60Gy",
+   "limitant": "≤ 73–98 cm³",
+   "source": "RAIDER",
+   "effet": "entérite, occlusion"
+  },
+  {
+   "id": "cr-05686799",
+   "oar_id": "oar-grele",
+   "regime": "normo",
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 57,5 Gy",
+   "source": "Noël 2025 SFRO ; EMBRACE II"
+  },
+  {
+   "id": "cr-73735c9b",
+   "oar_id": "oar-grele",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "V25,2Gy",
+   "limitant": "≤ 0,035–0,5 cm³",
+   "source": "ASTRO Liver 2021 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; CORSAIR"
+  },
+  {
+   "id": "cr-d033ac07",
+   "oar_id": "oar-grele",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "D30cm³",
+   "limitant": "≤ 12,5 Gy",
+   "note": "PRV, marge 1,5-3 mm",
+   "source": "IROCK ; FASTRACK II",
+   "effet": "entérite, occlusion"
+  },
+  {
+   "id": "cr-616add60",
+   "oar_id": "oar-grele",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "D30cm³",
+   "limitant": "≤ 12,5 Gy",
+   "source": "Noël 2025 SFRO"
+  },
+  {
+   "id": "cr-b7168350",
+   "oar_id": "oar-gros-vaisseaux",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V53Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "Noël 2025 SFRO"
+  },
+  {
+   "id": "cr-0b6e5f2a",
+   "oar_id": "oar-hippocampes",
+   "regime": "normo",
+   "indicateur": "V7,2Gy",
+   "limitant": "≤ 40 %",
+   "source": "DAHANCA 20 ; CORSAIR ; DAHANCA 25",
+   "effet": "troubles de la mémoire (rappel différé)"
+  },
+  {
+   "id": "cr-3d151436",
+   "oar_id": "oar-hypophyse",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "D",
+   "limitant": "≤ 100-40,5 Gy",
+   "source": "Noël 2025 SFRO"
+  },
+  {
+   "id": "cr-65c75947",
+   "oar_id": "oar-moelle",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "V10Gy",
+   "limitant": "≤ 0,35 cm³",
+   "note": "PRV, marge 1,5-3 mm",
+   "source": "UK SABR '17 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; RTOG 0915 ; NRG BR002 ; RTOG 0631 ; UTSW",
+   "effet": "myélite grade ≥ 3"
+  },
+  {
+   "id": "cr-9bdac775",
+   "oar_id": "oar-moelle",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "V15,9Gy",
+   "limitant": "≤ 0,35 cm³",
+   "note": "PRV, marge 1,5-3 mm",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-74ae4e37",
+   "oar_id": "oar-oesophage",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "V25,2Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "TG-101 ; UK SABR '17 ; PRO Oligo '21",
+   "effet": "œsophagite"
+  },
+  {
+   "id": "cr-a87ac381",
+   "oar_id": "oar-oesophage",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "D0,5cm³",
+   "limitant": "≤ 32–34 Gy",
+   "source": "VA/ASTRO PRO '26 ; UK SABR '17 ; PRO Oligo '21 ; CORSAIR ; RTOG 1112",
+   "effet": "œsophagite"
+  },
+  {
+   "id": "cr-c41496e9",
+   "oar_id": "oar-oesophage",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "V40Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "UK SABR '17 ; PRO Oligo '21 ; LungTECH",
+   "effet": "œsophagite"
+  },
+  {
+   "id": "cr-5dcc05ee",
+   "oar_id": "oar-paroi-thoracique",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D1cm³",
+   "limitant": "≤ 30,2 Gy",
+   "source": "VA/ASTRO PRO '26 ; UTSW",
+   "effet": "douleur ou fracture"
+  },
+  {
+   "id": "cr-d74de3c5",
+   "oar_id": "oar-paroi-thoracique",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D5cm³",
+   "limitant": "≤ 27,2 Gy",
+   "source": "VA/ASTRO PRO '26 ; UTSW"
+  },
+  {
+   "id": "cr-5951e2f3",
+   "oar_id": "oar-paroi-thoracique",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "V11Gy",
+   "limitant": "≤ 28 cm³",
+   "source": "TG-101 ; CORSAIR",
+   "effet": "douleur ou fracture"
+  },
+  {
+   "id": "cr-4b303f2f",
+   "oar_id": "oar-paroi-thoracique",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "V37Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "UK SABR '17 ; PRO Oligo '21",
+   "effet": "douleur ou fracture"
+  },
+  {
+   "id": "cr-af3c7754",
+   "oar_id": "oar-paroi-thoracique",
+   "regime": "stereo",
+   "fx": 4,
+   "indicateur": "V30Gy",
+   "limitant": "≤ 30–70 cm³",
+   "source": "UK SABR '17 ; PRO Oligo '21",
+   "effet": "douleur ou fracture"
+  },
+  {
+   "id": "cr-324b7ebf",
+   "oar_id": "oar-paroi-thoracique",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V39Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "UK SABR '17 ; PRO Oligo '21",
+   "effet": "douleur ou fracture"
+  },
+  {
+   "id": "cr-3ecec12c",
+   "oar_id": "oar-paroi-thoracique",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V32Gy",
+   "limitant": "≤ 30–70 cm³",
+   "source": "UK SABR '17 ; PRO Oligo '21 ; CORSAIR",
+   "effet": "douleur ou fracture"
+  },
+  {
+   "id": "cr-f384c22c",
+   "oar_id": "oar-paroi-thoracique",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "V39Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "UK SABR '17 ; PRO Oligo '21 ; CORSAIR ; LungTECH",
+   "effet": "douleur ou fracture"
+  },
+  {
+   "id": "cr-fafc7382",
+   "oar_id": "oar-paroi-thoracique",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "V35Gy",
+   "limitant": "≤ 30 cm³",
+   "source": "UK SABR '17 ; PRO Oligo '21 ; CORSAIR ; DAHANCA 20 ; LungTECH",
+   "effet": "douleur ou fracture"
+  },
+  {
+   "id": "cr-242b6d29",
+   "oar_id": "oar-parotides",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 21,3 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-06b8afad",
+   "oar_id": "oar-parotides",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 21,3 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-a4bd2421",
+   "oar_id": "oar-parotides",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "Dmean",
+   "limitant": "≤ 17,7 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-9643e8a5",
+   "oar_id": "oar-parotides",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "Dmean",
+   "limitant": "≤ 17,7 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-2dd3cc01",
+   "oar_id": "oar-parotides",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "V14,1Gy",
+   "limitant": "≤ 7 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-f3354859",
+   "oar_id": "oar-parotides",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "V14,1Gy",
+   "limitant": "≤ 7 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-064d3a26",
+   "oar_id": "oar-parotides",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 27 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-a8aededa",
+   "oar_id": "oar-parotides",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "Dmean",
+   "limitant": "≤ 22,5 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-e16ef1ab",
+   "oar_id": "oar-parotides",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "V18Gy",
+   "limitant": "≤ 7 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-749cfe36",
+   "oar_id": "oar-peau",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D1,5cm³",
+   "limitant": "≤ 18 Gy",
+   "source": "IROCK",
+   "effet": "ulcération"
+  },
+  {
+   "id": "cr-961f0ec9",
+   "oar_id": "oar-peau",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "D1,5cm³",
+   "limitant": "≤ 30 Gy",
+   "note": "PRV, marge 1,5-3 mm",
+   "source": "Noël 2025 SFRO ; IROCK",
+   "effet": "ulcération"
+  },
+  {
+   "id": "cr-fb201ffd",
+   "oar_id": "oar-peau",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "D10cm³",
+   "limitant": "≤ 36,5 Gy",
+   "source": "DOSE-Pro Thoracic ; TG-101 ; UK SABR '17 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; IROCK ; UTSW",
+   "effet": "ulcération"
+  },
+  {
+   "id": "cr-8be90de2",
+   "oar_id": "oar-peau",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "D1,5cm³",
+   "limitant": "≤ 24–30 Gy",
+   "source": "UK SABR '22 ; CORSAIR",
+   "effet": "ulcération"
+  },
+  {
+   "id": "cr-2f1db188",
+   "oar_id": "oar-poumon-controlateral",
+   "regime": "normo",
+   "indicateur": "V20Gy",
+   "limitant": "≤ 6,3-7 %",
+   "source": "VA Lung 2023",
+   "effet": "pneumopathie mortelle (grade 5)"
+  },
+  {
+   "id": "cr-9ff33a6d",
+   "oar_id": "oar-poumon-controlateral",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V5Gy",
+   "limitant": "≤ 10 %",
+   "source": "CORSAIR ; Florence"
+  },
+  {
+   "id": "cr-592daa18",
+   "oar_id": "oar-poumons",
+   "regime": "normo",
+   "indicateur": "V5Gy",
+   "limitant": "≤ 60-65 %",
+   "source": "DOSE-Pro Thoracic ; QUANTEC ; RTOG 1308 ; NRG DT001",
+   "effet": "pneumopathie grade ≥ 3"
+  },
+  {
+   "id": "cr-0f5cdf43",
+   "oar_id": "oar-poumons",
+   "regime": "normo",
+   "indicateur": "D100%",
+   "limitant": "≤ 15 Gy",
+   "source": "AEWS 1031 ; AREN 1921"
+  },
+  {
+   "id": "cr-b6aa05c1",
+   "oar_id": "oar-poumons",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "V16Gy",
+   "limitant": "≤ 30-32 %",
+   "source": "VA Lung 2023 ; VA/ASTRO PRO '26"
+  },
+  {
+   "id": "cr-bbe5bffa",
+   "oar_id": "oar-poumons",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "V16Gy",
+   "limitant": "≤ 30-32 %",
+   "source": "VA Lung 2023 ; VA/ASTRO PRO '26"
+  },
+  {
+   "id": "cr-e4ef445d",
+   "oar_id": "oar-poumons",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "Dmean",
+   "limitant": "≤ 12 Gy",
+   "source": "VA Lung 2023 ; VA/ASTRO PRO '26"
+  },
+  {
+   "id": "cr-2b751be0",
+   "oar_id": "oar-poumons",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "Dmean",
+   "limitant": "≤ 12 Gy",
+   "source": "VA Lung 2023 ; VA/ASTRO PRO '26"
+  },
+  {
+   "id": "cr-d64225a2",
+   "oar_id": "oar-rectum",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "V60Gy",
+   "limitant": "≤ 0,01-1 %",
+   "source": "NRG Prostate 2020 ; VA Prostate 2022 ; CHHiP",
+   "effet": "rectite, fistule"
+  },
+  {
+   "id": "cr-52677a2e",
+   "oar_id": "oar-rectum",
+   "regime": "normo",
+   "indicateur": "V30Gy",
+   "limitant": "≤ 80 %",
+   "source": "RAIDER ; PIVOTAL",
+   "effet": "rectite, fistule"
+  },
+  {
+   "id": "cr-c1ae8994",
+   "oar_id": "oar-rectum",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V39Gy",
+   "limitant": "≤ Circumference: 33 %",
+   "source": "HyTEC ; UTSW",
+   "effet": "rectite, fistule"
+  },
+  {
+   "id": "cr-467d394d",
+   "oar_id": "oar-rectum",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "D0,035–1cm³",
+   "limitant": "≤ 38,06–40 Gy",
+   "source": "TG-101 ; NRG GU005 ; RTOG 0938",
+   "effet": "rectite, fistule"
+  },
+  {
+   "id": "cr-50f76d21",
+   "oar_id": "oar-rectum",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V24Gy",
+   "limitant": "≤ Circumference: 50 %",
+   "source": "HyTEC ; UTSW",
+   "effet": "rectite, fistule"
+  },
+  {
+   "id": "cr-08e1ad4f",
+   "oar_id": "oar-reins",
+   "regime": "normo",
+   "indicateur": "V30Gy",
+   "limitant": "≤ 20 %",
+   "source": "QUANTEC"
+  },
+  {
+   "id": "cr-ad17f65c",
+   "oar_id": "oar-reins",
+   "regime": "normo",
+   "indicateur": "D100%",
+   "limitant": "≤ 14,4 Gy",
+   "source": "AEWS 1031"
+  },
+  {
+   "id": "cr-bc61049d",
+   "oar_id": "oar-reins",
+   "regime": "normo",
+   "indicateur": "V10Gy",
+   "limitant": "≤ 30 %",
+   "source": "NCCN Hodgkin 1.2026 ; CORSAIR",
+   "effet": "insuffisance rénale"
+  },
+  {
+   "id": "cr-619e3eb4",
+   "oar_id": "oar-reins",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "Dmean",
+   "limitant": "≤ 8,5 Gy",
+   "source": "TG-101 ; Timmerman ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW",
+   "effet": "atteinte rénale grade ≥ 3"
+  },
+  {
+   "id": "cr-28451e57",
+   "oar_id": "oar-reins",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "V10Gy",
+   "limitant": "≤ 10 %",
+   "source": "UK SABR '17 ; RTOG 0438",
+   "effet": "fonction rénale"
+  },
+  {
+   "id": "cr-2424710c",
+   "oar_id": "oar-reins",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "V10Gy",
+   "limitant": "≤ 10 %",
+   "source": "UK SABR '17 ; RTOG 0438",
+   "effet": "fonction rénale"
+  },
+  {
+   "id": "cr-00657e85",
+   "oar_id": "oar-sigmoide",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V32Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "UK SABR '17 ; PRO Oligo '21",
+   "effet": "colite, fistule"
+  },
+  {
+   "id": "cr-90a85b83",
+   "oar_id": "oar-sigmoide",
+   "regime": "normo",
+   "indicateur": "V57,5Gy",
+   "limitant": "≤ 0,035 cm³",
+   "source": "Noël 2025 SFRO ; EMBRACE II",
+   "effet": "colite, fistule"
+  },
+  {
+   "id": "cr-1c580572",
+   "oar_id": "oar-testicule-controlateral",
+   "regime": "normo",
+   "indicateur": "Dmean",
+   "limitant": "≤ 2–12 Gy",
+   "source": "NCCN Hodgkin 1.2026 ; PENTEC"
+  },
+  {
+   "id": "cr-7866ee88",
+   "oar_id": "oar-tetes-femorales",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "V41,7Gy",
+   "limitant": "≤ 50 %",
+   "source": "RAIDER ; S2427",
+   "effet": "nécrose"
+  },
+  {
+   "id": "cr-1da4314a",
+   "oar_id": "oar-tronc-cerebral",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "V40Gy",
+   "limitant": "≤ 5 cm³",
+   "source": "Timmerman '21 ; UTSW",
+   "effet": "neuropathie crânienne grade ≥ 3"
+  },
+  {
+   "id": "cr-3409b682",
+   "oar_id": "oar-tronc-cerebral",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 50 Gy",
+   "source": "Timmerman '21 ; UTSW",
+   "effet": "neuropathie crânienne grade ≥ 3"
+  },
+  {
+   "id": "cr-61c664ee",
+   "oar_id": "oar-tronc-cerebral",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "V44Gy",
+   "limitant": "≤ 5 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-36e28dc5",
+   "oar_id": "oar-tronc-cerebral",
+   "regime": "normo",
+   "indicateur": "V59Gy",
+   "limitant": "≤ 1–10 cm³",
+   "source": "ESTRO-EANO GBM ; QUANTEC ; CORSAIR",
+   "effet": "neuropathie crânienne grade ≥ 3"
+  },
+  {
+   "id": "cr-3dbeec1e",
+   "oar_id": "oar-tronc-cerebral",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,5cm³",
+   "limitant": "≤ 10 Gy",
+   "source": "TG-101 ; UK SABR '17 ; Timmerman '21 ; CORSAIR ; UTSW",
+   "effet": "neuropathie crânienne grade ≥ 3"
+  },
+  {
+   "id": "cr-1b5804a3",
+   "oar_id": "oar-uretre",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "D0,035–0,5cm³",
+   "limitant": "≤ 45 Gy",
+   "source": "Timmerman ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; CORSAIR ; NRG BR002 ; UTSW"
+  },
+  {
+   "id": "cr-131bb208",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "D0,035–0,5cm³",
+   "limitant": "≤ 38 Gy",
+   "source": "TG-101 ; Timmerman ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; NRG BR002 ; UTSW",
+   "effet": "cystite, fistule"
+  },
+  {
+   "id": "cr-9770d0af",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V37Gy",
+   "limitant": "≤ 5–10 cm³",
+   "source": "CORSAIR ; PACE ; hypo-FLAME",
+   "effet": "cystite, fistule"
+  },
+  {
+   "id": "cr-5e0baca4",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "Dmean",
+   "limitant": "≤ 32 Gy",
+   "source": "PRO Oligo '21",
+   "effet": "cystite, fistule"
+  },
+  {
+   "id": "cr-a45db54f",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V15Gy",
+   "limitant": "≤ 50 %",
+   "source": "VA Rectal 2022 ; VA/ASTRO PRO '26 ; NRG GU005",
+   "effet": "cystite, fistule"
+  },
+  {
+   "id": "cr-60d1e82c",
+   "oar_id": "oar-vessie",
+   "regime": "normo",
+   "indicateur": "V50Gy",
+   "limitant": "≤ 50 %",
+   "source": "VA Prostate 2022 ; VA/ASTRO PRO '26 ; PACE ; CHHiP ; PIVOTAL",
+   "effet": "cystite, fistule"
+  },
+  {
+   "id": "cr-f90551e8",
+   "oar_id": "oar-vessie",
+   "regime": "normo",
+   "indicateur": "Dmean",
+   "limitant": "≤ 40–44 Gy",
+   "source": "VA Rectal 2022 ; NRG Heme '26 ; VA/ASTRO PRO '26 ; NRG GI002 ; PROSPECT",
+   "effet": "cystite, fistule"
+  },
+  {
+   "id": "cr-4a645368",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 28,2–33 Gy",
+   "source": "TG-101 ; UK SABR '17 ; PRO Oligo '21",
+   "effet": "cystite, fistule"
+  },
+  {
+   "id": "cr-fe5f37cb",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "Dmean",
+   "limitant": "≤ 26 Gy",
+   "source": "PRO Oligo '21",
+   "effet": "cystite, fistule"
+  },
+  {
+   "id": "cr-11475eea",
+   "oar_id": "oar-moelle",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "V42Gy",
+   "limitant": "≤ 5,0 cm³",
+   "note": "PRV, marge 1,5-3 mm",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-c26e2401",
+   "oar_id": "oar-moelle",
+   "regime": "stereo",
+   "fx": 4,
+   "indicateur": "V15,9Gy",
+   "limitant": "≤ 0,35 cm³",
+   "note": "PRV, marge 1,5-3 mm",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-ded850aa",
+   "oar_id": "oar-bulbe",
+   "regime": "normo",
+   "indicateur": "V50Gy",
+   "limitant": "≤ 50 %",
+   "source": "NRG Prostate 2020",
+   "effet": "dysfonction érectile"
+  },
+  {
+   "id": "cr-1c3f8f41",
+   "oar_id": "oar-hypothalamus",
+   "regime": "normo",
+   "indicateur": "Dmax",
+   "limitant": "≤ 56 Gy",
+   "source": "LymphoTEC"
+  },
+  {
+   "id": "cr-bc416561",
+   "oar_id": "oar-plexus-sacre",
+   "regime": "normo",
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 54–60 Gy",
+   "source": "NRG Heme '26 ; Timmerman '21 ; CORSAIR ; UTSW",
+   "effet": "neuropathie"
+  },
+  {
+   "id": "cr-085f1573",
+   "oar_id": "oar-cotes",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "V30Gy",
+   "limitant": "≤ 30 cm³",
+   "source": "TG-101 ; PRO Oligo '21 ; CORSAIR",
+   "effet": "douleur ou fracture"
+  },
+  {
+   "id": "cr-ff3e2ea4",
+   "oar_id": "oar-hypophyse",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "Dmean",
+   "limitant": "≤ 9 Gy",
+   "source": "CORSAIR"
+  },
+  {
+   "id": "cr-be63e4bd",
+   "oar_id": "oar-hypophyse",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V7,3Gy",
+   "limitant": "≤ 40 %",
+   "source": "Source à préciser"
+  },
+  {
+   "id": "cr-8de76483",
+   "oar_id": "oar-sigmoide",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 18,4 Gy",
+   "source": "TG-101 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; RTOG 0631",
+   "effet": "colite, fistule"
+  },
+  {
+   "id": "cr-d534f9d6",
+   "oar_id": "oar-voie-biliaire",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 48 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-5a147d23",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 25 Gy",
+   "source": "Timmerman ; Timmerman '21 ; NRG BR002 ; UTSW"
+  },
+  {
+   "id": "cr-9c3420a5",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,1cm³",
+   "limitant": "≤ 18,4 Gy",
+   "source": "UK SABR '22 ; CORSAIR",
+   "effet": "cystite, fistule"
+  },
+  {
+   "id": "cr-87f72859",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 4,
+   "indicateur": "D0,1cm³",
+   "limitant": "≤ 33,2–34,5 Gy",
+   "source": "PRO Oligo '21",
+   "effet": "cystite, fistule"
+  },
+  {
+   "id": "cr-f150c20f",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 4,
+   "indicateur": "Dmean",
+   "limitant": "≤ 29 Gy",
+   "source": "PRO Oligo '21",
+   "effet": "cystite, fistule"
+  },
+  {
+   "id": "cr-5e0b035e",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 4,
+   "indicateur": "V17,6Gy",
+   "limitant": "≤ 15 cm³",
+   "source": "PRO Oligo '21",
+   "effet": "cystite, fistule"
+  },
+  {
+   "id": "cr-65da2e72",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 44,8 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-6e13c4c1",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "V22,4Gy",
+   "limitant": "≤ 15 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-d609b322",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 53 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-c6dcf18d",
+   "oar_id": "oar-vessie",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 53 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-a29a6310",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "V48Gy",
+   "limitant": "≤ 90 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-a8fc8169",
+   "oar_id": "oar-vessie",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "V48Gy",
+   "limitant": "≤ 90 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-b975ff25",
+   "oar_id": "oar-vessie",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "V45Gy",
+   "limitant": "≤ 125 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-b08b84d4",
+   "oar_id": "oar-vessie",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "V45Gy",
+   "limitant": "≤ 125 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-824c2e91",
+   "oar_id": "oar-vessie",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 61,5 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-5fc741a5",
+   "oar_id": "oar-vessie",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "V55,5Gy",
+   "limitant": "≤ 90 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-0c22aeef",
+   "oar_id": "oar-vessie",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "V52,5Gy",
+   "limitant": "≤ 125 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-145c7cd3",
+   "oar_id": "oar-vessie",
+   "regime": "hypo",
+   "fx": 28,
+   "indicateur": "V65Gy",
+   "limitant": "≤ 15 %",
+   "source": "NRG Prostate 2020 ; VA Prostate 2022",
+   "effet": "cystite, fistule"
+  },
+  {
+   "id": "cr-4e16ac9e",
+   "oar_id": "oar-vessie",
+   "regime": "hypo",
+   "fx": 28,
+   "indicateur": "V45Gy",
+   "limitant": "≤ 45 %",
+   "source": "NRG Prostate 2020",
+   "effet": "cystite, fistule"
+  },
+  {
+   "id": "cr-59642af5",
+   "oar_id": "oar-grele",
+   "regime": "hypo",
+   "fx": 28,
+   "indicateur": "V40Gy",
+   "limitant": "≤ 1 %",
+   "source": "VA Prostate 2022 ; VA/ASTRO PRO '26",
+   "effet": "entérite, occlusion"
+  },
+  {
+   "id": "cr-01c041c1",
+   "oar_id": "oar-colon",
+   "regime": "stereo",
+   "fx": 4,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 33,2 Gy",
+   "source": "PRO Oligo '21",
+   "effet": "colite, fistule"
+  },
+  {
+   "id": "cr-9b5a7924",
+   "oar_id": "oar-colon",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 57,5 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-8b3d3aac",
+   "oar_id": "oar-colon",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "V35,2Gy",
+   "limitant": "≤ 20 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-a0db026c",
+   "oar_id": "oar-colon",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 50 Gy",
+   "source": "NRG Prostate 2020"
+  },
+  {
+   "id": "cr-db7bd3fe",
+   "oar_id": "oar-colon",
+   "regime": "hypo",
+   "fx": 28,
+   "indicateur": "V50Gy",
+   "limitant": "≤ 1 %",
+   "source": "VA Prostate 2022 ; VA/ASTRO PRO '26"
+  },
+  {
+   "id": "cr-987c07c1",
+   "oar_id": "oar-grele",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 40 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-c5c9c0e9",
+   "oar_id": "oar-grele",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "V28,8Gy",
+   "limitant": "≤ 30 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-f12a1db3",
+   "oar_id": "oar-encephale",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "V12Gy",
+   "limitant": "≤ 8,0–8,5 cm³",
+   "source": "HyTEC"
+  },
+  {
+   "id": "cr-66ef5f30",
+   "oar_id": "oar-encephale",
+   "regime": "hypo",
+   "fx": 25,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 60 Gy",
+   "source": "Meade Clin Onc '18"
+  },
+  {
+   "id": "cr-59e118ec",
+   "oar_id": "oar-encephale",
+   "regime": "hypo",
+   "fx": 25,
+   "indicateur": "V58Gy",
+   "limitant": "≤ 1 cm³",
+   "source": "Meade Clin Onc '18"
+  },
+  {
+   "id": "cr-128f5fc9",
+   "oar_id": "oar-tronc-cerebral",
+   "regime": "stereo",
+   "fx": 2,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 19,1 Gy",
+   "source": "Timmerman '21 ; UTSW",
+   "effet": "neuropathie crânienne grade ≥ 3"
+  },
+  {
+   "id": "cr-34599b33",
+   "oar_id": "oar-tronc-cerebral",
+   "regime": "stereo",
+   "fx": 2,
+   "indicateur": "V13Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "Timmerman '21 ; UTSW",
+   "effet": "neuropathie crânienne grade ≥ 3"
+  },
+  {
+   "id": "cr-1765bb40",
+   "oar_id": "oar-tronc-cerebral",
+   "regime": "stereo",
+   "fx": 4,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 27,2 Gy",
+   "source": "Timmerman '21 ; UTSW",
+   "effet": "neuropathie crânienne grade ≥ 3"
+  },
+  {
+   "id": "cr-5b592340",
+   "oar_id": "oar-tronc-cerebral",
+   "regime": "stereo",
+   "fx": 4,
+   "indicateur": "V20,8Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-01c4b309",
+   "oar_id": "oar-tronc-cerebral",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 37,6 Gy",
+   "source": "Timmerman '21 ; UTSW",
+   "effet": "neuropathie crânienne grade ≥ 3"
+  },
+  {
+   "id": "cr-0bc3bfdc",
+   "oar_id": "oar-tronc-cerebral",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "V27,2Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "Timmerman '21 ; UTSW",
+   "effet": "neuropathie crânienne grade ≥ 3"
+  },
+  {
+   "id": "cr-19387a88",
+   "oar_id": "oar-tronc-cerebral",
+   "regime": "hypo",
+   "fx": 25,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 50 Gy",
+   "note": "PRV, marge 1,5-3 mm",
+   "source": "Meade Clin Onc '18"
+  },
+  {
+   "id": "cr-af7d9d4b",
+   "oar_id": "oar-tronc-cerebral",
+   "regime": "hypo",
+   "fx": 25,
+   "indicateur": "V48Gy",
+   "limitant": "≤ 1 cm³",
+   "note": "PRV, marge 1,5-3 mm",
+   "source": "Source à préciser"
+  },
+  {
+   "id": "cr-25f409ac",
+   "oar_id": "oar-queue-cheval",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 16 Gy",
+   "note": "PRV, marge 0 mm",
+   "source": "Timmerman ; TG-101 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; UK SABR '17 ; CORSAIR ; RTOG 0631 ; NRG BR002 ; UTSW",
+   "effet": "névrite grade ≥ 3"
+  },
+  {
+   "id": "cr-d7233075",
+   "oar_id": "oar-queue-cheval",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "V14Gy",
+   "limitant": "≤ 5 cm³",
+   "note": "PRV, marge 0 mm",
+   "source": "Timmerman ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; RTOG 0631 ; NRG BR002 ; UTSW",
+   "effet": "névrite grade ≥ 3"
+  },
+  {
+   "id": "cr-351fa63e",
+   "oar_id": "oar-queue-cheval",
+   "regime": "stereo",
+   "fx": 2,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 17 Gy",
+   "note": "PRV, marge 0 mm",
+   "source": "PRO Oligo '21 ; UK SABR '22 ; Sunnybrook",
+   "effet": "névrite grade ≥ 3"
+  },
+  {
+   "id": "cr-18a58d26",
+   "oar_id": "oar-queue-cheval",
+   "regime": "stereo",
+   "fx": 4,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 28,8 Gy",
+   "note": "PRV, marge 0 mm",
+   "source": "Timmerman '21 ; UTSW",
+   "effet": "névrite grade ≥ 3"
+  },
+  {
+   "id": "cr-ca5f5c19",
+   "oar_id": "oar-queue-cheval",
+   "regime": "stereo",
+   "fx": 4,
+   "indicateur": "V26Gy",
+   "limitant": "≤ 5 cm³",
+   "note": "PRV, marge 0 mm",
+   "source": "Timmerman '21 ; UTSW",
+   "effet": "névrite grade ≥ 3"
+  },
+  {
+   "id": "cr-ccf4278a",
+   "oar_id": "oar-queue-cheval",
+   "regime": "stereo",
+   "fx": 4,
+   "indicateur": "V13,6Gy",
+   "limitant": "≤ 1,2 cm³",
+   "note": "PRV, marge 0 mm",
+   "source": "PRO Oligo '21",
+   "effet": "névrite grade ≥ 3"
+  },
+  {
+   "id": "cr-9c723d7a",
+   "oar_id": "oar-queue-cheval",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 38,4 Gy",
+   "note": "PRV, marge 0 mm",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-1e1c7b98",
+   "oar_id": "oar-queue-cheval",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "V34Gy",
+   "limitant": "≤ 5 cm³",
+   "note": "PRV, marge 0 mm",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-38c827a8",
+   "oar_id": "oar-queue-cheval",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 41 Gy",
+   "note": "PRV, marge 0 mm",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-198e2763",
+   "oar_id": "oar-queue-cheval",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 41 Gy",
+   "note": "PRV, marge 0 mm",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-5b05bd17",
+   "oar_id": "oar-queue-cheval",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "V35Gy",
+   "limitant": "≤ 5 cm³",
+   "note": "PRV, marge 0 mm",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-7fba5214",
+   "oar_id": "oar-queue-cheval",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "V35Gy",
+   "limitant": "≤ 5 cm³",
+   "note": "PRV, marge 0 mm",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-12a55d69",
+   "oar_id": "oar-queue-cheval",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 48 Gy",
+   "note": "PRV, marge 0 mm",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-e14cbf58",
+   "oar_id": "oar-queue-cheval",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "V40,5Gy",
+   "limitant": "≤ 5 cm³",
+   "note": "PRV, marge 0 mm",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-a1682638",
+   "oar_id": "oar-cochlees",
+   "regime": "stereo",
+   "fx": 4,
+   "indicateur": "D0,1cm³",
+   "limitant": "≤ 22,5 Gy",
+   "source": "PRO Oligo '21",
+   "effet": "surdité grade ≥ 3"
+  },
+  {
+   "id": "cr-7cedb3bb",
+   "oar_id": "oar-cochlees",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 26,4 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-338b84c0",
+   "oar_id": "oar-cochlees",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 27 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-96b4e9cb",
+   "oar_id": "oar-cochlees",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 27 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-f4db4398",
+   "oar_id": "oar-cochlees",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "V25Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-6a028e75",
+   "oar_id": "oar-cochlees",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "V25Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-74abe923",
+   "oar_id": "oar-cochlees",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 36 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-eabe1ed5",
+   "oar_id": "oar-cochlees",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "V32Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-5daa3317",
+   "oar_id": "oar-cochlees",
+   "regime": "hypo",
+   "fx": 25,
+   "indicateur": "Dmean",
+   "limitant": "≤ 35 Gy",
+   "note": "PRV, marge 1,5-3 mm",
+   "source": "Source à préciser"
+  },
+  {
+   "id": "cr-dbcfb57a",
+   "oar_id": "oar-constricteur-inf",
+   "regime": "normo",
+   "indicateur": "V50Gy",
+   "limitant": "≤ 51 %",
+   "source": "Noël 2025 SFRO"
+  },
+  {
+   "id": "cr-ab204967",
+   "oar_id": "oar-constricteur-inf",
+   "regime": "normo",
+   "indicateur": "V40Gy",
+   "limitant": "≤ 41 %",
+   "source": "Noël 2025 SFRO"
+  },
+  {
+   "id": "cr-f43e5714",
+   "oar_id": "oar-constricteur-inf",
+   "regime": "normo",
+   "indicateur": "Dmean",
+   "limitant": "≤ 30–55 Gy",
+   "source": "DAHANCA 20 ; CORSAIR ; DAHANCA 25",
+   "effet": "œdème laryngé, dysphagie"
+  },
+  {
+   "id": "cr-7fbe052b",
+   "oar_id": "oar-constricteur-moyen",
+   "regime": "normo",
+   "indicateur": "Dmean",
+   "limitant": "≤ 50–55 Gy",
+   "source": "DAHANCA 20 ; CORSAIR ; DAHANCA 25",
+   "effet": "œdème laryngé, dysphagie"
+  },
+  {
+   "id": "cr-20a17114",
+   "oar_id": "oar-constricteur-sup",
+   "regime": "normo",
+   "indicateur": "Dmean",
+   "limitant": "≤ 50–55 Gy",
+   "source": "DAHANCA 20 ; CORSAIR ; DAHANCA 25",
+   "effet": "œdème laryngé, dysphagie"
+  },
+  {
+   "id": "cr-c37d2805",
+   "oar_id": "oar-coronaires",
+   "regime": "normo",
+   "indicateur": "Point chaud",
+   "limitant": "à éviter",
+   "source": "NCCN Hodgkin 1.2026 ; FIL Chest ; CORSAIR"
+  },
+  {
+   "id": "cr-f108a7eb",
+   "oar_id": "oar-corps-calleux",
+   "regime": "normo",
+   "indicateur": "Dmean",
+   "limitant": "≤ 24 Gy",
+   "source": "Florida - Peds"
+  },
+  {
+   "id": "cr-a8c74ee6",
+   "oar_id": "oar-retines",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,1–0,2cm³",
+   "limitant": "≤ 8 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-f9be47ea",
+   "oar_id": "oar-retines",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "V21,9Gy",
+   "limitant": "≤ 5 cm³",
+   "source": "TG-101 ; Timmerman ; NRG BR002 ; UTSW"
+  },
+  {
+   "id": "cr-f8b1e64b",
+   "oar_id": "oar-retines",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 17,4 Gy",
+   "source": "TG-101 ; HyTEC ; PRO Oligo '21 ; Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-4b8aa984",
+   "oar_id": "oar-retines",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "D0,1cm³",
+   "limitant": "≤ 32 Gy",
+   "source": "TG-101 ; UK SABR '17 ; NRG BR002"
+  },
+  {
+   "id": "cr-dccf288c",
+   "oar_id": "oar-retines",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V30Gy",
+   "limitant": "≤ 5 cm³",
+   "source": "TG-101 ; NRG BR002"
+  },
+  {
+   "id": "cr-b86debbe",
+   "oar_id": "oar-segment-anterieur",
+   "regime": "normo",
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 35 Gy",
+   "note": "PRV, marge 3 mm",
+   "source": "DAHANCA 20 ; DAHANCA 25"
+  },
+  {
+   "id": "cr-9a14c1c1",
+   "oar_id": "oar-femurs",
+   "regime": "normo",
+   "indicateur": "Dmean",
+   "limitant": "≤ 37 Gy",
+   "source": "Dickie IJROBP '09 ; Casey ASO '20",
+   "effet": "nécrose"
+  },
+  {
+   "id": "cr-a5b07df0",
+   "oar_id": "oar-femurs",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V30Gy",
+   "limitant": "≤ 10 cm³",
+   "source": "TG-101 ; UK SABR '17 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; NRG BR002 ; UTSW",
+   "effet": "nécrose"
+  },
+  {
+   "id": "cr-08b56733",
+   "oar_id": "oar-tetes-femorales",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "V35Gy",
+   "limitant": "≤ 10 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-c8da2904",
+   "oar_id": "oar-tetes-femorales",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 43,5 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-9b7ca239",
+   "oar_id": "oar-tetes-femorales",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 43,5 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-c668fd70",
+   "oar_id": "oar-tetes-femorales",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "V38–39,1Gy",
+   "limitant": "≤ 10 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-c3c5a156",
+   "oar_id": "oar-tetes-femorales",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "V38–39,1Gy",
+   "limitant": "≤ 10 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-08a57bfb",
+   "oar_id": "oar-tetes-femorales",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 46,5 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-11750262",
+   "oar_id": "oar-tetes-femorales",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "V40Gy",
+   "limitant": "≤ 10 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-f74b91ef",
+   "oar_id": "oar-tetes-femorales",
+   "regime": "hypo",
+   "fx": 28,
+   "indicateur": "V50Gy",
+   "limitant": "≤ 1 %",
+   "source": "NRG Prostate 2020",
+   "effet": "nécrose"
+  },
+  {
+   "id": "cr-fd98e3ca",
+   "oar_id": "oar-cartilages-croissance",
+   "regime": "normo",
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 3–6 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-5b43a450",
+   "oar_id": "oar-crete-iliaque",
+   "regime": "normo",
+   "indicateur": "V50Gy",
+   "limitant": "≤ 5 %",
+   "source": "NCCN Anal 1.2026 ; RTOG 0529"
+  },
+  {
+   "id": "cr-ce34ddb3",
+   "oar_id": "oar-crete-iliaque",
+   "regime": "normo",
+   "indicateur": "V40Gy",
+   "limitant": "≤ 35 %",
+   "source": "NCCN Anal 1.2026 ; RTOG 0529"
+  },
+  {
+   "id": "cr-0a47af13",
+   "oar_id": "oar-crete-iliaque",
+   "regime": "normo",
+   "indicateur": "V30Gy",
+   "limitant": "≤ 50 %",
+   "source": "NCCN Anal 1.2026 ; RTOG 0529"
+  },
+  {
+   "id": "cr-94a811d1",
+   "oar_id": "oar-articulation",
+   "regime": "normo",
+   "indicateur": "V50Gy",
+   "limitant": "≤ 50-60 %",
+   "source": "RTOG 0630"
+  },
+  {
+   "id": "cr-de013632",
+   "oar_id": "oar-hile-renal",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "V28Gy",
+   "limitant": "≤ 15 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-16239d9b",
+   "oar_id": "oar-hile-renal",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "V30,7Gy",
+   "limitant": "≤ 15 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-3ecae943",
+   "oar_id": "oar-hile-renal",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "V30,7Gy",
+   "limitant": "≤ 15 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-73f7387d",
+   "oar_id": "oar-hile-renal",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "V37,5Gy",
+   "limitant": "≤ 15 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-1fcafdcd",
+   "oar_id": "oar-circonflexe",
+   "regime": "normo",
+   "indicateur": "V15Gy",
+   "limitant": "≤ 14 %",
+   "source": "NCCN Hodgkin 1.2026"
+  },
+  {
+   "id": "cr-efa3885a",
+   "oar_id": "oar-circonflexe",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 12–14 Gy",
+   "source": "CORSAIR"
+  },
+  {
+   "id": "cr-7834c12b",
+   "oar_id": "oar-glandes-lacrymales",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "Dmax",
+   "limitant": "≤ 5 Gy",
+   "source": "CORSAIR"
+  },
+  {
+   "id": "cr-2eb17a44",
+   "oar_id": "oar-glandes-lacrymales",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "Dmax",
+   "limitant": "≤ 5–15 Gy",
+   "source": "CORSAIR"
+  },
+  {
+   "id": "cr-c4d2b8e8",
+   "oar_id": "oar-glandes-lacrymales",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "Dmax",
+   "limitant": "≤ 5–15 Gy",
+   "source": "CORSAIR"
+  },
+  {
+   "id": "cr-f5223440",
+   "oar_id": "oar-glandes-lacrymales",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 23,6 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-64cb3608",
+   "oar_id": "oar-glandes-lacrymales",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 23,6 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-39834b14",
+   "oar_id": "oar-iva",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 12–14 Gy",
+   "source": "CORSAIR"
+  },
+  {
+   "id": "cr-d2d70302",
+   "oar_id": "oar-larynx",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 20,2 Gy",
+   "source": "CORSAIR ; RTOG 0631"
+  },
+  {
+   "id": "cr-a8765283",
+   "oar_id": "oar-larynx",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 45 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-ba60d442",
+   "oar_id": "oar-larynx",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 45 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-4058763e",
+   "oar_id": "oar-larynx",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 52,5 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-f4bb54bc",
+   "oar_id": "oar-larynx-glottique",
+   "regime": "normo",
+   "indicateur": "Dmean",
+   "limitant": "≤ 40 Gy",
+   "source": "QUANTEC ; DAHANCA 25",
+   "effet": "nécrose, œdème laryngé, dysphagie, inhalation"
+  },
+  {
+   "id": "cr-3e927efb",
+   "oar_id": "oar-larynx-supraglottique",
+   "regime": "normo",
+   "indicateur": "Dmean",
+   "limitant": "≤ 40 Gy",
+   "source": "QUANTEC ; DAHANCA 20 ; DAHANCA 25 ; NRG HN005",
+   "effet": "nécrose, œdème laryngé, dysphagie, inhalation"
+  },
+  {
+   "id": "cr-be96c99f",
+   "oar_id": "oar-cristallins",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 7 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-fb8c9af4",
+   "oar_id": "oar-cristallins",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 7 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-167d8c8d",
+   "oar_id": "oar-cristallins",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 9 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-e9b94da8",
+   "oar_id": "oar-cristallins",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 10 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-96df1d08",
+   "oar_id": "oar-cristallins",
+   "regime": "hypo",
+   "fx": 25,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 5 Gy",
+   "source": "Source à préciser"
+  },
+  {
+   "id": "cr-9f56ea36",
+   "oar_id": "oar-foie",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "Volume critique 700 cm³",
+   "limitant": "< 24,8 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-fe615122",
+   "oar_id": "oar-os-longs",
+   "regime": "normo",
+   "indicateur": "V40Gy",
+   "limitant": "≤ 35-64 %",
+   "source": "NCCN Hodgkin 1.2026 ; NRG Heme '26",
+   "effet": "fracture"
+  },
+  {
+   "id": "cr-9ea37114",
+   "oar_id": "oar-poumons",
+   "regime": "normo",
+   "dpf": 1.5,
+   "indicateur": "V20Gy",
+   "limitant": "≤ 40 %",
+   "note": "bifractionné : 1,5 Gy deux fois par jour",
+   "source": "CALGB 30610 ; RTOG 0538"
+  },
+  {
+   "id": "cr-ad7726a3",
+   "oar_id": "oar-poumons",
+   "regime": "normo",
+   "dpf": 1.5,
+   "indicateur": "Dmean",
+   "limitant": "≤ 20 Gy",
+   "note": "bifractionné : 1,5 Gy deux fois par jour",
+   "source": "CALGB 30610 ; RTOG 0538"
+  },
+  {
+   "id": "cr-526eda66",
+   "oar_id": "oar-chiasma",
+   "regime": "stereo",
+   "fx": 4,
+   "indicateur": "D0,1cm³",
+   "limitant": "≤ 22,5 Gy",
+   "source": "PRO Oligo '21",
+   "effet": "névrite optique grade ≥ 3"
+  },
+  {
+   "id": "cr-6153e868",
+   "oar_id": "oar-chiasma",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 29,6 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-a2ddf3b7",
+   "oar_id": "oar-chiasma",
+   "regime": "hypo",
+   "fx": 25,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 50 Gy",
+   "note": "PRV, marge 1,5-3 mm",
+   "source": "Source à préciser"
+  },
+  {
+   "id": "cr-7c49ae17",
+   "oar_id": "oar-nerfs-optiques",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 48 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-cdd4783d",
+   "oar_id": "oar-nerfs-optiques",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "V42Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-a60848eb",
+   "oar_id": "oar-nerfs-optiques",
+   "regime": "hypo",
+   "fx": 25,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 50 Gy",
+   "note": "PRV, marge 1,5-3 mm",
+   "source": "Meade Clin Onc '18"
+  },
+  {
+   "id": "cr-69cdd0fd",
+   "oar_id": "oar-yeux",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "D0,1cm³",
+   "limitant": "≤ 26 Gy",
+   "source": "Timmerman ; UK SABR '17 ; NRG BR002 ; UTSW"
+  },
+  {
+   "id": "cr-1b723f1e",
+   "oar_id": "oar-yeux",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "D0,1cm³",
+   "limitant": "≤ 24 Gy",
+   "source": "TG-101 ; UK SABR '17"
+  },
+  {
+   "id": "cr-25d603fe",
+   "oar_id": "oar-yeux",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "V24–26Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "UK SABR '17"
+  },
+  {
+   "id": "cr-5ed44ad0",
+   "oar_id": "oar-yeux",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "V20,4–22Gy",
+   "limitant": "≤ 3 cm³",
+   "source": "TG-101 ; Timmerman ; NRG BR002 ; UTSW"
+  },
+  {
+   "id": "cr-110fee17",
+   "oar_id": "oar-yeux",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "D0,1cm³",
+   "limitant": "≤ 30,5 Gy",
+   "source": "TG-101 ; Timmerman ; UTSW"
+  },
+  {
+   "id": "cr-ea21188d",
+   "oar_id": "oar-yeux",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V27–29Gy",
+   "limitant": "≤ 0,5 cm³",
+   "source": "UK SABR '17"
+  },
+  {
+   "id": "cr-5ee5afb6",
+   "oar_id": "oar-yeux",
+   "regime": "hypo",
+   "fx": 25,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 40 Gy",
+   "source": "Meade Clin Onc '18"
+  },
+  {
+   "id": "cr-a7c8b924",
+   "oar_id": "oar-bulbe",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,1cm³",
+   "limitant": "≤ 14–34 Gy",
+   "source": "TG-101 ; PRO Oligo '21 ; CORSAIR"
+  },
+  {
+   "id": "cr-8af6a80f",
+   "oar_id": "oar-bulbe",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "V14–16Gy",
+   "limitant": "≤ 3 cm³",
+   "source": "TG-101 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; NRG BR002 ; UTSW"
+  },
+  {
+   "id": "cr-cf6ecbb1",
+   "oar_id": "oar-bulbe",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "V21,9–25Gy",
+   "limitant": "≤ 3 cm³",
+   "source": "TG-101 ; Timmerman ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; CORSAIR ; NRG BR002 ; UTSW"
+  },
+  {
+   "id": "cr-3f715365",
+   "oar_id": "oar-bulbe",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "V35Gy",
+   "limitant": "≤ 3 cm³",
+   "source": "Source à préciser",
+   "effet": "dysfonction érectile"
+  },
+  {
+   "id": "cr-6ef597e1",
+   "oar_id": "oar-bulbe",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "V48Gy",
+   "limitant": "≤ 10 %",
+   "source": "VA Prostate 2022 ; VA/ASTRO PRO '26 ; PIVOTALboost ; PACE"
+  },
+  {
+   "id": "cr-c1194276",
+   "oar_id": "oar-pharynx",
+   "regime": "normo",
+   "indicateur": "V60Gy",
+   "limitant": "≤ 15 %",
+   "source": "RTOG 1016"
+  },
+  {
+   "id": "cr-89528443",
+   "oar_id": "oar-pharynx",
+   "regime": "normo",
+   "indicateur": "Dmean",
+   "limitant": "≤ 45 Gy",
+   "source": "RTOG 1016 ; NRG HN005"
+  },
+  {
+   "id": "cr-51f518a5",
+   "oar_id": "oar-artere-pulmonaire",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,1cm³",
+   "limitant": "≤ 22 Gy",
+   "source": "NCCN NSCLC 3.2026 ; UK SABR '22 ; CORSAIR",
+   "effet": "péricardite grade ≥ 3"
+  },
+  {
+   "id": "cr-42b55d23",
+   "oar_id": "oar-artere-pulmonaire",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 30 Gy",
+   "source": "UK SABR '22"
+  },
+  {
+   "id": "cr-0fe18e06",
+   "oar_id": "oar-artere-pulmonaire",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "D0,1cm³",
+   "limitant": "≤ 29–38 Gy",
+   "source": "UK SABR '22 ; CORSAIR",
+   "effet": "péricardite grade ≥ 3"
+  },
+  {
+   "id": "cr-b97aa99a",
+   "oar_id": "oar-artere-pulmonaire",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "D0,1cm³",
+   "limitant": "≤ 46 Gy",
+   "source": "UK SABR '22",
+   "effet": "péricardite grade ≥ 3"
+  },
+  {
+   "id": "cr-974fffd5",
+   "oar_id": "oar-coronaire-droite",
+   "regime": "normo",
+   "indicateur": "Dmean",
+   "limitant": "≤ 5 Gy",
+   "source": "NCCN Hodgkin 1.2026"
+  },
+  {
+   "id": "cr-0d2c7fe3",
+   "oar_id": "oar-coronaire-droite",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 12 Gy",
+   "source": "CORSAIR"
+  },
+  {
+   "id": "cr-198a0385",
+   "oar_id": "oar-rectum",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "V39Gy",
+   "limitant": "≤ 3,5 cm³",
+   "source": "Timmerman ; PRO Oligo '21 ; NRG BR002 ; UTSW"
+  },
+  {
+   "id": "cr-1df2d237",
+   "oar_id": "oar-rectum",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 18,4–44,2 Gy",
+   "source": "TG-101 ; PRO Oligo '21 ; RTOG 0631"
+  },
+  {
+   "id": "cr-25f7d335",
+   "oar_id": "oar-rectum",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 61,5 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-33f6e472",
+   "oar_id": "oar-rectum",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "V56Gy",
+   "limitant": "≤ 3,5 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-5e81a35b",
+   "oar_id": "oar-rectum",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "V45Gy",
+   "limitant": "≤ 20 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-c8684123",
+   "oar_id": "oar-rectum",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 65 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-93a4f8af",
+   "oar_id": "oar-rectum",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 65 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-7c7194fc",
+   "oar_id": "oar-rectum",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "V52Gy",
+   "limitant": "≤ 10 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-2c61ded5",
+   "oar_id": "oar-rectum",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "V52Gy",
+   "limitant": "≤ 10 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-af1becb6",
+   "oar_id": "oar-rectum",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "V49Gy",
+   "limitant": "≤ 20 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-3b7bd50c",
+   "oar_id": "oar-rectum",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "V49Gy",
+   "limitant": "≤ 20 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-bdbe5085",
+   "oar_id": "oar-rectum",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 70,5 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-ed85a003",
+   "oar_id": "oar-rectum",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "V60Gy",
+   "limitant": "≤ 10 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-7f14e0a0",
+   "oar_id": "oar-rectum",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "V57Gy",
+   "limitant": "≤ 20 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-85e7727d",
+   "oar_id": "oar-rectum",
+   "regime": "hypo",
+   "fx": 28,
+   "indicateur": "V65Gy",
+   "limitant": "≤ 15 %",
+   "source": "NRG Prostate 2020",
+   "effet": "rectite, fistule"
+  },
+  {
+   "id": "cr-2a6a1377",
+   "oar_id": "oar-rectum",
+   "regime": "hypo",
+   "fx": 28,
+   "indicateur": "V45Gy",
+   "limitant": "≤ 45 %",
+   "source": "RTOG 0415 ; NRG GU005",
+   "effet": "rectite, fistule"
+  },
+  {
+   "id": "cr-029aefb9",
+   "oar_id": "oar-cotes",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 30–33 Gy",
+   "source": "NCCN NSCLC 3.2026 ; TG-101 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; CORSAIR ; RTOG 0915 ; UTSW",
+   "effet": "douleur ou fracture"
+  },
+  {
+   "id": "cr-f596a83b",
+   "oar_id": "oar-cotes",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "V22Gy",
+   "limitant": "≤ 1 cm³",
+   "source": "VA/ASTRO PRO '26 ; TG-101 ; PRO Oligo '21 ; CORSAIR ; RTOG 0915",
+   "effet": "douleur ou fracture"
+  },
+  {
+   "id": "cr-c45826d2",
+   "oar_id": "oar-plexus-sacre",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 16–18 Gy",
+   "source": "TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; RTOG 0631 ; NRG BR002 ; UTSW",
+   "effet": "neuropathie"
+  },
+  {
+   "id": "cr-06d25013",
+   "oar_id": "oar-plexus-sacre",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "V14,4Gy",
+   "limitant": "≤ 5 cm³",
+   "source": "Timmerman ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; RTOG 0631 ; NRG BR002 ; UTSW",
+   "effet": "neuropathie"
+  },
+  {
+   "id": "cr-b8251f36",
+   "oar_id": "oar-plexus-sacre",
+   "regime": "stereo",
+   "fx": 4,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 23,8–28,3 Gy",
+   "source": "PRO Oligo '21",
+   "effet": "neuropathie"
+  },
+  {
+   "id": "cr-5a212207",
+   "oar_id": "oar-plexus-sacre",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 38,4 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-7654113b",
+   "oar_id": "oar-plexus-sacre",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "V34Gy",
+   "limitant": "≤ 5 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-151b3dd2",
+   "oar_id": "oar-plexus-sacre",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 41 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-b59a2d3a",
+   "oar_id": "oar-plexus-sacre",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 41 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-821f1b00",
+   "oar_id": "oar-plexus-sacre",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "V35Gy",
+   "limitant": "≤ 5 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-e79501a5",
+   "oar_id": "oar-plexus-sacre",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "V35Gy",
+   "limitant": "≤ 5 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-6a8f3a39",
+   "oar_id": "oar-plexus-sacre",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 48 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-6d05cdaa",
+   "oar_id": "oar-plexus-sacre",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "V40,5Gy",
+   "limitant": "≤ 5 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-1ec2622e",
+   "oar_id": "oar-sigmoide",
+   "regime": "stereo",
+   "fx": 4,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 33,2 Gy",
+   "source": "PRO Oligo '21",
+   "effet": "colite, fistule"
+  },
+  {
+   "id": "cr-59c55005",
+   "oar_id": "oar-sigmoide",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 57,5 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-2a829f4d",
+   "oar_id": "oar-sigmoide",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 46 Gy",
+   "source": "PRO Oligo '21"
+  },
+  {
+   "id": "cr-7e7e227e",
+   "oar_id": "oar-sigmoide",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "V35,2Gy",
+   "limitant": "≤ 20 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-df7c85c5",
+   "oar_id": "oar-sigmoide",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 64,5 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-91af734f",
+   "oar_id": "oar-sigmoide",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "V47Gy",
+   "limitant": "≤ 20 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-4bc9b51e",
+   "oar_id": "oar-sigmoide",
+   "regime": "hypo",
+   "fx": 28,
+   "indicateur": "D0,03cm³",
+   "limitant": "≤ 55–60 Gy",
+   "source": "VA/ASTRO PRO '26 ; NRG GU013",
+   "effet": "colite, fistule"
+  },
+  {
+   "id": "cr-b00b8847",
+   "oar_id": "oar-sigmoide",
+   "regime": "hypo",
+   "fx": 28,
+   "indicateur": "D1%",
+   "limitant": "≤ 50 Gy",
+   "source": "VA/ASTRO PRO '26",
+   "effet": "colite, fistule"
+  },
+  {
+   "id": "cr-7f8456cd",
+   "oar_id": "oar-peau",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 48,9 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-07013ed0",
+   "oar_id": "oar-peau",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 48,9 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-db0a47b5",
+   "oar_id": "oar-peau",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "V46,3Gy",
+   "limitant": "≤ 10 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-c485fad1",
+   "oar_id": "oar-peau",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "V46,3Gy",
+   "limitant": "≤ 10 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-b3e86fa0",
+   "oar_id": "oar-peau",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 57 Gy",
+   "source": "Timmerman '21 ; EA2183 ; UTSW"
+  },
+  {
+   "id": "cr-ef3c612e",
+   "oar_id": "oar-peau",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "V54Gy",
+   "limitant": "≤ 10 cm³",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-638f5989",
+   "oar_id": "oar-bande-cutanee",
+   "regime": "normo",
+   "indicateur": "V20Gy",
+   "limitant": "≤ 50-60 %",
+   "source": "RTOG 0631 ; NRG DT001",
+   "effet": "ulcération"
+  },
+  {
+   "id": "cr-845f699e",
+   "oar_id": "oar-bande-cutanee",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "V12Gy",
+   "limitant": "≤ 10 %",
+   "source": "UCLA"
+  },
+  {
+   "id": "cr-ab93cc33",
+   "oar_id": "oar-moelle",
+   "regime": "normo",
+   "dpf": 1.5,
+   "indicateur": "D0,03cm³",
+   "limitant": "≤ 36–41 Gy",
+   "note": "PRV, marge 1,5-3 mm; bifractionné : 1,5 Gy deux fois par jour",
+   "source": "DOSE-Pro Thoracic ; CALGB 30610 ; RTOG 0538 ; NRG LU005",
+   "effet": "myélite grade ≥ 3"
+  },
+  {
+   "id": "cr-5395bbf6",
+   "oar_id": "oar-moelle",
+   "regime": "stereo",
+   "fx": 2,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 17 Gy",
+   "note": "PRV, marge 2 mm",
+   "source": "PRO Oligo '21 ; UK SABR '22 ; SC.24 ; Sunnybrook",
+   "effet": "myélite grade ≥ 3"
+  },
+  {
+   "id": "cr-a12d0230",
+   "oar_id": "oar-moelle",
+   "regime": "stereo",
+   "fx": 6,
+   "indicateur": "D0,1cm³",
+   "limitant": "≤ 22–29 Gy",
+   "note": "PRV, marge 1,5-3 mm",
+   "source": "PRO Oligo '21"
+  },
+  {
+   "id": "cr-eebc5b34",
+   "oar_id": "oar-estomac",
+   "regime": "stereo",
+   "fx": 8,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 42 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-f414c659",
+   "oar_id": "oar-estomac",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "D0,035cm³",
+   "limitant": "≤ 54 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-5c3d761d",
+   "oar_id": "oar-glandes-sous-max",
+   "regime": "stereo",
+   "fx": 5,
+   "indicateur": "Dmean",
+   "limitant": "≤ 25 Gy",
+   "source": "NRG H&N SBRT"
+  },
+  {
+   "id": "cr-b4521680",
+   "oar_id": "oar-glandes-sous-max",
+   "regime": "stereo",
+   "fx": 10,
+   "indicateur": "Dmean",
+   "limitant": "≤ 17,7 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-434d24d0",
+   "oar_id": "oar-glandes-sous-max",
+   "regime": "hypo",
+   "fx": 10,
+   "indicateur": "Dmean",
+   "limitant": "≤ 17,7 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-1f9e3968",
+   "oar_id": "oar-glandes-sous-max",
+   "regime": "hypo",
+   "fx": 15,
+   "indicateur": "Dmean",
+   "limitant": "≤ 22,5 Gy",
+   "source": "Timmerman '21 ; UTSW"
+  },
+  {
+   "id": "cr-11f7a36a",
+   "oar_id": "oar-uretre",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "D0,035–0,1cm³",
+   "limitant": "≤ 35 Gy",
+   "source": "Timmerman ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
+  },
+  {
+   "id": "cr-6050b092",
+   "oar_id": "oar-uretre",
+   "regime": "stereo",
+   "fx": 3,
+   "indicateur": "D0,035–0,5cm³",
+   "limitant": "≤ 40 Gy",
+   "source": "Timmerman ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
+  },
+  {
+   "id": "cr-0b2499b7",
+   "oar_id": "oar-uretre",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "V64,2–68,2Gy",
+   "limitant": "≤ 0,03 cm³",
+   "source": "NRG GU013"
+  },
+  {
+   "id": "cr-67768def",
+   "oar_id": "oar-uretre",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "V62,4–67,3Gy",
+   "limitant": "≤ 2 %",
+   "source": "DELINEATE"
+  },
+  {
+   "id": "cr-d704d209",
+   "oar_id": "oar-uretre",
+   "regime": "hypo",
+   "fx": 20,
+   "indicateur": "V107-110%",
+   "limitant": "≤ 0,03 cm³",
+   "source": "NRG GU013"
+  },
+  {
+   "id": "cr-e8f37163",
+   "oar_id": "oar-uretre",
+   "regime": "hypo",
+   "fx": 28,
+   "indicateur": "V74,9–77Gy",
+   "limitant": "≤ 0,03 cm³",
+   "source": "NRG GU013"
+  },
+  {
+   "id": "cr-b37a84dc",
+   "oar_id": "oar-uretre",
+   "regime": "hypo",
+   "fx": 28,
+   "indicateur": "V107-110%",
+   "limitant": "≤ 0,03 cm³",
+   "source": "NRG GU013"
+  },
+  {
+   "id": "cr-7f606ced",
+   "oar_id": "oar-uretre",
+   "regime": "hypo",
+   "fx": 25,
+   "indicateur": "V72,76–74,8Gy",
+   "limitant": "≤ 0,03 cm³",
+   "source": "NRG GU013"
+  },
+  {
+   "id": "cr-16fe1697",
+   "oar_id": "oar-uretre",
+   "regime": "hypo",
+   "fx": 25,
+   "indicateur": "V107-110%",
+   "limitant": "≤ 0,03 cm³",
+   "source": "NRG GU013"
+  },
+  {
+   "id": "cr-c58df7c7",
+   "oar_id": "oar-corps-vertebraux",
+   "regime": "normo",
+   "indicateur": "Dose",
+   "limitant": "18–20 Gy, aussi basse que possible",
+   "source": "Source à préciser"
+  },
+  {
+   "id": "cr-6266e3d9",
+   "oar_id": "oar-corps-vertebraux",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "V24Gy",
+   "limitant": "≤ 0 %",
+   "source": "NRG BR002 ; RTOG 0631 ; RTOG 0915"
+  },
+  {
+   "id": "cr-49d133ee",
+   "oar_id": "oar-corps-vertebraux",
+   "regime": "stereo",
+   "fx": 1,
+   "indicateur": "V20Gy",
+   "limitant": "≤ 24 %",
+   "source": "NRG BR002 ; RTOG 0631 ; RTOG 0915"
   }
  ],
  "essais": [

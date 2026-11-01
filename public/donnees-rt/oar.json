@@ -877,6 +877,133 @@
    "nom_tg263": "External",
    "definition": "Contour externe du patient (peau), tracé automatiquement par seuil au scanner ; vérifier qu'il ne prend pas la table, le matelas ou le masque. Sert au calcul de dose et aux structures calculées (peau, tissu sain).",
    "region": "divers"
+  },
+  {
+   "id": "oar-constricteur-sup",
+   "nom": "Constricteur supérieur du pharynx",
+   "nom_tg263": "Musc_Constrict_S",
+   "definition": "Partie haute des constricteurs (contourés avec une épaisseur de 3 mm en arrière de la lumière pharyngée). Limites : haut, le bas des apophyses ptérygoïdes ; bas, le bas de la deuxième vertèbre cervicale ; avant, l'hamulus ptérygoïdien, le voile, la base de langue ; arrière, les muscles prévertébraux. Imagerie : scanner, fenêtre des tissus mous. Attention : ne pas inclure la lumière ni la base de langue.",
+   "region": "orl"
+  },
+  {
+   "id": "oar-constricteur-moyen",
+   "nom": "Constricteur moyen du pharynx",
+   "nom_tg263": "Musc_Constrict_M",
+   "definition": "Partie moyenne des constricteurs, 3 mm d'épaisseur en arrière de la lumière. Limites : haut, le bord supérieur de C3 ; bas, le bord inférieur de l'os hyoïde ; avant, la base de langue puis l'os hyoïde ; arrière, les muscles prévertébraux. Imagerie : scanner. Attention : bien séparer de la base de langue, contourée à part.",
+   "region": "orl"
+  },
+  {
+   "id": "oar-constricteur-inf",
+   "nom": "Constricteur inférieur du pharynx",
+   "nom_tg263": "Musc_Constrict_I",
+   "definition": "Partie basse des constricteurs, 3 mm d'épaisseur. Limites : haut, juste sous l'os hyoïde ; bas, le bord inférieur du cartilage cricoïde ; avant, le larynx (arytenoïdes, cartilage thyroïde) ; arrière, les muscles prévertébraux. Imagerie : scanner. Attention : la bouche œsophagienne (cricopharyngien) commence en dessous.",
+   "region": "orl"
+  },
+  {
+   "id": "oar-larynx-supraglottique",
+   "nom": "Larynx supraglottique",
+   "nom_tg263": "Larynx_SG",
+   "definition": "Épiglotte, bandes ventriculaires, replis ary-épiglottiques et loge pré-épiglottique, air exclu. Limites : haut, la pointe de l'épiglotte ; bas, le haut des arytenoïdes ; avant, l'os hyoïde, la loge pré-épiglottique, le cartilage thyroïde ; arrière, le bas des constricteurs dans la lumière pharyngée ; dehors, le cartilage thyroïde. Imagerie : scanner, fenêtre des tissus mous.",
+   "region": "orl"
+  },
+  {
+   "id": "oar-larynx-glottique",
+   "nom": "Larynx glottique",
+   "nom_tg263": "Larynx_Glottic",
+   "definition": "Plan des cordes vocales. Limites : haut, le bord supérieur des arytenoïdes ; bas, le bord inférieur de la partie antérieure du cartilage thyroïde ; arrière, le cartilage cricoïde et le bord antérieur des arytenoïdes ; dehors, le cartilage thyroïde. Imagerie : scanner. Attention : contourer en coupes fines (2–3 mm).",
+   "region": "orl"
+  },
+  {
+   "id": "oar-segment-anterieur",
+   "nom": "Segment antérieur de l'œil",
+   "nom_tg263": "Eye_Front",
+   "definition": "Partie de l'œil en avant du cristallin : cornée, chambre antérieure, iris et cristallin. Limites : avant, la cornée ; arrière, la face postérieure du cristallin ; dehors, la sclère. Imagerie : scanner, fenêtre des tissus mous ; IRM si disponible. Sert à la sécheresse oculaire et à la kératopathie (protonthérapie des tumeurs oculaires).",
+   "region": "snc",
+   "construit": true
+  },
+  {
+   "id": "oar-corps-calleux",
+   "nom": "Corps calleux",
+   "nom_tg263": "CorpusCallosum",
+   "definition": "Commissure blanche qui relie les deux hémisphères, du genou en avant au splénium en arrière, sur la ligne médiane au-dessus des ventricules latéraux. Imagerie : IRM T1 ou FLAIR fusionnée au scanner, coupes sagittales et coronales. Attention : ne pas inclure le septum pellucidum ni le fornix.",
+   "region": "snc",
+   "construit": true
+  },
+  {
+   "id": "oar-corps-vertebraux",
+   "nom": "Corps vertébraux",
+   "nom_tg263": "VB",
+   "definition": "Corps des vertèbres dans le champ, os cortical et médullaire, sans l'arc postérieur ni le canal ; disques exclus. Imagerie : scanner, fenêtre osseuse. Sert à la croissance osseuse chez l'enfant (dose homogène sur toute la vertèbre) et à la moelle hématopoïétique.",
+   "region": "divers",
+   "construit": true
+  },
+  {
+   "id": "oar-crete-iliaque",
+   "nom": "Crêtes iliaques",
+   "nom_tg263": "Bone_IliacCrest",
+   "definition": "Partie haute des ailes iliaques, porteuse de moelle hématopoïétique et de cartilage de croissance chez l'enfant. Limites : haut, le bord supérieur de la crête ; bas, environ 2 cm sous ce bord ou le plan choisi par l'essai ; os cortical et médullaire. Imagerie : scanner, fenêtre osseuse.",
+   "region": "pelvis",
+   "construit": true
+  },
+  {
+   "id": "oar-femurs",
+   "nom": "Fémurs (col et diaphyse)",
+   "nom_tg263": "Femur",
+   "definition": "Fémur dans le champ, tête, col et diaphyse, cortical et médullaire, jusqu'au bas du champ. Imagerie : scanner, fenêtre osseuse. Sert au risque de fracture (sarcome des membres).",
+   "region": "pelvis",
+   "construit": true
+  },
+  {
+   "id": "oar-bande-cutanee",
+   "nom": "Bande de peau longitudinale (membre)",
+   "nom_tg263": "Skin_Strip",
+   "definition": "Bande de peau et de tissu sous-cutané d'environ 1 à 2 cm de large sur toute la longueur du membre irradié, laissée en dehors du volume cible pour garder le drainage lymphatique. Imagerie : scanner. Sert au lymphœdème (sarcome des membres).",
+   "region": "divers",
+   "construit": true
+  },
+  {
+   "id": "oar-cartilages-croissance",
+   "nom": "Cartilages de croissance",
+   "nom_tg263": "GrowthPlate",
+   "definition": "Plaques de croissance (physes) des os longs de l'enfant dans le champ, avec l'épiphyse voisine. Imagerie : scanner, fenêtre osseuse ; IRM si besoin. Sert au retard de croissance et à l'inégalité de longueur des membres.",
+   "region": "divers",
+   "construit": true
+  },
+  {
+   "id": "oar-articulation",
+   "nom": "Espace articulaire",
+   "nom_tg263": "Joint",
+   "definition": "Articulation dans le champ (genou, coude, épaule…) : cavité articulaire, cartilage et synoviale, os sous-chondral sur quelques millimètres. Imagerie : scanner, fenêtre osseuse. Sert à la raideur articulaire (sarcome des membres).",
+   "region": "divers",
+   "construit": true
+  },
+  {
+   "id": "oar-coronaires",
+   "nom": "Artères coronaires",
+   "nom_tg263": "A_Coronary",
+   "definition": "Ensemble des artères coronaires visibles : tronc gauche, interventriculaire antérieure, circonflexe et coronaire droite, dans le sillon graisseux du cœur. Marge de 2 à 3 mm si elles sont mal visibles. Imagerie : scanner injecté, idéalement synchronisé à l'ECG.",
+   "region": "thorax"
+  },
+  {
+   "id": "oar-coronaire-droite",
+   "nom": "Artère coronaire droite",
+   "nom_tg263": "A_Coronary_R",
+   "definition": "De son origine au sinus coronaire droit de l'aorte, dans le sillon auriculo-ventriculaire droit, jusqu'à la face inférieure du cœur. Marge de 2 à 3 mm si elle est mal visible. Imagerie : scanner injecté.",
+   "region": "thorax"
+  },
+  {
+   "id": "oar-circonflexe",
+   "nom": "Artère circonflexe",
+   "nom_tg263": "A_Cflx",
+   "definition": "Branche du tronc coronaire gauche, dans le sillon auriculo-ventriculaire gauche, vers la face latérale du ventricule gauche. Marge de 2 à 3 mm si elle est mal visible. Imagerie : scanner injecté.",
+   "region": "thorax"
+  },
+  {
+   "id": "oar-artere-pulmonaire",
+   "nom": "Artère pulmonaire",
+   "nom_tg263": "A_Pulmonary",
+   "definition": "Tronc de l'artère pulmonaire et ses deux branches jusqu'à leur entrée dans le hile, paroi incluse. Limites : bas, la valve pulmonaire ; haut, la bifurcation et les branches ; dehors, le hile. Imagerie : scanner injecté, fenêtre médiastinale. Sert au risque de saignement en stéréotaxie des tumeurs centrales.",
+   "region": "thorax"
   }
  ],
  "paires": [

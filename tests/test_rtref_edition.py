@@ -100,7 +100,7 @@ async def main():
         await pg.fill('#rtrOq', ''); await pg.click('.rtr-ohaut .mini'); await pg.wait_for_timeout(300)
         await pg.fill('#rtrOn', 'Organe test du cabinet'); await pg.fill('#rtrOt', 'Test_Cab'); await pg.fill('#rtrOd', 'Définition test'); await pg.click('#fenetre .bt.plein'); await pg.wait_for_timeout(1200)
         d = await ev(DOC('_oar'))
-        ok(d and any(x['nom'] == 'Organe test du cabinet' for x in d['ajouts']) and await ev("document.querySelectorAll('.rtr-ot tbody tr').length") == 118, 'organe ajouté par le cabinet (118 organes)')
+        ok(d and any(x['nom'] == 'Organe test du cabinet' for x in d['ajouts']) and await ev("document.querySelectorAll('.rtr-ot tbody tr').length") == 135, 'organe ajouté par le cabinet (135 organes)')
         ok(not await ev("!!window.__fs['" + K + "_oar'].schema"), 'les bibliothèques du cabinet ne sont pas prises pour un schéma')
         await pg.goto(f'http://localhost:{PORT}/v2.html#radiotherapie'); await pg.wait_for_timeout(2500)
         ok(await ev("parseInt(document.querySelector('#rtrListe .rtr-nb').textContent)") >= 295 and not pg.errs, 'la liste des schémas reste entière, aucune erreur JavaScript', pg.errs[:2])

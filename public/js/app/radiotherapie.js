@@ -391,16 +391,28 @@ function tableCouv(C) {
   return '<div class="rtr-tw"><table class="rtr-tab rtr-ct rtr-cv">' + COLS + tete2("Volume") + "<tbody>" + g.map((x) => x.l.map((l, k) => '<tr class="' + (k ? "" : "g1") + '">' + (k ? "" : '<td class="o" rowspan="' + x.l.length + '" data-l="Volume"><b>' + esc(x.v || "—") + "</b></td>") +
     '<td data-l="Indicateur">' + esc(l.indicateur || "") + '</td><td class="n" data-l="Idéal">' + esc(l.ideal || "") + '</td><td class="n lim" data-l="Limitant">' + esc(l.limitant || "") + '</td><td data-l="Note">' + court(l.note || "") + "</td></tr>").join("")).join("") + "</tbody></table></div>";
 }
+// 01/11/2026 (lot 1, contraintes) : un petit numéro par ligne renvoie à ses sources (lignes de mêmes sources = même numéro), dans la même liste
+// numérotée que les renvois de l'organe ; effet évité sous la note
+function numeroteur() {
+  const L = [], vus = {};
+  return { L, renvoi: (t) => (L.push({ t }), L.length), source: (s) => { s = String(s || "").trim(); if (!s) return 0; if (!vus[s]) { L.push({ s }); vus[s] = L.length; } return vus[s]; } };
+}
+function itemSource(x) {
+  const esc = A.esc; if (x.t) return "<li>" + esc(x.t) + "</li>";
+  const s = x.s.split(" ; "), plus = s.length - 4;
+  return '<li title="' + esc(x.s) + '">' + esc(s.slice(0, 4).join(" ; ")) + (plus > 0 ? ' <span class="mesures">et ' + plus + " autre" + (plus > 1 ? "s" : "") + "</span>" : "") + "</li>";
+}
+const supSrc = (n) => (n ? '<sup class="rtr-rv">' + n + "</sup>" : "");
+const noteEffet = (l) => court(l.note || "") + (l.effet ? (l.note ? "<br>" : "") + '<span class="mesures">Évite : ' + A.esc(l.effet) + "</span>" : "");
 function tableContraintes(G) {
-  const esc = A.esc; let n = 0;
-  const num = G.map((g) => (renvoiDe(g) ? ++n : 0));
-  return '<div class="rtr-tw"><table class="rtr-tab rtr-ct">' + COLS + tete2("Organe") + "<tbody>" +
-    G.map((g, i) => { const o = oar(g.cle), L = g.lignes.length ? g.lignes : [null];
-      const tete = (k) => '<td class="o" rowspan="' + k + '" data-l="Organe"><b>' + esc(o.nom) + "</b>" + (num[i] ? '<sup class="rtr-rv">' + num[i] + "</sup>" : "") + (o.nom_tg263 ? '<br><span class="mesures">' + esc(o.nom_tg263) + "</span>" : "") + "</td>";
+  const esc = A.esc, N = numeroteur();
+  const corps = G.map((g) => { const o = oar(g.cle), L = g.lignes.length ? g.lignes : [null], r = renvoiDe(g), nr = r ? N.renvoi(r) : 0;
+      const tete = (k) => '<td class="o" rowspan="' + k + '" data-l="Organe"><b>' + esc(o.nom) + "</b>" + supSrc(nr) + (o.nom_tg263 ? '<br><span class="mesures">' + esc(o.nom_tg263) + "</span>" : "") + "</td>";
       return L.map((l, k) => '<tr class="' + (k ? "" : "g1") + (g.origine === "conversion" ? " conv" : "") + '">' + (k ? "" : tete(L.length)) +
-        (l ? '<td data-l="Indicateur">' + esc(l.indicateur || "") + '</td><td class="n" data-l="Idéal">' + esc(l.ideal || "") + '</td><td class="n lim" data-l="Limitant">' + esc(l.limitant || "") + '</td><td data-l="Note">' + court(l.note || "") + "</td>"
-          : '<td colspan="4" class="mesures" data-l="Contrainte">Aucune contrainte publiée</td>') + "</tr>").join(""); }).join("") + "</tbody></table></div>" +
-    (n ? '<ol class="rtr-renv">' + G.filter((g, i) => num[i]).map((g) => "<li>" + esc(renvoiDe(g)) + "</li>").join("") + "</ol>" : "");
+        (l ? '<td data-l="Indicateur">' + esc(l.indicateur || "") + supSrc(N.source(l.source)) + '</td><td class="n" data-l="Idéal">' + esc(l.ideal || "") + '</td><td class="n lim" data-l="Limitant">' + esc(l.limitant || "") + '</td><td data-l="Note">' + noteEffet(l) + "</td>"
+          : '<td colspan="4" class="mesures" data-l="Contrainte">Aucune contrainte publiée</td>') + "</tr>").join(""); }).join("");
+  return '<div class="rtr-tw"><table class="rtr-tab rtr-ct">' + COLS + tete2("Organe") + "<tbody>" + corps + "</tbody></table></div>" +
+    (N.L.length ? '<ol class="rtr-renv">' + N.L.map(itemSource).join("") + "</ol>" : "");
 }
 function ongletContraintes() {
   const C = couvLignes(), G = lignesFiche();
@@ -899,9 +911,9 @@ function cleOarsListe() {
   return r;
 }
 function etiquette(l) { return [l.loc ? l.loc.map(nomLoc).join(", ") : "", l.fx ? l.fx + " séance" + (l.fx > 1 ? "s" : "") + (l.dpf ? " de " + nb(l.dpf) + " Gy" : "") : ""].filter(Boolean).join(" · "); }
-function celluleRegime(L) {
+function celluleRegime(L, N) {
   const esc = A.esc, g = []; L.forEach((l) => { const e = etiquette(l); let x = g.find((y) => y.e === e); if (!x) { x = { e, l: [] }; g.push(x); } x.l.push(l); });
-  return g.sort((a, b) => (a.e ? 1 : 0) - (b.e ? 1 : 0)).map((x) => (x.e ? '<div class="rtr-ctg">' + esc(x.e) + "</div>" : "") + x.l.map((l) => '<div class="rtr-ctl">' + esc(l.indicateur || "") + " " + (l.ideal ? '<span class="mesures">idéal ' + esc(l.ideal) + "</span> " : "") + "<b>" + esc(l.limitant || "") + "</b></div>").join("")).join("");
+  return g.sort((a, b) => (a.e ? 1 : 0) - (b.e ? 1 : 0)).map((x) => (x.e ? '<div class="rtr-ctg">' + esc(x.e) + "</div>" : "") + x.l.map((l) => '<div class="rtr-ctl"' + (l.effet ? ' title="Évite : ' + esc(l.effet) + '"' : "") + ">" + esc(l.indicateur || "") + " " + (l.ideal ? '<span class="mesures">idéal ' + esc(l.ideal) + "</span> " : "") + "<b>" + esc(l.limitant || "") + "</b>" + (N ? supSrc(N.source(l.source)) : "") + "</div>").join("")).join("");
 }
 async function pageContraintesRef() {
   const z = $("rtrSous"); if (!z) return;
@@ -917,10 +929,10 @@ async function pageContraintesRef() {
     // RT.3 / RT.4 (31/10/2026) : cartes de même hauteur, dépliées au clic (toutes les contraintes, sources), repliées au second clic ; « Modifier »
     // ouvre le tableau dans une fenêtre (modifier, ajouter, supprimer, Enregistrer) ; plus de tableau sous la carte
     '<div class="rtr-tw"><table class="rtr-tab rtr-ctr rtr-cartes rtr-cartes-h"><thead><tr><th>Organe</th>' + R0.map((r) => "<th>" + REGIMES[r] + "</th>").join("") + "</tr></thead><tbody>" +
-    K.map((k) => { const o = oar(k), Lk = BB.base.filter((l) => l.oar_id === k), src = [...new Set(Lk.map((l) => l.source).filter(Boolean))].join(" ; ");
+    K.map((k) => { const o = oar(k), Lk = BB.base.filter((l) => l.oar_id === k), N = numeroteur();
       return '<tr class="rtr-clic" tabindex="0" aria-expanded="false" data-ct="' + esc(k) + '" onclick="rtrDetailCt(this,\'' + esc(k) + '\')" onkeydown="if(event.key===\'Enter\')this.click()"><td data-l="Organe"><b>' + esc(o.nom) + "</b>" + (o.nom_tg263 ? '<br><span class="mesures">' + esc(o.nom_tg263) + "</span>" : "") + "</td>" +
-      R0.map((r) => { const L = Lk.filter((l) => l.regime === r); return '<td data-l="' + REGIMES[r] + '">' + (L.length ? celluleRegime(L) : '<span class="mesures">—</span>') + "</td>"; }).join("") +
-      '<td class="rtr-cda">' + (src ? '<p class="mesures">Sources : ' + esc(src) + "</p>" : "") + (peutModif() ? '<button type="button" class="mini" onclick="event.stopPropagation();rtrCtModif(\'' + esc(k) + '\')">' + A.ic("crayon") + "Modifier</button>" : "") + "</td></tr>"; }).join("") + "</tbody></table></div>" +
+      R0.map((r) => { const L = Lk.filter((l) => l.regime === r); return '<td data-l="' + REGIMES[r] + '">' + (L.length ? celluleRegime(L, N) : '<span class="mesures">—</span>') + "</td>"; }).join("") +
+      '<td class="rtr-cda">' + (N.L.length ? '<p class="mesures">Sources</p><ol class="rtr-renv">' + N.L.map(itemSource).join("") + "</ol>" : "") + (peutModif() ? '<button type="button" class="mini" onclick="event.stopPropagation();rtrCtModif(\'' + esc(k) + '\')">' + A.ic("crayon") + "Modifier</button>" : "") + "</td></tr>"; }).join("") + "</tbody></table></div>" +
     // RT.5 : contraintes propres aux essais et à la curiethérapie en cartes, mêmes règles (dépliées au clic, « Modifier » en fenêtre)
     '<h3 class="rtr-tous">Contraintes propres aux essais et à la curiethérapie</h3>' +
     '<div class="rtr-tw"><table class="rtr-tab rtr-jx rtr-cartes rtr-cartes-h"><thead><tr><th>Essai</th><th>Contraintes</th></tr></thead><tbody>' +

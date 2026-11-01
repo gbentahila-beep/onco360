@@ -198,7 +198,7 @@ export function regimeDe(schema) {
 // pour tout le régime ; sinon, par prudence, le plus grand nombre de séances publié qui ne dépasse pas celui du schéma, s'il en vaut au moins la
 // moitié (moins de séances = valeurs plus strictes ; proche = ce nombre) ; sinon rien
 export function choisirLignes(L, fx, dpf) {
-  const avec = L.filter((l) => l.fx), sans = L.filter((l) => !l.fx);
+  const avec = L.filter((l) => l.fx), sans = L.filter((l) => !l.fx && (!l.dpf || (num(dpf) && Math.abs(l.dpf - dpf) < 0.01)));
   if (fx) {
     const ex = avec.filter((l) => l.fx === fx && (!l.dpf || (num(dpf) && Math.abs(l.dpf - dpf) < 0.01)));
     if (ex.length) { const d = ex.filter((l) => l.dpf); return { lignes: d.length ? d : ex }; }

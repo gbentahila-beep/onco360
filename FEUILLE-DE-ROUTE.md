@@ -1035,6 +1035,36 @@ Détail dans « Phase L » plus haut (cases cochées). En plus de la demande :
 - [x] **En ligne le 31/10/2026, version 20261031f** (accord de Dr Bentahila) : index, règles Firestore et Storage, puis site et fonctions ensemble, depuis une copie propre.
 - [ ] Reste : L4 (1) photos, L7 (3) clé web, L8 ; CGU relues par un juriste ; répétition générale (L11).
 
+## Phase RTX – Radiothérapie de référence (plan refait le 01/11/2026 avec Dr Bentahila ; sources : RadOncCalc, Estes 2025-2026, « Bibliothèque Onco360 » des Téléchargements)
+But : un module de radiothérapie de référence, le plus simple à utiliser (UI / UX d'abord). **Mise en page du 31/10/2026 (lot RT, 20261031f) gardée telle quelle.**
+Articles : `~/Downloads/Bibliothèque Onco360/` (Contourage 106, Dosimétrie 37, Radiothérapie 627, Traitement systémique 312 fichiers, `_journal du tri.tsv`) ;
+un essai introuvable → le demander à Dr Bentahila, sinon son résumé (abstract). Jamais de mention « à valider par Dr Bentahila ». Ne rien inventer.
+- [x] **Lot 1 – Contraintes** (30/10 – 01/11/2026, pas encore enregistré dans Git) : choix de Dr Bentahila dans `docs/radiotherapie/choix-contraintes-rocc.html`
+  appliqués par `docs/radiotherapie/construction/choix_contraintes.py` (après `contraintes.py ecrire`) : 1 049 lignes, 135 retirées
+  (`retire-contraintes-2026-10-30.json`), 325 ajoutées (`cr-…`, sources = essais cités, effet évité), sources de RadOncCalc ajoutées à la ligne
+  retenue de même paramètre ; 17 organes créés (constricteurs supérieur / moyen / inférieur, larynx glottique et supraglottique, segment antérieur,
+  corps calleux, corps vertébraux, crêtes iliaques, fémurs, bande cutanée, cartilages de croissance, espace articulaire, coronaires, coronaire droite,
+  circonflexe, artère pulmonaire ; 134 organes) ; organes « à créer » sans contrainte cochée : pas créés. Écran : petit numéro par ligne → liste
+  numérotée des sources sous le tableau (même liste que les renvois), « Évite : … » sous la note ; page Contraintes = **tableau général** (tous les
+  organes, normo / hypo / stéréotaxie, sources numérotées à l'ouverture de la carte, effet au survol). Moteur : une ligne en bifractionné (dose par
+  séance sans nombre de séances) ne vaut que pour cette dose. Reste : liens PubMed des sources (lot 2).
+- [ ] **Lot 2 – Contraintes de chaque protocole** (une région par session : SNC, ORL, sein, thorax, digestif, gynéco, uro, lymphomes, sarcomes / pédiatrie,
+  palliatif ; revoir **tous** les schémas publiés un par un, n'en supprimer aucun) :
+  - schéma issu d'un essai qui publie ses contraintes → **jeu propre à l'essai**, recopié du protocole publié (Bibliothèque, sinon Internet, sinon
+    demander l'article) ; tout organe à contourer sans contrainte dans l'essai → ligne de la base pour ce fractionnement, avec mention ;
+  - essai sans contraintes publiées → base de contraintes, mention « l'essai ne publie pas de contraintes, base de contraintes appliquée » ;
+  - chaque ligne a sa source par le petit numéro (1, 2, 3…) ; liens PubMed / DOI des sources ; essais cités ajoutés à la page Essais.
+- [ ] **Lot 3 – Onglet « Indication »** (avant Prescription) : pour qui (stade, situation), niveau de preuve, essai pivot (bras, résultat principal,
+  en une ou deux lignes), alternatives ; d'après les essais de la Bibliothèque et Estes ; pas de mention « à valider ».
+- [ ] **Lot 4 – Page « Contourage »** (sous-page entre Référentiel et Organes à risque, `#radiotherapie/contourage[/<localisation>]`) : par région puis
+  localisation, volumes cibles GTV / CTV / PTV (limites anatomiques en six directions, marges, deux écoles quand elles diffèrent : ex. Grégoire 2017 /
+  Lapeyre 2019 en ORL), aires ganglionnaires en tableaux (Grégoire 2014, Biau 2019, ESTRO sein, NRG / EMBRACE pelvis, IASLC…), source de chaque
+  atlas ; l'onglet Contourage de la fiche garde la liste des organes et renvoie à la bonne section ; définitions de la page Organes à risque mises à jour
+  quand un atlas de la Bibliothèque est meilleur (Brouwer 2015, Eekers 2018, Noël 2021…). Atlas manquants : les demander.
+- [ ] **Lot 5 – Corrections des protocoles** (doses, fractionnement, chimio concomitante) d'après les essais relus aux lots 2 à 4.
+- Lot 6 (toxicités) : abandonné le 01/11/2026 (« pas besoin »).
+Avis de Claude (01/11/2026) : plan cohérent ; ordre 2 → 3 → 4 → 5 (les essais lus au lot 2 servent à l'indication et aux corrections).
+
 ## À placer (nouveau plan)
 - (21/10, S5) **Vigilance des molécules, flacons et interactions ne sont pas dans le modèle des cabinets neufs** (`PARAMS_SPE` de functions/cabinets.js :
   ils reçoivent les listes de départ du code). La d. 12 dit « chaque autre cabinet reçoit tout le modèle, sauf correspondants et tarifs des
