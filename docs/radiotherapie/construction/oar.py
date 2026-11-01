@@ -5,6 +5,7 @@
 # Lancer : python3 docs/radiotherapie/construction/oar.py
 import json, pathlib, sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from oar_sources import SOURCES, SRC
 from oar_definitions import DEF  # session 2 (26/10/2026) : définitions de contourage, limites dans les six directions
 
 ICI = pathlib.Path(__file__).resolve().parents[3]
@@ -170,13 +171,15 @@ def construire():
   for id_, nom, tg, df, reg, opt in O:
     assert id_ not in vus, id_; vus.add(id_)
     x = {"id": id_, "nom": nom, "nom_tg263": tg, "definition": DEF.get(id_, df), "region": reg}
+    if SRC.get(id_): x["src"] = SRC[id_]
     x.update(opt); oar.append(x)
   paires = [{"id": k, "nom": v, "membres": [o["id"] for o in oar if o.get("paire") == k]} for k, v in PAIRES.items()]
   for p in paires: assert len(p["membres"]) == 2, p
   for o in oar:
     if "somme" in o: assert o["somme"] in vus, o
   manque = [o["id"] for o in oar if o["id"] not in DEF]; assert not manque, manque
-  return {"version": "2026-10-25", "note": "Nom TG-263 : liste officielle AAPM TG-263 v20170815 ; « construit » = absent de la liste, nommé selon ses règles. Définition : délinéation RecoRad (Noël et al. 2021) et atlas de référence.", "oar": oar, "paires": paires}
+  inconnus = [k for k in SRC if k not in vus]; assert not inconnus, inconnus
+  return {"version": "2026-10-25", "note": "Nom TG-263 : liste officielle AAPM TG-263 v20170815 ; « construit » = absent de la liste, nommé selon ses règles. Définition : délinéation RecoRad (Noël et al. 2021) et atlas de référence (src = numéros de sources).", "sources": SOURCES, "oar": oar, "paires": paires}
 
 if __name__ == "__main__":
   d = construire()

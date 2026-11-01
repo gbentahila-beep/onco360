@@ -194,7 +194,7 @@ window.rtrOnglet = (o) => { if (ED) { FICHE.onglet = o; dessinerFiche(); return;
 let ESSAIS = null, BB = null;
 // BB.oar et BB.base : référence + changements du cabinet ; BB.jeux = contraintes propres aux essais et à la curiethérapie ; BB.paires = droite et gauche
 const chargerBibs = () => BIBS || (BIBS = Promise.all(["oar.json", "contraintes.json", "essais.json"].map(json)).then(([o, c, e]) => { ESSAIS = {}; e.essais.forEach((x) => { ESSAIS[x.id] = x.acronyme; });
-  BB = { oarRef: o.oar, paires: o.paires || [], baseRef: c.base || [], jeuxRef: c.essais || [], aideCol: c.aide || {}, aide: c.aide_colonnes, essais: e.essais }; appliquerCab(); return BB; }).catch((e) => { BIBS = null; throw e; }));
+  BB = { oarRef: o.oar, oarSources: o.sources || [], paires: o.paires || [], baseRef: c.base || [], jeuxRef: c.essais || [], aideCol: c.aide || {}, aide: c.aide_colonnes, essais: e.essais }; appliquerCab(); return BB; }).catch((e) => { BIBS = null; throw e; }));
 function appliquerCab() {
   if (!BB) return;
   const m = (CAB_OAR && CAB_OAR.oar) || {};
@@ -917,8 +917,15 @@ function listeOar() {
   // repliées au second clic ; plus de « Utilisé dans … »
   z.innerHTML = '<div class="rtr-ohaut"><p class="mesures rtr-nb">' + L.length + " organe" + (L.length > 1 ? "s" : "") + "</p>" + (peutModif() ? '<button type="button" class="mini" onclick="rtrOarForm(null)">' + A.ic("plus") + "Ajouter un organe</button>" : "") + "</div>" +
     (L.length ? '<div class="rtr-tw"><table class="rtr-tab rtr-ot rtr-cartes rtr-cartes-h"><thead><tr><th>Nom</th><th>TG-263</th><th>Définition</th></tr></thead><tbody>' +
-    L.map((o) => '<tr class="rtr-clic" tabindex="0" aria-expanded="false" data-oar="' + esc(o.id) + '" onclick="rtrDetailOar(this,\'' + esc(o.id) + '\')" onkeydown="if(event.key===\'Enter\')this.click()"><td data-l="Nom"><b>' + esc(o.nom) + "</b>" + (o.cabinet ? ' <span class="badge b-or">Cabinet</span>' : "") + '</td><td data-l="TG-263">' + esc(o.nom_tg263 || "") + '</td><td data-l="Définition"><div class="rtr-def2">' + court(o.definition || "") + "</div></td>" +
-      (peutModif() ? '<td class="rtr-cda"><button type="button" class="mini" onclick="event.stopPropagation();rtrOarForm(\'' + esc(o.id) + '\')">' + A.ic("crayon") + "Modifier</button></td>" : "") + "</tr>").join("") + "</tbody></table></div>" : '<div class="vide-c">Aucun organe ne correspond</div>') + AVERT_RT;
+    L.map((o) => '<tr class="rtr-clic" tabindex="0" aria-expanded="false" data-oar="' + esc(o.id) + '" onclick="rtrDetailOar(this,\'' + esc(o.id) + '\')" onkeydown="if(event.key===\'Enter\')this.click()"><td data-l="Nom"><b>' + esc(o.nom) + "</b>" + (o.cabinet ? ' <span class="badge b-or">Cabinet</span>' : "") + '</td><td data-l="TG-263">' + esc(o.nom_tg263 || "") + '</td><td data-l="Définition"><div class="rtr-def2">' + court(o.definition || "") + (!o.cabinet && o.src ? '<sup class="rtr-rv">' + o.src.join(", ") + "</sup>" : "") + "</div></td>" +
+      (peutModif() ? '<td class="rtr-cda"><button type="button" class="mini" onclick="event.stopPropagation();rtrOarForm(\'' + esc(o.id) + '\')">' + A.ic("crayon") + "Modifier</button></td>" : "") + "</tr>").join("") + "</tbody></table></div>" : '<div class="vide-c">Aucun organe ne correspond</div>') + sourcesOar(L) + AVERT_RT;
+}
+// Lot 4h (01/11/2026) : sources numérotées des définitions (oar.json « sources », numéros « src » de chaque organe) ; organe sans atlas publié dit
+function sourcesOar(L) {
+  const esc = A.esc, ns = [...new Set(L.filter((o) => !o.cabinet).flatMap((o) => o.src || []))].sort((a, b) => a - b), sans = L.filter((o) => !o.cabinet && !(o.src || []).length);
+  if (!ns.length && !sans.length) return "";
+  return '<section class="rtr-cts"><h3>Sources des définitions</h3>' + (ns.length ? '<ol class="rtr-pts">' + ns.map((n) => { const x = BB.oarSources.find((y) => y.n === n) || {}; return '<li value="' + n + '">' + esc(x.ref || "") + (x.doi ? ' <a href="https://doi.org/' + esc(x.doi) + '" target="_blank" rel="noopener">DOI</a>' : "") + "</li>"; }).join("") + "</ol>" : "") +
+    (sans.length ? '<p class="mesures">Pas d\'atlas publié (structure propre à un schéma ou construite) : ' + esc(sans.map((o) => o.nom).join(", ")) + ".</p>" : "") + "</section>";
 }
 window.rtrDetailOar = (tr) => carte(tr);
 // Carte dépliée / repliée (RT.3) : une seule ouverte à la fois dans la liste, repliée à sa hauteur d'origine

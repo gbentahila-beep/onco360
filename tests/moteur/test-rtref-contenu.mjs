@@ -45,6 +45,9 @@ cas("OAR : paires de deux organes connus", PAIRES.every(p => p.membres.length ==
 // Table unique des contraintes : une ligne par OAR, régime, nombre de séances et localisation
 const CLES = new Set(OAR.map(o => o.id).concat(PAIRES.map(p => p.id), ["cible-ctv", "cible-ptv"]));
 cas("base : identifiants uniques (" + BASE.length + ")", doublons(BASE.map(l => l.id)).length === 0, liste(doublons(BASE.map(l => l.id))));
+const SRC_OAR = new Set((J["oar.json"].sources || []).map(x => x.n));
+cas("OAR : chaque numéro de source existe (lot 4h)", OAR.every(o => (o.src || []).every(n => SRC_OAR.has(n))), liste(OAR.filter(o => (o.src || []).some(n => !SRC_OAR.has(n))).map(o => o.id)));
+cas("OAR : au moins 100 organes sourcés", OAR.filter(o => (o.src || []).length).length >= 100, "");
 cas("base : chaque ligne renvoie à un OAR ou une paire connus", BASE.every(l => CLES.has(l.oar_id)), liste(BASE.filter(l => !CLES.has(l.oar_id)).map(l => l.id + ":" + l.oar_id)));
 cas("base : régime normo, hypo ou stereo", BASE.every(l => ["normo", "hypo", "stereo"].includes(l.regime)));
 cas("base : séances entières, localisations connues", BASE.every(l => (l.fx === undefined || Number.isInteger(l.fx)) && (l.loc || []).every(x => IDX.localisations.some(y => y.id === x))));
