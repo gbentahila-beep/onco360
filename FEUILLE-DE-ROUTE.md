@@ -1102,7 +1102,7 @@ Traitement en cours ; Tâches : Tâche, Patient, Assignée à, Créée par, Éch
 - [ ] **UX2 – Décisions du 01/11 sur Onco360** : en-tête du dossier = ajouter la localisation, allergie seulement si « oui », rien d'autre (Chimio C1/1
   et RT en cours déjà là ; en-tête gardé à sa place) ; centre (Consult. / Chimio / RT / Docs) déplié d'emblée, la double flèche ⤢ ramène la colonne
   Documents (`DOS.agrandi` vrai par défaut, v2.js) ; tableau de bord : cartes Aujourd'hui, Actions rapides et À valider plus hautes, gauche et droite
-  toujours à la même hauteur ; « Activité récente » sans les réglages de l'Administration ; menu « Documents » pour la secrétaire seulement.
+  toujours à la même hauteur ; « Activité récente » sans les réglages de l'Administration ; menu « Documents » du menu général pour la secrétaire seulement (retiré du menu du médecin ; confirmé le 01/11/2026).
 - [ ] **UX3 – Fenêtres d'avertissement dans l'application** à la place des fenêtres du navigateur (162 : 111 confirm, 46 alert, 5 prompt) : rouge =
   clinique, orange = à vérifier, neutre ; d'abord la chimio (vigilance de « Valider la cure », chimio.js) ; s'appuyer sur `question()` d'ordonnances.js.
 - [ ] **UX4 – Mêmes gestes et mêmes mots partout** : pied de fenêtre fixe, Échap partout, mêmes mots (Valider / Enregistrer, Annuler / Fermer),
@@ -1118,6 +1118,7 @@ Traitement en cours ; Tâches : Tâche, Patient, Assignée à, Créée par, Éch
 - [ ] **UX8 – Tableau de bord, Salle, Bilan** : bandeau d'accueil « Bonjour Dr … », date avec flèches jour précédent / suivant, boutons « + Patient »
   et « + Rendez-vous » ; Salle : couleur selon l'attente (< 15 min, 15 à 30, > 30), **pas de tuiles en haut** ; Bilan : tuiles en haut (encaissé du
   jour, du mois, reste à encaisser).
+  **Retiré le 01/11/2026 : tuiles du Bilan** (refusé).
 - [ ] **UX9 – Onglets du dossier avec leur adresse** : `#dossier/<id>/chimio`… ; recharger la page ou revenir en arrière rouvre le bon onglet.
 - [ ] **UX10 – TNM** : rempli à partir du PDF de Dr Bentahila, pour son cabinet seulement (droits d'auteur AJCC : les autres cabinets importent leur
   manuel ou une licence) ; attend le PDF.
@@ -1194,7 +1195,7 @@ Avant chaque lot : maquette ou captures avant / après montrées à Dr Bentahila
   dates de cure modifiables seulement après « Modifier » ; libellés coupés des rendez-vous à venir et petites flèches ▾ (« pas grave ») ; d'après
   SmartDoc : en-tête du dossier déplacé (S8), mode consultation sans menu avec minuteur (S11), aperçu de l'ordonnance en direct (S12), âge calculé
   et étiquettes Facultatif / Obligatoire (S13), bouton Enregistrer en double (S14), « Appeler le suivant » (S16), « Confirmer le patient » au
-  rendez-vous (S17), accueil des Paramètres en cartes avec leur état (S18), guide dans l'application (S19), recherche Ctrl K des pages (S20), carte « Alertes cliniques du jour » (S7), tuiles de chiffres en haut de la Salle d'attente, nouveaux noms de colonnes, historique du dossier filtré par pastilles (S10) ; prescriptions (UX13) : aperçu fermé sans garder la saisie (P3), doublon de molécule des produits composés (P8), organisme de la feuille de soins d'après la mutuelle (P10), « Moi-même » d'office (P16), « Renseignements cliniques » de l'imagerie (P13) ;
+  rendez-vous (S17), accueil des Paramètres en cartes avec leur état (S18), guide dans l'application (S19), recherche Ctrl K des pages (S20), carte « Alertes cliniques du jour » (S7), tuiles de chiffres en haut de la Salle d'attente, nouveaux noms de colonnes, historique du dossier filtré par pastilles (S10) ; prescriptions (UX13) : aperçu fermé sans garder la saisie (P3), doublon de molécule des produits composés (P8), organisme de la feuille de soins d'après la mutuelle (P10), « Moi-même » d'office (P16), « Renseignements cliniques » de l'imagerie (P13) ; tuiles en haut du Bilan (UX8) ;
   ne pas copier : thème vert foncé, titres de menu en majuscules, plan illustré de la salle, analyse IA.
 - **20/10/2026 (audits 10 et 11)** : tout l'**audit n° 9** (radiothérapie : lot RT-1 « séances reçues, motif d'arrêt, compteur, 1re séance un jour
   férié » (d. 4), lots RT-2 à RT-6, bibliothèque de contraintes de dose (d. 5)) ; écran « Corrections proposées » P1 (d. 10) ; écran de
