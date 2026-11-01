@@ -50,7 +50,7 @@ async def main():
         # Enregistrer
         await pg.click('#rtrEnr'); await pg.wait_for_timeout(1500)
         d = await ev(DOC('pro-fav-60-20'))
-        ok(d and d['origine'] == 'cabinet' and d['majPar'] == 'UIDRITA' and d['base'] == '2026-10-22' and d['schema']['prescriptions'][0]['rythme'] == '4 fx/sem' and d['schema']['prescriptions'][0]['dose_fx_Gy'] == 3 and d['note'] == 'Notre pratique (note fictive)' and d['schema']['ind'][1] == 'Prostate', 'enregistré : schéma complet, origine cabinet, base = date de la référence, auteur, note', d and {k: d[k] for k in d if k != 'schema'})
+        ok(d and d['origine'] == 'cabinet' and d['majPar'] == 'UIDRITA' and d['base'] == '2026-11-01' and d['schema']['prescriptions'][0]['rythme'] == '4 fx/sem' and d['schema']['prescriptions'][0]['dose_fx_Gy'] == 3 and d['note'] == 'Notre pratique (note fictive)' and d['schema']['ind'][1] == 'Prostate', 'enregistré : schéma complet, origine cabinet, base = date de la référence, auteur, note', d and {k: d[k] for k in d if k != 'schema'})
         t = await ev("document.getElementById('rtrFiche').innerText")
         ok('Enregistré' in await ev("document.body.innerText") and 'Modifié' in t and '4 fx/sem' in t and not await ev("!!document.getElementById('rtrEnr')"), 'après l\'enregistrement : « Enregistré », la ligne « Modifié pour le cabinet », retour en lecture')
         # Voir la référence

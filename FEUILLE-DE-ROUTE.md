@@ -1085,7 +1085,8 @@ un essai introuvable → le demander à Dr Bentahila, sinon son résumé (abstra
 - Lot 6 (toxicités) : abandonné le 01/11/2026 (« pas besoin »).
 - [x] **Lot 6a – Situations d'Estes absentes, articles de la Bibliothèque** (01/11/2026, `ajouts_estes.py`) : épendymome myxopapillaire, CHC (thrombose portale, récidive SBRT), pathologies bénignes.
 - [x] **Lot 6b – Situations dont les articles ont été téléchargés** (01/11/2026, `ajouts_estes2.py`) : adénopathie cervicale sans primitif (nouvelle localisation, ASCO 2020), sillon supérieur (SWOG 9416), dermatofibrosarcome (Castle 2013), ostéosarcome (DeLaney 2005), prostate oligométastatique en SBRT (protocoles ORIOLE et EXTEND ; 3 jeux de contraintes EXTEND 1 / 3 / 5 fx). 312 schémas, 468 essais.
-- [ ] Lot 6c – Comparaison complète avec Estes (toutes les colonnes des Oral Boards 2026 et Key Studies 2025).
+- [x] Lot 6c – Rein (stéréotaxie, FASTRACK II, IROCK ; `ajouts_estes3.py`) et essais récents d'Estes comparés (`docs/radiotherapie/lot6c-essais-recents-estes.md`) : 314 schémas, 471 essais.
+- [ ] Lot 6d – Intégrer STAR-TREC, STELLAR, LORD-KNEA ; articles à télécharger pour ROAM, A071801, TREASURE, COPORT / SHARE, BART, RT CHARM, UPGRADE-RT, POLCAGB… ; colonnes Sim / Field / Notes des Oral Boards.
 Avis de Claude (01/11/2026) : plan cohérent ; ordre 2 → 3 → 4 → 5 (les essais lus au lot 2 servent à l'indication et aux corrections).
 
 ## Phase UX – Interface et facilité d'utilisation (plan du 01/11/2026, refait le même jour : tours d'Onco360 et de SmartDoc avec Dr Bentahila)

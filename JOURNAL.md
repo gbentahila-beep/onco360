@@ -371,3 +371,4 @@ Jusqu'au 11/10/2026 les étapes portaient les numéros de l'ancienne feuille de 
 - 01/11/2026 : RTX lot 4h, sources des définitions des organes à risque (Noël 2021 et atlas cités, Lapeyre ch. VI), 11 définitions corrigées.
 - 01/11/2026 : RTX lot 6a, situations d'Estes ajoutées d'après la Bibliothèque : épendymome myxopapillaire, CHC (thrombose portale néoadjuvant / adjuvant, récidive en SBRT), pathologies bénignes (Dupuytren, Ledderhose, fasciite plantaire, arthrose) ; 8 schémas, 9 essais, jeu Sun 2019.
 - 01/11/2026 : RTX lot 6b, 9 schémas ajoutés d'après les articles téléchargés : adénopathie cervicale sans primitif (ASCO 2020), Pancoast (SWOG 9416), dermatofibrosarcome, ostéosarcome, prostate oligométastatique (ORIOLE, EXTEND, contraintes EXTEND 1/3/5 fx).
+- 01/11/2026 : RTX lot 6c, localisation Rein (stéréotaxie 26 Gy / 1 fx, 42 Gy / 3 fx, FASTRACK II) ; essais récents d'Estes comparés, liste des articles à télécharger.

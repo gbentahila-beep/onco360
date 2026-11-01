@@ -507,6 +507,15 @@
    "date_maj": "2026-11-01",
    "nb_schemas": 2,
    "curietherapie": false
+  },
+  {
+   "id": "rein",
+   "nom": "Rein",
+   "region_id": "uro",
+   "ordre": 51,
+   "date_maj": "2026-11-01",
+   "nb_schemas": 2,
+   "curietherapie": false
   }
  ],
  "situations": [
@@ -1589,6 +1598,14 @@
    "contexte": "post_op",
    "criteres": "RT si plusieurs ganglions envahis ou rupture capsulaire ; pas de RT pour un seul pN+ sans rupture (ASCO 2020)",
    "ordre": 2
+  },
+  {
+   "id": "rein-sbrt",
+   "localisation_id": "rein",
+   "titre": "Cancer du rein primitif non opéré : stéréotaxie",
+   "contexte": "en_place",
+   "criteres": "Cancer du rein prouvé par biopsie, lésion unique ≤ 10 cm, T1–T2a N0–N1, inopérable, à haut risque chirurgical ou refusant la chirurgie ; DFG ≥ 30 mL/min ; pas de contact direct avec le tube digestif ; décision de RCP (FASTRACK II). Rein unique possible (IROCK)",
+   "ordre": 1
   }
  ],
  "schemas": [
@@ -10639,6 +10656,60 @@
     "Adénopathie cervicale sans primitif",
     "Carcinome épidermoïde cervical sans primitif : après curage",
     "Normofractionné"
+   ]
+  },
+  {
+   "id": "rein-26-1",
+   "localisation_id": "rein",
+   "situation_id": "rein-sbrt",
+   "titre": "Tumeur ≤ 4 cm : 26 Gy / 1 fx",
+   "type": "sbrt",
+   "preuve": "pratique_institutionnelle",
+   "essais": [
+    "FASTRACK II (TROG 15.03)",
+    "IROCK, résultats à 5 ans",
+    "IROCK (consensus)"
+   ],
+   "doses": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 26,
+     "fractions": 1,
+     "dose_fx_Gy": 26.0
+    }
+   ],
+   "ind": [
+    "Uro",
+    "Rein",
+    "Cancer du rein primitif non opéré : stéréotaxie",
+    "Stéréotaxie"
+   ]
+  },
+  {
+   "id": "rein-42-3",
+   "localisation_id": "rein",
+   "situation_id": "rein-sbrt",
+   "titre": "Tumeur > 4 à 10 cm : 42 Gy / 3 fx",
+   "type": "sbrt",
+   "preuve": "pratique_institutionnelle",
+   "essais": [
+    "FASTRACK II (TROG 15.03)",
+    "IROCK, résultats à 5 ans",
+    "IROCK (consensus)"
+   ],
+   "doses": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 42,
+     "fractions": 3,
+     "dose_fx_Gy": 14.0
+    }
+   ],
+   "ind": [
+    "Uro",
+    "Rein",
+    "Cancer du rein primitif non opéré : stéréotaxie",
+    "Stéréotaxie"
    ]
   }
  ]

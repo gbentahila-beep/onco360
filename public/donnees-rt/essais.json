@@ -5550,6 +5550,37 @@
    "population": "Oligométastases (bras prostate : hormonothérapie), phase 2 randomisée",
    "bras": "Traitement standard ± traitement local de toutes les métastases (SBRT, chirurgie)",
    "resultat": "Doses par site : os 12–24 Gy / 1 fx ou 27–36 Gy / 3 fx ; ganglion 30–36 Gy / 3 fx ; poumon et foie 50 Gy / 4 fx ; contraintes par nombre de fractions"
+  },
+  {
+   "id": "fastrack2",
+   "acronyme": "FASTRACK II (TROG 15.03)",
+   "type": "essai",
+   "revue": "Lancet Oncol 25:308",
+   "annee": 2024,
+   "population": "70 cancers du rein primitifs uniques, inopérables, à haut risque chirurgical ou refusant la chirurgie, ≤ 10 cm, DFG ≥ 30 mL/min, phase 2",
+   "bras": "SABR 26 Gy / 1 fx (≤ 4 cm) ou 42 Gy / 3 fx (> 4 à 10 cm)",
+   "resultat": "Contrôle local 100 % à 1 an ; toxicité de grade 3 : 10 %, aucune de grade 4 ; baisse moyenne du DFG 14,6 mL/min à 2 ans ; 1 dialyse"
+  },
+  {
+   "id": "siva2022-irock5",
+   "acronyme": "IROCK, résultats à 5 ans",
+   "type": "essai",
+   "revue": "Lancet Oncol 23:1508",
+   "annee": 2022,
+   "population": "190 cancers du rein primitifs traités par SABR, 12 centres, méta-analyse sur données individuelles",
+   "bras": "SABR en 1 fraction (43 %) ou plusieurs fractions (57 %)",
+   "resultat": "Échec local à 5 ans 5,5 % (moins en 1 fraction) ; baisse du DFG 14,2 mL/min à 5 ans ; 4 % de dialyses"
+  },
+  {
+   "id": "siva2016-irock",
+   "acronyme": "IROCK (consensus)",
+   "type": "recommandation",
+   "revue": "Future Oncol 12:637",
+   "annee": 2016,
+   "doi": "10.2217/fon.16.2",
+   "population": "Pratiques de 8 centres de stéréotaxie rénale",
+   "bras": "Consensus : sélection, simulation, volumes, doses, suivi",
+   "resultat": "TDM 4D ou en phases respiratoires pour l'ITV ; PTV de 3 à 10 mm ; 1 à 12 fractions ; trajet de biopsie non couvert"
   }
  ]
 }

@@ -73,7 +73,7 @@ async def main():
         ok('Contenus indicatifs' in await ev("document.getElementById('rtrSous').innerText"), 'RT.12 : avertissement en bas des cartes')
         # Essais
         await pg.click('.rtr-sous button:has-text("Essais")'); await pg.wait_for_timeout(2000)
-        ok(await ev("document.querySelectorAll('.rtr-et2 tbody tr').length") == 300 and '468 essais' in await ev("document.querySelector('#rtrEl .rtr-nb').textContent"), 'Essais : 468 références (300 affichées, la suite en affinant)')
+        ok(await ev("document.querySelectorAll('.rtr-et2 tbody tr').length") == 300 and '471 essais' in await ev("document.querySelector('#rtrEl .rtr-nb').textContent"), 'Essais : 471 références (300 affichées, la suite en affinant)')
         await pg.click('.rtr-tri:has-text("Année")'); await pg.wait_for_timeout(300)
         an = await ev("[...document.querySelectorAll('.rtr-et2 tbody td[data-l=\"Année\"]')].slice(0, 5).map(t => Number(t.textContent))")
         ok(an == sorted(an, reverse=True) and an[0] >= 2025, 'tri par année (les plus récents d\'abord)', an)

@@ -1,0 +1,142 @@
+{
+ "version": "2026-10-25",
+ "id": "rein",
+ "region_id": "uro",
+ "nom": "Rein",
+ "ordre": 51,
+ "date_maj": "2026-11-01",
+ "situations": [
+  {
+   "id": "rein-sbrt",
+   "localisation_id": "rein",
+   "titre": "Cancer du rein primitif non opéré : stéréotaxie",
+   "contexte": "en_place",
+   "ordre": 1,
+   "criteres": "Cancer du rein prouvé par biopsie, lésion unique ≤ 10 cm, T1–T2a N0–N1, inopérable, à haut risque chirurgical ou refusant la chirurgie ; DFG ≥ 30 mL/min ; pas de contact direct avec le tube digestif ; décision de RCP (FASTRACK II). Rein unique possible (IROCK)"
+  }
+ ],
+ "schemas": [
+  {
+   "id": "rein-26-1",
+   "situation_id": "rein-sbrt",
+   "titre": "Tumeur ≤ 4 cm : 26 Gy / 1 fx",
+   "type": "sbrt",
+   "preuve": "pratique_institutionnelle",
+   "essai_ids": [
+    "fastrack2",
+    "siva2022-irock5",
+    "siva2016-irock"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 26,
+     "fractions": 1,
+     "dose_fx_Gy": 26.0,
+     "mode": "seul",
+     "rythme": "1 fx",
+     "note": "99 % du PTV reçoit la dose prescrite"
+    }
+   ],
+   "technique": "SABR guidée par l'image",
+   "systemique": "Aucune",
+   "simulation_id": "sim-rein",
+   "volumes_id": "vol-rein",
+   "points_attention": [
+    "Marge de 3 mm (PRV) autour des organes creux (FASTRACK II)",
+    "Surveiller la fonction rénale : baisse moyenne du DFG d'environ 14 mL/min, plus forte si le DFG de départ est bas"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Uro",
+    "Rein",
+    "Cancer du rein primitif non opéré : stéréotaxie",
+    "Stéréotaxie"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+  },
+  {
+   "id": "rein-42-3",
+   "situation_id": "rein-sbrt",
+   "titre": "Tumeur > 4 à 10 cm : 42 Gy / 3 fx",
+   "type": "sbrt",
+   "preuve": "pratique_institutionnelle",
+   "essai_ids": [
+    "fastrack2",
+    "siva2022-irock5",
+    "siva2016-irock"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 42,
+     "fractions": 3,
+     "dose_fx_Gy": 14.0,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "99 % du PTV reçoit la dose prescrite"
+    }
+   ],
+   "technique": "SABR guidée par l'image",
+   "systemique": "Aucune",
+   "simulation_id": "sim-rein",
+   "volumes_id": "vol-rein",
+   "points_attention": [
+    "Marge de 3 mm (PRV) autour des organes creux (FASTRACK II)",
+    "Surveiller la fonction rénale : baisse moyenne du DFG d'environ 14 mL/min, plus forte si le DFG de départ est bas"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Uro",
+    "Rein",
+    "Cancer du rein primitif non opéré : stéréotaxie",
+    "Stéréotaxie"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+  }
+ ],
+ "simulations": [
+  {
+   "id": "sim-rein",
+   "position": "Décubitus dorsal, bras au-dessus de la tête",
+   "preparation": "Contention du corps entier ; compression abdominale ou asservissement respiratoire selon le centre",
+   "scanner": "Scanner 4D injecté (ITV) ; contrôle par imagerie volumique avant chaque séance"
+  }
+ ],
+ "volumes": [
+  {
+   "id": "vol-rein",
+   "cibles": [
+    {
+     "nom": "GTV",
+     "type": "GTV",
+     "definition": "Tumeur rénale sur le scanner injecté (± IRM)",
+     "quand": "Toujours"
+    },
+    {
+     "nom": "ITV",
+     "type": "ITV",
+     "definition": "GTV sur toutes les phases du scanner 4D (mouvement respiratoire)",
+     "quand": "Toujours"
+    }
+   ],
+   "atlas": [],
+   "oar_ids": [
+    "oar-rein-d",
+    "oar-rein-g",
+    "oar-grele",
+    "oar-duodenum",
+    "oar-colon",
+    "oar-estomac",
+    "oar-foie",
+    "oar-moelle"
+   ]
+  }
+ ],
+ "curie_indications": [],
+ "systemique": [],
+ "hormonotherapie": [],
+ "points_attention": []
+}
