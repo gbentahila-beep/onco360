@@ -4,7 +4,7 @@
  "region_id": "digestif",
  "nom": "Foie et voies biliaires",
  "ordre": 12,
- "date_maj": "2026-10-23",
+ "date_maj": "2026-11-01",
  "situations": [
   {
    "id": "foie-chc",
@@ -393,6 +393,117 @@
    "contraintes_ids": [
     "ct-dig-hong"
    ]
+  },
+  {
+   "id": "foie-tvp-neo-18",
+   "situation_id": "foie-chc-tvp",
+   "titre": "Thrombose portale résécable : 18 Gy / 6 fx avant hépatectomie",
+   "type": "rte_hypo",
+   "preuve": "essai_phase3",
+   "essai_ids": [
+    "wei2019-pvtt"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV (tumeur + thrombus)",
+     "dose_Gy": 18,
+     "fractions": 6,
+     "dose_fx_Gy": 3.0,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "RT 3D ; hépatectomie ensuite"
+    }
+   ],
+   "technique": "RT 3D conformationnelle",
+   "systemique": "Aucune",
+   "simulation_id": "sim-foie",
+   "volumes_id": "vol-foie-tvp",
+   "points_attention": [
+    "Réponse partielle 20,7 % ; SG à 2 ans 27,4 vs 9,4 % sans RT (Wei 2019)"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Digestif",
+    "Foie et voies biliaires",
+    "CHC avec invasion vasculaire macroscopique",
+    "Hypofractionné"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+  },
+  {
+   "id": "foie-tvp-adj-50",
+   "situation_id": "foie-chc-tvp",
+   "titre": "Thrombose portale opérée : IMRT adjuvante 50 Gy / 25 fx",
+   "type": "rte_normo",
+   "preuve": "essai_phase3",
+   "essai_ids": [
+    "sun2019-pvtt"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV lit opératoire et thrombus",
+     "dose_Gy": 50,
+     "fractions": 25,
+     "dose_fx_Gy": 2.0,
+     "mode": "seul",
+     "rythme": "5 fx/sem"
+    }
+   ],
+   "technique": "IMRT",
+   "systemique": "Aucune",
+   "simulation_id": "sim-foie",
+   "volumes_id": "vol-foie-tvp",
+   "points_attention": [
+    "SG médiane 18,9 vs 10,8 mois sans RT (Sun 2019)"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Digestif",
+    "Foie et voies biliaires",
+    "CHC avec invasion vasculaire macroscopique",
+    "Normofractionné"
+   ],
+   "contraintes_ids": [
+    "ct-foie-sun2019"
+   ]
+  },
+  {
+   "id": "foie-chc-recid-45",
+   "situation_id": "foie-chc",
+   "titre": "CHC récidivant unique ≤ 5 cm : SBRT 45 Gy / 3 fx",
+   "type": "sbrt",
+   "preuve": "essai_phase3",
+   "essai_ids": [
+    "xi2025-rfa-sbrt"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 45,
+     "fractions": 3,
+     "dose_fx_Gy": 15.0,
+     "mode": "seul",
+     "rythme": "1 fx tous les 2 jours",
+     "note": "Dose médiane ; 36 à 54 Gy / 3 fx selon le foie et les organes voisins"
+    }
+   ],
+   "technique": "VMAT stéréotaxique",
+   "systemique": "Aucune",
+   "simulation_id": "sim-foie-sbrt",
+   "volumes_id": "vol-foie-sbrt",
+   "points_attention": [
+    "Meilleur contrôle local que la radiofréquence (2 ans : 92,7 vs 75,8 %), survie identique (Xi 2025)"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Digestif",
+    "Foie et voies biliaires",
+    "CHC non éligible aux traitements locaux standard : stéréotaxie",
+    "Stéréotaxie"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

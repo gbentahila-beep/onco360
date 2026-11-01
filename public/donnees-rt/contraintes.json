@@ -13311,6 +13311,47 @@
      "ideal": "< 30 %"
     }
    ]
+  },
+  {
+   "id": "ct-foie-sun2019",
+   "titre": "CHC avec thrombose portale opéré, IMRT adjuvante 50 Gy / 25 fx",
+   "fractionnement": "50 Gy / 25 fx",
+   "source": "Sun 2019, Radiother Oncol 140:20, Méthodes",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-foie",
+     "indicateur": "Dmean",
+     "limitant": "< 23 Gy",
+     "note": "foie sain"
+    },
+    {
+     "oar_id": "oar-foie",
+     "indicateur": "V30Gy",
+     "limitant": "≤ 30 %",
+     "note": "foie sain"
+    },
+    {
+     "oar_id": "oar-estomac",
+     "indicateur": "Dmax",
+     "limitant": "< 54 Gy"
+    },
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "Dmax",
+     "limitant": "< 54 Gy"
+    },
+    {
+     "oar_id": "oar-colon",
+     "indicateur": "Dmax",
+     "limitant": "< 55 Gy"
+    },
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "< 40 Gy"
+    }
+   ]
   }
  ],
  "aide_colonnes": [

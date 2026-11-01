@@ -162,8 +162,8 @@
    "nom": "Foie et voies biliaires",
    "region_id": "digestif",
    "ordre": 12,
-   "date_maj": "2026-10-23",
-   "nb_schemas": 8,
+   "date_maj": "2026-11-01",
+   "nb_schemas": 11,
    "curietherapie": false
   },
   {
@@ -378,8 +378,8 @@
    "nom": "Épendymome de l'adulte",
    "region_id": "snc",
    "ordre": 36,
-   "date_maj": "2026-10-24",
-   "nb_schemas": 2,
+   "date_maj": "2026-11-01",
+   "nb_schemas": 3,
    "curietherapie": false
   },
   {
@@ -489,6 +489,15 @@
    "date_maj": "2026-10-24",
    "nb_schemas": 2,
    "curietherapie": true
+  },
+  {
+   "id": "benin",
+   "nom": "Pathologies bénignes",
+   "region_id": "autres",
+   "ordre": 49,
+   "date_maj": "2026-11-01",
+   "nb_schemas": 4,
+   "curietherapie": false
   }
  ],
  "situations": [
@@ -1483,6 +1492,46 @@
    "contexte": "en_place",
    "criteres": "La plupart des mélanomes uvéaux sont accessibles à la plaque, avec des restrictions selon la taille et la position ; contre-indications : extension orbitaire macroscopique, œil aveugle douloureux, absence de perception lumineuse ; traitement en centre spécialisé (ABS 2014)",
    "ordre": 1
+  },
+  {
+   "id": "ep-mpe",
+   "localisation_id": "ependymome",
+   "titre": "Épendymome myxopapillaire médullaire opéré",
+   "contexte": "post_op",
+   "criteres": "RT adjuvante après exérèse, surtout exérèse incomplète ou patient jeune (moins de 36 ans) : meilleurs contrôle local et survie sans progression (Weber 2015)",
+   "ordre": 2
+  },
+  {
+   "id": "bn-dupuytren",
+   "localisation_id": "benin",
+   "titre": "Maladie de Dupuytren débutante",
+   "contexte": "en_place",
+   "criteres": "Stade N ou N/I (nodules, cordes, flessum ≤ 10°) en progression ; au-delà, contrôle moindre",
+   "ordre": 1
+  },
+  {
+   "id": "bn-ledderhose",
+   "localisation_id": "benin",
+   "titre": "Maladie de Ledderhose symptomatique",
+   "contexte": "en_place",
+   "criteres": "Nodules plantaires douloureux",
+   "ordre": 2
+  },
+  {
+   "id": "bn-fasciite",
+   "localisation_id": "benin",
+   "titre": "Fasciite plantaire (talalgie)",
+   "contexte": "en_place",
+   "criteres": "Douleur persistante malgré le traitement médical",
+   "ordre": 3
+  },
+  {
+   "id": "bn-arthrose",
+   "localisation_id": "benin",
+   "titre": "Arthrose douloureuse (genou, main)",
+   "contexte": "en_place",
+   "criteres": "Douleur malgré le traitement médical ; pas d'efficacité démontrée contre RT simulée dans l'arthrose de la main (Minten 2018)",
+   "ordre": 4
   }
  ],
  "schemas": [
@@ -10080,6 +10129,207 @@
     "Mélanome uvéal",
     "Mélanome de l'iris, du corps ciliaire ou de la choroïde",
     "Curiethérapie"
+   ]
+  },
+  {
+   "id": "ep-mpe-504",
+   "localisation_id": "ependymome",
+   "situation_id": "ep-mpe",
+   "titre": "Lit tumoral 50,4 Gy / 28 fx",
+   "type": "rte_normo",
+   "preuve": "pratique_institutionnelle",
+   "essais": [
+    "Weber 2015 (épendymome myxopapillaire)"
+   ],
+   "doses": [
+    {
+     "volume": "PTV lit tumoral",
+     "dose_Gy": 50.4,
+     "fractions": 28,
+     "dose_fx_Gy": 1.8
+    }
+   ],
+   "ind": [
+    "SNC",
+    "Épendymome de l'adulte",
+    "Épendymome myxopapillaire médullaire opéré",
+    "Normofractionné"
+   ]
+  },
+  {
+   "id": "foie-tvp-neo-18",
+   "localisation_id": "foie",
+   "situation_id": "foie-chc-tvp",
+   "titre": "Thrombose portale résécable : 18 Gy / 6 fx avant hépatectomie",
+   "type": "rte_hypo",
+   "preuve": "essai_phase3",
+   "essais": [
+    "Wei 2019 (RT néoadjuvante, thrombose portale)"
+   ],
+   "doses": [
+    {
+     "volume": "PTV (tumeur + thrombus)",
+     "dose_Gy": 18,
+     "fractions": 6,
+     "dose_fx_Gy": 3.0
+    }
+   ],
+   "ind": [
+    "Digestif",
+    "Foie et voies biliaires",
+    "CHC avec invasion vasculaire macroscopique",
+    "Hypofractionné"
+   ]
+  },
+  {
+   "id": "foie-tvp-adj-50",
+   "localisation_id": "foie",
+   "situation_id": "foie-chc-tvp",
+   "titre": "Thrombose portale opérée : IMRT adjuvante 50 Gy / 25 fx",
+   "type": "rte_normo",
+   "preuve": "essai_phase3",
+   "essais": [
+    "Sun 2019 (IMRT adjuvante, thrombose portale)"
+   ],
+   "doses": [
+    {
+     "volume": "PTV lit opératoire et thrombus",
+     "dose_Gy": 50,
+     "fractions": 25,
+     "dose_fx_Gy": 2.0
+    }
+   ],
+   "ind": [
+    "Digestif",
+    "Foie et voies biliaires",
+    "CHC avec invasion vasculaire macroscopique",
+    "Normofractionné"
+   ]
+  },
+  {
+   "id": "foie-chc-recid-45",
+   "localisation_id": "foie",
+   "situation_id": "foie-chc",
+   "titre": "CHC récidivant unique ≤ 5 cm : SBRT 45 Gy / 3 fx",
+   "type": "sbrt",
+   "preuve": "essai_phase3",
+   "essais": [
+    "Xi 2025 (SBRT vs radiofréquence)"
+   ],
+   "doses": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 45,
+     "fractions": 3,
+     "dose_fx_Gy": 15.0
+    }
+   ],
+   "ind": [
+    "Digestif",
+    "Foie et voies biliaires",
+    "CHC non éligible aux traitements locaux standard : stéréotaxie",
+    "Stéréotaxie"
+   ]
+  },
+  {
+   "id": "bn-dup-30",
+   "localisation_id": "benin",
+   "situation_id": "bn-dupuytren",
+   "titre": "30 Gy : 2 séries de 5 × 3 Gy à 10–12 semaines",
+   "type": "rte_hypo",
+   "preuve": "essai_phase3",
+   "essais": [
+    "Seegenschmiedt (Dupuytren)"
+   ],
+   "doses": [
+    {
+     "volume": "CTV + marge",
+     "dose_Gy": 30,
+     "fractions": 10,
+     "dose_fx_Gy": 3.0
+    }
+   ],
+   "ind": [
+    "Autres",
+    "Pathologies bénignes",
+    "Maladie de Dupuytren débutante",
+    "Hypofractionné"
+   ]
+  },
+  {
+   "id": "bn-led-30",
+   "localisation_id": "benin",
+   "situation_id": "bn-ledderhose",
+   "titre": "30 Gy : 2 séries de 5 × 3 Gy",
+   "type": "rte_hypo",
+   "preuve": "essai_phase3",
+   "essais": [
+    "LedRad"
+   ],
+   "doses": [
+    {
+     "volume": "CTV + marge",
+     "dose_Gy": 30,
+     "fractions": 10,
+     "dose_fx_Gy": 3.0
+    }
+   ],
+   "ind": [
+    "Autres",
+    "Pathologies bénignes",
+    "Maladie de Ledderhose symptomatique",
+    "Hypofractionné"
+   ]
+  },
+  {
+   "id": "bn-fas-6",
+   "localisation_id": "benin",
+   "situation_id": "bn-fasciite",
+   "titre": "6 Gy en 6 × 1 Gy, 3 par semaine",
+   "type": "rte_hypo",
+   "preuve": "essai_phase3",
+   "essais": [
+    "Canyilmaz 2015 (fasciite plantaire)"
+   ],
+   "doses": [
+    {
+     "volume": "Calcanéum et insertion de l'aponévrose",
+     "dose_Gy": 6,
+     "fractions": 6,
+     "dose_fx_Gy": 1.0
+    }
+   ],
+   "ind": [
+    "Autres",
+    "Pathologies bénignes",
+    "Fasciite plantaire (talalgie)",
+    "Hypofractionné"
+   ]
+  },
+  {
+   "id": "bn-art-3",
+   "localisation_id": "benin",
+   "situation_id": "bn-arthrose",
+   "titre": "3 Gy en 6 × 0,5 Gy, 2 par semaine",
+   "type": "rte_hypo",
+   "preuve": "essai_phase3",
+   "essais": [
+    "ArthroRad",
+    "Minten 2018 (arthrose de la main)"
+   ],
+   "doses": [
+    {
+     "volume": "Articulation",
+     "dose_Gy": 3,
+     "fractions": 6,
+     "dose_fx_Gy": 0.5
+    }
+   ],
+   "ind": [
+    "Autres",
+    "Pathologies bénignes",
+    "Arthrose douloureuse (genou, main)",
+    "Hypofractionné"
    ]
   }
  ]

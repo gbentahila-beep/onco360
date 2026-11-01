@@ -4,7 +4,7 @@
  "region_id": "snc",
  "nom": "Épendymome de l'adulte",
  "ordre": 36,
- "date_maj": "2026-10-24",
+ "date_maj": "2026-11-01",
  "situations": [
   {
    "id": "ep-intracranien",
@@ -13,6 +13,14 @@
    "contexte": "post_op",
    "criteres": "RT pour l'épendymome anaplasique (grade 3) et pour le grade 2 incomplètement réséqué (EANO 2018)",
    "ordre": 1
+  },
+  {
+   "id": "ep-mpe",
+   "localisation_id": "ependymome",
+   "titre": "Épendymome myxopapillaire médullaire opéré",
+   "contexte": "post_op",
+   "criteres": "RT adjuvante après exérèse, surtout exérèse incomplète ou patient jeune (moins de 36 ans) : meilleurs contrôle local et survie sans progression (Weber 2015)",
+   "ordre": 2
   }
  ],
  "schemas": [
@@ -91,6 +99,43 @@
     "Normofractionné"
    ],
    "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+  },
+  {
+   "id": "ep-mpe-504",
+   "situation_id": "ep-mpe",
+   "titre": "Lit tumoral 50,4 Gy / 28 fx",
+   "type": "rte_normo",
+   "preuve": "pratique_institutionnelle",
+   "essai_ids": [
+    "weber2015-mpe"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV lit tumoral",
+     "dose_Gy": 50.4,
+     "fractions": 28,
+     "dose_fx_Gy": 1.8,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "Dose médiane de la série ; une dose ≥ 50,4 Gy améliore le contrôle local et à distance"
+    }
+   ],
+   "technique": "RT externe",
+   "systemique": "Aucune",
+   "simulation_id": "sim-rachis",
+   "volumes_id": "vol-ependymome-mpe",
+   "points_attention": [
+    "Échecs surtout locaux (26,8 %) mais aussi rachidiens à distance (9,3 %) et cérébraux (6 %) : surveiller tout l'axe"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "SNC",
+    "Épendymome de l'adulte",
+    "Épendymome myxopapillaire médullaire opéré",
+    "Normofractionné"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [
@@ -100,6 +145,12 @@
    "contention": "Masque thermoformé 3 points",
    "scanner": "Non injecté, coupes jointives de 2,5 mm, crâne entier jusqu'à C3, moins de 2 semaines avant le début de la RT",
    "imagerie": "IRM dosimétrique T1 3D gadolinium et T2-FLAIR, axiales strictes, fusionnées au scanner ; IRM post-opératoire précoce (48–72 h) pour le GTV ; éviter l'IRM post-opératoire tardive, qui surestime le résidu"
+  },
+  {
+   "id": "sim-rachis",
+   "position": "Décubitus dorsal",
+   "preparation": "Contention du tronc",
+   "scanner": "Scanner de planification fusionné à l'IRM médullaire"
   }
  ],
  "volumes": [
@@ -129,6 +180,22 @@
     "oar-cochlee-g",
     "oar-encephale",
     "oar-moelle"
+   ]
+  },
+  {
+   "id": "vol-ependymome-mpe",
+   "cibles": [
+    {
+     "nom": "CTV lit tumoral",
+     "type": "CTV",
+     "definition": "Lit opératoire et reliquat sur l'IRM médullaire post-opératoire",
+     "quand": "Toujours"
+    }
+   ],
+   "atlas": [],
+   "oar_ids": [
+    "oar-moelle",
+    "oar-queue-cheval"
    ]
   }
  ],

@@ -1,0 +1,226 @@
+{
+ "version": "2026-10-25",
+ "id": "benin",
+ "region_id": "autres",
+ "nom": "Pathologies bénignes",
+ "ordre": 49,
+ "date_maj": "2026-11-01",
+ "situations": [
+  {
+   "id": "bn-dupuytren",
+   "titre": "Maladie de Dupuytren débutante",
+   "criteres": "Stade N ou N/I (nodules, cordes, flessum ≤ 10°) en progression ; au-delà, contrôle moindre",
+   "ordre": 1,
+   "localisation_id": "benin",
+   "contexte": "en_place"
+  },
+  {
+   "id": "bn-ledderhose",
+   "titre": "Maladie de Ledderhose symptomatique",
+   "criteres": "Nodules plantaires douloureux",
+   "ordre": 2,
+   "localisation_id": "benin",
+   "contexte": "en_place"
+  },
+  {
+   "id": "bn-fasciite",
+   "titre": "Fasciite plantaire (talalgie)",
+   "criteres": "Douleur persistante malgré le traitement médical",
+   "ordre": 3,
+   "localisation_id": "benin",
+   "contexte": "en_place"
+  },
+  {
+   "id": "bn-arthrose",
+   "titre": "Arthrose douloureuse (genou, main)",
+   "criteres": "Douleur malgré le traitement médical ; pas d'efficacité démontrée contre RT simulée dans l'arthrose de la main (Minten 2018)",
+   "ordre": 4,
+   "localisation_id": "benin",
+   "contexte": "en_place"
+  }
+ ],
+ "schemas": [
+  {
+   "id": "bn-dup-30",
+   "situation_id": "bn-dupuytren",
+   "titre": "30 Gy : 2 séries de 5 × 3 Gy à 10–12 semaines",
+   "type": "rte_hypo",
+   "preuve": "essai_phase3",
+   "essai_ids": [
+    "seegenschmiedt2012-dupuytren"
+   ],
+   "prescriptions": [
+    {
+     "volume": "CTV + marge",
+     "dose_Gy": 30,
+     "fractions": 10,
+     "dose_fx_Gy": 3.0,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "Deux séries de 5 × 3 Gy séparées de 10 à 12 semaines"
+    }
+   ],
+   "technique": "Électrons ou photons de basse énergie",
+   "systemique": "Aucune",
+   "simulation_id": "sim-benin",
+   "volumes_id": "vol-benin",
+   "points_attention": [
+    "21 Gy en 7 × 3 Gy tous les 2 jours : aussi efficace, plus de toxicité aiguë (32 vs 24 %)"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Autres",
+    "Pathologies bénignes",
+    "Maladie de Dupuytren débutante",
+    "Hypofractionné"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+  },
+  {
+   "id": "bn-led-30",
+   "situation_id": "bn-ledderhose",
+   "titre": "30 Gy : 2 séries de 5 × 3 Gy",
+   "type": "rte_hypo",
+   "preuve": "essai_phase3",
+   "essai_ids": [
+    "ledrad2023"
+   ],
+   "prescriptions": [
+    {
+     "volume": "CTV + marge",
+     "dose_Gy": 30,
+     "fractions": 10,
+     "dose_fx_Gy": 3.0,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "Deux séries de 5 × 3 Gy"
+    }
+   ],
+   "technique": "RT externe",
+   "systemique": "Aucune",
+   "simulation_id": "sim-benin",
+   "volumes_id": "vol-benin",
+   "points_attention": [
+    "Effets secondaires légers (érythème, sécheresse), disparus à 18 mois dans 87 % des cas"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Autres",
+    "Pathologies bénignes",
+    "Maladie de Ledderhose symptomatique",
+    "Hypofractionné"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+  },
+  {
+   "id": "bn-fas-6",
+   "situation_id": "bn-fasciite",
+   "titre": "6 Gy en 6 × 1 Gy, 3 par semaine",
+   "type": "rte_hypo",
+   "preuve": "essai_phase3",
+   "essai_ids": [
+    "canyilmaz2015"
+   ],
+   "prescriptions": [
+    {
+     "volume": "Calcanéum et insertion de l'aponévrose",
+     "dose_Gy": 6,
+     "fractions": 6,
+     "dose_fx_Gy": 1.0,
+     "mode": "seul",
+     "rythme": "3 fx/sem"
+    }
+   ],
+   "technique": "RT externe",
+   "systemique": "Aucune",
+   "simulation_id": "sim-benin",
+   "volumes_id": "vol-benin",
+   "points_attention": [
+    "Seconde série possible ; délai avant un 2e traitement plus long qu'après infiltration"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Autres",
+    "Pathologies bénignes",
+    "Fasciite plantaire (talalgie)",
+    "Hypofractionné"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+  },
+  {
+   "id": "bn-art-3",
+   "situation_id": "bn-arthrose",
+   "titre": "3 Gy en 6 × 0,5 Gy, 2 par semaine",
+   "type": "rte_hypo",
+   "preuve": "essai_phase3",
+   "essai_ids": [
+    "arthrorad2022",
+    "minten2018"
+   ],
+   "prescriptions": [
+    {
+     "volume": "Articulation",
+     "dose_Gy": 3,
+     "fractions": 6,
+     "dose_fx_Gy": 0.5,
+     "mode": "seul",
+     "rythme": "2 fx/sem"
+    }
+   ],
+   "technique": "RT externe",
+   "systemique": "Aucune",
+   "simulation_id": "sim-benin",
+   "volumes_id": "vol-benin",
+   "points_attention": [
+    "0,3 Gy aussi efficace que 3 Gy à 3 mois (ArthroRad) ; 6 × 1 Gy pas mieux qu'une RT simulée dans l'arthrose de la main (Minten 2018)"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Autres",
+    "Pathologies bénignes",
+    "Arthrose douloureuse (genou, main)",
+    "Hypofractionné"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+  }
+ ],
+ "simulations": [
+  {
+   "id": "sim-benin",
+   "position": "Selon la zone (main ou pied à plat, genou)",
+   "preparation": "Contention de la main ou du pied ; repérage clinique des nodules",
+   "scanner": "Champ direct ou scanner selon la zone"
+  }
+ ],
+ "volumes": [
+  {
+   "id": "vol-benin",
+   "cibles": [
+    {
+     "nom": "CTV",
+     "type": "CTV",
+     "definition": "Zone atteinte (nodules et cordes, aponévrose, articulation) avec une marge clinique",
+     "quand": "Toujours"
+    }
+   ],
+   "atlas": [],
+   "oar_ids": [
+    "oar-peau"
+   ]
+  }
+ ],
+ "curie_indications": [],
+ "systemique": [],
+ "hormonotherapie": [],
+ "points_attention": [
+  {
+   "cible": "benin",
+   "point": "Pathologie bénigne : expliquer le faible risque de cancer radio-induit, protéger les zones hors champ",
+   "portee": "localisation"
+  }
+ ]
+}

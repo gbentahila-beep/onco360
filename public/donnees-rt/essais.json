@@ -5378,6 +5378,104 @@
    "population": "82 mélanomes choroïdiens",
    "bras": "85 Gy en 7 jours sur l'apex et 2 mm autour de la base",
    "resultat": "Conservation du globe 97,6 % ; rétinopathie 37,8 %"
+  },
+  {
+   "id": "weber2015-mpe",
+   "acronyme": "Weber 2015 (épendymome myxopapillaire)",
+   "type": "essai",
+   "revue": "Neuro-Oncology",
+   "annee": 2015,
+   "doi": "10.1093/neuonc/nou293",
+   "population": "183 épendymomes myxopapillaires médullaires (MD Anderson et Rare Cancer Network), rétrospectif",
+   "bras": "Chirurgie seule (53 %) ou chirurgie et RT (47 %) ; dose médiane 50,4 Gy",
+   "resultat": "SSP à 10 ans 61,2 % ; échec local 26,8 % ; la RT adjuvante et une dose ≥ 50,4 Gy améliorent le contrôle"
+  },
+  {
+   "id": "wei2019-pvtt",
+   "acronyme": "Wei 2019 (RT néoadjuvante, thrombose portale)",
+   "type": "essai",
+   "revue": "J Clin Oncol 37",
+   "annee": 2019,
+   "population": "164 CHC résécables avec thrombose de la veine porte, randomisé multicentrique",
+   "bras": "RT 3D néoadjuvante 18 Gy / 6 fx puis hépatectomie vs hépatectomie seule",
+   "resultat": "SG à 2 ans 27,4 vs 9,4 % ; mortalité liée au CHC HR 0,35"
+  },
+  {
+   "id": "sun2019-pvtt",
+   "acronyme": "Sun 2019 (IMRT adjuvante, thrombose portale)",
+   "type": "essai",
+   "revue": "Radiother Oncol 140:20",
+   "annee": 2019,
+   "doi": "10.1016/j.radonc.2019.05.006",
+   "population": "52 CHC avec thrombose de la veine porte après hépatectomie ± thrombectomie, randomisé",
+   "bras": "IMRT adjuvante 50 Gy / 25 fx vs surveillance",
+   "resultat": "SG médiane 18,9 vs 10,8 mois ; SSM 9,1 vs 4,1 mois"
+  },
+  {
+   "id": "xi2025-rfa-sbrt",
+   "acronyme": "Xi 2025 (SBRT vs radiofréquence)",
+   "type": "essai",
+   "revue": "J Clin Oncol 43:1073",
+   "annee": 2025,
+   "doi": "10.1200/JCO-24-01532",
+   "population": "166 CHC récidivants uniques ≤ 5 cm, randomisé",
+   "bras": "SBRT 36 à 54 Gy / 3 fx (médiane 45 Gy) vs radiofréquence",
+   "resultat": "Survie sans progression locale à 2 ans 92,7 vs 75,8 % (HR 0,45) ; SG identique"
+  },
+  {
+   "id": "seegenschmiedt2012-dupuytren",
+   "acronyme": "Seegenschmiedt (Dupuytren)",
+   "type": "essai",
+   "revue": "Dupuytren's Disease and Related Hyperproliferative Disorders, Springer",
+   "annee": 2012,
+   "doi": "10.1007/978-3-642-22697-7_44",
+   "population": "489 patients, maladie de Dupuytren débutante",
+   "bras": "Surveillance vs 21 Gy (7 × 3 Gy) vs 30 Gy (2 séries de 5 × 3 Gy, 10 à 12 semaines d'écart)",
+   "resultat": "Progression 52 % (surveillance) vs 22 % (21 Gy) vs 16 % (30 Gy) ; chirurgie 30 vs 12 vs 8 %"
+  },
+  {
+   "id": "ledrad2023",
+   "acronyme": "LedRad",
+   "type": "essai",
+   "revue": "Radiother Oncol",
+   "annee": 2023,
+   "doi": "10.1016/j.radonc.2023.109718",
+   "population": "84 maladies de Ledderhose symptomatiques, phase 3 randomisée en double aveugle",
+   "bras": "30 Gy (2 séries de 5 × 3 Gy) vs RT simulée",
+   "resultat": "Douleur à 12 mois 2,5 vs 3,6 ; soulagement 74 vs 56 % ; effets secondaires légers"
+  },
+  {
+   "id": "canyilmaz2015",
+   "acronyme": "Canyilmaz 2015 (fasciite plantaire)",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2015,
+   "doi": "10.1016/j.ijrobp.2015.02.009",
+   "population": "128 fasciites plantaires, randomisé",
+   "bras": "RT 6 Gy (6 × 1 Gy, 3 par semaine) vs infiltration de corticoïde",
+   "resultat": "Douleur et fonction meilleures à 3 mois avec la RT (p < 0,001)"
+  },
+  {
+   "id": "arthrorad2022",
+   "acronyme": "ArthroRad",
+   "type": "essai",
+   "revue": "Strahlenther Onkol 198:370",
+   "annee": 2022,
+   "doi": "10.1007/s00066-021-01866-2",
+   "population": "172 mains et 64 genoux arthrosiques douloureux, randomisé",
+   "bras": "3 Gy (6 × 0,5 Gy, 2 par semaine) vs 0,3 Gy (6 × 0,05 Gy)",
+   "resultat": "Soulagement de la douleur dans les deux bras à 3 mois, sans différence ; essai arrêté tôt"
+  },
+  {
+   "id": "minten2018",
+   "acronyme": "Minten 2018 (arthrose de la main)",
+   "type": "essai",
+   "revue": "Osteoarthritis Cartilage",
+   "annee": 2018,
+   "doi": "10.1016/j.joca.2018.06.010",
+   "population": "56 arthroses de la main, randomisé contre RT simulée",
+   "bras": "6 Gy (6 × 1 Gy) vs RT simulée",
+   "resultat": "Pas de différence de réponse à 3 mois (29 vs 36 %) : RT déconseillée dans l'arthrose de la main"
   }
  ]
 }
