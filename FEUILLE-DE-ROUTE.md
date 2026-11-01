@@ -1120,6 +1120,22 @@ Traitement en cours ; Tâches : Tâche, Patient, Assignée à, Créée par, Éch
 - [ ] **UX9 – Onglets du dossier avec leur adresse** : `#dossier/<id>/chimio`… ; recharger la page ou revenir en arrière rouvre le bon onglet.
 - [ ] **UX10 – TNM** : rempli à partir du PDF de Dr Bentahila, pour son cabinet seulement (droits d'auteur AJCC : les autres cabinets importent leur
   manuel ou une licence) ; attend le PDF.
+- [ ] **UX11 – Parcours de la chimiothérapie (tour du 01/11/2026, réponses de Dr Bentahila)** :
+  - défauts : compteur et « Prochaine » qui sautent à la cure suivante alors qu'un jour de la cure reste à faire (J1 validé, J15 reporté : afficher
+    C1/6 et la date du J15) (C1) ; « Ordonnances du protocole (fait) » marqué même fermé sans imprimer (C2) ; texte « J1, J1 et J15 » en double sur la
+    ligne et la fiche (C3) ; séance validée : % et doses en cases blanches et titre « (modifiable) » alors qu'elles sont figées → grisées comme le poids
+    (C4) ; statut de la cure « J15 à valider » au lieu de « J15 reportée au … » (C6) ; même choix par défaut « Cette date seulement » dans la séance et
+    dans la fenêtre Reporter (C7) ;
+  - parcours : fenêtre de vigilance à la validation = ajouter « Bilan du jour non saisi : PNN, plaquettes, … » (seuils du protocole), sans bloquer (C8) ;
+    séance : cases du bilan sur une ligne pour voir les doses sans défiler (C9) ; création de la ligne : ↑ et − juste après le produit, colonnes
+    inchangées (C10) ; après « Valider J1 », retour à la liste des cures (C11) ; « ‹ Retour à la cure C1 » → « ‹ Séances de la C1 » (C12) ;
+  - mots : bouton « Nouvelle prescription chimiothérapie » → « + Nouvelle ligne de traitement » (C13) ; « Heure de la C1 » et sa fenêtre = même titre
+    « Heure de consultation – C1 » (C14) ; « À valider » des rendez-vous à venir → « Consult. à valider » (C15) ;
+  - présentation : noms des molécules en texte simple, plus de cadres qui ressemblent à des boutons (C17) ; « 1 cure = 2 administrations… » en gris,
+    pas en rouge (C18) ; boutons de la chimio d'abord pour UX6 : Valider vert, Reporter contour, Ouvrir bleu 36 px, « Fiche chimio » sans majuscules
+    ni bleu marine, Arrêter / Supprimer la ligne en texte rouge (C19).
+  Refusé le 01/11 : avertissement dimanche / férié à la création de la ligne (C5 : on traite parfois le week-end ou un férié) ; titre de la ligne en
+  étiquettes (C16) ; aperçu de la fiche chimio (C20 : il existe déjà) ; taille et SC à la création (C21 : poids et SC déjà affichés).
 Avant chaque lot : maquette ou captures avant / après montrées à Dr Bentahila ; un lot = une session, test sur ordinateur et à 390 px.
 
 ## À placer (nouveau plan)
