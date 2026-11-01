@@ -339,6 +339,7 @@ function ongletContourage() {
   // organes à risque : le nom et le nom TG-263 seulement (la définition est dans la page Organes à risque)
   if ((v.oar_ids || []).length) h += '<h4>Organes à risque à contourer</h4><ul class="rtr-oar">' + v.oar_ids.map((id) => { const o = oar(id);
     return "<li>" + esc(o.nom) + (o.nom_tg263 ? ' <span class="mesures">' + esc(o.nom_tg263) + "</span>" : "") + "</li>"; }).join("") + "</ul>";
+  h += '<p class="mesures"><a href="#radiotherapie/contourage/' + encodeURIComponent(FICHE.e.localisation_id) + '">Atlas de contourage de la localisation ›</a></p>';
   return h + textes("contourage");
 }
 // Contraintes : un bloc par jeu, lignes groupées par OAR ; « ? » d'Idéal et de Limitant tirés de aide_colonnes
@@ -849,9 +850,9 @@ window.rtrCmp = (b, v) => { b.parentNode.querySelectorAll("button").forEach((x) 
 // Onglets en haut de la page Radiothérapie (Référentiel · Organes à risque · Contraintes · Essais · Calcul BED / EQD2) ; adresses #radiotherapie/oar,
 // /contraintes, /essais, /calcul (/calcul/<dose par séance>/<séances> : prérempli depuis le lien « EQD2 » d'une ligne de prescription).
 // « Utilisé dans n schémas » et la région d'un jeu de contraintes demandent les 48 fichiers de localisation : lus à la première sous-page.
-const SOUS = [["", "Référentiel"], ["oar", "Organes à risque"], ["contraintes", "Contraintes"], ["essais", "Essais"], ["calcul", "Calcul BED / EQD2"]];
+const SOUS = [["", "Référentiel"], ["contourage", "Contourage"], ["oar", "Organes à risque"], ["contraintes", "Contraintes"], ["essais", "Essais"], ["calcul", "Calcul BED / EQD2"]];
 // 26/10/2026 (demande de Dr Bentahila) : menu en contrôle segmenté avec une icône par page (plus d'onglets soulignés)
-const ICO_SOUS = { "": "radiation", oar: "patients", contraintes: "drapeau", essais: "document", calcul: "courbe" };
+const ICO_SOUS = { "": "radiation", contourage: "crayon", oar: "patients", contraintes: "drapeau", essais: "document", calcul: "courbe" };
 const ongletsPage = (k) => '<div class="ag-vues defile rtr-sous" role="tablist">' + SOUS.map(([c, l]) => '<button role="tab" aria-selected="' + (c === k) + '" class="' + (c === k ? "on" : "") + '" onclick="location.hash=\'radiotherapie' + (c ? "/" + c : "") + "'\">" + A.ic(ICO_SOUS[c]) + "<span>" + l + "</span></button>").join("") + "</div>";
 let TOUT = null;
 const chargerTout = () => TOUT || (TOUT = Promise.all(INDEX.localisations.map((l) => locFichier(l.id))).catch((e) => { TOUT = null; throw e; }));
@@ -861,6 +862,36 @@ function schemasComplets() {
   INDEX.localisations.forEach((l) => { const L = LOCS[l.id]; if (!L) return; L.schemas.forEach((s) => { const c = CAB[s.id]; if (c && c.supprime) return; r.push({ s: c && c.schema ? c.schema : s, L }); }); });
   Object.keys(CAB).forEach((id) => { const c = CAB[id]; if (c.nouveau && c.schema && LOCS[c.localisation_id]) r.push({ s: c.schema, L: LOCS[c.localisation_id] }); });
   return r;
+}
+// ───── Contourage (lot 4 RTX, 01/11/2026) ─────
+// #radiotherapie/contourage[/<localisation>] : atlas publiés de la Bibliothèque, un fichier par région (donnees-rt/contourage/<région>.json :
+// sources numérotées, sections { titre, locs, colonnes, lignes, notes, src }, sans_atlas { localisation: phrase }) ; tableaux du style des onglets
+const CT = { reg: "orl", loc: "", f: {} };
+const ctFichier = (r) => CT.f[r] || (CT.f[r] = json("contourage/" + r + ".json").catch(() => null));
+async function pageContourage(reste) {
+  const z = $("rtrSous"); if (!z) return;
+  const l = reste ? loc(decodeURIComponent(reste)) : null; if (l) { CT.loc = l.id; CT.reg = l.region_id; } else if (reste === undefined && CT.loc && loc(CT.loc)) CT.reg = loc(CT.loc).region_id;
+  const esc = A.esc, R = INDEX.regions, L = INDEX.localisations.filter((x) => x.region_id === CT.reg);
+  if (CT.loc && !L.some((x) => x.id === CT.loc)) CT.loc = "";
+  z.innerHTML = '<div class="rtr-haut rtr-sh"><div class="cascade rtr-menus"><div><label for="rtrCr">Région</label><select id="rtrCr" onchange="rtrCt(\'r\',this.value)">' + R.map((r) => '<option value="' + r.id + '"' + (r.id === CT.reg ? " selected" : "") + ">" + esc(r.nom) + "</option>").join("") +
+    '</select></div><div><label for="rtrCl">Localisation</label><select id="rtrCl" onchange="rtrCt(\'l\',this.value)"><option value="">Toutes</option>' + L.map((x) => '<option value="' + x.id + '"' + (x.id === CT.loc ? " selected" : "") + ">" + esc(x.nom) + "</option>").join("") + '</select></div></div></div><div class="rtr-ctz" id="rtrCtz"><div class="rtr-ch">' + "<i></i>".repeat(3) + "</div></div>";
+  const d = await ctFichier(CT.reg), y = $("rtrCtz"); if (!y) return;
+  y.innerHTML = htmlContourage(d) + AVERT_RT;
+}
+window.rtrCt = (k, v) => { if (k === "r") { CT.reg = v; CT.loc = ""; location.hash = "radiotherapie/contourage"; pageContourage(); } else { CT.loc = v; location.hash = "radiotherapie/contourage" + (v ? "/" + encodeURIComponent(v) : ""); } };
+function htmlContourage(d) {
+  const esc = A.esc;
+  if (!d) return '<p class="vide-c">Contourage de cette région : pas encore saisi</p>';
+  const S = d.sections.filter((s) => !CT.loc || s.locs.indexOf(CT.loc) >= 0), sans = CT.loc && d.sans_atlas ? d.sans_atlas[CT.loc] : "";
+  const ns = [...new Set(S.flatMap((s) => s.src))].sort((a, b) => a - b), src = (n) => d.sources.find((x) => x.n === n) || {};
+  let h = sans ? '<p class="vide-c">' + esc(sans) + "</p>" : "";
+  if (!S.length && !sans) h += '<p class="vide-c">Pas d\'atlas publié pour cette localisation</p>';
+  h += S.map((s) => '<section class="rtr-cts" id="ct-' + esc(s.id) + '"><h3>' + esc(s.titre) + ' <span class="mesures">[' + s.src.join(", ") + "]</span></h3>" +
+    '<div class="rtr-tw"><table class="rtr-tab rtr-cent rtr-ctt' + (s.colonnes.length <= 3 ? " rtr-ct2" : "") + '"><thead><tr>' + s.colonnes.map((c) => "<th>" + esc(c) + "</th>").join("") + "</tr></thead><tbody>" +
+    s.lignes.map((r) => "<tr>" + r.map((v, i) => (i ? '<td data-l="' + esc(s.colonnes[i]) + '">' + esc(v) + "</td>" : '<th scope="row" data-l="' + esc(s.colonnes[0]) + '">' + esc(v) + "</th>")).join("") + "</tr>").join("") + "</tbody></table></div>" +
+    ((s.notes || []).length ? '<ul class="rtr-pts mesures">' + s.notes.map((n) => "<li>" + esc(n) + "</li>").join("") + "</ul>" : "") + "</section>").join("");
+  if (ns.length) h += '<section class="rtr-cts"><h3>Sources</h3><ol class="rtr-pts">' + ns.map((n) => { const x = src(n); return '<li value="' + n + '">' + esc(x.ref || "") + (x.doi ? ' <a href="https://doi.org/' + esc(x.doi) + '" target="_blank" rel="noopener">DOI</a>' : "") + "</li>"; }).join("") + "</ol></section>";
+  return h;
 }
 const RS = { oarQ: "", oarR: "", jeu: "", jeuQ: "", essQ: "", essTri: "acronyme", essSens: 1 };
 const REGIONS_OAR = { orl: "Tête et cou", sein: "Sein", thorax: "Thorax", abdomen: "Abdomen", snc: "Système nerveux central", rachis: "Rachis", pelvis: "Pelvis" };
@@ -1119,7 +1150,7 @@ async function pageSous(k, reste) {
   $("page").innerHTML = '<div class="rtr sous" id="rtr">' + ongletsPage(k) + '<div id="rtrSous"><div class="rtr-ch">' + "<i></i>".repeat(4) + "</div></div></div>";
   try { await charger(); await chargerBibs(); } catch (e) { const z = $("rtrSous"); if (z) z.innerHTML = erreurHtml(); return; }
   if (!$("rtrSous")) return;
-  if (k === "oar") pageOar(); else if (k === "contraintes") await pageContraintesRef(); else if (k === "essais") pageEssaisRef(); else pageCalcul(reste);
+  if (k === "contourage") await pageContourage(reste); else if (k === "oar") pageOar(); else if (k === "contraintes") await pageContraintesRef(); else if (k === "essais") pageEssaisRef(); else pageCalcul(reste);
 }
 
 // ───── Page ─────
@@ -1130,7 +1161,7 @@ export async function pageRadiotherapie(arg) {
     let l = null; try { await charger(); const c = (await json("diag-localisation.json")).correspondances || {}; l = loc(c[arg.slice(5)]); } catch (e) { console.warn("diag-localisation", e); }
     Object.assign(RF, { q: "", reg: l ? l.region_id : "", loc: l ? l.id : "", sit: "", frac: "", sel: -1 }); location.replace("#radiotherapie"); return;
   }
-  const sp = /^(oar|contraintes|essais|calcul)(?:\/(.*))?$/.exec(arg || "");
+  const sp = /^(contourage|oar|contraintes|essais|calcul)(?:\/(.*))?$/.exec(arg || "");
   if (sp) { ARG = arg; RF.ouvert = null; await pageSous(sp[1], sp[2]); return; }
   if (arg === "nouveau" && !NOUVEAU && !(ED && ED.nouveau)) { location.replace("#radiotherapie"); return; }
   ARG = arg || null;

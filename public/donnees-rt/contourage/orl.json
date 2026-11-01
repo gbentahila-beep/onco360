@@ -1,0 +1,684 @@
+{
+ "region": "orl",
+ "maj": "2026-11-01",
+ "sources": [
+  {
+   "n": 1,
+   "ref": "Grégoire V et al. Delineation of the neck node levels for head and neck tumors: a 2013 update. DAHANCA, EORTC, HKNPCSG, NCIC CTG, NCRI, RTOG, TROG consensus guidelines. Radiother Oncol 2014",
+   "doi": "10.1016/j.radonc.2013.10.010"
+  },
+  {
+   "n": 2,
+   "ref": "Grégoire V et al. Delineation of the primary tumour Clinical Target Volumes (CTV-P) in laryngeal, hypopharyngeal, oropharyngeal and oral cavity squamous cell carcinoma: AIRO, CACA, DAHANCA, EORTC, GEORCC, GORTEC, HKNPCSG, HNCIG, IAG-KHT, LPRHHT, NCIC CTG, NCRI, NRG Oncology, PHNS, SBRT, SOMERA, SRO, SSHNO, TROG consensus guidelines. Radiother Oncol 2018;126:3-24",
+   "doi": "10.1016/j.radonc.2017.10.016"
+  },
+  {
+   "n": 3,
+   "ref": "Biau J et al. Selection of lymph node target volumes for definitive head and neck radiation therapy: a 2019 update. Radiother Oncol 2019;134:1-9",
+   "doi": "10.1016/j.radonc.2019.01.018"
+  },
+  {
+   "n": 4,
+   "ref": "Lapeyre M. Délinéation des volumes cibles des cancers des VADS, chapitre II : délinéation des CTV-P (T), patients non opérés. Centre Jean Perrin, Clermont-Ferrand, juin 2019"
+  }
+ ],
+ "sections": [
+  {
+   "id": "niveaux",
+   "titre": "Niveaux ganglionnaires cervicaux : limites",
+   "locs": [
+    "cavite_buccale",
+    "oropharynx",
+    "larynx",
+    "hypopharynx",
+    "cavum",
+    "sinus",
+    "glandes_salivaires"
+   ],
+   "colonnes": [
+    "Niveau",
+    "Crânial",
+    "Caudal",
+    "Antérieur",
+    "Postérieur",
+    "Latéral",
+    "Médial"
+   ],
+   "lignes": [
+    [
+     "Ia (sous-mental)",
+     "Muscle mylo-hyoïdien",
+     "Muscle platysma (bord caudal des ventres antérieurs des digastriques)",
+     "Symphyse mentonnière",
+     "Corps de l'os hyoïde / muscle mylo-hyoïdien",
+     "Bord médial du ventre antérieur du digastrique",
+     "Sans objet"
+    ],
+    [
+     "Ib (sous-mandibulaire)",
+     "Bord crânial de la glande sous-mandibulaire ; en avant, muscle mylo-hyoïdien",
+     "Plan passant par le bord caudal de l'os hyoïde et le bord caudal de la mandibule, ou bord caudal de la glande sous-mandibulaire (le plus caudal des deux) / muscle platysma",
+     "Symphyse mentonnière",
+     "Bord postérieur de la glande sous-mandibulaire (en bas) / ventre postérieur du digastrique (en haut)",
+     "Face interne de la mandibule jusqu'à son bord caudal / muscle platysma (en bas) / muscle ptérygoïdien médial (en arrière)",
+     "Bord latéral du ventre antérieur du digastrique (en bas) / ventre postérieur du digastrique (en haut)"
+    ],
+    [
+     "II (jugulaire haut)",
+     "Bord caudal de l'apophyse transverse de C1",
+     "Bord caudal du corps de l'os hyoïde",
+     "Bord postérieur de la glande sous-mandibulaire / bord postérieur du ventre postérieur du digastrique",
+     "Bord postérieur du sterno-cléido-mastoïdien",
+     "Face profonde (médiale) du sterno-cléido-mastoïdien / platysma / parotide / ventre postérieur du digastrique",
+     "Bord médial de l'artère carotide interne / muscles scalènes"
+    ],
+    [
+     "III (jugulaire moyen)",
+     "Bord caudal du corps de l'os hyoïde",
+     "Bord caudal du cartilage cricoïde",
+     "Bord antérieur du sterno-cléido-mastoïdien / tiers postérieur du muscle thyro-hyoïdien",
+     "Bord postérieur du sterno-cléido-mastoïdien",
+     "Face profonde (médiale) du sterno-cléido-mastoïdien",
+     "Bord médial de l'artère carotide commune / muscles scalènes"
+    ],
+    [
+     "IVa (jugulaire bas)",
+     "Bord caudal du cartilage cricoïde",
+     "2 cm au-dessus du manubrium sternal",
+     "Bord antérieur (en haut) puis corps (en bas) du sterno-cléido-mastoïdien",
+     "Bord postérieur du sterno-cléido-mastoïdien (en haut) / muscles scalènes (en bas)",
+     "Face profonde du sterno-cléido-mastoïdien (en haut) / bord latéral du sterno-cléido-mastoïdien (en bas)",
+     "Bord médial de l'artère carotide commune / bord latéral de la thyroïde / scalènes (en haut) ; bord médial du sterno-cléido-mastoïdien (en bas)"
+    ],
+    [
+     "IVb (sus-claviculaire médial)",
+     "Limite caudale de IVa (2 cm au-dessus du manubrium)",
+     "Bord crânial du manubrium sternal",
+     "Face profonde du sterno-cléido-mastoïdien / face profonde de la clavicule",
+     "Bord antérieur des scalènes (en haut) ; en bas : apex pulmonaire, tronc veineux brachio-céphalique, tronc artériel brachio-céphalique (à droite), carotide commune et artère sous-clavière (à gauche)",
+     "Bord latéral du muscle scalène",
+     "Limite latérale du niveau VI (partie prétrachéale) / bord médial de l'artère carotide commune"
+    ],
+    [
+     "V (triangle postérieur ; Va et Vb)",
+     "Bord crânial du corps de l'os hyoïde",
+     "Plan juste sous les vaisseaux cervicaux transverses",
+     "Bord postérieur du sterno-cléido-mastoïdien",
+     "Bord antérieur du trapèze",
+     "Muscle platysma / peau",
+     "Muscle élévateur de la scapula / scalène (en bas)"
+    ],
+    [
+     "Vc (sus-claviculaire latéral)",
+     "Plan juste sous les vaisseaux cervicaux transverses (limite caudale de V)",
+     "2 cm au-dessus du manubrium (limite caudale de IVa)",
+     "Peau",
+     "Bord antérieur du trapèze (en haut) / environ 1 cm en avant du muscle dentelé antérieur (en bas)",
+     "Trapèze (en haut) / clavicule (en bas)",
+     "Scalène / bord latéral du sterno-cléido-mastoïdien, bord latéral de IVa"
+    ],
+    [
+     "VIa (jugulaire antérieur)",
+     "Bord caudal de l'os hyoïde ou de la glande sous-mandibulaire (le plus caudal des deux)",
+     "Bord crânial du manubrium sternal",
+     "Peau / platysma",
+     "Face antérieure des muscles sous-hyoïdiens",
+     "Bords antérieurs des deux sterno-cléido-mastoïdiens",
+     "Sans objet"
+    ],
+    [
+     "VIb (prélaryngé, prétrachéal, paratrachéal-récurrentiel)",
+     "Bord caudal du cartilage thyroïde (bord caudal du corps de l'hyoïde pour les tumeurs du plancher buccal antérieur, de la pointe de langue et de la lèvre inférieure)",
+     "Bord crânial du manubrium sternal",
+     "Face postérieure des muscles sous-hyoïdiens",
+     "Face antérieure du larynx, de la thyroïde et de la trachée / muscles prévertébraux (à droite) / œsophage (à gauche)",
+     "Artère carotide commune des deux côtés",
+     "Face latérale de la trachée et de l'œsophage (en bas)"
+    ],
+    [
+     "VIIa (rétropharyngé)",
+     "Bord supérieur du corps de C1 / palais dur",
+     "Bord crânial du corps de l'os hyoïde",
+     "Bord postérieur du constricteur supérieur ou moyen du pharynx",
+     "Muscles long de la tête et long du cou",
+     "Bord médial de l'artère carotide interne",
+     "Ligne parallèle au bord latéral du muscle long de la tête"
+    ],
+    [
+     "VIIb (rétrostylien)",
+     "Base du crâne (foramen jugulaire)",
+     "Bord caudal de l'apophyse transverse de C1 (limite haute du niveau II)",
+     "Bord postérieur de l'espace parapharyngé préstylien",
+     "Corps vertébral de C1, base du crâne",
+     "Apophyse styloïde / lobe profond de la parotide",
+     "Bord médial de l'artère carotide interne"
+    ],
+    [
+     "VIII (parotidien)",
+     "Arcade zygomatique, conduit auditif externe",
+     "Angle de la mandibule",
+     "Bord postérieur de la branche montante de la mandibule et du masséter (en dehors) / ptérygoïdien médial (en dedans)",
+     "Bord antérieur du sterno-cléido-mastoïdien (en dehors) / ventre postérieur du digastrique (en dedans)",
+     "SMAS dans le tissu sous-cutané",
+     "Apophyse styloïde et muscles styliens"
+    ],
+    [
+     "IX (buccofacial)",
+     "Bord caudal de l'orbite",
+     "Bord caudal de la mandibule",
+     "SMAS dans le tissu sous-cutané",
+     "Bord antérieur du masséter et boule graisseuse de Bichat",
+     "SMAS dans le tissu sous-cutané",
+     "Muscle buccinateur"
+    ],
+    [
+     "Xa (rétro-auriculaire)",
+     "Bord crânial du conduit auditif externe",
+     "Pointe de la mastoïde",
+     "Bord antérieur de la mastoïde (en bas) / bord postérieur du conduit auditif externe (en haut)",
+     "Bord antérieur des ganglions occipitaux, bord postérieur du sterno-cléido-mastoïdien",
+     "Tissu sous-cutané",
+     "Muscle splénius de la tête (en bas) / os temporal (en haut)"
+    ],
+    [
+     "Xb (occipital)",
+     "Protubérance occipitale externe",
+     "Limite crâniale du niveau V",
+     "Bord postérieur du sterno-cléido-mastoïdien",
+     "Bord antérieur (latéral) du trapèze",
+     "Tissu sous-cutané",
+     "Muscle splénius de la tête"
+    ]
+   ],
+   "src": [
+    1
+   ],
+   "notes": [
+    "II se divise en IIa et IIb par une ligne passant par le bord postérieur de la veine jugulaire interne.",
+    "Chirurgicalement, V se divise en Va (haut) et Vb (bas) au niveau du bord caudal du cricoïde.",
+    "VIIa : seuls les ganglions rétropharyngés latéraux sont considérés."
+   ]
+  },
+  {
+   "id": "ecoles",
+   "titre": "CTV de la tumeur : deux écoles",
+   "locs": [
+    "cavite_buccale",
+    "oropharynx",
+    "larynx",
+    "hypopharynx"
+   ],
+   "colonnes": [
+    "École",
+    "Méthode",
+    "Volumes et doses"
+   ],
+   "lignes": [
+    [
+     "Grégoire 2018 (consensus international)",
+     "Marge « 5 + 5 mm » : CTV-P1 = GTV-P + 5 mm ; CTV-P2 = GTV-P + 10 mm ; marges isotropes puis corrigées (air, os, barrières anatomiques non envahies). Le CTV-P1 est toujours contenu dans le CTV-P2 ; tracer d'abord le CTV-P2.",
+     "CTV-P1 : dose haute. CTV-P2 : dose prophylactique ou intermédiaire. Avec trois niveaux : CTV-P2 intermédiaire (équivalent 60 Gy en 2 Gy) et CTV-P3 prophylactique (équivalent 50 Gy)."
+    ],
+    [
+     "Lapeyre 2019 (école française)",
+     "1. Concept géométrique : GTV + 1 cm. 2. Retirer l'air et les barrières (os). 3. Concept anatomique : ajouter les structures à inclure selon la localisation (zones de diffusion).",
+     "CTV1 haut risque 70–72 Gy / 33–35 fx ; CTV3 risque intermédiaire, optionnel, 59,4–63 Gy ; CTV2 faible risque 50 Gy / 25 fx ou 54–56 Gy / 33–35 fx. Schéma à 35 fractions si préservation laryngée."
+    ]
+   ],
+   "src": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "ctvp-cavite_buccale",
+   "titre": "CTV de la tumeur (CTV-P2) selon le T : cavité buccale",
+   "locs": [
+    "cavite_buccale"
+   ],
+   "colonnes": [
+    "Situation",
+    "CTV-P2 (GTV-P + 10 mm, corrigé)"
+   ],
+   "lignes": [
+    [
+     "Indication",
+     "Le plus souvent chirurgie puis radiothérapie ; ces règles visent la radiothérapie exclusive (contre-indication ou refus de la chirurgie)."
+    ],
+    [
+     "T1",
+     "Ni air ni os (mandibule) sauf mention. Joue superficielle : la marge profonde ne franchit pas le buccinateur sauf signe IRM. Plancher fixé à la mandibule, gencive, palais dur, trigone rétromolaire : 1–2 mm dans l'os adjacent, sans franchir un os fin vers les fosses nasales ou le sinus maxillaire. T1 petite ou superficielle : CTV-P1 seul (5 mm)."
+    ],
+    [
+     "T2",
+     "CTV-P1 et CTV-P2 sans air ni os. Joue : inclut le buccinateur sans le dépasser sauf signe IRM. Plancher fixé, gencive, palais dur, trigone : 5 mm dans l'os adjacent. Plancher : contenu dans le mylo-hyoïdien (glande sous-mandibulaire exclue)."
+    ],
+    [
+     "T3",
+     "Sans air ni os si possible. Joue : buccinateur et graisse sous-cutanée. Plancher fixé, gencive, palais, trigone : 5 mm dans l'os. Plancher : la marge caudale peut inclure le mylo-hyoïdien sans le dépasser."
+    ],
+    [
+     "T4",
+     "Sans air ; os seulement s'il est envahi. Selon le siège : muscles extrinsèques profonds de la langue, mandibule, menton, peau, sinus maxillaire, apophyse ptérygoïde, masséter ; vers l'oropharynx (base de langue, loge amygdalienne, voile, espace parapharyngé, ptérygoïdien médial)."
+    ]
+   ],
+   "src": [
+    2
+   ],
+   "notes": [
+    "CTV-P1 = GTV-P + 5 mm, corrigé de la même façon, toujours contenu dans le CTV-P2."
+   ]
+  },
+  {
+   "id": "ctvp-oropharynx",
+   "titre": "CTV de la tumeur (CTV-P2) selon le T : oropharynx",
+   "locs": [
+    "oropharynx"
+   ],
+   "colonnes": [
+    "Situation",
+    "CTV-P2 (GTV-P + 10 mm, corrigé)"
+   ],
+   "lignes": [
+    [
+     "T1",
+     "Ni air, ni os (hyoïde, mandibule, palais dur), ni langue mobile. Amygdale : constricteur supérieur dans les 5 mm, pas l'espace parapharyngé. Voile : toute l'épaisseur du voile, possible loges amygdaliennes. Paroi postérieure : constricteur (l'espace rétropharyngé y est probablement inclus). Vallécule : pas la loge pré-épiglottique. Base de langue : pas le muscle hyo-glosse en dehors. T1 petite ou superficielle : CTV-P1 seul (5 mm)."
+    ],
+    [
+     "T2",
+     "Ni air, ni os, ni langue mobile (sauf très grosse tumeur de base de langue). Amygdale : faces latérale et postéro-latérale du constricteur supérieur et graisse parapharyngée (recouvre II et rétropharyngés), pas le ptérygoïdien médial ; sillon amygdalo-glosse, base et langue mobile adjacentes selon le siège. Voile : palais dur, parois latérales, espace parapharyngé, pas le ptérygoïdien médial ni la langue mobile. Paroi postérieure : constricteurs et espace rétropharyngé, pas au-delà du fascia prévertébral. Vallécule : loge pré-épiglottique. Base de langue : à travers l'hyo-glosse vers l'espace parapharyngé (recouvre Ib et II), partie latérale du constricteur supérieur ; grosse T2 : langue mobile possible."
+    ],
+    [
+     "T3",
+     "Comme T2 ; amygdale : peut s'étendre en partie au ptérygoïdien médial ; base de langue T3 : langue mobile possible."
+    ],
+    [
+     "T4",
+     "Corrigé de l'air. Amygdale : espace parapharyngé et probablement structures voisines (ptérygoïdiens, mandibule, trigone rétromolaire, base et langue mobile, palais dur). Voile : palais dur, paroi latérale, cavum, fosses nasales. Paroi postérieure : à travers le fascia prévertébral vers les muscles longs, voire quelques mm du corps vertébral. Vallécule : loge pré-épiglottique, larynx sus-glottique et hypopharynx, hyoïde et base de langue, espace parapharyngé. Base de langue : espace parapharyngé, hyoïde, langue mobile, larynx sus-glottique. Recouvre probablement Ib, II et rétropharyngés."
+    ]
+   ],
+   "src": [
+    2
+   ],
+   "notes": [
+    "CTV-P1 = GTV-P + 5 mm, corrigé de la même façon, toujours contenu dans le CTV-P2."
+   ]
+  },
+  {
+   "id": "ctvp-larynx",
+   "titre": "CTV de la tumeur (CTV-P2) selon le T : larynx",
+   "locs": [
+    "larynx"
+   ],
+   "colonnes": [
+    "Situation",
+    "CTV-P2 (GTV-P + 10 mm, corrigé)"
+   ],
+   "lignes": [
+    [
+     "Glotte T1",
+     "Pas de CTV-P2 recommandé. CTV-P1 : espace paraglottique, commissure antérieure (tumeur antérieure), partie antérieure de la corde controlatérale (atteinte de la commissure), apophyse vocale de l'aryténoïde (tumeur postérieure) ; exclut le cartilage thyroïde et l'air ; en hauteur, versants sous- et sus-glottiques de la corde."
+    ],
+    [
+     "Glotte T2",
+     "Espace paraglottique, commissure antérieure, partie antérieure de la corde controlatérale, apophyse vocale ; peut inclure le cartilage thyroïde au contact du GTV ; exclut le cricoïde et l'air ; en hauteur : sous-glotte haute, ventricule homolatéral, muqueuse sus-glottique basse. T2 petite ou superficielle hors commissure : CTV-P1 seul tracé comme le CTV-P2 avec 5 mm."
+    ],
+    [
+     "Glotte T3",
+     "Partie du cartilage thyroïde au contact du GTV, probablement une partie du cricoïde en bas, loge pré-épiglottique en avant, paroi médiale du sinus piriforme en arrière et en dehors ; ne sort pas du cartilage thyroïde sauf envahissement ; pas l'oropharynx sauf envahissement ; jamais la paroi pharyngée postérieure."
+    ],
+    [
+     "Glotte T4",
+     "Cartilage thyroïde au contact du GTV, partie du cricoïde, loge pré-épiglottique ; sort probablement du cartilage thyroïde sans dépasser les muscles sous-hyoïdiens sauf envahissement (recouvre alors les niveaux III ou VIa) ; probablement une partie de la thyroïde ; pas l'os (vertèbres, hyoïde) sauf envahissement ; T4b prévertébral : peut s'étendre au corps vertébral."
+    ],
+    [
+     "Sus-glotte T1",
+     "Loges pré-épiglottique et paralaryngée ; exclut le cartilage thyroïde et l'air ; ventricule : s'étend à la glotte ; repli ary-épiglottique et épiglotte sus-hyoïdienne : peut s'étendre à la vallécule ; muqueuse inter-aryténoïdienne : exclure la paroi pharyngée postérieure. T1 petite ou superficielle : CTV-P1 seul (5 mm)."
+    ],
+    [
+     "Sus-glotte T2",
+     "Loges pré-épiglottique et paralaryngée, cartilage thyroïde ; exclut les muscles sous-hyoïdiens et l'air ; mêmes règles que T1 pour le ventricule, la vallécule et la paroi postérieure."
+    ],
+    [
+     "Sus-glotte T3",
+     "Cartilage thyroïde au contact du GTV, loge pré-épiglottique ; ne sort pas du cartilage sauf envahissement ; peut s'étendre à l'oropharynx (face linguale de l'épiglotte, vallécule) et à la région rétrocricoïdienne ; pas la paroi pharyngée postérieure."
+    ],
+    [
+     "Sus-glotte T4",
+     "Comme la glotte T4 : sort probablement du cartilage thyroïde sans dépasser les muscles sous-hyoïdiens sauf envahissement ; une partie de la thyroïde ; T4b : corps vertébral possible."
+    ],
+    [
+     "Sous-glotte T1",
+     "Exclut le cartilage thyroïde et l'air ; marge d'environ 2 mm dans le cricoïde. Possible : CTV-P1 seul (5 mm)."
+    ],
+    [
+     "Sous-glotte T2",
+     "Cricoïde et bord inférieur du cartilage thyroïde sans en sortir ; glotte et muqueuse de la trachée haute."
+    ],
+    [
+     "Sous-glotte T3",
+     "Parties des cartilages thyroïde et cricoïde et du muscle crico-thyroïdien au contact du GTV, sans en sortir ; exclut la paroi pharyngée postérieure et l'œsophage cervical."
+    ],
+    [
+     "Sous-glotte T4",
+     "Sort probablement des cartilages sans dépasser les muscles sous-hyoïdiens sauf envahissement (thyroïde, niveaux III, IVa, VIa ou VIb alors inclus) ; exclut l'os sauf T4b (corps vertébral possible)."
+    ]
+   ],
+   "src": [
+    2
+   ],
+   "notes": [
+    "CTV-P1 = GTV-P + 5 mm, corrigé de la même façon, toujours contenu dans le CTV-P2."
+   ]
+  },
+  {
+   "id": "ctvp-hypopharynx",
+   "titre": "CTV de la tumeur (CTV-P2) selon le T : hypopharynx",
+   "locs": [
+    "hypopharynx"
+   ],
+   "colonnes": [
+    "Situation",
+    "CTV-P2 (GTV-P + 10 mm, corrigé)"
+   ],
+   "lignes": [
+    [
+     "T1",
+     "Selon le siège : partie postérieure de l'espace paralaryngé (angle antérieur, paroi médiale du sinus piriforme), région inter-aryténoïdienne et aryténoïde (rétrocricoïde), paroi pharyngée postérieure (tumeur de cette paroi), paroi latérale (paroi latérale du sinus piriforme) ; pas l'œsophage sauf tumeur proche de la bouche œsophagienne ; ni cartilages thyroïde ou cricoïde, ni hyoïde, ni espace rétropharyngé. T1 petite ou superficielle : CTV-P1 seul (5 mm)."
+    ],
+    [
+     "T2",
+     "En dehors : partie postérieure de l'espace paraglottique et partie du cartilage thyroïde au contact, sans en sortir ; en dedans : aryténoïde homolatéral et partie du cricoïde, sans entrer dans le larynx ; en arrière : partie du constricteur, sans franchir le fascia prévertébral ; en avant : probablement une partie de la loge pré-épiglottique ; en bas : œsophage cervical haut selon le siège ; en haut : oropharynx possible (paroi postérieure, paroi latérale, vallécule)."
+    ],
+    [
+     "T3",
+     "Comme T2, avec au moins l'aryténoïde homolatéral, l'hémilarynx homolatéral et une partie du cricoïde ; cartilage thyroïde au contact (ne sort que s'il est envahi, sans dépasser les muscles sous-hyoïdiens) ; partie du muscle thyro-hyoïdien au contact."
+    ],
+    [
+     "T4",
+     "Comme T3, peut s'étendre aux muscles sous-hyoïdiens, au tissu sous-cutané et à la thyroïde homolatérale (recouvre alors II, III ou VIb) ; T4b : à travers le fascia prévertébral vers les muscles longs du cou et de la tête, voire le corps vertébral ; en bas, probablement une partie de l'œsophage cervical haut."
+    ],
+    [
+     "Tous T",
+     "Extension sous-muqueuse fréquente : une marge de 15 mm en hauteur (au lieu de 10 mm) peut être utilisée pour le CTV-P2."
+    ]
+   ],
+   "src": [
+    2
+   ],
+   "notes": [
+    "CTV-P1 = GTV-P + 5 mm, corrigé de la même façon, toujours contenu dans le CTV-P2."
+   ]
+  },
+  {
+   "id": "gg-cavite_buccale",
+   "titre": "Niveaux ganglionnaires à traiter (CTV-N bas risque) : cavité buccale",
+   "locs": [
+    "cavite_buccale"
+   ],
+   "colonnes": [
+    "N (UICC 8e éd.)",
+    "Côté homolatéral",
+    "Côté controlatéral"
+   ],
+   "lignes": [
+    [
+     "N0-1 (I, II ou III)",
+     "I, II, III, + IVa, + IX",
+     "I, II, III, + IVa"
+    ],
+    [
+     "N2a-b",
+     "I, II, III, IVa, Va-b, + IX",
+     "I, II, III, + IVa"
+    ],
+    [
+     "N2c",
+     "Selon le N de chaque côté",
+     "Selon le N de chaque côté"
+    ],
+    [
+     "N3",
+     "I, II, III, IVa, Va-b, + VIIb, + IX",
+     "I, II, III, + IVa"
+    ]
+   ],
+   "notes": [
+    "Irradiation unilatérale recommandée pour les tumeurs latéralisées N0-N2a des crêtes alvéolaires, du plancher latéral et de la muqueuse jugale ; discutée pour N2b ; envisageable pour le bord latéral de langue N0-N1 à plus de 1 cm de la ligne médiane.",
+    "IIb peut être omis sans atteinte ganglionnaire du même côté.",
+    "IVa : tumeur de la langue antérieure, extension à l'oropharynx, ou N1 avec atteinte du niveau III.",
+    "IX : tumeur de la muqueuse jugale.",
+    "IVb est inclus si IVa est atteint.",
+    "V peut être omis si seuls I et II sont atteints.",
+    "VIIb est inclus si la partie haute du niveau II est massivement atteinte."
+   ],
+   "src": [
+    3
+   ]
+  },
+  {
+   "id": "gg-oropharynx",
+   "titre": "Niveaux ganglionnaires à traiter (CTV-N bas risque) : oropharynx (p16+ et p16−)",
+   "locs": [
+    "oropharynx"
+   ],
+   "colonnes": [
+    "N (UICC 8e éd.)",
+    "Côté homolatéral",
+    "Côté controlatéral"
+   ],
+   "lignes": [
+    [
+     "N0-1 (II, III ou IV)",
+     "(Ib), II, III, IVa, + VIIa (paroi postérieure)",
+     "II, III, IVa, + VIIa (paroi postérieure)"
+    ],
+    [
+     "N2a-b",
+     "Ib, II, III, IVa, Va-b, + VIIa, + VIIb",
+     "II, III, IVa, + VIIa (paroi postérieure)"
+    ],
+    [
+     "N2c",
+     "Selon le N de chaque côté",
+     "Selon le N de chaque côté"
+    ],
+    [
+     "N3",
+     "Ib, II, III, IVa, Va-b, + VIIa, + VIIb",
+     "II, III, IVa, + VIIa (paroi postérieure)"
+    ]
+   ],
+   "notes": [
+    "Irradiation unilatérale recommandée pour la loge amygdalienne N0-N2a sans atteinte du voile ni de la base de langue ; discutée pour N2b.",
+    "Ib : extension à la cavité buccale (trigone rétromolaire, langue mobile, gencive inférieure, pilier antérieur) ou atteinte antérieure du niveau II.",
+    "IVb est inclus si IVa est atteint.",
+    "VIIb est inclus si la partie haute du niveau II est massivement atteinte."
+   ],
+   "src": [
+    3
+   ]
+  },
+  {
+   "id": "gg-hypopharynx",
+   "titre": "Niveaux ganglionnaires à traiter (CTV-N bas risque) : hypopharynx",
+   "locs": [
+    "hypopharynx"
+   ],
+   "colonnes": [
+    "N (UICC 8e éd.)",
+    "Côté homolatéral",
+    "Côté controlatéral"
+   ],
+   "lignes": [
+    [
+     "N0",
+     "II, III, IVa, + VIIa (paroi postérieure), + VI (apex du sinus piriforme, rétrocricoïde, extension œsophagienne)",
+     "II, III, IVa, + VIIa (paroi postérieure), + VI (extension œsophagienne)"
+    ],
+    [
+     "N1, N2a-b",
+     "Ib, II, III, IVa, Va-b, + VIIa, + VIIb, + VI (apex, rétrocricoïde, œsophage, éventuellement N2b)",
+     "II, III, IVa, + VIIa (paroi postérieure), + VI (extension œsophagienne)"
+    ],
+    [
+     "N2c",
+     "Selon le N de chaque côté",
+     "Selon le N de chaque côté"
+    ],
+    [
+     "N3",
+     "Ib, II, III, IVa, Va-b, + VIIa, + VIIb, + VI",
+     "II, III, IVa, + VIIa (paroi postérieure), + VI (extension œsophagienne)"
+    ]
+   ],
+   "notes": [
+    "Irradiation unilatérale pour une petite tumeur de la paroi latérale du sinus piriforme.",
+    "IIb controlatéral peut être omis sans atteinte ganglionnaire de ce côté.",
+    "IVb est inclus si IVa est atteint.",
+    "VIIb est inclus si la partie haute du niveau II est massivement atteinte."
+   ],
+   "src": [
+    3
+   ]
+  },
+  {
+   "id": "gg-larynx",
+   "titre": "Niveaux ganglionnaires à traiter (CTV-N bas risque) : larynx (glotte T1 exclue)",
+   "locs": [
+    "larynx"
+   ],
+   "colonnes": [
+    "N (UICC 8e éd.)",
+    "Côté homolatéral",
+    "Côté controlatéral"
+   ],
+   "lignes": [
+    [
+     "N0-1 (II, III ou IV)",
+     "II, III, IVa, + VI (extension transglottique ou sous-glottique)",
+     "II, III, IVa, + VI (idem)"
+    ],
+    [
+     "N2a-b",
+     "II, III, IVa, Va-b, + VI (idem)",
+     "II, III, IVa, + VI (idem)"
+    ],
+    [
+     "N2c",
+     "Selon le N de chaque côté",
+     "Selon le N de chaque côté"
+    ],
+    [
+     "N3",
+     "Ib, II, III, IVa, Va-b, + VIIb, + VI",
+     "II, III, IVa, + VI (idem)"
+    ]
+   ],
+   "notes": [
+    "IIb peut être omis sans atteinte ganglionnaire du même côté.",
+    "Ib est inclus en cas d'atteinte antérieure du niveau II.",
+    "IVb est inclus si IVa est atteint.",
+    "VIIb est inclus si la partie haute du niveau II est massivement atteinte."
+   ],
+   "src": [
+    3
+   ]
+  },
+  {
+   "id": "gg-cavum",
+   "titre": "Niveaux ganglionnaires à traiter (CTV-N bas risque) : cavum",
+   "locs": [
+    "cavum"
+   ],
+   "colonnes": [
+    "N (UICC 8e éd.)",
+    "Côté homolatéral",
+    "Côté controlatéral"
+   ],
+   "lignes": [
+    [
+     "N0",
+     "II à V, VIIa, VIIb",
+     "II à V, VIIa, VIIb"
+    ],
+    [
+     "N1, N2",
+     "II à V, VIIa, VIIb",
+     "II à V, VIIa, VIIb"
+    ],
+    [
+     "N3",
+     "Ib à IVb, Va-b-c, VIIa, VIIb",
+     "Ib à IVb, Va-b-c, VIIa, VIIb"
+    ]
+   ],
+   "notes": [
+    "IV et Vb peuvent être omis sans atteinte ganglionnaire du même côté.",
+    "+ Ib : atteinte de la glande sous-mandibulaire, des structures drainées d'abord vers Ib, ou du niveau II (adénopathie > 2 cm ou suspicion d'effraction).",
+    "IVb si III–IVa est atteint.",
+    "Vc si Va-b est atteint.",
+    "Tableau de Biau 2019 d'après le consensus international du cavum (Lee 2018)."
+   ],
+   "src": [
+    3
+   ]
+  },
+  {
+   "id": "gg-sinus",
+   "titre": "Niveaux ganglionnaires à traiter (CTV-N bas risque) : sinus et cavités nasales",
+   "locs": [
+    "sinus"
+   ],
+   "colonnes": [
+    "N (UICC 8e éd.)",
+    "Côté homolatéral",
+    "Côté controlatéral"
+   ],
+   "lignes": [
+    [
+     "Sinus maxillaire, N0 (T3-T4 épidermoïde, SNUC)",
+     "Ib-III, VIIa, IX",
+     "Ib-III, VIIa"
+    ],
+    [
+     "Sinus maxillaire, N1-N3",
+     "Ib-V, VIIa, IX",
+     "Ib-V, VIIa"
+    ],
+    [
+     "Ethmoïde, N0",
+     "Pas d'irradiation ganglionnaire (sauf esthésioneuroblastome Kadish ≥ C ou Hyams III-IV : II-III, VIIa)",
+     "Idem"
+    ],
+    [
+     "Ethmoïde, N1-N3",
+     "Ib-V, VIIa",
+     "Ib-V, VIIa"
+    ],
+    [
+     "Cavité nasale, N0 (T3-T4 épidermoïde, SNUC)",
+     "Ib-III, VIIa, + IX (tiers antérieur)",
+     "Ib-III, VIIa"
+    ],
+    [
+     "Cavité nasale, N1-N3",
+     "Ib-V, VIIa, + IX (tiers antérieur)",
+     "Ib-V, VIIa"
+    ]
+   ],
+   "notes": [
+    "Irradiation unilatérale pour les tumeurs du sinus maxillaire et de la cavité nasale ne franchissant pas la ligne médiane, sans atteinte controlatérale.",
+    "IVb est inclus si IVa est atteint.",
+    "VIIb est inclus si la partie haute du niveau II est massivement atteinte."
+   ],
+   "src": [
+    3
+   ]
+  }
+ ],
+ "sans_atlas": {
+  "glandes_salivaires": "Pas d'atlas publié du CTV de la tumeur dans la Bibliothèque pour les glandes salivaires ; limites des niveaux ganglionnaires ci-dessus.",
+  "orl_palliatif": "Pas d'atlas publié pour les situations palliatives ORL."
+ }
+}
