@@ -425,7 +425,9 @@
    "essai_ids": [
     "eortc22881",
     "ebctcg2011",
-    "senorif-2026"
+    "senorif-2026",
+    "es-nsabpb06",
+    "es-lyoncomplementde10gy"
    ],
    "prescriptions": [
     {
@@ -895,7 +897,8 @@
    "essai_ids": [
     "gec-estro-ipb",
     "gec-estro-ipb-10ans",
-    "senorif-2026"
+    "senorif-2026",
+    "es-budapestpolgar"
    ],
    "prescriptions": [
     {

@@ -158,7 +158,10 @@
    "preuve": "recommandation",
    "essai_ids": [
     "abs-hdr-col",
-    "cccmac"
+    "cccmac",
+    "es-metaanalyseradiochimiotherap",
+    "es-rtog9001",
+    "es-gog120"
    ],
    "prescriptions": [
     {
@@ -239,7 +242,10 @@
    "preuve": "recommandation",
    "essai_ids": [
     "abs-hdr-col",
-    "cccmac"
+    "cccmac",
+    "es-metaanalyseradiochimiotherap",
+    "es-rtog9001",
+    "es-gog120"
    ],
    "prescriptions": [
     {

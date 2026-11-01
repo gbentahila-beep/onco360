@@ -32,7 +32,13 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "big307",
-    "senorif-2026"
+    "senorif-2026",
+    "es-swedcis",
+    "es-eortc10853",
+    "es-nsabpb17",
+    "es-rtog9804",
+    "es-ukanzdcis",
+    "es-nsabpb24"
    ],
    "prescriptions": [
     {

@@ -111,7 +111,9 @@
    "preuve": "recommandation",
    "essai_ids": [
     "isrs-meningiome",
-    "eano-meningiome-2021"
+    "eano-meningiome-2021",
+    "es-radiochirurgiedesmeningiomes",
+    "es-pittsburghkondziolkameningio"
    ],
    "prescriptions": [
     {

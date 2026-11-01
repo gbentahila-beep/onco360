@@ -433,7 +433,7 @@
    "region_id": "sarcome",
    "ordre": 42,
    "date_maj": "2026-11-01",
-   "nb_schemas": 9,
+   "nb_schemas": 10,
    "curietherapie": true
   },
   {
@@ -1669,7 +1669,8 @@
    "preuve": "option",
    "essais": [
     "PROFIT",
-    "PACE-B"
+    "PACE-B",
+    "MD Anderson, 70 vs 78 Gy"
    ],
    "doses": [
     {
@@ -1781,6 +1782,9 @@
     "Prostate",
     "En place — intermédiaire défavorable ou haut risque, sans irradiation pelvienne (N0 M0)",
     "Normofractionné"
+   ],
+   "essais": [
+    "MD Anderson, 70 vs 78 Gy"
    ]
   },
   {
@@ -2465,6 +2469,10 @@
     "Vessie",
     "Préservation vésicale avec atteinte ganglionnaire pelvienne (cN1 M0)",
     "Normofractionné"
+   ],
+   "essais": [
+    "RTOG 89-03",
+    "RTOG, préservation vésicale (Mak, Efstathiou)"
    ]
   },
   {
@@ -2526,7 +2534,8 @@
    "preuve": "essai_phase3",
    "essais": [
     "MRC TE18",
-    "MRC TE10"
+    "MRC TE10",
+    "MRC TE19 / EORTC 30982"
    ],
    "doses": [
     {
@@ -2552,7 +2561,8 @@
    "preuve": "essai_phase3",
    "essais": [
     "MRC TE18",
-    "MRC TE10"
+    "MRC TE10",
+    "MRC TE19 / EORTC 30982"
    ],
    "doses": [
     {
@@ -2628,7 +2638,8 @@
    "preuve": "recommandation",
    "essais": [
     "Consensus ABS-GEC-ESTRO 2013, pénis",
-    "Crook 2005"
+    "Crook 2005",
+    "Nova Southeastern (Hasan), curiethérapie du pénis"
    ],
    "doses": [
     {
@@ -2722,7 +2733,10 @@
    "preuve": "recommandation",
    "essais": [
     "ABS 2012 (HDR col)",
-    "CCCMAC"
+    "CCCMAC",
+    "Méta-analyse radiochimiothérapie du col (Green)",
+    "RTOG 90-01",
+    "GOG 120"
    ],
    "doses": [
     {
@@ -2766,7 +2780,10 @@
    "preuve": "recommandation",
    "essais": [
     "ABS 2012 (HDR col)",
-    "CCCMAC"
+    "CCCMAC",
+    "Méta-analyse radiochimiothérapie du col (Green)",
+    "RTOG 90-01",
+    "GOG 120"
    ],
    "doses": [
     {
@@ -2969,7 +2986,9 @@
    "preuve": "essai_phase3",
    "essais": [
     "PORTEC-2",
-    "ESGO/ESTRO/ESP 2021"
+    "ESGO/ESTRO/ESP 2021",
+    "PORTEC-4a",
+    "Örebro, stade I à risque (Sorbe 2012)"
    ],
    "doses": [
     {
@@ -2995,7 +3014,10 @@
    "preuve": "essai_phase3",
    "essais": [
     "PORTEC-1",
-    "PORTEC-2"
+    "PORTEC-2",
+    "GOG 99",
+    "Oslo (Aalders), suivi à 20 ans (Onsrud)",
+    "Örebro, stade I à risque (Sorbe 2012)"
    ],
    "doses": [
     {
@@ -3480,7 +3502,8 @@
     "INT-0116",
     "INT-0116 (10 ans)",
     "CRITICS",
-    "ARTIST 2"
+    "ARTIST 2",
+    "Séoul (Kim 2005)"
    ],
    "doses": [
     {
@@ -3660,7 +3683,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essais": [
-    "NRG/RTOG 0848"
+    "NRG/RTOG 0848",
+    "RTOG 97-04"
    ],
    "doses": [
     {
@@ -3934,7 +3958,11 @@
    "preuve": "essai_phase3",
    "essais": [
     "CAO/ARO/AIO-94",
-    "RAPIDO"
+    "RAPIDO",
+    "Polonais I",
+    "TROG 01.04",
+    "NSABP R-03",
+    "CAO/ARO/AIO-12"
    ],
    "doses": [
     {
@@ -3960,7 +3988,11 @@
    "preuve": "essai_phase3",
    "essais": [
     "Dutch TME",
-    "Stockholm III"
+    "Stockholm III",
+    "Swedish Rectal Cancer Trial",
+    "MRC CR07 / NCIC-CTG C016",
+    "Polonais I",
+    "TROG 01.04"
    ],
    "doses": [
     {
@@ -3985,7 +4017,8 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essais": [
-    "Stockholm III"
+    "Stockholm III",
+    "STAR-TREC"
    ],
    "doses": [
     {
@@ -4010,7 +4043,9 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essais": [
-    "RAPIDO"
+    "RAPIDO",
+    "STELLAR",
+    "Polonais II"
    ],
    "doses": [
     {
@@ -4187,7 +4222,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essais": [
-    "ACT II"
+    "ACT II",
+    "RTOG 87-04"
    ],
    "doses": [
     {
@@ -4666,7 +4702,8 @@
    "essais": [
     "NRG / RTOG 1016",
     "DAHANCA 6 et 7",
-    "MARCH"
+    "MARCH",
+    "IAEA-ACC"
    ],
    "doses": [
     {
@@ -5532,7 +5569,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "Chen 2011 (stade II)",
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Sun Yat-sen, nasopharynx bas risque (Tang)"
    ],
    "doses": [
     {
@@ -6281,7 +6319,8 @@
    "preuve": "recommandation",
    "essais": [
     "ESTRO ACROP SBRT poumon",
-    "CHISEL (TROG 09.02)"
+    "CHISEL (TROG 09.02)",
+    "LUSTRE"
    ],
    "doses": [
     {
@@ -6333,7 +6372,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "Lenglet (Curie)",
-    "HILUS"
+    "HILUS",
+    "LUSTRE"
    ],
    "doses": [
     {
@@ -6701,7 +6741,8 @@
    "preuve": "recommandation",
    "essais": [
     "Katano 2026",
-    "ESMO 2015, tumeurs épithéliales thymiques"
+    "ESMO 2015, tumeurs épithéliales thymiques",
+    "JART (Omasa), thymus"
    ],
    "doses": [
     {
@@ -6976,7 +7017,9 @@
    "essais": [
     "EORTC 22881 (boost), 20 ans",
     "EBCTCG 2011 (conservation)",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "NSABP B-06",
+    "Lyon, complément de 10 Gy"
    ],
    "doses": [
     {
@@ -7268,7 +7311,8 @@
    "essais": [
     "GEC-ESTRO APBI",
     "GEC-ESTRO APBI, 10 ans",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Budapest (Polgár)"
    ],
    "doses": [
     {
@@ -7411,7 +7455,13 @@
    "preuve": "essai_phase3",
    "essais": [
     "BIG 3-07 / TROG 07.01",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "SweDCIS",
+    "EORTC 10853",
+    "NSABP B-17",
+    "RTOG 9804",
+    "UK/ANZ DCIS",
+    "NSABP B-24"
    ],
    "doses": [
     {
@@ -7747,7 +7797,8 @@
    "essais": [
     "EORTC 26951",
     "RTOG 9402",
-    "ESTRO-EANO gliomes IDH mutés 2024"
+    "ESTRO-EANO gliomes IDH mutés 2024",
+    "CODEL"
    ],
    "doses": [
     {
@@ -8386,7 +8437,9 @@
    "preuve": "recommandation",
    "essais": [
     "ISRS méningiome (Marchetti 2020)",
-    "EANO méningiomes 2021"
+    "EANO méningiomes 2021",
+    "Radiochirurgie des méningiomes (Santacroce)",
+    "Pittsburgh (Kondziolka), méningiomes"
    ],
    "doses": [
     {
@@ -8525,7 +8578,8 @@
    "essais": [
     "ISRS schwannome (Tsao 2017)",
     "QUANTEC cochlée",
-    "EANO schwannome 2020"
+    "EANO schwannome 2020",
+    "Thomas Jefferson (Andrews), schwannome vestibulaire"
    ],
    "doses": [
     {
@@ -10313,7 +10367,8 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essais": [
-    "Seegenschmiedt (Dupuytren)"
+    "Seegenschmiedt (Dupuytren)",
+    "DEPART"
    ],
    "doses": [
     {
@@ -10389,7 +10444,9 @@
    "preuve": "essai_phase3",
    "essais": [
     "ArthroRad",
-    "Minten 2018 (arthrose de la main)"
+    "Minten 2018 (arthrose de la main)",
+    "LoRD-KNeA",
+    "Vanderbilt (Dove), arthrose"
    ],
    "doses": [
     {
@@ -10668,7 +10725,9 @@
    "essais": [
     "FASTRACK II (TROG 15.03)",
     "IROCK, résultats à 5 ans",
-    "IROCK (consensus)"
+    "IROCK (consensus)",
+    "London, Ontario (Correa), stéréotaxie du rein",
+    "Princess Margaret (Huang), ablation du rein"
    ],
    "doses": [
     {
@@ -10695,7 +10754,8 @@
    "essais": [
     "FASTRACK II (TROG 15.03)",
     "IROCK, résultats à 5 ans",
-    "IROCK (consensus)"
+    "IROCK (consensus)",
+    "London, Ontario (Correa), stéréotaxie du rein"
    ],
    "doses": [
     {
@@ -10735,6 +10795,31 @@
     "Prostate",
     "Après prostatectomie — rattrapage précoce ou adjuvant",
     "Hypofractionné"
+   ]
+  },
+  {
+   "id": "sm-preop-36-18",
+   "localisation_id": "sarcome_membres",
+   "situation_id": "sm-preop",
+   "titre": "Liposarcome myxoïde : RT pré-opératoire 36 Gy / 18 fx",
+   "type": "rte_normo",
+   "preuve": "option",
+   "essais": [
+    "DOREMY"
+   ],
+   "doses": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 36,
+     "fractions": 18,
+     "dose_fx_Gy": 2.0
+    }
+   ],
+   "ind": [
+    "Sarcomes",
+    "Membres et tronc",
+    "Sarcome localisé des membres ou du tronc : RT pré-opératoire",
+    "Normofractionné"
    ]
   }
  ]

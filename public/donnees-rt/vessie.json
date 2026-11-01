@@ -144,7 +144,10 @@
     "Préservation vésicale avec atteinte ganglionnaire pelvienne (cN1 M0)",
     "Normofractionné"
    ],
-   "essai_ids": [],
+   "essai_ids": [
+    "es-rtog8903",
+    "es-rtogpreservationvesicalemake"
+   ],
    "ct_mention": "Schéma du service sans essai publié : base de contraintes appliquée."
   },
   {

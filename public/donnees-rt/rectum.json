@@ -85,7 +85,11 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "cao-aro-94",
-    "rapido"
+    "rapido",
+    "es-polonaisi",
+    "es-trog0104",
+    "es-nsabpr03",
+    "es-caoaroaio12"
    ],
    "prescriptions": [
     {
@@ -121,7 +125,11 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "dutch-tme",
-    "stockholm3"
+    "stockholm3",
+    "es-swedishrectalcancertrial",
+    "es-mrccr07ncicctgc016",
+    "es-polonaisi",
+    "es-trog0104"
    ],
    "prescriptions": [
     {
@@ -158,7 +166,8 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "stockholm3"
+    "stockholm3",
+    "es-startrec"
    ],
    "prescriptions": [
     {
@@ -195,7 +204,9 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "rapido"
+    "rapido",
+    "es-stellar",
+    "es-polonaisii"
    ],
    "prescriptions": [
     {

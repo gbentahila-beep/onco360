@@ -124,6 +124,44 @@
    "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
+   "id": "sm-preop-36-18",
+   "situation_id": "sm-preop",
+   "titre": "Liposarcome myxoïde : RT pré-opératoire 36 Gy / 18 fx",
+   "type": "rte_normo",
+   "preuve": "option",
+   "essai_ids": [
+    "es-doremy"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 36,
+     "fractions": 18,
+     "dose_fx_Gy": 2.0,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "Dose réduite, réservée au liposarcome myxoïde (DOREMY)"
+    }
+   ],
+   "technique": "RT hautement conformationnelle, imagerie volumique quotidienne",
+   "systemique": "Aucune",
+   "simulation_id": "sim-sarcome-service",
+   "volumes_id": "vol-sm-preop-service",
+   "points_attention": [
+    "Liposarcome myxoïde seulement : réponse histologique ≥ 50 % chez 91 %, contrôle local 100 %, complications de la plaie 16 % (DOREMY, phase 2 non randomisée, n = 79)",
+    "Chirurgie au moins 4 semaines après la fin de la RT"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Sarcomes",
+    "Membres et tronc",
+    "Sarcome localisé des membres ou du tronc : RT pré-opératoire",
+    "Normofractionné"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "L'article ne publie pas de contraintes : base de contraintes appliquée."
+  },
+  {
    "id": "sm-postop-r0",
    "situation_id": "sm-postop",
    "titre": "RT post-opératoire R0 : 50 Gy / 25 fx ± 10 Gy",

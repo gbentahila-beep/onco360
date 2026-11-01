@@ -27,7 +27,7 @@ async def main():
         t = await ev(TXT)
         ok(await ev("!!document.querySelector('#rtrListe > h3.rtr-tous')") and 'Sommaire' not in t and 'Favoris' not in t and 'Consultés récemment' not in t, 'premier usage : tous les schémas, sans sommaire (ni Favoris ni Récents)')
         r0 = [await ev(NB), len(await ev(LIGNES)), await ev("document.querySelectorAll('.rtr-it').length"), await ev("[...document.querySelectorAll('#rtrListe .pages button')].map(b => b.textContent)")]
-        ok(await ev(NB) == 315 and len(await ev(LIGNES)) == 12 and await ev("[...document.querySelectorAll('#rtrListe .pages button')].map(b => b.textContent).includes('27')"), 'liste complète : 315 schémas en cartes, 12 par page (27 pages)', r0)
+        ok(await ev(NB) == 316 and len(await ev(LIGNES)) == 12 and await ev("[...document.querySelectorAll('#rtrListe .pages button')].map(b => b.textContent).includes('27')"), 'liste complète : 316 schémas en cartes, 12 par page (27 pages)', r0)
         ok(await ev("document.activeElement && document.activeElement.id") == 'rtrQ', 'ordinateur : le curseur est dans la recherche du module')
         ok(not await ev(DEBORDE), '1 440 px : accueil sans débordement')
         # Recherche, surlignage, clavier
@@ -79,7 +79,7 @@ async def main():
         ok(await ev("[document.getElementById('rtr_loc').value, document.getElementById('rtr_sit').value]") == ['', ''], 'changer de région vide Localisation et Situation, plus valables')
         await pg.click('.rtr-mz .bt.gris'); await pg.wait_for_timeout(300)
         t = await ev(TXT)
-        ok('Tous les schémas' in t and t.index('Consultés récemment') < t.index('Favoris') < t.index('Tous les schémas') and await ev(NB) == 315, '« Effacer » : retour à la liste générale, Consultés récemment en tête')
+        ok('Tous les schémas' in t and t.index('Consultés récemment') < t.index('Favoris') < t.index('Tous les schémas') and await ev(NB) == 316, '« Effacer » : retour à la liste générale, Consultés récemment en tête')
         await menu(pg, 'frac', 'Curiethérapie')
         ok(await ev("document.querySelectorAll('.rtr-it').length") > 3, 'Fractionnement « Curiethérapie » : un intertitre par localisation')
         # Aucun résultat

@@ -217,7 +217,8 @@
    "preuve": "option",
    "essai_ids": [
     "profit",
-    "paceb"
+    "paceb",
+    "es-mdanderson70vs78gy"
    ],
    "prescriptions": [
     {
@@ -491,7 +492,9 @@
     "En place — intermédiaire défavorable ou haut risque, sans irradiation pelvienne (N0 M0)",
     "Normofractionné"
    ],
-   "essai_ids": [],
+   "essai_ids": [
+    "es-mdanderson70vs78gy"
+   ],
    "points_attention": [],
    "couverture_lignes": [
     {

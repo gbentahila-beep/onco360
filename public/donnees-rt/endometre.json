@@ -79,7 +79,9 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "portec2",
-    "esgo-endo-2021"
+    "esgo-endo-2021",
+    "es-portec4a",
+    "es-orebrostadeiarisquesorbe2012"
    ],
    "prescriptions": [
     {
@@ -117,7 +119,10 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "portec1",
-    "portec2"
+    "portec2",
+    "es-gog99",
+    "es-osloaalderssuivia20ansonsrud",
+    "es-orebrostadeiarisquesorbe2012"
    ],
    "prescriptions": [
     {

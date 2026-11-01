@@ -62,6 +62,9 @@ cas("jeux de contraintes : chaque ligne a une valeur (Idéal, Limitant ou note �
 cas("essais : identifiants uniques (" + ESS.length + ")", doublons(ESS.map(e => e.id)).length === 0, liste(doublons(ESS.map(e => e.id))));
 cas("essais : acronyme présent, année entière, PMID en chiffres", ESS.every(e => e.acronyme && (e.annee === undefined || Number.isInteger(e.annee)) && (e.pmid === undefined || /^\d+$/.test(e.pmid))),
   liste(ESS.filter(e => !e.acronyme || (e.annee !== undefined && !Number.isInteger(e.annee)) || (e.pmid !== undefined && !/^\d+$/.test(e.pmid))).map(e => e.id)));
+const ES = ESS.filter(e => e.id.startsWith("es-"));
+cas("essais d'Estes (lot 6e) : " + ES.length + " fiches, chacune avec sa localisation, son article de la Bibliothèque et un résultat", ES.length > 150 && ES.every(e => e.localisation && /\.pdf$/.test(e.bibliotheque || "") && e.resultat && e.population),
+  liste(ES.filter(e => !e.localisation || !/\.pdf$/.test(e.bibliotheque || "") || !e.resultat || !e.population).map(e => e.id)));
 
 // 3. Index
 const regIds = new Set(IDX.regions.map(r => r.id));

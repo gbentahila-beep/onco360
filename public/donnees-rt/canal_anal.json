@@ -122,7 +122,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "act2"
+    "act2",
+    "es-rtog8704"
    ],
    "prescriptions": [
     {
