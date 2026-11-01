@@ -7,7 +7,7 @@ F = [
    "Survie sans exérèse du mésorectum à 1 an 79 % après radiochimiothérapie vs 61 % après 25 Gy / 5 fx ; préservation d'organe 57 vs 32 %", "GI - 10.1016_S1470-2045(26)00228-7.pdf"),
   ("POLCAGB (protocole)", "BMJ Open", 2019, "Cancer de la vésicule biliaire localement avancé (T3-T4 envahissant le foie de 2 à 5 cm, N1, ictère obstructif, contact duodénal ou colique), phase 3 (n = 124)",
    "Radiochimiothérapie néoadjuvante 55 à 57 Gy / 25 fx (45 Gy en boost intégré sur les ganglions, arcthérapie) + cisplatine-gemcitabine puis chirurgie vs cisplatine-gemcitabine × 4 puis chirurgie",
-   "ASCO 2025 (d'après Estes) : survie à 5 ans 27 vs 18 % ; résection R0 52 vs 30 %", "engineer2019.pdf"),
+   "Résultats (ASCO 2025) : survie à 5 ans 27 vs 18 % ; résection R0 52 vs 30 %", "engineer2019.pdf"),
   ("RTOG 87-04", "J Clin Oncol", 1996, "Carcinome épidermoïde du canal anal, tout stade (n = 291)",
    "RT 45 à 50,4 Gy + 5-FU et mitomycine vs RT + 5-FU seul ; 9 Gy de plus + 5-FU-cisplatine si résidu à la biopsie",
    "Contrôle local à 4 ans 84 vs 66 % ; colostomie 9 vs 22 % ; plus de toxicité avec la mitomycine", "flam1996.pdf"),

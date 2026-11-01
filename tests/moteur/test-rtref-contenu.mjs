@@ -222,10 +222,10 @@ cas("protocoles-chimio : chaque nom est un traitement du référentiel (" + Obje
 cas("protocoles-chimio : chaque protocole existe dans la bibliothèque", pcIds.length === 0, liste(pcIds));
 
 // 6. Mentions interdites
-const INTERDIT = [/source non vérifiée/i, /hors référentiel/i, /non lié à ce schéma/i, /\bécart\s+E\d{2}/i, /\(écart/i, /\bE\d{2}\b/, /\bprotocole_ref\b/];
+const INTERDIT = [/source non vérifiée/i, /hors référentiel/i, /non lié à ce schéma/i, /\bécart\s+E\d{2}/i, /\(écart/i, /\bE\d{2}\b/, /\bprotocole_ref\b/, /\bEstes?\b/];
 const trouves = [];
 for (const f of fichiers) { const t = readFileSync(join(DOS, f), "utf8"); for (const r of INTERDIT) if (r.test(t)) trouves.push(f + " " + r); }
-cas("aucune mention interdite (source non vérifiée, hors référentiel, renvoi à un écart)", trouves.length === 0, liste(trouves));
+cas("aucune mention interdite (source non vérifiée, hors référentiel, renvoi à un écart, Estes)", trouves.length === 0, liste(trouves));
 cas("rapport d'import hors du site (docs/radiotherapie/)", !existsSync(join(DOS, "rapport-import.txt")));
 
 console.log("\n" + ok + " réussi(s), " + ko + " échec(s)"); process.exit(ko ? 1 : 0);

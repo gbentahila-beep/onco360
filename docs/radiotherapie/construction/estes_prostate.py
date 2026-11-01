@@ -32,7 +32,7 @@ F = [
    "IMRT 72 à 75,6 Gy + 24 mois d'hormonothérapie ± docétaxel × 6 adjuvant", "Survie à 4 ans 93 vs 89 % ; pas de différence à 10 ans", "rosenthal2019.pdf"),
   ("STOMP (et ORIOLE, suivi long)", "J Clin Oncol", 2022, "Récidive oligométastatique (≤ 3 lésions en TEP), testostérone > 50 (n = 62 dans STOMP)",
    "Stéréotaxie ou chirurgie des métastases vs surveillance",
-   "STOMP (d'après Estes) : survie sans hormonothérapie 21 vs 13 mois (p = 0,11)", "Prostate - 10.1200_JCO.22.00644.pdf"),
+   "STOMP : survie sans hormonothérapie 21 vs 13 mois (p = 0,11)", "Prostate - 10.1200_JCO.22.00644.pdf"),
   ("SPARTAN", "N Engl J Med", 2018, "Résistant à la castration non métastatique, temps de doublement du PSA ≤ 10 mois (n = 1 207)", "Apalutamide + hormonothérapie vs hormonothérapie seule",
    "Survie sans métastase médiane 41 vs 16 mois", "Prostate - 10.1056_NEJMoa1715546.pdf"),
 ]
