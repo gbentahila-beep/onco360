@@ -34,7 +34,7 @@ async def main():
         ok('60 Gy / 20 fx (3 Gy/fx)' in (await ev("document.querySelector('.rtr-res').innerText")).replace('\xa0', ' ') and await ev("!!document.querySelector('.rtr-t .rtr-modb')"), 'en-tête : résumé de prescription, étoile et Modifier en haut à droite (RT.7)')
         # Indication (lot 3 RTX)
         await ev("rtrOnglet('indication')"); await pg.wait_for_timeout(500); t = await ev(OC)
-        ok('Critères' in t and 'ISUP' in t and 'Essai pivot' in t and 'CHHiP' in t and '60 Gy / 20 fx non inférieur' in t and 'Alternatives' in t and await ev("document.querySelectorAll('.rtr-ind a').length") >= 1, 'Indication : critères de la situation, essai pivot (CHHiP), autres schémas de la situation', t[:300])
+        ok('Critères' in t and 'ISUP' in t and 'Essai pivot' in t and 'CHHiP' in t and await ev("!!document.querySelector('.rtr-oc table.rtr-tab.rtr-ind')") and '60 Gy / 20 fx non inférieur' in t and 'Alternatives' in t and await ev("document.querySelectorAll('.rtr-ind a').length") >= 1, 'Indication : critères de la situation, essai pivot (CHHiP), autres schémas de la situation', t[:300])
         await ev("rtrOnglet('prescription')"); await pg.wait_for_timeout(500)
         # Prescription
         row = await ev("[...document.querySelectorAll('.rtr-tab tbody tr:first-child td')].map(t => t.innerText.trim())")

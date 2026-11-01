@@ -462,14 +462,13 @@ const ongletAttention = () => { const p = pointsDe(); return p.length ? '<ol cla
 // Lot 3 RTX (01/11/2026) : indication tirée des données sourcées (critères de la situation, essais du schéma, autres schémas de la même situation)
 function ongletIndication() {
   const esc = A.esc, s = FICHE.schema, st = sit(FICHE.e.situation_id) || {}, E = (s.essai_ids || []).map(essai).filter(Boolean), piv = E.find((x) => x.type === "essai") || E[0];
-  const alt = LISTE.filter((x) => x.situation_id === FICHE.e.situation_id && x.id !== FICHE.e.id && !x.supprime);
-  const ligne = (lib, v) => (v ? '<p><span class="mesures">' + lib + "</span> " + esc(v) + "</p>" : "");
-  let h = '<div class="rtr-ind"><h3>Pour qui</h3>' + ligne("Situation", st.titre) + ligne("Critères", st.criteres) + (s.systemique && typeof s.systemique === "string" ? ligne("Traitement associé", s.systemique) : "");
-  if (preuveVue(s.preuve || FICHE.e.preuve)) h += "<h3>Niveau de preuve</h3><p>" + esc(preuveVue(s.preuve || FICHE.e.preuve)) + "</p>";
-  if (piv) h += "<h3>Essai pivot</h3><p><b>" + esc(piv.acronyme) + '</b> <span class="mesures">' + esc([piv.revue, piv.annee].filter(Boolean).join(", ")) + "</span></p>" + ligne("Population", piv.population) + ligne("Bras", piv.bras) + ligne("Résultat", piv.resultat) +
-    (E.length > 1 ? '<p class="mesures">Autres sources : ' + E.filter((x) => x !== piv).map((x) => esc(x.acronyme)).join(", ") + " (onglet Essais et sources)</p>" : "");
-  h += "<h3>Alternatives</h3>" + (alt.length ? '<ul class="rtr-pts">' + alt.map((x) => "<li>" + (IMPRESSION ? esc(x.titre) : '<a href="#radiotherapie" onclick="rtrOuvrir(\'' + esc(x.id) + "');return false\">" + esc(x.titre) + "</a>") + "</li>").join("") + "</ul>" : '<p class="vide-c">Pas d\'autre schéma pour cette situation</p>');
-  return h + "</div>";
+  const alt = LISTE.filter((x) => x.situation_id === FICHE.e.situation_id && x.id !== FICHE.e.id && !x.supprime), pr = preuveVue(s.preuve || FICHE.e.preuve);
+  // même tableau que l'onglet Centrage (rubrique, contenu)
+  const R = [["Situation", esc(st.titre || "")], ["Critères", esc(st.criteres || "")], ["Traitement associé", typeof s.systemique === "string" ? esc(s.systemique) : ""], ["Niveau de preuve", esc(pr || "")]];
+  if (piv) R.push(["Essai pivot", "<b>" + esc(piv.acronyme) + '</b> <span class="mesures">' + esc([piv.revue, piv.annee].filter(Boolean).join(", ")) + "</span>"], ["Population", esc(piv.population || "")], ["Bras", esc(piv.bras || "")], ["Résultat", esc(piv.resultat || "")],
+    ["Autres sources", E.length > 1 ? esc(E.filter((x) => x !== piv).map((x) => x.acronyme).join(", ")) + ' <span class="mesures">(onglet Essais et sources)</span>' : ""]);
+  R.push(["Alternatives", alt.length ? alt.map((x) => (IMPRESSION ? esc(x.titre) : '<a href="#radiotherapie" onclick="rtrOuvrir(\'' + esc(x.id) + "');return false\">" + esc(x.titre) + "</a>")).join("<br>") : '<span class="mesures">Pas d\'autre schéma pour cette situation</span>']);
+  return '<div class="rtr-tw"><table class="rtr-tab rtr-cent rtr-ind"><thead><tr><th>Rubrique</th><th>Contenu</th></tr></thead><tbody>' + R.filter((r) => r[1]).map(([l, v]) => '<tr><th scope="row" data-l="Rubrique">' + l + '</th><td data-l="Contenu">' + v + "</td></tr>").join("") + "</tbody></table></div>";
 }
 const RENDUS = { indication: ongletIndication, prescription: ongletPrescription, centrage: ongletCentrage, contourage: ongletContourage, contraintes: ongletContraintes, essais: ongletEssais, attention: ongletAttention };
 function nombres() { return { indication: 1, prescription: (FICHE.schema.prescriptions || []).length, centrage: simDe() ? 1 : 0, contourage: volDe() ? 1 : 0, contraintes: lignesFiche().reduce((n, g) => n + g.lignes.length, 0), essais: (FICHE.schema.essai_ids || []).length, attention: pointsDe().length }; }
