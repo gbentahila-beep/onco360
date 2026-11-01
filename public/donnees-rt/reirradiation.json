@@ -480,10 +480,10 @@
   },
   {
    "id": "sim-sein",
-   "position": "Décubitus dorsal (référence) ; décubitus latéral isocentrique possible pour le sein seul (Sénorif)",
-   "preparation": "Inspiration bloquée recommandée à gauche et en cas d'irradiation de la CMI, sauf sein seul en décubitus latéral (Sénorif)",
+   "position": "Décubitus dorsal (référence) ; décubitus latéral isocentrique possible pour le sein seul (Sénorif 2026)",
+   "preparation": "Inspiration bloquée recommandée à gauche et en cas d'irradiation de la CMI, sauf sein seul en décubitus latéral (Sénorif 2026)",
    "scanner": "Scanner 3D, coupes de 5 mm au plus, sein entier et OAR contourés (FAST-Forward)",
-   "imagerie": "Lit tumoral : examen clinique préopératoire, mammographie, échographie, IRM, compte rendu opératoire, clips et anatomopathologie (Sénorif)",
+   "imagerie": "Lit tumoral : examen clinique préopératoire, mammographie, échographie, IRM, scanner, compte rendu opératoire, clips et anatomopathologie (Sénorif 2026)",
    "reperes": "Clips en titane ou grains d'or sur les parois de la cavité, fortement recommandés (FAST-Forward, IMPORT LOW)"
   },
   {

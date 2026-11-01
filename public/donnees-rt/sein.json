@@ -73,7 +73,7 @@
    "essai_ids": [
     "startb",
     "fastforward",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -91,11 +91,12 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-ff-15fx"
+    "ct-sein-ff-15fx",
+    "ct-sein-senorif-sein"
    ],
    "couverture": "PTV : V95 % > 95 %, V105 % < 5 %, V107 % < 2 %, Dmax < 110 % (FAST-Forward)",
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)",
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
     "La RT après conservation réduit le risque de récidive à 10 ans de 35,0 à 19,3 % et la mortalité par cancer à 15 ans de 25,2 à 21,4 % (EBCTCG 2011)",
     "Femme de 65 ans et plus, RH+, N0, tumeur ≤ 3 cm, sous hormonothérapie : l'omission de la RT augmente la récidive locale à 10 ans (9,5 contre 0,9 %) sans changer la survie (PRIME II) ; à 70 ans et plus, résultats proches (CALGB 9343)"
    ],
@@ -147,7 +148,7 @@
     "startb",
     "import-high",
     "eortc22881",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -166,7 +167,7 @@
      "dose_fx_Gy": 2,
      "mode": "sequentiel",
      "rythme": "5 fx/sem",
-     "note": "Surimpression de référence normofractionnée (Sénorif) ; bras contrôle d'IMPORT HIGH ; option : 10 Gy / 5 fx de 2 Gy"
+     "note": "Surimpression séquentielle normofractionnée : option non inférieure, la référence étant le boost intégré 48 Gy / 15 fx (Sénorif 2026) ; bras contrôle d'IMPORT HIGH ; option : 10 Gy / 5 fx de 2 Gy"
     }
    ],
    "technique": "RT 3D puis surimpression en photons ou électrons",
@@ -174,11 +175,12 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-ff-15fx"
+    "ct-sein-ff-15fx",
+    "ct-sein-senorif-sein"
    ],
    "couverture": "Comme sein-40-15 pour le premier temps",
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)",
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
     "La RT après conservation réduit le risque de récidive à 10 ans de 35,0 à 19,3 % et la mortalité par cancer à 15 ans de 25,2 à 21,4 % (EBCTCG 2011)",
     "Femme de 65 ans et plus, RH+, N0, tumeur ≤ 3 cm, sous hormonothérapie : l'omission de la RT augmente la récidive locale à 10 ans (9,5 contre 0,9 %) sans changer la survie (PRIME II) ; à 70 ans et plus, résultats proches (CALGB 9343)"
    ],
@@ -225,7 +227,7 @@
    "volumes_id": "vol-sein",
    "contraintes_ids": [],
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)",
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
     "La RT après conservation réduit le risque de récidive à 10 ans de 35,0 à 19,3 % et la mortalité par cancer à 15 ans de 25,2 à 21,4 % (EBCTCG 2011)",
     "Femme de 65 ans et plus, RH+, N0, tumeur ≤ 3 cm, sous hormonothérapie : l'omission de la RT augmente la récidive locale à 10 ans (9,5 contre 0,9 %) sans changer la survie (PRIME II) ; à 70 ans et plus, résultats proches (CALGB 9343)"
    ],
@@ -235,7 +237,8 @@
     "Carcinome infiltrant",
     "Après chirurgie conservatrice : sein entier ± surimpression",
     "Hypofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "sein-26-5",
@@ -245,7 +248,7 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "fastforward",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -263,11 +266,12 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-ff-5fx"
+    "ct-sein-ff-5fx",
+    "ct-sein-senorif-sein"
    ],
    "couverture": "PTV : V95 % > 95 %, V105 % < 5 %, V107 % < 2 %, Dmax < 110 %",
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)",
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
     "La RT après conservation réduit le risque de récidive à 10 ans de 35,0 à 19,3 % et la mortalité par cancer à 15 ans de 25,2 à 21,4 % (EBCTCG 2011)",
     "Femme de 65 ans et plus, RH+, N0, tumeur ≤ 3 cm, sous hormonothérapie : l'omission de la RT augmente la récidive locale à 10 ans (9,5 contre 0,9 %) sans changer la survie (PRIME II) ; à 70 ans et plus, résultats proches (CALGB 9343)",
     "FAST-Forward : 27 Gy / 5 fx donne plus d'effets tardifs que 40 Gy ; 26 Gy est le schéma retenu"
@@ -318,7 +322,7 @@
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
     "fastforward",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -337,7 +341,7 @@
      "dose_fx_Gy": 2.67,
      "mode": "sequentiel",
      "rythme": "5 fx/sem",
-     "note": "Surimpression hypofractionnée : option de niveau de preuve très faible (Sénorif) ; FAST-Forward autorisait 10 ou 16 Gy en fractions de 2 Gy"
+     "note": "Surimpression hypofractionnée : pratique du service ; après 26 Gy / 5 fx, Sénorif 2026 recommande une surimpression normofractionnée de 10 à 16 Gy, comme FAST-Forward"
     }
    ],
    "technique": "RT 3D, imagerie à chaque séance, puis surimpression",
@@ -345,11 +349,12 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-ff-5fx"
+    "ct-sein-ff-5fx",
+    "ct-sein-senorif-sein"
    ],
    "couverture": "Comme sein-26-5 pour le premier temps",
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)",
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
     "La RT après conservation réduit le risque de récidive à 10 ans de 35,0 à 19,3 % et la mortalité par cancer à 15 ans de 25,2 à 21,4 % (EBCTCG 2011)",
     "Femme de 65 ans et plus, RH+, N0, tumeur ≤ 3 cm, sous hormonothérapie : l'omission de la RT augmente la récidive locale à 10 ans (9,5 contre 0,9 %) sans changer la survie (PRIME II) ; à 70 ans et plus, résultats proches (CALGB 9343)"
    ],
@@ -378,7 +383,7 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "fast",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -395,9 +400,11 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-sein-senorif-sein"
+   ],
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)",
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
     "La RT après conservation réduit le risque de récidive à 10 ans de 35,0 à 19,3 % et la mortalité par cancer à 15 ans de 25,2 à 21,4 % (EBCTCG 2011)",
     "Femme de 65 ans et plus, RH+, N0, tumeur ≤ 3 cm, sous hormonothérapie : l'omission de la RT augmente la récidive locale à 10 ans (9,5 contre 0,9 %) sans changer la survie (PRIME II) ; à 70 ans et plus, résultats proches (CALGB 9343)"
    ],
@@ -418,7 +425,7 @@
    "essai_ids": [
     "eortc22881",
     "ebctcg2011",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -444,11 +451,14 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-sein-senorif-sein"
+   ],
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)",
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
     "La RT après conservation réduit le risque de récidive à 10 ans de 35,0 à 19,3 % et la mortalité par cancer à 15 ans de 25,2 à 21,4 % (EBCTCG 2011)",
-    "Femme de 65 ans et plus, RH+, N0, tumeur ≤ 3 cm, sous hormonothérapie : l'omission de la RT augmente la récidive locale à 10 ans (9,5 contre 0,9 %) sans changer la survie (PRIME II) ; à 70 ans et plus, résultats proches (CALGB 9343)"
+    "Femme de 65 ans et plus, RH+, N0, tumeur ≤ 3 cm, sous hormonothérapie : l'omission de la RT augmente la récidive locale à 10 ans (9,5 contre 0,9 %) sans changer la survie (PRIME II) ; à 70 ans et plus, résultats proches (CALGB 9343)",
+    "Sénorif 2026 : le normofractionnement doit rester exceptionnel (tumeur phyllode, paroi traitée en électrons) ; le standard est 40,05 Gy / 15 fx"
    ],
    "date_verif": "2026-10-24",
    "ind": [
@@ -467,7 +477,7 @@
    "essai_ids": [
     "imrt-mc2",
     "imrt-mc2-5ans",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -477,7 +487,7 @@
      "dose_fx_Gy": 1.8,
      "mode": "SIB",
      "rythme": "5 fx/sem (5,5 semaines)",
-     "note": "Sénorif : 63 à 64,4 Gy sur le lit en 28 fx"
+     "note": "Schéma de l'essai IMRT-MC2 ; Sénorif 2026 privilégie le boost intégré hypofractionné 48 Gy / 15 fx"
     },
     {
      "volume": "PTV lit tumoral",
@@ -493,9 +503,11 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-sein-senorif-sein"
+   ],
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)",
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
     "La RT après conservation réduit le risque de récidive à 10 ans de 35,0 à 19,3 % et la mortalité par cancer à 15 ans de 25,2 à 21,4 % (EBCTCG 2011)",
     "Femme de 65 ans et plus, RH+, N0, tumeur ≤ 3 cm, sous hormonothérapie : l'omission de la RT augmente la récidive locale à 10 ans (9,5 contre 0,9 %) sans changer la survie (PRIME II) ; à 70 ans et plus, résultats proches (CALGB 9343)"
    ],
@@ -551,7 +563,7 @@
    "volumes_id": "vol-sein",
    "contraintes_ids": [],
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)",
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
     "La RT après conservation réduit le risque de récidive à 10 ans de 35,0 à 19,3 % et la mortalité par cancer à 15 ans de 25,2 à 21,4 % (EBCTCG 2011)",
     "Femme de 65 ans et plus, RH+, N0, tumeur ≤ 3 cm, sous hormonothérapie : l'omission de la RT augmente la récidive locale à 10 ans (9,5 contre 0,9 %) sans changer la survie (PRIME II) ; à 70 ans et plus, résultats proches (CALGB 9343)"
    ],
@@ -561,7 +573,8 @@
     "Carcinome infiltrant",
     "Après chirurgie conservatrice : sein entier ± surimpression",
     "Hypofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "sein-paroi-40-15",
@@ -572,7 +585,7 @@
    "essai_ids": [
     "fastforward",
     "ebctcg2014",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -590,12 +603,13 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-ff-15fx"
+    "ct-sein-ff-15fx",
+    "ct-sein-senorif-sein"
    ],
    "couverture": "PTV : V95 % > 95 %, V105 % < 5 %, V107 % < 2 %, Dmax < 110 %",
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)",
-    "Reconstruction mammaire : Sénorif 2021 recommande le normofractionnement ; le consensus ESTRO-ACROP 2022 admet l'hypofractionnement modéré pour le sein, la paroi (avec ou sans reconstruction) et les ganglions, et 5 fractions pour le sein ou la paroi sans reconstruction ni ganglions"
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
+    "Reconstruction mammaire : Sénorif 2026 privilégie une RT modérément hypofractionnée en modulation d'intensité ; le consensus ESTRO-ACROP 2022 admet l'hypofractionnement modéré pour le sein, la paroi (avec ou sans reconstruction) et les ganglions, et 5 fractions pour le sein ou la paroi sans reconstruction ni ganglions"
    ],
    "date_verif": "2026-10-24",
    "ind": [
@@ -643,7 +657,7 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "ebctcg2014",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -660,10 +674,13 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-sein-senorif-sein"
+   ],
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)",
-    "Reconstruction mammaire : Sénorif 2021 recommande le normofractionnement ; le consensus ESTRO-ACROP 2022 admet l'hypofractionnement modéré pour le sein, la paroi (avec ou sans reconstruction) et les ganglions, et 5 fractions pour le sein ou la paroi sans reconstruction ni ganglions"
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
+    "Reconstruction mammaire : Sénorif 2026 privilégie une RT modérément hypofractionnée en modulation d'intensité ; le consensus ESTRO-ACROP 2022 admet l'hypofractionnement modéré pour le sein, la paroi (avec ou sans reconstruction) et les ganglions, et 5 fractions pour le sein ou la paroi sans reconstruction ni ganglions",
+    "Sénorif 2026 : le normofractionnement doit rester exceptionnel (tumeur phyllode, paroi traitée en électrons) ; le standard est 40,05 Gy / 15 fx"
    ],
    "date_verif": "2026-10-24",
    "ind": [
@@ -684,7 +701,7 @@
     "ma20",
     "amaros",
     "amaros-10ans",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -710,11 +727,14 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein-gg",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-sein-senorif-gg"
+   ],
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)",
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
     "RT axillaire contre curage après ganglion sentinelle positif : récidive axillaire à 10 ans 1,82 contre 0,93 %, sans différence de survie, moins de lymphœdème (AMAROS)",
-    "Irradiation de la CMI et de la sus-claviculaire médiale : SG à 10 ans 82,3 contre 80,7 % (EORTC 22922) ; irradiation ganglionnaire : survie sans maladie 82,0 contre 77,0 % (MA.20)"
+    "Irradiation de la CMI et de la sus-claviculaire médiale : SG à 10 ans 82,3 contre 80,7 % (EORTC 22922) ; irradiation ganglionnaire : survie sans maladie 82,0 contre 77,0 % (MA.20)",
+    "Sénorif 2026 : le normofractionnement doit rester exceptionnel (tumeur phyllode, paroi traitée en électrons) ; le standard est 40,05 Gy / 15 fx"
    ],
    "date_verif": "2026-10-24",
    "ind": [
@@ -734,7 +754,7 @@
     "hypog01",
     "wang2019",
     "estro-acrop-sein-2022",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -762,16 +782,18 @@
      "dose_fx_Gy": 2,
      "mode": "sequentiel",
      "rythme": "5 fx/sem",
-     "note": "Si indiquée ; surimpression de référence normofractionnée (Sénorif) ; option : 10 Gy / 5 fx de 2 Gy"
+     "note": "Si indiquée ; surimpression séquentielle normofractionnée : option non inférieure, la référence étant le boost intégré 48 Gy / 15 fx (Sénorif 2026) ; option : 10 Gy / 5 fx de 2 Gy"
     }
    ],
    "technique": "RT 3D ou IMRT ; inspiration bloquée à gauche et si CMI",
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein-gg",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-sein-senorif-gg"
+   ],
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)",
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
     "RT axillaire contre curage après ganglion sentinelle positif : récidive axillaire à 10 ans 1,82 contre 0,93 %, sans différence de survie, moins de lymphœdème (AMAROS)",
     "Irradiation de la CMI et de la sus-claviculaire médiale : SG à 10 ans 82,3 contre 80,7 % (EORTC 22922) ; irradiation ganglionnaire : survie sans maladie 82,0 contre 77,0 % (MA.20)",
     "Paroi et ganglions en 43,5 Gy / 15 fx : récidive locorégionale à 5 ans 8,3 contre 8,1 % avec 50 Gy (Wang 2019)"
@@ -792,7 +814,7 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "import-low",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -809,9 +831,11 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein-ipb",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-sein-senorif-sein"
+   ],
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)"
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)"
    ],
    "date_verif": "2026-10-24",
    "ind": [
@@ -846,9 +870,11 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein-ipb",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-sein-florence"
+   ],
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)"
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)"
    ],
    "date_verif": "2026-10-24",
    "ind": [
@@ -867,7 +893,7 @@
    "essai_ids": [
     "gec-estro-ipb",
     "gec-estro-ipb-10ans",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -891,7 +917,8 @@
     "Curiethérapie"
    ],
    "contraintes_ids": [],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "sein-ipb-pdr-50",
@@ -902,7 +929,7 @@
    "essai_ids": [
     "gec-estro-ipb",
     "gec-estro-ipb-10ans",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -924,7 +951,8 @@
     "Curiethérapie"
    ],
    "contraintes_ids": [],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "sein-pna-50-25",
@@ -935,7 +963,7 @@
    "essai_ids": [
     "woodward2017",
     "katherine",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -945,16 +973,18 @@
      "dose_fx_Gy": 2,
      "mode": "seul",
      "rythme": "5 fx/sem",
-     "note": "Normofractionné en cas de chimiothérapie concomitante (Sénorif, arbre 2)"
+     "note": "Sénorif 2026 : la chimiothérapie concomitante (capécitabine) et le trastuzumab ne contre-indiquent pas l'hypofractionnement modéré (40,05 Gy / 15 fx) ; 50 Gy / 25 fx reste possible"
     }
    ],
    "technique": "RT 3D ou IMRT",
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein-gg",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-sein-senorif-gg"
+   ],
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)"
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)"
    ],
    "date_verif": "2026-10-24",
    "ind": [
@@ -971,7 +1001,7 @@
    "type": "rte_normo",
    "preuve": "recommandation",
    "essai_ids": [
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -997,9 +1027,12 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-sein-senorif-gg"
+   ],
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)"
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
+    "Tumeur en place : Sénorif 2026 privilégie 40 Gy / 15 fx sur le sein et les aires ganglionnaires, puis une surimpression de la tumeur de 20 à 26 Gy en EQD2"
    ],
    "date_verif": "2026-10-24",
    "ind": [
@@ -1016,7 +1049,7 @@
    "type": "rte_normo",
    "preuve": "recommandation",
    "essai_ids": [
-    "senorif-2021"
+    "senorif-2026"
    ],
    "prescriptions": [
     {
@@ -1042,9 +1075,11 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein-gg",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-sein-senorif-gg"
+   ],
    "points_attention": [
-    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)"
+    "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)"
    ],
    "date_verif": "2026-10-24",
    "ind": [
@@ -1058,10 +1093,10 @@
  "simulations": [
   {
    "id": "sim-sein",
-   "position": "Décubitus dorsal (référence) ; décubitus latéral isocentrique possible pour le sein seul (Sénorif)",
-   "preparation": "Inspiration bloquée recommandée à gauche et en cas d'irradiation de la CMI, sauf sein seul en décubitus latéral (Sénorif)",
+   "position": "Décubitus dorsal (référence) ; décubitus latéral isocentrique possible pour le sein seul (Sénorif 2026)",
+   "preparation": "Inspiration bloquée recommandée à gauche et en cas d'irradiation de la CMI, sauf sein seul en décubitus latéral (Sénorif 2026)",
    "scanner": "Scanner 3D, coupes de 5 mm au plus, sein entier et OAR contourés (FAST-Forward)",
-   "imagerie": "Lit tumoral : examen clinique préopératoire, mammographie, échographie, IRM, compte rendu opératoire, clips et anatomopathologie (Sénorif)",
+   "imagerie": "Lit tumoral : examen clinique préopératoire, mammographie, échographie, IRM, scanner, compte rendu opératoire, clips et anatomopathologie (Sénorif 2026)",
    "reperes": "Clips en titane ou grains d'or sur les parois de la cavité, fortement recommandés (FAST-Forward, IMPORT LOW)"
   }
  ],
@@ -1072,13 +1107,13 @@
     {
      "nom": "CTV sein",
      "type": "CTV",
-     "definition": "Glande mammaire entière avec ses prolongements axillaires (Sénorif) : tissus mous de 5 mm sous la peau jusqu'au fascia profond, sans muscle ni grill costal (FAST-Forward) ; recommandations ESTRO 2016",
+     "definition": "Glande mammaire entière avec ses prolongements axillaires (Sénorif 2026) : tissus mous de 5 mm sous la peau jusqu'au fascia profond, sans muscle ni grill costal (FAST-Forward) ; recommandations ESTRO 2016",
      "quand": "Après conservation"
     },
     {
      "nom": "CTV paroi",
      "type": "CTV",
-     "definition": "Lambeaux cutanés, tissu sous-cutané et cicatrice, jusqu'au fascia profond, sans muscle ni côtes (FAST-Forward ; Sénorif) ; avec prothèse : ESTRO-ACROP 2019",
+     "definition": "Lambeaux cutanés, tissu sous-cutané et cicatrice, jusqu'au fascia profond, sans muscle ni côtes (FAST-Forward ; Sénorif 2026) ; avec prothèse : ESTRO-ACROP 2019",
      "quand": "Après mastectomie"
     },
     {
@@ -1207,7 +1242,7 @@
   {
    "indication": "Seconde conservation après récidive, dans un essai",
    "modalite": "Curiethérapie interstitielle (GEC-ESTRO)",
-   "niveau_preuve": "Niveau de preuve faible (Sénorif)",
+   "niveau_preuve": "Niveau de preuve faible (Sénorif 2026, réirradiation)",
    "note": "Réirradiation traitée au lot E"
   }
  ],
@@ -1218,7 +1253,7 @@
    "protocole": "Hormonothérapie adjuvante",
    "situation_id": "sein-bcs",
    "essai_ids": [
-    "senorif-2021"
+    "senorif-2026"
    ],
    "note": "Valable pour toutes les situations ; décision d'association en RCP"
   },
@@ -1228,7 +1263,7 @@
    "protocole": "Trastuzumab adjuvant",
    "situation_id": "sein-bcs",
    "essai_ids": [
-    "senorif-2021"
+    "senorif-2026"
    ],
    "note": "HER2+"
   },
@@ -1239,7 +1274,7 @@
    "situation_id": "sein-post-neoadj",
    "essai_ids": [
     "woodward2017",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "note": "Triple négatif sans réponse complète ; capécitabine adjuvante : CREATE-X"
   },
@@ -1250,7 +1285,7 @@
    "situation_id": "sein-post-neoadj",
    "essai_ids": [
     "katherine",
-    "senorif-2021"
+    "senorif-2026"
    ],
    "note": "HER2+ sans réponse complète"
   },
@@ -1269,12 +1304,12 @@
  "points_attention": [
   {
    "cible": "ct-sein-senorif",
-   "point": "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 5 Gy (Sénorif)",
+   "point": "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
    "portee": "contraintes"
   },
   {
    "cible": "sein",
-   "point": "RCMI recommandée pour les irradiations bilatérales, les pectus excavatum et les irradiations ganglionnaires complexes ; évaluer alors la dose au sein controlatéral, surtout chez la femme jeune ou en cas de prédisposition génétique (Sénorif)",
+   "point": "RCMI recommandée pour les irradiations bilatérales, les pectus excavatum et les irradiations ganglionnaires complexes ; évaluer alors la dose au sein controlatéral, surtout chez la femme jeune ou en cas de prédisposition génétique (Sénorif 2026)",
    "portee": "localisation"
   },
   {
@@ -1309,17 +1344,17 @@
   },
   {
    "cible": "sein",
-   "point": "Cancer du sein métastatique d'emblée bien contrôlé : RT de la maladie locorégionale macroscopique initiale, avec ou sans chirurgie ; pas de CMI sauf atteinte initiale (Sénorif)",
+   "point": "Cancer du sein métastatique d'emblée bien contrôlé : RT de la maladie locorégionale macroscopique initiale, avec ou sans chirurgie, en schéma hypofractionné ; pas de CMI sauf atteinte initiale (Sénorif 2026)",
    "portee": "localisation"
   },
   {
    "cible": "sein-mastectomie",
-   "point": "Reconstruction mammaire : Sénorif 2021 recommande le normofractionnement ; le consensus ESTRO-ACROP 2022 admet l'hypofractionnement modéré pour le sein, la paroi (avec ou sans reconstruction) et les ganglions, et 5 fractions pour le sein ou la paroi sans reconstruction ni ganglions",
+   "point": "Reconstruction mammaire : Sénorif 2026 privilégie une RT modérément hypofractionnée en modulation d'intensité ; le consensus ESTRO-ACROP 2022 admet l'hypofractionnement modéré pour le sein, la paroi (avec ou sans reconstruction) et les ganglions, et 5 fractions pour le sein ou la paroi sans reconstruction ni ganglions",
    "portee": "situation"
   },
   {
    "cible": "sein",
-   "point": "Inversion de séquence (RT préopératoire) : hors protocole de recherche, données insuffisantes (Sénorif)",
+   "point": "Inversion de séquence (RT préopératoire) : hors protocole de recherche, données insuffisantes (Sénorif 2026)",
    "portee": "localisation"
   }
  ]

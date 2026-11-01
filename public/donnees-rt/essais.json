@@ -4271,14 +4271,14 @@
    "resultat": "Survie sans maladie à 5 ans 74,1 vs 67,6 % (HR 0,70) ; SG améliorée"
   },
   {
-   "id": "senorif-2021",
-   "acronyme": "Sénorif — Référentiel cancers du sein 2021-2022",
+   "id": "senorif-2026",
+   "acronyme": "Sénorif 2026 — Référentiel sein (juillet 2026)",
    "type": "recommandation",
    "revue": "Réseau Sénorif (Île-de-France)",
-   "annee": 2021,
+   "annee": 2026,
    "population": "Cancers du sein",
-   "bras": "Référentiel régional ; chapitres de radiothérapie",
-   "resultat": "Indications, volumes, dose et fractionnement ; renvoie à RECORAD 2021 pour les contraintes"
+   "bras": "Référentiel régional ; chapitres de radiothérapie (formes infiltrantes et in situ)",
+   "resultat": "Indications, volumes, dose et fractionnement (hypofractionnement modéré standard, boost intégré 48 Gy / 15 fx) ; renvoie à RecoRad 2025 pour les contraintes, objectif cardiaque Dmoy < 3 Gy (sein seul) ou < 5 Gy (aires ganglionnaires)"
   },
   {
    "id": "rtog9714",

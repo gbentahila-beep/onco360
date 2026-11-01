@@ -128,6 +128,72 @@
      "note": "chaque parotide ; au-delà : déviation majeure du protocole"
     }
    ]
+  },
+  {
+   "id": "ct-sein-florence",
+   "titre": "Sein partiel 30 Gy / 5 fx en IMRT (Florence)",
+   "fractionnement": "30 Gy / 5 fx, un jour sur deux",
+   "source": "Florence (Livi 2015 ; Meattini 2020)",
+   "verification": "verifie",
+   "pmid": "25453837",
+   "lignes": [
+    {
+     "oar_id": "oar-sein-homolateral",
+     "indicateur": "V15Gy",
+     "limitant": "< 50 %",
+     "note": "sein non impliqué (sein moins PTV) ; 50 % de la dose prescrite"
+    },
+    {
+     "oar_id": "oar-poumon-homolateral",
+     "indicateur": "V10Gy",
+     "limitant": "< 20 %"
+    },
+    {
+     "oar_id": "oar-poumon-controlateral",
+     "indicateur": "V5Gy",
+     "limitant": "< 10 %"
+    },
+    {
+     "oar_id": "oar-sein-controlateral",
+     "indicateur": "Dmax",
+     "limitant": "< 1 Gy"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "V3Gy",
+     "limitant": "< 10 %"
+    }
+   ]
+  },
+  {
+   "id": "ct-sein-senorif-sein",
+   "titre": "Sein ou paroi sans aires ganglionnaires (Sénorif 2026)",
+   "fractionnement": "tous",
+   "source": "Sénorif 2026, contraintes de dose (renvoie à RecoRad 2025 pour les autres organes)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "Dmean",
+     "limitant": "< 3 Gy",
+     "note": "la plus faible possible ; sans irradiation ganglionnaire"
+    }
+   ]
+  },
+  {
+   "id": "ct-sein-senorif-gg",
+   "titre": "Sein ou paroi avec aires ganglionnaires (Sénorif 2026)",
+   "fractionnement": "tous",
+   "source": "Sénorif 2026, contraintes de dose (renvoie à RecoRad 2025 pour les autres organes)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "Dmean",
+     "limitant": "< 5 Gy",
+     "note": "la plus faible possible ; avec irradiation ganglionnaire"
+    }
+   ]
   }
  ],
  "schemas": {
@@ -180,11 +246,118 @@
    "contraintes_ids": [
     "ct-orl-rtog0225"
    ]
+  },
+  "sein-40-15": {
+   "contraintes_ids": [
+    "ct-sein-ff-15fx",
+    "ct-sein-senorif-sein"
+   ]
+  },
+  "sein-40-15-boost16": {
+   "contraintes_ids": [
+    "ct-sein-ff-15fx",
+    "ct-sein-senorif-sein"
+   ]
+  },
+  "sein-26-5": {
+   "contraintes_ids": [
+    "ct-sein-ff-5fx",
+    "ct-sein-senorif-sein"
+   ]
+  },
+  "sein-26-5-boost-service": {
+   "contraintes_ids": [
+    "ct-sein-ff-5fx",
+    "ct-sein-senorif-sein"
+   ]
+  },
+  "sein-285-5-hebdo": {
+   "contraintes_ids": [
+    "ct-sein-senorif-sein"
+   ]
+  },
+  "sein-50-25": {
+   "contraintes_ids": [
+    "ct-sein-senorif-sein"
+   ]
+  },
+  "sein-sib-504-644": {
+   "contraintes_ids": [
+    "ct-sein-senorif-sein"
+   ]
+  },
+  "sein-paroi-40-15": {
+   "contraintes_ids": [
+    "ct-sein-ff-15fx",
+    "ct-sein-senorif-sein"
+   ]
+  },
+  "sein-paroi-50-25": {
+   "contraintes_ids": [
+    "ct-sein-senorif-sein"
+   ]
+  },
+  "sein-gg-50-25": {
+   "contraintes_ids": [
+    "ct-sein-senorif-gg"
+   ]
+  },
+  "sein-gg-40-15": {
+   "contraintes_ids": [
+    "ct-sein-senorif-gg"
+   ]
+  },
+  "sein-ipb-40-15": {
+   "contraintes_ids": [
+    "ct-sein-senorif-sein"
+   ]
+  },
+  "sein-ipb-30-5": {
+   "contraintes_ids": [
+    "ct-sein-florence"
+   ]
+  },
+  "sein-pna-50-25": {
+   "contraintes_ids": [
+    "ct-sein-senorif-gg"
+   ]
+  },
+  "sein-en-place-50-boost": {
+   "contraintes_ids": [
+    "ct-sein-senorif-gg"
+   ]
+  },
+  "sein-occulte-50": {
+   "contraintes_ids": [
+    "ct-sein-senorif-gg"
+   ]
+  },
+  "ccis-50-25": {
+   "contraintes_ids": [
+    "ct-sein-senorif-sein"
+   ]
+  },
+  "ccis-50-25-boost": {
+   "contraintes_ids": [
+    "ct-sein-senorif-sein"
+   ]
+  },
+  "ccis-40-15": {
+   "contraintes_ids": [
+    "ct-sein-ff-15fx",
+    "ct-sein-senorif-sein"
+   ]
+  },
+  "ccis-paget-50-25": {
+   "contraintes_ids": [
+    "ct-sein-senorif-sein"
+   ]
   }
  },
  "mentions": {
   "essai": "L'essai ne publie pas de contraintes : base de contraintes appliquée.",
-  "institutionnel": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
+  "institutionnel": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée.",
+  "recommandation": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
  },
  "regions_revues": [
   "cavite_buccale",
@@ -194,6 +367,8 @@
   "cavum",
   "sinus",
   "glandes_salivaires",
-  "orl_palliatif"
+  "orl_palliatif",
+  "sein",
+  "sein_ccis"
  ]
 }

@@ -6679,7 +6679,7 @@
    "essais": [
     "START A et B, 10 ans",
     "FAST-Forward",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -6707,7 +6707,7 @@
     "START A et B, 10 ans",
     "IMPORT HIGH",
     "EORTC 22881 (boost), 20 ans",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -6764,7 +6764,7 @@
    "preuve": "essai_phase3",
    "essais": [
     "FAST-Forward",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -6790,7 +6790,7 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "FAST-Forward",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -6822,7 +6822,7 @@
    "preuve": "essai_phase3",
    "essais": [
     "FAST",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -6849,7 +6849,7 @@
    "essais": [
     "EORTC 22881 (boost), 20 ans",
     "EBCTCG 2011 (conservation)",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -6870,6 +6870,9 @@
     "Carcinome infiltrant",
     "Après chirurgie conservatrice : sein entier ± surimpression",
     "Normofractionné"
+   ],
+   "points_attention": [
+    "Sénorif 2026 : le normofractionnement doit rester exceptionnel (tumeur phyllode, paroi traitée en électrons) ; le standard est 40,05 Gy / 15 fx"
    ]
   },
   {
@@ -6882,7 +6885,7 @@
    "essais": [
     "IMRT-MC2",
     "IMRT-MC2, 5 ans",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -6952,7 +6955,7 @@
    "essais": [
     "FAST-Forward",
     "EBCTCG 2014 (mastectomie)",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -6978,7 +6981,7 @@
    "preuve": "essai_phase3",
    "essais": [
     "EBCTCG 2014 (mastectomie)",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -6993,6 +6996,9 @@
     "Carcinome infiltrant",
     "Après mastectomie : paroi thoracique",
     "Normofractionné"
+   ],
+   "points_attention": [
+    "Sénorif 2026 : le normofractionnement doit rester exceptionnel (tumeur phyllode, paroi traitée en électrons) ; le standard est 40,05 Gy / 15 fx"
    ]
   },
   {
@@ -7007,7 +7013,7 @@
     "MA.20",
     "AMAROS",
     "AMAROS, 10 ans",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -7028,6 +7034,9 @@
     "Carcinome infiltrant",
     "Irradiation des aires ganglionnaires (avec le sein ou la paroi)",
     "Normofractionné"
+   ],
+   "points_attention": [
+    "Sénorif 2026 : le normofractionnement doit rester exceptionnel (tumeur phyllode, paroi traitée en électrons) ; le standard est 40,05 Gy / 15 fx"
    ]
   },
   {
@@ -7041,7 +7050,7 @@
     "HypoG-01 (UNICANCER)",
     "Wang 2019",
     "ESTRO ACROP 2022 (fractionnement)",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -7079,7 +7088,7 @@
    "preuve": "essai_phase3",
    "essais": [
     "IMPORT LOW",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -7132,7 +7141,7 @@
    "essais": [
     "GEC-ESTRO APBI",
     "GEC-ESTRO APBI, 10 ans",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -7159,7 +7168,7 @@
    "essais": [
     "GEC-ESTRO APBI",
     "GEC-ESTRO APBI, 10 ans",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -7184,7 +7193,7 @@
    "essais": [
     "Woodward 2017",
     "KATHERINE",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -7209,7 +7218,7 @@
    "type": "rte_normo",
    "preuve": "recommandation",
    "essais": [
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -7230,6 +7239,9 @@
     "Carcinome infiltrant",
     "Tumeur du sein non opérée : RT exclusive",
     "Normofractionné"
+   ],
+   "points_attention": [
+    "Tumeur en place : Sénorif 2026 privilégie 40 Gy / 15 fx sur le sein et les aires ganglionnaires, puis une surimpression de la tumeur de 20 à 26 Gy en EQD2"
    ]
   },
   {
@@ -7240,7 +7252,7 @@
    "type": "rte_normo",
    "preuve": "recommandation",
    "essais": [
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -7272,7 +7284,7 @@
    "preuve": "essai_phase3",
    "essais": [
     "BIG 3-07 / TROG 07.01",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -7287,6 +7299,9 @@
     "Carcinome in situ",
     "CCIS après chirurgie conservatrice à berges saines",
     "Normofractionné"
+   ],
+   "points_attention": [
+    "Sénorif 2026 : schéma recommandé 40,05 Gy / 15 fx (niveau de preuve fort), boost intégré 48 Gy / 15 fx si indiqué"
    ]
   },
   {
@@ -7298,7 +7313,7 @@
    "preuve": "essai_phase3",
    "essais": [
     "BIG 3-07 / TROG 07.01",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -7319,6 +7334,9 @@
     "Carcinome in situ",
     "CCIS après chirurgie conservatrice à berges saines",
     "Normofractionné"
+   ],
+   "points_attention": [
+    "Sénorif 2026 : schéma recommandé 40,05 Gy / 15 fx (niveau de preuve fort), boost intégré 48 Gy / 15 fx si indiqué"
    ]
   },
   {
@@ -7361,7 +7379,7 @@
    "preuve": "essai_phase3",
    "essais": [
     "DBCG HYPO",
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -7386,7 +7404,7 @@
    "type": "rte_normo",
    "preuve": "recommandation",
    "essais": [
-    "Sénorif — Référentiel cancers du sein 2021-2022"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)"
    ],
    "doses": [
     {
@@ -7401,6 +7419,9 @@
     "Carcinome in situ",
     "Maladie de Paget isolée",
     "Normofractionné"
+   ],
+   "points_attention": [
+    "Sénorif 2026 : schéma recommandé 40,05 Gy / 15 fx (niveau de preuve fort), boost intégré 48 Gy / 15 fx si indiqué"
    ]
   },
   {

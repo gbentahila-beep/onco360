@@ -153,6 +153,7 @@ O = [
   ("oar-coronaire-droite", "Artère coronaire droite", "A_Coronary_R", "De son origine au sinus coronaire droit de l'aorte, dans le sillon auriculo-ventriculaire droit, jusqu'à la face inférieure du cœur. Marge de 2 à 3 mm si elle est mal visible. Imagerie : scanner injecté.", "thorax", {}),
   ("oar-circonflexe", "Artère circonflexe", "A_Cflx", "Branche du tronc coronaire gauche, dans le sillon auriculo-ventriculaire gauche, vers la face latérale du ventricule gauche. Marge de 2 à 3 mm si elle est mal visible. Imagerie : scanner injecté.", "thorax", {}),
   ("oar-artere-pulmonaire", "Artère pulmonaire", "A_Pulmonary", "Tronc de l'artère pulmonaire et ses deux branches jusqu'à leur entrée dans le hile, paroi incluse. Limites : bas, la valve pulmonaire ; haut, la bifurcation et les branches ; dehors, le hile. Imagerie : scanner injecté, fenêtre médiastinale. Sert au risque de saignement en stéréotaxie des tumeurs centrales.", "thorax", {}),
+  ("oar-sein-homolateral", "Sein homolatéral", "Breast_Ipsi", "Sein du côté traité.", "thorax", {"construit": True}),
 ]
 
 PAIRES = {

@@ -1004,6 +1004,14 @@
    "nom_tg263": "A_Pulmonary",
    "definition": "Tronc de l'artère pulmonaire et ses deux branches jusqu'à leur entrée dans le hile, paroi incluse. Limites : bas, la valve pulmonaire ; haut, la bifurcation et les branches ; dehors, le hile. Imagerie : scanner injecté, fenêtre médiastinale. Sert au risque de saignement en stéréotaxie des tumeurs centrales.",
    "region": "thorax"
+  },
+  {
+   "id": "oar-sein-homolateral",
+   "nom": "Sein homolatéral",
+   "nom_tg263": "Breast_Ipsi",
+   "definition": "Glande mammaire du côté traité, contourée comme le CTV sein de l'ESTRO 2016 : tissus mous de 5 mm sous la peau jusqu'au fascia profond, sans muscle ni grill costal. En irradiation partielle, on évalue le sein non impliqué, c'est-à-dire le sein moins le PTV (structure calculée). Imagerie : scanner, fenêtre des tissus mous, repères radio-opaques posés sur le sein au scanner.",
+   "region": "thorax",
+   "construit": true
   }
  ],
  "paires": [
