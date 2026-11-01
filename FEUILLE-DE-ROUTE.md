@@ -1071,6 +1071,39 @@ un essai introuvable → le demander à Dr Bentahila, sinon son résumé (abstra
 - Lot 6 (toxicités) : abandonné le 01/11/2026 (« pas besoin »).
 Avis de Claude (01/11/2026) : plan cohérent ; ordre 2 → 3 → 4 → 5 (les essais lus au lot 2 servent à l'indication et aux corrections).
 
+## Phase UX – Interface et facilité d'utilisation (plan du 01/11/2026 : tours d'Onco360 et de SmartDoc avec Dr Bentahila)
+Sources : deux tours complets d'Onco360 (tout cliqué, mesures des boutons et tableaux) et un tour de SmartDoc (smartdoc.ma) ; réponses de
+Dr Bentahila une par une. Ordre : UX1 → UX9 (les défauts d'abord, puis la sécurité des fenêtres, puis l'allure).
+- [ ] **UX1 – Défauts trouvés au tour** : prescription de RT (le champ « Lieu de la radiothérapie » chevauche « Technique ») ; Salle d'attente (statut
+  coupé « En sall… », boutons sous la colonne PRIX) ; le message en bas (toast) cache la barre du dossier ; « Journal » du dossier ouvre Paramètres sans
+  retour au patient ; tableau des cures qui déborde en disposition trois colonnes (529 px de contenu pour 477 px).
+- [ ] **UX2 – Décisions du 01/11 sur Onco360** : en-tête du dossier = ajouter la localisation, allergie seulement si « oui », rien d'autre (Chimio C1/1
+  et RT en cours déjà là ; en-tête gardé à sa place, S8 refusé) ; centre (Consult. / Chimio / RT / Docs) déplié d'emblée, la double flèche ⤢ ramène la
+  colonne Documents (`DOS.agrandi` vrai par défaut, v2.js) ; tableau de bord : cartes Aujourd'hui, Actions rapides et À valider plus hautes, gauche et
+  droite toujours à la même hauteur ; « Activité récente » sans les réglages de l'Administration ; menu « Documents » pour la secrétaire seulement
+  (pas le médecin ni l'infirmière).
+- [ ] **UX3 – Fenêtres dans l'application à la place des fenêtres du navigateur** (162 : 111 confirm, 46 alert, 5 prompt) : rouge = clinique,
+  orange = à vérifier, neutre ; d'abord la chimio (vigilance de « Valider la cure », chimio.js) ; s'appuyer sur `question()` d'ordonnances.js.
+- [ ] **UX4 – Une seule façon de faire les fenêtres et les mots** : pied de fenêtre fixe, Échap partout, mêmes mots (Valider / Enregistrer,
+  Annuler / Fermer), champ en erreur entouré de rouge, un seul format du nom du médecin ; boutons d'ajout nommés pareil partout : **« + Patient »,
+  « + Rendez-vous »** (jamais « Nouveau patient » / « Nouveau rendez-vous »).
+- [ ] **UX5 – Haut des pages, cartes, pages vides** (SmartDoc S1, S2, S4, S5) : titre de page = icône + titre + une ligne d'explication, boutons
+  principaux à droite, même modèle partout ; bandeau de couleur (bleu Onco360) en tête de chaque carte et de chaque tableau : icône, titre, nombre
+  dans une pastille, actions à droite ; liste vide = icône + phrase + bouton d'action ; pages pleines (patient, rendez-vous, protocole) avec
+  « ← Patients » (ou la page d'origine) en haut et « Échap pour annuler ».
+- [ ] **UX6 – Boutons et couleurs** : trois hauteurs (36 / 40 / 44 px), quatre couleurs de bouton, plus de bleu marine ; « ⋯ » et ▾ d'au moins 36 px
+  (aujourd'hui le dossier seul a 8 hauteurs de bouton, de 19 à 52 px, et 43 cibles de moins de 36 px ; la fenêtre de cure, 5 couleurs).
+- [ ] **UX7 – Un seul style de tableau** : en-tête 13 px gras, sans majuscules, fond #F1F5FB ; lignes de 44 px, survol, même ombre (aujourd'hui
+  Patients, Bilan, cures, Médic. et Salle ont chacun le leur) ; avec le bandeau de UX5.
+- [ ] **UX8 – Tableau de bord, Salle, chiffres** (S6, S3, S15) : bandeau d'accueil « Bonjour Dr … », date avec flèches jour précédent / suivant,
+  boutons « + Patient » et « + Rendez-vous » ; tuiles de chiffres (3 à 5) en haut de la Salle (en attente, attente moyenne, plus longue attente, vus)
+  et du Bilan (encaissé du jour, du mois, reste à encaisser) ; Salle : couleur selon l'attente (< 15 min, 15 à 30, > 30).
+- [ ] **UX9 – Onglets du dossier avec leur adresse** (S9) : `#dossier/<id>/chimio`… ; recharger la page ou revenir en arrière rouvre le bon onglet.
+- [ ] **UX10 – TNM** : rempli à partir du PDF de Dr Bentahila, pour son cabinet seulement (droits d'auteur AJCC : les autres cabinets importent leur
+  manuel ou une licence) ; attend le PDF.
+Questions en attente (pas de réponse le 01/11) : S7 carte « Alertes cliniques du jour » (allergies et points à surveiller des patients attendus) ;
+S10 historique du dossier filtrable par pastilles (Tout / Consultations / Ordonnances / Documents), regroupé par mois.
+
 ## À placer (nouveau plan)
 - (21/10, S5) **Vigilance des molécules, flacons et interactions ne sont pas dans le modèle des cabinets neufs** (`PARAMS_SPE` de functions/cabinets.js :
   ils reçoivent les listes de départ du code). La d. 12 dit « chaque autre cabinet reçoit tout le modèle, sauf correspondants et tarifs des
@@ -1084,6 +1117,12 @@ Avis de Claude (01/11/2026) : plan cohérent ; ordre 2 → 3 → 4 → 5 (les es
 - Gelé, plus tard si un client le demande : voir « Gelé, plus tard, annulé » de l'ancien plan en bas (Gynécologie, pharmacie, HL7 / FHIR…).
 
 ## Refusé – ne pas reproposer (liste cumulée)
+- **01/11/2026 (tours d'Onco360 et de SmartDoc)** : U3 du premier tour (sauf cartes plus hautes, UX2) ; barre du bas du dossier en trois groupes ;
+  dates de cure modifiables seulement après « Modifier » ; libellés coupés des rendez-vous à venir et petites flèches ▾ (« pas grave ») ; d'après
+  SmartDoc : en-tête du dossier déplacé (S8), mode consultation sans menu avec minuteur (S11), aperçu de l'ordonnance en direct (S12), âge calculé
+  et étiquettes Facultatif / Obligatoire (S13), bouton Enregistrer en double (S14), « Appeler le suivant » (S16), « Confirmer le patient » au
+  rendez-vous (S17), accueil des Paramètres en cartes avec leur état (S18), guide dans l'application (S19), recherche Ctrl K des pages (S20) ;
+  ne pas copier : thème vert foncé, titres de menu en majuscules, plan illustré de la salle, analyse IA.
 - **20/10/2026 (audits 10 et 11)** : tout l'**audit n° 9** (radiothérapie : lot RT-1 « séances reçues, motif d'arrêt, compteur, 1re séance un jour
   férié » (d. 4), lots RT-2 à RT-6, bibliothèque de contraintes de dose (d. 5)) ; écran « Corrections proposées » P1 (d. 10) ; écran de
   l'infirmière 3.8 (d. 11) ; ligne de protection du calendrier de fin de RT (d. 14 : retirée) ; validation du reçu par le comptable (d. 15) ;
