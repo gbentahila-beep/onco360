@@ -1150,6 +1150,30 @@ Traitement en cours ; Tâches : Tâche, Patient, Assignée à, Créée par, Éch
   après la prescription (R7) ; « Terminé » transformé (R10) ; ronds des étapes cliquables (R11) ; dose rappelée dans la fenêtre de dosimétrie
   (R12) ; « Référentiel » sorti du ⋯ (R13) ; « Nombre d'actes facturés » (R17). Sans réponse : R6 (lignes de volumes alignées), R8 (fenêtre après
   « Clôturer »), R9 (bouton « Documents ▾ » visible).
+- [ ] **UX13 – Prescriptions, RCP, rendez-vous, tâches, feuille de soins (tour du 01/11/2026, réponses de Dr Bentahila)** :
+  - défauts : Ordo. type d'analyses affiché « 2 médicaments » → « 2 analyses » (P2) ; tâche affichée deux fois dans « Rendez-vous et tâches à venir »
+    juste après « + Tâche » (une seule créée ; affichage, P4) ; Courriers : champs bruts {patient} {age}… dans la liste → valeurs du patient ou « … »
+    (P5) ; message WhatsApp arabe : nom du lieu en français coupé (« Clinique de » / « démonstration. ») → isoler le texte latin (P6) ; barre du bas
+    du dossier qui se décale quand une pastille (1) apparaît → largeurs fixes (P7) ;
+  - Médic. : la correspondance exacte d'abord dans la recherche (« paracétamol » → Paracétamol 1 g avant les marques) (P9) ;
+  - **toutes les fenêtres de prescription** (Médic., Ordo. type, Analyses, Examens compl., Courriers, Doc.) : l'ordonnance en préparation toujours
+    visible (P11 ; solution à proposer avec maquette : ordonnance à droite de la liste sur grand écran, bandeau « Ordonnance (n) » collant en haut
+    sur téléphone) ; une seule recherche, en haut ; sous « Ordonnance », retirer la deuxième recherche et garder seulement « + Ligne libre » (P12) ;
+    Courriers : « + » au bout des lignes comme dans les autres listes (P14) ;
+  - + RCP : même choix de date dans « Inscrire » et « Modifier » (liste des dates de RCP + « autre date ») (P15) ;
+  - + Rendez-vous : à l'ouverture, prochain jour ouvert proposé et ses créneaux affichés tout de suite (P17) ;
+  - Feuille de soins : code CIM-10 proposé d'après la localisation (table localisation → code préparée par Claude d'après la CIM-10 publiée,
+    relue par Dr Bentahila, modifiable dans la fenêtre) ; acte du jour rempli quand on choisit la consultation dans « Consultation du dossier »
+    (type et prix de la consultation ; vérifier pourquoi rien ne se remplit aujourd'hui) (P18) ; feuille imprimée notée dans la consultation du jour,
+    comme une ordonnance (P19) ;
+  - mots : menu ▾ « Antécédents » des prescriptions → « Historique » (P20) ; un même mot pour la même action : « Enregistrer » et « Enregistrer +
+    Imprimer » (Valider, Créer la tâche, Inscrire…) (P21) ;
+  - présentation : champ obligatoire vide entouré de rouge en plus du message (date de RCP, « Pour qui »…) ; « Fermer » en bas à droite dans Doc. et
+    Historique, comme partout (P22).
+  Refusé le 01/11 : P1 (bilan intercure coupé : c'est une « ) » manquante dans l'ordo type du cabinet, à corriger dans la bibliothèque, pas dans le
+  code) ; P3 (garder la saisie ou demander en fermant l'aperçu) ; P8 (doublon de molécule dans un produit composé, CEDOL + paracétamol) ; P10
+  (organisme de la feuille de soins d'après la mutuelle : seulement CNOPS et CNSS pour l'instant) ; P16 (« Moi-même » d'office dans « Pour qui »).
+  Sans réponse : P13 (« Renseignements cliniques » sur les demandes d'imagerie, note interne non imprimée).
 Avant chaque lot : maquette ou captures avant / après montrées à Dr Bentahila ; un lot = une session, test sur ordinateur et à 390 px.
 
 ## À placer (nouveau plan)
@@ -1169,7 +1193,7 @@ Avant chaque lot : maquette ou captures avant / après montrées à Dr Bentahila
   dates de cure modifiables seulement après « Modifier » ; libellés coupés des rendez-vous à venir et petites flèches ▾ (« pas grave ») ; d'après
   SmartDoc : en-tête du dossier déplacé (S8), mode consultation sans menu avec minuteur (S11), aperçu de l'ordonnance en direct (S12), âge calculé
   et étiquettes Facultatif / Obligatoire (S13), bouton Enregistrer en double (S14), « Appeler le suivant » (S16), « Confirmer le patient » au
-  rendez-vous (S17), accueil des Paramètres en cartes avec leur état (S18), guide dans l'application (S19), recherche Ctrl K des pages (S20), carte « Alertes cliniques du jour » (S7), tuiles de chiffres en haut de la Salle d'attente, nouveaux noms de colonnes, historique du dossier filtré par pastilles (S10) ;
+  rendez-vous (S17), accueil des Paramètres en cartes avec leur état (S18), guide dans l'application (S19), recherche Ctrl K des pages (S20), carte « Alertes cliniques du jour » (S7), tuiles de chiffres en haut de la Salle d'attente, nouveaux noms de colonnes, historique du dossier filtré par pastilles (S10) ; prescriptions (UX13) : aperçu fermé sans garder la saisie (P3), doublon de molécule des produits composés (P8), organisme de la feuille de soins d'après la mutuelle (P10), « Moi-même » d'office (P16) ;
   ne pas copier : thème vert foncé, titres de menu en majuscules, plan illustré de la salle, analyse IA.
 - **20/10/2026 (audits 10 et 11)** : tout l'**audit n° 9** (radiothérapie : lot RT-1 « séances reçues, motif d'arrêt, compteur, 1re séance un jour
   férié » (d. 4), lots RT-2 à RT-6, bibliothèque de contraintes de dose (d. 5)) ; écran « Corrections proposées » P1 (d. 10) ; écran de
