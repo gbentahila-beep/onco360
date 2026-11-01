@@ -194,6 +194,71 @@
      "note": "la plus faible possible ; avec irradiation ganglionnaire"
     }
    ]
+  },
+  {
+   "id": "ct-snc-nrgcc001",
+   "titre": "Encéphale in toto 30 Gy / 10 fx avec épargne hippocampique (NRG CC001)",
+   "fractionnement": "30 Gy / 10 fx",
+   "source": "NRG CC001, tableau 1 (Brown 2020)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-hippocampes",
+     "indicateur": "D100%",
+     "limitant": "≤ 9 Gy",
+     "note": "hippocampes droit et gauche ensemble"
+    },
+    {
+     "oar_id": "oar-hippocampes",
+     "indicateur": "D0,03cm³",
+     "limitant": "≤ 16 Gy",
+     "note": "hippocampes droit et gauche ensemble"
+    },
+    {
+     "oar_id": "oar-nerf-optique-d",
+     "indicateur": "D0,03cm³",
+     "limitant": "≤ 30 Gy"
+    },
+    {
+     "oar_id": "oar-nerf-optique-g",
+     "indicateur": "D0,03cm³",
+     "limitant": "≤ 30 Gy"
+    },
+    {
+     "oar_id": "oar-chiasma",
+     "indicateur": "D0,03cm³",
+     "limitant": "≤ 30 Gy"
+    }
+   ]
+  },
+  {
+   "id": "ct-snc-brest",
+   "titre": "Stéréotaxie 33 Gy à l'isocentre en 3 fx (Brest)",
+   "fractionnement": "3 fx",
+   "source": "Brest (Lucia 2019)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-nerf-optique-d",
+     "indicateur": "Dmax",
+     "limitant": "< 13,8 Gy"
+    },
+    {
+     "oar_id": "oar-nerf-optique-g",
+     "indicateur": "Dmax",
+     "limitant": "< 13,8 Gy"
+    },
+    {
+     "oar_id": "oar-chiasma",
+     "indicateur": "Dmax",
+     "limitant": "< 10,5 Gy"
+    },
+    {
+     "oar_id": "oar-tronc-cerebral",
+     "indicateur": "Dmax",
+     "limitant": "< 16,8 Gy"
+    }
+   ]
   }
  ],
  "schemas": {
@@ -352,12 +417,28 @@
    "contraintes_ids": [
     "ct-sein-senorif-sein"
    ]
+  },
+  "itc-ha-30-10": {
+   "contraintes_ids": [
+    "ct-snc-nrgcc001"
+   ]
+  },
+  "meta-srt-service-33-3": {
+   "contraintes_ids": [
+    "ct-snc-brest"
+   ]
+  },
+  "cav-service-33-3": {
+   "contraintes_ids": [
+    "ct-snc-brest"
+   ]
   }
  },
  "mentions": {
   "essai": "L'essai ne publie pas de contraintes : base de contraintes appliquée.",
   "institutionnel": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée.",
-  "recommandation": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
+  "recommandation": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée.",
+  "service": "Schéma du service sans essai publié : base de contraintes appliquée."
  },
  "regions_revues": [
   "cavite_buccale",
@@ -369,6 +450,16 @@
   "glandes_salivaires",
   "orl_palliatif",
   "sein",
-  "sein_ccis"
+  "sein_ccis",
+  "glioblastome",
+  "gliome",
+  "metastases_cerebrales",
+  "meningiome",
+  "schwannome",
+  "hypophyse",
+  "craniopharyngiome",
+  "neurocytome",
+  "ependymome",
+  "medulloblastome"
  ]
 }

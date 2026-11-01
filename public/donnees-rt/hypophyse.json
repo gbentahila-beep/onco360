@@ -59,7 +59,8 @@
     "Adénome hypophysaire",
     "Adénome non sécrétant résiduel ou récidivant",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "hyp-srs-15-1",
@@ -107,7 +108,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "hyp-sec-fsrt-45-25",
@@ -144,7 +146,8 @@
     "Adénome hypophysaire",
     "Adénome sécrétant non contrôlé",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

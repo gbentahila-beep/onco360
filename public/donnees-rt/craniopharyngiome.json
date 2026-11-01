@@ -49,7 +49,8 @@
     "Craniopharyngiome après chirurgie limitée, ou récidive",
     "Normofractionné"
    ],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "crp-504-28",
@@ -82,7 +83,8 @@
     "Craniopharyngiome après chirurgie limitée, ou récidive",
     "Normofractionné"
    ],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "crp-srs-12-1",
@@ -128,7 +130,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

@@ -49,7 +49,8 @@
     "Épendymome de l'adulte",
     "Épendymome intracrânien opéré",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "ep-g3-594",
@@ -84,7 +85,8 @@
     "Épendymome de l'adulte",
     "Épendymome intracrânien opéré",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

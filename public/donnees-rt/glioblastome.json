@@ -65,7 +65,8 @@
     "Glioblastome",
     "Glioblastome opéré ou biopsié, jusqu'à 70 ans : radiochimiothérapie",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "gbm-ceteg-60-30",
@@ -103,7 +104,8 @@
     "Glioblastome",
     "Glioblastome opéré ou biopsié, jusqu'à 70 ans : radiochimiothérapie",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "gbm-age-40-15",
@@ -143,7 +145,8 @@
     "Sujet âgé ou fragile : radiothérapie courte",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "gbm-age-25-5",
@@ -182,7 +185,8 @@
     "Sujet âgé ou fragile : radiothérapie courte",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "gbm-age-34-10",
@@ -222,7 +226,8 @@
     "Sujet âgé ou fragile : radiothérapie courte",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

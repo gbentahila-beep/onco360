@@ -57,7 +57,8 @@
     "Médulloblastome de l'adulte non métastatique opéré",
     "Normofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [],

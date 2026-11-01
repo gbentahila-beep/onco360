@@ -71,7 +71,8 @@
     "Gliomes de grade 2 et 3",
     "Gliome IDH muté de grade 2 à haut risque : radiothérapie",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "gli-g2-54-30",
@@ -110,7 +111,8 @@
     "Gliomes de grade 2 et 3",
     "Gliome IDH muté de grade 2 à haut risque : radiothérapie",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "gli-oligo-594-33",
@@ -146,7 +148,8 @@
     "Oligodendrogliome IDH muté et codélété 1p/19q, grade 3",
     "Normofractionné"
    ],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "gli-astro-594-33",
@@ -184,7 +187,8 @@
     "Gliomes de grade 2 et 3",
     "Astrocytome IDH muté de grade 3 (non codélété)",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

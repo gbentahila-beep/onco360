@@ -49,7 +49,8 @@
     "Neurocytome central après exérèse incomplète, ou récidive",
     "Normofractionné"
    ],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "neu-service-594",
@@ -92,7 +93,8 @@
     "Neurocytome central après exérèse incomplète, ou récidive",
     "Normofractionné"
    ],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "neu-srs-13-1",
@@ -138,7 +140,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

@@ -65,7 +65,8 @@
     "Méningiome grade 1 non opérable ou résidu évolutif",
     "Normofractionné"
    ],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "men-g1-504-28",
@@ -99,7 +100,8 @@
     "Méningiome grade 1 non opérable ou résidu évolutif",
     "Normofractionné"
    ],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "men-g1-srs",
@@ -136,7 +138,8 @@
     "Méningiome",
     "Méningiome grade 1 non opérable ou résidu évolutif",
     "Stéréotaxie"
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "men-int-54-30",
@@ -173,7 +176,8 @@
     "Méningiome",
     "Risque intermédiaire : grade 2 après exérèse complète, ou grade 1 récidivant",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "men-int-60-30",
@@ -209,7 +213,8 @@
     "Méningiome",
     "Risque intermédiaire : grade 2 après exérèse complète, ou grade 1 récidivant",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "men-hr-60-54-30",
@@ -256,7 +261,8 @@
     "Méningiome",
     "Haut risque : grade 3, grade 2 récidivant ou grade 2 après exérèse incomplète",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "men-hr-service-684-38",
@@ -299,7 +305,8 @@
     "Haut risque : grade 3, grade 2 récidivant ou grade 2 après exérèse incomplète",
     "Normofractionné"
    ],
-   "essai_ids": []
+   "essai_ids": [],
+   "ct_mention": "Schéma du service sans essai publié : base de contraintes appliquée."
   }
  ],
  "simulations": [

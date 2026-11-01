@@ -27,7 +27,7 @@ def appliquer():
         s["contraintes_ids"] = r["contraintes_ids"]; n["jeu"] += 1
       elif not s.get("contraintes_ids"):
         ty = [(E.get(e) or {}).get("type") for e in s.get("essai_ids", [])]
-        k = "essai" if "essai" in ty else "institutionnel" if "protocole_institutionnel" in ty else "recommandation"
+        k = "service" if not ty else "essai" if "essai" in ty else "institutionnel" if "protocole_institutionnel" in ty else "recommandation"
         s["ct_mention"] = J["mentions"][k]; n["mention"] += 1
     ecrire(p, d)
   print(len(J["jeux"]), "jeux ;", n["jeu"], "schémas reliés à un jeu ;", n["mention"], "mentions")

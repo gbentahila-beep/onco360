@@ -111,7 +111,8 @@
      "limitant": "≥ 112 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "meta-srs-rtog9005",
@@ -182,7 +183,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "meta-srs-jlgk",
@@ -244,7 +246,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "meta-srt-27-3",
@@ -313,7 +316,8 @@
      "limitant": "≥ 112 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "meta-srt-24-3",
@@ -381,7 +385,8 @@
      "limitant": "≥ 112 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "meta-srt-30-5",
@@ -448,7 +453,8 @@
      "limitant": "≥ 112 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "meta-srt-25-5",
@@ -516,7 +522,8 @@
      "limitant": "≥ 112 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "meta-srt-service-33-3",
@@ -542,7 +549,9 @@
    "systemique": "Selon le primitif",
    "simulation_id": "sim-crane-srs",
    "volumes_id": "vol-crane-srs",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-snc-brest"
+   ],
    "couverture": "PTV couvert par l'isodose 70 %",
    "points_attention": [
     "Les contraintes des OAR priment sur le choix de la dose et du fractionnement",
@@ -635,7 +644,8 @@
      "limitant": "≥ 112 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "cav-24-3",
@@ -697,7 +707,8 @@
      "limitant": "≥ 112 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "cav-30-5",
@@ -760,7 +771,8 @@
      "limitant": "≥ 112 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "cav-25-5",
@@ -822,7 +834,8 @@
      "limitant": "≥ 112 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "cav-service-33-3",
@@ -848,7 +861,9 @@
    "systemique": "Selon le primitif",
    "simulation_id": "sim-crane-srs",
    "volumes_id": "vol-meta-cavite",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-snc-brest"
+   ],
    "couverture": "PTV couvert par l'isodose 70 %",
    "points_attention": [
     "Stéréotaxie de la cavité : 72 vs 43 % sans récidive locale à 12 mois par rapport à la surveillance (MD Anderson) ; cognition mieux préservée qu'avec l'encéphale in toto (N107C)",
@@ -910,7 +925,8 @@
     "Encéphale in toto",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "itc-20-5",
@@ -948,7 +964,8 @@
     "Encéphale in toto",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "itc-ha-30-10",
@@ -978,7 +995,7 @@
    "simulation_id": "sim-crane-itc",
    "volumes_id": "vol-meta-haitc",
    "contraintes_ids": [
-    "ct-ha-wbrt-rtog0933"
+    "ct-snc-nrgcc001"
    ],
    "couverture": "PTV : D2 % ≤ 37,5 Gy (40 Gy accepté), D98 % ≥ 25 Gy, V30 Gy ≥ 90 % (RTOG 0933)",
    "points_attention": [
@@ -1070,7 +1087,8 @@
      "limitant": "≥ 112 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "reirr-24-3",
@@ -1132,7 +1150,8 @@
      "limitant": "≥ 112 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "reirr-30-5",
@@ -1193,7 +1212,8 @@
      "limitant": "≥ 112 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "reirr-25-5",
@@ -1254,7 +1274,8 @@
      "limitant": "≥ 112 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   }
  ],
  "simulations": [
