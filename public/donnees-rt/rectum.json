@@ -74,7 +74,8 @@
     "Rectum localement avancé : radiothérapie préopératoire",
     "Normofractionné"
    ],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "rec-504-28",
@@ -109,7 +110,8 @@
     "Normofractionné"
    ],
    "contraintes_ids": [],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "rec-5x5-tme",
@@ -146,7 +148,8 @@
     "Rectum localement avancé : radiothérapie préopératoire",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "rec-5x5-delai",
@@ -182,7 +185,8 @@
     "Rectum localement avancé : radiothérapie préopératoire",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "rec-rapido",
@@ -219,7 +223,8 @@
     "Rectum à haut risque : traitement néoadjuvant total",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "rec-prodige23",
@@ -265,7 +270,8 @@
     "Rectum",
     "Rectum à haut risque : traitement néoadjuvant total",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "rec-postop-558",
@@ -308,7 +314,8 @@
     "Normofractionné"
    ],
    "contraintes_ids": [],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "rec-cap45",
@@ -342,7 +349,8 @@
     "Normofractionné"
    ],
    "contraintes_ids": [],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

@@ -67,7 +67,8 @@
     "Tumeur localement avancée T3–T4 ou N+",
     "Normofractionné"
    ],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "anal-service-t1n0",
@@ -111,7 +112,8 @@
     "Tumeur limitée T1–T2 N0",
     "Normofractionné"
    ],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "anal-act2-504",
@@ -145,7 +147,8 @@
     "Tumeur localement avancée T3–T4 ou N+",
     "Normofractionné"
    ],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "anal-agitg-54-30",
@@ -180,7 +183,9 @@
    "systemique": "5FU + mitomycine",
    "simulation_id": "sim-anal",
    "volumes_id": "vol-anal-agitg",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-dig-rtog0529"
+   ],
    "date_verif": "2026-10-23",
    "ind": [
     "Digestif",
@@ -222,7 +227,9 @@
    "systemique": "5FU + mitomycine J1 et J29",
    "simulation_id": "sim-anal",
    "volumes_id": "vol-anal-agitg",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-dig-rtog0529"
+   ],
    "couverture": "Isodose de prescription sur au moins 90 % du PTV tumeur, 85 % du PTV électif (RTOG 0529)",
    "date_verif": "2026-10-23",
    "ind": [
@@ -290,7 +297,9 @@
    "systemique": "5FU + mitomycine J1 et J29",
    "simulation_id": "sim-anal",
    "volumes_id": "vol-anal-agitg",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-dig-rtog0529"
+   ],
    "couverture": "Isodose de prescription sur au moins 90 % des PTV tumeur et adénopathies, 85 % du PTV électif (RTOG 0529)",
    "date_verif": "2026-10-23",
    "ind": [

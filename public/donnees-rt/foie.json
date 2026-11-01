@@ -72,7 +72,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-foie-sbrt",
    "volumes_id": "vol-foie-sbrt",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-dig-durand"
+   ],
    "couverture": "Rapporter D2 %, D50 %, D98 %, D99 % du PTV et l'indice d'homogénéité",
    "date_verif": "2026-10-23",
    "ind": [
@@ -138,7 +140,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "foie-50-10",
@@ -182,7 +185,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "foie-tvp-tace-45",
@@ -219,7 +223,8 @@
     "CHC avec invasion vasculaire macroscopique",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "foie-meta-45-3",
@@ -264,7 +269,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "foie-meta-60-3",
@@ -299,7 +305,8 @@
     "Métastases hépatiques : stéréotaxie",
     "Stéréotaxie"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "foie-cca-s0809",
@@ -335,7 +342,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-foie",
    "volumes_id": "vol-foie-cca-adj",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-dig-swog0809"
+   ],
    "date_verif": "2026-10-23",
    "ind": [
     "Digestif",
@@ -381,7 +390,9 @@
     "Cholangiocarcinome intrahépatique non résécable",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [
+    "ct-dig-hong"
+   ]
   }
  ],
  "simulations": [

@@ -67,7 +67,8 @@
     "Pancréas",
     "Localement avancé contrôlé après chimiothérapie d'induction",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "panc-sbrt-33-5",
@@ -95,7 +96,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-panc",
    "volumes_id": "vol-panc-sbrt",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-dig-herman"
+   ],
    "points_attention": [
     "Limite (borderline) : SBRT après mFOLFIRINOX moins bonne que mFOLFIRINOX seul dans A021501 (phase 2)"
    ],
@@ -141,7 +144,8 @@
     "Pancréas",
     "Localement avancé contrôlé après chimiothérapie d'induction",
     "Stéréotaxie"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "panc-preopanc-36-15",
@@ -177,7 +181,8 @@
     "Résécable ou limite : traitement néoadjuvant",
     "Hypofractionné"
    ],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "panc-adj-504-28",
@@ -213,7 +218,8 @@
     "Pancréas",
     "Tête du pancréas opérée : RCT adjuvante",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

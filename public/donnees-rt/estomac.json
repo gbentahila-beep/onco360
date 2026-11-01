@@ -61,7 +61,8 @@
     "Estomac",
     "Opéré sans chimiothérapie périopératoire : RCT adjuvante",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "est-pall-30-10",
@@ -97,7 +98,8 @@
     "Palliatif : saignement",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "est-pall-20-5",
@@ -133,7 +135,8 @@
     "Palliatif : saignement",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   }
  ],
  "simulations": [

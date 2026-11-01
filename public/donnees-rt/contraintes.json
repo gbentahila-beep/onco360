@@ -11412,6 +11412,408 @@
      "note": "de préférence plus bas"
     }
    ]
+  },
+  {
+   "id": "ct-dig-concorde",
+   "titre": "Œsophage, RT-chimiothérapie (CONCORDE / PRODIGE 26)",
+   "fractionnement": "2 Gy/fx",
+   "source": "CONCORDE / PRODIGE 26, assurance qualité (Boustani 2019), tableau 1",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "≤ 45 Gy",
+     "note": "déviation mineure 45 à 48 Gy, majeure > 48 Gy"
+    },
+    {
+     "oar_id": "oar-poumons",
+     "indicateur": "V20Gy",
+     "limitant": "< 30 %",
+     "note": "30 à 35 % acceptable si V30 ≤ 20 %"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "V40Gy",
+     "limitant": "≤ 30 %",
+     "note": "déviation majeure > 33 %"
+    },
+    {
+     "oar_id": "oar-reins",
+     "indicateur": "V20Gy",
+     "limitant": "≤ 25 %",
+     "note": "déviation majeure > 40 %"
+    },
+    {
+     "oar_id": "oar-foie",
+     "indicateur": "V30Gy",
+     "limitant": "≤ 50 %",
+     "note": "déviation majeure > 60 %"
+    }
+   ]
+  },
+  {
+   "id": "ct-dig-swog0809",
+   "titre": "Voies biliaires, RT-chimiothérapie adjuvante (SWOG S0809)",
+   "fractionnement": "45 Gy / 25 fx + complément jusqu'à 54-59,4 Gy",
+   "source": "SWOG S0809, tableau A1 (Ben-Josef 2015)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-rein-d",
+     "indicateur": "Dmax",
+     "limitant": "≤ 20 Gy"
+    },
+    {
+     "oar_id": "oar-rein-g",
+     "indicateur": "Dmax",
+     "limitant": "≤ 20 Gy"
+    },
+    {
+     "oar_id": "oar-rein-d",
+     "indicateur": "V18Gy",
+     "limitant": "≤ 10 %"
+    },
+    {
+     "oar_id": "oar-rein-g",
+     "indicateur": "V18Gy",
+     "limitant": "≤ 10 %"
+    },
+    {
+     "oar_id": "oar-foie",
+     "indicateur": "Dmean",
+     "limitant": "< 30 Gy"
+    },
+    {
+     "oar_id": "oar-estomac",
+     "indicateur": "Dmax",
+     "limitant": "≤ 54 Gy"
+    },
+    {
+     "oar_id": "oar-estomac",
+     "indicateur": "V50Gy",
+     "limitant": "≤ 2 %"
+    },
+    {
+     "oar_id": "oar-estomac",
+     "indicateur": "V45Gy",
+     "limitant": "≤ 25 %"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "Dmax",
+     "limitant": "≤ 54 Gy"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "V50Gy",
+     "limitant": "≤ 2 %"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "V45Gy",
+     "limitant": "≤ 25 %"
+    },
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "≤ 45 Gy"
+    },
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "Dmax",
+     "limitant": "≤ 54 Gy"
+    },
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "V45Gy",
+     "limitant": "≤ 33 %"
+    }
+   ]
+  },
+  {
+   "id": "ct-dig-herman",
+   "titre": "Pancréas, stéréotaxie 33 Gy / 5 fx (Herman 2015)",
+   "fractionnement": "33 Gy / 5 fx",
+   "source": "Herman 2015, tableau 1",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "D9cm³",
+     "limitant": "< 15 Gy",
+     "note": "proximal pour le duodénum"
+    },
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "D3cm³",
+     "limitant": "< 20 Gy",
+     "note": "proximal pour le duodénum"
+    },
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "D1cm³",
+     "limitant": "< 33 Gy",
+     "note": "proximal pour le duodénum"
+    },
+    {
+     "oar_id": "oar-estomac",
+     "indicateur": "D9cm³",
+     "limitant": "< 15 Gy",
+     "note": "proximal pour le duodénum"
+    },
+    {
+     "oar_id": "oar-estomac",
+     "indicateur": "D3cm³",
+     "limitant": "< 20 Gy",
+     "note": "proximal pour le duodénum"
+    },
+    {
+     "oar_id": "oar-estomac",
+     "indicateur": "D1cm³",
+     "limitant": "< 33 Gy",
+     "note": "proximal pour le duodénum"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "D9cm³",
+     "limitant": "< 15 Gy",
+     "note": "proximal pour le duodénum"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "D3cm³",
+     "limitant": "< 20 Gy",
+     "note": "proximal pour le duodénum"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "D1cm³",
+     "limitant": "< 33 Gy",
+     "note": "proximal pour le duodénum"
+    },
+    {
+     "oar_id": "oar-foie",
+     "indicateur": "D50%",
+     "limitant": "< 12 Gy"
+    },
+    {
+     "oar_id": "oar-reins",
+     "indicateur": "D75%",
+     "limitant": "< 12 Gy",
+     "note": "les deux reins ensemble"
+    },
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "D1cm³",
+     "limitant": "< 8 Gy",
+     "note": "l'article imprime « 1 cc, > 8 Gy »"
+    }
+   ]
+  },
+  {
+   "id": "ct-dig-durand",
+   "titre": "Carcinome hépatocellulaire, stéréotaxie 45 Gy / 3 fx (Durand-Labrunie 2020)",
+   "fractionnement": "45 Gy / 3 fx",
+   "source": "Essai français (Durand-Labrunie 2020), méthodes",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "V21Gy",
+     "limitant": "< 5 cm³",
+     "note": "duodénum proximal"
+    },
+    {
+     "oar_id": "oar-estomac",
+     "indicateur": "V21Gy",
+     "limitant": "< 5 cm³"
+    },
+    {
+     "oar_id": "oar-rein-d",
+     "indicateur": "V15Gy",
+     "limitant": "< 33 %"
+    },
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "< 15 Gy"
+    },
+    {
+     "oar_id": "oar-foie",
+     "indicateur": "V21Gy",
+     "limitant": "< 33 %",
+     "note": "foie sain (foie moins GTV)"
+    },
+    {
+     "oar_id": "oar-foie",
+     "indicateur": "V15Gy",
+     "limitant": "< 50 %",
+     "note": "foie sain (foie moins GTV)"
+    }
+   ]
+  },
+  {
+   "id": "ct-dig-hong",
+   "titre": "Foie, protons 67,5 GyE / 15 fx (Hong 2016)",
+   "fractionnement": "67,5 ou 58,05 GyE / 15 fx",
+   "source": "Hong 2016, méthodes (protonthérapie, doses en GyE)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-foie",
+     "indicateur": "Dmean",
+     "limitant": "≤ 24 GyE",
+     "note": "foie moins GTV ; sinon baisse de dose"
+    },
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "≤ 30 GyE"
+    },
+    {
+     "oar_id": "oar-estomac",
+     "indicateur": "Dmax",
+     "limitant": "≤ 42 GyE"
+    },
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "Dmax",
+     "limitant": "≤ 45 GyE"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "Dmax",
+     "limitant": "≤ 45 GyE"
+    },
+    {
+     "oar_id": "oar-colon",
+     "indicateur": "Dmax",
+     "limitant": "≤ 45 GyE"
+    },
+    {
+     "oar_id": "oar-reins",
+     "indicateur": "V14Gy",
+     "limitant": "< 30 %"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "Dmax",
+     "limitant": "≤ 45 GyE",
+     "note": "recommandé"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "V40Gy",
+     "limitant": "< 10 %",
+     "note": "recommandé"
+    },
+    {
+     "oar_id": "oar-paroi-thoracique",
+     "indicateur": "V60Gy",
+     "limitant": "< 2 cm³",
+     "note": "recommandé"
+    }
+   ]
+  },
+  {
+   "id": "ct-dig-rtog0529",
+   "titre": "Canal anal, IMRT en dose peinte (RTOG 0529)",
+   "fractionnement": "50,4 à 54 Gy / 28-30 fx",
+   "source": "RTOG 0529, tableau 1 (Kachnic 2013)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "V45Gy",
+     "limitant": "< 20 cm³"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "V35Gy",
+     "limitant": "< 150 cm³"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "V30Gy",
+     "limitant": "< 200 cm³"
+    },
+    {
+     "oar_id": "oar-tete-femorale-d",
+     "indicateur": "V44Gy",
+     "limitant": "< 5 %"
+    },
+    {
+     "oar_id": "oar-tete-femorale-g",
+     "indicateur": "V44Gy",
+     "limitant": "< 5 %"
+    },
+    {
+     "oar_id": "oar-tete-femorale-d",
+     "indicateur": "V40Gy",
+     "limitant": "< 35 %"
+    },
+    {
+     "oar_id": "oar-tete-femorale-g",
+     "indicateur": "V40Gy",
+     "limitant": "< 35 %"
+    },
+    {
+     "oar_id": "oar-tete-femorale-d",
+     "indicateur": "V30Gy",
+     "limitant": "< 50 %"
+    },
+    {
+     "oar_id": "oar-tete-femorale-g",
+     "indicateur": "V30Gy",
+     "limitant": "< 50 %"
+    },
+    {
+     "oar_id": "oar-crete-iliaque",
+     "indicateur": "V50Gy",
+     "limitant": "< 5 %"
+    },
+    {
+     "oar_id": "oar-crete-iliaque",
+     "indicateur": "V40Gy",
+     "limitant": "< 35 %"
+    },
+    {
+     "oar_id": "oar-crete-iliaque",
+     "indicateur": "V30Gy",
+     "limitant": "< 50 %"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V50Gy",
+     "limitant": "< 5 %"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V40Gy",
+     "limitant": "< 35 %"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V35Gy",
+     "limitant": "< 50 %"
+    },
+    {
+     "oar_id": "oar-colon",
+     "indicateur": "V45Gy",
+     "limitant": "< 20 cm³"
+    },
+    {
+     "oar_id": "oar-colon",
+     "indicateur": "V35Gy",
+     "limitant": "< 150 cm³"
+    },
+    {
+     "oar_id": "oar-colon",
+     "indicateur": "V30Gy",
+     "limitant": "< 200 cm³"
+    }
+   ]
   }
  ],
  "aide_colonnes": [

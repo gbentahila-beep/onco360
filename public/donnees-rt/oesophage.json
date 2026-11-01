@@ -118,7 +118,8 @@
     "Œsophage",
     "Radiochimiothérapie exclusive",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "oeso-rct-504-28",
@@ -156,7 +157,8 @@
     "Œsophage",
     "Radiochimiothérapie exclusive",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "oeso-rct-40-10-service",
@@ -193,7 +195,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-oeso",
    "volumes_id": "vol-oeso-excl",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-dig-concorde"
+   ],
    "points_attention": [
     "Épidermoïde répondeur : la chirurgie après RCT n'améliore pas la survie et augmente la mortalité à 3 mois (FFCD 9102)",
     "GTV_N = ganglions envahis visibles. Les stations « à risque ≥ 20 % » relèvent du CTV_N"
@@ -242,7 +246,8 @@
     "Palliatif : dysphagie ou saignement",
     "Curiethérapie"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "oeso-pall-20-5",
@@ -278,7 +283,8 @@
     "Palliatif : dysphagie ou saignement",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "oeso-pall-30-10",
@@ -314,7 +320,8 @@
     "Palliatif : dysphagie ou saignement",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [
