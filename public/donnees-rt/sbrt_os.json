@@ -57,7 +57,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-sr-service",
    "volumes_id": "vol-sr-service",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-pal-sc24"
+   ],
    "couverture": "Isodose de prescription englobant tout le PTV (Zelefsky 2021) ; couverture réduite au contact de la moelle si nécessaire pour respecter sa contrainte (consensus, Redmond 2017)",
    "points_attention": [
     "Fracture vertébrale après SBRT : 14 % ; risque plus élevé avec 24 Gy ou plus par fraction, ostéolyse, déformation et fracture préexistante (Sahgal 2013) ; prudence au-delà de 20 Gy par fraction",
@@ -86,8 +88,7 @@
      "limitant": "",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "sr-3x8-service",

@@ -561,7 +561,10 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-sein-import-high",
+    "ct-sein-senorif-sein"
+   ],
    "points_attention": [
     "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
     "La RT après conservation réduit le risque de récidive à 10 ans de 35,0 à 19,3 % et la mortalité par cancer à 15 ans de 25,2 à 21,4 % (EBCTCG 2011)",
@@ -573,8 +576,7 @@
     "Carcinome infiltrant",
     "Après chirurgie conservatrice : sein entier ± surimpression",
     "Hypofractionné"
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "sein-paroi-40-15",

@@ -209,7 +209,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-pou-sbrt",
    "volumes_id": "vol-pou-sbrt",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-thx-rtog0236"
+   ],
    "couverture": "(i)GTV : D98 % ≥ 100 % (souple : ≥ 110 %), D0,035 cc entre 118 et 143 %. PTV : D90 % ≥ 99 % (souple : D95 % ≥ 95 %). PTVéval (PTV moins les OAR) : D95 % ≥ 100 % (souple : D98 % ≥ 100 %). Aucune dose > 105 % hors du PTV. R100 % entre 1 et 1,2 ; R50 % et D2cm selon le volume du PTV",
    "points_attention": [
     "54 Gy / 3 fx : tumeur primitive seulement, jamais pour une métastase",
@@ -243,8 +245,7 @@
      "limitant": "",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pou-sbrt-45-3",
@@ -394,7 +395,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-pou-sbrt",
    "volumes_id": "vol-pou-sbrt",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-thx-rtog0813"
+   ],
    "couverture": "(i)GTV : D98 % ≥ 100 % (souple : ≥ 110 %), D0,035 cc entre 118 et 143 %. PTV : D90 % ≥ 99 % (souple : D95 % ≥ 95 %). PTVéval (PTV moins les OAR) : D95 % ≥ 100 % (souple : D98 % ≥ 100 %). Aucune dose > 105 % hors du PTV. R100 % entre 1 et 1,2 ; R50 % et D2cm selon le volume du PTV",
    "points_attention": [
     "54 Gy / 3 fx : tumeur primitive seulement, jamais pour une métastase",
@@ -428,8 +431,7 @@
      "limitant": "",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pou-sbrt-60-8",

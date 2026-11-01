@@ -63,7 +63,7 @@
    "simulation_id": "sim-oeso",
    "volumes_id": "vol-oeso-cross",
    "contraintes_ids": [
-    "ct-oeso-neoaegis"
+    "ct-dig-cross"
    ],
    "points_attention": [
     "Adénocarcinome : FLOT périopératoire supérieur à CROSS (ESOPEC). CROSS reste le standard de l'épidermoïde résécable",

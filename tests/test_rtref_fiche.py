@@ -48,7 +48,7 @@ async def main():
         t = await ev(OC)
         ok('Hypofractionné ·' not in t and 'Objectif optimal' not in t and await ev("document.querySelectorAll('.rtr-ct .rtr-q').length") == 4, 'Contraintes : plus de phrase du régime ni d\'aide écrite ; « ? » sur Idéal et Limitant des deux tableaux')
         ok((await ev("(document.querySelectorAll('.rtr-ct:not(.rtr-cv) .rtr-q')[1] || {}).dataset.txt || ''")).startswith('Limitant : ') and not await ev("!!document.getElementById('rtrAideCt')"), '« ? » de Limitant : bulle au survol (règle 1.8), plus d\'explication sous le tableau')
-        ok('V50Gy' in t and await ev("!!document.querySelector('.rtr-ct sup.rtr-rv')") and await ev("document.querySelectorAll('.rtr-renv li').length") >= 1, 'rectum 60 Gy / 20 fx : lignes de 3 Gy par séance (CHHiP) ; remarques et sources numérotées sous le tableau', t[:300])
+        ok('V48,6Gy' in t and "Contraintes de l'essai" in t and await ev("!!document.querySelector('.rtr-ct sup.rtr-rv')") and await ev("document.querySelectorAll('.rtr-renv li').length") >= 1, 'rectum 60 Gy / 20 fx : lignes du protocole CHHiP (81 % de 60 Gy = V48,6Gy) ; remarques et sources numérotées sous le tableau', t[:300])
         ok(await ev("document.querySelectorAll('.rtr-ct td.o').length") >= 3 and await ev("getComputedStyle(document.querySelector('.rtr-ct td.lim')).fontWeight") in ('700', 'bold'), 'Contraintes : lignes groupées par organe, Limitant en gras')
         await pg.click('.rtr-cp'); await pg.wait_for_timeout(400)
         cp = await ev("window.__copie[window.__copie.length - 1] || ''")

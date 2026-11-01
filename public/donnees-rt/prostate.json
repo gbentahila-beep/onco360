@@ -105,7 +105,9 @@
    "systemique": "Faible : aucune. Intermédiaire favorable : aucune, option 4–6 mois",
    "simulation_id": "sim-pro-ep",
    "volumes_id": "vol-pro-ep",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-uro-chhip"
+   ],
    "couverture": "CTV D98% ≥ 58,8 Gy ; PTV D95% ≥ 57 Gy ; D1cc ≤ 107 %",
    "points_attention": [
     "CHHiP : 57 Gy / 19 fx n'a pas démontré sa non-infériorité ; ne pas l'utiliser comme alternative à 60 Gy / 20 fx"
@@ -139,8 +141,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pro-fav-70-28",
@@ -225,7 +226,9 @@
    "systemique": "Faible : aucune. Intermédiaire favorable : aucune, option 4–6 mois",
    "simulation_id": "sim-pro-ep",
    "volumes_id": "vol-pro-ep",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-uro-paceb-78"
+   ],
    "couverture": "CTV D98% ≥ 76,4 Gy ; PTV D95% ≥ 74,1 Gy ; D1cc ≤ 107 % ; option 76 Gy / 38 fx : CTV D98% ≥ 74,5 Gy, PTV D95% ≥ 72,2 Gy",
    "date_verif": "2026-10-22",
    "ind": [
@@ -264,8 +267,7 @@
      "limitant": "≥ 74,5 Gy, PTV D95% ≥ 72,2 Gy",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pro-fav-sbrt-36",
@@ -291,7 +293,9 @@
    "systemique": "Aucune (sauf ISUP 3 retenu au cas par cas)",
    "simulation_id": "sim-pro-sbrt",
    "volumes_id": "vol-pro-sbrt",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-uro-pace-sbrt"
+   ],
    "couverture": "PTV D98% ≥ 34,4 Gy ; PTV D95% ≥ 36,25 Gy ; PTV D2% ≤ 43,5 Gy ; Dmax ≤ 45,3 Gy (acceptable ≤ 48 Gy) ; CTV D99% ≥ 36,25 Gy ; CTV D95% ≥ 40 Gy (acceptable D90% ≥ 40 Gy)",
    "points_attention": [
     "Toxicité génito-urinaire tardive de grade ≥ 2 plus fréquente qu'en RT standard (26,9 % vs 18,3 % à 5 ans, PACE-B)",
@@ -349,8 +353,7 @@
      "limitant": "≥ 40 Gy",
      "note": "acceptable D90% ≥ 40 Gy"
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pro-fav-42-7",
@@ -411,7 +414,9 @@
    "systemique": "Int. défavorable : 4–6 mois. Haut risque : 18 à 36 mois",
    "simulation_id": "sim-pro-ep",
    "volumes_id": "vol-pro-ep",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-uro-chhip"
+   ],
    "couverture": "CTV D98% ≥ 58,8 Gy ; PTV D95% ≥ 57 Gy ; D1cc ≤ 107 %",
    "date_verif": "2026-10-22",
    "ind": [
@@ -443,8 +448,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pro-def-78-39",
@@ -1355,8 +1359,9 @@
     "Après prostatectomie — rattrapage précoce ou adjuvant",
     "Normofractionné"
    ],
-   "contraintes_ids": [],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   "contraintes_ids": [
+    "ct-uro-rtog0534"
+   ]
   },
   {
    "id": "pro-postop-service",
