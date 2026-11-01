@@ -182,7 +182,7 @@ window.rtrReessayer = () => { ERREUR = null; pageRadiotherapie(ARG); };
 // Onglets dans l'ordre de la chaîne de traitement (jamais déplacés ; vide = grisé, avec sa phrase) ; dernier onglet ouvert gardé pour la
 // personne (utilisateurs/{uid}.rtOnglet) et dans l'adresse (#radiotherapie/s/<schéma>/<onglet>). Bibliothèques OAR, contraintes et essais lues
 // à la première fiche. Textes : une phrase courte, la suite sous « ? » (survol, ou toucher : la suite s'affiche à la place).
-const ONGLETS = [["prescription", "Prescription"], ["centrage", "Centrage"], ["contourage", "Contourage"], ["contraintes", "Contraintes"], ["essais", "Essais et sources"], ["attention", "Points d'attention"]];
+const ONGLETS = [["indication", "Indication"], ["prescription", "Prescription"], ["centrage", "Centrage"], ["contourage", "Contourage"], ["contraintes", "Contraintes"], ["essais", "Essais et sources"], ["attention", "Points d'attention"]];
 const MODES = { SIB: "SIB", sequentiel: "Séquentiel", seul: "Seul" };
 const CURIE = /curie|implant|HDR|PDR|LDR|plaque/i;
 let BIBS = null, FICHE = null, IMPRESSION = false;
@@ -459,8 +459,20 @@ window.rtrCopierRef = (id) => { const x = essai(id); if (x) copier([x.acronyme, 
 function pointsDe() { const p = (FICHE.schema.points_attention || []).slice(); (FICHE.loc.points_attention || []).forEach((x) => { if (x.portee === "localisation" && p.indexOf(x.point) < 0) p.push(x.point); }); return p; }
 // RT.9 (31/10/2026) : un point par ligne, aéré, numéroté
 const ongletAttention = () => { const p = pointsDe(); return p.length ? '<ol class="rtr-pts rtr-pts2">' + p.map((x) => "<li>" + md(x) + "</li>").join("") + "</ol>" : '<p class="vide-c">Pas de point d\'attention pour ce schéma</p>'; };
-const RENDUS = { prescription: ongletPrescription, centrage: ongletCentrage, contourage: ongletContourage, contraintes: ongletContraintes, essais: ongletEssais, attention: ongletAttention };
-function nombres() { return { prescription: (FICHE.schema.prescriptions || []).length, centrage: simDe() ? 1 : 0, contourage: volDe() ? 1 : 0, contraintes: lignesFiche().reduce((n, g) => n + g.lignes.length, 0), essais: (FICHE.schema.essai_ids || []).length, attention: pointsDe().length }; }
+// Lot 3 RTX (01/11/2026) : indication tirée des données sourcées (critères de la situation, essais du schéma, autres schémas de la même situation)
+function ongletIndication() {
+  const esc = A.esc, s = FICHE.schema, st = sit(FICHE.e.situation_id) || {}, E = (s.essai_ids || []).map(essai).filter(Boolean), piv = E.find((x) => x.type === "essai") || E[0];
+  const alt = LISTE.filter((x) => x.situation_id === FICHE.e.situation_id && x.id !== FICHE.e.id && !x.supprime);
+  const ligne = (lib, v) => (v ? '<p><span class="mesures">' + lib + "</span> " + esc(v) + "</p>" : "");
+  let h = '<div class="rtr-ind"><h3>Pour qui</h3>' + ligne("Situation", st.titre) + ligne("Critères", st.criteres) + (s.systemique && typeof s.systemique === "string" ? ligne("Traitement associé", s.systemique) : "");
+  if (preuveVue(s.preuve || FICHE.e.preuve)) h += "<h3>Niveau de preuve</h3><p>" + esc(preuveVue(s.preuve || FICHE.e.preuve)) + "</p>";
+  if (piv) h += "<h3>Essai pivot</h3><p><b>" + esc(piv.acronyme) + '</b> <span class="mesures">' + esc([piv.revue, piv.annee].filter(Boolean).join(", ")) + "</span></p>" + ligne("Population", piv.population) + ligne("Bras", piv.bras) + ligne("Résultat", piv.resultat) +
+    (E.length > 1 ? '<p class="mesures">Autres sources : ' + E.filter((x) => x !== piv).map((x) => esc(x.acronyme)).join(", ") + " (onglet Essais et sources)</p>" : "");
+  h += "<h3>Alternatives</h3>" + (alt.length ? '<ul class="rtr-pts">' + alt.map((x) => "<li>" + (IMPRESSION ? esc(x.titre) : '<a href="#radiotherapie" onclick="rtrOuvrir(\'' + esc(x.id) + "');return false\">" + esc(x.titre) + "</a>") + "</li>").join("") + "</ul>" : '<p class="vide-c">Pas d\'autre schéma pour cette situation</p>');
+  return h + "</div>";
+}
+const RENDUS = { indication: ongletIndication, prescription: ongletPrescription, centrage: ongletCentrage, contourage: ongletContourage, contraintes: ongletContraintes, essais: ongletEssais, attention: ongletAttention };
+function nombres() { return { indication: 1, prescription: (FICHE.schema.prescriptions || []).length, centrage: simDe() ? 1 : 0, contourage: volDe() ? 1 : 0, contraintes: lignesFiche().reduce((n, g) => n + g.lignes.length, 0), essais: (FICHE.schema.essai_ids || []).length, attention: pointsDe().length }; }
 // « Pratique institutionnelle » n'est plus affichée (demande du 26/10/2026) ; la preuve sert encore à l'ordre des schémas
 const preuveVue = (k) => (k === "pratique_institutionnelle" ? "" : libPreuve(k));
 function enteteHtml() {
@@ -811,7 +823,7 @@ function editAttention() {
   return P.map((x, i) => '<div class="rtr-pe"><textarea class="rtr-in" data-p="points_attention.' + i + '" rows="2" aria-label="Point d\'attention ' + (i + 1) + '">' + A.esc(txt(x)) + '</textarea><button type="button" class="mini" onclick="rtrPoint(' + i + ')" aria-label="Retirer ce point">' + A.ic("croix") + "</button></div>").join("") +
     '<button type="button" class="mini rtr-aj" onclick="rtrPoint()">' + A.ic("plus") + "Ajouter un point</button>";
 }
-const EDITS = { prescription: editPrescription, centrage: editCentrage, contourage: editContourage, contraintes: editContraintes, essais: editEssais, attention: editAttention };
+const EDITS = { indication: ongletIndication, prescription: editPrescription, centrage: editCentrage, contourage: editContourage, contraintes: editContraintes, essais: editEssais, attention: editAttention };
 // Voir la référence : deux colonnes, différences surlignées ; sur téléphone, un sélecteur Référence / Version du cabinet
 function lignesComparaison(a, b, na, nb2) {
   const P = (s) => (s.prescriptions || []), lp = (p) => p ? [p.volume, fmtPrescription(p).replace(/ /g, " "), MODES[p.mode] || p.mode, p.rythme, p.note].filter(Boolean).join(" · ") : "";

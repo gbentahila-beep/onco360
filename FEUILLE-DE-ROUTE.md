@@ -1060,7 +1060,7 @@ un essai introuvable → le demander à Dr Bentahila, sinon son résumé (abstra
     demander l'article) ; tout organe à contourer sans contrainte dans l'essai → ligne de la base pour ce fractionnement, avec mention ;
   - essai sans contraintes publiées → base de contraintes, mention « l'essai ne publie pas de contraintes, base de contraintes appliquée » ;
   - chaque ligne a sa source par le petit numéro (1, 2, 3…) ; liens PubMed / DOI des sources ; essais cités ajoutés à la page Essais.
-- [ ] **Lot 3 – Onglet « Indication »** (avant Prescription) : pour qui (stade, situation), niveau de preuve, essai pivot (bras, résultat principal,
+- [x] **Lot 3 – Onglet « Indication »** — **fait le 01/11/2026** (`ongletIndication` de radiotherapie.js : Pour qui = situation et critères, traitement associé ; niveau de preuve ; essai pivot = 1er essai du schéma (population, bras, résultat) ; alternatives = autres schémas de la même situation, cliquables ; tout tiré des données sourcées, rien d'ajouté à la main ; aussi en modification et à l'impression ; test `tests/test_rtref_fiche.py`) (avant Prescription) : pour qui (stade, situation), niveau de preuve, essai pivot (bras, résultat principal,
   en une ou deux lignes), alternatives ; d'après les essais de la Bibliothèque et Estes ; pas de mention « à valider ».
 - [ ] **Lot 4 – Page « Contourage »** (sous-page entre Référentiel et Organes à risque, `#radiotherapie/contourage[/<localisation>]`) : par région puis
   localisation, volumes cibles GTV / CTV / PTV (limites anatomiques en six directions, marges, deux écoles quand elles diffèrent : ex. Grégoire 2017 /

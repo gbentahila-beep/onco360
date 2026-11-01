@@ -29,9 +29,13 @@ async def main():
         await pg.goto(f'http://localhost:{PORT}/v2.html#radiotherapie/s/pro-fav-60-20/prescription'); await pg.wait_for_timeout(3000)
         # En-tête et onglets
         ong = await ev("[...document.querySelectorAll('.rtr-ong button')].map(b => b.textContent.replace(/\\s*\\d+$/, ''))")
-        ok(ong == ['Prescription', 'Centrage', 'Contourage', 'Contraintes', 'Essais et sources', "Points d'attention"], 'six onglets, dans l\'ordre de la chaîne de traitement', ong)
-        ok(int((await ev("document.querySelector('.rtr-ong button:nth-child(4) .n').textContent")) or 0) >= 15 and (await ev("document.querySelector('.rtr-ong button:nth-child(5)').textContent")).endswith('2'), 'nombres : « Contraintes » (lignes de la table unique), « Essais 2 »')
+        ok(ong == ['Indication', 'Prescription', 'Centrage', 'Contourage', 'Contraintes', 'Essais et sources', "Points d'attention"], 'sept onglets, Indication en tête, dans l\'ordre de la chaîne de traitement', ong)
+        ok(int((await ev("document.querySelector('.rtr-ong button:nth-child(5) .n').textContent")) or 0) >= 15 and (await ev("document.querySelector('.rtr-ong button:nth-child(6)').textContent")).endswith('2'), 'nombres : « Contraintes » (lignes de la table unique), « Essais 2 »')
         ok('60 Gy / 20 fx (3 Gy/fx)' in (await ev("document.querySelector('.rtr-res').innerText")).replace('\xa0', ' ') and await ev("!!document.querySelector('.rtr-t .rtr-modb')"), 'en-tête : résumé de prescription, étoile et Modifier en haut à droite (RT.7)')
+        # Indication (lot 3 RTX)
+        await ev("rtrOnglet('indication')"); await pg.wait_for_timeout(500); t = await ev(OC)
+        ok('Critères' in t and 'ISUP' in t and 'Essai pivot' in t and 'CHHiP' in t and '60 Gy / 20 fx non inférieur' in t and 'Alternatives' in t and await ev("document.querySelectorAll('.rtr-ind a').length") >= 1, 'Indication : critères de la situation, essai pivot (CHHiP), autres schémas de la situation', t[:300])
+        await ev("rtrOnglet('prescription')"); await pg.wait_for_timeout(500)
         # Prescription
         row = await ev("[...document.querySelectorAll('.rtr-tab tbody tr:first-child td')].map(t => t.innerText.trim())")
         ok(row[0].startswith('PTV_PRO') and row[1:4] == ['60', '20', '3'] and await ev("getComputedStyle(document.querySelector('.rtr-tab td.n')).textAlign") == 'right', 'Prescription : PTV_PRO 60 · 20 · 3, chiffres alignés à droite', row)
@@ -117,7 +121,7 @@ async def main():
         # Impression
         await aller(pg, 'radiotherapie/s/pro-fav-60-20/prescription')
         await ev("rtrImprimer()"); await pg.wait_for_timeout(400)
-        ok(await ev("document.querySelectorAll('.rtr-ic input:checked').length") == 6, 'Imprimer : six sections, toutes cochées')
+        ok(await ev("document.querySelectorAll('.rtr-ic input:checked').length") == 7, 'Imprimer : sept sections, toutes cochées')
         await pg.uncheck('.rtr-ic input[data-s=essais]'); await pg.click('#fenetre .bt.plein'); await pg.wait_for_timeout(900)
         doc = await ev("window.__win.length ? window.__win[window.__win.length - 1].w.document._h : ''")
         ok('size:A4 portrait' in doc and '<h2>Prescription</h2>' in doc and '<h2>Contraintes</h2>' in doc and '<h2>Essais et sources</h2>' not in doc and 'Imprimé le' in doc and 'Sources : CHHiP, PROFIT' in doc and 'class="rtr-aide"' not in doc and 'rtr-q' not in doc and '<th>Volume</th>' in doc, 'impression A4 : sections choisies, sources et date en pied de page, textes entiers (sans « ? »)')
@@ -134,10 +138,10 @@ async def main():
         # 1 280 et 390 px
         for w, h in [(1280, 900), (390, 800)]:
             pg = await ouvrir(b, S2, w=w, h=h); ev = pg.evaluate
-            for o in ['prescription', 'centrage', 'contourage', 'contraintes', 'essais', 'attention']:
+            for o in ['indication', 'prescription', 'centrage', 'contourage', 'contraintes', 'essais', 'attention']:
                 await pg.goto(f'http://localhost:{PORT}/v2.html#radiotherapie/s/col-rch-hdr-7x4/{o}'); await pg.wait_for_timeout(1800)
                 if await ev(DEBORDE) or await ev(COUPE): ok(False, f'{w} px : {o} déborde'); break
-            else: ok(True, f'{w} px : les six onglets sans débordement ni titre coupé')
+            else: ok(True, f'{w} px : les sept onglets sans débordement ni titre coupé')
             if w == 390:
                 ok(await ev("document.querySelector('.rtr-modb').offsetParent !== null && document.querySelector('.rtr-pts3').offsetParent !== null && [...document.querySelectorAll('.rtr-pts3 .m3-l button')].some(b => /Imprimer/.test(b.textContent))"), '390 px : Modifier visible, Imprimer dans ⋯ (RT.7)')
                 await pg.goto(f'http://localhost:{PORT}/v2.html#radiotherapie/s/pro-fav-60-20/contraintes'); await pg.wait_for_timeout(1800)
