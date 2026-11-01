@@ -12987,6 +12987,330 @@
      "note": "jusqu'à 1,5 Gy acceptable"
     }
    ]
+  },
+  {
+   "id": "ct-thx-convert-45",
+   "titre": "Poumon à petites cellules, 45 Gy / 30 fx bifractionnés (CONVERT)",
+   "fractionnement": "45 Gy / 30 fx, deux par jour",
+   "source": "Protocole CONVERT, « Normal tissue constraints » (bras bifractionné)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "≤ 42 Gy"
+    },
+    {
+     "oar_id": "oar-poumons",
+     "indicateur": "V20Gy",
+     "limitant": "≤ 35 %",
+     "note": "poumons moins PTV ; dose moyenne notée"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "V45Gy",
+     "limitant": "< 30 %",
+     "note": "dose totale sur moins de 30 % du cœur"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "V22,5Gy",
+     "ideal": "< 50 %",
+     "note": "dose recommandée pour plus de la moitié du volume cardiaque"
+    }
+   ]
+  },
+  {
+   "id": "ct-thx-convert-66",
+   "titre": "Poumon à petites cellules, 66 Gy / 33 fx (CONVERT)",
+   "fractionnement": "66 Gy / 33 fx",
+   "source": "Protocole CONVERT, « Normal tissue constraints » (bras monofractionné)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "≤ 48 Gy"
+    },
+    {
+     "oar_id": "oar-poumons",
+     "indicateur": "V20Gy",
+     "limitant": "≤ 35 %",
+     "note": "poumons moins PTV ; dose moyenne notée"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "V66Gy",
+     "limitant": "< 30 %",
+     "note": "dose totale sur moins de 30 % du cœur"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "V33Gy",
+     "ideal": "< 50 %",
+     "note": "dose recommandée pour plus de la moitié du volume cardiaque"
+    }
+   ]
+  },
+  {
+   "id": "ct-thx-hilus",
+   "titre": "Poumon central, stéréotaxie 8 fx (HILUS)",
+   "fractionnement": "56 Gy / 8 fx (essai HILUS)",
+   "source": "Protocole HILUS, table 2 (Dmax en dose physique ; # = contrainte impérative)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "≤ 33,6 Gy",
+     "note": "impérative ; 52 Gy EQD2"
+    },
+    {
+     "oar_id": "oar-trachee",
+     "indicateur": "Dmax",
+     "limitant": "≤ 48,8 Gy",
+     "note": "impérative ; 89 Gy EQD2"
+    },
+    {
+     "oar_id": "oar-arbre-bronchique",
+     "indicateur": "Dmax",
+     "limitant": "≤ 48,8 Gy",
+     "note": "bronche souche controlatérale, impérative ; 89 Gy EQD2"
+    },
+    {
+     "oar_id": "oar-arbre-bronchique",
+     "indicateur": "Dmax",
+     "ideal": "≤ 56 Gy",
+     "note": "bronche souche homolatérale ; 112 Gy EQD2"
+    },
+    {
+     "oar_id": "oar-oesophage",
+     "indicateur": "Dmax",
+     "ideal": "≤ 41,6 Gy",
+     "note": "68 Gy EQD2"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "Dmax",
+     "ideal": "≤ 41,6 Gy",
+     "note": "68 Gy EQD2"
+    }
+   ]
+  },
+  {
+   "id": "ct-uro-hyportpc",
+   "titre": "Prostate, 42,7 Gy / 7 fx (HYPO-RT-PC)",
+   "fractionnement": "42,7 Gy / 7 fx",
+   "source": "Protocole HYPO-RT-PC (version 7.0, 15/10/2015), § 7.10, bras hypofractionné",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V38,4Gy",
+     "limitant": "≤ 15 %",
+     "note": "90 % de la dose prescrite"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V32Gy",
+     "limitant": "≤ 35 %",
+     "note": "75 %"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V28Gy",
+     "limitant": "≤ 45 %",
+     "note": "65 %"
+    },
+    {
+     "oar_id": "oar-tete-femorale-d",
+     "indicateur": "Dmax",
+     "limitant": "≤ 29,9 Gy"
+    },
+    {
+     "oar_id": "oar-tete-femorale-g",
+     "indicateur": "Dmax",
+     "limitant": "≤ 29,9 Gy"
+    },
+    {
+     "oar_id": "oar-corps",
+     "indicateur": "Dmax",
+     "limitant": "≤ 45,7 Gy",
+     "note": "105 % de la dose prescrite"
+    }
+   ]
+  },
+  {
+   "id": "ct-uro-poprt",
+   "titre": "Prostate et pelvis, 68 / 50 Gy / 25 fx (POP-RT)",
+   "fractionnement": "68 Gy + 50 Gy / 25 fx (SIB)",
+   "source": "Protocole POP-RT (version 3, 29/10/2012), table 1",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V40Gy",
+     "limitant": "≤ 60 %"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V60Gy",
+     "limitant": "≤ 57 %"
+    },
+    {
+     "oar_id": "oar-colon",
+     "indicateur": "V65Gy",
+     "limitant": "≤ 30 %"
+    },
+    {
+     "oar_id": "oar-colon",
+     "indicateur": "V70Gy",
+     "limitant": "≤ 15 %"
+    },
+    {
+     "oar_id": "oar-colon",
+     "indicateur": "V75Gy",
+     "limitant": "≤ 5 %"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V50Gy",
+     "limitant": "≤ 50 %"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V60Gy",
+     "limitant": "≤ 25 %"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "V45Gy",
+     "ideal": "< 78 cm³",
+     "limitant": "< 158 cm³",
+     "note": "idéal = seuil de toxicité de grade 1, limitant = grade 2"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "V50Gy",
+     "ideal": "< 17 cm³",
+     "limitant": "< 110 cm³"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "V55Gy",
+     "ideal": "< 14 cm³",
+     "limitant": "< 28 cm³"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "V60Gy",
+     "ideal": "< 0,5 cm³",
+     "limitant": "< 6 cm³"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "V65Gy",
+     "limitant": "0 cm³"
+    },
+    {
+     "oar_id": "oar-tete-femorale-d",
+     "indicateur": "V50Gy",
+     "limitant": "≤ 5 %"
+    },
+    {
+     "oar_id": "oar-tete-femorale-g",
+     "indicateur": "V50Gy",
+     "limitant": "≤ 5 %"
+    }
+   ]
+  },
+  {
+   "id": "ct-uro-radicals-66",
+   "titre": "Loge prostatique, 66 Gy / 33 fx (RADICALS)",
+   "fractionnement": "2 Gy par fraction",
+   "source": "Protocole RADICALS (version du 11/07/2023), table 3 (objectifs indicatifs)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V50Gy",
+     "ideal": "< 80 %"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V60Gy",
+     "ideal": "< 50 %"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V30Gy",
+     "ideal": "< 80 %"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V40Gy",
+     "ideal": "< 70 %"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V50Gy",
+     "ideal": "< 60 %"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V60Gy",
+     "ideal": "< 50 %"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V66Gy",
+     "ideal": "< 30 %"
+    }
+   ]
+  },
+  {
+   "id": "ct-uro-radicals-52",
+   "titre": "Loge prostatique, 52,5 Gy / 20 fx (RADICALS)",
+   "fractionnement": "52,5 Gy / 20 fx",
+   "source": "Protocole RADICALS (version du 11/07/2023), table 4 (objectifs indicatifs)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V40Gy",
+     "ideal": "< 80 %"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V48Gy",
+     "ideal": "< 50 %"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V24Gy",
+     "ideal": "< 80 %"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V32Gy",
+     "ideal": "< 70 %"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V40Gy",
+     "ideal": "< 60 %"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V48Gy",
+     "ideal": "< 50 %"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V52,5Gy",
+     "ideal": "< 30 %"
+    }
+   ]
   }
  ],
  "aide_colonnes": [

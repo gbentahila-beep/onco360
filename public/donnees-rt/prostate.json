@@ -386,9 +386,10 @@
     "En place — risque faible ou intermédiaire favorable (N0 M0)",
     "Hypofractionné"
    ],
-   "contraintes_ids": [],
-   "points_attention": [],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   "contraintes_ids": [
+    "ct-uro-hyportpc"
+   ],
+   "points_attention": []
   },
   {
    "id": "pro-def-60-20",
@@ -673,9 +674,10 @@
     "En place — intermédiaire défavorable ou haut risque, avec irradiation pelvienne (N0 M0)",
     "Hypofractionné"
    ],
-   "contraintes_ids": [],
-   "points_attention": [],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   "contraintes_ids": [
+    "ct-uro-poprt"
+   ],
+   "points_attention": []
   },
   {
    "id": "pro-pelv-seq-78",
@@ -1190,7 +1192,9 @@
    "systemique": "Voir « Hormonothérapie associée » (post-op)",
    "simulation_id": "sim-pro-loge",
    "volumes_id": "vol-pro-loge",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-uro-radicals-66"
+   ],
    "couverture": "LOGE : CTV D98% ≥ 64,7 / PTV D95% ≥ 62,7 Gy ; PELV : 53,4 / 51,7 ; ADP : 61,4 / 59,6 ; NODULE : 69,5 / 67,4 Gy ; D1cc ≤ 107 %",
    "points_attention": [
     "Rattrapage précoce (PSA ≥ 0,1–0,2 ng/ml) préféré à la RT adjuvante systématique : contrôle comparable, moins de toxicité urinaire et érectile (RADICALS-RT, GETUG-AFU 17, RAVES)",
@@ -1239,8 +1243,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pro-postop-52-20",
@@ -1276,8 +1279,9 @@
     "Après prostatectomie — rattrapage précoce ou adjuvant",
     "Hypofractionné"
    ],
-   "contraintes_ids": [],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   "contraintes_ids": [
+    "ct-uro-radicals-52"
+   ]
   },
   {
    "id": "pro-postop-62-25",

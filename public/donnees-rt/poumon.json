@@ -458,7 +458,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-pou-sbrt",
    "volumes_id": "vol-pou-sbrt",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-thx-hilus"
+   ],
    "couverture": "(i)GTV : D98 % ≥ 100 % (souple : ≥ 110 %), D0,035 cc entre 118 et 143 %. PTV : D90 % ≥ 99 % (souple : D95 % ≥ 95 %). PTVéval (PTV moins les OAR) : D95 % ≥ 100 % (souple : D98 % ≥ 100 %). Aucune dose > 105 % hors du PTV. R100 % entre 1 et 1,2 ; R50 % et D2cm selon le volume du PTV",
    "points_attention": [
     "54 Gy / 3 fx : tumeur primitive seulement, jamais pour une métastase",
@@ -492,8 +494,7 @@
      "limitant": "",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pou-sbrt-55-5-igr",
@@ -642,7 +643,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-pou",
    "volumes_id": "vol-pou-cbpc",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-thx-convert-45"
+   ],
    "points_attention": [
     "45 Gy bifractionnés reste le standard. 66 Gy / 33 fx et 70 Gy / 35 fx ne font pas mieux (CONVERT, CALGB 30610)"
    ],
@@ -652,8 +655,7 @@
     "Poumon",
     "CBPC limité : radiochimiothérapie",
     "Normofractionné"
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pou-cbpc-66-33",
@@ -680,7 +682,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-pou",
    "volumes_id": "vol-pou-cbpc",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-thx-convert-66"
+   ],
    "points_attention": [
     "45 Gy bifractionnés reste le standard. 66 Gy / 33 fx et 70 Gy / 35 fx ne font pas mieux (CONVERT, CALGB 30610)"
    ],
@@ -690,8 +694,7 @@
     "Poumon",
     "CBPC limité : radiochimiothérapie",
     "Normofractionné"
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pou-cbpc-70-35",
