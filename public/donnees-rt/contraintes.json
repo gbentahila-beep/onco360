@@ -32,7 +32,7 @@
    "fx": 1,
    "indicateur": "Dmax",
    "limitant": "< 20,2–30 Gy",
-   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; VA/ASTRO PRO '26 ; TG-101 ; Timmerman ; PRO Oligo '21 ; UK SABR '22 ; RTOG 0915 ; NRG BR002 ; RTOG 0631 ; UTSW"
+   "source": "RecoRad 2025 (poumon) ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; RTOG 0915 ; NRG BR002 ; RTOG 0631 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-74badeb1",
@@ -50,7 +50,7 @@
    "fx": 3,
    "indicateur": "Dmax",
    "limitant": "< 32–43 Gy",
-   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; UK SABR '17 ; TG-101 ; PRO Oligo '21 ; DOSE-Pro Thoracic ; VA/ASTRO PRO '26 ; UK SABR '22"
+   "source": "RecoRad 2025 (poumon) ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; Consensus britannique SABR 2017 ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; DOSE-Pro Thoracic ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Consensus britannique SABR 2022"
   },
   {
    "id": "cb-019e482a",
@@ -89,7 +89,7 @@
    "ideal": "< 35 Gy",
    "limitant": "< 38 Gy",
    "note": "lésion centrale : Dmax < 50 Gy, V33,5Gy < 4 cm³, V45Gy < 4 cm³",
-   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; RTOG 0813 ; Timmerman ; TG-101 ; PRO Oligo '21 ; NRG BR002 ; UTSW ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; RTOG 0813 ; Timmerman 2008, table des tolérances en stéréotaxie ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; NRG BR002 ; UT Southwestern (Dallas) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-24983022",
@@ -126,7 +126,7 @@
    "fx": 5,
    "indicateur": "V29,5Gy",
    "limitant": "< 50 %",
-   "source": "RecoRad 2025 (prostate) ; VA Prostate 2022 ; VA/ASTRO PRO '26 ; CORSAIR ; PACE"
+   "source": "RecoRad 2025 (prostate) ; Consensus VA (Veterans Affairs), prostate 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; CORSAIR ; PACE"
   },
   {
    "id": "cb-b27975d7",
@@ -172,7 +172,7 @@
    "indicateur": "Dmax",
    "ideal": "< 12,4 Gy",
    "limitant": "< 14 Gy",
-   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; VA/ASTRO PRO '26 ; HyTEC ; TG-101 ; UK SABR '17 ; Timmerman ; QUANTEC ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; RTOG 0915 ; RTOG 0631 ; NRG BR002 ; IROCK ; UTSW ; FASTRACK II"
+   "source": "RecoRad 2025 (poumon) ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; HyTEC ; TG-101 ; Consensus britannique SABR 2017 ; Timmerman 2008, table des tolérances en stéréotaxie ; QUANTEC ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; RTOG 0915 ; RTOG 0631 ; NRG BR002 ; IROCK ; UT Southwestern (Dallas) ; FASTRACK II"
   },
   {
    "id": "cb-96cf1348",
@@ -181,7 +181,7 @@
    "fx": 3,
    "indicateur": "Dmax",
    "limitant": "< 20,3–22,5 Gy",
-   "source": "RecoRad 2025 (poumon) ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; NRG BR002 ; UTSW ; Noël 2025 SFRO ; VA/ASTRO PRO '26 ; HyTEC ; UK SABR '22 ; CORSAIR ; FASTRACK II ; IROCK"
+   "source": "RecoRad 2025 (poumon) ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; NRG BR002 ; UT Southwestern (Dallas) ; Noël 2025 SFRO ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; HyTEC ; Consensus britannique SABR 2022 ; CORSAIR ; FASTRACK II ; IROCK"
   },
   {
    "id": "cb-caa8cec5",
@@ -220,7 +220,7 @@
    "fx": 8,
    "indicateur": "Dmax",
    "limitant": "< 33,6 Gy",
-   "source": "RecoRad 2025 (poumon) ; Noël 2025 SFRO ; VA/ASTRO PRO '26 ; HyTEC ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Noël 2025 SFRO ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; HyTEC ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-6f941b76",
@@ -265,7 +265,7 @@
    "indicateur": "Dmean",
    "limitant": "< 30 Gy",
    "note": "cavité orale non envahie",
-   "source": "RecoRad 2025 (ORL) ; DAHANCA 20 ; NRG HN005 ; VA H&N 2022 ; VA/ASTRO PRO '26 ; ASTRO HPV+ OP SqCC '... ; DAHANCA 25 ; RTOG 1016 ; NRG HN003 ; NRG Heme '26 ; QUANTEC ; CORSAIR"
+   "source": "RecoRad 2025 (ORL) ; DAHANCA 20 ; NRG HN005 ; Consensus VA (Veterans Affairs), ORL 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Recommandation ASTRO, oropharynx HPV+ ; DAHANCA 25 ; RTOG 1016 ; NRG HN003 ; Consensus NRG, hématologie (2026) ; QUANTEC ; CORSAIR"
   },
   {
    "id": "cb-bbcf8ac8",
@@ -300,7 +300,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "ideal": "≤ 54 Gy",
-   "source": "RecoRad 2025 (encéphale) ; DAHANCA 20 ; QUANTEC ; DAHANCA 25 ; Noël 2025 SFRO ; ESTRO-EANO GBM ; NCCN H&N 1.2026 ; CORSAIR ; Florida ; RTOG 0539 ; NRG Heme '26 ; NCCN Peds MB 1.2026"
+   "source": "RecoRad 2025 (encéphale) ; DAHANCA 20 ; QUANTEC ; DAHANCA 25 ; Noël 2025 SFRO ; Recommandation ESTRO-EANO, glioblastome ; Recommandations NCCN, ORL (version 1.2026) ; CORSAIR ; Université de Floride ; RTOG 0539 ; Consensus NRG, hématologie (2026) ; Recommandations NCCN, médulloblastome de l'enfant (version 1.2026)"
   },
   {
    "id": "cb-04984805",
@@ -310,7 +310,7 @@
    "indicateur": "Dmax",
    "ideal": "< 8 Gy",
    "limitant": "< 10 Gy",
-   "source": "RecoRad 2025 (encéphale) ; UK SABR '17 ; TG-101 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; UTSW"
+   "source": "RecoRad 2025 (encéphale) ; Consensus britannique SABR 2017 ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-b885b1fe",
@@ -320,7 +320,7 @@
    "indicateur": "Dmax",
    "ideal": "< 15 Gy",
    "limitant": "< 20 Gy",
-   "source": "RecoRad 2025 (encéphale) ; UK SABR '22 ; Noël 2025 SFRO ; UK SABR '17"
+   "source": "RecoRad 2025 (encéphale) ; Consensus britannique SABR 2022 ; Noël 2025 SFRO ; Consensus britannique SABR 2017"
   },
   {
    "id": "cb-02b7b0e1",
@@ -330,7 +330,7 @@
    "indicateur": "Dmax",
    "ideal": "< 22,5 Gy",
    "limitant": "< 25 Gy",
-   "source": "RecoRad 2025 (encéphale) ; TG-101 ; HyTEC ; PRO Oligo '21 ; Timmerman '21 ; UTSW ; UK SABR '22 ; Noël 2025 SFRO ; UK SABR '17"
+   "source": "RecoRad 2025 (encéphale) ; TG-101 ; HyTEC ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas) ; Consensus britannique SABR 2022 ; Noël 2025 SFRO ; Consensus britannique SABR 2017"
   },
   {
    "id": "cb-97ab2537",
@@ -348,7 +348,7 @@
    "fx": 1,
    "indicateur": "Dmax",
    "limitant": "< 9 Gy",
-   "source": "RecoRad 2025 (encéphale) ; Florida ; UK SABR '17 ; TG-101 ; QUANTEC ; PRO Oligo '21 ; Timmerman '21 ; CORSAIR ; UTSW"
+   "source": "RecoRad 2025 (encéphale) ; Université de Floride ; Consensus britannique SABR 2017 ; TG-101 ; QUANTEC ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; CORSAIR ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-9a8109bd",
@@ -357,7 +357,7 @@
    "fx": 3,
    "indicateur": "Dmean",
    "ideal": "< 17,1 Gy",
-   "source": "RecoRad 2025 (encéphale) ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (encéphale) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-87b99f20",
@@ -375,7 +375,7 @@
    "fx": 5,
    "indicateur": "Dmean",
    "ideal": "< 25 Gy",
-   "source": "RecoRad 2025 (encéphale) ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (encéphale) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-4533e157",
@@ -384,7 +384,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "limitant": "< 22 Gy",
-   "source": "RecoRad 2025 (encéphale) ; UK SABR '17 ; TG-101 ; PRO Oligo '21"
+   "source": "RecoRad 2025 (encéphale) ; Consensus britannique SABR 2017 ; TG-101 ; Practical Radiation Oncology 2021, oligométastases"
   },
   {
    "id": "cb-d472c56f",
@@ -509,7 +509,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "limitant": "≤ 10–20 Gy",
-   "source": "RecoRad 2025 (poumon) ; NCCN Hodgkin 1.2026 ; NRG Heme '26 ; ILROG ; FIL Chest ; CORSAIR ; QUANTEC"
+   "source": "RecoRad 2025 (poumon) ; Recommandations NCCN, lymphome de Hodgkin (version 1.2026) ; Consensus NRG, hématologie (2026) ; ILROG ; FIL Chest ; CORSAIR ; QUANTEC"
   },
   {
    "id": "cb-82cb7d16",
@@ -578,7 +578,7 @@
    "fx": 1,
    "indicateur": "Dmax",
    "limitant": "< 22 Gy",
-   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; VA/ASTRO PRO '26 ; TG-101 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; RTOG 0631 ; RTOG 0915 ; NRG BR002 ; UTSW"
+   "source": "RecoRad 2025 (poumon) ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; RTOG 0631 ; RTOG 0915 ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-5e1f1502",
@@ -626,7 +626,7 @@
    "ideal": "< 29 Gy",
    "limitant": "< 38 Gy",
    "note": "lésion centrale : Dmax < 50 Gy, V32Gy ≤ 15 cm³",
-   "source": "RecoRad 2025 (poumon) ; UK SABR '22"
+   "source": "RecoRad 2025 (poumon) ; Consensus britannique SABR 2022"
   },
   {
    "id": "cb-572554c9",
@@ -637,7 +637,7 @@
    "ideal": "< 40 Gy",
    "limitant": "< 46 Gy",
    "note": "lésion centrale : Dmax < 50–60 Gy",
-   "source": "RecoRad 2025 (poumon) ; UK SABR '22"
+   "source": "RecoRad 2025 (poumon) ; Consensus britannique SABR 2022"
   },
   {
    "id": "cb-346ba2cf",
@@ -664,7 +664,7 @@
    "fx": 15,
    "indicateur": "D0,03cm³",
    "limitant": "< 45 Gy",
-   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021 ; VA/ASTRO PRO '26 ; HYPORT-STS ; MDACC"
+   "source": "RecoRad 2025 (foie) ; Recommandation ASTRO, foie (2021) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; HYPORT-STS ; MD Anderson"
   },
   {
    "id": "cb-a39d7fc9",
@@ -752,7 +752,7 @@
    "fx": 5,
    "indicateur": "D0,03cm³",
    "limitant": "< 34 Gy",
-   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021 ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (foie) ; Recommandation ASTRO, foie (2021) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-e8532e2a",
@@ -847,7 +847,7 @@
    "ideal": "< 45 Gy",
    "limitant": "< 55 Gy",
    "note": "55 Gy = acceptable",
-   "source": "RecoRad 2025 (ORL) ; QUANTEC ; CORSAIR ; Florida ; NRG Heme '26"
+   "source": "RecoRad 2025 (ORL) ; QUANTEC ; CORSAIR ; Université de Floride ; Consensus NRG, hématologie (2026)"
   },
   {
    "id": "cb-d97f5079",
@@ -881,7 +881,7 @@
    "fx": 1,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 3 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018 ; UK SABR '17 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-b3734382",
@@ -936,7 +936,7 @@
    "fx": 15,
    "indicateur": "D0,03cm³",
    "limitant": "< 45 Gy",
-   "source": "RecoRad 2025 (foie) ; Timmerman '21 ; SUNSET ; UTSW"
+   "source": "RecoRad 2025 (foie) ; Timmerman 2021, table des tolérances en stéréotaxie ; SUNSET ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-668814b7",
@@ -944,7 +944,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "limitant": "≤ 55 Gy",
-   "source": "RecoRad 2025 (pancréas) ; NCCN Pancreas 2.2025 ; NRG Heme '26 ; CORSAIR ; ASTRO Liver 2021"
+   "source": "RecoRad 2025 (pancréas) ; Recommandations NCCN, pancréas (version 2.2025) ; Consensus NRG, hématologie (2026) ; CORSAIR ; Recommandation ASTRO, foie (2021)"
   },
   {
    "id": "cb-bef2e56f",
@@ -992,7 +992,7 @@
    "fx": 1,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 12,4 Gy",
-   "source": "RecoRad 2025 (rein) ; IROCK ; TG-101 ; QUANTEC ; PRO Oligo '21 ; UK SABR '22"
+   "source": "RecoRad 2025 (rein) ; IROCK ; TG-101 ; QUANTEC ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022"
   },
   {
    "id": "cb-a93ea679",
@@ -1001,7 +1001,7 @@
    "fx": 1,
    "indicateur": "D10cm³",
    "limitant": "≤ 9 Gy",
-   "source": "RecoRad 2025 (rein) ; TG-101 ; Timmerman ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW ; IROCK"
+   "source": "RecoRad 2025 (rein) ; TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas) ; IROCK"
   },
   {
    "id": "cb-ff16463d",
@@ -1010,7 +1010,7 @@
    "fx": 3,
    "indicateur": "D0,03cm³",
    "limitant": "< 22 Gy",
-   "source": "RecoRad 2025 (foie) ; IROCK ; ASTRO Liver 2021 ; VA/ASTRO PRO '26 ; TG-101 ; PRO Oligo '21 ; UK SABR '22 ; UK SABR '17 ; CORSAIR ; Noël 2025 SFRO"
+   "source": "RecoRad 2025 (foie) ; IROCK ; Recommandation ASTRO, foie (2021) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; Consensus britannique SABR 2017 ; CORSAIR ; Noël 2025 SFRO"
   },
   {
    "id": "cb-2b17ab47",
@@ -1019,7 +1019,7 @@
    "fx": 3,
    "indicateur": "D5cm³",
    "limitant": "< 16,5 Gy",
-   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021 ; VA/ASTRO PRO '26 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; CORSAIR ; UK SABR '22"
+   "source": "RecoRad 2025 (foie) ; Recommandation ASTRO, foie (2021) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; CORSAIR ; Consensus britannique SABR 2022"
   },
   {
    "id": "cb-9a953d37",
@@ -1052,7 +1052,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "ideal": "< 32–35 Gy",
-   "source": "RecoRad 2025 (pancréas) ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UTSW ; ASTRO Liver 2021 ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (pancréas) ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas) ; Recommandation ASTRO, foie (2021) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-ac27cc1b",
@@ -1071,7 +1071,7 @@
    "fx": 5,
    "indicateur": "D0,5cm³",
    "limitant": "< 35 Gy",
-   "source": "RecoRad 2025 (pancréas) ; Noël 2025 SFRO ; UK SABR '17 ; PRO Oligo '21 ; CORSAIR ; Miami SMART ; NRG BR002"
+   "source": "RecoRad 2025 (pancréas) ; Noël 2025 SFRO ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; CORSAIR ; Miami SMART ; NRG BR002"
   },
   {
    "id": "cb-68d4e1b3",
@@ -1080,7 +1080,7 @@
    "fx": 5,
    "indicateur": "D5cm³",
    "ideal": "< 25 Gy",
-   "source": "RecoRad 2025 (pancréas) ; VA/ASTRO PRO '26 ; UK SABR '17 ; CORSAIR ; ASTRO Liver 2021 ; PRO Oligo '21 ; UK SABR '22"
+   "source": "RecoRad 2025 (pancréas) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Consensus britannique SABR 2017 ; CORSAIR ; Recommandation ASTRO, foie (2021) ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022"
   },
   {
    "id": "cb-eed147ca",
@@ -1218,8 +1218,27 @@
     "orl_palliatif"
    ],
    "indicateur": "D0,03cm³ (cavum)",
-   "limitant": "< 65 Gy (stade précoce) ; < 70 Gy (stade localement avancé)",
-   "note": "cancer du cavum",
+   "limitant": "< 65 Gy",
+   "note": "cancer du cavum, stade précoce",
+   "source": "RecoRad 2025 (ORL)"
+  },
+  {
+   "id": "cb-6d8888dc-2",
+   "oar_id": "oar-encephale",
+   "regime": "normo",
+   "loc": [
+    "cavite_buccale",
+    "oropharynx",
+    "larynx",
+    "hypopharynx",
+    "cavum",
+    "sinus",
+    "glandes_salivaires",
+    "orl_palliatif"
+   ],
+   "indicateur": "D0,03cm³ (cavum)",
+   "limitant": "< 70 Gy",
+   "note": "cancer du cavum, stade localement avancé",
    "source": "RecoRad 2025 (ORL)"
   },
   {
@@ -1238,7 +1257,7 @@
    "fx": 5,
    "indicateur": "V24Gy",
    "limitant": "< 20 cm³",
-   "source": "RecoRad 2025 (encéphale) ; HyTEC ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (encéphale) ; HyTEC ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-44280c6c",
@@ -1309,7 +1328,7 @@
    "fx": 15,
    "indicateur": "D0,03cm³",
    "limitant": "< 42 Gy",
-   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021"
+   "source": "RecoRad 2025 (foie) ; Recommandation ASTRO, foie (2021)"
   },
   {
    "id": "cb-2e7a4a30",
@@ -1317,7 +1336,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "limitant": "≤ 55 Gy",
-   "source": "RecoRad 2025 (pancréas) ; NRG Pancreas 2024 ; Timmerman '21 ; UTSW ; NCCN Pancreas 2.2025 ; ASTRO Liver 2021 ; NRG Heme '26 ; CORSAIR ; NCCN Hodgkin 1.2026 ; QUANTEC ; Florida"
+   "source": "RecoRad 2025 (pancréas) ; NRG Pancreas 2024 ; Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas) ; Recommandations NCCN, pancréas (version 2.2025) ; Recommandation ASTRO, foie (2021) ; Consensus NRG, hématologie (2026) ; CORSAIR ; Recommandations NCCN, lymphome de Hodgkin (version 1.2026) ; QUANTEC ; Université de Floride"
   },
   {
    "id": "cb-3e1b333f",
@@ -1384,7 +1403,7 @@
    "fx": 1,
    "indicateur": "D5cm³",
    "limitant": "≤ 22,5 Gy",
-   "source": "RecoRad 2025 (rein) ; TG-101 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; RTOG 0631 ; RTOG 0915"
+   "source": "RecoRad 2025 (rein) ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR ; RTOG 0631 ; RTOG 0915"
   },
   {
    "id": "cb-ce098102",
@@ -1393,7 +1412,7 @@
    "fx": 3,
    "indicateur": "D0,03cm³",
    "limitant": "< 22 Gy",
-   "source": "RecoRad 2025 (foie) ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; NRG BR002 ; IROCK ; FASTRACK II ; UTSW ; ASTRO Liver 2021 ; VA/ASTRO PRO '26 ; TG-101 ; UK SABR '22 ; CORSAIR ; UK SABR '17"
+   "source": "RecoRad 2025 (foie) ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; NRG BR002 ; IROCK ; FASTRACK II ; UT Southwestern (Dallas) ; Recommandation ASTRO, foie (2021) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; TG-101 ; Consensus britannique SABR 2022 ; CORSAIR ; Consensus britannique SABR 2017"
   },
   {
    "id": "cb-01ff3827",
@@ -1402,7 +1421,7 @@
    "fx": 3,
    "indicateur": "D10cm³",
    "limitant": "< 16,5 Gy",
-   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021 ; TG-101 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (foie) ; Recommandation ASTRO, foie (2021) ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-e4652495",
@@ -1435,7 +1454,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "ideal": "< 32–35 Gy",
-   "source": "RecoRad 2025 (pancréas) ; Timmerman ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "RecoRad 2025 (pancréas) ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-6347f1dc",
@@ -1455,7 +1474,7 @@
    "indicateur": "D0,5cm³",
    "ideal": "< 33 Gy",
    "limitant": "< 35 Gy",
-   "source": "RecoRad 2025 (pancréas) ; Timmerman ; UK SABR '17 ; PRO Oligo '21 ; NRG BR002 ; UTSW"
+   "source": "RecoRad 2025 (pancréas) ; Timmerman 2008, table des tolérances en stéréotaxie ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-543d0f7f",
@@ -1473,7 +1492,7 @@
    "fx": 5,
    "indicateur": "D50cm³",
    "ideal": "< 12 Gy",
-   "source": "RecoRad 2025 (pancréas) ; UK SABR '17 ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (pancréas) ; Consensus britannique SABR 2017 ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-2f199c9b",
@@ -1591,7 +1610,7 @@
    "regime": "normo",
    "indicateur": "Dmean (foie sain non cirrhotique)",
    "limitant": "< 32 Gy",
-   "source": "RecoRad 2025 (foie) ; NRG Heme '26 ; ASTRO Gastric '25 ; NCCN Pancreas 2.2025 ; Noël 2025 SFRO ; QUANTEC ; ASTRO Liver 2021 ; RTOG 1010"
+   "source": "RecoRad 2025 (foie) ; Consensus NRG, hématologie (2026) ; Recommandation ASTRO, estomac (2025) ; Recommandations NCCN, pancréas (version 2.2025) ; Noël 2025 SFRO ; QUANTEC ; Recommandation ASTRO, foie (2021) ; RTOG 1010"
   },
   {
    "id": "cb-df1b52e8",
@@ -1690,7 +1709,7 @@
    "fx": 3,
    "indicateur": "Dmean (foie sain non cirrhotique)",
    "limitant": "< 12–15 Gy",
-   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021 ; HyTEC ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; IROCK"
+   "source": "RecoRad 2025 (foie) ; Recommandation ASTRO, foie (2021) ; HyTEC ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR ; IROCK"
   },
   {
    "id": "cb-2151b1ab",
@@ -1730,7 +1749,7 @@
    "fx": 5,
    "indicateur": "Dmean (foie sain non cirrhotique)",
    "limitant": "< 15–18 Gy",
-   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021 ; VA/ASTRO PRO '26 ; UK SABR '17 ; PRO Oligo '21 ; ASTRO Pancreas '26 ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (foie) ; Recommandation ASTRO, foie (2021) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Recommandation ASTRO, pancréas (2026) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-2c31e3f0",
@@ -1858,7 +1877,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "ideal": "≤ 25 Gy",
-   "source": "RecoRad 2025 (encéphale) ; ARST 1431 ; Florida - Peds ; DAHANCA 20 ; DAHANCA 25 ; Noël 2025 SFRO"
+   "source": "RecoRad 2025 (encéphale) ; ARST 1431 ; Université de Floride, pédiatrie ; DAHANCA 20 ; DAHANCA 25 ; Noël 2025 SFRO"
   },
   {
    "id": "cb-a1734ba7",
@@ -1903,7 +1922,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "ideal": "≤ 35 Gy",
-   "source": "RecoRad 2025 (ORL) ; VA H&N 2022 ; VA/ASTRO PRO '26 ; QUANTEC ; RTOG 1016 ; NRG HN005 ; ASTRO HPV+ OP SqCC '... ; NRG Heme '26 ; CORSAIR ; DAHANCA 25 ; NCCN H&N 1.2026 ; DAHANCA 20 ; Florida ; Timmerman '21"
+   "source": "RecoRad 2025 (ORL) ; Consensus VA (Veterans Affairs), ORL 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; QUANTEC ; RTOG 1016 ; NRG HN005 ; Recommandation ASTRO, oropharynx HPV+ ; Consensus NRG, hématologie (2026) ; CORSAIR ; DAHANCA 25 ; Recommandations NCCN, ORL (version 1.2026) ; DAHANCA 20 ; Université de Floride ; Timmerman 2021, table des tolérances en stéréotaxie"
   },
   {
    "id": "cb-27d94770",
@@ -1912,7 +1931,7 @@
    "fx": 5,
    "indicateur": "V25Gy",
    "limitant": "< 5 cm³",
-   "source": "RecoRad 2025 (rectum) ; Noël 2025 SFRO ; TG-101 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (rectum) ; Noël 2025 SFRO ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-5de4f4ea",
@@ -1921,7 +1940,7 @@
    "fx": 15,
    "indicateur": "D0,03cm³",
    "limitant": "< 45 Gy",
-   "source": "RecoRad 2025 (foie) ; ASTRO Liver 2021 ; NRG Pancreas 2024 ; VA/ASTRO PRO '26"
+   "source": "RecoRad 2025 (foie) ; Recommandation ASTRO, foie (2021) ; NRG Pancreas 2024 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026"
   },
   {
    "id": "cb-245eae48",
@@ -2005,7 +2024,7 @@
    "regime": "normo",
    "indicateur": "V45Gy",
    "limitant": "< 150 cm³",
-   "source": "RecoRad 2025 (rectum) ; NRG Heme '26 ; QUANTEC ; CORSAIR ; NCCN Gastric 2.2026 ; NCCN EsophGEJ 2.2026 ; RAIDER"
+   "source": "RecoRad 2025 (rectum) ; Consensus NRG, hématologie (2026) ; QUANTEC ; CORSAIR ; Recommandations NCCN, estomac (version 2.2026) ; Recommandations NCCN, œsophage et jonction (version 2.2026) ; RAIDER"
   },
   {
    "id": "cb-3961d8a5",
@@ -2194,7 +2213,7 @@
    "fx": 1,
    "indicateur": "D0,03cm³",
    "limitant": "< 26 Gy",
-   "source": "RecoRad 2025 (rein) ; IROCK ; FASTRACK II ; TG-101 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; RTOG 0631"
+   "source": "RecoRad 2025 (rein) ; IROCK ; FASTRACK II ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR ; RTOG 0631"
   },
   {
    "id": "cb-3cf0c392",
@@ -2203,7 +2222,7 @@
    "fx": 1,
    "indicateur": "D5cm³",
    "limitant": "< 22,5 Gy",
-   "source": "RecoRad 2025 (rein) ; IROCK ; FASTRACK II ; TG-101 ; QUANTEC ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; RTOG 0631"
+   "source": "RecoRad 2025 (rein) ; IROCK ; FASTRACK II ; TG-101 ; QUANTEC ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR ; RTOG 0631"
   },
   {
    "id": "cb-7c5f4635",
@@ -2233,7 +2252,7 @@
    "fx": 3,
    "indicateur": "D0,03cm³",
    "limitant": "< 25 Gy",
-   "source": "RecoRad 2025 (foie) ; IROCK ; FASTRACK II ; ASTRO Liver 2021 ; VA/ASTRO PRO '26 ; TG-101 ; PRO Oligo '21 ; UK SABR '22"
+   "source": "RecoRad 2025 (foie) ; IROCK ; FASTRACK II ; Recommandation ASTRO, foie (2021) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022"
   },
   {
    "id": "cb-d4a037a9",
@@ -2287,7 +2306,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "ideal": "< 32–35 Gy",
-   "source": "RecoRad 2025 (pancréas) ; CORSAIR ; hypo-FLAME ; Noël 2025 SFRO ; TG-101 ; PRO Oligo '21 ; UK SABR '22 ; NRG GU013 ; VA Rectal 2022 ; VA/ASTRO PRO '26"
+   "source": "RecoRad 2025 (pancréas) ; CORSAIR ; hypo-FLAME ; Noël 2025 SFRO ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; NRG GU013 ; Consensus VA (Veterans Affairs), rectum 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026"
   },
   {
    "id": "cb-ead5253b",
@@ -2473,7 +2492,7 @@
    "fx": 3,
    "indicateur": "Dmax",
    "limitant": "< 45 Gy",
-   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; VA/ASTRO PRO '26 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-a9b31c96",
@@ -2500,7 +2519,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "limitant": "< 53 Gy",
-   "source": "RecoRad 2025 (poumon) ; UK SABR '17 ; TG-101 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "RecoRad 2025 (poumon) ; Consensus britannique SABR 2017 ; TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-37d1ff99",
@@ -2531,7 +2550,7 @@
    "indicateur": "Dmax",
    "ideal": "< 60 Gy",
    "limitant": "< 65 Gy",
-   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-d09eb8b7",
@@ -2607,7 +2626,7 @@
    "fx": 10,
    "indicateur": "D100%",
    "limitant": "≤ 9 Gy",
-   "source": "RecoRad 2025 (encéphale) ; NRG Heme '26 ; CORSAIR ; Noël 2025 SFRO ; NRG CC001 ; RTOG 0933 ; PREMER"
+   "source": "RecoRad 2025 (encéphale) ; Consensus NRG, hématologie (2026) ; CORSAIR ; Noël 2025 SFRO ; NRG CC001 ; RTOG 0933 ; PREMER"
   },
   {
    "id": "cb-c258cf0e",
@@ -2616,7 +2635,7 @@
    "fx": 10,
    "indicateur": "Dmax",
    "limitant": "≤ 16 Gy",
-   "source": "RecoRad 2025 (encéphale) ; NRG Heme '26 ; CORSAIR ; Noël 2025 SFRO ; NRG CC001 ; RTOG 0933 ; PREMER"
+   "source": "RecoRad 2025 (encéphale) ; Consensus NRG, hématologie (2026) ; CORSAIR ; Noël 2025 SFRO ; NRG CC001 ; RTOG 0933 ; PREMER"
   },
   {
    "id": "cb-7689c2c0",
@@ -2670,7 +2689,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "ideal": "≤ 50 Gy",
-   "source": "RecoRad 2025 (encéphale) ; ESTRO-EANO GBM ; CORSAIR ; Noël 2025 SFRO"
+   "source": "RecoRad 2025 (encéphale) ; Recommandation ESTRO-EANO, glioblastome ; CORSAIR ; Noël 2025 SFRO"
   },
   {
    "id": "cb-a8d7ad72",
@@ -2678,7 +2697,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "ideal": "≤ 30–45 Gy",
-   "source": "RecoRad 2025 (encéphale) ; NRG Heme '26 ; NCCN Hodgkin 1.2026 ; DAHANCA 20 ; DAHANCA 25"
+   "source": "RecoRad 2025 (encéphale) ; Consensus NRG, hématologie (2026) ; Recommandations NCCN, lymphome de Hodgkin (version 1.2026) ; DAHANCA 20 ; DAHANCA 25"
   },
   {
    "id": "cb-19810ef6",
@@ -2784,7 +2803,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "ideal": "< 30–40 Gy",
-   "source": "RecoRad 2025 (ORL) ; VA H&N 2022 ; VA/ASTRO PRO '26 ; NCCN H&N 1.2026 ; NRG HN003"
+   "source": "RecoRad 2025 (ORL) ; Consensus VA (Veterans Affairs), ORL 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Recommandations NCCN, ORL (version 1.2026) ; NRG HN003"
   },
   {
    "id": "cb-c4047a06",
@@ -2808,8 +2827,17 @@
    "oar_id": "oar-lobes-temporaux",
    "regime": "normo",
    "indicateur": "Dmax (cavum)",
-   "ideal": "< 65 Gy (stade précoce) ; < 70 Gy (stade avancé)",
-   "note": "cancer du cavum",
+   "ideal": "< 65 Gy",
+   "note": "cancer du cavum, stade précoce",
+   "source": "RecoRad 2025 (ORL) ; CORSAIR"
+  },
+  {
+   "id": "cb-e96dd7e0-2",
+   "oar_id": "oar-lobes-temporaux",
+   "regime": "normo",
+   "indicateur": "Dmax (cavum)",
+   "ideal": "< 70 Gy",
+   "note": "cancer du cavum, stade localement avancé",
    "source": "RecoRad 2025 (ORL) ; CORSAIR"
   },
   {
@@ -2828,7 +2856,7 @@
    "indicateur": "Dmax",
    "ideal": "< 65 Gy",
    "note": "ou D5 % < 70 Gy",
-   "source": "RecoRad 2025 (ORL) ; DAHANCA 20 ; DAHANCA 25 ; VA H&N 2022 ; VA/ASTRO PRO '26 ; NCCN H&N 1.2026 ; CORSAIR ; NRG HN005"
+   "source": "RecoRad 2025 (ORL) ; DAHANCA 20 ; DAHANCA 25 ; Consensus VA (Veterans Affairs), ORL 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Recommandations NCCN, ORL (version 1.2026) ; CORSAIR ; NRG HN005"
   },
   {
    "id": "cb-eed3334e",
@@ -2861,7 +2889,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "limitant": "< 45 Gy",
-   "source": "RecoRad 2025 (gynécologie) ; NRG Pancreas 2024 ; NCCN NSCLC 3.2026 ; DAHANCA 20 ; DAHANCA 25 ; Florida ; VA H&N 2022 ; QUANTEC ; NRG HN003 ; NCCN H&N 1.2026 ; NCCN Pancreas 2.2025 ; VA/ASTRO PRO '26 ; RTOG 0617 ; ARST 1431 ; NRG DT001 ; VA Breast 2022 ; NCCN EsophGEJ 2.2026 ; NCCN Gastric 2.2026 ; DOSE-Pro Thoracic ; NRG Heme '26 ; ASTRO Gastric '25 ; NCCN Cervical 2.2026 ; ASTRO Pancreas '26 ; CORSAIR"
+   "source": "RecoRad 2025 (gynécologie) ; NRG Pancreas 2024 ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; DAHANCA 20 ; DAHANCA 25 ; Université de Floride ; Consensus VA (Veterans Affairs), ORL 2022 ; QUANTEC ; NRG HN003 ; Recommandations NCCN, ORL (version 1.2026) ; Recommandations NCCN, pancréas (version 2.2025) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; RTOG 0617 ; ARST 1431 ; NRG DT001 ; Consensus VA (Veterans Affairs), sein 2022 ; Recommandations NCCN, œsophage et jonction (version 2.2026) ; Recommandations NCCN, estomac (version 2.2026) ; DOSE-Pro Thoracic ; Consensus NRG, hématologie (2026) ; Recommandation ASTRO, estomac (2025) ; Recommandations NCCN, col utérin (version 2.2026) ; Recommandation ASTRO, pancréas (2026) ; CORSAIR"
   },
   {
    "id": "cb-e28baa68",
@@ -2870,7 +2898,7 @@
    "fx": 1,
    "indicateur": "D0,03cm³",
    "limitant": "< 12 Gy",
-   "source": "RecoRad 2025 (rein) ; NCCN NSCLC 3.2026 ; HyTEC ; TG-101 ; UK SABR '17 ; Timmerman ; QUANTEC ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; RTOG 0915 ; RTOG 0631 ; NRG BR002 ; IROCK ; UTSW"
+   "source": "RecoRad 2025 (rein) ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; HyTEC ; TG-101 ; Consensus britannique SABR 2017 ; Timmerman 2008, table des tolérances en stéréotaxie ; QUANTEC ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; RTOG 0915 ; RTOG 0631 ; NRG BR002 ; IROCK ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-01d6a013",
@@ -2879,7 +2907,7 @@
    "fx": 3,
    "indicateur": "D0,03cm³",
    "limitant": "< 18 Gy",
-   "source": "RecoRad 2025 (rein) ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; NRG BR002 ; UTSW ; TG-101 ; UK SABR '17 ; MSKCC ; HyTEC ; UK SABR '22 ; CORSAIR ; DOSE-Pro Thoracic ; NCCN NSCLC 3.2026 ; RTOG 0618 ; IROCK"
+   "source": "RecoRad 2025 (rein) ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; NRG BR002 ; UT Southwestern (Dallas) ; TG-101 ; Consensus britannique SABR 2017 ; Memorial Sloan Kettering ; HyTEC ; Consensus britannique SABR 2022 ; CORSAIR ; DOSE-Pro Thoracic ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; RTOG 0618 ; IROCK"
   },
   {
    "id": "cb-85b5d481",
@@ -2889,7 +2917,7 @@
    "indicateur": "D0,035cm³",
    "limitant": "< 28 Gy",
    "note": "Timmerman",
-   "source": "RecoRad 2025 (rein) ; NCCN NSCLC 3.2026 ; TG-101 ; Timmerman ; PRO Oligo '21 ; CORSAIR ; SUNSET ; RTOG 0813 ; UTSW ; UCLA ; Noël 2025 SFRO ; NRG BR002 ; DOSE-Pro Thoracic ; HyTEC ; UK SABR '22 ; UK SABR '17 ; Timmerman '21"
+   "source": "RecoRad 2025 (rein) ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; CORSAIR ; SUNSET ; RTOG 0813 ; UT Southwestern (Dallas) ; UCLA ; Noël 2025 SFRO ; NRG BR002 ; DOSE-Pro Thoracic ; HyTEC ; Consensus britannique SABR 2022 ; Consensus britannique SABR 2017 ; Timmerman 2021, table des tolérances en stéréotaxie"
   },
   {
    "id": "cb-e8f585ee",
@@ -2917,7 +2945,7 @@
    "fx": 8,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 32 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018 ; HyTEC ; UK SABR '22 ; CORSAIR"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; HyTEC ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-c99955a2",
@@ -2967,7 +2995,7 @@
    "regime": "normo",
    "indicateur": "V40Gy",
    "ideal": "< 37 %",
-   "source": "RecoRad 2025 (gynécologie) ; NCCN Cervical 2.2026 ; RTOG 0418 ; RTOG 1203 ; TIME-C"
+   "source": "RecoRad 2025 (gynécologie) ; Recommandations NCCN, col utérin (version 2.2026) ; RTOG 0418 ; RTOG 1203 ; TIME-C"
   },
   {
    "id": "cb-e6fc8d86",
@@ -3006,7 +3034,7 @@
    "indicateur": "Dmax",
    "ideal": "≤ 54 Gy",
    "limitant": "≤ 55 Gy",
-   "source": "RecoRad 2025 (encéphale) ; ESTRO-EANO GBM ; CORSAIR ; NRG Heme '26 ; NCCN Peds MB 1.2026"
+   "source": "RecoRad 2025 (encéphale) ; Recommandation ESTRO-EANO, glioblastome ; CORSAIR ; Consensus NRG, hématologie (2026) ; Recommandations NCCN, médulloblastome de l'enfant (version 1.2026)"
   },
   {
    "id": "cb-076bc874",
@@ -3016,7 +3044,7 @@
    "indicateur": "Dmax",
    "ideal": "< 8 Gy",
    "limitant": "< 10 Gy",
-   "source": "RecoRad 2025 (encéphale) ; Florida ; UK SABR '17 ; TG-101 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; UTSW"
+   "source": "RecoRad 2025 (encéphale) ; Université de Floride ; Consensus britannique SABR 2017 ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-86198f88",
@@ -3026,7 +3054,7 @@
    "indicateur": "Dmax",
    "ideal": "< 13,7 Gy",
    "limitant": "< 20 Gy",
-   "source": "RecoRad 2025 (encéphale) ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (encéphale) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-f5451fc4",
@@ -3036,7 +3064,7 @@
    "indicateur": "Dmax",
    "ideal": "< 22,5 Gy",
    "limitant": "< 25 Gy",
-   "source": "RecoRad 2025 (encéphale) ; UK SABR '22 ; CORSAIR ; Noël 2025 SFRO"
+   "source": "RecoRad 2025 (encéphale) ; Consensus britannique SABR 2022 ; CORSAIR ; Noël 2025 SFRO"
   },
   {
    "id": "cb-90c685fb",
@@ -3106,7 +3134,7 @@
    "regime": "normo",
    "indicateur": "V60Gy",
    "limitant": "≤ 30 %",
-   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; VA Lung 2023 ; NCCN NSCLC 3.2026 ; VA/ASTRO PRO '26"
+   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; Consensus VA (Veterans Affairs), poumon 2023 ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026"
   },
   {
    "id": "cb-2ec0f49a",
@@ -3122,7 +3150,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "limitant": "≤ 28–34 Gy",
-   "source": "RecoRad 2025 (poumon) ; VA H&N 2022 ; VA/ASTRO PRO '26 ; NRG HN003 ; NCCN NSCLC 3.2026 ; QUANTEC ; CORSAIR ; RTOG 0617 ; NRG Heme '26 ; NCCN Peds MB 1.2026"
+   "source": "RecoRad 2025 (poumon) ; Consensus VA (Veterans Affairs), ORL 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; NRG HN003 ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; QUANTEC ; CORSAIR ; RTOG 0617 ; Consensus NRG, hématologie (2026) ; Recommandations NCCN, médulloblastome de l'enfant (version 1.2026)"
   },
   {
    "id": "cb-b99047fd",
@@ -3185,7 +3213,7 @@
    "fx": 1,
    "indicateur": "Dmax",
    "limitant": "< 15,4–24 Gy",
-   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-4fd8c207",
@@ -3224,7 +3252,7 @@
    "fx": 3,
    "indicateur": "Dmax",
    "limitant": "< 25,2–32,4 Gy",
-   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-f9b44db4",
@@ -3281,7 +3309,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "limitant": "< 32–38 Gy",
-   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; RTOG 0813 ; Timmerman ; TG-101 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "RecoRad 2025 (poumon) ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; RTOG 0813 ; Timmerman 2008, table des tolérances en stéréotaxie ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-c2ae9ed1",
@@ -3311,7 +3339,7 @@
    "fx": 8,
    "indicateur": "Dmax",
    "limitant": "< 43,2 Gy",
-   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-7eed8303",
@@ -3347,7 +3375,7 @@
    "indicateur": "Dmean",
    "ideal": "≤ 30–35 Gy",
    "note": "œsophage cervical, bouche œsophagienne et muscle cricopharyngien",
-   "source": "RecoRad 2025 (ORL) ; NCCN H&N 1.2026 ; DAHANCA 20 ; DAHANCA 25 ; RTOG 1016 ; NRG HN005"
+   "source": "RecoRad 2025 (ORL) ; Recommandations NCCN, ORL (version 1.2026) ; DAHANCA 20 ; DAHANCA 25 ; RTOG 1016 ; NRG HN005"
   },
   {
    "id": "cb-89b7d109",
@@ -3500,7 +3528,7 @@
    "fx": 1,
    "indicateur": "Dmax",
    "ideal": "< 30 Gy",
-   "source": "RecoRad 2025 (poumon) ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; CORSAIR ; UTSW"
+   "source": "RecoRad 2025 (poumon) ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; CORSAIR ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-0fdb921a",
@@ -3509,7 +3537,7 @@
    "fx": 3,
    "indicateur": "Dmax",
    "limitant": "< 36,9–50 Gy",
-   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-d9303cb8",
@@ -3518,7 +3546,7 @@
    "fx": 3,
    "indicateur": "V30Gy",
    "limitant": "< 30 cm³",
-   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; UK SABR '17 ; PRO Oligo '21 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; CORSAIR"
   },
   {
    "id": "cb-3a28255c",
@@ -3536,7 +3564,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "limitant": "< 43–57 Gy",
-   "source": "RecoRad 2025 (poumon) ; Timmerman ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; UTSW"
+   "source": "RecoRad 2025 (poumon) ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-eb04aa3d",
@@ -3599,7 +3627,7 @@
    "indicateur": "Dmean (les deux)",
    "ideal": "≤ 26 Gy",
    "note": "irradiation bilatérale",
-   "source": "RecoRad 2025 (ORL) ; VA/ASTRO PRO '26 ; ASTRO HPV+ OP SqCC '... ; NRG Heme '26 ; CORSAIR ; VA H&N 2022 ; DAHANCA 20 ; QUANTEC ; DAHANCA 25 ; Florida ; PENTEC ; Timmerman '21 ; NRG HN005"
+   "source": "RecoRad 2025 (ORL) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Recommandation ASTRO, oropharynx HPV+ ; Consensus NRG, hématologie (2026) ; CORSAIR ; Consensus VA (Veterans Affairs), ORL 2022 ; DAHANCA 20 ; QUANTEC ; DAHANCA 25 ; Université de Floride ; PENTEC ; Timmerman 2021, table des tolérances en stéréotaxie ; NRG HN005"
   },
   {
    "id": "cb-9c58eae7",
@@ -3626,7 +3654,7 @@
    "fx": 1,
    "indicateur": "Dmax",
    "limitant": "< 26 Gy",
-   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; UK SABR '22"
+   "source": "RecoRad 2025 (poumon) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Consensus britannique SABR 2022"
   },
   {
    "id": "cb-a4b4813d",
@@ -3635,7 +3663,7 @@
    "fx": 1,
    "indicateur": "V23Gy",
    "limitant": "< 10 cm³",
-   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-273aad31",
@@ -3656,7 +3684,7 @@
    "fx": 3,
    "indicateur": "Dmax",
    "ideal": "< 33 Gy",
-   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "RecoRad 2025 (poumon) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-8fd4a886",
@@ -3704,7 +3732,7 @@
    "fx": 5,
    "indicateur": "Dmax",
    "ideal": "< 39,5 Gy",
-   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR ; TG-101 ; UK SABR '17 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; NRG BR002 ; IROCK ; UTSW ; DOSE-Pro Thoracic"
+   "source": "RecoRad 2025 (poumon) ; Consensus britannique SABR 2022 ; CORSAIR ; TG-101 ; Consensus britannique SABR 2017 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; NRG BR002 ; IROCK ; UT Southwestern (Dallas) ; DOSE-Pro Thoracic"
   },
   {
    "id": "cb-88b02f55",
@@ -3735,7 +3763,7 @@
    "fx": 8,
    "indicateur": "Dmax",
    "ideal": "< 45,6 Gy",
-   "source": "RecoRad 2025 (poumon) ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-596b80b5",
@@ -3804,7 +3832,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "limitant": "≤ 60–66 Gy",
-   "source": "RecoRad 2025 (poumon) ; VA Lung 2023 ; VA/ASTRO PRO '26 ; VA Breast 2022 ; Timmerman '21 ; CORSAIR ; RTOG 0617 ; NRG HN005 ; UTSW ; Florida ; NRG Heme '26 ; ASTRO PMRT '25"
+   "source": "RecoRad 2025 (poumon) ; Consensus VA (Veterans Affairs), poumon 2023 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Consensus VA (Veterans Affairs), sein 2022 ; Timmerman 2021, table des tolérances en stéréotaxie ; CORSAIR ; RTOG 0617 ; NRG HN005 ; UT Southwestern (Dallas) ; Université de Floride ; Consensus NRG, hématologie (2026) ; Recommandation ASTRO, RT après mastectomie (2025)"
   },
   {
    "id": "cb-394144ab",
@@ -3873,7 +3901,7 @@
    "fx": 1,
    "indicateur": "Dmax",
    "limitant": "< 15–16,4 Gy",
-   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-42487d64",
@@ -3891,7 +3919,7 @@
    "fx": 3,
    "indicateur": "Dmax",
    "limitant": "< 24–26 Gy",
-   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; UK SABR '17 ; TG-101 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; UTSW ; VA/ASTRO PRO '26 ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; Consensus britannique SABR 2017 ; TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-c8e4bb29",
@@ -3937,7 +3965,7 @@
    "indicateur": "Dmax",
    "ideal": "< 30,5 Gy",
    "limitant": "< 32,5 Gy",
-   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; UTSW ; DOSE-Pro Thoracic ; NCCN NSCLC 3.2026 ; TG-101 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; RTOG 0813 ; SUNSET"
+   "source": "RecoRad 2025 (poumon) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; UT Southwestern (Dallas) ; DOSE-Pro Thoracic ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; RTOG 0813 ; SUNSET"
   },
   {
    "id": "cb-b4afbb98",
@@ -3956,7 +3984,7 @@
    "indicateur": "Dmax",
    "ideal": "< 35 Gy",
    "limitant": "< 39,2 Gy",
-   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-b41021cf",
@@ -3983,7 +4011,7 @@
    "fx": 3,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 24 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; NRG BR002"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002"
   },
   {
    "id": "cb-cce75084",
@@ -3992,7 +4020,7 @@
    "fx": 3,
    "indicateur": "V22,5Gy",
    "limitant": "≤ 5 cm³",
-   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-d6baa346",
@@ -4001,7 +4029,7 @@
    "fx": 5,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 32 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-53d338c2",
@@ -4010,7 +4038,7 @@
    "fx": 5,
    "indicateur": "V30Gy",
    "limitant": "≤ 5 cm³",
-   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-0ef0904d",
@@ -4148,7 +4176,7 @@
    "regime": "normo",
    "indicateur": "V20Gy (sein ou paroi)",
    "limitant": "≤ 25 %",
-   "source": "RecoRad 2025 (sein) ; VA Breast 2022 ; ASTRO PMRT '25 ; VA/ASTRO PRO '26 ; RTOG 1005 ; NSABP B-51 ; DBCG SKAGEN"
+   "source": "RecoRad 2025 (sein) ; Consensus VA (Veterans Affairs), sein 2022 ; Recommandation ASTRO, RT après mastectomie (2025) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; RTOG 1005 ; NSABP B-51 ; DBCG SKAGEN"
   },
   {
    "id": "cb-113fcb3e",
@@ -4229,7 +4257,7 @@
    "regime": "normo",
    "indicateur": "V20Gy (poumons − PTV)",
    "limitant": "≤ 30–35 %",
-   "source": "RecoRad 2025 (poumon) ; NCCN Hodgkin 1.2026 ; NCCN Wilms 2.2025 ; ILROG ; FIL Chest ; CORSAIR ; AEWS 1031 ; AREN 1921 ; NRG Heme '26"
+   "source": "RecoRad 2025 (poumon) ; Recommandations NCCN, lymphome de Hodgkin (version 1.2026) ; Recommandations NCCN, néphroblastome (version 2.2025) ; ILROG ; FIL Chest ; CORSAIR ; AEWS 1031 ; AREN 1921 ; Consensus NRG, hématologie (2026)"
   },
   {
    "id": "cb-d372ee1c",
@@ -4239,7 +4267,7 @@
    "ideal": "≤ 15 Gy",
    "limitant": "< 20 Gy",
    "note": "20 Gy = acceptable",
-   "source": "RecoRad 2025 (poumon) ; NCCN Hodgkin 1.2026 ; FIL Chest ; PENTEC ; CORSAIR ; NCCN NSCLC 3.2026 ; QUANTEC ; RTOG 0617 ; RTOG 1308 ; RTOG 1010 ; NRG Heme '26 ; NCCN Gastric 2.2026 ; NCCN EsophGEJ 2.2026"
+   "source": "RecoRad 2025 (poumon) ; Recommandations NCCN, lymphome de Hodgkin (version 1.2026) ; FIL Chest ; PENTEC ; CORSAIR ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; QUANTEC ; RTOG 0617 ; RTOG 1308 ; RTOG 1010 ; Consensus NRG, hématologie (2026) ; Recommandations NCCN, estomac (version 2.2026) ; Recommandations NCCN, œsophage et jonction (version 2.2026)"
   },
   {
    "id": "cb-38cef666",
@@ -4293,7 +4321,7 @@
    "indicateur": "V20Gy (poumons − ITV)",
    "ideal": "< 10 %",
    "limitant": "< 15 %",
-   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-e3b62195",
@@ -4302,7 +4330,7 @@
    "fx": 1,
    "indicateur": "Dmean (poumons − ITV)",
    "limitant": "≤ 8 Gy",
-   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-78c1e4c0",
@@ -4331,7 +4359,7 @@
    "indicateur": "V20Gy (poumons − ITV)",
    "ideal": "< 10 %",
    "limitant": "< 15 %",
-   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; VA/ASTRO PRO '26 ; UK SABR '17 ; HyTEC ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Consensus britannique SABR 2017 ; HyTEC ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-a4e87578",
@@ -4340,7 +4368,7 @@
    "fx": 3,
    "indicateur": "Dmean (poumons − ITV)",
    "limitant": "≤ 8 Gy",
-   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; UK SABR '22 ; HyTEC ; PRO Oligo '21 ; CORSAIR ; VA/ASTRO PRO '26"
+   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; Consensus britannique SABR 2022 ; HyTEC ; Practical Radiation Oncology 2021, oligométastases ; CORSAIR ; Consensus VA / ASTRO, Practical Radiation Oncology 2026"
   },
   {
    "id": "cb-41ae9317",
@@ -4368,7 +4396,7 @@
    "indicateur": "V20Gy (poumons − ITV)",
    "ideal": "< 10 %",
    "limitant": "< 15 %",
-   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; UK SABR '17 ; HyTEC ; PRO Oligo '21"
+   "source": "RecoRad 2025 (poumon) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Consensus britannique SABR 2017 ; HyTEC ; Practical Radiation Oncology 2021, oligométastases"
   },
   {
    "id": "cb-fbe49ea0",
@@ -4405,7 +4433,7 @@
    "indicateur": "V20Gy (poumons − ITV)",
    "ideal": "< 10 %",
    "limitant": "< 15 %",
-   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; VA/ASTRO PRO '26 ; HyTEC ; UK SABR '17 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; DOSE-Pro Thoracic ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; HyTEC ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-4a7e3d3c",
@@ -4414,7 +4442,7 @@
    "fx": 5,
    "indicateur": "Dmean (poumons − ITV)",
    "limitant": "≤ 8 Gy",
-   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; HyTEC ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; HyTEC ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-bc011ce3",
@@ -4424,7 +4452,7 @@
    "indicateur": "V20Gy (poumons − ITV)",
    "ideal": "< 10 %",
    "limitant": "< 15 %",
-   "source": "RecoRad 2025 (poumon) ; UK SABR '17 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; LungTECH"
+   "source": "RecoRad 2025 (poumon) ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR ; LungTECH"
   },
   {
    "id": "cb-1598438a",
@@ -4433,7 +4461,7 @@
    "fx": 8,
    "indicateur": "Dmean (poumons − ITV)",
    "limitant": "≤ 8 Gy",
-   "source": "RecoRad 2025 (poumon) ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-7cc69efb",
@@ -4441,7 +4469,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "limitant": "< 50 Gy",
-   "source": "RecoRad 2025 (prostate) ; Timmerman '21 ; UTSW ; NRG Heme '26"
+   "source": "RecoRad 2025 (prostate) ; Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas) ; Consensus NRG, hématologie (2026)"
   },
   {
    "id": "cb-c0724a1d",
@@ -4450,7 +4478,7 @@
    "fx": 3,
    "indicateur": "D0,035cm³ (PRV)",
    "limitant": "≤ 24 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-d17f8053",
@@ -4459,7 +4487,7 @@
    "fx": 3,
    "indicateur": "V21,9Gy",
    "limitant": "≤ 5 cm³",
-   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-ae1caf43",
@@ -4468,7 +4496,7 @@
    "fx": 5,
    "indicateur": "D0,035cm³ (PRV)",
    "limitant": "≤ 32 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-5627470a",
@@ -4477,7 +4505,7 @@
    "fx": 5,
    "indicateur": "V30Gy",
    "limitant": "≤ 5 cm³",
-   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-12d99495",
@@ -4718,7 +4746,7 @@
    "fx": 3,
    "indicateur": "D0,5cm³",
    "limitant": "≤ 28,2 Gy",
-   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; UK SABR '17 ; PRO Oligo '21"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases"
   },
   {
    "id": "cb-01f6833a",
@@ -4757,7 +4785,7 @@
    "indicateur": "V36Gy",
    "limitant": "< 1 cm³",
    "note": "organe entier",
-   "source": "RecoRad 2025 (prostate) ; UK SABR '17"
+   "source": "RecoRad 2025 (prostate) ; Consensus britannique SABR 2017"
   },
   {
    "id": "cb-74991f07",
@@ -4783,7 +4811,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "limitant": "< 18 Gy",
-   "source": "RecoRad 2025 (pancréas) ; NCCN Gastric 2.2026 ; NCCN EsophGEJ 2.2026 ; NCCN Pancreas 2.2025 ; NRG Heme '26 ; QUANTEC ; CORSAIR ; Florida ; NCCN Cervical 2.2026 ; EMBRACE II ; Noël 2025 SFRO"
+   "source": "RecoRad 2025 (pancréas) ; Recommandations NCCN, estomac (version 2.2026) ; Recommandations NCCN, œsophage et jonction (version 2.2026) ; Recommandations NCCN, pancréas (version 2.2025) ; Consensus NRG, hématologie (2026) ; QUANTEC ; CORSAIR ; Université de Floride ; Recommandations NCCN, col utérin (version 2.2026) ; EMBRACE II ; Noël 2025 SFRO"
   },
   {
    "id": "cb-d6334b40",
@@ -4791,7 +4819,7 @@
    "regime": "normo",
    "indicateur": "V20Gy",
    "limitant": "≤ 32 %",
-   "source": "RecoRad 2025 (pancréas) ; NCCN Hodgkin 1.2026 ; CORSAIR"
+   "source": "RecoRad 2025 (pancréas) ; Recommandations NCCN, lymphome de Hodgkin (version 1.2026) ; CORSAIR"
   },
   {
    "id": "cb-2435b0d5",
@@ -4883,7 +4911,7 @@
    "fx": 1,
    "indicateur": "V10Gy (rein controlatéral)",
    "limitant": "≤ 33 %",
-   "source": "RecoRad 2025 (rein) ; CORSAIR ; IROCK ; FASTRACK II ; UK SABR '22 ; RTOG 0631"
+   "source": "RecoRad 2025 (rein) ; CORSAIR ; IROCK ; FASTRACK II ; Consensus britannique SABR 2022 ; RTOG 0631"
   },
   {
    "id": "cb-524dba99",
@@ -4902,7 +4930,7 @@
    "fx": 3,
    "indicateur": "V10Gy (rein controlatéral)",
    "limitant": "≤ 33 %",
-   "source": "RecoRad 2025 (rein) ; CORSAIR ; IROCK ; UK SABR '22 ; FASTRACK II ; UTSW"
+   "source": "RecoRad 2025 (rein) ; CORSAIR ; IROCK ; Consensus britannique SABR 2022 ; FASTRACK II ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-0ee02f99",
@@ -4939,7 +4967,7 @@
    "fx": 5,
    "indicateur": "Dmean",
    "ideal": "< 10 Gy",
-   "source": "RecoRad 2025 (pancréas) ; UK SABR '17 ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (pancréas) ; Consensus britannique SABR 2017 ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-4f72391f",
@@ -4949,7 +4977,7 @@
    "indicateur": "V10Gy (rein unique)",
    "ideal": "< 10 %",
    "limitant": "< 45 %",
-   "source": "RecoRad 2025 (pancréas) ; UK SABR '17 ; UK SABR '22 ; CORSAIR ; UCLA"
+   "source": "RecoRad 2025 (pancréas) ; Consensus britannique SABR 2017 ; Consensus britannique SABR 2022 ; CORSAIR ; UCLA"
   },
   {
    "id": "cb-1910e488",
@@ -5033,7 +5061,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "limitant": "≤ 45 Gy",
-   "source": "RecoRad 2025 (encéphale) ; DAHANCA 20 ; DAHANCA 25 ; Florida ; NRG Heme '26 ; Timmerman '21 ; Noël 2025 SFRO ; UTSW ; NCCN Hodgkin 1.2026"
+   "source": "RecoRad 2025 (encéphale) ; DAHANCA 20 ; DAHANCA 25 ; Université de Floride ; Consensus NRG, hématologie (2026) ; Timmerman 2021, table des tolérances en stéréotaxie ; Noël 2025 SFRO ; UT Southwestern (Dallas) ; Recommandations NCCN, lymphome de Hodgkin (version 1.2026)"
   },
   {
    "id": "cb-bb691c15",
@@ -5173,7 +5201,7 @@
    "fx": 5,
    "indicateur": "V30Gy",
    "limitant": "< 10 cm³",
-   "source": "RecoRad 2025 (rectum) ; TG-101 ; UK SABR '17 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "RecoRad 2025 (rectum) ; TG-101 ; Consensus britannique SABR 2017 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-99247f42",
@@ -5263,7 +5291,7 @@
    "fx": 1,
    "indicateur": "V14Gy",
    "limitant": "≤ 10 cm³",
-   "source": "Gustave Roussy, stéréotaxie 2018 ; UK SABR '22 ; CORSAIR"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-f19844cc",
@@ -5272,7 +5300,7 @@
    "fx": 3,
    "indicateur": "V21,9Gy",
    "limitant": "≤ 10 cm³",
-   "source": "Gustave Roussy, stéréotaxie 2018 ; UK SABR '22 ; CORSAIR ; UTSW"
+   "source": "Gustave Roussy, stéréotaxie 2018 ; Consensus britannique SABR 2022 ; CORSAIR ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-d1db4d4f",
@@ -5281,7 +5309,7 @@
    "fx": 5,
    "indicateur": "V14,5Gy",
    "limitant": "< 5 %",
-   "source": "RecoRad 2025 (prostate) ; VA Prostate 2022 ; VA/ASTRO PRO '26 ; CORSAIR ; PACE ; NRG GU013"
+   "source": "RecoRad 2025 (prostate) ; Consensus VA (Veterans Affairs), prostate 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; CORSAIR ; PACE ; NRG GU013"
   },
   {
    "id": "cb-51972a98",
@@ -5365,7 +5393,7 @@
    "fx": 1,
    "indicateur": "Dmax",
    "limitant": "< 20,2–30 Gy",
-   "source": "RecoRad 2025 (poumon) ; NCCN NSCLC 3.2026 ; VA/ASTRO PRO '26 ; TG-101 ; Timmerman ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; RTOG 0915 ; NRG BR002 ; RTOG 0631 ; UTSW"
+   "source": "RecoRad 2025 (poumon) ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR ; RTOG 0915 ; NRG BR002 ; RTOG 0631 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-fb4249b5",
@@ -5383,7 +5411,7 @@
    "fx": 3,
    "indicateur": "Dmax",
    "limitant": "< 32–43 Gy",
-   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; UK SABR '22 ; NCCN NSCLC 3.2026 ; UK SABR '17 ; TG-101 ; PRO Oligo '21 ; CORSAIR"
+   "source": "RecoRad 2025 (poumon) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Consensus britannique SABR 2022 ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; Consensus britannique SABR 2017 ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; CORSAIR"
   },
   {
    "id": "cb-28c3ce6e",
@@ -5440,7 +5468,7 @@
    "ideal": "< 35 Gy",
    "limitant": "< 38 Gy",
    "note": "lésion centrale : Dmax < 50 Gy, V33,5Gy < 4 cm³, V45Gy < 4 cm³",
-   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; Timmerman ; TG-101 ; PRO Oligo '21 ; NRG BR002 ; UTSW ; UK SABR '22 ; CORSAIR ; NCCN NSCLC 3.2026 ; RTOG 0813"
+   "source": "RecoRad 2025 (poumon) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Timmerman 2008, table des tolérances en stéréotaxie ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; NRG BR002 ; UT Southwestern (Dallas) ; Consensus britannique SABR 2022 ; CORSAIR ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; RTOG 0813"
   },
   {
    "id": "cb-ee0e5644",
@@ -5459,7 +5487,7 @@
    "indicateur": "Dmax",
    "limitant": "< 40 Gy",
    "note": "lésion centrale ou ultracentrale : Dmax < 56–60 Gy ; V50Gy (valeur absente de l'article)",
-   "source": "RecoRad 2025 (poumon) ; VA/ASTRO PRO '26 ; Timmerman '21 ; UTSW"
+   "source": "RecoRad 2025 (poumon) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-e0cb96fa",
@@ -5468,7 +5496,7 @@
    "fx": 10,
    "indicateur": "Dmax",
    "limitant": "≤ dose prescrite",
-   "source": "RecoRad 2025 (encéphale) ; Timmerman '21 ; UTSW ; RTOG 1205"
+   "source": "RecoRad 2025 (encéphale) ; Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas) ; RTOG 1205"
   },
   {
    "id": "cb-d787f324",
@@ -5478,7 +5506,7 @@
    "indicateur": "Dmax",
    "limitant": "≤ dose prescrite",
    "note": "EQD2",
-   "source": "RecoRad 2025 (encéphale) ; DAHANCA 25 ; Timmerman '21 ; UTSW"
+   "source": "RecoRad 2025 (encéphale) ; DAHANCA 25 ; Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-2a5791fe",
@@ -5495,7 +5523,7 @@
    "regime": "normo",
    "indicateur": "Dmax",
    "ideal": "≤ 54 Gy",
-   "source": "RecoRad 2025 (encéphale) ; Noël 2025 SFRO ; ESTRO-EANO GBM ; DAHANCA 25 ; UTSW ; NRG Heme '26 ; VA H&N 2022 ; VA/ASTRO PRO '26 ; RTOG 1016 ; NRG HN003"
+   "source": "RecoRad 2025 (encéphale) ; Noël 2025 SFRO ; Recommandation ESTRO-EANO, glioblastome ; DAHANCA 25 ; UT Southwestern (Dallas) ; Consensus NRG, hématologie (2026) ; Consensus VA (Veterans Affairs), ORL 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; RTOG 1016 ; NRG HN003"
   },
   {
    "id": "cb-0a6be6f3",
@@ -5575,7 +5603,7 @@
    "indicateur": "Dmax",
    "ideal": "< 10 Gy",
    "limitant": "< 15 Gy",
-   "source": "RecoRad 2025 (encéphale) ; TG-101 ; UK SABR '17 ; Timmerman '21 ; CORSAIR ; UTSW ; UK SABR '22 ; Noël 2025 SFRO"
+   "source": "RecoRad 2025 (encéphale) ; TG-101 ; Consensus britannique SABR 2017 ; Timmerman 2021, table des tolérances en stéréotaxie ; CORSAIR ; UT Southwestern (Dallas) ; Consensus britannique SABR 2022 ; Noël 2025 SFRO"
   },
   {
    "id": "cb-ae745450",
@@ -5585,7 +5613,7 @@
    "indicateur": "Dmax",
    "ideal": "< 18 Gy",
    "limitant": "< 23,1 Gy",
-   "source": "RecoRad 2025 (encéphale) ; TG-101 ; UK SABR '17 ; Timmerman '21 ; CORSAIR ; UTSW ; UK SABR '22 ; Noël 2025 SFRO"
+   "source": "RecoRad 2025 (encéphale) ; TG-101 ; Consensus britannique SABR 2017 ; Timmerman 2021, table des tolérances en stéréotaxie ; CORSAIR ; UT Southwestern (Dallas) ; Consensus britannique SABR 2022 ; Noël 2025 SFRO"
   },
   {
    "id": "cb-698e8444",
@@ -5595,7 +5623,7 @@
    "indicateur": "Dmax",
    "ideal": "< 23 Gy",
    "limitant": "< 31 Gy",
-   "source": "RecoRad 2025 (encéphale) ; TG-101 ; UK SABR '17 ; Timmerman '21 ; CORSAIR ; UTSW ; UK SABR '22 ; Noël 2025 SFRO"
+   "source": "RecoRad 2025 (encéphale) ; TG-101 ; Consensus britannique SABR 2017 ; Timmerman 2021, table des tolérances en stéréotaxie ; CORSAIR ; UT Southwestern (Dallas) ; Consensus britannique SABR 2022 ; Noël 2025 SFRO"
   },
   {
    "id": "cb-7a80ad2a",
@@ -5760,7 +5788,7 @@
    "regime": "normo",
    "indicateur": "V40Gy",
    "ideal": "< 35 %",
-   "source": "RecoRad 2025 (rectum) ; VA Rectal 2022 ; VA/ASTRO PRO '26 ; RTOG 0822"
+   "source": "RecoRad 2025 (rectum) ; Consensus VA (Veterans Affairs), rectum 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; RTOG 0822"
   },
   {
    "id": "cb-90329de7",
@@ -5879,7 +5907,7 @@
    "indicateur": "V65Gy",
    "limitant": "< 50 %",
    "note": "organe entier",
-   "source": "RecoRad 2025 (prostate) ; VA Prostate 2022 ; VA/ASTRO PRO '26 ; QUANTEC ; CORSAIR ; RTOG 0415 ; RTOG 0815 ; NRG GU013 ; RTOG 0126 ; Noël 2025 SFRO"
+   "source": "RecoRad 2025 (prostate) ; Consensus VA (Veterans Affairs), prostate 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; QUANTEC ; CORSAIR ; RTOG 0415 ; RTOG 0815 ; NRG GU013 ; RTOG 0126 ; Noël 2025 SFRO"
   },
   {
    "id": "cb-08e52078",
@@ -6128,7 +6156,7 @@
    "fx": 1,
    "indicateur": "D0,1cm³",
    "limitant": "< 8 Gy",
-   "source": "RecoRad 2025 (encéphale) ; UK SABR '17 ; UK SABR '22 ; CORSAIR"
+   "source": "RecoRad 2025 (encéphale) ; Consensus britannique SABR 2017 ; Consensus britannique SABR 2022 ; CORSAIR"
   },
   {
    "id": "cb-837c49f8",
@@ -6158,7 +6186,7 @@
    "indicateur": "Dmax",
    "limitant": "< 26 Gy",
    "note": "valeur donnée pour le canal médullaire",
-   "source": "RecoRad 2025 (poumon) ; Timmerman '21 ; UTSW"
+   "source": "RecoRad 2025 (poumon) ; Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
    "id": "cb-22f03cb5",
@@ -6203,7 +6231,7 @@
    "regime": "normo",
    "indicateur": "Dmean",
    "limitant": "≤ 52,5 Gy",
-   "source": "RecoRad 2022 (autres contraintes publiées) ; RTOG 0415 ; VA Prostate 2022 ; VA/ASTRO PRO '26 ; QUANTEC ; RTOG 0815"
+   "source": "RecoRad 2022 (autres contraintes publiées) ; RTOG 0415 ; Consensus VA (Veterans Affairs), prostate 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; QUANTEC ; RTOG 0815"
   },
   {
    "id": "cb-993571d7",
@@ -6230,7 +6258,7 @@
    "indicateur": "Dmean",
    "limitant": "≤ 6–10 Gy",
    "note": "aussi basse que possible si une préservation de la fonction ovarienne est recherchée",
-   "source": "RecoRad 2022 ; NCCN Hodgkin 1.2026 ; PENTEC ; EMBRACE II"
+   "source": "RecoRad 2022 ; Recommandations NCCN, lymphome de Hodgkin (version 1.2026) ; PENTEC ; EMBRACE II"
   },
   {
    "id": "cb-377babc5",
@@ -6919,7 +6947,7 @@
    "indicateur": "D0,03cm³",
    "limitant": "< 28 Gy",
    "note": "même valeur que : Côlon",
-   "source": "RecoRad 2025 (foie) ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; UK SABR '22"
+   "source": "RecoRad 2025 (foie) ; TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022"
   },
   {
    "id": "cb-4b290e3b",
@@ -6952,7 +6980,7 @@
    "indicateur": "D0,03cm³",
    "limitant": "< 34 Gy",
    "note": "même valeur que : Côlon",
-   "source": "RecoRad 2025 (foie) ; UK SABR '22"
+   "source": "RecoRad 2025 (foie) ; Consensus britannique SABR 2022"
   },
   {
    "id": "cb-bfabdc50",
@@ -7215,86 +7243,86 @@
    "source": "Institut Curie, stéréotaxie des métastases cérébrales (version de travail du 05/12/2021), d'après l'AAPM"
   },
   {
-   "id": "cr-649cbc34",
+   "id": "cr-7cd6981f",
    "oar_id": "oar-arbre-bronchique",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 59 Gy",
-   "source": "VA Lung 2023 ; VA/ASTRO PRO '26 ; Timmerman '21 ; UTSW"
+   "source": "Consensus VA (Veterans Affairs), poumon 2023 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-a3831756",
+   "id": "cr-2957d39d",
    "oar_id": "oar-arbre-bronchique",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 59 Gy",
-   "source": "VA Lung 2023 ; VA/ASTRO PRO '26 ; Timmerman '21 ; UTSW"
+   "source": "Consensus VA (Veterans Affairs), poumon 2023 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-69606f58",
+   "id": "cr-31c331da",
    "oar_id": "oar-arbre-bronchique",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "V52Gy",
    "limitant": "≤ 5 cm³",
-   "source": "VA Lung 2023 ; VA/ASTRO PRO '26 ; Timmerman '21 ; UTSW"
+   "source": "Consensus VA (Veterans Affairs), poumon 2023 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-e6d2e9a7",
+   "id": "cr-50584c19",
    "oar_id": "oar-arbre-bronchique",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "V52Gy",
    "limitant": "≤ 5 cm³",
-   "source": "VA Lung 2023 ; VA/ASTRO PRO '26 ; Timmerman '21 ; UTSW"
+   "source": "Consensus VA (Veterans Affairs), poumon 2023 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-66644ad1",
+   "id": "cr-d90c0022",
    "oar_id": "oar-bulbe",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 50 Gy",
-   "source": "TG-101 ; UK SABR '17 ; PRO Oligo '21",
+   "source": "TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases",
    "effet": "dysfonction érectile"
   },
   {
-   "id": "cr-7584613b",
+   "id": "cr-f132c7f8",
    "oar_id": "oar-bulbe",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "V30–50Gy",
    "limitant": "≤ 3 cm³",
-   "source": "TG-101 ; Timmerman ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-b0fb868d",
+   "id": "cr-2160e425",
    "oar_id": "oar-cavite-orale",
    "regime": "normo",
    "indicateur": "D0,03cm³",
    "limitant": "≤ 60 Gy",
-   "source": "VA H&N 2022 ; VA/ASTRO PRO '26 ; RTOG 1016 ; NRG HN003",
+   "source": "Consensus VA (Veterans Affairs), ORL 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; RTOG 1016 ; NRG HN003",
    "effet": "xérostomie, dysgueusie, mucite"
   },
   {
-   "id": "cr-3f727e10",
+   "id": "cr-9eae3b1f",
    "oar_id": "oar-cochlees",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "D0,035–0,1cm³",
    "limitant": "≤ 33 Gy",
-   "source": "Timmerman '21 ; EA2183 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; EA2183 ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-93763f50",
+   "id": "cr-a5b4d5d4",
    "oar_id": "oar-cochlees",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "V30Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "Timmerman '21 ; EA2183 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; EA2183 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-2e5f9cad",
@@ -7305,12 +7333,12 @@
    "source": "DAHANCA 20 ; DAHANCA 25"
   },
   {
-   "id": "cr-123e1b6f",
+   "id": "cr-baab6fc4",
    "oar_id": "oar-cochlees",
    "regime": "normo",
    "indicateur": "Dmean",
    "limitant": "≤ 35–45 Gy",
-   "source": "NRG Heme '26 ; CORSAIR"
+   "source": "Consensus NRG, hématologie (2026) ; CORSAIR"
   },
   {
    "id": "cr-46532429",
@@ -7322,76 +7350,76 @@
    "effet": "péricardite grade ≥ 3"
   },
   {
-   "id": "cr-85b54f45",
+   "id": "cr-f8155232",
    "oar_id": "oar-coeur",
    "regime": "normo",
    "indicateur": "V40Gy",
    "limitant": "≤ 20 %",
-   "source": "NCCN NSCLC 3.2026 ; Timmerman '21 ; UTSW",
+   "source": "Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)",
    "effet": "péricardite grade ≥ 3"
   },
   {
-   "id": "cr-1108ab35",
+   "id": "cr-688432b1",
    "oar_id": "oar-coeur",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "D0,035–0,1cm³",
    "limitant": "≤ 30 Gy",
-   "source": "DOSE-Pro Thoracic ; NCCN NSCLC 3.2026 ; VA/ASTRO PRO '26 ; TG-101 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; RTOG 0618 ; UTSW"
+   "source": "DOSE-Pro Thoracic ; Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; RTOG 0618 ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-7e67e626",
+   "id": "cr-73bb2ca0",
    "oar_id": "oar-colon",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "D1,5cm³",
    "limitant": "≤ 42 Gy",
    "note": "PRV, marge 3 mm",
-   "source": "Timmerman '21 ; UTSW",
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)",
    "effet": "colite, fistule"
   },
   {
-   "id": "cr-8ffff773",
+   "id": "cr-58daa8ae",
    "oar_id": "oar-colon",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "V32Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "UK SABR '17 ; PRO Oligo '21",
+   "source": "Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases",
    "effet": "colite, fistule"
   },
   {
-   "id": "cr-2769cc02",
+   "id": "cr-848a2065",
    "oar_id": "oar-cristallins",
    "regime": "normo",
    "indicateur": "Dmax",
    "limitant": "≤ 6–10 Gy",
-   "source": "ESTRO-EANO GBM"
+   "source": "Recommandation ESTRO-EANO, glioblastome"
   },
   {
-   "id": "cr-0bc26266",
+   "id": "cr-7e11c6f0",
    "oar_id": "oar-duodenum",
    "regime": "normo",
    "indicateur": "V55Gy",
    "limitant": "≤ 1 cm³",
-   "source": "George Clin Onc '20 ; Lakomy PRO '21"
+   "source": "George, Clinical Oncology 2020 ; Lakomy, Practical Radiation Oncology 2021"
   },
   {
-   "id": "cr-10ce993d",
+   "id": "cr-eb27b31d",
    "oar_id": "oar-duodenum",
    "regime": "normo",
    "indicateur": "V55Gy",
    "limitant": "≤ 5–15 cm³",
-   "source": "NCCN Cervical 2.2026 ; EMBRACE II"
+   "source": "Recommandations NCCN, col utérin (version 2.2026) ; EMBRACE II"
   },
   {
-   "id": "cr-a860c11e",
+   "id": "cr-0af841cb",
    "oar_id": "oar-duodenum",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "V20Gy",
    "limitant": "≤ 3 cm³",
-   "source": "Murphy IJROBP '10",
+   "source": "Murphy, IJROBP 2010",
    "effet": "ulcération"
   },
   {
@@ -7421,33 +7449,33 @@
    "source": "DAHANCA 20 ; DAHANCA 25"
   },
   {
-   "id": "cr-f39c80b1",
+   "id": "cr-5fe5d7b9",
    "oar_id": "oar-encephale-sain",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "V5Gy",
    "limitant": "≤ 50 %",
-   "source": "UK SABR '17 ; QUANTEC ; CORSAIR",
+   "source": "Consensus britannique SABR 2017 ; QUANTEC ; CORSAIR",
    "effet": "déclin cognitif"
   },
   {
-   "id": "cr-7232a3c6",
+   "id": "cr-ec9d3815",
    "oar_id": "oar-encephale-sain",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "V12Gy",
    "limitant": "≤ 10 cm³",
-   "source": "UK SABR '17 ; QUANTEC ; HyTEC ; CORSAIR",
+   "source": "Consensus britannique SABR 2017 ; QUANTEC ; HyTEC ; CORSAIR",
    "effet": "radionécrose symptomatique"
   },
   {
-   "id": "cr-aa777237",
+   "id": "cr-bc915ae6",
    "oar_id": "oar-estomac",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 12,4 Gy",
-   "source": "TG-101 ; Timmerman ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; RTOG 0915 ; UTSW"
+   "source": "TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR ; RTOG 0915 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-62f89b30",
@@ -7460,42 +7488,42 @@
    "source": "Source à préciser"
   },
   {
-   "id": "cr-0c92b310",
+   "id": "cr-bc41b44a",
    "oar_id": "oar-foie",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "V15Gy",
    "limitant": "≤ 50 %",
-   "source": "UK SABR '17 ; PRO Oligo '21 ; CORSAIR",
+   "source": "Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; CORSAIR",
    "effet": "hépatopathie radique grade ≥ 3"
   },
   {
-   "id": "cr-716fd935",
+   "id": "cr-3706c07b",
    "oar_id": "oar-foie",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "V10Gy",
    "limitant": "≤ 70 %",
-   "source": "UK SABR '17 ; UK SABR '22 ; CORSAIR",
+   "source": "Consensus britannique SABR 2017 ; Consensus britannique SABR 2022 ; CORSAIR",
    "effet": "hépatopathie radique grade ≥ 3"
   },
   {
-   "id": "cr-ba5c2daa",
+   "id": "cr-f403cc55",
    "oar_id": "oar-glandes-lacrymales",
    "regime": "normo",
    "indicateur": "V20Gy",
    "limitant": "≤ 80-≥80 %",
-   "source": "NCCN Hodgkin 1.2026 ; NRG Heme '26 ; CORSAIR",
+   "source": "Recommandations NCCN, lymphome de Hodgkin (version 1.2026) ; Consensus NRG, hématologie (2026) ; CORSAIR",
    "effet": "xérophtalmie"
   },
   {
-   "id": "cr-9929fffc",
+   "id": "cr-e755e864",
    "oar_id": "oar-grele",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "V20Gy",
    "limitant": "≤ 50 cm³",
-   "source": "VA Rectal 2022 ; VA/ASTRO PRO '26",
+   "source": "Consensus VA (Veterans Affairs), rectum 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026",
    "effet": "entérite, occlusion"
   },
   {
@@ -7508,20 +7536,20 @@
    "source": "Noël 2025 SFRO ; RADICALS"
   },
   {
-   "id": "cr-0f5b487c",
+   "id": "cr-f75cb4a6",
    "oar_id": "oar-grele",
    "regime": "normo",
    "indicateur": "V50Gy",
    "limitant": "≤ 5–10 cm³",
-   "source": "ESTRO ACROP Pancreas '20"
+   "source": "Recommandation ESTRO-ACROP, pancréas (2020)"
   },
   {
-   "id": "cr-79b3d0ef",
+   "id": "cr-719b5ca4",
    "oar_id": "oar-grele",
    "regime": "normo",
    "indicateur": "V40Gy",
    "limitant": "≤ 30-70 %",
-   "source": "NCCN Cervical 2.2026 ; RTOG 1203 ; RTOG 0418 ; RTOG 0724 ; NRG GU001 ; TIME-C"
+   "source": "Recommandations NCCN, col utérin (version 2.2026) ; RTOG 1203 ; RTOG 0418 ; RTOG 0724 ; NRG GU001 ; TIME-C"
   },
   {
    "id": "cr-cf27af4e",
@@ -7559,13 +7587,13 @@
    "source": "Noël 2025 SFRO ; EMBRACE II"
   },
   {
-   "id": "cr-73735c9b",
+   "id": "cr-6888bc77",
    "oar_id": "oar-grele",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "V25,2Gy",
    "limitant": "≤ 0,035–0,5 cm³",
-   "source": "ASTRO Liver 2021 ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; CORSAIR"
+   "source": "Recommandation ASTRO, foie (2021) ; TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; CORSAIR"
   },
   {
    "id": "cr-d033ac07",
@@ -7615,74 +7643,74 @@
    "source": "Noël 2025 SFRO"
   },
   {
-   "id": "cr-65c75947",
+   "id": "cr-ed7c5f32",
    "oar_id": "oar-moelle",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "V10Gy",
    "limitant": "≤ 0,35 cm³",
    "note": "PRV, marge 1,5-3 mm",
-   "source": "UK SABR '17 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; RTOG 0915 ; NRG BR002 ; RTOG 0631 ; UTSW",
+   "source": "Consensus britannique SABR 2017 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; RTOG 0915 ; NRG BR002 ; RTOG 0631 ; UT Southwestern (Dallas)",
    "effet": "myélite grade ≥ 3"
   },
   {
-   "id": "cr-9bdac775",
+   "id": "cr-f05aa65b",
    "oar_id": "oar-moelle",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "V15,9Gy",
    "limitant": "≤ 0,35 cm³",
    "note": "PRV, marge 1,5-3 mm",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-74ae4e37",
+   "id": "cr-f88cdb52",
    "oar_id": "oar-oesophage",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "V25,2Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "TG-101 ; UK SABR '17 ; PRO Oligo '21",
+   "source": "TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases",
    "effet": "œsophagite"
   },
   {
-   "id": "cr-a87ac381",
+   "id": "cr-630db70b",
    "oar_id": "oar-oesophage",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "D0,5cm³",
    "limitant": "≤ 32–34 Gy",
-   "source": "VA/ASTRO PRO '26 ; UK SABR '17 ; PRO Oligo '21 ; CORSAIR ; RTOG 1112",
+   "source": "Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; CORSAIR ; RTOG 1112",
    "effet": "œsophagite"
   },
   {
-   "id": "cr-c41496e9",
+   "id": "cr-1748bab7",
    "oar_id": "oar-oesophage",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "V40Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "UK SABR '17 ; PRO Oligo '21 ; LungTECH",
+   "source": "Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; LungTECH",
    "effet": "œsophagite"
   },
   {
-   "id": "cr-5dcc05ee",
+   "id": "cr-e7cbc640",
    "oar_id": "oar-paroi-thoracique",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D1cm³",
    "limitant": "≤ 30,2 Gy",
-   "source": "VA/ASTRO PRO '26 ; UTSW",
+   "source": "Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; UT Southwestern (Dallas)",
    "effet": "douleur ou fracture"
   },
   {
-   "id": "cr-d74de3c5",
+   "id": "cr-2e8303b0",
    "oar_id": "oar-paroi-thoracique",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D5cm³",
    "limitant": "≤ 27,2 Gy",
-   "source": "VA/ASTRO PRO '26 ; UTSW"
+   "source": "Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-5951e2f3",
@@ -7695,145 +7723,145 @@
    "effet": "douleur ou fracture"
   },
   {
-   "id": "cr-4b303f2f",
+   "id": "cr-22f03788",
    "oar_id": "oar-paroi-thoracique",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "V37Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "UK SABR '17 ; PRO Oligo '21",
+   "source": "Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases",
    "effet": "douleur ou fracture"
   },
   {
-   "id": "cr-af3c7754",
+   "id": "cr-f7e2e7bb",
    "oar_id": "oar-paroi-thoracique",
    "regime": "stereo",
    "fx": 4,
    "indicateur": "V30Gy",
    "limitant": "≤ 30–70 cm³",
-   "source": "UK SABR '17 ; PRO Oligo '21",
+   "source": "Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases",
    "effet": "douleur ou fracture"
   },
   {
-   "id": "cr-324b7ebf",
+   "id": "cr-3e2f4ce3",
    "oar_id": "oar-paroi-thoracique",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "V39Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "UK SABR '17 ; PRO Oligo '21",
+   "source": "Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases",
    "effet": "douleur ou fracture"
   },
   {
-   "id": "cr-3ecec12c",
+   "id": "cr-f81fb1f7",
    "oar_id": "oar-paroi-thoracique",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "V32Gy",
    "limitant": "≤ 30–70 cm³",
-   "source": "UK SABR '17 ; PRO Oligo '21 ; CORSAIR",
+   "source": "Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; CORSAIR",
    "effet": "douleur ou fracture"
   },
   {
-   "id": "cr-f384c22c",
+   "id": "cr-f2977923",
    "oar_id": "oar-paroi-thoracique",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "V39Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "UK SABR '17 ; PRO Oligo '21 ; CORSAIR ; LungTECH",
+   "source": "Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; CORSAIR ; LungTECH",
    "effet": "douleur ou fracture"
   },
   {
-   "id": "cr-fafc7382",
+   "id": "cr-b20dcc57",
    "oar_id": "oar-paroi-thoracique",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "V35Gy",
    "limitant": "≤ 30 cm³",
-   "source": "UK SABR '17 ; PRO Oligo '21 ; CORSAIR ; DAHANCA 20 ; LungTECH",
+   "source": "Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; CORSAIR ; DAHANCA 20 ; LungTECH",
    "effet": "douleur ou fracture"
   },
   {
-   "id": "cr-242b6d29",
+   "id": "cr-0220f8ed",
    "oar_id": "oar-parotides",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 21,3 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-06b8afad",
+   "id": "cr-2c9c40d7",
    "oar_id": "oar-parotides",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 21,3 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-a4bd2421",
+   "id": "cr-6bdb1479",
    "oar_id": "oar-parotides",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "Dmean",
    "limitant": "≤ 17,7 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-9643e8a5",
+   "id": "cr-57a9dabb",
    "oar_id": "oar-parotides",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "Dmean",
    "limitant": "≤ 17,7 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-2dd3cc01",
+   "id": "cr-456be8d1",
    "oar_id": "oar-parotides",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "V14,1Gy",
    "limitant": "≤ 7 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-f3354859",
+   "id": "cr-05de0faa",
    "oar_id": "oar-parotides",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "V14,1Gy",
    "limitant": "≤ 7 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-064d3a26",
+   "id": "cr-df1a7c18",
    "oar_id": "oar-parotides",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 27 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-a8aededa",
+   "id": "cr-26d485d2",
    "oar_id": "oar-parotides",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "Dmean",
    "limitant": "≤ 22,5 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-e16ef1ab",
+   "id": "cr-f369cdd3",
    "oar_id": "oar-parotides",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "V18Gy",
    "limitant": "≤ 7 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-749cfe36",
@@ -7857,32 +7885,32 @@
    "effet": "ulcération"
   },
   {
-   "id": "cr-fb201ffd",
+   "id": "cr-c8795be9",
    "oar_id": "oar-peau",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "D10cm³",
    "limitant": "≤ 36,5 Gy",
-   "source": "DOSE-Pro Thoracic ; TG-101 ; UK SABR '17 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; IROCK ; UTSW",
+   "source": "DOSE-Pro Thoracic ; TG-101 ; Consensus britannique SABR 2017 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; IROCK ; UT Southwestern (Dallas)",
    "effet": "ulcération"
   },
   {
-   "id": "cr-8be90de2",
+   "id": "cr-5c84222f",
    "oar_id": "oar-peau",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "D1,5cm³",
    "limitant": "≤ 24–30 Gy",
-   "source": "UK SABR '22 ; CORSAIR",
+   "source": "Consensus britannique SABR 2022 ; CORSAIR",
    "effet": "ulcération"
   },
   {
-   "id": "cr-2f1db188",
+   "id": "cr-064b41c3",
    "oar_id": "oar-poumon-controlateral",
    "regime": "normo",
    "indicateur": "V20Gy",
    "limitant": "≤ 6,3-7 %",
-   "source": "VA Lung 2023",
+   "source": "Consensus VA (Veterans Affairs), poumon 2023",
    "effet": "pneumopathie mortelle (grade 5)"
   },
   {
@@ -7912,49 +7940,49 @@
    "source": "AEWS 1031 ; AREN 1921"
   },
   {
-   "id": "cr-b6aa05c1",
+   "id": "cr-a54be7a4",
    "oar_id": "oar-poumons",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "V16Gy",
    "limitant": "≤ 30-32 %",
-   "source": "VA Lung 2023 ; VA/ASTRO PRO '26"
+   "source": "Consensus VA (Veterans Affairs), poumon 2023 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026"
   },
   {
-   "id": "cr-bbe5bffa",
+   "id": "cr-86e0b09c",
    "oar_id": "oar-poumons",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "V16Gy",
    "limitant": "≤ 30-32 %",
-   "source": "VA Lung 2023 ; VA/ASTRO PRO '26"
+   "source": "Consensus VA (Veterans Affairs), poumon 2023 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026"
   },
   {
-   "id": "cr-e4ef445d",
+   "id": "cr-bf12378c",
    "oar_id": "oar-poumons",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "Dmean",
    "limitant": "≤ 12 Gy",
-   "source": "VA Lung 2023 ; VA/ASTRO PRO '26"
+   "source": "Consensus VA (Veterans Affairs), poumon 2023 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026"
   },
   {
-   "id": "cr-2b751be0",
+   "id": "cr-02f5acf4",
    "oar_id": "oar-poumons",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "Dmean",
    "limitant": "≤ 12 Gy",
-   "source": "VA Lung 2023 ; VA/ASTRO PRO '26"
+   "source": "Consensus VA (Veterans Affairs), poumon 2023 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026"
   },
   {
-   "id": "cr-d64225a2",
+   "id": "cr-01ca562c",
    "oar_id": "oar-rectum",
    "regime": "hypo",
    "fx": 20,
    "indicateur": "V60Gy",
    "limitant": "≤ 0,01-1 %",
-   "source": "NRG Prostate 2020 ; VA Prostate 2022 ; CHHiP",
+   "source": "NRG Prostate 2020 ; Consensus VA (Veterans Affairs), prostate 2022 ; CHHiP",
    "effet": "rectite, fistule"
   },
   {
@@ -7967,13 +7995,13 @@
    "effet": "rectite, fistule"
   },
   {
-   "id": "cr-c1ae8994",
+   "id": "cr-140692b4",
    "oar_id": "oar-rectum",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "V39Gy",
    "limitant": "≤ Circumference: 33 %",
-   "source": "HyTEC ; UTSW",
+   "source": "HyTEC ; UT Southwestern (Dallas)",
    "effet": "rectite, fistule"
   },
   {
@@ -7987,13 +8015,13 @@
    "effet": "rectite, fistule"
   },
   {
-   "id": "cr-50f76d21",
+   "id": "cr-7139f109",
    "oar_id": "oar-rectum",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "V24Gy",
    "limitant": "≤ Circumference: 50 %",
-   "source": "HyTEC ; UTSW",
+   "source": "HyTEC ; UT Southwestern (Dallas)",
    "effet": "rectite, fistule"
   },
   {
@@ -8013,52 +8041,52 @@
    "source": "AEWS 1031"
   },
   {
-   "id": "cr-bc61049d",
+   "id": "cr-e82b7f48",
    "oar_id": "oar-reins",
    "regime": "normo",
    "indicateur": "V10Gy",
    "limitant": "≤ 30 %",
-   "source": "NCCN Hodgkin 1.2026 ; CORSAIR",
+   "source": "Recommandations NCCN, lymphome de Hodgkin (version 1.2026) ; CORSAIR",
    "effet": "insuffisance rénale"
   },
   {
-   "id": "cr-619e3eb4",
+   "id": "cr-3783fd2c",
    "oar_id": "oar-reins",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "Dmean",
    "limitant": "≤ 8,5 Gy",
-   "source": "TG-101 ; Timmerman ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW",
+   "source": "TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)",
    "effet": "atteinte rénale grade ≥ 3"
   },
   {
-   "id": "cr-28451e57",
+   "id": "cr-7e8f1a81",
    "oar_id": "oar-reins",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "V10Gy",
    "limitant": "≤ 10 %",
-   "source": "UK SABR '17 ; RTOG 0438",
+   "source": "Consensus britannique SABR 2017 ; RTOG 0438",
    "effet": "fonction rénale"
   },
   {
-   "id": "cr-2424710c",
+   "id": "cr-07f5ca38",
    "oar_id": "oar-reins",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "V10Gy",
    "limitant": "≤ 10 %",
-   "source": "UK SABR '17 ; RTOG 0438",
+   "source": "Consensus britannique SABR 2017 ; RTOG 0438",
    "effet": "fonction rénale"
   },
   {
-   "id": "cr-00657e85",
+   "id": "cr-1f433cf1",
    "oar_id": "oar-sigmoide",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "V32Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "UK SABR '17 ; PRO Oligo '21",
+   "source": "Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases",
    "effet": "colite, fistule"
   },
   {
@@ -8071,12 +8099,12 @@
    "effet": "colite, fistule"
   },
   {
-   "id": "cr-1c580572",
+   "id": "cr-cfbdb813",
    "oar_id": "oar-testicule-controlateral",
    "regime": "normo",
    "indicateur": "Dmean",
    "limitant": "≤ 2–12 Gy",
-   "source": "NCCN Hodgkin 1.2026 ; PENTEC"
+   "source": "Recommandations NCCN, lymphome de Hodgkin (version 1.2026) ; PENTEC"
   },
   {
    "id": "cr-7866ee88",
@@ -8089,70 +8117,70 @@
    "effet": "nécrose"
   },
   {
-   "id": "cr-1da4314a",
+   "id": "cr-dafad7e1",
    "oar_id": "oar-tronc-cerebral",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "V40Gy",
    "limitant": "≤ 5 cm³",
-   "source": "Timmerman '21 ; UTSW",
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)",
    "effet": "neuropathie crânienne grade ≥ 3"
   },
   {
-   "id": "cr-3409b682",
+   "id": "cr-d1a757ff",
    "oar_id": "oar-tronc-cerebral",
    "regime": "hypo",
    "fx": 20,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 50 Gy",
-   "source": "Timmerman '21 ; UTSW",
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)",
    "effet": "neuropathie crânienne grade ≥ 3"
   },
   {
-   "id": "cr-61c664ee",
+   "id": "cr-6a489bf0",
    "oar_id": "oar-tronc-cerebral",
    "regime": "hypo",
    "fx": 20,
    "indicateur": "V44Gy",
    "limitant": "≤ 5 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-36e28dc5",
+   "id": "cr-35967aec",
    "oar_id": "oar-tronc-cerebral",
    "regime": "normo",
    "indicateur": "V59Gy",
    "limitant": "≤ 1–10 cm³",
-   "source": "ESTRO-EANO GBM ; QUANTEC ; CORSAIR",
+   "source": "Recommandation ESTRO-EANO, glioblastome ; QUANTEC ; CORSAIR",
    "effet": "neuropathie crânienne grade ≥ 3"
   },
   {
-   "id": "cr-3dbeec1e",
+   "id": "cr-281d9a34",
    "oar_id": "oar-tronc-cerebral",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D0,5cm³",
    "limitant": "≤ 10 Gy",
-   "source": "TG-101 ; UK SABR '17 ; Timmerman '21 ; CORSAIR ; UTSW",
+   "source": "TG-101 ; Consensus britannique SABR 2017 ; Timmerman 2021, table des tolérances en stéréotaxie ; CORSAIR ; UT Southwestern (Dallas)",
    "effet": "neuropathie crânienne grade ≥ 3"
   },
   {
-   "id": "cr-1b5804a3",
+   "id": "cr-5e49ffbb",
    "oar_id": "oar-uretre",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "D0,035–0,5cm³",
    "limitant": "≤ 45 Gy",
-   "source": "Timmerman ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "Timmerman 2008, table des tolérances en stéréotaxie ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-131bb208",
+   "id": "cr-53ebe6a3",
    "oar_id": "oar-vessie",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "D0,035–0,5cm³",
    "limitant": "≤ 38 Gy",
-   "source": "TG-101 ; Timmerman ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; NRG BR002 ; UTSW",
+   "source": "TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; NRG BR002 ; UT Southwestern (Dallas)",
    "effet": "cystite, fistule"
   },
   {
@@ -8166,82 +8194,82 @@
    "effet": "cystite, fistule"
   },
   {
-   "id": "cr-5e0baca4",
+   "id": "cr-8d4b5c7a",
    "oar_id": "oar-vessie",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "Dmean",
    "limitant": "≤ 32 Gy",
-   "source": "PRO Oligo '21",
+   "source": "Practical Radiation Oncology 2021, oligométastases",
    "effet": "cystite, fistule"
   },
   {
-   "id": "cr-a45db54f",
+   "id": "cr-b00880b1",
    "oar_id": "oar-vessie",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "V15Gy",
    "limitant": "≤ 50 %",
-   "source": "VA Rectal 2022 ; VA/ASTRO PRO '26 ; NRG GU005",
+   "source": "Consensus VA (Veterans Affairs), rectum 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; NRG GU005",
    "effet": "cystite, fistule"
   },
   {
-   "id": "cr-60d1e82c",
+   "id": "cr-3016c388",
    "oar_id": "oar-vessie",
    "regime": "normo",
    "indicateur": "V50Gy",
    "limitant": "≤ 50 %",
-   "source": "VA Prostate 2022 ; VA/ASTRO PRO '26 ; PACE ; CHHiP ; PIVOTAL",
+   "source": "Consensus VA (Veterans Affairs), prostate 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; PACE ; CHHiP ; PIVOTAL",
    "effet": "cystite, fistule"
   },
   {
-   "id": "cr-f90551e8",
+   "id": "cr-12f457af",
    "oar_id": "oar-vessie",
    "regime": "normo",
    "indicateur": "Dmean",
    "limitant": "≤ 40–44 Gy",
-   "source": "VA Rectal 2022 ; NRG Heme '26 ; VA/ASTRO PRO '26 ; NRG GI002 ; PROSPECT",
+   "source": "Consensus VA (Veterans Affairs), rectum 2022 ; Consensus NRG, hématologie (2026) ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; NRG GI002 ; PROSPECT",
    "effet": "cystite, fistule"
   },
   {
-   "id": "cr-4a645368",
+   "id": "cr-a682a4eb",
    "oar_id": "oar-vessie",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "D0,035–0,1cm³",
    "limitant": "≤ 28,2–33 Gy",
-   "source": "TG-101 ; UK SABR '17 ; PRO Oligo '21",
+   "source": "TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases",
    "effet": "cystite, fistule"
   },
   {
-   "id": "cr-fe5f37cb",
+   "id": "cr-b217918f",
    "oar_id": "oar-vessie",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "Dmean",
    "limitant": "≤ 26 Gy",
-   "source": "PRO Oligo '21",
+   "source": "Practical Radiation Oncology 2021, oligométastases",
    "effet": "cystite, fistule"
   },
   {
-   "id": "cr-11475eea",
+   "id": "cr-9a3f856d",
    "oar_id": "oar-moelle",
    "regime": "hypo",
    "fx": 20,
    "indicateur": "V42Gy",
    "limitant": "≤ 5,0 cm³",
    "note": "PRV, marge 1,5-3 mm",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-c26e2401",
+   "id": "cr-c3deaed4",
    "oar_id": "oar-moelle",
    "regime": "stereo",
    "fx": 4,
    "indicateur": "V15,9Gy",
    "limitant": "≤ 0,35 cm³",
    "note": "PRV, marge 1,5-3 mm",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-ded850aa",
@@ -8261,22 +8289,22 @@
    "source": "LymphoTEC"
   },
   {
-   "id": "cr-bc416561",
+   "id": "cr-667d7e14",
    "oar_id": "oar-plexus-sacre",
    "regime": "normo",
    "indicateur": "D0,035cm³",
    "limitant": "≤ 54–60 Gy",
-   "source": "NRG Heme '26 ; Timmerman '21 ; CORSAIR ; UTSW",
+   "source": "Consensus NRG, hématologie (2026) ; Timmerman 2021, table des tolérances en stéréotaxie ; CORSAIR ; UT Southwestern (Dallas)",
    "effet": "neuropathie"
   },
   {
-   "id": "cr-085f1573",
+   "id": "cr-afd3c91e",
    "oar_id": "oar-cotes",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "V30Gy",
    "limitant": "≤ 30 cm³",
-   "source": "TG-101 ; PRO Oligo '21 ; CORSAIR",
+   "source": "TG-101 ; Practical Radiation Oncology 2021, oligométastases ; CORSAIR",
    "effet": "douleur ou fracture"
   },
   {
@@ -8298,180 +8326,180 @@
    "source": "Source à préciser"
   },
   {
-   "id": "cr-8de76483",
+   "id": "cr-ed6b7405",
    "oar_id": "oar-sigmoide",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D0,035–0,1cm³",
    "limitant": "≤ 18,4 Gy",
-   "source": "TG-101 ; PRO Oligo '21 ; UK SABR '22 ; CORSAIR ; RTOG 0631",
+   "source": "TG-101 ; Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; CORSAIR ; RTOG 0631",
    "effet": "colite, fistule"
   },
   {
-   "id": "cr-d534f9d6",
+   "id": "cr-5cbe908f",
    "oar_id": "oar-voie-biliaire",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 48 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-5a147d23",
+   "id": "cr-89de5abd",
    "oar_id": "oar-vessie",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 25 Gy",
-   "source": "Timmerman ; Timmerman '21 ; NRG BR002 ; UTSW"
+   "source": "Timmerman 2008, table des tolérances en stéréotaxie ; Timmerman 2021, table des tolérances en stéréotaxie ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-9c3420a5",
+   "id": "cr-6940a21c",
    "oar_id": "oar-vessie",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 18,4 Gy",
-   "source": "UK SABR '22 ; CORSAIR",
+   "source": "Consensus britannique SABR 2022 ; CORSAIR",
    "effet": "cystite, fistule"
   },
   {
-   "id": "cr-87f72859",
+   "id": "cr-7049ce31",
    "oar_id": "oar-vessie",
    "regime": "stereo",
    "fx": 4,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 33,2–34,5 Gy",
-   "source": "PRO Oligo '21",
+   "source": "Practical Radiation Oncology 2021, oligométastases",
    "effet": "cystite, fistule"
   },
   {
-   "id": "cr-f150c20f",
+   "id": "cr-c1b04d79",
    "oar_id": "oar-vessie",
    "regime": "stereo",
    "fx": 4,
    "indicateur": "Dmean",
    "limitant": "≤ 29 Gy",
-   "source": "PRO Oligo '21",
+   "source": "Practical Radiation Oncology 2021, oligométastases",
    "effet": "cystite, fistule"
   },
   {
-   "id": "cr-5e0b035e",
+   "id": "cr-e354e34e",
    "oar_id": "oar-vessie",
    "regime": "stereo",
    "fx": 4,
    "indicateur": "V17,6Gy",
    "limitant": "≤ 15 cm³",
-   "source": "PRO Oligo '21",
+   "source": "Practical Radiation Oncology 2021, oligométastases",
    "effet": "cystite, fistule"
   },
   {
-   "id": "cr-65da2e72",
+   "id": "cr-55ca19a7",
    "oar_id": "oar-vessie",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 44,8 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-6e13c4c1",
+   "id": "cr-3ca10dbc",
    "oar_id": "oar-vessie",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "V22,4Gy",
    "limitant": "≤ 15 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-d609b322",
+   "id": "cr-d3345c54",
    "oar_id": "oar-vessie",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 53 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-c6dcf18d",
+   "id": "cr-f41e8c95",
    "oar_id": "oar-vessie",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 53 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-a29a6310",
+   "id": "cr-b9c2b0f2",
    "oar_id": "oar-vessie",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "V48Gy",
    "limitant": "≤ 90 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-a8fc8169",
+   "id": "cr-df062c87",
    "oar_id": "oar-vessie",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "V48Gy",
    "limitant": "≤ 90 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-b975ff25",
+   "id": "cr-bbc5e967",
    "oar_id": "oar-vessie",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "V45Gy",
    "limitant": "≤ 125 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-b08b84d4",
+   "id": "cr-0dd391dd",
    "oar_id": "oar-vessie",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "V45Gy",
    "limitant": "≤ 125 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-824c2e91",
+   "id": "cr-a880395c",
    "oar_id": "oar-vessie",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 61,5 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-5fc741a5",
+   "id": "cr-48a54e77",
    "oar_id": "oar-vessie",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "V55,5Gy",
    "limitant": "≤ 90 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-0c22aeef",
+   "id": "cr-2d7eb55d",
    "oar_id": "oar-vessie",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "V52,5Gy",
    "limitant": "≤ 125 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-145c7cd3",
+   "id": "cr-b444d9ae",
    "oar_id": "oar-vessie",
    "regime": "hypo",
    "fx": 28,
    "indicateur": "V65Gy",
    "limitant": "≤ 15 %",
-   "source": "NRG Prostate 2020 ; VA Prostate 2022",
+   "source": "NRG Prostate 2020 ; Consensus VA (Veterans Affairs), prostate 2022",
    "effet": "cystite, fistule"
   },
   {
@@ -8485,42 +8513,42 @@
    "effet": "cystite, fistule"
   },
   {
-   "id": "cr-59642af5",
+   "id": "cr-96384139",
    "oar_id": "oar-grele",
    "regime": "hypo",
    "fx": 28,
    "indicateur": "V40Gy",
    "limitant": "≤ 1 %",
-   "source": "VA Prostate 2022 ; VA/ASTRO PRO '26",
+   "source": "Consensus VA (Veterans Affairs), prostate 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026",
    "effet": "entérite, occlusion"
   },
   {
-   "id": "cr-01c041c1",
+   "id": "cr-dc616eaa",
    "oar_id": "oar-colon",
    "regime": "stereo",
    "fx": 4,
    "indicateur": "D0,035–0,1cm³",
    "limitant": "≤ 33,2 Gy",
-   "source": "PRO Oligo '21",
+   "source": "Practical Radiation Oncology 2021, oligométastases",
    "effet": "colite, fistule"
   },
   {
-   "id": "cr-9b5a7924",
+   "id": "cr-96af8b35",
    "oar_id": "oar-colon",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 57,5 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-8b3d3aac",
+   "id": "cr-539b10f2",
    "oar_id": "oar-colon",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "V35,2Gy",
    "limitant": "≤ 20 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-a0db026c",
@@ -8532,31 +8560,31 @@
    "source": "NRG Prostate 2020"
   },
   {
-   "id": "cr-db7bd3fe",
+   "id": "cr-a8e800d1",
    "oar_id": "oar-colon",
    "regime": "hypo",
    "fx": 28,
    "indicateur": "V50Gy",
    "limitant": "≤ 1 %",
-   "source": "VA Prostate 2022 ; VA/ASTRO PRO '26"
+   "source": "Consensus VA (Veterans Affairs), prostate 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026"
   },
   {
-   "id": "cr-987c07c1",
+   "id": "cr-a0cd08bd",
    "oar_id": "oar-grele",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 40 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-c5c9c0e9",
+   "id": "cr-ddf906df",
    "oar_id": "oar-grele",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "V28,8Gy",
    "limitant": "≤ 30 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-f12a1db3",
@@ -8568,91 +8596,91 @@
    "source": "HyTEC"
   },
   {
-   "id": "cr-66ef5f30",
+   "id": "cr-5ad6e9c7",
    "oar_id": "oar-encephale",
    "regime": "hypo",
    "fx": 25,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 60 Gy",
-   "source": "Meade Clin Onc '18"
+   "source": "Meade, Clinical Oncology 2018"
   },
   {
-   "id": "cr-59e118ec",
+   "id": "cr-64dbaa90",
    "oar_id": "oar-encephale",
    "regime": "hypo",
    "fx": 25,
    "indicateur": "V58Gy",
    "limitant": "≤ 1 cm³",
-   "source": "Meade Clin Onc '18"
+   "source": "Meade, Clinical Oncology 2018"
   },
   {
-   "id": "cr-128f5fc9",
+   "id": "cr-78e4aac0",
    "oar_id": "oar-tronc-cerebral",
    "regime": "stereo",
    "fx": 2,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 19,1 Gy",
-   "source": "Timmerman '21 ; UTSW",
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)",
    "effet": "neuropathie crânienne grade ≥ 3"
   },
   {
-   "id": "cr-34599b33",
+   "id": "cr-f489abec",
    "oar_id": "oar-tronc-cerebral",
    "regime": "stereo",
    "fx": 2,
    "indicateur": "V13Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "Timmerman '21 ; UTSW",
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)",
    "effet": "neuropathie crânienne grade ≥ 3"
   },
   {
-   "id": "cr-1765bb40",
+   "id": "cr-07fd1704",
    "oar_id": "oar-tronc-cerebral",
    "regime": "stereo",
    "fx": 4,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 27,2 Gy",
-   "source": "Timmerman '21 ; UTSW",
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)",
    "effet": "neuropathie crânienne grade ≥ 3"
   },
   {
-   "id": "cr-5b592340",
+   "id": "cr-c30c9ffb",
    "oar_id": "oar-tronc-cerebral",
    "regime": "stereo",
    "fx": 4,
    "indicateur": "V20,8Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-01c4b309",
+   "id": "cr-5b84851b",
    "oar_id": "oar-tronc-cerebral",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 37,6 Gy",
-   "source": "Timmerman '21 ; UTSW",
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)",
    "effet": "neuropathie crânienne grade ≥ 3"
   },
   {
-   "id": "cr-0bc3bfdc",
+   "id": "cr-5fd08fe1",
    "oar_id": "oar-tronc-cerebral",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "V27,2Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "Timmerman '21 ; UTSW",
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)",
    "effet": "neuropathie crânienne grade ≥ 3"
   },
   {
-   "id": "cr-19387a88",
+   "id": "cr-efeb85e9",
    "oar_id": "oar-tronc-cerebral",
    "regime": "hypo",
    "fx": 25,
    "indicateur": "D0,035–0,1cm³",
    "limitant": "≤ 50 Gy",
    "note": "PRV, marge 1,5-3 mm",
-   "source": "Meade Clin Onc '18"
+   "source": "Meade, Clinical Oncology 2018"
   },
   {
    "id": "cr-af7d9d4b",
@@ -8665,223 +8693,223 @@
    "source": "Source à préciser"
   },
   {
-   "id": "cr-25f409ac",
+   "id": "cr-b84be7a6",
    "oar_id": "oar-queue-cheval",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 16 Gy",
    "note": "PRV, marge 0 mm",
-   "source": "Timmerman ; TG-101 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; UK SABR '17 ; CORSAIR ; RTOG 0631 ; NRG BR002 ; UTSW",
+   "source": "Timmerman 2008, table des tolérances en stéréotaxie ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; Consensus britannique SABR 2017 ; CORSAIR ; RTOG 0631 ; NRG BR002 ; UT Southwestern (Dallas)",
    "effet": "névrite grade ≥ 3"
   },
   {
-   "id": "cr-d7233075",
+   "id": "cr-e089611f",
    "oar_id": "oar-queue-cheval",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "V14Gy",
    "limitant": "≤ 5 cm³",
    "note": "PRV, marge 0 mm",
-   "source": "Timmerman ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; RTOG 0631 ; NRG BR002 ; UTSW",
+   "source": "Timmerman 2008, table des tolérances en stéréotaxie ; TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; RTOG 0631 ; NRG BR002 ; UT Southwestern (Dallas)",
    "effet": "névrite grade ≥ 3"
   },
   {
-   "id": "cr-351fa63e",
+   "id": "cr-23f7405b",
    "oar_id": "oar-queue-cheval",
    "regime": "stereo",
    "fx": 2,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 17 Gy",
    "note": "PRV, marge 0 mm",
-   "source": "PRO Oligo '21 ; UK SABR '22 ; Sunnybrook",
+   "source": "Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; Sunnybrook",
    "effet": "névrite grade ≥ 3"
   },
   {
-   "id": "cr-18a58d26",
+   "id": "cr-47d4967a",
    "oar_id": "oar-queue-cheval",
    "regime": "stereo",
    "fx": 4,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 28,8 Gy",
    "note": "PRV, marge 0 mm",
-   "source": "Timmerman '21 ; UTSW",
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)",
    "effet": "névrite grade ≥ 3"
   },
   {
-   "id": "cr-ca5f5c19",
+   "id": "cr-b5eae2e4",
    "oar_id": "oar-queue-cheval",
    "regime": "stereo",
    "fx": 4,
    "indicateur": "V26Gy",
    "limitant": "≤ 5 cm³",
    "note": "PRV, marge 0 mm",
-   "source": "Timmerman '21 ; UTSW",
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)",
    "effet": "névrite grade ≥ 3"
   },
   {
-   "id": "cr-ccf4278a",
+   "id": "cr-2a14f568",
    "oar_id": "oar-queue-cheval",
    "regime": "stereo",
    "fx": 4,
    "indicateur": "V13,6Gy",
    "limitant": "≤ 1,2 cm³",
    "note": "PRV, marge 0 mm",
-   "source": "PRO Oligo '21",
+   "source": "Practical Radiation Oncology 2021, oligométastases",
    "effet": "névrite grade ≥ 3"
   },
   {
-   "id": "cr-9c723d7a",
+   "id": "cr-56698a23",
    "oar_id": "oar-queue-cheval",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "D0,035–0,1cm³",
    "limitant": "≤ 38,4 Gy",
    "note": "PRV, marge 0 mm",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-1e1c7b98",
+   "id": "cr-763b9501",
    "oar_id": "oar-queue-cheval",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "V34Gy",
    "limitant": "≤ 5 cm³",
    "note": "PRV, marge 0 mm",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-38c827a8",
+   "id": "cr-f1b78dde",
    "oar_id": "oar-queue-cheval",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 41 Gy",
    "note": "PRV, marge 0 mm",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-198e2763",
+   "id": "cr-e9923660",
    "oar_id": "oar-queue-cheval",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 41 Gy",
    "note": "PRV, marge 0 mm",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-5b05bd17",
+   "id": "cr-58d95b02",
    "oar_id": "oar-queue-cheval",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "V35Gy",
    "limitant": "≤ 5 cm³",
    "note": "PRV, marge 0 mm",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-7fba5214",
+   "id": "cr-be65266f",
    "oar_id": "oar-queue-cheval",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "V35Gy",
    "limitant": "≤ 5 cm³",
    "note": "PRV, marge 0 mm",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-12a55d69",
+   "id": "cr-45f59177",
    "oar_id": "oar-queue-cheval",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 48 Gy",
    "note": "PRV, marge 0 mm",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-e14cbf58",
+   "id": "cr-8631f258",
    "oar_id": "oar-queue-cheval",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "V40,5Gy",
    "limitant": "≤ 5 cm³",
    "note": "PRV, marge 0 mm",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-a1682638",
+   "id": "cr-8e211451",
    "oar_id": "oar-cochlees",
    "regime": "stereo",
    "fx": 4,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 22,5 Gy",
-   "source": "PRO Oligo '21",
+   "source": "Practical Radiation Oncology 2021, oligométastases",
    "effet": "surdité grade ≥ 3"
   },
   {
-   "id": "cr-7cedb3bb",
+   "id": "cr-3255b20d",
    "oar_id": "oar-cochlees",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 26,4 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-338b84c0",
+   "id": "cr-e8e1cde5",
    "oar_id": "oar-cochlees",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 27 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-96b4e9cb",
+   "id": "cr-5bc6164b",
    "oar_id": "oar-cochlees",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 27 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-f4db4398",
+   "id": "cr-b8f027d6",
    "oar_id": "oar-cochlees",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "V25Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-6a028e75",
+   "id": "cr-721f2dc9",
    "oar_id": "oar-cochlees",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "V25Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-74abe923",
+   "id": "cr-ce88d2e2",
    "oar_id": "oar-cochlees",
    "regime": "hypo",
    "fx": 20,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 36 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-eabe1ed5",
+   "id": "cr-623b9cab",
    "oar_id": "oar-cochlees",
    "regime": "hypo",
    "fx": 20,
    "indicateur": "V32Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-5daa3317",
@@ -8937,56 +8965,56 @@
    "effet": "œdème laryngé, dysphagie"
   },
   {
-   "id": "cr-c37d2805",
+   "id": "cr-f3bce093",
    "oar_id": "oar-coronaires",
    "regime": "normo",
    "indicateur": "Point chaud",
    "limitant": "à éviter",
-   "source": "NCCN Hodgkin 1.2026 ; FIL Chest ; CORSAIR"
+   "source": "Recommandations NCCN, lymphome de Hodgkin (version 1.2026) ; FIL Chest ; CORSAIR"
   },
   {
-   "id": "cr-f108a7eb",
+   "id": "cr-9fab808f",
    "oar_id": "oar-corps-calleux",
    "regime": "normo",
    "indicateur": "Dmean",
    "limitant": "≤ 24 Gy",
-   "source": "Florida - Peds"
+   "source": "Université de Floride, pédiatrie"
   },
   {
-   "id": "cr-a8c74ee6",
+   "id": "cr-85918b53",
    "oar_id": "oar-retines",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D0,1–0,2cm³",
    "limitant": "≤ 8 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-f9be47ea",
+   "id": "cr-5989ad27",
    "oar_id": "oar-retines",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "V21,9Gy",
    "limitant": "≤ 5 cm³",
-   "source": "TG-101 ; Timmerman ; NRG BR002 ; UTSW"
+   "source": "TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-f8b1e64b",
+   "id": "cr-ac794a91",
    "oar_id": "oar-retines",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 17,4 Gy",
-   "source": "TG-101 ; HyTEC ; PRO Oligo '21 ; Timmerman '21 ; UTSW"
+   "source": "TG-101 ; HyTEC ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-4b8aa984",
+   "id": "cr-95a99399",
    "oar_id": "oar-retines",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 32 Gy",
-   "source": "TG-101 ; UK SABR '17 ; NRG BR002"
+   "source": "TG-101 ; Consensus britannique SABR 2017 ; NRG BR002"
   },
   {
    "id": "cr-dccf288c",
@@ -9007,86 +9035,86 @@
    "source": "DAHANCA 20 ; DAHANCA 25"
   },
   {
-   "id": "cr-9a14c1c1",
+   "id": "cr-7e98620e",
    "oar_id": "oar-femurs",
    "regime": "normo",
    "indicateur": "Dmean",
    "limitant": "≤ 37 Gy",
-   "source": "Dickie IJROBP '09 ; Casey ASO '20",
+   "source": "Dickie, IJROBP 2009 ; Casey, Annals of Surgical Oncology 2020",
    "effet": "nécrose"
   },
   {
-   "id": "cr-a5b07df0",
+   "id": "cr-949deebf",
    "oar_id": "oar-femurs",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "V30Gy",
    "limitant": "≤ 10 cm³",
-   "source": "TG-101 ; UK SABR '17 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; NRG BR002 ; UTSW",
+   "source": "TG-101 ; Consensus britannique SABR 2017 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; NRG BR002 ; UT Southwestern (Dallas)",
    "effet": "nécrose"
   },
   {
-   "id": "cr-08b56733",
+   "id": "cr-6faad854",
    "oar_id": "oar-tetes-femorales",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "V35Gy",
    "limitant": "≤ 10 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-c8da2904",
+   "id": "cr-a57edc01",
    "oar_id": "oar-tetes-femorales",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 43,5 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-9b7ca239",
+   "id": "cr-e7057823",
    "oar_id": "oar-tetes-femorales",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 43,5 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-c668fd70",
+   "id": "cr-22ab3cc6",
    "oar_id": "oar-tetes-femorales",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "V38–39,1Gy",
    "limitant": "≤ 10 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-c3c5a156",
+   "id": "cr-7dd65749",
    "oar_id": "oar-tetes-femorales",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "V38–39,1Gy",
    "limitant": "≤ 10 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-08a57bfb",
+   "id": "cr-b187a687",
    "oar_id": "oar-tetes-femorales",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 46,5 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-11750262",
+   "id": "cr-88f87a40",
    "oar_id": "oar-tetes-femorales",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "V40Gy",
    "limitant": "≤ 10 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-f74b91ef",
@@ -9099,36 +9127,36 @@
    "effet": "nécrose"
   },
   {
-   "id": "cr-fd98e3ca",
+   "id": "cr-710b543c",
    "oar_id": "oar-cartilages-croissance",
    "regime": "normo",
    "indicateur": "D0,035cm³",
    "limitant": "≤ 3–6 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-5b43a450",
+   "id": "cr-e128946c",
    "oar_id": "oar-crete-iliaque",
    "regime": "normo",
    "indicateur": "V50Gy",
    "limitant": "≤ 5 %",
-   "source": "NCCN Anal 1.2026 ; RTOG 0529"
+   "source": "Recommandations NCCN, canal anal (version 1.2026) ; RTOG 0529"
   },
   {
-   "id": "cr-ce34ddb3",
+   "id": "cr-c059a79a",
    "oar_id": "oar-crete-iliaque",
    "regime": "normo",
    "indicateur": "V40Gy",
    "limitant": "≤ 35 %",
-   "source": "NCCN Anal 1.2026 ; RTOG 0529"
+   "source": "Recommandations NCCN, canal anal (version 1.2026) ; RTOG 0529"
   },
   {
-   "id": "cr-0a47af13",
+   "id": "cr-e3871adf",
    "oar_id": "oar-crete-iliaque",
    "regime": "normo",
    "indicateur": "V30Gy",
    "limitant": "≤ 50 %",
-   "source": "NCCN Anal 1.2026 ; RTOG 0529"
+   "source": "Recommandations NCCN, canal anal (version 1.2026) ; RTOG 0529"
   },
   {
    "id": "cr-94a811d1",
@@ -9139,48 +9167,48 @@
    "source": "RTOG 0630"
   },
   {
-   "id": "cr-de013632",
+   "id": "cr-d04b60c4",
    "oar_id": "oar-hile-renal",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "V28Gy",
    "limitant": "≤ 15 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-16239d9b",
+   "id": "cr-885f2837",
    "oar_id": "oar-hile-renal",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "V30,7Gy",
    "limitant": "≤ 15 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-3ecae943",
+   "id": "cr-5d77f1b8",
    "oar_id": "oar-hile-renal",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "V30,7Gy",
    "limitant": "≤ 15 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-73f7387d",
+   "id": "cr-20f382a4",
    "oar_id": "oar-hile-renal",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "V37,5Gy",
    "limitant": "≤ 15 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-1fcafdcd",
+   "id": "cr-bf762087",
    "oar_id": "oar-circonflexe",
    "regime": "normo",
    "indicateur": "V15Gy",
    "limitant": "≤ 14 %",
-   "source": "NCCN Hodgkin 1.2026"
+   "source": "Recommandations NCCN, lymphome de Hodgkin (version 1.2026)"
   },
   {
    "id": "cr-efa3885a",
@@ -9219,22 +9247,22 @@
    "source": "CORSAIR"
   },
   {
-   "id": "cr-f5223440",
+   "id": "cr-9817a476",
    "oar_id": "oar-glandes-lacrymales",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 23,6 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-64cb3608",
+   "id": "cr-04d3c6a3",
    "oar_id": "oar-glandes-lacrymales",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 23,6 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-39834b14",
@@ -9255,31 +9283,31 @@
    "source": "CORSAIR ; RTOG 0631"
   },
   {
-   "id": "cr-a8765283",
+   "id": "cr-408071d6",
    "oar_id": "oar-larynx",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 45 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-ba60d442",
+   "id": "cr-13ff894d",
    "oar_id": "oar-larynx",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 45 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-4058763e",
+   "id": "cr-4d694da8",
    "oar_id": "oar-larynx",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 52,5 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-f4bb54bc",
@@ -9300,40 +9328,40 @@
    "effet": "nécrose, œdème laryngé, dysphagie, inhalation"
   },
   {
-   "id": "cr-be96c99f",
+   "id": "cr-874b3273",
    "oar_id": "oar-cristallins",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 7 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-fb8c9af4",
+   "id": "cr-a9194e67",
    "oar_id": "oar-cristallins",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 7 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-167d8c8d",
+   "id": "cr-ada5b7e3",
    "oar_id": "oar-cristallins",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 9 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-e9b94da8",
+   "id": "cr-cdd015cd",
    "oar_id": "oar-cristallins",
    "regime": "hypo",
    "fx": 20,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 10 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-96df1d08",
@@ -9345,21 +9373,21 @@
    "source": "Source à préciser"
   },
   {
-   "id": "cr-9f56ea36",
+   "id": "cr-db148c86",
    "oar_id": "oar-foie",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "Volume critique 700 cm³",
    "limitant": "< 24,8 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-fe615122",
+   "id": "cr-e686f6e2",
    "oar_id": "oar-os-longs",
    "regime": "normo",
    "indicateur": "V40Gy",
    "limitant": "≤ 35-64 %",
-   "source": "NCCN Hodgkin 1.2026 ; NRG Heme '26",
+   "source": "Recommandations NCCN, lymphome de Hodgkin (version 1.2026) ; Consensus NRG, hématologie (2026)",
    "effet": "fracture"
   },
   {
@@ -9383,23 +9411,23 @@
    "source": "CALGB 30610 ; RTOG 0538"
   },
   {
-   "id": "cr-526eda66",
+   "id": "cr-51a8b921",
    "oar_id": "oar-chiasma",
    "regime": "stereo",
    "fx": 4,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 22,5 Gy",
-   "source": "PRO Oligo '21",
+   "source": "Practical Radiation Oncology 2021, oligométastases",
    "effet": "névrite optique grade ≥ 3"
   },
   {
-   "id": "cr-6153e868",
+   "id": "cr-08803f82",
    "oar_id": "oar-chiasma",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 29,6 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-a2ddf3b7",
@@ -9412,122 +9440,122 @@
    "source": "Source à préciser"
   },
   {
-   "id": "cr-7c49ae17",
+   "id": "cr-d8daa812",
    "oar_id": "oar-nerfs-optiques",
    "regime": "hypo",
    "fx": 20,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 48 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-cdd4783d",
+   "id": "cr-c525ccb2",
    "oar_id": "oar-nerfs-optiques",
    "regime": "hypo",
    "fx": 20,
    "indicateur": "V42Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-a60848eb",
+   "id": "cr-76db7bff",
    "oar_id": "oar-nerfs-optiques",
    "regime": "hypo",
    "fx": 25,
    "indicateur": "D0,035–0,1cm³",
    "limitant": "≤ 50 Gy",
    "note": "PRV, marge 1,5-3 mm",
-   "source": "Meade Clin Onc '18"
+   "source": "Meade, Clinical Oncology 2018"
   },
   {
-   "id": "cr-69cdd0fd",
+   "id": "cr-fa6dc8c2",
    "oar_id": "oar-yeux",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 26 Gy",
-   "source": "Timmerman ; UK SABR '17 ; NRG BR002 ; UTSW"
+   "source": "Timmerman 2008, table des tolérances en stéréotaxie ; Consensus britannique SABR 2017 ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-1b723f1e",
+   "id": "cr-13ad5171",
    "oar_id": "oar-yeux",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 24 Gy",
-   "source": "TG-101 ; UK SABR '17"
+   "source": "TG-101 ; Consensus britannique SABR 2017"
   },
   {
-   "id": "cr-25d603fe",
+   "id": "cr-258c3066",
    "oar_id": "oar-yeux",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "V24–26Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "UK SABR '17"
+   "source": "Consensus britannique SABR 2017"
   },
   {
-   "id": "cr-5ed44ad0",
+   "id": "cr-c64b37c6",
    "oar_id": "oar-yeux",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "V20,4–22Gy",
    "limitant": "≤ 3 cm³",
-   "source": "TG-101 ; Timmerman ; NRG BR002 ; UTSW"
+   "source": "TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-110fee17",
+   "id": "cr-35342480",
    "oar_id": "oar-yeux",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 30,5 Gy",
-   "source": "TG-101 ; Timmerman ; UTSW"
+   "source": "TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-ea21188d",
+   "id": "cr-b409f71b",
    "oar_id": "oar-yeux",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "V27–29Gy",
    "limitant": "≤ 0,5 cm³",
-   "source": "UK SABR '17"
+   "source": "Consensus britannique SABR 2017"
   },
   {
-   "id": "cr-5ee5afb6",
+   "id": "cr-cb740428",
    "oar_id": "oar-yeux",
    "regime": "hypo",
    "fx": 25,
    "indicateur": "D0,035–0,1cm³",
    "limitant": "≤ 40 Gy",
-   "source": "Meade Clin Onc '18"
+   "source": "Meade, Clinical Oncology 2018"
   },
   {
-   "id": "cr-a7c8b924",
+   "id": "cr-47297789",
    "oar_id": "oar-bulbe",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 14–34 Gy",
-   "source": "TG-101 ; PRO Oligo '21 ; CORSAIR"
+   "source": "TG-101 ; Practical Radiation Oncology 2021, oligométastases ; CORSAIR"
   },
   {
-   "id": "cr-8af6a80f",
+   "id": "cr-99498fea",
    "oar_id": "oar-bulbe",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "V14–16Gy",
    "limitant": "≤ 3 cm³",
-   "source": "TG-101 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; NRG BR002 ; UTSW"
+   "source": "TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-cf6ecbb1",
+   "id": "cr-bc8c6c02",
    "oar_id": "oar-bulbe",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "V21,9–25Gy",
    "limitant": "≤ 3 cm³",
-   "source": "TG-101 ; Timmerman ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-3f715365",
@@ -9540,13 +9568,13 @@
    "effet": "dysfonction érectile"
   },
   {
-   "id": "cr-6ef597e1",
+   "id": "cr-cf2b4943",
    "oar_id": "oar-bulbe",
    "regime": "hypo",
    "fx": 20,
    "indicateur": "V48Gy",
    "limitant": "≤ 10 %",
-   "source": "VA Prostate 2022 ; VA/ASTRO PRO '26 ; PIVOTALboost ; PACE"
+   "source": "Consensus VA (Veterans Affairs), prostate 2022 ; Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; PIVOTALboost ; PACE"
   },
   {
    "id": "cr-c1194276",
@@ -9565,51 +9593,51 @@
    "source": "RTOG 1016 ; NRG HN005"
   },
   {
-   "id": "cr-51f518a5",
+   "id": "cr-04986683",
    "oar_id": "oar-artere-pulmonaire",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 22 Gy",
-   "source": "NCCN NSCLC 3.2026 ; UK SABR '22 ; CORSAIR",
+   "source": "Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; Consensus britannique SABR 2022 ; CORSAIR",
    "effet": "péricardite grade ≥ 3"
   },
   {
-   "id": "cr-42b55d23",
+   "id": "cr-02b9b3b1",
    "oar_id": "oar-artere-pulmonaire",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "D0,035–0,1cm³",
    "limitant": "≤ 30 Gy",
-   "source": "UK SABR '22"
+   "source": "Consensus britannique SABR 2022"
   },
   {
-   "id": "cr-0fe18e06",
+   "id": "cr-1d5908d3",
    "oar_id": "oar-artere-pulmonaire",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 29–38 Gy",
-   "source": "UK SABR '22 ; CORSAIR",
+   "source": "Consensus britannique SABR 2022 ; CORSAIR",
    "effet": "péricardite grade ≥ 3"
   },
   {
-   "id": "cr-b97aa99a",
+   "id": "cr-acedaf30",
    "oar_id": "oar-artere-pulmonaire",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 46 Gy",
-   "source": "UK SABR '22",
+   "source": "Consensus britannique SABR 2022",
    "effet": "péricardite grade ≥ 3"
   },
   {
-   "id": "cr-974fffd5",
+   "id": "cr-7000df2a",
    "oar_id": "oar-coronaire-droite",
    "regime": "normo",
    "indicateur": "Dmean",
    "limitant": "≤ 5 Gy",
-   "source": "NCCN Hodgkin 1.2026"
+   "source": "Recommandations NCCN, lymphome de Hodgkin (version 1.2026)"
   },
   {
    "id": "cr-0d2c7fe3",
@@ -9621,130 +9649,130 @@
    "source": "CORSAIR"
   },
   {
-   "id": "cr-198a0385",
+   "id": "cr-17551881",
    "oar_id": "oar-rectum",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "V39Gy",
    "limitant": "≤ 3,5 cm³",
-   "source": "Timmerman ; PRO Oligo '21 ; NRG BR002 ; UTSW"
+   "source": "Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-1df2d237",
+   "id": "cr-4d34111b",
    "oar_id": "oar-rectum",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D0,035–0,1cm³",
    "limitant": "≤ 18,4–44,2 Gy",
-   "source": "TG-101 ; PRO Oligo '21 ; RTOG 0631"
+   "source": "TG-101 ; Practical Radiation Oncology 2021, oligométastases ; RTOG 0631"
   },
   {
-   "id": "cr-25f7d335",
+   "id": "cr-f0a959ae",
    "oar_id": "oar-rectum",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 61,5 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-33f6e472",
+   "id": "cr-568f0452",
    "oar_id": "oar-rectum",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "V56Gy",
    "limitant": "≤ 3,5 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-5e81a35b",
+   "id": "cr-495e30e1",
    "oar_id": "oar-rectum",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "V45Gy",
    "limitant": "≤ 20 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-c8684123",
+   "id": "cr-a5d75b17",
    "oar_id": "oar-rectum",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 65 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-93a4f8af",
+   "id": "cr-aa1dcb07",
    "oar_id": "oar-rectum",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 65 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-7c7194fc",
+   "id": "cr-bc6b3ad7",
    "oar_id": "oar-rectum",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "V52Gy",
    "limitant": "≤ 10 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-2c61ded5",
+   "id": "cr-969f0b79",
    "oar_id": "oar-rectum",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "V52Gy",
    "limitant": "≤ 10 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-af1becb6",
+   "id": "cr-a6b4e1c2",
    "oar_id": "oar-rectum",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "V49Gy",
    "limitant": "≤ 20 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-3b7bd50c",
+   "id": "cr-92769e24",
    "oar_id": "oar-rectum",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "V49Gy",
    "limitant": "≤ 20 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-bdbe5085",
+   "id": "cr-f2ebdee4",
    "oar_id": "oar-rectum",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 70,5 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-ed85a003",
+   "id": "cr-e06038b1",
    "oar_id": "oar-rectum",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "V60Gy",
    "limitant": "≤ 10 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-7f14e0a0",
+   "id": "cr-b7fbcf0c",
    "oar_id": "oar-rectum",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "V57Gy",
    "limitant": "≤ 20 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-85e7727d",
@@ -9767,255 +9795,255 @@
    "effet": "rectite, fistule"
   },
   {
-   "id": "cr-029aefb9",
+   "id": "cr-9b34022c",
    "oar_id": "oar-cotes",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 30–33 Gy",
-   "source": "NCCN NSCLC 3.2026 ; TG-101 ; Timmerman ; PRO Oligo '21 ; Timmerman '21 ; CORSAIR ; RTOG 0915 ; UTSW",
+   "source": "Recommandations NCCN, poumon non à petites cellules (version 3.2026) ; TG-101 ; Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; CORSAIR ; RTOG 0915 ; UT Southwestern (Dallas)",
    "effet": "douleur ou fracture"
   },
   {
-   "id": "cr-f596a83b",
+   "id": "cr-35edd203",
    "oar_id": "oar-cotes",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "V22Gy",
    "limitant": "≤ 1 cm³",
-   "source": "VA/ASTRO PRO '26 ; TG-101 ; PRO Oligo '21 ; CORSAIR ; RTOG 0915",
+   "source": "Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; TG-101 ; Practical Radiation Oncology 2021, oligométastases ; CORSAIR ; RTOG 0915",
    "effet": "douleur ou fracture"
   },
   {
-   "id": "cr-c45826d2",
+   "id": "cr-2c07ce0d",
    "oar_id": "oar-plexus-sacre",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 16–18 Gy",
-   "source": "TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; RTOG 0631 ; NRG BR002 ; UTSW",
+   "source": "TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; RTOG 0631 ; NRG BR002 ; UT Southwestern (Dallas)",
    "effet": "neuropathie"
   },
   {
-   "id": "cr-06d25013",
+   "id": "cr-be56318c",
    "oar_id": "oar-plexus-sacre",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "V14,4Gy",
    "limitant": "≤ 5 cm³",
-   "source": "Timmerman ; TG-101 ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; RTOG 0631 ; NRG BR002 ; UTSW",
+   "source": "Timmerman 2008, table des tolérances en stéréotaxie ; TG-101 ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; RTOG 0631 ; NRG BR002 ; UT Southwestern (Dallas)",
    "effet": "neuropathie"
   },
   {
-   "id": "cr-b8251f36",
+   "id": "cr-78ddc6b2",
    "oar_id": "oar-plexus-sacre",
    "regime": "stereo",
    "fx": 4,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 23,8–28,3 Gy",
-   "source": "PRO Oligo '21",
+   "source": "Practical Radiation Oncology 2021, oligométastases",
    "effet": "neuropathie"
   },
   {
-   "id": "cr-5a212207",
+   "id": "cr-215180ca",
    "oar_id": "oar-plexus-sacre",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 38,4 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-7654113b",
+   "id": "cr-47d88e6b",
    "oar_id": "oar-plexus-sacre",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "V34Gy",
    "limitant": "≤ 5 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-151b3dd2",
+   "id": "cr-e12b7f97",
    "oar_id": "oar-plexus-sacre",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 41 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-b59a2d3a",
+   "id": "cr-5c3f1e7e",
    "oar_id": "oar-plexus-sacre",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 41 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-821f1b00",
+   "id": "cr-3ebe5eb8",
    "oar_id": "oar-plexus-sacre",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "V35Gy",
    "limitant": "≤ 5 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-e79501a5",
+   "id": "cr-38ca2824",
    "oar_id": "oar-plexus-sacre",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "V35Gy",
    "limitant": "≤ 5 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-6a8f3a39",
+   "id": "cr-4ffa3326",
    "oar_id": "oar-plexus-sacre",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 48 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-6d05cdaa",
+   "id": "cr-8a4d33a3",
    "oar_id": "oar-plexus-sacre",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "V40,5Gy",
    "limitant": "≤ 5 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-1ec2622e",
+   "id": "cr-fed35c13",
    "oar_id": "oar-sigmoide",
    "regime": "stereo",
    "fx": 4,
    "indicateur": "D0,035–0,1cm³",
    "limitant": "≤ 33,2 Gy",
-   "source": "PRO Oligo '21",
+   "source": "Practical Radiation Oncology 2021, oligométastases",
    "effet": "colite, fistule"
   },
   {
-   "id": "cr-59c55005",
+   "id": "cr-05588384",
    "oar_id": "oar-sigmoide",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 57,5 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-2a829f4d",
+   "id": "cr-0ff02a45",
    "oar_id": "oar-sigmoide",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "D0,035–0,1cm³",
    "limitant": "≤ 46 Gy",
-   "source": "PRO Oligo '21"
+   "source": "Practical Radiation Oncology 2021, oligométastases"
   },
   {
-   "id": "cr-7e7e227e",
+   "id": "cr-6d6cdf82",
    "oar_id": "oar-sigmoide",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "V35,2Gy",
    "limitant": "≤ 20 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-df7c85c5",
+   "id": "cr-9fa69621",
    "oar_id": "oar-sigmoide",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 64,5 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-91af734f",
+   "id": "cr-38cfb89e",
    "oar_id": "oar-sigmoide",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "V47Gy",
    "limitant": "≤ 20 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-4bc9b51e",
+   "id": "cr-dbd21a8c",
    "oar_id": "oar-sigmoide",
    "regime": "hypo",
    "fx": 28,
    "indicateur": "D0,03cm³",
    "limitant": "≤ 55–60 Gy",
-   "source": "VA/ASTRO PRO '26 ; NRG GU013",
+   "source": "Consensus VA / ASTRO, Practical Radiation Oncology 2026 ; NRG GU013",
    "effet": "colite, fistule"
   },
   {
-   "id": "cr-b00b8847",
+   "id": "cr-a366719b",
    "oar_id": "oar-sigmoide",
    "regime": "hypo",
    "fx": 28,
    "indicateur": "D1%",
    "limitant": "≤ 50 Gy",
-   "source": "VA/ASTRO PRO '26",
+   "source": "Consensus VA / ASTRO, Practical Radiation Oncology 2026",
    "effet": "colite, fistule"
   },
   {
-   "id": "cr-7f8456cd",
+   "id": "cr-596abd8d",
    "oar_id": "oar-peau",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 48,9 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-07013ed0",
+   "id": "cr-3996bc45",
    "oar_id": "oar-peau",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 48,9 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-db0a47b5",
+   "id": "cr-8651af09",
    "oar_id": "oar-peau",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "V46,3Gy",
    "limitant": "≤ 10 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-c485fad1",
+   "id": "cr-79962f71",
    "oar_id": "oar-peau",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "V46,3Gy",
    "limitant": "≤ 10 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-b3e86fa0",
+   "id": "cr-62b4114c",
    "oar_id": "oar-peau",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 57 Gy",
-   "source": "Timmerman '21 ; EA2183 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; EA2183 ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-ef3c612e",
+   "id": "cr-c0256f3a",
    "oar_id": "oar-peau",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "V54Gy",
    "limitant": "≤ 10 cm³",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-638f5989",
@@ -10047,97 +10075,97 @@
    "effet": "myélite grade ≥ 3"
   },
   {
-   "id": "cr-5395bbf6",
+   "id": "cr-d9db13f9",
    "oar_id": "oar-moelle",
    "regime": "stereo",
    "fx": 2,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 17 Gy",
    "note": "PRV, marge 2 mm",
-   "source": "PRO Oligo '21 ; UK SABR '22 ; SC.24 ; Sunnybrook",
+   "source": "Practical Radiation Oncology 2021, oligométastases ; Consensus britannique SABR 2022 ; SC.24 ; Sunnybrook",
    "effet": "myélite grade ≥ 3"
   },
   {
-   "id": "cr-a12d0230",
+   "id": "cr-008d740a",
    "oar_id": "oar-moelle",
    "regime": "stereo",
    "fx": 6,
    "indicateur": "D0,1cm³",
    "limitant": "≤ 22–29 Gy",
    "note": "PRV, marge 1,5-3 mm",
-   "source": "PRO Oligo '21"
+   "source": "Practical Radiation Oncology 2021, oligométastases"
   },
   {
-   "id": "cr-eebc5b34",
+   "id": "cr-56a683d9",
    "oar_id": "oar-estomac",
    "regime": "stereo",
    "fx": 8,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 42 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-f414c659",
+   "id": "cr-efcaacdd",
    "oar_id": "oar-estomac",
    "regime": "hypo",
    "fx": 20,
    "indicateur": "D0,035cm³",
    "limitant": "≤ 54 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-5c3d761d",
+   "id": "cr-2b938424",
    "oar_id": "oar-glandes-sous-max",
    "regime": "stereo",
    "fx": 5,
    "indicateur": "Dmean",
    "limitant": "≤ 25 Gy",
-   "source": "NRG H&N SBRT"
+   "source": "NRG, stéréotaxie ORL"
   },
   {
-   "id": "cr-b4521680",
+   "id": "cr-0b955311",
    "oar_id": "oar-glandes-sous-max",
    "regime": "stereo",
    "fx": 10,
    "indicateur": "Dmean",
    "limitant": "≤ 17,7 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-434d24d0",
+   "id": "cr-3b5569d9",
    "oar_id": "oar-glandes-sous-max",
    "regime": "hypo",
    "fx": 10,
    "indicateur": "Dmean",
    "limitant": "≤ 17,7 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-1f9e3968",
+   "id": "cr-5d58a51c",
    "oar_id": "oar-glandes-sous-max",
    "regime": "hypo",
    "fx": 15,
    "indicateur": "Dmean",
    "limitant": "≤ 22,5 Gy",
-   "source": "Timmerman '21 ; UTSW"
+   "source": "Timmerman 2021, table des tolérances en stéréotaxie ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-11f7a36a",
+   "id": "cr-7231cf1f",
    "oar_id": "oar-uretre",
    "regime": "stereo",
    "fx": 1,
    "indicateur": "D0,035–0,1cm³",
    "limitant": "≤ 35 Gy",
-   "source": "Timmerman ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "Timmerman 2008, table des tolérances en stéréotaxie ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
-   "id": "cr-6050b092",
+   "id": "cr-ca80ebc0",
    "oar_id": "oar-uretre",
    "regime": "stereo",
    "fx": 3,
    "indicateur": "D0,035–0,5cm³",
    "limitant": "≤ 40 Gy",
-   "source": "Timmerman ; UK SABR '17 ; PRO Oligo '21 ; Timmerman '21 ; UK SABR '22 ; CORSAIR ; NRG BR002 ; UTSW"
+   "source": "Timmerman 2008, table des tolérances en stéréotaxie ; Consensus britannique SABR 2017 ; Practical Radiation Oncology 2021, oligométastases ; Timmerman 2021, table des tolérances en stéréotaxie ; Consensus britannique SABR 2022 ; CORSAIR ; NRG BR002 ; UT Southwestern (Dallas)"
   },
   {
    "id": "cr-0b2499b7",

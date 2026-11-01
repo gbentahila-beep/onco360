@@ -57,7 +57,7 @@ async def main():
         ok('V25Gy' in await ev(OC) and await ev("!!document.querySelector('.rtr-ct td[data-l=Indicateur] sup.rtr-rv')"), 'rectum 5 × 5 Gy : contraintes du rectum pour 5 séances, source numérotée par ligne')
         # Phase RTX lot 2 (01/11/2026) : jeu propre à l'essai (RTOG 1016), base signalée pour les organes que l'essai ne cite pas ; mention sinon
         await aller(pg, 'radiotherapie/s/oro-70-35-6fx/contraintes'); t = await ev(OC)
-        ok('RTOG 1016, protocole' in t and 'PRV moelle (moelle + 5 mm)' in t and "Non publié par l'essai : base de contraintes appliquée" in t, 'RTOG 1016 : contraintes du protocole, organes non cités = base signalée')
+        ok('RTOG 1016, protocole' in t and 'PRV moelle (moelle + 5 mm)' in t and "Contraintes de l'essai : " in t and 'Autres organes : base de contraintes.' in t and "Non publié par l'essai" not in t, 'RTOG 1016 : contraintes du protocole ; une phrase au-dessus du tableau, numéros pour les sources')
         await aller(pg, 'radiotherapie/s/cb-70-35-curie/contraintes')
         ok('base de contraintes appliquée' in await ev("(document.querySelector('.rtr-ctm') || {}).textContent || ''"), 'schéma sans contraintes publiées : mention au-dessus des organes')
         await aller(pg, 'radiotherapie/s/sein-26-5/contraintes')

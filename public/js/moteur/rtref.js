@@ -255,7 +255,7 @@ export function baseEffective(ref, cab) {
 }
 // Table d'une fiche modifiée par le cabinet : différences seulement (schema.ct = { mod: { id: champs }, ret: [id], aj: [lignes] }), appliquées
 // à la table calculée ; ce que la page Contraintes change ensuite arrive donc aussi dans cette fiche
-const CHAMPS_CT = ["oar_id", "indicateur", "ideal", "limitant", "note"];
+const CHAMPS_CT = ["oar_id", "indicateur", "ideal", "limitant", "note", "source"];
 export function appliquerDelta(G, ct) {
   if (!ct) return G;
   const ret = new Set(ct.ret || []), mod = ct.mod || {}, L = [];

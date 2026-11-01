@@ -30,7 +30,31 @@ def fr(t):
 SPECIALES = {"Avoid Hotspot": ("Point chaud", "à éviter"), "CV 24.8 Gy* ≥ 700 cc": ("Volume critique 700 cm³", "< 24,8 Gy"),
   "18 -20 Gy ALARA": ("Dose", "18–20 Gy, aussi basse que possible")}
 
-def propre(s): return re.sub(r"\s*🥇\s*", " ", s).strip()
+# 01/11/2026 (demande de Dr Bentahila) : abréviations de RadOncCalc remplacées par le nom de la publication ou du groupe d'origine
+NOMS = {"ASTRO HPV+ OP SqCC '...": "Recommandation ASTRO, oropharynx HPV+", "ASTRO Gastric '25": "Recommandation ASTRO, estomac (2025)",
+  "ASTRO Pancreas '26": "Recommandation ASTRO, pancréas (2026)", "ASTRO PMRT '25": "Recommandation ASTRO, RT après mastectomie (2025)",
+  "ASTRO Liver 2021": "Recommandation ASTRO, foie (2021)", "VA/ASTRO PRO '26": "Consensus VA / ASTRO, Practical Radiation Oncology 2026",
+  "PRO Oligo '21": "Practical Radiation Oncology 2021, oligométastases", "Lakomy PRO '21": "Lakomy, Practical Radiation Oncology 2021",
+  "NRG Heme '26": "Consensus NRG, hématologie (2026)", "NRG H&N SBRT": "NRG, stéréotaxie ORL",
+  "UTSW": "UT Southwestern (Dallas)", "MDACC": "MD Anderson", "MSKCC": "Memorial Sloan Kettering", "Florida": "Université de Floride",
+  "Florida - Peds": "Université de Floride, pédiatrie", "Timmerman '21": "Timmerman 2021, table des tolérances en stéréotaxie",
+  "Timmerman": "Timmerman 2008, table des tolérances en stéréotaxie", "UK SABR '17": "Consensus britannique SABR 2017",
+  "UK SABR '22": "Consensus britannique SABR 2022", "Casey ASO '20": "Casey, Annals of Surgical Oncology 2020",
+  "Dickie IJROBP '09": "Dickie, IJROBP 2009", "Murphy IJROBP '10": "Murphy, IJROBP 2010", "George Clin Onc '20": "George, Clinical Oncology 2020",
+  "Meade Clin Onc '18": "Meade, Clinical Oncology 2018", "ESTRO-EANO GBM": "Recommandation ESTRO-EANO, glioblastome",
+  "ESTRO ACROP Pancreas '20": "Recommandation ESTRO-ACROP, pancréas (2020)"}
+NCCN = {"H&N": "ORL", "NSCLC": "poumon non à petites cellules", "EsophGEJ": "œsophage et jonction", "Gastric": "estomac", "Pancreas": "pancréas",
+  "Cervical": "col utérin", "Anal": "canal anal", "Hodgkin": "lymphome de Hodgkin", "Peds MB": "médulloblastome de l'enfant", "Wilms": "néphroblastome"}
+def propre(s):
+  s = re.sub(r"\s*🥇\s*", " ", s).strip()
+  m = re.match(r"^VA (Breast|H&N|Lung|Prostate|Rectal) (\d{4})$", s)
+  if m: return "Consensus VA (Veterans Affairs), " + {"Breast": "sein", "H&N": "ORL", "Lung": "poumon", "Prostate": "prostate", "Rectal": "rectum"}[m.group(1)] + " " + m.group(2)
+  m = re.match(r"^NCCN (.+) (\d\.\d{4})$", s)
+  if m and m.group(1) in NCCN: return "Recommandations NCCN, " + NCCN[m.group(1)] + " (version " + m.group(2) + ")"
+  return NOMS.get(s, s)
+# ligne à deux valeurs selon le stade (lisible : une ligne par stade)
+COUPER = {"cb-e96dd7e0": [("ideal", "< 65 Gy", "cancer du cavum, stade précoce"), ("ideal", "< 70 Gy", "cancer du cavum, stade localement avancé")],
+  "cb-6d8888dc": [("limitant", "< 65 Gy", "cancer du cavum, stade précoce"), ("limitant", "< 70 Gy", "cancer du cavum, stade localement avancé")]}
 
 def couper(c):
   if c in SPECIALES: return SPECIALES[c]
@@ -61,6 +85,11 @@ def ecrire():
       ajout = [propre(s) for s in p["src"] if propre(s) not in deja]
       if ajout: x["source"] = deja + " ; " + " ; ".join(ajout)
       if p.get("effet"): x["effet"] = p["effet"]
+    x["source"] = " ; ".join(dict.fromkeys(propre(s) for s in x.get("source", "").split(" ; ") if s.strip()))
+    if l["id"] in COUPER:
+      for i, (k, v, n) in enumerate(COUPER[l["id"]]):
+        y = dict(x, id=l["id"] + ("" if i == 0 else "-" + str(i + 1)), note=n); y[k] = v; base.append(y)
+      continue
     base.append(x)
   for a in ROCC["ajouts"]:
     ind, lim = couper(a["c"])

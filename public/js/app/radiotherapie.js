@@ -375,14 +375,19 @@ function couvLignes(s = FICHE.schema) {
     return { volume: m ? m[1] : g.cle === "cible-ctv" ? "CTV" : "PTV", indicateur: m ? m[2] : l.indicateur, ideal: l.ideal || "", limitant: l.limitant || "", note: l.note || "" }; })));
   return couvTexte(s).concat(essai);
 }
-// 01/11/2026 (lot 2) : schéma avec le jeu d'un essai, organe que l'essai ne cite pas : base de contraintes, signalée
-function renvoiCalcule(g, s) {
-  const horsEssai = g.origine === "base" && s && (s.contraintes_ids || []).length ? "Non publié par l'essai : base de contraintes appliquée" : "";
-  if (g.origine === "conversion") return (horsEssai ? horsEssai + ". " : "") + "Pas de valeur publiée pour ce fractionnement : valeur du normofractionné, à convertir en EQD2";
-  if (g.proche) return (horsEssai ? horsEssai + ". " : "") + "Valeurs publiées pour " + g.proche + " séance" + (g.proche > 1 ? "s" : "") + (g.plusLarge ? ", plus permissives : à adapter" : "");
-  return horsEssai;
+function renvoiCalcule(g) {
+  if (g.origine === "conversion") return "Pas de valeur publiée pour ce fractionnement : valeur du normofractionné, à convertir en EQD2";
+  if (g.proche) return "Valeurs publiées pour " + g.proche + " séance" + (g.proche > 1 ? "s" : "") + (g.plusLarge ? ", plus permissives : à adapter" : "");
+  return "";
 }
-const renvoiDe = (g, s = FICHE.schema) => (s.renvois && g.cle in s.renvois ? s.renvois[g.cle] : renvoiCalcule(g, s));
+// 01/11/2026 (lot 2) : une phrase au-dessus du tableau des organes : organes dont les contraintes viennent de l'essai, les autres de la base ;
+// sinon la mention du schéma (essai sans contraintes publiées) ; les petits numéros restent pour les sources
+function phraseCt(G, s) {
+  if ((s.contraintes_ids || []).length) { const E = G.filter((g) => g.origine === "essai").map((g) => oar(g.cle).nom.replace(/ \(.*\)$/, "").toLowerCase());
+    return E.length ? "Contraintes de l'essai : " + E.join(", ") + "." + (G.some((g) => g.origine !== "essai") ? " Autres organes : base de contraintes." : "") : ""; }
+  return s.ct_mention || "";
+}
+const renvoiDe = (g, s = FICHE.schema) => (s.renvois && g.cle in s.renvois ? s.renvois[g.cle] : renvoiCalcule(g));
 const COLS = '<colgroup><col class="rtr-c1"><col class="rtr-c2"><col class="rtr-c3"><col class="rtr-c3"><col class="rtr-c5"></colgroup>';
 // 31/10/2026 (lot RT, règle 1.8) : « ? » en bulle au survol (classe q-aide de v2.js), plus d'explication sous le tableau
 const thAide = (lib, k) => '<th class="n">' + lib + (IMPRESSION ? "" : ' <button type="button" class="q-aide rtr-q" aria-label="Aide : ' + lib + '" data-txt="' + A.esc(lib + " : " + ((BB && BB.aideCol && BB.aideCol[k]) || "")) + '">?</button>') + "</th>";
@@ -419,7 +424,7 @@ function tableContraintes(G) {
 function ongletContraintes() {
   const C = couvLignes(), G = lignesFiche();
   let h = '<div class="rtr-jt"><h4>Objectifs de couverture</h4>' + (IMPRESSION ? "" : '<button type="button" class="mini rtr-cp" onclick="rtrCopierCt()">' + A.ic("copier") + "Copier</button>") + "</div>" +
-    (C.length ? tableCouv(C) : '<p class="vide-c">Pas d\'objectif de couverture pour ce schéma</p>') + "<h4>Organes à risque</h4>" + (FICHE.schema.ct_mention ? '<p class="mesures rtr-ctm">' + A.esc(FICHE.schema.ct_mention) + "</p>" : "") +
+    (C.length ? tableCouv(C) : '<p class="vide-c">Pas d\'objectif de couverture pour ce schéma</p>') + "<h4>Organes à risque</h4>" + (phraseCt(G, FICHE.schema) ? '<p class="mesures rtr-ctm">' + A.esc(phraseCt(G, FICHE.schema)) + "</p>" : "") +
     (G.length ? tableContraintes(G) : '<p class="vide-c">Aucun organe à risque contouré pour ce schéma</p>');
   return h;
 }
@@ -746,19 +751,19 @@ function matSim() {
 function matVol() { if (!ED.schema.volumes) { const v = volDe() || {}; ED.schema.volumes = { cibles: clone(v.cibles || []), oar_ids: (v.oar_ids || []).slice() }; } return ED.schema.volumes; }
 // Organes : lignes de travail (ED.ctl, avec leur id), gardées dans le schéma comme différences (schema.ct) ; couverture : lignes du cabinet
 // (couverture_lignes + couvCab) ; renvois : texte du cabinet seulement s'il diffère du texte calculé
-function matCtl() { if (!ED.ctl) ED.ctl = [].concat(...lignesFiche(ED.schema).map((g) => g.lignes.map((l) => ({ id: l.id, oar_id: g.cle, indicateur: l.indicateur || "", ideal: l.ideal || "", limitant: l.limitant || "", note: l.note || "" })))); return ED.ctl; }
+function matCtl() { if (!ED.ctl) ED.ctl = [].concat(...lignesFiche(ED.schema).map((g) => g.lignes.map((l) => ({ id: l.id, oar_id: g.cle, indicateur: l.indicateur || "", ideal: l.ideal || "", limitant: l.limitant || "", note: l.note || "", source: l.source || "" })))); return ED.ctl; }
 function syncCt() { const ref = contraintesCalculees(Object.assign({}, ED.schema, { ct: null })), d = deltaDe(ED.ctl, ref); delete ED.schema.contraintes; if (d) ED.schema.ct = d; else delete ED.schema.ct; }
 function matCv() { if (!ED.schema.couvCab) { ED.schema.couverture_lignes = clone(couvLignes(ED.schema)); ED.schema.couvCab = true; } return ED.schema.couverture_lignes; }
 function poserRenvoi(k, v) { const g = contraintesCalculees(Object.assign({}, ED.schema, { ct: null })).find((x) => x.cle === k) || { cle: k }, r = ED.schema.renvois = ED.schema.renvois || {};
-  if (v === renvoiCalcule(g, ED.schema)) delete r[k]; else r[k] = v; if (!Object.keys(r).length) delete ED.schema.renvois; }
+  if (v === renvoiCalcule(g)) delete r[k]; else r[k] = v; if (!Object.keys(r).length) delete ED.schema.renvois; }
 window.rtrSim = (i) => { if (!ED) return; const M = matSim(); if (i == null) M.autres.push({ lib: "", val: "" }); else M.autres.splice(i, 1); dessinerFiche(); };
 window.rtrVol = (i) => { if (!ED) return; const V = matVol(); if (i == null) V.cibles.push({ nom: "", type: "", definition: "", quand: "", marge: "" }); else V.cibles.splice(i, 1); dessinerFiche(); };
 window.rtrVolOar = (id, ajout) => { if (!ED || !id) return; const V = matVol(); if (ajout) { if (V.oar_ids.indexOf(id) < 0) V.oar_ids.push(id); } else V.oar_ids = V.oar_ids.filter((x) => x !== id); dessinerFiche(); };
-window.rtrCt = (i) => { if (!ED) return; const C = matCtl(); if (i == null) C.push({ id: "cl-" + Date.now().toString(36) + C.length, oar_id: (C[C.length - 1] || {}).oar_id || "", indicateur: "", ideal: "", limitant: "", note: "" }); else C.splice(i, 1); syncCt(); dessinerFiche(); };
+window.rtrCt = (i) => { if (!ED) return; const C = matCtl(); if (i == null) C.push({ id: "cl-" + Date.now().toString(36) + C.length, oar_id: (C[C.length - 1] || {}).oar_id || "", indicateur: "", ideal: "", limitant: "", note: "", source: "" }); else C.splice(i, 1); syncCt(); dessinerFiche(); };
 window.rtrCv = (i) => { if (!ED) return; const C = matCv(); if (i == null) C.push({ volume: (C[C.length - 1] || {}).volume || "PTV", indicateur: "", ideal: "", limitant: "", note: "" }); else C.splice(i, 1); dessinerFiche(); };
 window.rtrRv = (k) => { if (!ED || !k) return; poserRenvoi(k, ""); ED.schema.renvois = Object.assign(ED.schema.renvois || {}, { [k]: ED.schema.renvois && ED.schema.renvois[k] != null ? ED.schema.renvois[k] : " " }); dessinerFiche(); };
 window.rtrRvSup = (k) => { if (!ED || !k) return; const r = ED.schema.renvois = ED.schema.renvois || {}; const g = contraintesCalculees(Object.assign({}, ED.schema, { ct: null })).find((x) => x.cle === k) || { cle: k };
-  if (renvoiCalcule(g, ED.schema)) r[k] = ""; else delete r[k]; if (!Object.keys(r).length) delete ED.schema.renvois; dessinerFiche(); };
+  if (renvoiCalcule(g)) r[k] = ""; else delete r[k]; if (!Object.keys(r).length) delete ED.schema.renvois; dessinerFiche(); };
 window.rtrCtBase = () => { if (!ED) return; ["contraintes", "ct", "renvois", "couverture_lignes", "couvCab"].forEach((k) => { delete ED.schema[k]; }); const r = (ED.orig || {}).couverture_lignes; if (r && !ED.orig.couvCab) ED.schema.couverture_lignes = clone(r); ED.ctl = null; dessinerFiche(); };
 function editCentrage() {
   const m = ED.schema.simulation || simDe() || {}, autres = m.autres || [];
@@ -789,7 +794,7 @@ function editContraintes() {
     '</tbody></table></div><button type="button" class="mini rtr-aj" onclick="rtrCv()">' + A.ic("plus") + "Ajouter un objectif</button>" +
     "<h4>Organes à risque</h4>" + '<div class="rtr-tw"><table class="rtr-tab rtr-edt rtr-ctedit">' + COLS.replace("</colgroup>", '<col class="rtr-cx"></colgroup>') + "<thead><tr><th>Organe</th><th>Indicateur</th><th>Idéal</th><th>Limitant</th><th>Note</th><th></th></tr></thead><tbody>" +
     L.map((l, i) => '<tr><td data-l="Organe">' + sel("ctl." + i + ".oar_id", l.oar_id, (choix.some(([k]) => k === l.oar_id) ? [] : [[l.oar_id, oar(l.oar_id).nom]]).concat(choix), "Organe") + '</td><td data-l="Indicateur">' + inp("ctl." + i + ".indicateur", l.indicateur, "Indicateur", { ph: "Dmax, V20Gy…" }) + "</td>" +
-      '<td data-l="Idéal">' + inp("ctl." + i + ".ideal", l.ideal, "Idéal") + '</td><td data-l="Limitant">' + inp("ctl." + i + ".limitant", l.limitant, "Limitant") + '</td><td data-l="Note">' + inp("ctl." + i + ".note", l.note, "Note") + "</td>" + x("rtrCt(" + i + ")") + "</tr>").join("") +
+      '<td data-l="Idéal">' + inp("ctl." + i + ".ideal", l.ideal, "Idéal") + '</td><td data-l="Limitant">' + inp("ctl." + i + ".limitant", l.limitant, "Limitant") + '</td><td data-l="Note">' + inp("ctl." + i + ".note", l.note, "Note") + inp("ctl." + i + ".source", l.source, "Source", { ph: "Source (essai, article…)" }) + "</td>" + x("rtrCt(" + i + ")") + "</tr>").join("") +
     '</tbody></table></div><button type="button" class="mini rtr-aj" onclick="rtrCt()">' + A.ic("plus") + "Ajouter une contrainte</button>" +
     // RT.11 (31/10/2026) : remarques numérotées modifiables, supprimées par l'icône de leur ligne, ajoutées sur n'importe quel organe du tableau
     "<h4>Remarques sous le tableau</h4>" + (avecRv.length ? "" : '<p class="mesures">Aucune remarque.</p>') + avecRv.map((g, i) => '<div class="rtr-rve"><label class="rtr-lab">' + (i + 1) + ". " + esc(oar(g.cle).nom) + '<textarea class="rtr-in" data-p="rv.' + esc(g.cle) + '" rows="2">' + esc(String(renvoiDe(g, ED.schema) || "").trim()) + '</textarea></label><button type="button" class="rtr-sup" onclick="rtrRvSup(\'' + esc(g.cle) + '\')" aria-label="Supprimer la remarque ' + (i + 1) + '" title="Supprimer">' + A.ic("corbeille") + "</button></div>").join("") +
@@ -959,7 +964,7 @@ function dessinerCtEd() {
   z.innerHTML = !mod ? '<p class="mesures">' + CTED.L.length + " contrainte" + (CTED.L.length > 1 ? "s" : "") + " · sources : " + esc([...new Set(CTED.L.map((l) => l.source).filter(Boolean))].join(" ; ")) + "</p>" :
     '<div class="rtr-tw"><table class="rtr-tab rtr-edt"><thead><tr><th>Régime</th><th>Séances</th><th>Localisation</th><th>Indicateur</th><th>Idéal</th><th>Limitant</th><th>Note</th><th></th></tr></thead><tbody>' +
     CTED.L.map((l, i) => '<tr><td data-l="Régime">' + s(i, "regime", l.regime, R0) + '</td><td data-l="Séances">' + c(i, "fx", l.fx, "toutes") + '</td><td data-l="Localisation">' + s(i, "loc", (l.loc || [])[0] || "", locs) + (l.loc && l.loc.length > 1 ? '<span class="mesures">' + esc(l.loc.map(nomLoc).join(", ")) + "</span>" : "") + "</td>" +
-      '<td data-l="Indicateur">' + c(i, "indicateur", l.indicateur) + '</td><td data-l="Idéal">' + c(i, "ideal", l.ideal) + '</td><td data-l="Limitant">' + c(i, "limitant", l.limitant) + '</td><td data-l="Note">' + c(i, "note", l.note) + "</td>" +
+      '<td data-l="Indicateur">' + c(i, "indicateur", l.indicateur) + '</td><td data-l="Idéal">' + c(i, "ideal", l.ideal) + '</td><td data-l="Limitant">' + c(i, "limitant", l.limitant) + '</td><td data-l="Note">' + c(i, "note", l.note) + c(i, "source", l.source, "Source (essai, article…)") + "</td>" +
       '<td><button type="button" class="rtr-sup" onclick="rtrCtLigne(' + i + ')" aria-label="Retirer cette contrainte" title="Retirer">' + A.ic("croix") + "</button></td></tr>").join("") +
     '</tbody></table></div><div class="actr"><button type="button" class="mini rtr-aj" onclick="rtrCtLigne()">' + A.ic("plus") + 'Ajouter une contrainte</button><span></span><button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" onclick="rtrCtEnr()">' + A.ic("enregistrer") + "Enregistrer</button></div>";
 }
@@ -967,10 +972,10 @@ function dessinerCtEd() {
 function dessinerJeuEd(z) {
   const esc = A.esc, j = BB.jeux.find((x) => x.id === CTED.jeu), ref = (BB.jeuxRef || []).find((x) => x.id === CTED.jeu);
   const choix = BB.oar.map((o) => [o.id, o.nom]).sort((a, b) => sansAcc(a[1]).localeCompare(sansAcc(b[1])));
-  const c = (i, f, v) => '<input class="rtr-in" data-cti="' + i + '" data-ctf="' + f + '" value="' + esc(txt(v)) + '" aria-label="' + esc(f) + '">';
+  const c = (i, f, v, ph) => '<input class="rtr-in" data-cti="' + i + '" data-ctf="' + f + '" value="' + esc(txt(v)) + '"' + (ph ? ' placeholder="' + esc(ph) + '"' : "") + ' aria-label="' + esc(f) + '">';
   z.innerHTML = '<div class="rtr-tw"><table class="rtr-tab rtr-edt"><thead><tr><th>Organe</th><th>Indicateur</th><th>Idéal</th><th>Limitant</th><th>Note</th><th></th></tr></thead><tbody>' +
     CTED.L.map((l, i) => '<tr><td data-l="Organe"><select class="rtr-in" data-cti="' + i + '" data-ctf="oar_id" aria-label="Organe">' + (choix.some(([k]) => k === l.oar_id) ? [] : [[l.oar_id, oar(l.oar_id).nom]]).concat(choix).map(([k, n]) => '<option value="' + esc(k) + '"' + (k === l.oar_id ? " selected" : "") + ">" + esc(n) + "</option>").join("") + "</select></td>" +
-      '<td data-l="Indicateur">' + c(i, "indicateur", l.indicateur) + '</td><td data-l="Idéal">' + c(i, "ideal", l.ideal) + '</td><td data-l="Limitant">' + c(i, "limitant", l.limitant) + '</td><td data-l="Note">' + c(i, "note", l.note) + "</td>" +
+      '<td data-l="Indicateur">' + c(i, "indicateur", l.indicateur) + '</td><td data-l="Idéal">' + c(i, "ideal", l.ideal) + '</td><td data-l="Limitant">' + c(i, "limitant", l.limitant) + '</td><td data-l="Note">' + c(i, "note", l.note) + c(i, "source", l.source, "Source (essai, article…)") + "</td>" +
       '<td><button type="button" class="rtr-sup" onclick="rtrCtLigne(' + i + ')" aria-label="Retirer cette contrainte" title="Retirer">' + A.ic("croix") + "</button></td></tr>").join("") +
     '</tbody></table></div><div class="actr"><button type="button" class="mini rtr-aj" onclick="rtrCtLigne()">' + A.ic("plus") + "Ajouter une contrainte</button><span></span>" +
     (j && j.cabinet && ref ? '<button class="bt rouge" onclick="rtrJeuEnr(1)">Revenir à la référence</button>' : "") + '<button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" onclick="rtrJeuEnr()">' + A.ic("enregistrer") + "Enregistrer</button></div>";
@@ -978,7 +983,7 @@ function dessinerJeuEd(z) {
 window.rtrJeuEnr = async (revenir) => {
   if (!CTED || !CTED.jeu || !peutModif()) return;
   const ref = doc(db, "espaces", A.ESPACE, "referentielRT", "_contraintes"), id = CTED.jeu;
-  const L = CTED.L.filter((l) => l.oar_id && (txt(l.indicateur).trim() || txt(l.limitant).trim() || txt(l.ideal).trim())).map((l) => { const x = {}; ["oar_id", "indicateur", "ideal", "limitant", "note"].forEach((k) => { if (txt(l[k]).trim()) x[k] = txt(l[k]).trim(); }); return x; });
+  const L = CTED.L.filter((l) => l.oar_id && (txt(l.indicateur).trim() || txt(l.limitant).trim() || txt(l.ideal).trim())).map((l) => { const x = {}; ["oar_id", "indicateur", "ideal", "limitant", "note", "source"].forEach((k) => { if (txt(l[k]).trim()) x[k] = txt(l[k]).trim(); }); return x; });
   try {
     CAB_CT = await runTransaction(db, async (tx) => {
       const sn = await tx.get(ref), c = sn.exists() ? sn.data() : { lignes: [], retirees: [] };
