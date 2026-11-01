@@ -1067,6 +1067,20 @@ un essai introuvable → le demander à Dr Bentahila, sinon son résumé (abstra
   Lapeyre 2019 en ORL), aires ganglionnaires en tableaux (Grégoire 2014, Biau 2019, ESTRO sein, NRG / EMBRACE pelvis, IASLC…), source de chaque
   atlas ; l'onglet Contourage de la fiche garde la liste des organes et renvoie à la bonne section ; définitions de la page Organes à risque mises à jour
   quand un atlas de la Bibliothèque est meilleur (Brouwer 2015, Eekers 2018, Noël 2021…). Atlas manquants : les demander.
+  Plan du 01/11/2026 (une étape = une session, commit local à chaque étape) ; sources = articles et atlas publiés du dossier Bibliothèque › Contourage
+  seulement (**décision du 01/11/2026 : pas les fiches pratiques `.doc` du service**) ; localisation sans atlas publié : la page le dit.
+  - [ ] 4a – Page et format : `donnees-rt/contourage/<région>.json` (sections : volumes cibles, aires ganglionnaires, organes ; une source numérotée par
+    ligne), sous-page `#radiotherapie/contourage[/<localisation>]` entre Référentiel et Organes à risque, tableaux du même style que les onglets,
+    lien depuis l'onglet Contourage de la fiche ; pilote **ORL** (Grégoire 2014 et 2017, Biau 2019, Lapeyre 2019, Lee 2018, Evans 2018 / 2025).
+  - [ ] 4b – SNC (EPTN 2018 / 2021, ESTRO-EANO, NRG glioblastome, hippocampe, Soliman 2018, EANO méningiome 2021, atlas ACNS0331).
+  - [ ] 4c – Thorax (Nestle 2018, Le Péchoux 2020, IASLC, Spoelstra 2010, Kong 2011, thymome, mésothéliome).
+  - [ ] 4d – Sein (ESTRO 2015 / 2016, Kaidar-Person 2019, RTOG / Gentile 2015).
+  - [ ] 4e – Digestif (Valentini 2016 et 2021, ESTRO rectum 2026, Myerson, Ng 2012, Wu 2015, Matzinger 2009, pancréas Brunner / Goodman / NRG, RTOG 1112).
+  - [ ] 4f – Gynéco et uro (GEC-ESTRO, EMBRACE II, Lim 2011, NRG 2021, Gaffney 2016, Schmid 2020 ; Salembier 2018, ESTRO-ACROP 2023, Robin 2021,
+    Hall 2021, GEC-ESTRO prostate, protocole vessie NRG 2020, Fosså 1999).
+  - [ ] 4g – Os, sarcomes, peau, autres (Cox 2012, Redmond 2017, Wang 2011, Baldini 2015, Khan 2012) ; « pas d'atlas publié » pour hypophyse,
+    craniopharyngiome, schwannome, neurocytome, sinus, glandes salivaires, pénis, Merkel, surrénale, réirradiation.
+  - [ ] 4h – Page Organes à risque : définitions revues (Noël 2021, EPTN, Kong 2011, Gay 2012, Lapeyre ch. VI) ; tests complets du lot.
 - [ ] **Lot 5 – Corrections des protocoles** (doses, fractionnement, chimio concomitante) d'après les essais relus aux lots 2 à 4.
 - Lot 6 (toxicités) : abandonné le 01/11/2026 (« pas besoin »).
 Avis de Claude (01/11/2026) : plan cohérent ; ordre 2 → 3 → 4 → 5 (les essais lus au lot 2 servent à l'indication et aux corrections).
