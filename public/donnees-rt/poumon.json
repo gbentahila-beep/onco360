@@ -104,7 +104,8 @@
      "limitant": "≥ 93 % de la dose",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pou-rct-66-33",
@@ -141,7 +142,8 @@
     "Poumon",
     "CBNPC stade III non résécable : radiochimiothérapie",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pou-port-54-27",
@@ -178,7 +180,8 @@
     "Poumon",
     "CBNPC opéré : radiothérapie post-opératoire",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pou-sbrt-54-3",
@@ -240,7 +243,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pou-sbrt-45-3",
@@ -300,7 +304,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "pou-sbrt-48-4",
@@ -361,7 +366,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pou-sbrt-50-5",
@@ -422,7 +428,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pou-sbrt-60-8",
@@ -483,7 +490,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pou-sbrt-55-5-igr",
@@ -542,7 +550,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "Schéma du service sans essai publié : base de contraintes appliquée."
   },
   {
    "id": "pou-sbrt-50-10-igr",
@@ -602,7 +611,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pou-cbpc-45-30",
@@ -640,7 +650,8 @@
     "Poumon",
     "CBPC limité : radiochimiothérapie",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pou-cbpc-66-33",
@@ -677,7 +688,8 @@
     "Poumon",
     "CBPC limité : radiochimiothérapie",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pou-cbpc-70-35",
@@ -713,7 +725,8 @@
     "Poumon",
     "CBPC limité : radiochimiothérapie",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pou-cbpc-60-40",
@@ -739,7 +752,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-pou",
    "volumes_id": "vol-pou-cbpc",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-thx-gronberg"
+   ],
    "points_attention": [
     "45 Gy bifractionnés reste le standard. 66 Gy / 33 fx et 70 Gy / 35 fx ne font pas mieux (CONVERT, CALGB 30610)"
    ],
@@ -788,7 +803,8 @@
     "CBPC limité : radiochimiothérapie",
     "Normofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pou-cbpc-et-30-10",
@@ -824,7 +840,8 @@
     "CBPC étendu répondeur : radiothérapie thoracique",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pou-pall-17-2",
@@ -861,7 +878,8 @@
     "Palliatif thoracique",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pou-pall-10-1",
@@ -897,7 +915,8 @@
     "Palliatif thoracique",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

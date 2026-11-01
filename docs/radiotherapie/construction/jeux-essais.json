@@ -259,6 +259,284 @@
      "limitant": "< 16,8 Gy"
     }
    ]
+  },
+  {
+   "id": "ct-snc-men-srs",
+   "titre": "Méningiome, radiochirurgie en 1 séance",
+   "fractionnement": "1 fx",
+   "source": "Thésaurus français méningiomes (CAT-MENINGIOME, 12/02/2021), radiochirurgie",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-nerf-optique-d",
+     "indicateur": "Dmax",
+     "limitant": "< 8 Gy",
+     "note": "voies optiques"
+    },
+    {
+     "oar_id": "oar-nerf-optique-g",
+     "indicateur": "Dmax",
+     "limitant": "< 8 Gy",
+     "note": "voies optiques"
+    },
+    {
+     "oar_id": "oar-chiasma",
+     "indicateur": "Dmax",
+     "limitant": "< 8 Gy",
+     "note": "voies optiques"
+    }
+   ]
+  },
+  {
+   "id": "ct-thx-meso-imrt",
+   "titre": "Mésothéliome, IMRT hémithoracique, deux poumons en place",
+   "fractionnement": "50,4 Gy / 28 fx (1,8 Gy/fx)",
+   "source": "Consensus NCI / IASLC / MARF mésothéliome (Gomez 2019), tableau 4",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-poumons",
+     "indicateur": "V20Gy",
+     "limitant": "≤ 37 %",
+     "note": "poumons moins GTV"
+    },
+    {
+     "oar_id": "oar-poumons",
+     "indicateur": "Dmean",
+     "limitant": "≤ 20,5 Gy",
+     "note": "poumons moins GTV"
+    },
+    {
+     "oar_id": "oar-poumon-controlateral",
+     "indicateur": "Dmean",
+     "limitant": "< 8 Gy"
+    },
+    {
+     "oar_id": "oar-poumon-homolateral",
+     "indicateur": "V40Gy",
+     "limitant": "≤ 67 %"
+    },
+    {
+     "oar_id": "oar-oesophage",
+     "indicateur": "Dmean",
+     "limitant": "≤ 34 Gy",
+     "note": "du cartilage cricoïde à la jonction œso-gastrique"
+    },
+    {
+     "oar_id": "oar-canal-medullaire",
+     "indicateur": "Dmax",
+     "limitant": "≤ 50 Gy"
+    },
+    {
+     "oar_id": "oar-plexus-brachial-d",
+     "indicateur": "Dmax",
+     "limitant": "≤ 65 Gy"
+    },
+    {
+     "oar_id": "oar-plexus-brachial-g",
+     "indicateur": "Dmax",
+     "limitant": "≤ 65 Gy"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "V40Gy",
+     "limitant": "≤ 25 %",
+     "note": "mésothéliome droit ; cœur = sac péricardique"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "V40Gy",
+     "limitant": "≤ 35 %",
+     "note": "mésothéliome gauche ; cœur = sac péricardique"
+    },
+    {
+     "oar_id": "oar-rein-d",
+     "indicateur": "V18Gy",
+     "limitant": "≤ 33 %",
+     "note": "≤ 50 % si 33 % impossible"
+    },
+    {
+     "oar_id": "oar-rein-g",
+     "indicateur": "V18Gy",
+     "limitant": "≤ 33 %",
+     "note": "≤ 50 % si 33 % impossible"
+    }
+   ]
+  },
+  {
+   "id": "ct-thx-meso-smart",
+   "titre": "Mésothéliome, SMART 25 Gy / 5 fx avant pneumonectomie extrapleurale",
+   "fractionnement": "25 Gy / 5 fx",
+   "source": "Consensus NCI / IASLC / MARF mésothéliome (Gomez 2019), tableau 3 (protocole SMART)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-poumon-controlateral",
+     "indicateur": "Dmean",
+     "limitant": "< 3,5 Gy"
+    },
+    {
+     "oar_id": "oar-poumon-controlateral",
+     "indicateur": "V7Gy",
+     "limitant": "< 20 %"
+    },
+    {
+     "oar_id": "oar-oesophage",
+     "indicateur": "Dmax",
+     "limitant": "≤ 30 Gy"
+    },
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "< 22 Gy"
+    },
+    {
+     "oar_id": "oar-plexus-brachial-d",
+     "indicateur": "Dmax",
+     "limitant": "≤ 30 Gy",
+     "note": "aucun point chaud > 30 Gy"
+    },
+    {
+     "oar_id": "oar-plexus-brachial-g",
+     "indicateur": "Dmax",
+     "limitant": "≤ 30 Gy",
+     "note": "aucun point chaud > 30 Gy"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "V15Gy",
+     "limitant": "< 40 %",
+     "note": "mésothéliome droit"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "Dmean",
+     "limitant": "< 15 Gy",
+     "note": "mésothéliome droit"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "V15Gy",
+     "limitant": "< 70 %",
+     "note": "mésothéliome gauche"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "Dmean",
+     "limitant": "< 18 Gy",
+     "note": "mésothéliome gauche"
+    },
+    {
+     "oar_id": "oar-reins",
+     "indicateur": "Dmean",
+     "limitant": "< 5 Gy",
+     "note": "idéalement les deux reins, au moins un"
+    },
+    {
+     "oar_id": "oar-reins",
+     "indicateur": "V7Gy",
+     "limitant": "< 33 %"
+    },
+    {
+     "oar_id": "oar-foie",
+     "indicateur": "V15Gy",
+     "limitant": "< 60 %",
+     "note": "mésothéliome droit"
+    },
+    {
+     "oar_id": "oar-foie",
+     "indicateur": "Dmean",
+     "limitant": "< 17 Gy",
+     "note": "mésothéliome droit"
+    },
+    {
+     "oar_id": "oar-foie",
+     "indicateur": "V15Gy",
+     "limitant": "< 30 %",
+     "note": "mésothéliome gauche"
+    },
+    {
+     "oar_id": "oar-foie",
+     "indicateur": "Dmean",
+     "limitant": "< 8 Gy",
+     "note": "mésothéliome gauche"
+    }
+   ]
+  },
+  {
+   "id": "ct-thx-gronberg",
+   "titre": "Poumon à petites cellules, 60 Gy / 40 fx bifractionné (Grønberg)",
+   "fractionnement": "60 Gy / 40 fx (1,5 Gy deux fois par jour)",
+   "source": "Essai norvégien (Grønberg 2021), méthodes",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-poumons",
+     "indicateur": "Dmean",
+     "limitant": "≤ 20 Gy",
+     "note": "poumon sain"
+    },
+    {
+     "oar_id": "oar-poumons",
+     "indicateur": "V20Gy",
+     "limitant": "< 35 %",
+     "note": "poumon sain"
+    },
+    {
+     "oar_id": "oar-poumons",
+     "indicateur": "V5Gy",
+     "limitant": "< 65 %",
+     "note": "poumon sain"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "Dmean",
+     "limitant": "≤ 46 Gy",
+     "note": "de préférence ≤ 35 Gy"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "V40Gy",
+     "limitant": "< 80 %",
+     "note": "de préférence"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "V45Gy",
+     "limitant": "< 60 %",
+     "note": "de préférence"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "V60Gy",
+     "limitant": "< 30 %",
+     "note": "de préférence"
+    },
+    {
+     "oar_id": "oar-oesophage",
+     "indicateur": "Dmax",
+     "limitant": "≤ 60 Gy",
+     "note": "de préférence plus bas"
+    },
+    {
+     "oar_id": "oar-oesophage",
+     "indicateur": "Dmean",
+     "limitant": "≤ 34 Gy",
+     "note": "de préférence"
+    },
+    {
+     "oar_id": "oar-plexus-brachial-d",
+     "indicateur": "Dmax",
+     "limitant": "≤ 60 Gy",
+     "note": "de préférence plus bas"
+    },
+    {
+     "oar_id": "oar-plexus-brachial-g",
+     "indicateur": "Dmax",
+     "limitant": "≤ 60 Gy",
+     "note": "de préférence plus bas"
+    }
+   ]
   }
  ],
  "schemas": {
@@ -432,6 +710,26 @@
    "contraintes_ids": [
     "ct-snc-brest"
    ]
+  },
+  "men-g1-srs": {
+   "contraintes_ids": [
+    "ct-snc-men-srs"
+   ]
+  },
+  "meso-hemi-50-25": {
+   "contraintes_ids": [
+    "ct-thx-meso-imrt"
+   ]
+  },
+  "meso-smart-25-5": {
+   "contraintes_ids": [
+    "ct-thx-meso-smart"
+   ]
+  },
+  "pou-cbpc-60-40": {
+   "contraintes_ids": [
+    "ct-thx-gronberg"
+   ]
   }
  },
  "mentions": {
@@ -460,6 +758,9 @@
   "craniopharyngiome",
   "neurocytome",
   "ependymome",
-  "medulloblastome"
+  "medulloblastome",
+  "poumon",
+  "mesotheliome",
+  "thymome"
  ]
 }

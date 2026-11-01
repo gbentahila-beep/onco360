@@ -128,7 +128,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-crane-srs",
    "volumes_id": "vol-crane-srs",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-snc-men-srs"
+   ],
    "points_attention": [
     "Radiochirurgie recommandée pour le grade 1 (niveau II) ; contrôle local à 10 ans de 71 à 100 % (ISRS)"
    ],
@@ -138,8 +140,7 @@
     "Méningiome",
     "Méningiome grade 1 non opérable ou résidu évolutif",
     "Stéréotaxie"
-   ],
-   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
+   ]
   },
   {
    "id": "men-int-54-30",

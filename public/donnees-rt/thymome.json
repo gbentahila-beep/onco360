@@ -59,7 +59,8 @@
     "Thymome",
     "Tumeur épithéliale thymique opérée : RT post-opératoire",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "th-r1-54",
@@ -96,7 +97,8 @@
     "Thymome",
     "Tumeur épithéliale thymique opérée : RT post-opératoire",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "th-r2-60",
@@ -133,7 +135,8 @@
     "Thymome",
     "Tumeur épithéliale thymique opérée : RT post-opératoire",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "th-excl-66",
@@ -167,7 +170,8 @@
     "Tumeur non résécable : RT exclusive",
     "Normofractionné"
    ],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   }
  ],
  "simulations": [],
