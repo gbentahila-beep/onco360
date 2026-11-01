@@ -11958,6 +11958,125 @@
      "note": "total externe + curiethérapie ; objectif proposé en cas d'adhérences (§ 3.3.5)"
     }
    ]
+  },
+  {
+   "id": "ct-uro-flame",
+   "titre": "Prostate, 77 Gy / 35 fx avec complément focal (FLAME)",
+   "fractionnement": "77 Gy / 35 fx",
+   "source": "FLAME (Groen 2022, méthodes)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V72Gy",
+     "limitant": "< 10 %",
+     "note": "FLAME ne contraignait pas l'urètre ; Groen 2022 propose urètre D0,1 cm³ ≤ 80 Gy"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "D1cm³",
+     "limitant": "< 80 Gy"
+    }
+   ]
+  },
+  {
+   "id": "ct-uro-getug",
+   "titre": "Prostate, 78 à 80 Gy en 2 Gy/fx (recommandations GETUG)",
+   "fractionnement": "2 Gy/fx",
+   "source": "Recommandations du GETUG, reprises dans l'essai GETUG-AFU (de Crevoisier 2018)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V72Gy",
+     "limitant": "< 25 %",
+     "note": "paroi rectale de 5 mm"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "Dmax",
+     "limitant": "≤ 76 Gy"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V70Gy",
+     "limitant": "< 50 %",
+     "note": "paroi vésicale de 7 mm"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "Dmax",
+     "limitant": "≤ 80 Gy"
+    },
+    {
+     "oar_id": "oar-tete-femorale-d",
+     "indicateur": "V55Gy",
+     "limitant": "< 5 %"
+    },
+    {
+     "oar_id": "oar-tete-femorale-g",
+     "indicateur": "V55Gy",
+     "limitant": "< 5 %"
+    }
+   ]
+  },
+  {
+   "id": "ct-uro-gec-hdr15",
+   "titre": "Prostate, complément HDR 15 Gy en 1 fraction après 25 × 2 Gy",
+   "fractionnement": "15 Gy / 1 fx",
+   "source": "Recommandation GEC-ESTRO ACROP curiethérapie de prostate (Henry 2022), tableau 2",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "D2cm³",
+     "limitant": "≤ 10 Gy",
+     "note": "≤ 75 Gy EQD2 avec la radiothérapie externe"
+    },
+    {
+     "oar_id": "oar-uretre",
+     "indicateur": "D10%",
+     "limitant": "≤ 17 Gy",
+     "note": "≤ 120 Gy EQD2 avec la radiothérapie externe"
+    },
+    {
+     "oar_id": "oar-uretre",
+     "indicateur": "D30%",
+     "limitant": "≤ 15 Gy",
+     "note": "≤ 105 Gy EQD2 avec la radiothérapie externe"
+    }
+   ]
+  },
+  {
+   "id": "ct-uro-gec-ldr145",
+   "titre": "Prostate, curiethérapie permanente à l'iode 125, 145 Gy",
+   "fractionnement": "145 Gy (monothérapie)",
+   "source": "Recommandation GEC-ESTRO ACROP curiethérapie de prostate (Henry 2022), tableau 1",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "D2cm³",
+     "limitant": "≤ 145 Gy"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "D0,1cm³",
+     "limitant": "< 200 Gy"
+    },
+    {
+     "oar_id": "oar-uretre",
+     "indicateur": "D10%",
+     "limitant": "< 150 %",
+     "note": "de la dose prescrite"
+    },
+    {
+     "oar_id": "oar-uretre",
+     "indicateur": "D30%",
+     "limitant": "< 130 %",
+     "note": "de la dose prescrite"
+    }
+   ]
   }
  ],
  "aide_colonnes": [

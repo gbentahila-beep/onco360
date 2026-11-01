@@ -48,7 +48,8 @@
     "Carcinome épidermoïde du gland T1, T2 ou T3 sélectionné",
     "Curiethérapie"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pn-pdr-igr",

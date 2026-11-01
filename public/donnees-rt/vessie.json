@@ -65,7 +65,8 @@
     "Hypofractionné"
    ],
    "contraintes_ids": [],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "ves-64-32",
@@ -99,7 +100,8 @@
     "Préservation vésicale (traitement trimodal), cT2–T4a N0 M0",
     "Normofractionné"
    ],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "ves-pelv-65",
@@ -142,7 +144,8 @@
     "Préservation vésicale avec atteinte ganglionnaire pelvienne (cN1 M0)",
     "Normofractionné"
    ],
-   "essai_ids": []
+   "essai_ids": [],
+   "ct_mention": "Schéma du service sans essai publié : base de contraintes appliquée."
   },
   {
    "id": "ves-pall-21-3",
@@ -178,7 +181,8 @@
     "Palliatif (hématurie, symptômes vésicaux)",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "ves-pall-35-10",
@@ -214,7 +218,8 @@
     "Palliatif (hématurie, symptômes vésicaux)",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [
