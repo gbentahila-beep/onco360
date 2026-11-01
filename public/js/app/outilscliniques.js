@@ -45,6 +45,7 @@ async function pageTnm() {
   if (sous) return ficheTnm(sous);
   const L = TNM_LOCS.filter((l) => !loc || l.id === loc);
   $("ocMain").innerHTML = carteSec("Stadification TNM", '<p class="sous">Choisissez la localisation, puis la sous-localisation. Les tableaux (cTNM, pTNM, stades, tableaux annexes) sont ceux de votre manuel de référence (AJCC, dernière édition), saisis une fois par le médecin : ils ne sont pas recopiés dans Onco360.</p>' +
+    (peutEcrire() ? '<div class="actr" style="justify-content:flex-start"><label class="bt clair petit oc-imp">' + A.ic("plus") + 'Importer des tableaux (fichier)<input type="file" accept="application/json,.json" onchange="ocTnmImport(this)" hidden></label></div>' : "") +
     '<div class="oc-filtre"><label for="ocLoc">Localisation</label><select id="ocLoc" onchange="location.hash=\'outils/tnm\'+(this.value?\'/\'+this.value:\'\')"><option value="">Toutes</option>' + TNM_LOCS.map((l) => '<option value="' + l.id + '"' + (l.id === loc ? " selected" : "") + ">" + esc(l.nom) + "</option>").join("") + "</select></div>" +
     L.map((l) => "<h3 class=\"oc-h3\">" + esc(l.nom) + '</h3><div class="oc-cartes">' + l.sous.map(([id, nom]) => { const r = I.remplis[id];
       return '<button type="button" class="oc-carte" onclick="location.hash=\'outils/tnm/' + l.id + "/" + id + "'\"><b>" + esc(nom) + '</b><span class="badge ' + (r ? "b-ch" : "b-gr") + '">' + (r ? "Rempli" + (r.edition ? " · " + esc(r.edition) : "") : "À remplir") + "</span></button>"; }).join("") + "</div>").join(""), "AJCC Cancer Staging Manual (dernière édition), tableaux saisis par le cabinet");
@@ -77,6 +78,30 @@ async function ficheTnm(id) {
   if (ed) h += '<div class="barre-enr"><button class="bt gris" onclick="ocTnmAnnuler()">Annuler</button><span></span><button class="bt plein" id="ocTnmOk" onclick="ocTnmOk(\'' + id + "')\">" + A.ic("enregistrer") + "Enregistrer</button></div>";
   $("ocMain").innerHTML = '<section class="carte oc-c">' + h + '<p class="mesures oc-src">Source : ' + esc([F.source, F.edition].filter(Boolean).join(", ") || "AJCC Cancer Staging Manual") + " (tableaux saisis par le cabinet)</p>" + AVERT() + "</section>";
 }
+// UX10 (01/11/2026) : import d'un fichier de tableaux préparé depuis le manuel du cabinet ({ "<sous-localisation>": fiche au format tnmVide }) ;
+// écrit dans le cabinet seulement (bibliotheques/tnm_<id> + index), après confirmation ; les fiches déjà remplies sont remplacées
+window.ocTnmImport = async (inp) => {
+  const f = inp.files && inp.files[0]; inp.value = ""; if (!f || !peutEcrire()) return;
+  let J; try { J = JSON.parse(await f.text()); } catch (e) { A.toast("Fichier illisible"); return; }
+  const ok = (F) => F && typeof F === "object" && ["c", "p"].every((k) => F[k] && ["t", "n", "m", "stades"].every((c) => Array.isArray(F[k][c])));
+  const ids = Object.keys(J || {}).filter((id) => sousTnm(id) && ok(J[id]));
+  if (!ids.length) { A.toast("Aucune fiche reconnue dans ce fichier"); return; }
+  const I = await lireIndex(), deja = ids.filter((id) => I.remplis[id]);
+  const r = await A.question("<h3>Importer " + ids.length + " fiche" + (ids.length > 1 ? "s" : "") + " ?</h3><p>" + esc(ids.map((id) => sousTnm(id).nom).join(", ")) + ".</p>" + (deja.length ? "<p><b>" + deja.length + " fiche" + (deja.length > 1 ? "s" : "") + " déjà remplie" + (deja.length > 1 ? "s seront remplacées" : " sera remplacée") + ".</b></p>" : ""), [["non", "Annuler"], ["oui", "Importer", "plein"]]);
+  if (r !== "oui") return;
+  const tx = (L) => (L || []).map((x) => { const o = {}; Object.keys(x || {}).forEach((k) => { if (String(x[k] || "").trim()) o[k] = String(x[k]).trim(); }); return o; }).filter((o) => Object.keys(o).length);
+  try {
+    for (const id of ids) {
+      const F = J[id], d = { source: String(F.source || "").trim(), edition: String(F.edition || "").trim(), note: String(F.note || ""), annexes: (F.annexes || []).map((a) => ({ titre: String(a.titre || "").trim(), lignes: tx(a.lignes) })) };
+      ["c", "p"].forEach((k) => { d[k] = {}; ["t", "n", "m", "stades"].forEach((c) => { d[k][c] = tx(F[k][c]); }); });
+      Object.assign(d, signe());
+      const s = await getDoc(ref("tnm_" + id)); if (s.exists() && s.data().pdf) d.pdf = s.data().pdf;
+      await setDoc(ref("tnm_" + id), d); ST.sousC[id] = Object.assign(tnmVide(), d);
+    }
+    await runTransaction(db, async (t) => { const s = await t.get(ref("tnm")), X = s.exists() ? s.data() : { remplis: {} }; X.remplis = Object.assign({}, X.remplis || {}); ids.forEach((id) => { X.remplis[id] = { edition: String(J[id].edition || ""), le: new Date().toISOString() }; }); t.set(ref("tnm"), Object.assign(X, signe())); ST.tnm = X; });
+  } catch (e) { A.toast(e && e.code === "permission-denied" ? "Seul le médecin modifie les tableaux." : "Pas de connexion : réessayez"); return; }
+  A.toast(ids.length + " fiche" + (ids.length > 1 ? "s importées" : " importée")); pageTnm();
+};
 // Tableau modifiable (lignes ajoutées, retirées) : data-tr = chemin de la liste, data-ti = rang, data-tc = colonne
 function edTable(key, cols, rows, ph) {
   return '<div class="tableau"><table class="lc oc-t oc-ed"><thead><tr>' + cols.map((c) => "<th>" + esc(c[1]) + "</th>").join("") + "<th></th></tr></thead><tbody>" +

@@ -1121,7 +1121,12 @@ Traitement en cours ; Tâches : Tâche, Patient, Assignée à, Créée par, Éch
   **Retiré le 01/11/2026 : tuiles du Bilan** (refusé).
 - [ ] **UX9 – Onglets du dossier avec leur adresse** : `#dossier/<id>/chimio`… ; recharger la page ou revenir en arrière rouvre le bon onglet.
 - [ ] **UX10 – TNM** : rempli à partir du PDF de Dr Bentahila, pour son cabinet seulement (droits d'auteur AJCC : les autres cabinets importent leur
-  manuel ou une licence) ; attend le PDF.
+  manuel ou une licence). **01/11/2026 : tableaux prêts** d'après le PDF fourni (AJCC, **7e édition, 2010**) : 34 sous-localisations sur 36 (cTNM, pTNM,
+  groupes de stades, notes du manuel, critères en plus : grade, PSA / Gleason, histologie, âge, marqueurs S), définitions en anglais comme le manuel ;
+  sans thymus ni adénopathie cervicale sans primitif (absents de la 7e édition). Fichier hors du dépôt : `Desktop/ONCO360/tnm-ajcc7-cabinet-bentahila.json`
+  (scripts dans `archives-privees-onco360/tnm-ajcc7/`). Bouton « Importer des tableaux (fichier) » (Outils cliniques › Stadification, médecin ;
+  `ocTnmImport`), test `tests/test_ux10.py` (`ONCO360_TNM=<fichier>` vérifie les 34 fiches). **Reste** : mise en ligne, puis import dans le cabinet par
+  Dr Bentahila ; à remplacer par la 8e édition (ou la version 9) si elle fournit le PDF.
 - [ ] **UX11 – Parcours de la chimiothérapie (tour du 01/11/2026, réponses de Dr Bentahila)** :
   - défauts : compteur et « Prochaine » qui sautent à la cure suivante alors qu'un jour de la cure reste à faire (J1 validé, J15 reporté : afficher
     C1/6 et la date du J15) (C1) ; « Ordonnances du protocole (fait) » marqué même fermé sans imprimer (C2) ; texte « J1, J1 et J15 » en double sur la

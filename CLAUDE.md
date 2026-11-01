@@ -468,6 +468,7 @@ temporaire si le cache npm du Mac refuse) — à relancer avant chaque mise en l
   `rtrRvSup`, `.rtr-sup`, `.rtr-modb`, `.rtr-pas`, `AVERT_RT`. Test `tests/test_lot_rt.py`.
 - Outils cliniques : module `outils` (modules.js = functions/cabinets.js), menu `#outils[/tnm|ctcae|calc[/…]]`, `js/app/outilscliniques.js`, `js/donnees/outilscliniques.js`
   (`TNM_LOCS`, `CALCS`, sources), `js/moteur/calculs.js` (test `node tests/moteur/test-calculs.mjs`) ; données `bibliotheques/tnm`, `tnm_<id>` (+ `pdf` : pages du manuel du cabinet, Storage `documentation/tnm-<id>-<ms>/`), `ctcae`, `ctcae_0…`, `esperanceVie` ;
+  UX10 (01/11/2026) : « Importer des tableaux (fichier) » (`ocTnmImport` : { sous-localisation: fiche tnmVide } → `tnm_<id>` + index, PDF joint gardé), test `tests/test_ux10.py` ;
   CTCAE v6.0 fourni : `public/donnees-outils/ctcae-v6.json` (refait par `python3 outils/ctcae-pdf.py <pdf> <json>`), servi en `no-cache`.
 
 ## Lot L du 31/10/2026 (lancement)
