@@ -1071,36 +1071,37 @@ un essai introuvable → le demander à Dr Bentahila, sinon son résumé (abstra
 - Lot 6 (toxicités) : abandonné le 01/11/2026 (« pas besoin »).
 Avis de Claude (01/11/2026) : plan cohérent ; ordre 2 → 3 → 4 → 5 (les essais lus au lot 2 servent à l'indication et aux corrections).
 
-## Phase UX – Interface et facilité d'utilisation (plan du 01/11/2026 : tours d'Onco360 et de SmartDoc avec Dr Bentahila)
-Sources : deux tours complets d'Onco360 (tout cliqué, mesures des boutons et tableaux) et un tour de SmartDoc (smartdoc.ma) ; réponses de
-Dr Bentahila une par une. Ordre : UX1 → UX9 (les défauts d'abord, puis la sécurité des fenêtres, puis l'allure).
+## Phase UX – Interface et facilité d'utilisation (plan du 01/11/2026, refait le même jour : tours d'Onco360 et de SmartDoc avec Dr Bentahila)
+**Règle de la phase (Dr Bentahila, 01/11/2026)** : on améliore la lecture, on ne refait pas le design. Onco360 doit rester reconnaissable : mêmes pages,
+mêmes colonnes et mêmes noms de colonnes (ex. Patients : Nom Prénom, Date de naissance, N° de dossier, Établissement, Cancer, Dernières nouvelles,
+Traitement en cours ; Tâches : Tâche, Patient, Assignée à, Créée par, Échéance, Statut), mêmes contenus, mêmes couleurs. On touche à la présentation
+(alignements, tailles, espacements, bandeaux, boutons, fenêtres), aux mots et aux défauts. Ordre : UX1 → UX10.
 - [ ] **UX1 – Défauts trouvés au tour** : prescription de RT (le champ « Lieu de la radiothérapie » chevauche « Technique ») ; Salle d'attente (statut
   coupé « En sall… », boutons sous la colonne PRIX) ; le message en bas (toast) cache la barre du dossier ; « Journal » du dossier ouvre Paramètres sans
   retour au patient ; tableau des cures qui déborde en disposition trois colonnes (529 px de contenu pour 477 px).
 - [ ] **UX2 – Décisions du 01/11 sur Onco360** : en-tête du dossier = ajouter la localisation, allergie seulement si « oui », rien d'autre (Chimio C1/1
-  et RT en cours déjà là ; en-tête gardé à sa place, S8 refusé) ; centre (Consult. / Chimio / RT / Docs) déplié d'emblée, la double flèche ⤢ ramène la
-  colonne Documents (`DOS.agrandi` vrai par défaut, v2.js) ; tableau de bord : cartes Aujourd'hui, Actions rapides et À valider plus hautes, gauche et
-  droite toujours à la même hauteur ; « Activité récente » sans les réglages de l'Administration ; menu « Documents » pour la secrétaire seulement
-  (pas le médecin ni l'infirmière).
-- [ ] **UX3 – Fenêtres dans l'application à la place des fenêtres du navigateur** (162 : 111 confirm, 46 alert, 5 prompt) : rouge = clinique,
-  orange = à vérifier, neutre ; d'abord la chimio (vigilance de « Valider la cure », chimio.js) ; s'appuyer sur `question()` d'ordonnances.js.
-- [ ] **UX4 – Une seule façon de faire les fenêtres et les mots** : pied de fenêtre fixe, Échap partout, mêmes mots (Valider / Enregistrer,
-  Annuler / Fermer), champ en erreur entouré de rouge, un seul format du nom du médecin ; boutons d'ajout nommés pareil partout : **« + Patient »,
-  « + Rendez-vous »** (jamais « Nouveau patient » / « Nouveau rendez-vous »).
-- [ ] **UX5 – Haut des pages, cartes, pages vides** (SmartDoc S1, S2, S4, S5) : titre de page = icône + titre + une ligne d'explication, boutons
-  principaux à droite, même modèle partout ; bandeau de couleur (bleu Onco360) en tête de chaque carte et de chaque tableau : icône, titre, nombre
-  dans une pastille, actions à droite ; liste vide = icône + phrase + bouton d'action ; pages pleines (patient, rendez-vous, protocole) avec
-  « ← Patients » (ou la page d'origine) en haut et « Échap pour annuler ».
-- [ ] **UX6 – Boutons et couleurs** : trois hauteurs (36 / 40 / 44 px), quatre couleurs de bouton, plus de bleu marine ; « ⋯ » et ▾ d'au moins 36 px
-  (aujourd'hui le dossier seul a 8 hauteurs de bouton, de 19 à 52 px, et 43 cibles de moins de 36 px ; la fenêtre de cure, 5 couleurs).
-- [ ] **UX7 – Un seul style de tableau** : en-tête 13 px gras, sans majuscules, fond #F1F5FB ; lignes de 44 px, survol, même ombre (aujourd'hui
-  Patients, Bilan, cures, Médic. et Salle ont chacun le leur) ; avec le bandeau de UX5.
-- [ ] **UX8 – Tableau de bord, Salle, chiffres** (S6, S3, S15) : bandeau d'accueil « Bonjour Dr … », date avec flèches jour précédent / suivant,
-  boutons « + Patient » et « + Rendez-vous » ; tuiles de chiffres (3 à 5) en haut de la Salle (en attente, attente moyenne, plus longue attente, vus)
-  et du Bilan (encaissé du jour, du mois, reste à encaisser) ; Salle : couleur selon l'attente (< 15 min, 15 à 30, > 30).
-- [ ] **UX9 – Onglets du dossier avec leur adresse** (S9) : `#dossier/<id>/chimio`… ; recharger la page ou revenir en arrière rouvre le bon onglet.
+  et RT en cours déjà là ; en-tête gardé à sa place) ; centre (Consult. / Chimio / RT / Docs) déplié d'emblée, la double flèche ⤢ ramène la colonne
+  Documents (`DOS.agrandi` vrai par défaut, v2.js) ; tableau de bord : cartes Aujourd'hui, Actions rapides et À valider plus hautes, gauche et droite
+  toujours à la même hauteur ; « Activité récente » sans les réglages de l'Administration ; menu « Documents » pour la secrétaire seulement.
+- [ ] **UX3 – Fenêtres d'avertissement dans l'application** à la place des fenêtres du navigateur (162 : 111 confirm, 46 alert, 5 prompt) : rouge =
+  clinique, orange = à vérifier, neutre ; d'abord la chimio (vigilance de « Valider la cure », chimio.js) ; s'appuyer sur `question()` d'ordonnances.js.
+- [ ] **UX4 – Mêmes gestes et mêmes mots partout** : pied de fenêtre fixe, Échap partout, mêmes mots (Valider / Enregistrer, Annuler / Fermer),
+  champ en erreur entouré de rouge, un seul format du nom du médecin ; boutons d'ajout nommés pareil partout : « + Patient », « + Rendez-vous »
+  (jamais « Nouveau patient » / « Nouveau rendez-vous »).
+- [ ] **UX5 – Même modèle sur toutes les pages** (sans changer leur contenu) : haut de page = icône + titre + une ligne d'explication, boutons
+  principaux à droite ; bandeau bleu Onco360 en tête des cartes et des tableaux (icône, titre, nombre, actions à droite) ; liste vide = icône + phrase
+  + bouton ; pages pleines avec « ← » vers la page d'origine et « Échap pour annuler ».
+- [ ] **UX6 – Boutons** : trois hauteurs (36 / 40 / 44 px), quatre couleurs, plus de bleu marine ; « ⋯ » et ▾ d'au moins 36 px (aujourd'hui le dossier
+  seul a 8 hauteurs de bouton, de 19 à 52 px, et 43 cibles de moins de 36 px ; la fenêtre de cure, 5 couleurs).
+- [ ] **UX7 – Même présentation des tableaux** (colonnes et noms inchangés) : en-tête 13 px gras sans majuscules, fond #F1F5FB ; lignes de 44 px, survol,
+  même ombre ; avec le bandeau de UX5.
+- [ ] **UX8 – Tableau de bord, Salle, Bilan** : bandeau d'accueil « Bonjour Dr … », date avec flèches jour précédent / suivant, boutons « + Patient »
+  et « + Rendez-vous » ; Salle : couleur selon l'attente (< 15 min, 15 à 30, > 30), **pas de tuiles en haut** ; Bilan : tuiles en haut (encaissé du
+  jour, du mois, reste à encaisser).
+- [ ] **UX9 – Onglets du dossier avec leur adresse** : `#dossier/<id>/chimio`… ; recharger la page ou revenir en arrière rouvre le bon onglet.
 - [ ] **UX10 – TNM** : rempli à partir du PDF de Dr Bentahila, pour son cabinet seulement (droits d'auteur AJCC : les autres cabinets importent leur
   manuel ou une licence) ; attend le PDF.
+Avant chaque lot : maquette ou captures avant / après montrées à Dr Bentahila ; un lot = une session, test sur ordinateur et à 390 px.
 
 ## À placer (nouveau plan)
 - (21/10, S5) **Vigilance des molécules, flacons et interactions ne sont pas dans le modèle des cabinets neufs** (`PARAMS_SPE` de functions/cabinets.js :
@@ -1119,7 +1120,7 @@ Dr Bentahila une par une. Ordre : UX1 → UX9 (les défauts d'abord, puis la sé
   dates de cure modifiables seulement après « Modifier » ; libellés coupés des rendez-vous à venir et petites flèches ▾ (« pas grave ») ; d'après
   SmartDoc : en-tête du dossier déplacé (S8), mode consultation sans menu avec minuteur (S11), aperçu de l'ordonnance en direct (S12), âge calculé
   et étiquettes Facultatif / Obligatoire (S13), bouton Enregistrer en double (S14), « Appeler le suivant » (S16), « Confirmer le patient » au
-  rendez-vous (S17), accueil des Paramètres en cartes avec leur état (S18), guide dans l'application (S19), recherche Ctrl K des pages (S20), carte « Alertes cliniques du jour » (S7), historique du dossier filtré par pastilles (S10) ;
+  rendez-vous (S17), accueil des Paramètres en cartes avec leur état (S18), guide dans l'application (S19), recherche Ctrl K des pages (S20), carte « Alertes cliniques du jour » (S7), tuiles de chiffres en haut de la Salle d'attente, nouveaux noms de colonnes, historique du dossier filtré par pastilles (S10) ;
   ne pas copier : thème vert foncé, titres de menu en majuscules, plan illustré de la salle, analyse IA.
 - **20/10/2026 (audits 10 et 11)** : tout l'**audit n° 9** (radiothérapie : lot RT-1 « séances reçues, motif d'arrêt, compteur, 1re séance un jour
   férié » (d. 4), lots RT-2 à RT-6, bibliothèque de contraintes de dose (d. 5)) ; écran « Corrections proposées » P1 (d. 10) ; écran de
