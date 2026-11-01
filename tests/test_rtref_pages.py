@@ -73,7 +73,7 @@ async def main():
         ok('Contenus indicatifs' in await ev("document.getElementById('rtrSous').innerText"), 'RT.12 : avertissement en bas des cartes')
         # Essais
         await pg.click('.rtr-sous button:has-text("Essais")'); await pg.wait_for_timeout(2000)
-        ok(await ev("document.querySelectorAll('.rtr-et2 tbody tr').length") == 300 and '471 essais' in await ev("document.querySelector('#rtrEl .rtr-nb').textContent"), 'Essais : 471 références (300 affichées, la suite en affinant)')
+        ok(await ev("document.querySelectorAll('.rtr-et2 tbody tr').length") == 300 and '611 essais' in await ev("document.querySelector('#rtrEl .rtr-nb').textContent"), 'Essais : 611 références (300 affichées, la suite en affinant)')
         await pg.click('.rtr-tri:has-text("Année")'); await pg.wait_for_timeout(300)
         an = await ev("[...document.querySelectorAll('.rtr-et2 tbody td[data-l=\"Année\"]')].slice(0, 5).map(t => Number(t.textContent))")
         ok(an == sorted(an, reverse=True) and an[0] >= 2025, 'tri par année (les plus récents d\'abord)', an)
@@ -81,6 +81,14 @@ async def main():
         await pg.click('.rtr-et2 tbody tr >> nth=0'); await pg.wait_for_timeout(300)
         t = await ev("document.querySelector('.rtr-det').innerText")
         ok('Cité par' in t and '60 Gy / 20 fx' in t and 'PubMed 27339115' in t, 'recherche « chhip », détail : résultat, PubMed, « Cité par n schémas »', t[:200])
+        await pg.fill('#rtrEq', 'timmerman 2021'); await pg.wait_for_timeout(300)
+        loc0 = await ev("document.querySelector('.rtr-et2 tbody td[data-l=\"Localisation\"]').textContent")
+        await pg.click('.rtr-et2 tbody tr >> nth=0'); await pg.wait_for_timeout(300)
+        t = await ev("document.querySelector('.rtr-det').innerText")
+        ok('Contraintes de dose' in loc0 and 'Utilisé pour : Contraintes de dose (183 lignes)' in t and 'Cité par 0' not in t, 'source des contraintes (Timmerman 2021) : fiche, « Utilisé pour » à la place de « Cité par 0 schéma »', [loc0, t[:150]])
+        await pg.fill('#rtrEq', 'van de water'); await pg.wait_for_timeout(300)
+        await pg.click('.rtr-et2 tbody tr >> nth=0'); await pg.wait_for_timeout(300)
+        ok('Définitions des organes à risque' in await ev("document.querySelector('.rtr-det').innerText"), 'source des définitions des organes à risque (van de Water 2009) : fiche')
         # Calcul BED / EQD2
         await controle(pg, 1440)
         await pg.fill('.rtr-calc [data-c="x"]', '3'); await pg.wait_for_timeout(100)

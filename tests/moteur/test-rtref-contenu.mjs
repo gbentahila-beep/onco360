@@ -168,6 +168,18 @@ cas("prescriptions : dose totale = fractions × dose par fraction", err.arith.le
 cas("ind = [région, localisation, situation, fractionnement]", err.ind.length === 0, liste(err.ind));
 cas("dates au format AAAA-MM-JJ (date_maj, date_verif)", err.date.length === 0, liste(err.date));
 
+// 4 ter. Onglet Essais (01/11/2026) : chaque source du référentiel (contraintes, jeux, contourage, organes à risque, atlas des volumes) a sa fiche
+const SANS_FICHE = new Set(["Pratique usuelle", "Source à préciser", "Tableur du service « Canal anal » (pratique du service)", "Fiche du service", "Fiche du service (atlas RTOG, RECORAD)"]);
+const ALIAS = new Set(ESS.flatMap(e => e.alias || [])), DOIS = new Set(ESS.filter(e => e.doi).map(e => e.doi.toLowerCase()));
+const sansFiche = [], vu = (nom, doi) => { if (!SANS_FICHE.has(nom) && !ALIAS.has(nom) && !(doi && DOIS.has(doi.toLowerCase()))) sansFiche.push(nom); };
+BASE.forEach(l => (l.source || "").split(" ; ").map(s => s.trim()).filter(Boolean).forEach(s => vu(s)));
+JEUX.forEach(j => vu(j.source));
+(J["oar.json"].sources || []).forEach(s => vu(s.ref, s.doi));
+const DOS_CTG = join(DOS, "contourage");
+if (existsSync(DOS_CTG)) readdirSync(DOS_CTG).filter(f => f.endsWith(".json")).forEach(f => (JSON.parse(readFileSync(join(DOS_CTG, f), "utf8")).sources || []).forEach(s => vu(s.ref, s.doi)));
+for (const l of IDX.localisations) for (const v of (J[l.id + ".json"] || {}).volumes || []) for (const a of v.atlas || []) vu(typeof a === "string" ? a : a.nom, typeof a === "string" ? "" : (a.url || "").replace(/^https?:\/\/(dx\.)?doi\.org\//, ""));
+cas("onglet Essais : chaque source (contraintes, contourage, organes à risque, atlas) a sa fiche", sansFiche.length === 0, liste([...new Set(sansFiche)]));
+
 // 5. Correspondances DIAG
 const corr = J["diag-localisation.json"].correspondances || {};
 const locIds = new Set(IDX.localisations.map(l => l.id));

@@ -64,7 +64,7 @@
    "region_id": "uro",
    "ordre": 1,
    "date_maj": "2026-11-01",
-   "nb_schemas": 30,
+   "nb_schemas": 31,
    "curietherapie": true
   },
   {
@@ -2176,7 +2176,7 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essais": [
-    "NRG-GU003"
+    "NRG-GU003 (HYPORT vs COPORT)"
    ],
    "doses": [
     {
@@ -10710,6 +10710,31 @@
     "Rein",
     "Cancer du rein primitif non opéré : stéréotaxie",
     "Stéréotaxie"
+   ]
+  },
+  {
+   "id": "pro-postop-65-26",
+   "localisation_id": "prostate",
+   "situation_id": "pro-postop",
+   "titre": "Loge 65 Gy / 26 fx",
+   "type": "rte_hypo",
+   "preuve": "essai_phase3",
+   "essais": [
+    "SHARE"
+   ],
+   "doses": [
+    {
+     "volume": "PTV_LOGE",
+     "dose_Gy": 65,
+     "fractions": 26,
+     "dose_fx_Gy": 2.5
+    }
+   ],
+   "ind": [
+    "Uro",
+    "Prostate",
+    "Après prostatectomie — rattrapage précoce ou adjuvant",
+    "Hypofractionné"
    ]
   }
  ]

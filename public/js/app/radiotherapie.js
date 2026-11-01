@@ -1079,8 +1079,8 @@ function pageEssaisRef() {
 window.RS_tri = (k) => { if (RS.essTri === k) RS.essSens = -RS.essSens; else { RS.essTri = k; RS.essSens = k === "annee" ? -1 : 1; } listeEssais(); };
 function listeEssais() {
   const z = $("rtrEl"); if (!z) return;
-  const esc = A.esc, q = sansAcc(RS.essQ).trim(), locsDe = (x) => [...new Set(citants(x).map((e) => (loc(e.localisation_id) || {}).nom))].join(", ");
-  const L = BB.essais.map((x) => ({ x, locs: locsDe(x) })).filter(({ x, locs }) => !q || sansAcc([x.acronyme, x.revue, x.annee, x.population, x.bras, x.resultat, locs].join(" ")).indexOf(q) >= 0);
+  const esc = A.esc, q = sansAcc(RS.essQ).trim(), locsDe = (x) => [...new Set(citants(x).map((e) => (loc(e.localisation_id) || {}).nom))].join(", ") || (x.usages || []).map((u) => u.split(" (")[0]).join(" · ");
+  const L = BB.essais.map((x) => ({ x, locs: locsDe(x) })).filter(({ x, locs }) => !q || sansAcc([x.acronyme, x.revue, x.annee, x.population, x.bras, x.resultat, locs, (x.usages || []).join(" ")].join(" ")).indexOf(q) >= 0);
   const v = { acronyme: ({ x }) => sansAcc(x.acronyme), annee: ({ x }) => x.annee || 0, localisation: ({ locs }) => sansAcc(locs || "zzz"), revue: ({ x }) => sansAcc(x.revue || "") }[RS.essTri];
   L.sort((a, b) => (v(a) < v(b) ? -1 : v(a) > v(b) ? 1 : 0) * RS.essSens);
   const th = (k, l) => '<th><button type="button" class="rtr-tri' + (RS.essTri === k ? " on" : "") + '" onclick="RS_tri(\'' + k + '\')" aria-sort="' + (RS.essTri === k ? (RS.essSens > 0 ? "ascending" : "descending") : "none") + '">' + l + (RS.essTri === k ? (RS.essSens > 0 ? " ▲" : " ▼") : "") + "</button></th>";
@@ -1092,7 +1092,7 @@ window.rtrDetailEssai = (tr, id) => {
   const x = BB.essais.find((e) => e.id === id), esc = A.esc, C = citants(x), d = document.createElement("tr"); d.className = "rtr-det";
   const liens = [].concat(x.pmid ? [x.pmid] : [], x.pmid_suite || []).map((p) => '<a href="https://pubmed.ncbi.nlm.nih.gov/' + esc(p) + '/" target="_blank" rel="noopener">PubMed ' + esc(p) + "</a>").concat([].concat(x.doi ? [x.doi] : [], x.doi_suite || []).map((o) => '<a href="https://doi.org/' + esc(o) + '" target="_blank" rel="noopener">DOI</a>')).join(" · ");
   d.innerHTML = '<td colspan="4">' + (x.resultat ? "<p>" + esc(x.resultat) + "</p>" : "") + (x.population ? '<p><span class="mesures">Population</span> ' + esc(x.population) + "</p>" : "") + (x.bras ? '<p><span class="mesures">Bras</span> ' + esc(x.bras) + "</p>" : "") + (liens ? "<p>" + liens + "</p>" : "") +
-    '<p class="mesures">Cité par ' + C.length + " schéma" + (C.length > 1 ? "s" : "") + (C.length ? " : " + C.slice(0, 12).map((e) => '<a href="#radiotherapie/s/' + encodeURIComponent(e.id) + '/essais">' + esc(e.titre) + "</a>").join(" · ") + (C.length > 12 ? " · …" : "") : "") + "</p></td>";
+    (x.usages ? '<p class="mesures">Utilisé pour : ' + x.usages.map(esc).join(" · ") + "</p>" : "") + (C.length || !x.usages ? '<p class="mesures">Cité par ' + C.length + " schéma" + (C.length > 1 ? "s" : "") + (C.length ? " : " + C.slice(0, 12).map((e) => '<a href="#radiotherapie/s/' + encodeURIComponent(e.id) + '/essais">' + esc(e.titre) + "</a>").join(" · ") + (C.length > 12 ? " · …" : "") : "") + "</p>" : "") + "</td>";
   tr.after(d);
 };
 // Calcul BED / EQD2 : un seul écran, tout se recalcule pendant la frappe (moteur/rtref.js calculBED) ; valeurs gardées pendant la session

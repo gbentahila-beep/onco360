@@ -13494,6 +13494,52 @@
      "limitant": "< 39,5 Gy"
     }
    ]
+  },
+  {
+   "id": "ct-uro-hyport-62",
+   "titre": "Loge prostatique, 62,5 Gy / 25 fx (NRG-GU003, HYPORT)",
+   "fractionnement": "62,5 Gy / 25 fx",
+   "source": "Protocole NRG-GU003 (version du 26/04/2019), § 5.2.7, contraintes du bras HYPORT",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V36Gy",
+     "ideal": "< 55 %",
+     "limitant": "< 60 %"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V59Gy",
+     "ideal": "< 35 %",
+     "limitant": "< 39 %"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V35Gy",
+     "ideal": "< 70 %",
+     "limitant": "< 77 %",
+     "note": "vessie sans le CTV (le col vésical est dans le CTV)"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V57Gy",
+     "ideal": "< 50 %",
+     "limitant": "< 55 %"
+    },
+    {
+     "oar_id": "oar-tete-femorale-d",
+     "indicateur": "V44Gy",
+     "ideal": "< 10 %",
+     "limitant": "< 11 %"
+    },
+    {
+     "oar_id": "oar-tete-femorale-g",
+     "indicateur": "V44Gy",
+     "ideal": "< 10 %",
+     "limitant": "< 11 %"
+    }
+   ]
   }
  ],
  "aide_colonnes": [

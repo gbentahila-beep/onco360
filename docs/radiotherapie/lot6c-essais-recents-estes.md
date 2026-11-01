@@ -15,7 +15,6 @@ Key Studies : 784 essais (hors pédiatrie, lymphome, pharmacologie) ; 159 déjà
 | Métastases cérébrales, cavité | ALLIANCE A071801 (ASTRO 2026) | Cavité en 27 Gy / 3 fx ou 25 Gy / 5 fx plutôt qu'en séance unique |
 | CBPC étendu | TREASURE (JAMA Oncol), Gronberg (ASCO 2026) | RT thoracique sous immunothérapie : pas de bénéfice, plus de toxicité |
 | CBPC, encéphale | MAVERICK, NRG CC009 (ASTRO 2026) | Surveillance IRM au lieu de l'IPC ; SRS au lieu de l'encéphale in toto |
-| Prostate, rattrapage | COPORT (JAMA Oncol), SHARE (JCO 2026), SPPORT | 62,5 Gy / 25 fx ou 65 Gy / 26 fx ; pelvis 45 Gy + hormonothérapie |
 | Vessie | BART (IJROBP 2024) | RT adjuvante après cystectomie 50,4 Gy / 28 fx (situation absente) |
 | Sein, reconstruction | RT CHARM (JCO 2026), FABREC (JAMA Oncol 2024) | 42,56 Gy / 16 fx sur paroi reconstruite |
 | ORL | UPGRADE-RT (JCO 2025), NRG HN-005 | Aires électives 43 Gy ; 60 Gy dans l'oropharynx HPV+ non retenu |
@@ -29,3 +28,13 @@ Key Studies : 784 essais (hors pédiatrie, lymphome, pharmacologie) ; 159 déjà
 ## Dans la Bibliothèque, à intégrer au prochain lot
 STAR-TREC (rectum, préservation d'organe), STELLAR (rectum 25 Gy / 5 fx + chimiothérapie), LORD-KNEA (gonarthrose 3 Gy / 6 fx),
 Côlon et Ovaire (un article chacun, sans localisation dans le référentiel).
+
+## Lot 6d (01/11/2026)
+- **Rattrapage de la prostate** : COPORT = NRG-GU003, déjà présent (62,5 Gy / 25 fx) ; complété avec le protocole (contraintes du bras HYPORT,
+  simulation, PTV 7–10 mm). SHARE ajouté : 65 Gy / 26 fx (protocole version 1.8). SPPORT était déjà présent.
+- **Tous les onglets des Key Studies** croisés avec la Bibliothèque (auteur et année, 1 098 PDF) : `estes-key-studies-croisement.tsv`
+  (868 essais hors pédiatrie et lymphomes ; colonne « Article dans la Bibliothèque » = fichier trouvé, à confirmer à l'ouverture).
+- **Onglet Essais** : 139 fiches ajoutées pour les sources qui n'y étaient pas (contraintes de dose, jeux de contraintes, contourage,
+  définitions des organes à risque, atlas des volumes ; `essais_sources.py`) ; 17 complétées d'après Estes (NRG BR002, RTOG 0126, PREMER…).
+  Les sources des contraintes venues de RadOncCalc n'ont que leur nom (ni revue ni année ajoutées). 8 lignes de contraintes ont pour source
+  « Source à préciser » et 12 « Pratique usuelle ».

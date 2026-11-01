@@ -1310,15 +1310,56 @@
      "rythme": "5 fx/sem"
     }
    ],
-   "technique": "IGRT",
+   "technique": "IMRT ou VMAT, IGRT quotidienne",
    "systemique": "Selon risque",
    "simulation_id": "sim-pro-loge",
    "volumes_id": "vol-pro-loge",
    "points_attention": [
     "Rattrapage précoce (PSA ≥ 0,1–0,2 ng/ml) préféré à la RT adjuvante systématique : contrôle comparable, moins de toxicité urinaire et érectile (RADICALS-RT, GETUG-AFU 17, RAVES)",
-    "Identifier les clips de prostatectomie (à inclure) et ceux du curage (à exclure du CTV_LOGE)"
+    "Identifier les clips de prostatectomie (à inclure) et ceux du curage (à exclure du CTV_LOGE)",
+    "Rectum le plus vide possible (< 3 cm d'avant en arrière, lavement 1 à 2 h avant), vessie confortablement pleine ; IGRT quotidienne, idéalement sur grains d'or (NRG-GU003)",
+    "CTV de la loge selon le consensus RTOG (Michalski 2010) ; 95 % du PTV reçoit la dose prescrite, D0,03cc ≤ 115 %"
    ],
-   "date_verif": "2026-10-22",
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Uro",
+    "Prostate",
+    "Après prostatectomie — rattrapage précoce ou adjuvant",
+    "Hypofractionné"
+   ],
+   "contraintes_ids": [
+    "ct-uro-hyport-62"
+   ]
+  },
+  {
+   "id": "pro-postop-65-26",
+   "situation_id": "pro-postop",
+   "titre": "Loge 65 Gy / 26 fx",
+   "type": "rte_hypo",
+   "preuve": "essai_phase3",
+   "essai_ids": [
+    "share"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV_LOGE",
+     "dose_Gy": 65,
+     "fractions": 26,
+     "dose_fx_Gy": 2.5,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "Pelvis possible au choix du radiothérapeute (dose non fixée par le protocole)"
+    }
+   ],
+   "technique": "IMRT, IGRT",
+   "systemique": "Hormonothérapie selon le centre",
+   "simulation_id": "sim-pro-loge",
+   "volumes_id": "vol-pro-loge",
+   "points_attention": [
+    "Rattrapage pour PSA > 0,2 et ≤ 1 ng/mL ; hormonothérapie selon le centre",
+    "Plus de rectorragies qu'en 66 Gy / 33 fx (grade ≥ 2 : 8 vs 1 %) ; moins avec un ballonnet rectal (SHARE)"
+   ],
+   "date_verif": "2026-11-01",
    "ind": [
     "Uro",
     "Prostate",

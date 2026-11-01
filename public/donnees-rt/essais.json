@@ -11,7 +11,15 @@
    "doi": "10.1016/S1470-2045(16)30102-4",
    "population": "pT1b–T3a N0 M0, n = 3 216",
    "bras": "74 Gy / 37 fx vs 60 Gy / 20 fx vs 57 Gy / 19 fx ; HT 3–6 mois pour la plupart",
-   "resultat": "60 Gy / 20 fx non inférieur (sans échec à 5 ans 90,6 % vs 88,3 %) ; non-infériorité non démontrée pour 57 Gy / 19 fx"
+   "resultat": "60 Gy / 20 fx non inférieur (sans échec à 5 ans 90,6 % vs 88,3 %) ; non-infériorité non démontrée pour 57 Gy / 19 fx",
+   "alias": [
+    "CHHiP",
+    "Protocole CHHiP (version 9.2), tableau 4"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Prostate, 60 Gy / 20 fx (CHHiP)"
+   ]
   },
   {
    "id": "profit",
@@ -47,7 +55,13 @@
    "doi": "10.1200/JCO.23.02445",
    "population": "Risque faible, n = 1 092",
    "bras": "73,8 Gy / 41 fx vs 70 Gy / 28 fx",
-   "resultat": "Non inférieur à 12 ans ; moins d'échecs biochimiques avec 70 Gy / 28 fx"
+   "resultat": "Non inférieur à 12 ans ; moins d'échecs biochimiques avec 70 Gy / 28 fx",
+   "alias": [
+    "RTOG 0415"
+   ],
+   "usages": [
+    "Contraintes de dose (4 lignes)"
+   ]
   },
   {
    "id": "paceb",
@@ -59,7 +73,13 @@
    "doi": "10.1056/NEJMoa2403365",
    "population": "T1–T2, Gleason ≤ 3+4, PSA ≤ 20, n = 874",
    "bras": "SBRT 36,25 Gy / 5 fx vs 78 Gy / 39 fx ou 62 Gy / 20 fx, sans HT",
-   "resultat": "Sans échec à 5 ans 95,8 % vs 94,6 % (non inférieur) ; toxicité GU tardive ≥ G2 26,9 % vs 18,3 %"
+   "resultat": "Sans échec à 5 ans 95,8 % vs 94,6 % (non inférieur) ; toxicité GU tardive ≥ G2 26,9 % vs 18,3 %",
+   "alias": [
+    "PACE"
+   ],
+   "usages": [
+    "Contraintes de dose (7 lignes)"
+   ]
   },
   {
    "id": "hyportpc",
@@ -71,7 +91,13 @@
    "doi": "10.1016/S0140-6736(19)31131-6",
    "population": "Intermédiaire à haut risque, ≤ 75 ans, n = 1 200",
    "bras": "42,7 Gy / 7 fx (3 j/sem) vs 78 Gy / 39 fx, sans HT",
-   "resultat": "84 % sans échec à 5 ans dans les deux bras ; toxicité urinaire aiguë plus marquée"
+   "resultat": "84 % sans échec à 5 ans dans les deux bras ; toxicité urinaire aiguë plus marquée",
+   "alias": [
+    "Protocole HYPO-RT-PC (version 7.0, 15/10/2015), § 7.10, bras hypofractionné"
+   ],
+   "usages": [
+    "Jeu de contraintes : Prostate, 42,7 Gy / 7 fx (HYPO-RT-PC)"
+   ]
   },
   {
    "id": "flame",
@@ -83,7 +109,16 @@
    "doi": "10.1200/JCO.20.02873",
    "population": "Intermédiaire et haut risque, n = 571",
    "bras": "77 Gy / 35 fx ± boost focal IRM jusqu'à 95 Gy",
-   "resultat": "Survie sans rechute biochimique à 5 ans : avec boost 92 %, sans boost 85 % ; toxicité comparable"
+   "resultat": "Survie sans rechute biochimique à 5 ans : avec boost 92 %, sans boost 85 % ; toxicité comparable",
+   "alias": [
+    "FLAME",
+    "FLAME (Groen 2022, méthodes)",
+    "hypo-FLAME"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)",
+    "Jeu de contraintes : Prostate, 77 Gy / 35 fx avec complément focal (FLAME)"
+   ]
   },
   {
    "id": "poprt",
@@ -95,7 +130,13 @@
    "doi": "10.1200/JCO.20.03282",
    "population": "N0, risque ganglionnaire ≥ 20 %, n = 224",
    "bras": "68 Gy / 25 fx prostate ± 50 Gy / 25 fx pelvis ; HT ≥ 2 ans",
-   "resultat": "Sans échec biochimique à 5 ans : avec pelvis 95,0 %, prostate seule 81,2 % ; survie globale identique"
+   "resultat": "Sans échec biochimique à 5 ans : avec pelvis 95,0 %, prostate seule 81,2 % ; survie globale identique",
+   "alias": [
+    "Protocole POP-RT (version 3, 29/10/2012), table 1"
+   ],
+   "usages": [
+    "Jeu de contraintes : Prostate et pelvis, 68 / 50 Gy / 25 fx (POP-RT)"
+   ]
   },
   {
    "id": "ascende",
@@ -131,7 +172,13 @@
    "doi": "10.1016/j.radonc.2024.110381",
    "population": "Faible et intermédiaire, n = 170",
    "bras": "27 Gy / 2 fx vs 19 Gy / 1 fx",
-   "resultat": "Échec local à 8 ans 11,2 % vs 35,9 % ; 19 Gy en 1 fx non recommandé"
+   "resultat": "Échec local à 8 ans 11,2 % vs 35,9 % ; 19 Gy en 1 fx non recommandé",
+   "alias": [
+    "Sunnybrook"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)"
+   ]
   },
   {
    "id": "pr19",
@@ -215,7 +262,13 @@
    "doi": "10.1016/S0140-6736(18)32486-3",
    "population": "Métastatique de novo, n = 2 061",
    "bras": "HT ± RT prostate 55 Gy / 20 fx quotidien ou 36 Gy / 6 fx hebdomadaire",
-   "resultat": "Survie sans échec améliorée ; pas de gain de survie globale chez tous ; bénéfice visé en faible volume (sous-groupe pré-spécifié, à vérifier sur le texte intégral)"
+   "resultat": "Survie sans échec améliorée ; pas de gain de survie globale chez tous ; bénéfice visé en faible volume (sous-groupe pré-spécifié, à vérifier sur le texte intégral)",
+   "alias": [
+    "STAMPEDE M1"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
   },
   {
    "id": "peace1",
@@ -239,7 +292,16 @@
    "doi": "10.1016/S0140-6736(20)31553-1",
    "population": "Après prostatectomie avec facteur de risque, n = 1 396",
    "bras": "RT adjuvante vs rattrapage (PSA ≥ 0,1) ; 52,5 Gy / 20 fx ou 66 Gy / 33 fx",
-   "resultat": "Sans progression biochimique à 5 ans 85 % vs 88 % ; plus de toxicité urinaire en adjuvant"
+   "resultat": "Sans progression biochimique à 5 ans 85 % vs 88 % ; plus de toxicité urinaire en adjuvant",
+   "alias": [
+    "Protocole RADICALS (version du 11/07/2023), table 3 (objectifs indicatifs)",
+    "Protocole RADICALS (version du 11/07/2023), table 4 (objectifs indicatifs)",
+    "RADICALS"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Loge prostatique, 52,5 Gy / 20 fx (RADICALS), Loge prostatique, 66 Gy / 33 fx (RADICALS)"
+   ]
   },
   {
    "id": "getug-afu17",
@@ -275,7 +337,16 @@
    "doi": "10.1016/S0140-6736(21)01790-6",
    "population": "PSA 0,1–2 après prostatectomie, n = 1 792",
    "bras": "Loge 64,8–70,2 Gy vs + HT 4–6 mois vs + HT + pelvis 45 Gy",
-   "resultat": "Meilleure absence de progression avec HT + pelvis"
+   "resultat": "Meilleure absence de progression avec HT + pelvis",
+   "alias": [
+    "Protocole RTOG 0534, § 6.4.2.2 et 6.4.3.2",
+    "RTOG 0534",
+    "SPPORT"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Lit prostatique ± pelvis, 64,8 à 70,2 Gy en 1,8 Gy/fx (RTOG 0534 SPPORT)"
+   ]
   },
   {
    "id": "getug-afu16",
@@ -291,15 +362,21 @@
   },
   {
    "id": "nrg-gu003",
-   "acronyme": "NRG-GU003",
+   "acronyme": "NRG-GU003 (HYPORT vs COPORT)",
    "type": "essai",
    "revue": "JAMA Oncol 10:584",
    "annee": 2024,
    "pmid": "38483412",
    "doi": "10.1001/jamaoncol.2023.7291",
-   "population": "Après prostatectomie, n = 296",
-   "bras": "62,5 Gy / 25 fx vs 66,6 Gy / 37 fx",
-   "resultat": "Toxicités GU et GI rapportées par le patient non inférieures à 2 ans"
+   "population": "Après prostatectomie, pT2–pT3 pN0/Nx, PSA < 2 ng/mL, sans récidive locale ni métastase ; RT adjuvante ou de rattrapage ± hormonothérapie ≤ 6 mois, sans pelvis (n = 296)",
+   "bras": "Loge 62,5 Gy / 25 fx de 2,5 Gy vs 66,6 Gy / 37 fx de 1,8 Gy ; PTV = CTV + 7 à 10 mm",
+   "resultat": "Toxicités GU et GI rapportées par le patient non inférieures à 2 ans",
+   "alias": [
+    "Protocole NRG-GU003 (version du 26/04/2019), § 5.2.7, contraintes du bras HYPORT"
+   ],
+   "usages": [
+    "Jeu de contraintes : Loge prostatique, 62,5 Gy / 25 fx (NRG-GU003, HYPORT)"
+   ]
   },
   {
    "id": "rtog9601",
@@ -359,7 +436,18 @@
    "doi": "10.1016/j.radonc.2021.12.047",
    "population": "Curiethérapie prostatique",
    "bras": "LDR, HDR, boosts",
-   "resultat": "Doses, objectifs et contraintes : voir onglets Prostate et Contraintes"
+   "resultat": "Doses, objectifs et contraintes : voir onglets Prostate et Contraintes",
+   "alias": [
+    "GEC-ESTRO ACROP 2022",
+    "GEC-ESTRO ACROP 2022, tableau 1",
+    "GEC-ESTRO ACROP 2022, tableau 2",
+    "Recommandation GEC-ESTRO ACROP curiethérapie de prostate (Henry 2022), tableau 1",
+    "Recommandation GEC-ESTRO ACROP curiethérapie de prostate (Henry 2022), tableau 2"
+   ],
+   "usages": [
+    "Jeu de contraintes : Boost HDR 15 Gy, Boost HDR après RTE, objectifs en EQD2 cumulée, Curiethérapie LDR iode 125 exclusive, Prostate, complément HDR 15 Gy en 1 fraction après 25 × 2 Gy, Prostate, curiethérapie permanente à l'iode 125, 145 Gy",
+    "Volumes : Prostate"
+   ]
   },
   {
    "id": "nrg-atlas-pelvis",
@@ -369,7 +457,14 @@
    "annee": 2021,
    "pmid": "32861817",
    "doi": "10.1016/j.ijrobp.2020.08.034",
-   "population": "Prostate en place et post-opératoire"
+   "population": "Prostate en place et post-opératoire",
+   "alias": [
+    "NRG 2021",
+    "NRG 2021, aires ganglionnaires prostate"
+   ],
+   "usages": [
+    "Volumes : Prostate"
+   ]
   },
   {
    "id": "rtog-atlas-oar",
@@ -379,7 +474,16 @@
    "annee": 2012,
    "pmid": "22483697",
    "doi": "10.1016/j.ijrobp.2012.01.023",
-   "population": "Pelvis masculin et féminin"
+   "population": "Pelvis masculin et féminin",
+   "alias": [
+    "Gay HA et al. Pelvic normal tissue contouring guidelines for radiation therapy: a Radiation Therapy Oncology Group consensus panel atlas. Int J Radiat Oncol Biol Phys 2012",
+    "RTOG 2012",
+    "RTOG 2012, OAR du pelvis"
+   ],
+   "usages": [
+    "Définitions des organes à risque",
+    "Volumes : Col utérin, Endomètre, Prostate, Rectum, Vagin, Vessie, Vulve"
+   ]
   },
   {
    "id": "estro-acrop-loge",
@@ -389,7 +493,15 @@
    "annee": 2023,
    "pmid": "37251620",
    "doi": "10.1016/j.ctro.2023.100638",
-   "population": "Radiothérapie post-opératoire"
+   "population": "Radiothérapie post-opératoire",
+   "alias": [
+    "Dal Pra A et al. ESTRO ACROP guideline on prostate bed delineation for postoperative radiotherapy in prostate cancer. Clin Transl Radiat Oncol 2023;41:100638",
+    "ESTRO-ACROP 2023, loge"
+   ],
+   "usages": [
+    "Contourage : Uro",
+    "Volumes : Prostate"
+   ]
   },
   {
    "id": "curie-2021",
@@ -456,7 +568,23 @@
    "doi": "10.1016/j.ctro.2018.01.001",
    "population": "Col localement avancé, RCT + curiethérapie guidée par l'image (protocole d'étude)",
    "bras": "45 Gy / 25 fx + SIB 55–57,5 Gy + curiethérapie",
-   "resultat": "Volumes, groupes de risque ganglionnaire, objectifs D90 CTV-HR 90–95 Gy EQD2"
+   "resultat": "Volumes, groupes de risque ganglionnaire, objectifs D90 CTV-HR 90–95 Gy EQD2",
+   "alias": [
+    "EMBRACE II",
+    "EMBRACE II study protocol v1.0 (curiethérapie guidée par l'image du col utérin)",
+    "EMBRACE II, tableau 9.4",
+    "EMBRACE II, tableaux 10.1 et 10.2",
+    "Protocole EMBRACE II (Image guided intensity modulated external beam radiochemotherapy and MRI based adaptive brachytherapy in locally advanced cervical cancer), chapitre 9",
+    "Protocole EMBRACE II (annexes de contourage)",
+    "Protocole EMBRACE II, tableau 9.4 (radiothérapie externe), tableaux 10.1 et 10.2 (curiethérapie)"
+   ],
+   "usages": [
+    "Contourage : Gynéco",
+    "Contraintes de dose (5 lignes)",
+    "Définitions des organes à risque",
+    "Jeu de contraintes : Col en place, RTE, Col utérin, RT-chimiothérapie et curiethérapie adaptative (EMBRACE II), Col, curiethérapie guidée par l'image (EQD2 RTE + curiethérapie)",
+    "Volumes : Col utérin"
+   ]
   },
   {
    "id": "embrace1",
@@ -519,7 +647,13 @@
    "doi": "10.1016/j.brachy.2011.07.002",
    "population": "Col localement avancé, curiethérapie HDR",
    "bras": "45 Gy + 5 × 5,5 Gy ou 5 × 6 Gy",
-   "resultat": "EQD2 ≥ 80 Gy (réponse complète ou résidu < 4 cm), 85–90 Gy si > 4 cm ; rectum et sigmoïde 70–75 Gy, vessie ≤ 90 Gy EQD2"
+   "resultat": "EQD2 ≥ 80 Gy (réponse complète ou résidu < 4 cm), 85–90 Gy si > 4 cm ; rectum et sigmoïde 70–75 Gy, vessie ≤ 90 Gy EQD2",
+   "alias": [
+    "ABS 2012"
+   ],
+   "usages": [
+    "Jeu de contraintes : Col, curiethérapie HDR (ABS)"
+   ]
   },
   {
    "id": "gec-estro-gyn1",
@@ -563,7 +697,13 @@
    "pmid": "20472347",
    "doi": "10.1016/j.ijrobp.2009.10.075",
    "population": "Col en place, IMRT",
-   "resultat": "Consensus de délinéation du CTV"
+   "resultat": "Consensus de délinéation du CTV",
+   "alias": [
+    "Lim 2011"
+   ],
+   "usages": [
+    "Volumes : Col utérin"
+   ]
   },
   {
    "id": "nrg-atlas-postop",
@@ -574,7 +714,15 @@
    "pmid": "32905846",
    "doi": "10.1016/j.ijrobp.2020.08.061",
    "population": "Endomètre et col opérés, IMRT",
-   "resultat": "CTV post-opératoire sans repères osseux, avec lombo-aortiques et obturateurs inférieurs"
+   "resultat": "CTV post-opératoire sans repères osseux, avec lombo-aortiques et obturateurs inférieurs",
+   "alias": [
+    "NRG/RTOG 2021, CTV post-opératoire",
+    "Small W Jr et al. NRG Oncology/RTOG consensus guidelines for delineation of clinical target volume for intensity-modulated pelvic radiation therapy in postoperative treatment of endometrial and cervical cancer: an update. Int J Radiat Oncol Biol Phys 2021;109:413-424"
+   ],
+   "usages": [
+    "Contourage : Gynéco",
+    "Volumes : Col utérin, Endomètre"
+   ]
   },
   {
    "id": "sedlis",
@@ -726,7 +874,13 @@
    "pmid": "27130794",
    "doi": "10.1016/j.ijrobp.2016.02.043",
    "population": "Vulve post-opératoire et localement avancée",
-   "resultat": "Atlas et recommandations de contourage et de traitement"
+   "resultat": "Atlas et recommandations de contourage et de traitement",
+   "alias": [
+    "Gaffney 2016 (consensus vulve)"
+   ],
+   "usages": [
+    "Volumes : Vulve"
+   ]
   },
   {
    "id": "gec-estro-vagin",
@@ -737,7 +891,14 @@
    "pmid": "31874348",
    "doi": "10.1016/j.radonc.2019.11.005",
    "population": "Cancer primitif du vagin",
-   "resultat": "Concept de volumes pour la curiethérapie guidée par l'image (GTV-T res, CTV-T HR, CTV-T IR)"
+   "resultat": "Concept de volumes pour la curiethérapie guidée par l'image (GTV-T res, CTV-T HR, CTV-T IR)",
+   "alias": [
+    "GEC-ESTRO ACROP 2020",
+    "GEC-ESTRO ACROP 2020 (curiethérapie)"
+   ],
+   "usages": [
+    "Volumes : Vagin"
+   ]
   },
   {
    "id": "abs-vagin",
@@ -831,7 +992,15 @@
    "pmid": "27528121",
    "doi": "10.1016/j.radonc.2016.07.017",
    "population": "Rectum",
-   "resultat": "Consensus international de délinéation du CTV"
+   "resultat": "Consensus international de délinéation du CTV",
+   "alias": [
+    "Valentini 2016 (consensus international)",
+    "Valentini V et al. International consensus guidelines on clinical target volume delineation in rectal cancer. Radiother Oncol 2016;120:195-201"
+   ],
+   "usages": [
+    "Contourage : Digestif",
+    "Volumes : Rectum"
+   ]
   },
   {
    "id": "myerson-atlas",
@@ -842,7 +1011,13 @@
    "pmid": "19117696",
    "doi": "10.1016/j.ijrobp.2008.08.070",
    "population": "Rectum et canal anal",
-   "resultat": "CTV électifs : mésorectum, présacrés, iliaques internes, externes, inguinaux"
+   "resultat": "CTV électifs : mésorectum, présacrés, iliaques internes, externes, inguinaux",
+   "alias": [
+    "RTOG 2009, CTV ano-rectaux"
+   ],
+   "usages": [
+    "Volumes : Canal anal, Rectum"
+   ]
   },
   {
    "id": "act2",
@@ -890,7 +1065,15 @@
    "doi": "10.1016/j.ijrobp.2012.09.023",
    "population": "63 canaux anaux T2–T4 (phase 2)",
    "bras": "IMRT dose-painting : T2N0 42 / 50,4 Gy en 28 fx ; T3–T4 ou N+ 45 / 50,4–54 / 54 Gy en 30 fx",
-   "resultat": "Moins de toxicité hématologique G2+, digestive G3+ et cutanée G3+ que RTOG 98-11"
+   "resultat": "Moins de toxicité hématologique G2+, digestive G3+ et cutanée G3+ que RTOG 98-11",
+   "alias": [
+    "RTOG 0529",
+    "RTOG 0529, tableau 1 (Kachnic 2013)"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)",
+    "Jeu de contraintes : Canal anal, IMRT en dose peinte (RTOG 0529)"
+   ]
   },
   {
    "id": "agitg-atlas",
@@ -901,7 +1084,15 @@
    "pmid": "22401917",
    "doi": "10.1016/j.ijrobp.2011.12.058",
    "population": "Canal anal, IMRT",
-   "resultat": "CTV primitif + 20 mm, adénopathies + 10–20 mm, électif + 7 mm ; PTV 5–10 mm ; SIB 54 Gy / 30 fx et 45 Gy électif"
+   "resultat": "CTV primitif + 20 mm, adénopathies + 10–20 mm, électif + 7 mm ; PTV 5–10 mm ; SIB 54 Gy / 30 fx et 45 Gy électif",
+   "alias": [
+    "AGITG 2012",
+    "Ng M et al. Australasian Gastrointestinal Trials Group (AGITG) contouring atlas and planning guidelines for intensity-modulated radiotherapy in anal cancer. Int J Radiat Oncol Biol Phys 2012"
+   ],
+   "usages": [
+    "Contourage : Digestif",
+    "Volumes : Canal anal"
+   ]
   },
   {
    "id": "mell2006",
@@ -966,7 +1157,13 @@
    "doi": "10.1016/S1470-2045(14)71207-0",
    "population": "CBNPC stade IIIA–IIIB non résécables",
    "bras": "60 Gy vs 74 Gy en fractions de 2 Gy, carboplatine AUC 2 + paclitaxel 45 mg/m² hebdomadaires, ± cetuximab",
-   "resultat": "SG médiane 28,7 mois (60 Gy) vs 20,3 mois (74 Gy), HR 1,38 ; œsophagite sévère 7 % vs 21 %"
+   "resultat": "SG médiane 28,7 mois (60 Gy) vs 20,3 mois (74 Gy), HR 1,38 ; œsophagite sévère 7 % vs 21 %",
+   "alias": [
+    "RTOG 0617"
+   ],
+   "usages": [
+    "Contraintes de dose (5 lignes)"
+   ]
   },
   {
    "id": "rtog0617lt",
@@ -1026,7 +1223,14 @@
    "doi": "10.1016/S1470-2045(17)30318-2",
    "population": "547 CBPC limités",
    "bras": "45 Gy / 30 fx bifractionnés (1,5 Gy × 2/j) vs 66 Gy / 33 fx, début au jour 22 de cisplatine-étoposide",
-   "resultat": "SG à 2 ans 56 % vs 51 % (NS) ; toxicité identique ; le bifractionné reste le standard"
+   "resultat": "SG à 2 ans 56 % vs 51 % (NS) ; toxicité identique ; le bifractionné reste le standard",
+   "alias": [
+    "Protocole CONVERT, « Normal tissue constraints » (bras bifractionné)",
+    "Protocole CONVERT, « Normal tissue constraints » (bras monofractionné)"
+   ],
+   "usages": [
+    "Jeu de contraintes : Poumon à petites cellules, 45 Gy / 30 fx bifractionnés (CONVERT), Poumon à petites cellules, 66 Gy / 33 fx (CONVERT)"
+   ]
   },
   {
    "id": "turrisi",
@@ -1050,7 +1254,14 @@
    "doi": "10.1200/JCO.22.01359",
    "population": "638 CBPC limités",
    "bras": "45 Gy bifractionnés vs 70 Gy / 35 fx monofractionnés",
-   "resultat": "Pas de différence de SG (HR 0,94) ; SG à 5 ans 29 % vs 32 % ; toxicité identique"
+   "resultat": "Pas de différence de SG (HR 0,94) ; SG à 5 ans 29 % vs 32 % ; toxicité identique",
+   "alias": [
+    "CALGB 30610",
+    "RTOG 0538"
+   ],
+   "usages": [
+    "Contraintes de dose (6 lignes)"
+   ]
   },
   {
    "id": "gronberg",
@@ -1062,7 +1273,13 @@
    "doi": "10.1016/S1470-2045(20)30742-7",
    "population": "170 CBPC limités (phase 2)",
    "bras": "60 Gy / 40 fx vs 45 Gy / 30 fx bifractionnés",
-   "resultat": "SG à 2 ans 74,2 % vs 48,1 % sans excès de toxicité (phase 2)"
+   "resultat": "SG à 2 ans 74,2 % vs 48,1 % sans excès de toxicité (phase 2)",
+   "alias": [
+    "Essai norvégien (Grønberg 2021), méthodes"
+   ],
+   "usages": [
+    "Jeu de contraintes : Poumon à petites cellules, 60 Gy / 40 fx bifractionné (Grønberg)"
+   ]
   },
   {
    "id": "adriatic",
@@ -1134,7 +1351,13 @@
    "doi": "10.1001/jama.2010.261",
    "population": "55 CBNPC T1–T2 N0 périphériques inopérables (phase 2)",
    "bras": "SBRT 54 Gy / 3 fx (18 Gy × 3) en 1,5 à 2 semaines",
-   "resultat": "Contrôle tumoral à 3 ans 97,6 % ; SG à 3 ans 55,8 % ; G3 12,7 %, pas de G5"
+   "resultat": "Contrôle tumoral à 3 ans 97,6 % ; SG à 3 ans 55,8 % ; G3 12,7 %, pas de G5",
+   "alias": [
+    "RTOG 0236, tableau 2 (Timmerman 2010)"
+   ],
+   "usages": [
+    "Jeu de contraintes : Poumon, stéréotaxie 54 Gy / 3 fx (RTOG 0236)"
+   ]
   },
   {
    "id": "rtog0236lt",
@@ -1158,7 +1381,13 @@
    "doi": "10.1016/j.ijrobp.2015.07.2260",
    "population": "94 CBNPC T1–T2 N0 périphériques inopérables (phase 2 randomisée)",
    "bras": "34 Gy / 1 fx vs 48 Gy / 4 fx",
-   "resultat": "Toxicité G3+ 10,3 % vs 13,3 % ; contrôle à 1 an 97 % vs 92,7 %"
+   "resultat": "Toxicité G3+ 10,3 % vs 13,3 % ; contrôle à 1 an 97 % vs 92,7 %",
+   "alias": [
+    "RTOG 0915"
+   ],
+   "usages": [
+    "Contraintes de dose (12 lignes)"
+   ]
   },
   {
    "id": "rtog0813",
@@ -1170,7 +1399,15 @@
    "doi": "10.1200/JCO.18.00622",
    "population": "CBNPC centraux T1–T2 (≤ 5 cm) N0 inopérables (phase 1/2)",
    "bras": "SBRT 5 fx de 10 à 12 Gy",
-   "resultat": "Dose maximale tolérée 12 Gy × 5 (DLT 7,2 %) ; contrôle local à 2 ans 88–89 %"
+   "resultat": "Dose maximale tolérée 12 Gy × 5 (DLT 7,2 %) ; contrôle local à 2 ans 88–89 %",
+   "alias": [
+    "Protocole RTOG 0813, tableaux 2 et 3",
+    "RTOG 0813"
+   ],
+   "usages": [
+    "Contraintes de dose (5 lignes)",
+    "Jeu de contraintes : Poumon central, stéréotaxie 50 à 60 Gy / 5 fx (RTOG 0813)"
+   ]
   },
   {
    "id": "chisel",
@@ -1206,7 +1443,13 @@
    "doi": "10.1016/j.jtho.2021.03.019",
    "population": "Tumeurs ≤ 1 cm de l'arbre bronchique proximal (phase 2)",
    "bras": "SBRT 7 Gy × 8 prescrite à l'isodose 67 %",
-   "resultat": "10 décès liés au traitement (hémorragies bronchopulmonaires) : 7 × 8 Gy à proscrire à moins de 1 cm des bronches souches et de la trachée"
+   "resultat": "10 décès liés au traitement (hémorragies bronchopulmonaires) : 7 × 8 Gy à proscrire à moins de 1 cm des bronches souches et de la trachée",
+   "alias": [
+    "Protocole HILUS, table 2 (Dmax en dose physique ; # = contrainte impérative)"
+   ],
+   "usages": [
+    "Jeu de contraintes : Poumon central, stéréotaxie 8 fx (HILUS)"
+   ]
   },
   {
    "id": "lenglet",
@@ -1302,7 +1545,15 @@
    "doi": "10.1016/j.radonc.2018.02.023",
    "population": "Consensus ESTRO",
    "bras": "Délinéation des volumes en RT thoracique du CBNPC localement avancé",
-   "resultat": "Imagerie de planification, GTV, CTV (exclusif et adjuvant), ITV et PTV"
+   "resultat": "Imagerie de planification, GTV, CTV (exclusif et adjuvant), ITV et PTV",
+   "alias": [
+    "ESTRO ACROP CBNPC 2018",
+    "Nestle U et al. ESTRO ACROP guidelines for target volume definition in the treatment of locally advanced non-small cell lung cancer. Radiother Oncol 2018"
+   ],
+   "usages": [
+    "Contourage : Thorax",
+    "Volumes : Poumon"
+   ]
   },
   {
    "id": "acrop-cbpc",
@@ -1314,7 +1565,15 @@
    "doi": "10.1016/j.radonc.2020.07.012",
    "population": "Consensus ESTRO",
    "bras": "Délinéation des volumes en RT thoracique du CBPC",
-   "resultat": "GTV et CTV en RT exclusive, adjuvante et de consolidation"
+   "resultat": "GTV et CTV en RT exclusive, adjuvante et de consolidation",
+   "alias": [
+    "ESTRO ACROP CBPC 2020",
+    "Le Pechoux C et al. ESTRO ACROP guidelines for target volume definition in the thoracic radiation treatment of small cell lung cancer. Radiother Oncol 2020"
+   ],
+   "usages": [
+    "Contourage : Thorax",
+    "Volumes : Poumon"
+   ]
   },
   {
    "id": "kong2011",
@@ -1326,7 +1585,17 @@
    "doi": "10.1016/j.ijrobp.2010.07.1977",
    "population": "RTOG, EORTC, SWOG",
    "bras": "Atlas des OAR thoraciques",
-   "resultat": "Poumons, arbre bronchique proximal, œsophage, moelle, côtes, plexus brachial"
+   "resultat": "Poumons, arbre bronchique proximal, œsophage, moelle, côtes, plexus brachial",
+   "alias": [
+    "Atlas OAR thoraciques RTOG (Kong 2011)",
+    "Atlas RTOG",
+    "Kong FM et al. Consideration of dose limits for organs at risk of thoracic radiotherapy: atlas for lung, proximal bronchial tree, esophagus, spinal cord, ribs, and brachial plexus. Int J Radiat Oncol Biol Phys 2011",
+    "atlas OAR thoraciques RTOG (Kong 2011)"
+   ],
+   "usages": [
+    "Définitions des organes à risque",
+    "Volumes : Poumon"
+   ]
   },
   {
    "id": "hytec-poumon",
@@ -1518,7 +1787,18 @@
    "doi": "10.1016/j.jtho.2019.03.030",
    "population": "Consensus d'experts",
    "bras": "RT du mésothéliome",
-   "resultat": "Hémithorax après pneumonectomie extrapleurale ou chirurgie épargnant le poumon, RT palliative : volumes, doses, contraintes"
+   "resultat": "Hémithorax après pneumonectomie extrapleurale ou chirurgie épargnant le poumon, RT palliative : volumes, doses, contraintes",
+   "alias": [
+    "Consensus NCI / IASLC / MARF mésothéliome (Gomez 2019), tableau 3 (protocole SMART)",
+    "Consensus NCI / IASLC / MARF mésothéliome (Gomez 2019), tableau 4",
+    "Consensus NCI/IASLC 2019",
+    "Gomez DR et al. The use of radiation therapy for the treatment of malignant pleural mesothelioma: expert opinion from the NCI Thoracic Malignancy Steering Committee, IASLC and Mesothelioma Applied Research Foundation. J Thorac Oncol 2019;14:1172-1183"
+   ],
+   "usages": [
+    "Contourage : Thorax",
+    "Jeu de contraintes : Mésothéliome, IMRT hémithoracique, deux poumons en place, Mésothéliome, SMART 25 Gy / 5 fx avant pneumonectomie extrapleurale",
+    "Volumes : Mésothéliome"
+   ]
   },
   {
    "id": "cho-smart",
@@ -1605,7 +1885,13 @@
    "doi": "10.1056/NEJMoa1112088",
    "population": "366 cancers de l'œsophage ou de la jonction résécables (75 % adénocarcinomes)",
    "bras": "Carboplatine AUC 2 + paclitaxel 50 mg/m² hebdomadaires × 5 + RT 41,4 Gy / 23 fx, puis chirurgie vs chirurgie seule",
-   "resultat": "SG médiane 49,4 vs 24,0 mois (HR 0,657) ; R0 92 % vs 69 % ; réponse histologique complète 29 %"
+   "resultat": "SG médiane 49,4 vs 24,0 mois (HR 0,657) ; R0 92 % vs 69 % ; réponse histologique complète 29 %",
+   "alias": [
+    "Protocole CROSS (van Hagen 2012, annexe du NEJM)"
+   ],
+   "usages": [
+    "Jeu de contraintes : Œsophage, RT-chimiothérapie préopératoire 41,4 Gy / 23 fx (CROSS)"
+   ]
   },
   {
    "id": "cross-lt",
@@ -1665,7 +1951,15 @@
    "doi": "10.1186/s12885-017-3386-2",
    "population": "Protocole de l'essai",
    "bras": "CROSS 41,4 Gy / 23 fx : volumes et contraintes",
-   "resultat": "GTV circonférentiel ; CTV = GTV + 0,5 cm + graisse péri-œsophagienne 3 cm au-dessus et au-dessous ; PTV = CTV + 1 cm ; contraintes poumons, cœur, foie, moelle"
+   "resultat": "GTV circonférentiel ; CTV = GTV + 0,5 cm + graisse péri-œsophagienne 3 cm au-dessus et au-dessous ; PTV = CTV + 1 cm ; contraintes poumons, cœur, foie, moelle",
+   "alias": [
+    "Neo-AEGIS (protocole)",
+    "Protocole Neo-AEGIS (BMC Cancer 2017)"
+   ],
+   "usages": [
+    "Jeu de contraintes : Œsophage préopératoire (CROSS)",
+    "Volumes : Œsophage"
+   ]
   },
   {
    "id": "cm577",
@@ -1845,7 +2139,15 @@
    "doi": "10.1016/j.ijrobp.2015.03.030",
    "population": "Consensus d'experts",
    "bras": "CTV de l'œsophage et de la jonction en IMRT",
-   "resultat": "Atlas de référence des CTV"
+   "resultat": "Atlas de référence des CTV",
+   "alias": [
+    "Wu 2015",
+    "Wu AJ et al. Expert consensus contouring guidelines for intensity modulated radiation therapy in esophageal and gastroesophageal junction cancer. Int J Radiat Oncol Biol Phys 2015;92:911-920"
+   ],
+   "usages": [
+    "Contourage : Digestif",
+    "Volumes : Œsophage"
+   ]
   },
   {
    "id": "concorde",
@@ -1857,7 +2159,13 @@
    "doi": "10.1016/j.ijrobp.2019.06.2542",
    "population": "Essai de phase 2/3 français, cancers de l'œsophage localement avancés ou non résécables",
    "bras": "RCT avec ou sans escalade de dose",
-   "resultat": "Cas test : 25,6 % des plans refusés, déviations surtout au cœur ; IMRT mieux acceptée que la 3D"
+   "resultat": "Cas test : 25,6 % des plans refusés, déviations surtout au cœur ; IMRT mieux acceptée que la 3D",
+   "alias": [
+    "CONCORDE / PRODIGE 26, assurance qualité (Boustani 2019), tableau 1"
+   ],
+   "usages": [
+    "Jeu de contraintes : Œsophage, RT-chimiothérapie (CONCORDE / PRODIGE 26)"
+   ]
   },
   {
    "id": "boustani-2022",
@@ -1953,7 +2261,15 @@
    "doi": "10.1016/j.radonc.2009.03.018",
    "population": "Consensus EORTC",
    "bras": "Volumes de RT de la jonction et de l'estomac",
-   "resultat": "Volume individualisé selon la localisation : tumeur et aires ganglionnaires de drainage (classification japonaise)"
+   "resultat": "Volume individualisé selon la localisation : tumeur et aires ganglionnaires de drainage (classification japonaise)",
+   "alias": [
+    "EORTC-ROG (Matzinger 2009)",
+    "Matzinger O et al. EORTC-ROG expert opinion: radiotherapy volume and treatment guidelines for neoadjuvant radiation of adenocarcinomas of the gastroesophageal junction and the stomach. Radiother Oncol 2009;92:164-175"
+   ],
+   "usages": [
+    "Contourage : Digestif",
+    "Volumes : Estomac"
+   ]
   },
   {
    "id": "acrop-ggl-gi",
@@ -1965,7 +2281,13 @@
    "doi": "10.1016/j.radonc.2021.08.026",
    "population": "Consensus ESTRO",
    "bras": "Délinéation des stations ganglionnaires (œsophage, estomac, pancréas, voies biliaires)",
-   "resultat": "Limites anatomiques et atlas TDM des stations ganglionnaires"
+   "resultat": "Limites anatomiques et atlas TDM des stations ganglionnaires",
+   "alias": [
+    "ESTRO ACROP aires ganglionnaires digestives hautes 2021"
+   ],
+   "usages": [
+    "Volumes : Estomac, Foie et voies biliaires, Pancréas, Œsophage"
+   ]
   },
   {
    "id": "hemostase-estomac",
@@ -2061,7 +2383,13 @@
    "doi": "10.1002/cncr.29161",
    "population": "49 cancers du pancréas localement avancés (phase 2)",
    "bras": "Gemcitabine puis SBRT 33 Gy / 5 fx",
-   "resultat": "Toxicité tardive G2+ faible ; contrôle local à 1 an 78 % ; SG médiane 13,9 mois"
+   "resultat": "Toxicité tardive G2+ faible ; contrôle local à 1 an 78 % ; SG médiane 13,9 mois",
+   "alias": [
+    "Herman 2015, tableau 1"
+   ],
+   "usages": [
+    "Jeu de contraintes : Pancréas, stéréotaxie 33 Gy / 5 fx (Herman 2015)"
+   ]
   },
   {
    "id": "smart-pancreas",
@@ -2109,7 +2437,17 @@
    "doi": "10.1016/j.radonc.2020.07.052",
    "population": "Consensus ESTRO",
    "bras": "Volumes et contraintes en RCT et SBRT pancréatiques",
-   "resultat": "Pas d'irradiation ganglionnaire élective en localement avancé ; PTV sans 4D = GTV + 1,5 cm (radial) et ≥ 2 cm (cranio-caudal) ; contraintes RCT (tableau 4a) et SBRT (tableau 4b, d'après Hanna 2018)"
+   "resultat": "Pas d'irradiation ganglionnaire élective en localement avancé ; PTV sans 4D = GTV + 1,5 cm (radial) et ≥ 2 cm (cranio-caudal) ; contraintes RCT (tableau 4a) et SBRT (tableau 4b, d'après Hanna 2018)",
+   "alias": [
+    "Brunner TB et al. ESTRO ACROP guidelines for target volume definition in pancreatic cancer. Radiother Oncol 2021;154:60-69",
+    "ESTRO ACROP pancréas 2021",
+    "Recommandation ESTRO-ACROP, pancréas (2020)"
+   ],
+   "usages": [
+    "Contourage : Digestif",
+    "Contraintes de dose (1 ligne)",
+    "Volumes : Pancréas"
+   ]
   },
   {
    "id": "hanna-uk",
@@ -2145,7 +2483,15 @@
    "doi": "10.1001/jamaoncol.2024.5403",
    "population": "177 CHC localement avancés (74 % avec invasion macrovasculaire)",
    "bras": "SBRT 27,5–50 Gy / 5 fx puis sorafénib vs sorafénib seul",
-   "resultat": "SG médiane 15,8 vs 12,3 mois (HR 0,77, NS ; ajusté 0,72) ; SSP 9,2 vs 5,5 mois"
+   "resultat": "SG médiane 15,8 vs 12,3 mois (HR 0,77, NS ; ajusté 0,72) ; SSP 9,2 vs 5,5 mois",
+   "alias": [
+    "Protocole NRG Oncology / RTOG 1112 (carcinome hépatocellulaire : sorafénib ± radiothérapie stéréotaxique)",
+    "RTOG 1112"
+   ],
+   "usages": [
+    "Contourage : Digestif",
+    "Contraintes de dose (1 ligne)"
+   ]
   },
   {
    "id": "rtog1112-igrt",
@@ -2169,7 +2515,13 @@
    "doi": "10.1016/j.ijrobp.2019.12.004",
    "population": "43 CHC uniques de 1 à 6 cm non éligibles aux traitements standard (phase 2)",
    "bras": "SBRT 45 Gy / 3 fx",
-   "resultat": "Contrôle local à 18 mois 98 % ; SG médiane 3,5 ans ; G3+ aigu 31 %"
+   "resultat": "Contrôle local à 18 mois 98 % ; SG médiane 3,5 ans ; G3+ aigu 31 %",
+   "alias": [
+    "Essai français (Durand-Labrunie 2020), méthodes"
+   ],
+   "usages": [
+    "Jeu de contraintes : Carcinome hépatocellulaire, stéréotaxie 45 Gy / 3 fx (Durand-Labrunie 2020)"
+   ]
   },
   {
    "id": "yoon",
@@ -2241,7 +2593,13 @@
    "doi": "10.1200/JCO.2014.60.2219",
    "population": "79 cholangiocarcinomes extrahépatiques et carcinomes vésiculaires réséqués pT2–4, N+ ou R1 (phase 2)",
    "bras": "Gemcitabine-capécitabine × 4 puis capécitabine + RT 45 Gy (aires) et 54–59,4 Gy (lit tumoral)",
-   "resultat": "SG à 2 ans 65 % (R0 67 %, R1 60 %) ; rechute locale 14 patients"
+   "resultat": "SG à 2 ans 65 % (R0 67 %, R1 60 %) ; rechute locale 14 patients",
+   "alias": [
+    "SWOG S0809, tableau A1 (Ben-Josef 2015)"
+   ],
+   "usages": [
+    "Jeu de contraintes : Voies biliaires, RT-chimiothérapie adjuvante (SWOG S0809)"
+   ]
   },
   {
    "id": "bilcap",
@@ -2277,7 +2635,13 @@
    "doi": "10.1200/JCO.2015.64.2710",
    "population": "92 CHC et cholangiocarcinomes intrahépatiques inopérables (phase 2)",
    "bras": "Protonthérapie jusqu'à 67,5 Gy (EBR) / 15 fx",
-   "resultat": "Dose médiane délivrée 58,0 Gy"
+   "resultat": "Dose médiane délivrée 58,0 Gy",
+   "alias": [
+    "Hong 2016, méthodes (protonthérapie, doses en GyE)"
+   ],
+   "usages": [
+    "Jeu de contraintes : Foie, protons 67,5 GyE / 15 fx (Hong 2016)"
+   ]
   },
   {
    "id": "brunner-cca",
@@ -2299,7 +2663,14 @@
    "annee": 2016,
    "population": "CHC et métastases hépatiques",
    "bras": "3 × 15 Gy ; 5 × 6,5 à 9 Gy ; 10 × 5 Gy",
-   "resultat": "Fiches dosimétriques et contraintes par fractionnement"
+   "resultat": "Fiches dosimétriques et contraintes par fractionnement",
+   "alias": [
+    "Gustave Roussy, stéréotaxie hépatique v1 (2016)",
+    "Gustave Roussy, stéréotaxie hépatique v1 (2016), d'après RTOG 0438"
+   ],
+   "usages": [
+    "Contraintes de dose (6 lignes)"
+   ]
   },
   {
    "id": "stupp2005",
@@ -2443,7 +2814,13 @@
    "doi": "10.1056/NEJMoa1308573",
    "population": "Glioblastomes nouvellement diagnostiqués",
    "bras": "RCT + témozolomide ± bévacizumab",
-   "resultat": "SG identique (15,7 vs 16,1 mois) ; plus de symptômes et de déclin cognitif sous bévacizumab"
+   "resultat": "SG identique (15,7 vs 16,1 mois) ; plus de symptômes et de déclin cognitif sous bévacizumab",
+   "alias": [
+    "RTOG 0825"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
   },
   {
    "id": "avaglio",
@@ -2479,7 +2856,13 @@
    "doi": "10.1016/j.radonc.2023.109663",
    "population": "Glioblastome de l'adulte",
    "bras": "Délinéation des volumes cibles",
-   "resultat": "GTV = cavité + prise de contraste en T1 ; CTV = GTV + 15 mm, un seul CTV ; PTV ≤ 3 mm avec IGRT"
+   "resultat": "GTV = cavité + prise de contraste en T1 ; CTV = GTV + 15 mm, un seul CTV ; PTV ≤ 3 mm avec IGRT",
+   "alias": [
+    "ESTRO-EANO 2023, glioblastome"
+   ],
+   "usages": [
+    "Volumes : Glioblastome"
+   ]
   },
   {
    "id": "nrg-gbm-contourage",
@@ -2491,7 +2874,13 @@
    "doi": "10.1007/s11060-019-03152-9",
    "population": "Consensus de 10 radiothérapeutes",
    "bras": "Contourage CTV_4600 et CTV_6000",
-   "resultat": "Accord substantiel ; réduction aux barrières anatomiques en respectant les voies de diffusion"
+   "resultat": "Accord substantiel ; réduction aux barrières anatomiques en respectant les voies de diffusion",
+   "alias": [
+    "Kruser TJ et al. NRG brain tumor specialists consensus guidelines for glioblastoma contouring. J Neurooncol 2019"
+   ],
+   "usages": [
+    "Contourage : SNC"
+   ]
   },
   {
    "id": "rtog9802",
@@ -2623,7 +3012,15 @@
    "doi": "10.1016/j.radonc.2024.110594",
    "population": "Gliomes diffus IDH mutés de grades 2 et 3 (OMS 2021)",
    "bras": "Délinéation, dose et fractionnement",
-   "resultat": "GTV avec T2/FLAIR ; CTV = GTV + 10 mm (grade 2) ou 15 mm (grade 3) ; 50,4 Gy / 28 fx (grade 2), 59,4 Gy / 33 fx (grade 3) ; IMRT"
+   "resultat": "GTV avec T2/FLAIR ; CTV = GTV + 10 mm (grade 2) ou 15 mm (grade 3) ; 50,4 Gy / 28 fx (grade 2), 59,4 Gy / 33 fx (grade 3) ; IMRT",
+   "alias": [
+    "Baumert BG et al. ESTRO-EANO guideline on target delineation and radiotherapy for IDH-mutant WHO CNS grade 2 and 3 diffuse glioma. Radiother Oncol 2025;202:110594",
+    "ESTRO-EANO 2024, gliomes IDH mutés"
+   ],
+   "usages": [
+    "Contourage : SNC",
+    "Volumes : Gliomes de grade 2 et 3"
+   ]
   },
   {
    "id": "rtog0539-int",
@@ -2635,7 +3032,15 @@
    "doi": "10.3171/2016.11.JNS161170",
    "population": "52 patients : grade 2 après exérèse complète ou grade 1 récidivant",
    "bras": "RT 54 Gy / 30 fx, marge de 8 à 15 mm",
-   "resultat": "SSP à 3 ans 93,8 % ; pas de toxicité de grade 3"
+   "resultat": "SSP à 3 ans 93,8 % ; pas de toxicité de grade 3",
+   "alias": [
+    "RTOG 0539",
+    "RTOG 0539, risque intermédiaire"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)",
+    "Volumes : Méningiome"
+   ]
   },
   {
    "id": "rtog0539-hr",
@@ -2647,7 +3052,13 @@
    "doi": "10.1016/j.ijrobp.2019.11.028",
    "population": "53 patients : grade 3, grade 2 récidivant ou grade 2 après exérèse incomplète",
    "bras": "IMRT en SIB 60 Gy / 54 Gy en 30 fx",
-   "resultat": "SSP à 3 ans 58,8 % ; 1 décès par nécrose"
+   "resultat": "SSP à 3 ans 58,8 % ; 1 décès par nécrose",
+   "alias": [
+    "RTOG 0539, haut risque"
+   ],
+   "usages": [
+    "Volumes : Méningiome"
+   ]
   },
   {
    "id": "rtog0539-lt",
@@ -2839,7 +3250,16 @@
    "doi": "10.1200/JCO.19.02767",
    "population": "518 patients, métastases cérébrales hors zone d'évitement hippocampique",
    "bras": "Encéphale in toto + mémantine ± épargne hippocampique",
-   "resultat": "Moins de déclin cognitif avec épargne (HR 0,74) ; SG et SSP intracrânienne identiques"
+   "resultat": "Moins de déclin cognitif avec épargne (HR 0,74) ; SG et SSP intracrânienne identiques",
+   "alias": [
+    "NRG CC001",
+    "NRG CC001, tableau 1 (Brown 2020)"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Encéphale in toto 30 Gy / 10 fx avec épargne hippocampique (NRG CC001)",
+    "Volumes : Métastases cérébrales"
+   ]
   },
   {
    "id": "rtog0933",
@@ -2851,7 +3271,15 @@
    "doi": "10.1200/JCO.2014.57.2909",
    "population": "113 patients, métastases cérébrales",
    "bras": "Encéphale in toto 30 Gy / 10 fx avec épargne hippocampique (phase 2)",
-   "resultat": "Déclin du rappel différé à 4 mois 7,0 % (30 % chez les témoins historiques)"
+   "resultat": "Déclin du rappel différé à 4 mois 7,0 % (30 % chez les témoins historiques)",
+   "alias": [
+    "RTOG 0933",
+    "RTOG 0933, critères de conformité dosimétrique (tableau 1 de Pokhrel 2015)"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Encéphale in toto avec épargne hippocampique"
+   ]
   },
   {
    "id": "quartz",
@@ -2911,7 +3339,13 @@
    "doi": "10.1016/j.radonc.2018.06.039",
    "population": "136 puis 72 métastases traitées en 3 fractions",
    "bras": "Dose homogène (21–23,1 Gy, 99 % du PTV) vs inhomogène (10 ou 11 Gy à l'isocentre, isodose 70 % sur le PTV)",
-   "resultat": "Meilleur contrôle local et moins de radionécroses avec la dose inhomogène"
+   "resultat": "Meilleur contrôle local et moins de radionécroses avec la dose inhomogène",
+   "alias": [
+    "Brest (Lucia 2019)"
+   ],
+   "usages": [
+    "Jeu de contraintes : Stéréotaxie 33 Gy à l'isocentre en 3 fx (Brest)"
+   ]
   },
   {
    "id": "soliman-cavite",
@@ -2923,7 +3357,15 @@
    "doi": "10.1016/j.ijrobp.2017.09.047",
    "population": "Contours de 10 experts internationaux",
    "bras": "Délinéation de la cavité opératoire",
-   "resultat": "Fusion de l'IRM pré-opératoire ; trajet chirurgical entier ; 5 à 10 mm le long de la dure-mère sous le volet si contact ; ≤ 5 mm dans le sinus adjacent"
+   "resultat": "Fusion de l'IRM pré-opératoire ; trajet chirurgical entier ; 5 à 10 mm le long de la dure-mère sous le volet si contact ; ≤ 5 mm dans le sinus adjacent",
+   "alias": [
+    "Consensus cavité (Soliman 2018)",
+    "Soliman H et al. Consensus contouring guidelines for postoperative completely resected cavity stereotactic radiosurgery for brain metastases. Int J Radiat Oncol Biol Phys 2018"
+   ],
+   "usages": [
+    "Contourage : SNC",
+    "Volumes : Métastases cérébrales"
+   ]
   },
   {
    "id": "eano-esmo-mc-2021",
@@ -2959,7 +3401,17 @@
    "doi": "10.1016/j.ijrobp.2010.01.039",
    "population": "5 patients",
    "bras": "Technique d'épargne hippocampique (tomothérapie, IMRT)",
-   "resultat": "Zone d'évitement = hippocampes + 5 mm ; 2,1 % du PTV encéphale"
+   "resultat": "Zone d'évitement = hippocampes + 5 mm ; 2,1 % du PTV encéphale",
+   "alias": [
+    "Gondi 2010",
+    "Gondi V et al. Hippocampal sparing whole brain radiotherapy: a « how-to » technique. Int J Radiat Oncol Biol Phys 2010;78:1244–52",
+    "Gondi V et al. Hippocampal-sparing whole-brain radiotherapy: a « how-to » technique using helical tomotherapy and linear accelerator-based intensity-modulated radiotherapy. Int J Radiat Oncol Biol Phys 2010"
+   ],
+   "usages": [
+    "Contourage : SNC",
+    "Définitions des organes à risque",
+    "Volumes : Métastases cérébrales"
+   ]
   },
   {
    "id": "quantec-encephale",
@@ -3043,7 +3495,15 @@
    "doi": "10.1016/j.radonc.2017.12.013",
    "population": "Neuro-oncologie",
    "bras": "Atlas OAR scanner et IRM",
-   "resultat": "Atlas européen consensuel en ligne"
+   "resultat": "Atlas européen consensuel en ligne",
+   "alias": [
+    "Eekers DB et al. The EPTN consensus-based atlas for CT- and MR-based contouring in neuro-oncology. Radiother Oncol 2018;128:37–43",
+    "atlas EPTN 2018"
+   ],
+   "usages": [
+    "Définitions des organes à risque",
+    "Volumes : Adénome hypophysaire, Craniopharyngiome, Glioblastome, Gliomes de grade 2 et 3, Méningiome, Métastases cérébrales, Neurocytome central, Schwannome vestibulaire"
+   ]
   },
   {
    "id": "eptn-2021",
@@ -3055,7 +3515,13 @@
    "doi": "10.1016/j.radonc.2021.05.013",
    "population": "Neuro-oncologie",
    "bras": "Mise à jour de l'atlas OAR",
-   "resultat": "Mise à jour de l'atlas EPTN"
+   "resultat": "Mise à jour de l'atlas EPTN",
+   "alias": [
+    "mise à jour EPTN 2021"
+   ],
+   "usages": [
+    "Volumes : Glioblastome"
+   ]
   },
   {
    "id": "scoccianti-2015",
@@ -3067,7 +3533,13 @@
    "doi": "10.1016/j.radonc.2015.01.016",
    "population": "Tumeurs cérébrales",
    "bras": "Atlas OAR et contraintes",
-   "resultat": "Guide de délinéation des OAR cérébraux et contraintes de dose"
+   "resultat": "Guide de délinéation des OAR cérébraux et contraintes de dose",
+   "alias": [
+    "Scoccianti S et al. Organs at risk in the brain and their dose constraints in adults and in children. Radiother Oncol 2015"
+   ],
+   "usages": [
+    "Définitions des organes à risque"
+   ]
   },
   {
    "id": "samhouri2021",
@@ -3252,7 +3724,13 @@
    "doi": "10.1016/j.ijrobp.2009.04.096",
    "population": "Revue QUANTEC, RT ORL et schwannomes vestibulaires",
    "bras": "Surdité de perception",
-   "resultat": "RT classique : dose moyenne cochléaire ≤ 45 Gy (≤ 35 Gy par prudence) ; radiochirurgie du schwannome : dose prescrite 12–14 Gy"
+   "resultat": "RT classique : dose moyenne cochléaire ≤ 45 Gy (≤ 35 Gy par prudence) ; radiochirurgie du schwannome : dose prescrite 12–14 Gy",
+   "alias": [
+    "QUANTEC cochlée"
+   ],
+   "usages": [
+    "Volumes : Schwannome vestibulaire"
+   ]
   },
   {
    "id": "pokhrel2015",
@@ -3336,7 +3814,15 @@
    "doi": "10.1016/S0140-6736(18)32779-X",
    "population": "Oropharynx HPV positif",
    "bras": "70 Gy / 35 fx en 6 semaines (6 fx/sem) + cetuximab vs cisplatine 100 mg/m² J1 et J22",
-   "resultat": "Cetuximab inférieur en SG et SSP ; toxicité comparable : cisplatine = standard"
+   "resultat": "Cetuximab inférieur en SG et SSP ; toxicité comparable : cisplatine = standard",
+   "alias": [
+    "RTOG 1016",
+    "RTOG 1016, protocole § 6.5.3 (Gillison 2019)"
+   ],
+   "usages": [
+    "Contraintes de dose (8 lignes)",
+    "Jeu de contraintes : Oropharynx HPV+, RT accélérée 70 Gy / 35 fx (6 fx/sem)"
+   ]
   },
   {
    "id": "de-escalate",
@@ -3384,7 +3870,13 @@
    "doi": "10.1093/jnci/djp007",
    "population": "Larynx et hypopharynx relevant d'une laryngectomie totale",
    "bras": "Induction TPF × 3 vs PF × 3, puis RT chez les répondeurs",
-   "resultat": "Préservation laryngée à 3 ans 70,3 vs 57,5 % ; réponse 80,0 vs 59,2 %"
+   "resultat": "Préservation laryngée à 3 ans 70,3 vs 57,5 % ; réponse 80,0 vs 59,2 %",
+   "alias": [
+    "GORTEC 2000-01 (Pointreau 2009)"
+   ],
+   "usages": [
+    "Jeu de contraintes : Larynx et hypopharynx, induction TPF puis RT (GORTEC 2000-01)"
+   ]
   },
   {
    "id": "eortc24891",
@@ -3528,7 +4020,13 @@
    "doi": "10.1200/JCO.2008.19.9109",
    "population": "Nasopharynx, phase 2 multicentrique",
    "bras": "IMRT : 70 Gy sur T et N+, 59,4 Gy sur l'infraclinique, en 33 séances, ± chimiothérapie",
-   "resultat": "Contrôle locorégional 90 % ; xérostomie de grade 2 à 1 an 13,5 %"
+   "resultat": "Contrôle locorégional 90 % ; xérostomie de grade 2 à 1 an 13,5 %",
+   "alias": [
+    "RTOG 0225 (Lee 2009)"
+   ],
+   "usages": [
+    "Jeu de contraintes : RCMI 70 / 59,4 Gy en 33 fx (SIB), cavum"
+   ]
   },
   {
    "id": "chen2011-npc",
@@ -3600,7 +4098,16 @@
    "doi": "10.1016/j.radonc.2017.10.032",
    "population": "Nasopharynx",
    "bras": "Délinéation des CTV",
-   "resultat": "Consensus international"
+   "resultat": "Consensus international",
+   "alias": [
+    "Lee 2018",
+    "Lee 2018, CTV du nasopharynx",
+    "Lee AW et al. International guideline for the delineation of the clinical target volumes (CTV) for nasopharyngeal carcinoma. Radiother Oncol 2018;126:25-36"
+   ],
+   "usages": [
+    "Contourage : ORL",
+    "Volumes : Cavum"
+   ]
   },
   {
    "id": "gregoire2014",
@@ -3612,7 +4119,16 @@
    "doi": "10.1016/j.radonc.2013.10.010",
    "population": "Cancers de la tête et du cou",
    "bras": "Délinéation des niveaux ganglionnaires",
-   "resultat": "Dix groupes ganglionnaires, limites anatomiques"
+   "resultat": "Dix groupes ganglionnaires, limites anatomiques",
+   "alias": [
+    "Grégoire 2014",
+    "Grégoire 2014, aires ganglionnaires",
+    "Grégoire V et al. Delineation of the neck node levels for head and neck tumors: a 2013 update. DAHANCA, EORTC, HKNPCSG, NCIC CTG, NCRI, RTOG, TROG consensus guidelines. Radiother Oncol 2014"
+   ],
+   "usages": [
+    "Contourage : ORL",
+    "Volumes : Cavité buccale, Glandes salivaires, Hypopharynx, Larynx, Oropharynx, Sinus et cavités nasales, Situations palliatives"
+   ]
   },
   {
    "id": "gregoire2018",
@@ -3624,7 +4140,15 @@
    "doi": "10.1016/j.radonc.2017.10.016",
    "population": "Carcinomes épidermoïdes",
    "bras": "CTV-P1 (haute dose) et CTV-P2 (dose plus faible)",
-   "resultat": "Consensus mondial"
+   "resultat": "Consensus mondial",
+   "alias": [
+    "Grégoire 2018, CTV-P",
+    "Grégoire V et al. Delineation of the primary tumour Clinical Target Volumes (CTV-P) in laryngeal, hypopharyngeal, oropharyngeal and oral cavity squamous cell carcinoma: AIRO, CACA, DAHANCA, EORTC, GEORCC, GORTEC, HKNPCSG, HNCIG, IAG-KHT, LPRHHT, NCIC CTG, NCRI, NRG Oncology, PHNS, SBRT, SOMERA, SRO, SSHNO, TROG consensus guidelines. Radiother Oncol 2018;126:3-24"
+   ],
+   "usages": [
+    "Contourage : ORL",
+    "Volumes : Cavité buccale, Glandes salivaires, Hypopharynx, Larynx, Oropharynx, Sinus et cavités nasales, Situations palliatives"
+   ]
   },
   {
    "id": "biau2019",
@@ -3636,7 +4160,13 @@
    "doi": "10.1016/j.radonc.2019.01.018",
    "population": "Cancers de la tête et du cou en RT exclusive",
    "bras": "Choix des aires ganglionnaires selon le site et le N",
-   "resultat": "Mise à jour par site (dont sinus et primitif inconnu)"
+   "resultat": "Mise à jour par site (dont sinus et primitif inconnu)",
+   "alias": [
+    "Biau J et al. Selection of lymph node target volumes for definitive head and neck radiation therapy: a 2019 update. Radiother Oncol 2019;134:1-9"
+   ],
+   "usages": [
+    "Contourage : ORL"
+   ]
   },
   {
    "id": "brouwer2015",
@@ -3648,7 +4178,16 @@
    "doi": "10.1016/j.radonc.2015.07.041",
    "population": "Tête et cou",
    "bras": "Délinéation des OAR sur scanner",
-   "resultat": "Consensus DAHANCA, EORTC, GORTEC, NRG, TROG"
+   "resultat": "Consensus DAHANCA, EORTC, GORTEC, NRG, TROG",
+   "alias": [
+    "Brouwer 2015",
+    "Brouwer 2015, OAR",
+    "Brouwer CL et al. CT-based delineation of organs at risk in the head and neck region: DAHANCA, EORTC, GORTEC, HKNPCSG, NCIC CTG, NCRI, NRG Oncology and TROG consensus guidelines. Radiother Oncol 2015"
+   ],
+   "usages": [
+    "Définitions des organes à risque",
+    "Volumes : Cavité buccale, Cavum, Glandes salivaires, Hypopharynx, Larynx, Oropharynx, Sinus et cavités nasales, Situations palliatives"
+   ]
   },
   {
    "id": "lapeyre2005",
@@ -3672,7 +4211,14 @@
    "doi": "10.1016/S1278-3218(10)70007-X",
    "population": "Larynx et hypopharynx",
    "bras": "Volumes microscopiques péri-tumoraux",
-   "resultat": "Approche compartimentale"
+   "resultat": "Approche compartimentale",
+   "alias": [
+    "Lapeyre 2010",
+    "Lapeyre 2010, larynx et hypopharynx"
+   ],
+   "usages": [
+    "Volumes : Hypopharynx, Larynx"
+   ]
   },
   {
    "id": "piram2019",
@@ -3744,7 +4290,13 @@
    "doi": "10.1016/j.radonc.2007.10.020",
    "population": "37 cancers des VADS incurables (phase 2)",
    "bras": "30 Gy / 5 fx (2 fx/sem) + 6 Gy si ≤ 3 cm",
-   "resultat": "Réponse 80 % ; douleur améliorée chez 67 % ; SG médiane 6,1 mois"
+   "resultat": "Réponse 80 % ; douleur améliorée chez 67 % ; SG médiane 6,1 mois",
+   "alias": [
+    "Hypo Trial (Porceddu 2007)"
+   ],
+   "usages": [
+    "Jeu de contraintes : ORL palliatif, 30 Gy / 5 fx (Hypo Trial)"
+   ]
   },
   {
    "id": "mazeron2009",
@@ -3768,7 +4320,13 @@
    "doi": "10.1016/j.radonc.2016.10.008",
    "population": "Curiethérapie tête et cou",
    "bras": "Planification sur imagerie, source pas à pas, curiethérapie seule ou combinée",
-   "resultat": "Première mise à jour"
+   "resultat": "Première mise à jour",
+   "alias": [
+    "GEC-ESTRO ACROP 2017"
+   ],
+   "usages": [
+    "Volumes : Cavité buccale, Oropharynx"
+   ]
   },
   {
    "id": "guinot2024",
@@ -3884,7 +4442,13 @@
    "annee": 2017,
    "population": "Cancers de la tête et du cou",
    "bras": "70 / 60 / 54 Gy en 30–33 fx ; post-opératoire 64–66 Gy",
-   "resultat": "RLS-PTC-002-V02 du 13/02/2017"
+   "resultat": "RLS-PTC-002-V02 du 13/02/2017",
+   "alias": [
+    "Gustave Roussy, RCMI des cancers de la tête et du cou, RLS-PTC-002-V02 (2017)"
+   ],
+   "usages": [
+    "Contraintes de dose (5 lignes)"
+   ]
   },
   {
    "id": "startb",
@@ -3920,7 +4484,14 @@
    "doi": "10.1016/S0140-6736(20)30932-6",
    "population": "4096 cancers du sein pT1–3 pN0–1 (sein ou paroi, sans ganglions)",
    "bras": "40 Gy / 15 fx vs 27 Gy / 5 fx vs 26 Gy / 5 fx",
-   "resultat": "Récidive à 5 ans 2,1 / 1,7 / 1,4 % ; effets tardifs : 26 Gy ≈ 40 Gy, 27 Gy plus toxique"
+   "resultat": "Récidive à 5 ans 2,1 / 1,7 / 1,4 % ; effets tardifs : 26 Gy ≈ 40 Gy, 27 Gy plus toxique",
+   "alias": [
+    "FAST-Forward (Brunt 2020), bras contrôle",
+    "FAST-Forward (Brunt 2020), bras à 5 fractions"
+   ],
+   "usages": [
+    "Jeu de contraintes : Sein ou paroi, 26 Gy / 5 fx, Sein ou paroi, 40 Gy / 15 fx"
+   ]
   },
   {
    "id": "fast",
@@ -3968,7 +4539,13 @@
    "doi": "10.1016/S0140-6736(23)00619-0",
    "population": "Conservation, pT1–3 pN0–3a",
    "bras": "40 Gy / 15 fx + 16 Gy / 8 fx séquentiel vs 36 / 40 / 48 Gy en 15 fx vs 36 / 40 / 53 Gy",
-   "resultat": "48 Gy en surimpression intégrée non inférieur"
+   "resultat": "48 Gy en surimpression intégrée non inférieur",
+   "alias": [
+    "Protocole IMPORT HIGH (version 7.0, 07/02/2014), § 9.3"
+   ],
+   "usages": [
+    "Jeu de contraintes : Sein, boost intégré (IMPORT HIGH)"
+   ]
   },
   {
    "id": "imrt-mc2",
@@ -4004,7 +4581,15 @@
    "doi": "10.1016/j.ejca.2014.12.013",
    "population": "520 femmes de plus de 40 ans, tumeur ≤ 25 mm",
    "bras": "Sein partiel 30 Gy / 5 fx vs 50 Gy / 25 fx + 10 Gy / 5 fx",
-   "resultat": "Pas de différence de récidive à 5 ans"
+   "resultat": "Pas de différence de récidive à 5 ans",
+   "alias": [
+    "Florence",
+    "Florence (Livi 2015 ; Meattini 2020)"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)",
+    "Jeu de contraintes : Sein partiel 30 Gy / 5 fx en IMRT (Florence)"
+   ]
   },
   {
    "id": "florence-10ans",
@@ -4220,7 +4805,13 @@
    "doi": "10.1016/j.radonc.2015.12.027",
    "population": "Cancer du sein précoce",
    "bras": "Délinéation des volumes électifs",
-   "resultat": "Version 1.1"
+   "resultat": "Version 1.1",
+   "alias": [
+    "ESTRO 2016"
+   ],
+   "usages": [
+    "Volumes : Carcinome in situ, Carcinome infiltrant"
+   ]
   },
   {
    "id": "estro-acrop-reconstruction",
@@ -4232,7 +4823,13 @@
    "doi": "10.1016/j.radonc.2019.04.010",
    "population": "Mastectomie avec reconstruction immédiate par prothèse",
    "bras": "Délinéation des volumes",
-   "resultat": "Recommandations de contourage"
+   "resultat": "Recommandations de contourage",
+   "alias": [
+    "ESTRO-ACROP 2019, reconstruction par prothèse"
+   ],
+   "usages": [
+    "Volumes : Carcinome in situ, Carcinome infiltrant"
+   ]
   },
   {
    "id": "woodward2017",
@@ -4278,7 +4875,13 @@
    "annee": 2026,
    "population": "Cancers du sein",
    "bras": "Référentiel régional ; chapitres de radiothérapie (formes infiltrantes et in situ)",
-   "resultat": "Indications, volumes, dose et fractionnement (hypofractionnement modéré standard, boost intégré 48 Gy / 15 fx) ; renvoie à RecoRad 2025 pour les contraintes, objectif cardiaque Dmoy < 3 Gy (sein seul) ou < 5 Gy (aires ganglionnaires)"
+   "resultat": "Indications, volumes, dose et fractionnement (hypofractionnement modéré standard, boost intégré 48 Gy / 15 fx) ; renvoie à RecoRad 2025 pour les contraintes, objectif cardiaque Dmoy < 3 Gy (sein seul) ou < 5 Gy (aires ganglionnaires)",
+   "alias": [
+    "Sénorif 2026, contraintes de dose (renvoie à RecoRad 2025 pour les autres organes)"
+   ],
+   "usages": [
+    "Jeu de contraintes : Sein ou paroi avec aires ganglionnaires (Sénorif 2026), Sein ou paroi sans aires ganglionnaires (Sénorif 2026)"
+   ]
   },
   {
    "id": "rtog9714",
@@ -4338,7 +4941,15 @@
    "doi": "10.1016/S1470-2045(21)00196-0",
    "population": "229 métastases rachidiennes douloureuses, phase 2/3",
    "bras": "SBRT 24 Gy / 2 fx vs RT 20 Gy / 5 fx",
-   "resultat": "Réponse complète de la douleur à 3 mois 35 vs 14 %"
+   "resultat": "Réponse complète de la douleur à 3 mois 35 vs 14 %",
+   "alias": [
+    "Protocole CCTG SC.24 (amendement 1, 02/02/2017), § 8.3.4.4",
+    "SC.24"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)",
+    "Jeu de contraintes : Métastase rachidienne, stéréotaxie 24 Gy / 2 fx (SC.24)"
+   ]
   },
   {
    "id": "patchell2005",
@@ -4386,7 +4997,13 @@
    "doi": "10.1001/jamaoncol.2023.0356",
    "population": "339 patients, 1 à 3 métastases vertébrales",
    "bras": "SRS 16 ou 18 Gy / 1 fx vs 8 Gy / 1 fx",
-   "resultat": "Réponse de la douleur à 3 mois 41,3 vs 60,5 % : pas de supériorité de la SRS"
+   "resultat": "Réponse de la douleur à 3 mois 41,3 vs 60,5 % : pas de supériorité de la SRS",
+   "alias": [
+    "RTOG 0631"
+   ],
+   "usages": [
+    "Contraintes de dose (20 lignes)"
+   ]
   },
   {
    "id": "sprave2018",
@@ -4410,7 +5027,15 @@
    "doi": "10.1016/j.ijrobp.2012.03.009",
    "population": "Radiochirurgie rachidienne de première intention",
    "bras": "Consensus de délimitation du GTV et du CTV",
-   "resultat": "CTV : moelle osseuse anormale et os normal adjacent ; pas de CTV épidural sans épidurite"
+   "resultat": "CTV : moelle osseuse anormale et os normal adjacent ; pas de CTV épidural sans épidurite",
+   "alias": [
+    "Cox 2012, consensus de contourage",
+    "Cox BW et al. International Spine Radiosurgery Consortium consensus guidelines for target volume definition in spinal stereotactic radiosurgery. Int J Radiat Oncol Biol Phys 2012;83:e597-e605"
+   ],
+   "usages": [
+    "Contourage : Os et palliatif",
+    "Volumes : Stéréotaxie osseuse"
+   ]
   },
   {
    "id": "redmond2017",
@@ -4422,7 +5047,15 @@
    "doi": "10.1016/j.ijrobp.2016.09.014",
    "population": "SBRT rachidienne après chirurgie",
    "bras": "Consensus de délimitation du CTV et du PTV",
-   "resultat": "CTV : étendue préopératoire et compartiments adjacents ; anneau si épidurite circonférentielle ; matériel exclu"
+   "resultat": "CTV : étendue préopératoire et compartiments adjacents ; anneau si épidurite circonférentielle ; matériel exclu",
+   "alias": [
+    "Redmond 2017, post-opératoire",
+    "Redmond KJ et al. Consensus contouring guidelines for postoperative stereotactic body radiation therapy for metastatic solid tumor malignancies to the spine. Int J Radiat Oncol Biol Phys 2017"
+   ],
+   "usages": [
+    "Contourage : Os et palliatif",
+    "Volumes : Stéréotaxie osseuse"
+   ]
   },
   {
    "id": "hytec-moelle",
@@ -4434,7 +5067,15 @@
    "doi": "10.1016/j.ijrobp.2019.09.038",
    "population": "Revue et modélisation, SBRT rachidienne",
    "bras": "Tolérance de la moelle en 1 à 5 fractions et en réirradiation",
-   "resultat": "Dmax de 12,4–14,0 Gy (1 fx) à 25,3 Gy (5 fx) pour un risque de myélopathie de 1 à 5 %"
+   "resultat": "Dmax de 12,4–14,0 Gy (1 fx) à 25,3 Gy (5 fx) pour un risque de myélopathie de 1 à 5 %",
+   "alias": [
+    "HyTEC 2021 (Sahgal : moelle) ; Sahgal 2012 ; Nieder 2006",
+    "HyTEC 2021 (Sahgal)"
+   ],
+   "usages": [
+    "Contraintes de dose (5 lignes)",
+    "Jeu de contraintes : Réirradiation : moelle épinière (doses cumulées)"
+   ]
   },
   {
    "id": "sahgal2012-reirr",
@@ -4599,7 +5240,13 @@
    "doi": "10.1016/j.ijrobp.2006.12.055",
    "population": "105 récidives ORL réirradiées",
    "bras": "Dose médiane 59,4 Gy, RCMI chez 70 %",
-   "resultat": "SSP locorégionale à 2 ans 52 % avec RCMI vs 20 %"
+   "resultat": "SSP locorégionale à 2 ans 52 % avec RCMI vs 20 %",
+   "alias": [
+    "Memorial Sloan Kettering (Lee 2007), méthodes"
+   ],
+   "usages": [
+    "Jeu de contraintes : Réirradiation ORL en IMRT (Lee 2007)"
+   ]
   },
   {
    "id": "vargo2018",
@@ -4635,7 +5282,13 @@
    "doi": "10.1200/JCO.22.00164",
    "population": "170 glioblastomes en récidive, phase 2 randomisée",
    "bras": "RT 35 Gy / 10 fx + bévacizumab vs bévacizumab seul",
-   "resultat": "SSP médiane 7,1 vs 3,8 mois ; SG 10,1 vs 9,7 mois"
+   "resultat": "SSP médiane 7,1 vs 3,8 mois ; SG 10,1 vs 9,7 mois",
+   "alias": [
+    "RTOG 1205"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
   },
   {
    "id": "fogh2010",
@@ -4779,7 +5432,13 @@
    "doi": "10.1002/cncr.25918",
    "population": "59 patients, 63 métastases rachidiennes déjà irradiées, prospectif",
    "bras": "SBRT de réirradiation 30 Gy / 5 fx ou 27 Gy / 3 fx",
-   "resultat": "Contrôle local radiologique et survie à 1 an 76 % ; 2 plexopathies lombaires"
+   "resultat": "Contrôle local radiologique et survie à 1 an 76 % ; 2 plexopathies lombaires",
+   "alias": [
+    "MD Anderson (Garg 2011), méthodes"
+   ],
+   "usages": [
+    "Jeu de contraintes : Réirradiation rachidienne en stéréotaxie 30 Gy / 5 fx (MD Anderson)"
+   ]
   },
   {
    "id": "redmond2017-consensus",
@@ -4827,7 +5486,13 @@
    "doi": "10.1200/JCO.2014.58.5828",
    "population": "79 sarcomes des membres, phase 2",
    "bras": "IGRT pré-opératoire sur volumes réduits",
-   "resultat": "Toxicité tardive de grade ≥ 2 à 2 ans 10,5 % (37 % dans SR2) ; 5 récidives locales, toutes dans le champ"
+   "resultat": "Toxicité tardive de grade ≥ 2 à 2 ans 10,5 % (37 % dans SR2) ; 5 récidives locales, toutes dans le champ",
+   "alias": [
+    "RTOG 0630"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
   },
   {
    "id": "wang2011-sts",
@@ -4839,7 +5504,15 @@
    "doi": "10.1016/j.ijrobp.2011.04.038",
    "population": "Sarcomes des membres de haut grade et volumineux",
    "bras": "GTV et CTV pré-opératoires sur scanner",
-   "resultat": "GTV sur IRM T1 injectée ; CTV = GTV + 3 cm longitudinal et 1,5 cm radial"
+   "resultat": "GTV sur IRM T1 injectée ; CTV = GTV + 3 cm longitudinal et 1,5 cm radial",
+   "alias": [
+    "Consensus RTOG, GTV et CTV pré-opératoires",
+    "Wang D et al. Variation in the gross tumor volume and clinical target volume for preoperative radiotherapy of primary large high-grade soft tissue sarcoma of the extremity among RTOG sarcoma radiation oncologists. Int J Radiat Oncol Biol Phys 2011;81:e525-e528"
+   ],
+   "usages": [
+    "Contourage : Sarcomes",
+    "Volumes : Membres et tronc"
+   ]
   },
   {
    "id": "hyport-sts",
@@ -4851,7 +5524,13 @@
    "doi": "10.1016/S1470-2045(22)00638-6",
    "population": "120 sarcomes des membres ou du tronc superficiel, phase 2",
    "bras": "RT pré-opératoire 42,75 Gy / 15 fx de 2,85 Gy",
-   "resultat": "Complications majeures de la cicatrice 31 % (35 % attendus) ; toxicité tardive chez 3 %"
+   "resultat": "Complications majeures de la cicatrice 31 % (35 % attendus) ; toxicité tardive chez 3 %",
+   "alias": [
+    "HYPORT-STS"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
   },
   {
    "id": "baldini2024-hypo",
@@ -4947,7 +5626,13 @@
    "doi": "10.1016/j.ijrobp.2015.02.013",
    "population": "15 radiothérapeutes spécialistes des sarcomes",
    "bras": "Recommandations de RT pré-opératoire",
-   "resultat": "Recommandations préliminaires, surtout d'opinion d'experts"
+   "resultat": "Recommandations préliminaires, surtout d'opinion d'experts",
+   "alias": [
+    "Consensus international, sarcome rétropéritonéal (Baldini 2015), tableau 4"
+   ],
+   "usages": [
+    "Jeu de contraintes : Sarcome rétropéritonéal, radiothérapie préopératoire"
+   ]
   },
   {
    "id": "baldini2015-contours",
@@ -4959,7 +5644,15 @@
    "doi": "10.1016/j.ijrobp.2015.04.039",
    "population": "12 radiothérapeutes, 2 sarcomes rétropéritonéaux",
    "bras": "GTV, CTV, CTV à haut risque, OAR",
-   "resultat": "CTV = GTV + 1,5 cm avec réductions aux interfaces ; accord élevé pour GTV et CTV, modéré pour le CTV à haut risque"
+   "resultat": "CTV = GTV + 1,5 cm avec réductions aux interfaces ; accord élevé pour GTV et CTV, modéré pour le CTV à haut risque",
+   "alias": [
+    "Baldini EH et al. Variability in target volume delineation for retroperitoneal sarcoma among sarcoma radiation oncologists. Int J Radiat Oncol Biol Phys 2015",
+    "Consensus de contourage, Baldini 2015"
+   ],
+   "usages": [
+    "Contourage : Sarcomes",
+    "Volumes : Rétropéritoine"
+   ]
   },
   {
    "id": "igr-sarcome-rp",
@@ -4981,7 +5674,13 @@
    "doi": "10.1016/S1470-2045(14)71190-8",
    "population": "Plus de 40 experts (ESMO, Chordoma Foundation)",
    "bras": "Traitement local et métastatique",
-   "resultat": "Article de position consensuel"
+   "resultat": "Article de position consensuel",
+   "alias": [
+    "Consensus mondial sur le chordome (Stacchiotti 2015), tableau des contraintes"
+   ],
+   "usages": [
+    "Jeu de contraintes : Chordome, fractionnement classique (photons ou protons)"
+   ]
   },
   {
    "id": "delaney2009",
@@ -4993,7 +5692,14 @@
    "doi": "10.1016/j.ijrobp.2008.08.058",
    "population": "Sarcomes du rachis, phase 2",
    "bras": "Photons-protons 50,4 / 70,2 / 77,4 Gy RBE à 1,8 Gy ; moelle 63 / 54 Gy RBE (surface / centre)",
-   "resultat": "Contrôle local à 5 ans 78 % ; pas de myélopathie ; 3 neuropathies sacrées après 77,12–77,4 Gy RBE"
+   "resultat": "Contrôle local à 5 ans 78 % ; pas de myélopathie ; 3 neuropathies sacrées après 77,12–77,4 Gy RBE",
+   "alias": [
+    "DeLaney 2009 (protocole de phase 2)",
+    "Massachusetts General Hospital (DeLaney 2009), méthodes"
+   ],
+   "usages": [
+    "Jeu de contraintes : Chordome et chondrosarcome du rachis, 77,4 Gy RBE (DeLaney), Rachis et sacrum, photons-protons de haute dose"
+   ]
   },
   {
    "id": "delaney2014",
@@ -5053,7 +5759,13 @@
    "doi": "10.1097/JTO.0b013e31821ea60c",
    "population": "Tumeurs thymiques",
    "bras": "Définitions et compte rendu de la RT",
-   "resultat": "Référentiel de définitions"
+   "resultat": "Référentiel de définitions",
+   "alias": [
+    "Gomez D et al. Radiation therapy definitions and reporting guidelines for thymic malignancies (ITMIG). J Thorac Oncol 2011;6:S1743-S1748"
+   ],
+   "usages": [
+    "Contourage : Thorax"
+   ]
   },
   {
    "id": "likhacheva2020",
@@ -5317,7 +6029,13 @@
    "doi": "10.1016/j.brachy.2024.02.007",
    "population": "65 carcinomes du gland traités à Gustave Roussy",
    "bras": "Curiethérapie débit pulsé guidée par scanner, dose médiane 60 Gy",
-   "resultat": "Rechute locale 18,4 % ; sténose méatique de grade 2 : 21,5 %, liée à la D0,1 cm³ et à la D0,2 cm³ de l'urètre distal"
+   "resultat": "Rechute locale 18,4 % ; sténose méatique de grade 2 : 21,5 %, liée à la D0,1 cm³ et à la D0,2 cm³ de l'urètre distal",
+   "alias": [
+    "Gustave Roussy (Achkar 2025)"
+   ],
+   "usages": [
+    "Jeu de contraintes : Curiethérapie du gland, débit pulsé"
+   ]
   },
   {
    "id": "abs-uvee-2014",
@@ -5409,7 +6127,13 @@
    "doi": "10.1016/j.radonc.2019.05.006",
    "population": "52 CHC avec thrombose de la veine porte après hépatectomie ± thrombectomie, randomisé",
    "bras": "IMRT adjuvante 50 Gy / 25 fx vs surveillance",
-   "resultat": "SG médiane 18,9 vs 10,8 mois ; SSM 9,1 vs 4,1 mois"
+   "resultat": "SG médiane 18,9 vs 10,8 mois ; SSM 9,1 vs 4,1 mois",
+   "alias": [
+    "Sun 2019, Radiother Oncol 140:20, Méthodes"
+   ],
+   "usages": [
+    "Jeu de contraintes : CHC avec thrombose portale opéré, IMRT adjuvante 50 Gy / 25 fx"
+   ]
   },
   {
    "id": "xi2025-rfa-sbrt",
@@ -5549,7 +6273,13 @@
    "annee": 2018,
    "population": "Oligométastases (bras prostate : hormonothérapie), phase 2 randomisée",
    "bras": "Traitement standard ± traitement local de toutes les métastases (SBRT, chirurgie)",
-   "resultat": "Doses par site : os 12–24 Gy / 1 fx ou 27–36 Gy / 3 fx ; ganglion 30–36 Gy / 3 fx ; poumon et foie 50 Gy / 4 fx ; contraintes par nombre de fractions"
+   "resultat": "Doses par site : os 12–24 Gy / 1 fx ou 27–36 Gy / 3 fx ; ganglion 30–36 Gy / 3 fx ; poumon et foie 50 Gy / 4 fx ; contraintes par nombre de fractions",
+   "alias": [
+    "Protocole EXTEND (MD Anderson 2018-0349), tableau des contraintes"
+   ],
+   "usages": [
+    "Jeu de contraintes : Stéréotaxie en 1 fraction (EXTEND), Stéréotaxie en 3 fractions (EXTEND), Stéréotaxie en 5 fractions (EXTEND)"
+   ]
   },
   {
    "id": "fastrack2",
@@ -5559,7 +6289,13 @@
    "annee": 2024,
    "population": "70 cancers du rein primitifs uniques, inopérables, à haut risque chirurgical ou refusant la chirurgie, ≤ 10 cm, DFG ≥ 30 mL/min, phase 2",
    "bras": "SABR 26 Gy / 1 fx (≤ 4 cm) ou 42 Gy / 3 fx (> 4 à 10 cm)",
-   "resultat": "Contrôle local 100 % à 1 an ; toxicité de grade 3 : 10 %, aucune de grade 4 ; baisse moyenne du DFG 14,6 mL/min à 2 ans ; 1 dialyse"
+   "resultat": "Contrôle local 100 % à 1 an ; toxicité de grade 3 : 10 %, aucune de grade 4 ; baisse moyenne du DFG 14,6 mL/min à 2 ans ; 1 dialyse",
+   "alias": [
+    "FASTRACK II"
+   ],
+   "usages": [
+    "Contraintes de dose (9 lignes)"
+   ]
   },
   {
    "id": "siva2022-irock5",
@@ -5580,7 +6316,1977 @@
    "doi": "10.2217/fon.16.2",
    "population": "Pratiques de 8 centres de stéréotaxie rénale",
    "bras": "Consensus : sélection, simulation, volumes, doses, suivi",
-   "resultat": "TDM 4D ou en phases respiratoires pour l'ITV ; PTV de 3 à 10 mm ; 1 à 12 fractions ; trajet de biopsie non couvert"
+   "resultat": "TDM 4D ou en phases respiratoires pour l'ITV ; PTV de 3 à 10 mm ; 1 à 12 fractions ; trajet de biopsie non couvert",
+   "alias": [
+    "IROCK"
+   ],
+   "usages": [
+    "Contraintes de dose (20 lignes)"
+   ]
+  },
+  {
+   "id": "share",
+   "acronyme": "SHARE",
+   "type": "essai",
+   "revue": "J Clin Oncol",
+   "annee": 2026,
+   "population": "Récidive biologique après prostatectomie (PSA > 0,2 et ≤ 1 ng/mL), risque intermédiaire ou élevé (NCCN), sans récidive locale, ganglionnaire ni métastase, phase 3 (n = 316)",
+   "bras": "Loge 65 Gy / 26 fx de 2,5 Gy vs 66 Gy / 33 fx ; pelvis au choix ; PTV = CTV + 3 à 7 mm ; IMRT",
+   "resultat": "Contrôle biochimique à 4 ans 80 vs 78 % ; toxicité digestive de grade ≥ 2 : 8 vs 1 % (surtout rectorragies, toutes résolutives)"
+  },
+  {
+   "id": "src-acns0331-atlas",
+   "acronyme": "ACNS0331, atlas des volumes du médulloblastome",
+   "type": "atlas",
+   "revue": "Children's Oncology Group",
+   "population": "Volumes cibles et organes à risque du médulloblastome",
+   "alias": [
+    "Michalski J. ACNS0331 Medulloblastoma target volumes and organ at risk atlas. Children's Oncology Group"
+   ],
+   "usages": [
+    "Contourage : SNC"
+   ]
+  },
+  {
+   "id": "src-aews1031",
+   "acronyme": "COG AEWS1031",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole du Children's Oncology Group",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "AEWS 1031"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-aren1921",
+   "acronyme": "COG AREN1921",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole du Children's Oncology Group",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "AREN 1921"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)"
+   ]
+  },
+  {
+   "id": "src-arst1431",
+   "acronyme": "COG ARST1431",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole du Children's Oncology Group",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "ARST 1431"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)"
+   ]
+  },
+  {
+   "id": "src-astro-estomac",
+   "acronyme": "ASTRO, estomac (2025)",
+   "type": "recommandation",
+   "revue": "Recommandation de l'ASTRO",
+   "annee": 2025,
+   "population": "Contraintes de dose, estomac",
+   "alias": [
+    "Recommandation ASTRO, estomac (2025)"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)"
+   ]
+  },
+  {
+   "id": "src-astro-foie",
+   "acronyme": "ASTRO, foie (2021)",
+   "type": "recommandation",
+   "revue": "Recommandation de l'ASTRO",
+   "annee": 2021,
+   "population": "Contraintes de dose, foie",
+   "alias": [
+    "Recommandation ASTRO, foie (2021)"
+   ],
+   "usages": [
+    "Contraintes de dose (17 lignes)"
+   ]
+  },
+  {
+   "id": "src-astro-oropharynx",
+   "acronyme": "ASTRO, oropharynx HPV+",
+   "type": "recommandation",
+   "revue": "Recommandation de l'ASTRO",
+   "population": "Contraintes de dose, oropharynx HPV+",
+   "alias": [
+    "Recommandation ASTRO, oropharynx HPV+"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-astro-pancreas",
+   "acronyme": "ASTRO, pancréas (2026)",
+   "type": "recommandation",
+   "revue": "Recommandation de l'ASTRO",
+   "annee": 2026,
+   "population": "Contraintes de dose, pancréas",
+   "alias": [
+    "Recommandation ASTRO, pancréas (2026)"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)"
+   ]
+  },
+  {
+   "id": "src-astro-pmrt",
+   "acronyme": "ASTRO, RT après mastectomie (2025)",
+   "type": "recommandation",
+   "revue": "Recommandation de l'ASTRO",
+   "annee": 2025,
+   "population": "Contraintes de dose, RT après mastectomie",
+   "alias": [
+    "Recommandation ASTRO, RT après mastectomie (2025)"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)"
+   ]
+  },
+  {
+   "id": "src-biau2019",
+   "acronyme": "Biau 2019 (organes à risque)",
+   "type": "atlas",
+   "revue": "Radiother Oncol 131:192–201",
+   "annee": 2019,
+   "doi": "10.1016/j.radonc.2018.08.020",
+   "population": "Contourage du nerf trijumeau (V) et de ses branches en ORL",
+   "alias": [
+    "Biau J et al. Practical clinical guidelines for contouring the trigeminal nerve (V) and its branches in head and neck cancers. Radiother Oncol 2019;131:192–201"
+   ],
+   "usages": [
+    "Définitions des organes à risque"
+   ]
+  },
+  {
+   "id": "src-calgb80803",
+   "acronyme": "CALGB 80803",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole CALGB 80803",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "CALGB 80803"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-casey2020",
+   "acronyme": "Casey 2020",
+   "type": "essai",
+   "revue": "Ann Surg Oncol",
+   "annee": 2020,
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "Casey, Annals of Surgical Oncology 2020"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-cat-meningiome-2021",
+   "acronyme": "Thésaurus français des méningiomes (CAT-MENINGIOME)",
+   "type": "recommandation",
+   "revue": "Thésaurus national",
+   "annee": 2021,
+   "population": "Radiochirurgie des méningiomes",
+   "alias": [
+    "Thésaurus français méningiomes (CAT-MENINGIOME, 12/02/2021), radiochirurgie"
+   ],
+   "usages": [
+    "Jeu de contraintes : Méningiome, radiochirurgie en 1 séance"
+   ]
+  },
+  {
+   "id": "src-christianen2011",
+   "acronyme": "Christianen 2011 (organes à risque)",
+   "type": "atlas",
+   "revue": "Radiother Oncol 101:394–402",
+   "annee": 2011,
+   "doi": "10.1016/j.radonc.2011.05.015",
+   "population": "Organes à risque de la déglutition",
+   "alias": [
+    "Christianen ME et al. Delineation of organs at risk involved in swallowing for radiotherapy treatment planning. Radiother Oncol 2011;101:394–402"
+   ],
+   "usages": [
+    "Définitions des organes à risque"
+   ]
+  },
+  {
+   "id": "src-corsair",
+   "acronyme": "CORSAIR",
+   "type": "recommandation",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "CORSAIR"
+   ],
+   "usages": [
+    "Contraintes de dose (168 lignes)"
+   ]
+  },
+  {
+   "id": "src-curie-gyn-2021",
+   "acronyme": "Institut Curie, protocoles col-vagin, endomètre, vulve",
+   "type": "protocole_institutionnel",
+   "revue": "Institut Curie",
+   "annee": 2021,
+   "population": "Contraintes de dose",
+   "alias": [
+    "Institut Curie 2021 (protocoles col-vagin, endomètre-col post-opératoire, vulve)"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-curie-sbrt-poumon",
+   "acronyme": "Institut Curie, SBRT d'un nodule pulmonaire",
+   "type": "protocole_institutionnel",
+   "revue": "Institut Curie (version du 05/12/2021)",
+   "annee": 2021,
+   "population": "Contraintes de dose",
+   "alias": [
+    "Institut Curie, SBRT d'un nodule pulmonaire, version du 05/12/2021",
+    "Institut Curie, SBRT d'un nodule pulmonaire, version du 05/12/2021 (KEYNOTE-867, RTOG 0813, Ma 2019, HyTEC 2021)",
+    "Institut Curie, SBRT d'un nodule pulmonaire, version du 05/12/2021 (RTOG 0813, Manyam 2020, SABR UK v6.1)"
+   ],
+   "usages": [
+    "Contraintes de dose (6 lignes)"
+   ]
+  },
+  {
+   "id": "src-curie-stereo-crane",
+   "acronyme": "Institut Curie, stéréotaxie des métastases cérébrales",
+   "type": "protocole_institutionnel",
+   "revue": "Institut Curie (version de travail du 05/12/2021)",
+   "annee": 2021,
+   "population": "Contraintes de dose, d'après l'AAPM",
+   "alias": [
+    "Institut Curie, stéréotaxie des métastases cérébrales (version de travail du 05/12/2021), d'après l'AAPM"
+   ],
+   "usages": [
+    "Contraintes de dose (12 lignes)"
+   ]
+  },
+  {
+   "id": "src-curie-vads-2021",
+   "acronyme": "Institut Curie, protocoles RT des VADS",
+   "type": "protocole_institutionnel",
+   "revue": "Institut Curie",
+   "annee": 2021,
+   "population": "Contraintes de dose, tumeur en place et opérée",
+   "alias": [
+    "Institut Curie 2021, protocoles RT des VADS (tumeur en place et opérée)"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-curie-volumes-stereo",
+   "acronyme": "Institut Curie, volumes de stéréotaxie intracrânienne",
+   "type": "protocole_institutionnel",
+   "revue": "Institut Curie",
+   "population": "Modèle « Volumes Stéréotaxie intracrânienne »",
+   "alias": [
+    "Procédure Curie (modèle « Volumes Stéréotaxie intracrânienne »)"
+   ],
+   "usages": [
+    "Volumes : Craniopharyngiome, Méningiome, Métastases cérébrales, Neurocytome central"
+   ]
+  },
+  {
+   "id": "src-dahanca20",
+   "acronyme": "DAHANCA 20",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole DAHANCA 20",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "DAHANCA 20"
+   ],
+   "usages": [
+    "Contraintes de dose (22 lignes)"
+   ]
+  },
+  {
+   "id": "src-dahanca25",
+   "acronyme": "DAHANCA 25",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole DAHANCA 25",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "DAHANCA 25"
+   ],
+   "usages": [
+    "Contraintes de dose (27 lignes)"
+   ]
+  },
+  {
+   "id": "src-delineate",
+   "acronyme": "DELINEATE",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole DELINEATE",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "DELINEATE"
+   ],
+   "usages": [
+    "Contraintes de dose (5 lignes)"
+   ]
+  },
+  {
+   "id": "src-dickie2009",
+   "acronyme": "Dickie 2009",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2009,
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "Dickie, IJROBP 2009"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-dose-pro-thoracic",
+   "acronyme": "DOSE-Pro Thoracic",
+   "type": "recommandation",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "DOSE-Pro Thoracic"
+   ],
+   "usages": [
+    "Contraintes de dose (16 lignes)"
+   ]
+  },
+  {
+   "id": "src-ea2183",
+   "acronyme": "EA2183",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole EA2183",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "EA2183"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-econtour-prostate",
+   "acronyme": "eContour, prostate en place",
+   "type": "atlas",
+   "revue": "eContour (d'après RTOG 0126 et RTOG 0815)",
+   "population": "Guide de contourage de la prostate en place",
+   "alias": [
+    "eContour. Intact prostate contouring guide (d'après les protocoles RTOG 0126 et RTOG 0815)"
+   ],
+   "usages": [
+    "Contourage : Uro"
+   ]
+  },
+  {
+   "id": "src-estro-eano-gbm",
+   "acronyme": "ESTRO-EANO, glioblastome",
+   "type": "recommandation",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "Recommandation ESTRO-EANO, glioblastome"
+   ],
+   "usages": [
+    "Contraintes de dose (6 lignes)"
+   ]
+  },
+  {
+   "id": "src-feng2011",
+   "acronyme": "Feng 2011 (organes à risque)",
+   "type": "atlas",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2011,
+   "doi": "10.1016/j.ijrobp.2009.10.058",
+   "population": "Atlas du cœur (exposition cardiaque après irradiation du sein)",
+   "alias": [
+    "Feng M et al. Development and validation of a heart atlas to study cardiac exposure to radiation following treatment for breast cancer. Int J Radiat Oncol Biol Phys 2011"
+   ],
+   "usages": [
+    "Définitions des organes à risque"
+   ]
+  },
+  {
+   "id": "src-fil-chest",
+   "acronyme": "FIL Chest",
+   "type": "protocole_institutionnel",
+   "revue": "Fondazione Italiana Linfomi",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "FIL Chest"
+   ],
+   "usages": [
+    "Contraintes de dose (4 lignes)"
+   ]
+  },
+  {
+   "id": "src-george2020",
+   "acronyme": "George 2020",
+   "type": "essai",
+   "revue": "Clin Oncol",
+   "annee": 2020,
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "George, Clinical Oncology 2020"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-getug-crevoisier2018",
+   "acronyme": "GETUG (de Crevoisier 2018)",
+   "type": "recommandation",
+   "revue": "Recommandations du GETUG reprises dans l'essai GETUG-AFU",
+   "annee": 2018,
+   "population": "Contraintes de dose, prostate",
+   "alias": [
+    "Recommandations du GETUG, reprises dans l'essai GETUG-AFU (de Crevoisier 2018)"
+   ],
+   "usages": [
+    "Jeu de contraintes : Prostate, 78 à 80 Gy en 2 Gy/fx (recommandations GETUG)"
+   ]
+  },
+  {
+   "id": "src-hall2008",
+   "acronyme": "Hall 2008 (organes à risque)",
+   "type": "atlas",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2008,
+   "doi": "10.1016/j.ijrobp.2008.03.004",
+   "population": "Contourage standardisé du plexus brachial",
+   "alias": [
+    "Hall WH et al. Development and validation of a standardized method for contouring the brachial plexus. Int J Radiat Oncol Biol Phys 2008"
+   ],
+   "usages": [
+    "Définitions des organes à risque"
+   ]
+  },
+  {
+   "id": "src-hytec",
+   "acronyme": "HyTEC (ensemble des articles)",
+   "type": "recommandation",
+   "revue": "Int J Radiat Oncol Biol Phys (numéro spécial)",
+   "annee": 2021,
+   "population": "Contraintes de dose en hypofractionnement et stéréotaxie",
+   "alias": [
+    "HyTEC"
+   ],
+   "usages": [
+    "Contraintes de dose (20 lignes)"
+   ]
+  },
+  {
+   "id": "src-igr-stereo-2018",
+   "acronyme": "Gustave Roussy, stéréotaxie 2018",
+   "type": "protocole_institutionnel",
+   "revue": "Gustave Roussy",
+   "annee": 2018,
+   "population": "Tableau des contraintes de dose en stéréotaxie",
+   "alias": [
+    "Gustave Roussy, stéréotaxie 2018"
+   ],
+   "usages": [
+    "Contraintes de dose (66 lignes)"
+   ]
+  },
+  {
+   "id": "src-ilrog",
+   "acronyme": "Binkley 2020, ILROG",
+   "type": "essai",
+   "revue": "Blood",
+   "population": "559 lymphomes folliculaires de stade I–II, rétrospectif multicentrique",
+   "annee": 2020,
+   "bras": "RT, chimiothérapie + RT, chimiothérapie, rituximab ± RT ou surveillance",
+   "resultat": "SSP à 5 ans 91 % avec la RT seule ou associée à la chimiothérapie, 78 % chimiothérapie seule, 73 % surveillance",
+   "alias": [
+    "ILROG"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)"
+   ]
+  },
+  {
+   "id": "src-jabbour2014",
+   "acronyme": "Jabbour 2014 (organes à risque)",
+   "type": "atlas",
+   "revue": "Pract Radiat Oncol 4:82–9",
+   "annee": 2014,
+   "doi": "10.1016/j.prro.2013.06.004",
+   "population": "Organes de l'abdomen supérieur (consensus RTOG)",
+   "alias": [
+    "Jabbour SK et al. Upper abdominal normal organ contouring guidelines and atlas: a Radiation Therapy Oncology Group consensus. Pract Radiat Oncol 2014;4:82–9"
+   ],
+   "usages": [
+    "Définitions des organes à risque"
+   ]
+  },
+  {
+   "id": "src-khan2012",
+   "acronyme": "Khan 2012 (contourage)",
+   "type": "atlas",
+   "revue": "Radiother Oncol 104:263-266",
+   "annee": 2012,
+   "doi": "10.1016/j.radonc.2012.06.013",
+   "population": "Marges du CTV des cancers cutanés non mélanomes",
+   "alias": [
+    "Khan L et al. Recommendations for CTV margins in radiotherapy planning for non melanoma skin cancer. Radiother Oncol 2012;104:263-266"
+   ],
+   "usages": [
+    "Contourage : Peau"
+   ]
+  },
+  {
+   "id": "src-lakomy2021",
+   "acronyme": "Lakomy 2021",
+   "type": "essai",
+   "revue": "Pract Radiat Oncol",
+   "annee": 2021,
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "Lakomy, Practical Radiation Oncology 2021"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-lapeyre-ch2",
+   "acronyme": "Lapeyre, délinéation des VADS, chapitre II (CTV-P)",
+   "type": "atlas",
+   "revue": "Centre Jean Perrin",
+   "annee": 2019,
+   "population": "Délinéation des CTV-P (T) des cancers des VADS",
+   "alias": [
+    "Lapeyre M. Délinéation des volumes cibles des cancers des VADS, chapitre II : délinéation des CTV-P (T), patients non opérés. Centre Jean Perrin, Clermont-Ferrand, juin 2019"
+   ],
+   "usages": [
+    "Contourage : ORL"
+   ]
+  },
+  {
+   "id": "src-lapeyre-ch6",
+   "acronyme": "Lapeyre, délinéation des VADS, chapitre VI (organes à risque)",
+   "type": "atlas",
+   "revue": "Centre Jean Perrin",
+   "annee": 2019,
+   "population": "Délinéation des organes à risque ORL",
+   "alias": [
+    "Lapeyre M. Délinéation des volumes cibles, cancers des VADS, chapitre VI : organes à risque. Centre Jean Perrin, juin 2019"
+   ],
+   "usages": [
+    "Définitions des organes à risque"
+   ]
+  },
+  {
+   "id": "src-lukovic2020",
+   "acronyme": "Lukovic 2020 (organes à risque)",
+   "type": "atlas",
+   "revue": "Int J Radiat Oncol Biol Phys 106:743–53",
+   "annee": 2020,
+   "doi": "10.1016/j.ijrobp.2019.12.003",
+   "population": "Organes de l'abdomen supérieur sur IRM",
+   "alias": [
+    "Lukovic J et al. MRI-based upper abdominal organs-at-risk atlas for radiation oncology. Int J Radiat Oncol Biol Phys 2020;106:743–53"
+   ],
+   "usages": [
+    "Définitions des organes à risque"
+   ]
+  },
+  {
+   "id": "src-lungtech",
+   "acronyme": "LungTECH",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole LungTECH",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "LungTECH"
+   ],
+   "usages": [
+    "Contraintes de dose (4 lignes)"
+   ]
+  },
+  {
+   "id": "src-lymphotec",
+   "acronyme": "LymphoTEC",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole LymphoTEC",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "LymphoTEC"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-mdacc",
+   "acronyme": "MD Anderson",
+   "type": "protocole_institutionnel",
+   "revue": "MD Anderson Cancer Center",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "MD Anderson"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-meade2018",
+   "acronyme": "Meade 2018",
+   "type": "essai",
+   "revue": "Clin Oncol",
+   "annee": 2018,
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "Meade, Clinical Oncology 2018"
+   ],
+   "usages": [
+    "Contraintes de dose (5 lignes)"
+   ]
+  },
+  {
+   "id": "src-miami-smart",
+   "acronyme": "Miami SMART",
+   "type": "protocole_institutionnel",
+   "revue": "Miami Cancer Institute",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "Miami SMART"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-mskcc",
+   "acronyme": "Memorial Sloan Kettering",
+   "type": "protocole_institutionnel",
+   "revue": "Memorial Sloan Kettering Cancer Center",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "Memorial Sloan Kettering"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-murphy2010",
+   "acronyme": "Murphy 2010",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2010,
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "Murphy, IJROBP 2010"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-nccn-canal-anal",
+   "acronyme": "NCCN canal anal (version 1.2026)",
+   "type": "recommandation",
+   "revue": "Recommandations NCCN",
+   "annee": 2026,
+   "population": "Contraintes de dose, canal anal",
+   "alias": [
+    "Recommandations NCCN, canal anal (version 1.2026)"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-nccn-cbnpc",
+   "acronyme": "NCCN poumon non à petites cellules (version 3.2026)",
+   "type": "recommandation",
+   "revue": "Recommandations NCCN",
+   "annee": 2026,
+   "population": "Contraintes de dose, poumon non à petites cellules",
+   "alias": [
+    "Recommandations NCCN, poumon non à petites cellules (version 3.2026)"
+   ],
+   "usages": [
+    "Contraintes de dose (22 lignes)"
+   ]
+  },
+  {
+   "id": "src-nccn-col",
+   "acronyme": "NCCN col utérin (version 2.2026)",
+   "type": "recommandation",
+   "revue": "Recommandations NCCN",
+   "annee": 2026,
+   "population": "Contraintes de dose, col utérin",
+   "alias": [
+    "Recommandations NCCN, col utérin (version 2.2026)"
+   ],
+   "usages": [
+    "Contraintes de dose (5 lignes)"
+   ]
+  },
+  {
+   "id": "src-nccn-estomac",
+   "acronyme": "NCCN estomac (version 2.2026)",
+   "type": "recommandation",
+   "revue": "Recommandations NCCN",
+   "annee": 2026,
+   "population": "Contraintes de dose, estomac",
+   "alias": [
+    "Recommandations NCCN, estomac (version 2.2026)"
+   ],
+   "usages": [
+    "Contraintes de dose (4 lignes)"
+   ]
+  },
+  {
+   "id": "src-nccn-hodgkin",
+   "acronyme": "NCCN lymphome de Hodgkin (version 1.2026)",
+   "type": "recommandation",
+   "revue": "Recommandations NCCN",
+   "annee": 2026,
+   "population": "Contraintes de dose, lymphome de Hodgkin",
+   "alias": [
+    "Recommandations NCCN, lymphome de Hodgkin (version 1.2026)"
+   ],
+   "usages": [
+    "Contraintes de dose (15 lignes)"
+   ]
+  },
+  {
+   "id": "src-nccn-medullo",
+   "acronyme": "NCCN médulloblastome de l'enfant (version 1.2026)",
+   "type": "recommandation",
+   "revue": "Recommandations NCCN",
+   "annee": 2026,
+   "population": "Contraintes de dose, médulloblastome de l'enfant",
+   "alias": [
+    "Recommandations NCCN, médulloblastome de l'enfant (version 1.2026)"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-nccn-nephro",
+   "acronyme": "NCCN néphroblastome (version 2.2025)",
+   "type": "recommandation",
+   "revue": "Recommandations NCCN",
+   "annee": 2025,
+   "population": "Contraintes de dose, néphroblastome",
+   "alias": [
+    "Recommandations NCCN, néphroblastome (version 2.2025)"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-nccn-oesophage",
+   "acronyme": "NCCN œsophage et jonction (version 2.2026)",
+   "type": "recommandation",
+   "revue": "Recommandations NCCN",
+   "annee": 2026,
+   "population": "Contraintes de dose, œsophage et jonction",
+   "alias": [
+    "Recommandations NCCN, œsophage et jonction (version 2.2026)"
+   ],
+   "usages": [
+    "Contraintes de dose (4 lignes)"
+   ]
+  },
+  {
+   "id": "src-nccn-orl",
+   "acronyme": "NCCN ORL (version 1.2026)",
+   "type": "recommandation",
+   "revue": "Recommandations NCCN",
+   "annee": 2026,
+   "population": "Contraintes de dose, ORL",
+   "alias": [
+    "Recommandations NCCN, ORL (version 1.2026)"
+   ],
+   "usages": [
+    "Contraintes de dose (6 lignes)"
+   ]
+  },
+  {
+   "id": "src-nccn-pancreas",
+   "acronyme": "NCCN pancréas (version 2.2025)",
+   "type": "recommandation",
+   "revue": "Recommandations NCCN",
+   "annee": 2025,
+   "population": "Contraintes de dose, pancréas",
+   "alias": [
+    "Recommandations NCCN, pancréas (version 2.2025)"
+   ],
+   "usages": [
+    "Contraintes de dose (5 lignes)"
+   ]
+  },
+  {
+   "id": "src-ncicctgbr.25",
+   "acronyme": "NCIC CTG BR.25",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole NCIC CTG BR.25",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "NCIC CTV BR.25"
+   ],
+   "usages": [
+    "Contraintes de dose (4 lignes)"
+   ]
+  },
+  {
+   "id": "src-noel2021-oar",
+   "acronyme": "RecoRad, délinéation des organes à risque (Noël 2021)",
+   "type": "recommandation",
+   "revue": "Cancer Radiother",
+   "annee": 2021,
+   "doi": "10.1016/j.canrad.2021.08.001",
+   "population": "Noël G, Le Fèvre C, Antoni D",
+   "alias": [
+    "Noël G, Le Fèvre C, Antoni D. Délinéation des organes à risque (RecoRad). Cancer Radiother 2021",
+    "RecoRad, délinéation 2021"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)",
+    "Définitions des organes à risque"
+   ]
+  },
+  {
+   "id": "src-noel2025",
+   "acronyme": "Noël 2025 (SFRO)",
+   "type": "recommandation",
+   "revue": "Société française de radiothérapie oncologique",
+   "annee": 2025,
+   "population": "Contraintes de dose",
+   "alias": [
+    "Noël 2025 SFRO"
+   ],
+   "usages": [
+    "Contraintes de dose (35 lignes)"
+   ]
+  },
+  {
+   "id": "src-nrg-hemato-2026",
+   "acronyme": "Consensus NRG, hématologie",
+   "type": "recommandation",
+   "revue": "NRG Oncology",
+   "annee": 2026,
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "Consensus NRG, hématologie (2026)"
+   ],
+   "usages": [
+    "Contraintes de dose (28 lignes)"
+   ]
+  },
+  {
+   "id": "src-nrg-pancreas-2024",
+   "acronyme": "NRG, pancréas 2024",
+   "type": "recommandation",
+   "revue": "NRG Oncology",
+   "annee": 2024,
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "NRG Pancreas 2024"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-nrg-prostate-2020",
+   "acronyme": "NRG, prostate 2020",
+   "type": "recommandation",
+   "revue": "NRG Oncology",
+   "annee": 2020,
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "NRG Prostate 2020"
+   ],
+   "usages": [
+    "Contraintes de dose (9 lignes)"
+   ]
+  },
+  {
+   "id": "src-nrg-stereo-orl",
+   "acronyme": "NRG, stéréotaxie ORL",
+   "type": "recommandation",
+   "revue": "NRG Oncology",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "NRG, stéréotaxie ORL"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-nrg-vessie-2020",
+   "acronyme": "NRG, protocole type vessie (section radiothérapie)",
+   "type": "protocole_institutionnel",
+   "revue": "NRG Oncology",
+   "annee": 2020,
+   "population": "Volumes de la vessie",
+   "alias": [
+    "NRG Oncology. Protocole type, section radiothérapie, vessie (09/2020)"
+   ],
+   "usages": [
+    "Contourage : Uro"
+   ]
+  },
+  {
+   "id": "src-nrgbr002",
+   "acronyme": "NRG-BR002",
+   "type": "essai",
+   "revue": "J Clin Oncol",
+   "population": "125 cancers du sein avec 4 métastases ou moins, sous traitement de 1re ligne depuis 12 mois ou moins, phase II/III",
+   "annee": 2026,
+   "bras": "Stéréotaxie (93 %) ou chirurgie des métastases + traitement standard vs traitement standard",
+   "resultat": "SSP médiane 19,5 vs 23 mois (p = 0,36) ; SSP à 2 ans 47 % dans les deux bras",
+   "alias": [
+    "NRG BR002"
+   ],
+   "usages": [
+    "Contraintes de dose (54 lignes)"
+   ]
+  },
+  {
+   "id": "src-nrgdt001",
+   "acronyme": "NRG DT001",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole NRG DT001",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "NRG DT001"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-nrggi002",
+   "acronyme": "NRG GI002",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole NRG GI002",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "NRG GI002"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-nrggu001",
+   "acronyme": "NRG GU001",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole NRG GU001",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "NRG GU001"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-nrggu005",
+   "acronyme": "NRG GU005",
+   "type": "essai",
+   "revue": "JAMA",
+   "population": "698 cancers de la prostate de risque intermédiaire, phase III",
+   "annee": 2026,
+   "bras": "Stéréotaxie 36,25 Gy / 5 fx en 2,5 semaines vs 70 Gy / 28 fx ou 60 Gy / 20 fx",
+   "resultat": "Survie sans maladie à 3 ans 89 vs 92 % ; toxicité urinaire de grade 3–4 0,6 vs 2,5 % ; moins d'incontinence et de troubles sexuels avec la stéréotaxie",
+   "alias": [
+    "NRG GU005"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-nrggu013",
+   "acronyme": "NRG GU013",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole NRG GU013",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "NRG GU013"
+   ],
+   "usages": [
+    "Contraintes de dose (12 lignes)"
+   ]
+  },
+  {
+   "id": "src-nrghn003",
+   "acronyme": "NRG HN003",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole NRG HN003",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "NRG HN003"
+   ],
+   "usages": [
+    "Contraintes de dose (6 lignes)"
+   ]
+  },
+  {
+   "id": "src-nrghn005",
+   "acronyme": "NRG HN005",
+   "type": "essai",
+   "revue": "ASTRO",
+   "population": "532 cancers de l'oropharynx HPV+ de bon pronostic, phase II/III",
+   "annee": 2024,
+   "bras": "70 Gy en 6 semaines + cisplatine vs 60 Gy / 30 fx + cisplatine vs 60 Gy / 30 fx + nivolumab",
+   "resultat": "60 Gy + cisplatine non retenu (non-infériorité non atteinte, bras fermé)",
+   "alias": [
+    "NRG HN005"
+   ],
+   "usages": [
+    "Contraintes de dose (8 lignes)"
+   ]
+  },
+  {
+   "id": "src-nrglu004",
+   "acronyme": "NRG LU004",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole NRG LU004",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "NRG LU004"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-nrglu005",
+   "acronyme": "NRG LU005",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole NRG LU005",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "NRG LU005"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-nsabpb-51",
+   "acronyme": "NSABP B-51 / RTOG 1304",
+   "type": "essai",
+   "revue": "N Engl J Med",
+   "population": "1 641 cancers du sein cN1 devenus ypN0 après chimiothérapie néoadjuvante, phase III",
+   "annee": 2025,
+   "bras": "Sein ou paroi ± aires ganglionnaires (après mastectomie : surveillance vs RT de la paroi et des aires)",
+   "resultat": "SSR à 5 ans 92 vs 93 % (HR 0,88) : pas de bénéfice de l'irradiation ganglionnaire si ypN0",
+   "alias": [
+    "NSABP B-51"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-offersen2015",
+   "acronyme": "Offersen 2015 (contourage)",
+   "type": "atlas",
+   "revue": "Radiother Oncol 114:3-10",
+   "annee": 2015,
+   "doi": "10.1016/j.radonc.2014.11.030",
+   "population": "Aires ganglionnaires du sein (consensus ESTRO)",
+   "alias": [
+    "Offersen BV et al. ESTRO consensus guideline on target volume delineation for elective radiation therapy of early stage breast cancer. Radiother Oncol 2015;114:3-10 (version 1.1 : Radiother Oncol 2016)"
+   ],
+   "usages": [
+    "Contourage : Sein"
+   ]
+  },
+  {
+   "id": "src-pace-guide-v22",
+   "acronyme": "PACE, guide de planification (version 2.2)",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole PACE",
+   "annee": 2020,
+   "population": "Contraintes de dose, tableau 6",
+   "alias": [
+    "Guide de planification PACE (version 2.2, 17/08/2020), tableau 6"
+   ],
+   "usages": [
+    "Jeu de contraintes : Prostate, stéréotaxie 36,25 Gy / 5 fx (PACE)"
+   ]
+  },
+  {
+   "id": "src-pace-protocole-v1",
+   "acronyme": "PACE, protocole (version 1)",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole PACE",
+   "annee": 2011,
+   "population": "Contraintes de dose, tableau 9",
+   "alias": [
+    "Protocole PACE (version 1, 2011), tableau 9"
+   ],
+   "usages": [
+    "Jeu de contraintes : Prostate, 78 Gy / 39 fx (bras classique de PACE-B)"
+   ]
+  },
+  {
+   "id": "src-pacholke2005",
+   "acronyme": "Pacholke 2005 (oreille moyenne et interne)",
+   "type": "atlas",
+   "revue": "Am J Clin Oncol 28:143",
+   "annee": 2005,
+   "population": "Contourage de l'oreille moyenne et interne",
+   "alias": [
+    "Pacholke HD et al. Contouring the middle and inner ear on radiotherapy planning scans. Am J Clin Oncol 2005;28:143–7"
+   ],
+   "usages": [
+    "Définitions des organes à risque"
+   ]
+  },
+  {
+   "id": "src-pentec",
+   "acronyme": "PENTEC",
+   "type": "recommandation",
+   "revue": "Int J Radiat Oncol Biol Phys (numéro spécial, pédiatrie)",
+   "annee": 2024,
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "PENTEC"
+   ],
+   "usages": [
+    "Contraintes de dose (4 lignes)"
+   ]
+  },
+  {
+   "id": "src-pivotal",
+   "acronyme": "PIVOTAL",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole PIVOTAL",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "PIVOTAL"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-pivotalboost",
+   "acronyme": "PIVOTALboost",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole PIVOTALboost",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "PIVOTALboost"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-premer",
+   "acronyme": "PREMER",
+   "type": "essai",
+   "revue": "J Clin Oncol",
+   "population": "120 cancers bronchiques à petites cellules, phase III",
+   "annee": 2021,
+   "bras": "IPC 25 Gy / 10 fx vs IPC en IMRT avec épargne hippocampique",
+   "resultat": "Mémoire différée mieux conservée avec l'épargne hippocampique (déclin 11 vs 33 %), bénéfice persistant à 6 mois et 1 an",
+   "alias": [
+    "PREMER"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)"
+   ]
+  },
+  {
+   "id": "src-pro-oligo-2021",
+   "acronyme": "Practical Radiation Oncology 2021, oligométastases",
+   "type": "recommandation",
+   "revue": "Pract Radiat Oncol",
+   "annee": 2021,
+   "population": "Contraintes de dose en stéréotaxie des oligométastases",
+   "alias": [
+    "Practical Radiation Oncology 2021, oligométastases"
+   ],
+   "usages": [
+    "Contraintes de dose (120 lignes)"
+   ]
+  },
+  {
+   "id": "src-prospect",
+   "acronyme": "PROSPECT",
+   "type": "essai",
+   "revue": "N Engl J Med",
+   "population": "1 194 cancers du rectum T2N+ à T3N0–1 candidats à une chirurgie conservatrice, non-infériorité",
+   "annee": 2023,
+   "bras": "Chimiothérapie FOLFOX première avec radiochimiothérapie sélective vs radiochimiothérapie longue avant TME",
+   "resultat": "Survie sans maladie à 5 ans 81 vs 79 % (non inférieure) ; récidive locale 1,8 vs 1,6 %",
+   "alias": [
+    "PROSPECT"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-quantec",
+   "acronyme": "QUANTEC (ensemble des articles)",
+   "type": "recommandation",
+   "revue": "Int J Radiat Oncol Biol Phys 76 (numéro spécial)",
+   "annee": 2010,
+   "population": "Contraintes de dose des organes à risque",
+   "alias": [
+    "QUANTEC"
+   ],
+   "usages": [
+    "Contraintes de dose (30 lignes)"
+   ]
+  },
+  {
+   "id": "src-raider",
+   "acronyme": "RAIDER",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole RAIDER",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "RAIDER"
+   ],
+   "usages": [
+    "Contraintes de dose (12 lignes)"
+   ]
+  },
+  {
+   "id": "src-recorad2022",
+   "acronyme": "RecoRad 2022",
+   "type": "recommandation",
+   "revue": "Recommandations de la SFRO (RecoRad),",
+   "annee": 2022,
+   "population": "Contraintes de dose",
+   "alias": [
+    "RecoRad 2022",
+    "RecoRad 2022 (autres contraintes publiées)"
+   ],
+   "usages": [
+    "Contraintes de dose (8 lignes)"
+   ]
+  },
+  {
+   "id": "src-recorad2025-canal-anal",
+   "acronyme": "RecoRad 2025, canal anal",
+   "type": "recommandation",
+   "revue": "Recommandations de la SFRO (RecoRad),",
+   "annee": 2025,
+   "population": "Contraintes de dose, canal anal",
+   "alias": [
+    "RecoRad 2025 (canal anal)"
+   ],
+   "usages": [
+    "Contraintes de dose (19 lignes)"
+   ]
+  },
+  {
+   "id": "src-recorad2025-encephale",
+   "acronyme": "RecoRad 2025, encéphale",
+   "type": "recommandation",
+   "revue": "Recommandations de la SFRO (RecoRad),",
+   "annee": 2025,
+   "population": "Contraintes de dose, encéphale",
+   "alias": [
+    "RecoRad 2025 (encéphale)"
+   ],
+   "usages": [
+    "Contraintes de dose (86 lignes)"
+   ]
+  },
+  {
+   "id": "src-recorad2025-foie",
+   "acronyme": "RecoRad 2025, foie",
+   "type": "recommandation",
+   "revue": "Recommandations de la SFRO (RecoRad),",
+   "annee": 2025,
+   "population": "Contraintes de dose, foie",
+   "alias": [
+    "RecoRad 2025 (foie)"
+   ],
+   "usages": [
+    "Contraintes de dose (43 lignes)"
+   ]
+  },
+  {
+   "id": "src-recorad2025-gyneco",
+   "acronyme": "RecoRad 2025, gynécologie",
+   "type": "recommandation",
+   "revue": "Recommandations de la SFRO (RecoRad),",
+   "annee": 2025,
+   "population": "Contraintes de dose, gynécologie",
+   "alias": [
+    "RecoRad 2025 (gynécologie)"
+   ],
+   "usages": [
+    "Contraintes de dose (17 lignes)"
+   ]
+  },
+  {
+   "id": "src-recorad2025-oesophage",
+   "acronyme": "RecoRad 2025, œsophage",
+   "type": "recommandation",
+   "revue": "Recommandations de la SFRO (RecoRad),",
+   "annee": 2025,
+   "population": "Contraintes de dose, œsophage",
+   "alias": [
+    "RecoRad 2025 (œsophage)"
+   ],
+   "usages": [
+    "Contraintes de dose (12 lignes)"
+   ]
+  },
+  {
+   "id": "src-recorad2025-orl",
+   "acronyme": "RecoRad 2025, ORL",
+   "type": "recommandation",
+   "revue": "Recommandations de la SFRO (RecoRad),",
+   "annee": 2025,
+   "population": "Contraintes de dose, ORL",
+   "alias": [
+    "RecoRad 2025 (ORL)"
+   ],
+   "usages": [
+    "Contraintes de dose (52 lignes)"
+   ]
+  },
+  {
+   "id": "src-recorad2025-pancreas",
+   "acronyme": "RecoRad 2025, pancréas",
+   "type": "recommandation",
+   "revue": "Recommandations de la SFRO (RecoRad),",
+   "annee": 2025,
+   "population": "Contraintes de dose, pancréas",
+   "alias": [
+    "RecoRad 2025 (pancréas)"
+   ],
+   "usages": [
+    "Contraintes de dose (43 lignes)"
+   ]
+  },
+  {
+   "id": "src-recorad2025-poumon",
+   "acronyme": "RecoRad 2025, poumon",
+   "type": "recommandation",
+   "revue": "Recommandations de la SFRO (RecoRad),",
+   "annee": 2025,
+   "population": "Contraintes de dose, poumon",
+   "alias": [
+    "RecoRad 2025 (poumon)"
+   ],
+   "usages": [
+    "Contraintes de dose (135 lignes)"
+   ]
+  },
+  {
+   "id": "src-recorad2025-prostate",
+   "acronyme": "RecoRad 2025, prostate",
+   "type": "recommandation",
+   "revue": "Recommandations de la SFRO (RecoRad),",
+   "annee": 2025,
+   "population": "Contraintes de dose, prostate",
+   "alias": [
+    "RecoRad 2025 (prostate)"
+   ],
+   "usages": [
+    "Contraintes de dose (48 lignes)"
+   ]
+  },
+  {
+   "id": "src-recorad2025-rectum",
+   "acronyme": "RecoRad 2025, rectum",
+   "type": "recommandation",
+   "revue": "Recommandations de la SFRO (RecoRad),",
+   "annee": 2025,
+   "population": "Contraintes de dose, rectum",
+   "alias": [
+    "RecoRad 2025 (rectum)"
+   ],
+   "usages": [
+    "Contraintes de dose (23 lignes)"
+   ]
+  },
+  {
+   "id": "src-recorad2025-rein",
+   "acronyme": "RecoRad 2025, rein",
+   "type": "recommandation",
+   "revue": "Recommandations de la SFRO (RecoRad),",
+   "annee": 2025,
+   "population": "Contraintes de dose, rein",
+   "alias": [
+    "RecoRad 2025 (rein)"
+   ],
+   "usages": [
+    "Contraintes de dose (50 lignes)"
+   ]
+  },
+  {
+   "id": "src-recorad2025-sein",
+   "acronyme": "RecoRad 2025, sein",
+   "type": "recommandation",
+   "revue": "Recommandations de la SFRO (RecoRad),",
+   "annee": 2025,
+   "population": "Contraintes de dose, sein",
+   "alias": [
+    "RecoRad 2025 (sein)"
+   ],
+   "usages": [
+    "Contraintes de dose (50 lignes)"
+   ]
+  },
+  {
+   "id": "src-recorad2025-testicule",
+   "acronyme": "RecoRad 2025, testicule",
+   "type": "recommandation",
+   "revue": "Recommandations de la SFRO (RecoRad),",
+   "annee": 2025,
+   "population": "Contraintes de dose, testicule",
+   "alias": [
+    "RecoRad 2025 (testicule)"
+   ],
+   "usages": [
+    "Contraintes de dose (11 lignes)"
+   ]
+  },
+  {
+   "id": "src-recorad2025-vessie",
+   "acronyme": "RecoRad 2025, vessie",
+   "type": "recommandation",
+   "revue": "Recommandations de la SFRO (RecoRad),",
+   "annee": 2025,
+   "population": "Contraintes de dose, vessie",
+   "alias": [
+    "RecoRad 2025 (vessie)"
+   ],
+   "usages": [
+    "Contraintes de dose (8 lignes)"
+   ]
+  },
+  {
+   "id": "src-rouers2016",
+   "acronyme": "Rouers 2016 (organes à risque)",
+   "type": "atlas",
+   "revue": "Pract Radiat Oncol 6:e61–72",
+   "annee": 2016,
+   "doi": "10.1016/j.prro.2015.10.003",
+   "population": "Contourage du maxillaire et de la mandibule",
+   "alias": [
+    "Rouers M et al. Maxillary and mandible contouring in patients with a head and neck area irradiation. Pract Radiat Oncol 2016;6:e61–72"
+   ],
+   "usages": [
+    "Définitions des organes à risque"
+   ]
+  },
+  {
+   "id": "src-rtog0126",
+   "acronyme": "RTOG 0126",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "population": "748 cancers de la prostate de risque intermédiaire",
+   "annee": 2013,
+   "bras": "70,2 Gy vs 79,2 Gy",
+   "resultat": "Escalade de dose : moins d'échecs biochimiques et de métastases, sans gain de survie ; doses à la vessie et au rectum plus basses en IMRT",
+   "alias": [
+    "RTOG 0126"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-rtog0418",
+   "acronyme": "RTOG 0418",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole RTOG 0418",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "RTOG 0418"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)"
+   ]
+  },
+  {
+   "id": "src-rtog0438",
+   "acronyme": "RTOG 0438",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole RTOG 0438",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "RTOG 0438"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)"
+   ]
+  },
+  {
+   "id": "src-rtog0618",
+   "acronyme": "RTOG 0618",
+   "type": "essai",
+   "revue": "JAMA Oncol",
+   "population": "33 CBNPC T1–T2 N0 opérables, phase II",
+   "annee": 2018,
+   "bras": "Stéréotaxie 54 Gy / 3 fx en 1,5 à 2 semaines",
+   "resultat": "Contrôle tumoral et local à 4 ans 96 % ; survie sans maladie 57 % et survie globale 56 % à 4 ans",
+   "alias": [
+    "RTOG 0618"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)"
+   ]
+  },
+  {
+   "id": "src-rtog0724",
+   "acronyme": "RTOG 0724",
+   "type": "essai",
+   "revue": "ASCO",
+   "population": "285 cancers du col opérés à haut risque (marges, ganglions, paramètres)",
+   "annee": 2024,
+   "bras": "Radiochimiothérapie 45–50,4 Gy + cisplatine ± carboplatine–paclitaxel adjuvant",
+   "resultat": "Survie sans maladie à 4 ans 76–77 % et survie globale 87 % : pas de bénéfice de la chimiothérapie ajoutée",
+   "alias": [
+    "RTOG 0724"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-rtog0815",
+   "acronyme": "RTOG 0815",
+   "type": "essai",
+   "revue": "J Clin Oncol",
+   "population": "1 538 cancers de la prostate de risque intermédiaire",
+   "annee": 2023,
+   "bras": "79,2 Gy (ou 45 Gy + curiethérapie) ± hormonothérapie 6 mois",
+   "resultat": "Échec biochimique à 5 ans 21 vs 10 %, métastases 4 vs 1 % avec l'hormonothérapie",
+   "alias": [
+    "RTOG 0815"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-rtog0822",
+   "acronyme": "RTOG 0822",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "population": "68 cancers du rectum localement avancés, phase II",
+   "annee": 2015,
+   "bras": "IMRT 45 Gy puis complément 3D 5,4 Gy + capécitabine–oxaliplatine, puis chirurgie",
+   "resultat": "Toxicité digestive de grade ≥ 2 : 51,5 % contre 57,7 % dans RTOG 0247 (différence non significative)",
+   "alias": [
+    "RTOG 0822"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-rtog0938",
+   "acronyme": "NRG RTOG 0938",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "population": "240 cancers de la prostate de faible risque, phase II",
+   "annee": 2018,
+   "bras": "36,25 Gy / 5 fx en 2,5 semaines vs 51,6 Gy / 12 fx",
+   "resultat": "Qualité de vie digestive et urinaire à 1 an identique dans les deux bras",
+   "alias": [
+    "RTOG 0938"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-rtog1005",
+   "acronyme": "RTOG 1005",
+   "type": "essai",
+   "revue": "J Clin Oncol",
+   "population": "2 262 cancers du sein à haut risque après tumorectomie, non-infériorité",
+   "annee": 2026,
+   "bras": "50 Gy / 25 fx ou 42,7 Gy / 16 fx + complément séquentiel 12–14 Gy vs 40 Gy / 15 fx avec complément intégré 48 Gy",
+   "resultat": "Rechute mammaire à 5 ans 2,1 vs 1,9 % (non inférieure) ; pas plus de toxicité de grade ≥ 3",
+   "alias": [
+    "RTOG 1005"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-rtog1010",
+   "acronyme": "RTOG 1010",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole RTOG 1010",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "RTOG 1010"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)"
+   ]
+  },
+  {
+   "id": "src-rtog1203",
+   "acronyme": "TIME-C (NRG RTOG 1203)",
+   "type": "essai",
+   "revue": "J Clin Oncol",
+   "population": "289 cancers du col ou de l'endomètre opérés, RT pelvienne post-opératoire",
+   "annee": 2020,
+   "bras": "RT 3D vs IMRT",
+   "resultat": "Moins de diarrhée et d'incontinence rapportées par les patientes avec l'IMRT",
+   "alias": [
+    "RTOG 1203",
+    "TIME-C"
+   ],
+   "usages": [
+    "Contraintes de dose (4 lignes)"
+   ]
+  },
+  {
+   "id": "src-rtog1308",
+   "acronyme": "RTOG 1308",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole RTOG 1308",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "RTOG 1308"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-skagen",
+   "acronyme": "DBCG SKAGEN Trial 1",
+   "type": "essai",
+   "revue": "ESTRO",
+   "population": "2 963 cancers du sein avec irradiation ganglionnaire, phase III",
+   "annee": 2025,
+   "bras": "40 Gy / 15–18 fx vs 50 Gy / 25–28 fx, aires ganglionnaires incluses",
+   "resultat": "Lymphœdème à 3 ans 8,0 vs 9,4 % (non inférieur) ; pas de différence de rechute ni de métastases",
+   "alias": [
+    "DBCG SKAGEN"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-sun2014",
+   "acronyme": "Sun 2014 (organes à risque)",
+   "type": "atlas",
+   "revue": "Radiother Oncol 110:390–7",
+   "annee": 2014,
+   "doi": "10.1016/j.radonc.2013.10.035",
+   "population": "Organes à risque du cancer du nasopharynx",
+   "alias": [
+    "Sun Y et al. Recommendation for a contouring method and atlas of organs at risk in nasopharyngeal carcinoma. Radiother Oncol 2014;110:390–7"
+   ],
+   "usages": [
+    "Définitions des organes à risque"
+   ]
+  },
+  {
+   "id": "src-sunset",
+   "acronyme": "SUNSET",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2024,
+   "population": "30 CBNPC ultra-centraux, phase I",
+   "bras": "Stéréotaxie 60 Gy / 8 fx (désescalade si toxicité)",
+   "resultat": "Toxicité de grade 3–5 : 7 % (1 décès par pneumopathie) ; contrôle local à 3 ans 90 %",
+   "alias": [
+    "SUNSET"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-swogs2427",
+   "acronyme": "SWOG S2427",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole SWOG S2427",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "S2427"
+   ],
+   "usages": [
+    "Contraintes de dose (4 lignes)"
+   ]
+  },
+  {
+   "id": "src-tg101",
+   "acronyme": "AAPM TG-101",
+   "type": "recommandation",
+   "revue": "Med Phys",
+   "annee": 2010,
+   "population": "Contraintes de dose en stéréotaxie",
+   "alias": [
+    "TG-101"
+   ],
+   "usages": [
+    "Contraintes de dose (83 lignes)"
+   ]
+  },
+  {
+   "id": "src-timmerman2008",
+   "acronyme": "Timmerman 2008, table des tolérances",
+   "type": "recommandation",
+   "revue": "Semin Radiat Oncol",
+   "annee": 2008,
+   "population": "Contraintes de dose en stéréotaxie",
+   "alias": [
+    "Timmerman 2008, table des tolérances en stéréotaxie"
+   ],
+   "usages": [
+    "Contraintes de dose (44 lignes)"
+   ]
+  },
+  {
+   "id": "src-timmerman2021",
+   "acronyme": "Timmerman 2021, table des tolérances",
+   "type": "recommandation",
+   "revue": "Semin Radiat Oncol",
+   "annee": 2021,
+   "population": "Contraintes de dose en stéréotaxie",
+   "alias": [
+    "Timmerman 2021, table des tolérances en stéréotaxie"
+   ],
+   "usages": [
+    "Contraintes de dose (183 lignes)"
+   ]
+  },
+  {
+   "id": "src-ucla",
+   "acronyme": "UCLA",
+   "type": "protocole_institutionnel",
+   "revue": "University of California, Los Angeles",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "UCLA"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-uf",
+   "acronyme": "Université de Floride",
+   "type": "protocole_institutionnel",
+   "revue": "University of Florida",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "Université de Floride"
+   ],
+   "usages": [
+    "Contraintes de dose (11 lignes)"
+   ]
+  },
+  {
+   "id": "src-uf-pediatrie",
+   "acronyme": "Université de Floride, pédiatrie",
+   "type": "protocole_institutionnel",
+   "revue": "University of Florida",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "Université de Floride, pédiatrie"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)"
+   ]
+  },
+  {
+   "id": "src-uk-sabr-2017",
+   "acronyme": "Consensus britannique SABR 2017",
+   "type": "recommandation",
+   "revue": "UK SABR Consortium",
+   "annee": 2017,
+   "population": "Contraintes de dose en stéréotaxie",
+   "alias": [
+    "Consensus britannique SABR 2017"
+   ],
+   "usages": [
+    "Contraintes de dose (87 lignes)"
+   ]
+  },
+  {
+   "id": "src-uk-sabr-2022",
+   "acronyme": "Consensus britannique SABR 2022",
+   "type": "recommandation",
+   "revue": "UK SABR Consortium",
+   "annee": 2022,
+   "population": "Contraintes de dose en stéréotaxie",
+   "alias": [
+    "Consensus britannique SABR 2022"
+   ],
+   "usages": [
+    "Contraintes de dose (110 lignes)"
+   ]
+  },
+  {
+   "id": "src-utsw",
+   "acronyme": "UT Southwestern (Dallas)",
+   "type": "protocole_institutionnel",
+   "revue": "UT Southwestern Medical Center",
+   "population": "Contraintes de dose (source citée par RadOncCalc)",
+   "alias": [
+    "UT Southwestern (Dallas)"
+   ],
+   "usages": [
+    "Contraintes de dose (204 lignes)"
+   ]
+  },
+  {
+   "id": "src-va-astro-2026",
+   "acronyme": "Consensus VA / ASTRO 2026",
+   "type": "recommandation",
+   "revue": "Pract Radiat Oncol",
+   "annee": 2026,
+   "population": "Contraintes de dose",
+   "alias": [
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026"
+   ],
+   "usages": [
+    "Contraintes de dose (69 lignes)"
+   ]
+  },
+  {
+   "id": "src-va-orl",
+   "acronyme": "Consensus VA, ORL 2022",
+   "type": "recommandation",
+   "revue": "Consensus des Veterans Affairs (États-Unis)",
+   "annee": 2022,
+   "population": "Contraintes de dose, ORL",
+   "alias": [
+    "Consensus VA (Veterans Affairs), ORL 2022"
+   ],
+   "usages": [
+    "Contraintes de dose (9 lignes)"
+   ]
+  },
+  {
+   "id": "src-va-poumon",
+   "acronyme": "Consensus VA, poumon 2023",
+   "type": "recommandation",
+   "revue": "Consensus des Veterans Affairs (États-Unis)",
+   "annee": 2023,
+   "population": "Contraintes de dose, poumon",
+   "alias": [
+    "Consensus VA (Veterans Affairs), poumon 2023"
+   ],
+   "usages": [
+    "Contraintes de dose (11 lignes)"
+   ]
+  },
+  {
+   "id": "src-va-prostate",
+   "acronyme": "Consensus VA, prostate 2022",
+   "type": "recommandation",
+   "revue": "Consensus des Veterans Affairs (États-Unis)",
+   "annee": 2022,
+   "population": "Contraintes de dose, prostate",
+   "alias": [
+    "Consensus VA (Veterans Affairs), prostate 2022"
+   ],
+   "usages": [
+    "Contraintes de dose (10 lignes)"
+   ]
+  },
+  {
+   "id": "src-va-rectum",
+   "acronyme": "Consensus VA, rectum 2022",
+   "type": "recommandation",
+   "revue": "Consensus des Veterans Affairs (États-Unis)",
+   "annee": 2022,
+   "population": "Contraintes de dose, rectum",
+   "alias": [
+    "Consensus VA (Veterans Affairs), rectum 2022"
+   ],
+   "usages": [
+    "Contraintes de dose (5 lignes)"
+   ]
+  },
+  {
+   "id": "src-va-sein",
+   "acronyme": "Consensus VA, sein 2022",
+   "type": "recommandation",
+   "revue": "Consensus des Veterans Affairs (États-Unis)",
+   "annee": 2022,
+   "population": "Contraintes de dose, sein",
+   "alias": [
+    "Consensus VA (Veterans Affairs), sein 2022"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-vandewater2009",
+   "acronyme": "van de Water 2009 (organes à risque)",
+   "type": "atlas",
+   "revue": "Radiother Oncol 93:545–52",
+   "annee": 2009,
+   "doi": "10.1016/j.radonc.2009.09.008",
+   "population": "Organes à risque de la xérostomie (glandes salivaires)",
+   "alias": [
+    "van de Water TA et al. Delineation guidelines for organs at risk involved in radiation-induced salivary dysfunction and xerostomia. Radiother Oncol 2009;93:545–52"
+   ],
+   "usages": [
+    "Définitions des organes à risque"
+   ]
+  },
+  {
+   "id": "src-yi2012",
+   "acronyme": "Yi 2012 (organes à risque)",
+   "type": "atlas",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2012,
+   "doi": "10.1016/j.ijrobp.2011.11.074",
+   "population": "Contourage standardisé du plexus lombo-sacré",
+   "alias": [
+    "Yi SK et al. Development of a standardized method for contouring the lumbosacral plexus. Int J Radiat Oncol Biol Phys 2012"
+   ],
+   "usages": [
+    "Définitions des organes à risque"
+   ]
   }
  ]
 }

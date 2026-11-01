@@ -1086,7 +1086,8 @@ un essai introuvable → le demander à Dr Bentahila, sinon son résumé (abstra
 - [x] **Lot 6a – Situations d'Estes absentes, articles de la Bibliothèque** (01/11/2026, `ajouts_estes.py`) : épendymome myxopapillaire, CHC (thrombose portale, récidive SBRT), pathologies bénignes.
 - [x] **Lot 6b – Situations dont les articles ont été téléchargés** (01/11/2026, `ajouts_estes2.py`) : adénopathie cervicale sans primitif (nouvelle localisation, ASCO 2020), sillon supérieur (SWOG 9416), dermatofibrosarcome (Castle 2013), ostéosarcome (DeLaney 2005), prostate oligométastatique en SBRT (protocoles ORIOLE et EXTEND ; 3 jeux de contraintes EXTEND 1 / 3 / 5 fx). 312 schémas, 468 essais.
 - [x] Lot 6c – Rein (stéréotaxie, FASTRACK II, IROCK ; `ajouts_estes3.py`) et essais récents d'Estes comparés (`docs/radiotherapie/lot6c-essais-recents-estes.md`) : 314 schémas, 471 essais.
-- [ ] Lot 6d – Intégrer STAR-TREC, STELLAR, LORD-KNEA ; articles à télécharger pour ROAM, A071801, TREASURE, COPORT / SHARE, BART, RT CHARM, UPGRADE-RT, POLCAGB… ; colonnes Sim / Field / Notes des Oral Boards.
+- [x] Lot 6d – Rattrapage prostate (NRG-GU003 complété, SHARE 65 Gy / 26 fx ; `ajouts_estes4.py`) ; onglet Essais : 139 fiches pour toutes les sources (contraintes, contourage, OAR, atlas ; `essais_sources.py`, champs `alias` / `usages`, contrôle dans test-rtref-contenu) : 611 fiches ; Key Studies croisées avec la Bibliothèque (`docs/radiotherapie/estes-key-studies-croisement.tsv`).
+- [ ] Lot 6e – Intégrer les essais d'Estes présents dans la Bibliothèque qui changent une fiche (STAR-TREC, STELLAR, LORD-KNEA…) ; colonnes Sim / Field / Notes des Oral Boards.
 Avis de Claude (01/11/2026) : plan cohérent ; ordre 2 → 3 → 4 → 5 (les essais lus au lot 2 servent à l'indication et aux corrections).
 
 ## Phase UX – Interface et facilité d'utilisation (plan du 01/11/2026, refait le même jour : tours d'Onco360 et de SmartDoc avec Dr Bentahila)
