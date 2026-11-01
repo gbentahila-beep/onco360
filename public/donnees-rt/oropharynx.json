@@ -113,7 +113,8 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "oro-70-35-6fx",
@@ -141,7 +142,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-en-place",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-orl-rtog1016"
+   ],
    "points_attention": [
     "HPV positif : le cetuximab donne une survie inférieure au cisplatine (RTOG 1016) sans réduire la toxicité (De-ESCALaTE) ; la désescalade reste du domaine des essais",
     "Six fractions par semaine : meilleur contrôle locorégional que cinq (DAHANCA 6 et 7) ; le fractionnement modifié améliore la survie (méta-analyse MARCH)",
@@ -198,7 +201,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-oro-igr",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-orl-rtog0225"
+   ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "points_attention": [
     "HPV positif : le cetuximab donne une survie inférieure au cisplatine (RTOG 1016) sans réduire la toxicité (De-ESCALaTE) ; la désescalade reste du domaine des essais",
@@ -319,7 +324,8 @@
      "limitant": "≥ 51,3 Gy",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "oro-postop-66-curie",
@@ -398,7 +404,8 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "oro-postop-66-54-service",
@@ -467,7 +474,8 @@
      "limitant": "≈ 105 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "oro-postop-60-54-service",
@@ -535,7 +543,8 @@
      "limitant": "≈ 105 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "oro-rte-pdr-bdl",
@@ -578,7 +587,8 @@
     "Base de langue : complément par curiethérapie",
     "RTE + curiethérapie"
    ],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

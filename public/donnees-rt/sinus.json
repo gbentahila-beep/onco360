@@ -101,7 +101,8 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "sin-postop-60-54-service",
@@ -170,7 +171,8 @@
      "limitant": "≈ 105 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "sin-70-35-curie",
@@ -248,7 +250,8 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "sin-70-30-igr",
@@ -331,7 +334,8 @@
      "limitant": "≥ 51,3 Gy",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
   }
  ],
  "simulations": [

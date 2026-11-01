@@ -66,7 +66,8 @@
     "Larynx",
     "Glotte T1–T2 N0 : RT exclusive",
     "Hypofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "lar-t1-63-28",
@@ -102,7 +103,8 @@
     "Larynx",
     "Glotte T1–T2 N0 : RT exclusive",
     "Hypofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "lar-t2-70-35",
@@ -139,7 +141,8 @@
     "Larynx",
     "Glotte T1–T2 N0 : RT exclusive",
     "Normofractionné"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "lar-rct-70-35-curie",
@@ -220,7 +223,8 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "lar-induction-rt",
@@ -266,7 +270,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-en-place",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-orl-gortec2000"
+   ],
    "couverture": "PTV : D95 % ≥ 95 % ; CTV : D98 % ≥ 98 % ; PTV70 : D2 % ≤ 107 %",
    "points_attention": [
     "À 10 ans, induction PF et RCT donnent la même survie sans laryngectomie ; la RCT contrôle mieux la tumeur et préserve plus souvent le larynx, mais les décès non liés au cancer sont plus fréquents (RTOG 91-11, Forastiere 2013)"
@@ -345,7 +351,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-igr",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-orl-rtog0225"
+   ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "points_attention": [
     "À 10 ans, induction PF et RCT donnent la même survie sans laryngectomie ; la RCT contrôle mieux la tumeur et préserve plus souvent le larynx, mais les décès non liés au cancer sont plus fréquents (RTOG 91-11, Forastiere 2013)"
@@ -464,7 +472,8 @@
      "limitant": "≥ 51,3 Gy",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "lar-postop-66-curie",
@@ -543,7 +552,8 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "lar-postop-66-54-service",
@@ -612,7 +622,8 @@
      "limitant": "≈ 105 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "lar-postop-60-54-service",
@@ -680,7 +691,8 @@
      "limitant": "≈ 105 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

@@ -105,7 +105,8 @@
      "limitant": "≥ 51,3 Gy",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "cav-loc-70-35-curie",
@@ -182,7 +183,8 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "cav-av-70-35-curie",
@@ -263,7 +265,8 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "cav-av-6996-33",
@@ -309,7 +312,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-cav-igr",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-orl-rtog0225"
+   ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "points_attention": [
     "La chimiothérapie adjuvante cisplatine–5-FU après RCT n'améliore pas la survie sans échec (Chen 2012)"
@@ -428,7 +433,8 @@
      "limitant": "≥ 51,3 Gy",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "cav-loc-6996-33",
@@ -472,7 +478,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-cav-igr",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-orl-rtog0225"
+   ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "date_verif": "2026-10-24",
    "ind": [

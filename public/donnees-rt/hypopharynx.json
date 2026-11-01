@@ -102,7 +102,8 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "hyp-induction-rt",
@@ -148,7 +149,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-en-place",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-orl-gortec2000"
+   ],
    "couverture": "PTV : D95 % ≥ 95 % ; CTV : D98 % ≥ 98 % ; PTV70 : D2 % ≤ 107 %",
    "points_attention": [
     "TPF supérieur à PF en induction pour la réponse (80 contre 59 %) et la préservation laryngée (GORTEC 2000-01)"
@@ -227,7 +230,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-igr",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-orl-rtog0225"
+   ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "points_attention": [
     "TPF supérieur à PF en induction pour la réponse (80 contre 59 %) et la préservation laryngée (GORTEC 2000-01)"
@@ -346,7 +351,8 @@
      "limitant": "≥ 51,3 Gy",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "hyp-postop-66-curie",
@@ -425,7 +431,8 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "hyp-postop-66-54-service",
@@ -494,7 +501,8 @@
      "limitant": "≈ 105 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "hyp-postop-60-54-service",
@@ -562,7 +570,8 @@
      "limitant": "≈ 105 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

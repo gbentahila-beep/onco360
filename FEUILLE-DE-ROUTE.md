@@ -1048,7 +1048,13 @@ un essai introuvable → le demander à Dr Bentahila, sinon son résumé (abstra
   numérotée des sources sous le tableau (même liste que les renvois), « Évite : … » sous la note ; page Contraintes = **tableau général** (tous les
   organes, normo / hypo / stéréotaxie, sources numérotées à l'ouverture de la carte, effet au survol). Moteur : une ligne en bifractionné (dose par
   séance sans nombre de séances) ne vaut que pour cette dose. Reste : liens PubMed des sources (lot 2).
-- [ ] **Lot 2 – Contraintes de chaque protocole** (une région par session : SNC, ORL, sein, thorax, digestif, gynéco, uro, lymphomes, sarcomes / pédiatrie,
+- [ ] **Lot 2 – Contraintes de chaque protocole** — **ORL fait le 01/11/2026** (53 schémas, `docs/radiotherapie/construction/jeux-essais.json` +
+  `jeux_essais.py`, après `choix_contraintes.py`) : jeux recopiés du protocole publié pour RTOG 1016 (protocole § 6.5.3, ClinicalTrials.gov :
+  oro-70-35-6fx), RTOG 0225 (Lee 2009 : parotide V30 Gy ≤ 60 %, six schémas 69,96 Gy / 33 fx), GORTEC 2000-01 (moelle < 44 Gy : induction
+  larynx et hypopharynx), Hypo Trial (moelle < 24 Gy : 30 Gy / 5 fx) ; autres organes = base, renvoi « Non publié par l'essai : base de contraintes
+  appliquée » ; 43 autres schémas : mention `ct_mention` au-dessus des organes (essai, ou protocole institutionnel Curie / Gustave Roussy) ;
+  test dans test_rtref_fiche. Reste : SNC, sein, thorax, digestif, gynéco, uro, lymphomes, sarcomes / pédiatrie, palliatif.
+  Plan d'origine : (une région par session : SNC, ORL, sein, thorax, digestif, gynéco, uro, lymphomes, sarcomes / pédiatrie,
   palliatif ; revoir **tous** les schémas publiés un par un, n'en supprimer aucun) :
   - schéma issu d'un essai qui publie ses contraintes → **jeu propre à l'essai**, recopié du protocole publié (Bibliothèque, sinon Internet, sinon
     demander l'article) ; tout organe à contourer sans contrainte dans l'essai → ligne de la base pour ce fractionnement, avec mention ;

@@ -10847,6 +10847,134 @@
      "note": "HR 0,19"
     }
    ]
+  },
+  {
+   "id": "ct-orl-rtog1016",
+   "titre": "Oropharynx HPV+, RT accélérée 70 Gy / 35 fx (6 fx/sem)",
+   "fractionnement": "70 Gy / 35 fx en 6 semaines",
+   "source": "RTOG 1016, protocole § 6.5.3 (Gillison 2019)",
+   "verification": "verifie",
+   "pmid": "30449625",
+   "lignes": [
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "D0,03cm³",
+     "limitant": "≤ 50 Gy",
+     "note": "PRV moelle (moelle + 5 mm) ; priorité 1"
+    },
+    {
+     "oar_id": "oar-tronc-cerebral",
+     "indicateur": "D0,03cm³",
+     "limitant": "≤ 52 Gy",
+     "note": "PRV tronc (tronc + 3 mm) ; priorité 2"
+    },
+    {
+     "oar_id": "oar-parotide-d",
+     "indicateur": "Dmean",
+     "limitant": "< 26 Gy",
+     "note": "au moins une parotide ; réduire les deux autant que possible"
+    },
+    {
+     "oar_id": "oar-glande-sous-max-d",
+     "indicateur": "Dmean",
+     "limitant": "< 39 Gy",
+     "note": "glande controlatérale, si le niveau I controlatéral n'est pas une cible"
+    },
+    {
+     "oar_id": "oar-cavite-orale",
+     "indicateur": "Dmean",
+     "limitant": "< 30 Gy",
+     "note": "cavité orale non envahie ; éviter les points chauds > 60 Gy"
+    },
+    {
+     "oar_id": "oar-levres",
+     "indicateur": "Dmean",
+     "limitant": "< 20 Gy"
+    },
+    {
+     "oar_id": "oar-constricteurs",
+     "indicateur": "V50Gy",
+     "limitant": "≤ 33 %",
+     "note": "pharynx non envahi (paroi postérieure et constricteurs) ; recommandé"
+    },
+    {
+     "oar_id": "oar-constricteurs",
+     "indicateur": "Dmean",
+     "limitant": "< 45 Gy",
+     "note": "recommandé"
+    },
+    {
+     "oar_id": "oar-constricteurs",
+     "indicateur": "V60Gy",
+     "limitant": "≤ 15 %",
+     "note": "recommandé"
+    },
+    {
+     "oar_id": "oar-larynx-glottique",
+     "indicateur": "Dmean",
+     "limitant": "< 20 Gy",
+     "note": "recommandé"
+    },
+    {
+     "oar_id": "oar-oesophage-cervical",
+     "indicateur": "Dmean",
+     "limitant": "< 30 Gy",
+     "note": "recommandé"
+    },
+    {
+     "oar_id": "oar-mandibule",
+     "indicateur": "Dmax",
+     "limitant": "< 66 Gy",
+     "note": "éviter les points chauds"
+    }
+   ]
+  },
+  {
+   "id": "ct-orl-porceddu",
+   "titre": "ORL palliatif, 30 Gy / 5 fx (Hypo Trial)",
+   "fractionnement": "30 Gy / 5 fx, 2 fx par semaine",
+   "source": "Hypo Trial (Porceddu 2007)",
+   "verification": "verifie",
+   "pmid": "18036689",
+   "lignes": [
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "< 24 Gy",
+     "note": "≈ 48 Gy en EQD2 (α/β = 2)"
+    }
+   ]
+  },
+  {
+   "id": "ct-orl-gortec2000",
+   "titre": "Larynx et hypopharynx, induction TPF puis RT (GORTEC 2000-01)",
+   "fractionnement": "70 Gy / 35 fx",
+   "source": "GORTEC 2000-01 (Pointreau 2009)",
+   "verification": "verifie",
+   "pmid": "19318632",
+   "lignes": [
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "< 44 Gy"
+    }
+   ]
+  },
+  {
+   "id": "ct-orl-rtog0225",
+   "titre": "RCMI 70 / 59,4 Gy en 33 fx (SIB), cavum",
+   "fractionnement": "69,96 / 59,4 Gy en 33 fx",
+   "source": "RTOG 0225 (Lee 2009)",
+   "verification": "verifie",
+   "pmid": "19564532",
+   "lignes": [
+    {
+     "oar_id": "oar-parotide-d",
+     "indicateur": "V30Gy",
+     "limitant": "≤ 60 %",
+     "note": "chaque parotide ; au-delà : déviation majeure du protocole"
+    }
+   ]
   }
  ],
  "aide_colonnes": [

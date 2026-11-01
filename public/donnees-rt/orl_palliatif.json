@@ -91,7 +91,8 @@
      "limitant": "≥ 98 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "pal-split-55",
@@ -134,7 +135,8 @@
     "Hypofractionné"
    ],
    "contraintes_ids": [],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "pal-quadshot",
@@ -171,7 +173,8 @@
     "Cancer incurable : RT palliative",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "pal-hypo-30-5",
@@ -217,7 +220,9 @@
     "Cancer incurable : RT palliative",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [
+    "ct-orl-porceddu"
+   ]
   },
   {
    "id": "pal-30-10",
@@ -254,7 +259,8 @@
     "Cancer incurable : RT palliative",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "pal-8-1",
@@ -291,7 +297,8 @@
     "Cancer incurable : RT palliative",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
   }
  ],
  "simulations": [

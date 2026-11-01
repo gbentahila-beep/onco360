@@ -113,7 +113,8 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "cb-postop-66-54-service",
@@ -187,7 +188,8 @@
      "limitant": "≈ 105 % de la dose prescrite",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "cb-postop-60-54-service",
@@ -260,7 +262,8 @@
      "limitant": "≈ 105 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "cb-70-35-curie",
@@ -341,7 +344,8 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "cb-6996-33-service",
@@ -386,7 +390,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-igr",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-orl-rtog0225"
+   ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "points_attention": [
     "Si un OAR chevauche un PTV, l'objectif s'applique à l'OAR moins le PTV"
@@ -519,7 +525,8 @@
      "limitant": "≤ 59,4 Gy",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "cb-pdr-56",
@@ -554,7 +561,8 @@
     "T1–T2 N0 de la langue mobile ou du plancher : curiethérapie interstitielle",
     "Curiethérapie"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "cb-hdr-54-18",
@@ -591,7 +599,8 @@
     "T1–T2 N0 de la langue mobile ou du plancher : curiethérapie interstitielle",
     "Curiethérapie"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "cb-rte-hdr-boost",
@@ -639,7 +648,8 @@
     "Cavité buccale",
     "T1–T2 N0 de la langue mobile ou du plancher : curiethérapie interstitielle",
     "RTE + curiethérapie"
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

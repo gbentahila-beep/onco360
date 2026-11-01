@@ -375,12 +375,14 @@ function couvLignes(s = FICHE.schema) {
     return { volume: m ? m[1] : g.cle === "cible-ctv" ? "CTV" : "PTV", indicateur: m ? m[2] : l.indicateur, ideal: l.ideal || "", limitant: l.limitant || "", note: l.note || "" }; })));
   return couvTexte(s).concat(essai);
 }
-function renvoiCalcule(g) {
-  if (g.origine === "conversion") return "Pas de valeur publiée pour ce fractionnement : valeur du normofractionné, à convertir en EQD2";
-  if (g.proche) return "Valeurs publiées pour " + g.proche + " séance" + (g.proche > 1 ? "s" : "") + (g.plusLarge ? ", plus permissives : à adapter" : "");
-  return "";
+// 01/11/2026 (lot 2) : schéma avec le jeu d'un essai, organe que l'essai ne cite pas : base de contraintes, signalée
+function renvoiCalcule(g, s) {
+  const horsEssai = g.origine === "base" && s && (s.contraintes_ids || []).length ? "Non publié par l'essai : base de contraintes appliquée" : "";
+  if (g.origine === "conversion") return (horsEssai ? horsEssai + ". " : "") + "Pas de valeur publiée pour ce fractionnement : valeur du normofractionné, à convertir en EQD2";
+  if (g.proche) return (horsEssai ? horsEssai + ". " : "") + "Valeurs publiées pour " + g.proche + " séance" + (g.proche > 1 ? "s" : "") + (g.plusLarge ? ", plus permissives : à adapter" : "");
+  return horsEssai;
 }
-const renvoiDe = (g, s = FICHE.schema) => (s.renvois && g.cle in s.renvois ? s.renvois[g.cle] : renvoiCalcule(g));
+const renvoiDe = (g, s = FICHE.schema) => (s.renvois && g.cle in s.renvois ? s.renvois[g.cle] : renvoiCalcule(g, s));
 const COLS = '<colgroup><col class="rtr-c1"><col class="rtr-c2"><col class="rtr-c3"><col class="rtr-c3"><col class="rtr-c5"></colgroup>';
 // 31/10/2026 (lot RT, règle 1.8) : « ? » en bulle au survol (classe q-aide de v2.js), plus d'explication sous le tableau
 const thAide = (lib, k) => '<th class="n">' + lib + (IMPRESSION ? "" : ' <button type="button" class="q-aide rtr-q" aria-label="Aide : ' + lib + '" data-txt="' + A.esc(lib + " : " + ((BB && BB.aideCol && BB.aideCol[k]) || "")) + '">?</button>') + "</th>";
@@ -417,7 +419,7 @@ function tableContraintes(G) {
 function ongletContraintes() {
   const C = couvLignes(), G = lignesFiche();
   let h = '<div class="rtr-jt"><h4>Objectifs de couverture</h4>' + (IMPRESSION ? "" : '<button type="button" class="mini rtr-cp" onclick="rtrCopierCt()">' + A.ic("copier") + "Copier</button>") + "</div>" +
-    (C.length ? tableCouv(C) : '<p class="vide-c">Pas d\'objectif de couverture pour ce schéma</p>') + "<h4>Organes à risque</h4>" +
+    (C.length ? tableCouv(C) : '<p class="vide-c">Pas d\'objectif de couverture pour ce schéma</p>') + "<h4>Organes à risque</h4>" + (FICHE.schema.ct_mention ? '<p class="mesures rtr-ctm">' + A.esc(FICHE.schema.ct_mention) + "</p>" : "") +
     (G.length ? tableContraintes(G) : '<p class="vide-c">Aucun organe à risque contouré pour ce schéma</p>');
   return h;
 }
@@ -748,7 +750,7 @@ function matCtl() { if (!ED.ctl) ED.ctl = [].concat(...lignesFiche(ED.schema).ma
 function syncCt() { const ref = contraintesCalculees(Object.assign({}, ED.schema, { ct: null })), d = deltaDe(ED.ctl, ref); delete ED.schema.contraintes; if (d) ED.schema.ct = d; else delete ED.schema.ct; }
 function matCv() { if (!ED.schema.couvCab) { ED.schema.couverture_lignes = clone(couvLignes(ED.schema)); ED.schema.couvCab = true; } return ED.schema.couverture_lignes; }
 function poserRenvoi(k, v) { const g = contraintesCalculees(Object.assign({}, ED.schema, { ct: null })).find((x) => x.cle === k) || { cle: k }, r = ED.schema.renvois = ED.schema.renvois || {};
-  if (v === renvoiCalcule(g)) delete r[k]; else r[k] = v; if (!Object.keys(r).length) delete ED.schema.renvois; }
+  if (v === renvoiCalcule(g, ED.schema)) delete r[k]; else r[k] = v; if (!Object.keys(r).length) delete ED.schema.renvois; }
 window.rtrSim = (i) => { if (!ED) return; const M = matSim(); if (i == null) M.autres.push({ lib: "", val: "" }); else M.autres.splice(i, 1); dessinerFiche(); };
 window.rtrVol = (i) => { if (!ED) return; const V = matVol(); if (i == null) V.cibles.push({ nom: "", type: "", definition: "", quand: "", marge: "" }); else V.cibles.splice(i, 1); dessinerFiche(); };
 window.rtrVolOar = (id, ajout) => { if (!ED || !id) return; const V = matVol(); if (ajout) { if (V.oar_ids.indexOf(id) < 0) V.oar_ids.push(id); } else V.oar_ids = V.oar_ids.filter((x) => x !== id); dessinerFiche(); };
@@ -756,7 +758,7 @@ window.rtrCt = (i) => { if (!ED) return; const C = matCtl(); if (i == null) C.pu
 window.rtrCv = (i) => { if (!ED) return; const C = matCv(); if (i == null) C.push({ volume: (C[C.length - 1] || {}).volume || "PTV", indicateur: "", ideal: "", limitant: "", note: "" }); else C.splice(i, 1); dessinerFiche(); };
 window.rtrRv = (k) => { if (!ED || !k) return; poserRenvoi(k, ""); ED.schema.renvois = Object.assign(ED.schema.renvois || {}, { [k]: ED.schema.renvois && ED.schema.renvois[k] != null ? ED.schema.renvois[k] : " " }); dessinerFiche(); };
 window.rtrRvSup = (k) => { if (!ED || !k) return; const r = ED.schema.renvois = ED.schema.renvois || {}; const g = contraintesCalculees(Object.assign({}, ED.schema, { ct: null })).find((x) => x.cle === k) || { cle: k };
-  if (renvoiCalcule(g)) r[k] = ""; else delete r[k]; if (!Object.keys(r).length) delete ED.schema.renvois; dessinerFiche(); };
+  if (renvoiCalcule(g, ED.schema)) r[k] = ""; else delete r[k]; if (!Object.keys(r).length) delete ED.schema.renvois; dessinerFiche(); };
 window.rtrCtBase = () => { if (!ED) return; ["contraintes", "ct", "renvois", "couverture_lignes", "couvCab"].forEach((k) => { delete ED.schema[k]; }); const r = (ED.orig || {}).couverture_lignes; if (r && !ED.orig.couvCab) ED.schema.couverture_lignes = clone(r); ED.ctl = null; dessinerFiche(); };
 function editCentrage() {
   const m = ED.schema.simulation || simDe() || {}, autres = m.autres || [];
