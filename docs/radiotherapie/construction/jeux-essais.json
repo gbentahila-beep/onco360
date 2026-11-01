@@ -939,6 +939,150 @@
      "limitant": "< 200 cm³"
     }
    ]
+  },
+  {
+   "id": "ct-gyn-embrace2",
+   "titre": "Col utérin, RT-chimiothérapie et curiethérapie adaptative (EMBRACE II)",
+   "fractionnement": "45 Gy / 25 fx + curiethérapie",
+   "source": "Protocole EMBRACE II, tableau 9.4 (radiothérapie externe) et objectifs de curiethérapie (§ 3 et résumé)",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "Dmax",
+     "limitant": "< 47,3 Gy",
+     "note": "contrainte stricte (105 %) sans complément ganglionnaire ; radiothérapie externe, 45 Gy / 25 fx"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "V40Gy",
+     "limitant": "< 100 cm³",
+     "note": "souple, sans complément ganglionnaire ; < 250 cm³ avec complément ou lombo-aortique"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "V30Gy",
+     "limitant": "< 350 cm³",
+     "note": "souple, sans complément ganglionnaire ; < 500 cm³ avec complément ou lombo-aortique"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "Dmax",
+     "limitant": "< 57,5 Gy",
+     "note": "souple, avec complément ganglionnaire"
+    },
+    {
+     "oar_id": "oar-sigmoide",
+     "indicateur": "Dmax",
+     "limitant": "< 47,3 Gy",
+     "note": "contrainte stricte sans complément ganglionnaire ; < 57,5 Gy avec complément"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "Dmax",
+     "limitant": "< 47,3 Gy",
+     "note": "contrainte stricte sans complément ganglionnaire ; < 57,5 Gy avec complément"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V40Gy",
+     "limitant": "< 75 %",
+     "note": "souple"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V30Gy",
+     "limitant": "< 85 %",
+     "note": "souple"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "Dmax",
+     "limitant": "< 47,3 Gy",
+     "note": "contrainte stricte sans complément ganglionnaire ; < 57,5 Gy avec complément"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V40Gy",
+     "limitant": "< 85 %",
+     "note": "souple"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V30Gy",
+     "limitant": "< 95 %",
+     "note": "souple"
+    },
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "< 48 Gy"
+    },
+    {
+     "oar_id": "oar-tete-femorale-d",
+     "indicateur": "Dmax",
+     "limitant": "< 50 Gy"
+    },
+    {
+     "oar_id": "oar-tete-femorale-g",
+     "indicateur": "Dmax",
+     "limitant": "< 50 Gy"
+    },
+    {
+     "oar_id": "oar-reins",
+     "indicateur": "Dmean",
+     "limitant": "< 15 Gy",
+     "note": "souple : < 10 Gy"
+    },
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "V55Gy",
+     "limitant": "< 15 cm³",
+     "note": "souple (Verma 2014)"
+    },
+    {
+     "oar_id": "oar-ovaire-d",
+     "indicateur": "Dmax",
+     "limitant": "< 5–8 Gy",
+     "note": "facultatif"
+    },
+    {
+     "oar_id": "oar-ovaire-g",
+     "indicateur": "Dmax",
+     "limitant": "< 5–8 Gy",
+     "note": "facultatif"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "D2cm³ (EQD2₃)",
+     "limitant": "< 80 Gy",
+     "note": "total externe + curiethérapie ; objectif chez 70 % des patientes"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "D2cm³ (EQD2₃)",
+     "limitant": "< 65 Gy",
+     "note": "total externe + curiethérapie ; objectif chez 70 % des patientes"
+    },
+    {
+     "oar_id": "oar-vagin",
+     "indicateur": "Point recto-vaginal ICRU (EQD2₃)",
+     "limitant": "< 65 Gy",
+     "note": "objectif chez 70 % des patientes"
+    },
+    {
+     "oar_id": "oar-sigmoide",
+     "indicateur": "D2cm³ (EQD2₃)",
+     "limitant": "< 70 Gy",
+     "note": "total externe + curiethérapie ; objectif proposé en cas d'adhérences (§ 3.3.5)"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "D2cm³ (EQD2₃)",
+     "limitant": "< 70 Gy",
+     "note": "total externe + curiethérapie ; objectif proposé en cas d'adhérences (§ 3.3.5)"
+    }
+   ]
   }
  ],
  "schemas": {
@@ -1172,6 +1316,16 @@
    "contraintes_ids": [
     "ct-dig-rtog0529"
    ]
+  },
+  "col-rch-hdr-7x4": {
+   "contraintes_ids": [
+    "ct-gyn-embrace2"
+   ]
+  },
+  "col-rch-pdr-curie": {
+   "contraintes_ids": [
+    "ct-gyn-embrace2"
+   ]
   }
  },
  "mentions": {
@@ -1209,6 +1363,10 @@
   "pancreas",
   "foie",
   "rectum",
-  "canal_anal"
+  "canal_anal",
+  "col",
+  "endometre",
+  "vagin",
+  "vulve"
  ]
 }

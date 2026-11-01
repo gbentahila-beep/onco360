@@ -55,7 +55,8 @@
     "Curiethérapie"
    ],
    "contraintes_ids": [],
-   "points_attention": []
+   "points_attention": [],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "vagin-rch-curie",
@@ -132,7 +133,8 @@
      "limitant": "> 90 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   }
  ],
  "simulations": [

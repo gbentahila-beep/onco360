@@ -120,7 +120,8 @@
      "limitant": "> 98 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "vulve-excl-curie",
@@ -187,7 +188,8 @@
      "limitant": "< 107 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "vulve-gog205",
@@ -223,7 +225,8 @@
     "Vulve localement avancée non résécable : radiochimiothérapie exclusive",
     "Normofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

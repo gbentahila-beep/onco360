@@ -68,7 +68,8 @@
     "Risque intermédiaire : curiethérapie vaginale",
     "Curiethérapie"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "endo-vbt-7x3-hir",
@@ -105,7 +106,8 @@
     "Risque intermédiaire-élevé",
     "Curiethérapie"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "endo-pelv-46-23",
@@ -142,7 +144,8 @@
     "Risque intermédiaire-élevé",
     "Normofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "endo-portec3",
@@ -189,7 +192,8 @@
     "Haut risque et stades avancés opérés",
     "Normofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "endo-pelv-45-vbt-curie",
@@ -287,7 +291,8 @@
      "limitant": "> 98 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "endo-pelv-lao-45-curie",
@@ -377,7 +382,8 @@
      "limitant": "> 98 %",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   }
  ],
  "simulations": [
