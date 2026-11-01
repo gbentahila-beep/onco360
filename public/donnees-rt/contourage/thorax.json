@@ -1,0 +1,195 @@
+{
+ "region": "thorax",
+ "maj": "2026-11-01",
+ "sources": [
+  {
+   "n": 1,
+   "ref": "Nestle U et al. ESTRO ACROP guidelines for target volume definition in the treatment of locally advanced non-small cell lung cancer. Radiother Oncol 2018",
+   "doi": "10.1016/j.radonc.2018.02.023"
+  },
+  {
+   "n": 2,
+   "ref": "Le Pechoux C et al. ESTRO ACROP guidelines for target volume definition in the thoracic radiation treatment of small cell lung cancer. Radiother Oncol 2020",
+   "doi": "10.1016/j.radonc.2020.07.012"
+  },
+  {
+   "n": 3,
+   "ref": "Gomez D et al. Radiation therapy definitions and reporting guidelines for thymic malignancies (ITMIG). J Thorac Oncol 2011;6:S1743-S1748"
+  },
+  {
+   "n": 4,
+   "ref": "Gomez DR et al. The use of radiation therapy for the treatment of malignant pleural mesothelioma: expert opinion from the NCI Thoracic Malignancy Steering Committee, IASLC and Mesothelioma Applied Research Foundation. J Thorac Oncol 2019;14:1172-1183",
+   "doi": "10.1016/j.jtho.2019.03.030"
+  }
+ ],
+ "sections": [
+  {
+   "id": "cbnpc",
+   "titre": "Cancer bronchique non à petites cellules localement avancé",
+   "locs": [
+    "poumon"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "Imagerie",
+     "TEP-scanner de planification recommandé, en position de traitement ; 4D-CT ; fenêtre pulmonaire (W 1600 / L −600) pour la tumeur entourée de poumon, médiastinale (W 400 / L 20) pour les ganglions et l'envahissement du médiastin ou de la paroi."
+    ],
+    [
+     "GTV",
+     "Tumeur et ganglions tracés séparément ; scanner et TEP. Atélectasie hors de la fixation : peut être exclue. Après chimiothérapie d'induction : tumeur sur l'imagerie actuelle ; ganglions : tous ceux atteints avant chimiothérapie, même disparus. Ganglion TEP+ et EBUS− : inclus."
+    ],
+    [
+     "CTV de la tumeur",
+     "GTV + 5 à 8 mm, corrigé des barrières (os, cœur)."
+    ],
+    [
+     "CTV ganglionnaire, option 1",
+     "Toute la station ganglionnaire atteinte, avec au moins 5 à 8 mm autour du GTV."
+    ],
+    [
+     "CTV ganglionnaire, option 2",
+     "Expansion géométrique de 5 à 8 mm, adaptée à la taille et à l'histologie, en épargnant l'œsophage."
+    ],
+    [
+     "Irradiation ganglionnaire prophylactique",
+     "Hile et stations voisines : optionnel ; au-delà : non recommandé."
+    ],
+    [
+     "Post-opératoire (PORT)",
+     "Régions ganglionnaires médiastinales atteintes réséquées, moignon bronchique, hile homolatéral, stations 4 et 7."
+    ],
+    [
+     "PTV",
+     "Selon l'ICRU et les incertitudes propres au service (ITV, mid-ventilation, gating) ; ne pas retoucher le PTV à la main."
+    ]
+   ],
+   "src": [
+    1
+   ]
+  },
+  {
+   "id": "cbpc",
+   "titre": "Cancer bronchique à petites cellules",
+   "locs": [
+    "poumon"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "GTV",
+     "Tumeur (GTVp) et ganglions atteints (GTVn), sur scanner et TEP."
+    ],
+    [
+     "CTV",
+     "GTV (ou GTV avec gestion du mouvement) + 5 mm dans toutes les directions ; retouche manuelle au cœur et aux vertèbres recommandée, aux gros vaisseaux, œsophage et voies aériennes discutée."
+    ],
+    [
+     "Réponse complète de la tumeur",
+     "CTVp tracé d'après l'imagerie avant traitement."
+    ],
+    [
+     "Réponse complète ganglionnaire",
+     "Option 1 : 5 à 6 mm autour du GTVn d'avant traitement. Option 2 : toute la station atteinte avant chimiothérapie."
+    ],
+    [
+     "Ganglions prophylactiques",
+     "Non recommandés ; zones non atteintes entre stations et tumeur (hile) : optionnel ; atteinte des stations 2 ou 3A sans TEP : sus-claviculaire homolatéral à discuter. Tous les ganglions entre deux stations atteintes non contiguës : inclus."
+    ],
+    [
+     "Post-opératoire",
+     "Régions médiastinales et hilaires atteintes réséquées, moignon bronchique et station 7 ; stations atteintes avant chimiothérapie incluses même après réponse."
+    ],
+    [
+     "Organes à risque",
+     "Poumons (séparés et ensemble, moins CTV ou GTV), cœur avec le péricarde, œsophage du cricoïde à la jonction, canal médullaire (PRV de la moelle)."
+    ]
+   ],
+   "src": [
+    2
+   ]
+  },
+  {
+   "id": "thymome",
+   "titre": "Tumeurs thymiques",
+   "locs": [
+    "thymome"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "CTV",
+     "Lit tumoral à risque d'après l'imagerie avant et après chirurgie et les constatations opératoires (clips) ; le médiastin entier n'est plus la règle."
+    ],
+    [
+     "Marge GTV → CTV",
+     "0,5 à 1,0 cm."
+    ],
+    [
+     "Marge CTV → PTV sans 4D-CT ni imagerie kV quotidienne",
+     "1,0 à 1,5 cm."
+    ],
+    [
+     "Marge ITV → PTV avec 4D-CT sans imagerie kV quotidienne",
+     "0,5 à 1,0 cm."
+    ],
+    [
+     "Marge ITV → PTV avec 4D-CT et imagerie kV quotidienne",
+     "0,5 cm."
+    ]
+   ],
+   "src": [
+    3
+   ],
+   "notes": [
+    "Préciser si l'on traite les sites atteints (tumeur ou lit) avec une marge, ou aussi des sites prophylactiques (ganglions, médiastin)."
+   ]
+  },
+  {
+   "id": "meso",
+   "titre": "Mésothéliome pleural",
+   "locs": [
+    "mesotheliome"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "Imagerie",
+     "GTV et CTV sur le TEP-scanner de planification, ajustés à l'ITV du 4D-CT ; IRM pour la plèvre et les T3-T4."
+    ],
+    [
+     "Après pleuro-pneumonectomie",
+     "CTV = tout le lit pleural homolatéral, côtes comprises en dehors, marge de 0,5 à 1,0 cm à l'interface médiastin-plèvre ; jusqu'au sternum en avant (péricarde et plèvre antérieurs), jusqu'au corps vertébral en arrière, jusqu'à l'insertion diaphragmatique en bas (émergence du psoas) ; pas de ganglions médiastinaux prophylactiques."
+    ],
+    [
+     "Poumon en place (RCMI hémithoracique)",
+     "Sur les coupes avec GTV : CTV externe et interne à 3 mm du GTV ; sur les coupes sans tumeur : CTV réduit à l'interface poumon-paroi ; sous le diaphragme : croissant couvrant la plèvre vers le sternum, le diaphragme et les piliers. PTV externe = CTV externe + 1 cm dans la paroi, ajusté à toute l'épaisseur de la paroi."
+    ],
+    [
+     "Pleurectomie complète",
+     "Seul un CTV est tracé."
+    ],
+    [
+     "Avant chirurgie (SMART)",
+     "CTV = réunion de la cavité thoracique entière, des stations médiastinales homolatérales, des ganglions rétropéritonéaux hauts et des orifices de trocart ; boost sur les plaques, la maladie TEP+ et les orifices ; ITV inspiration-expiration ; PTV = ITV + 5 mm."
+    ]
+   ],
+   "src": [
+    4
+   ]
+  }
+ ],
+ "sans_atlas": {}
+}

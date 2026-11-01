@@ -112,8 +112,10 @@
      "volume": "PTV",
      "dose_Gy": 30,
      "mode": "seul",
-     "rythme": "Selon le protocole",
-     "note": "Survie sans rechute à 6 ans 95,3 %"
+     "rythme": "5 fx/sem",
+     "note": "Survie sans rechute à 6 ans 95,3 % ; Classen 2003 : 2,0 Gy par jour, 5 jours par semaine",
+     "fractions": 15,
+     "dose_fx_Gy": 2
     }
    ],
    "technique": "RT externe",
@@ -146,8 +148,10 @@
      "volume": "PTV",
      "dose_Gy": 36,
      "mode": "seul",
-     "rythme": "Selon le protocole",
-     "note": "Survie sans rechute à 6 ans 88,9 %"
+     "rythme": "5 fx/sem",
+     "note": "Survie sans rechute à 6 ans 88,9 % ; Classen 2003 : 2,0 Gy par jour, 5 jours par semaine",
+     "fractions": 18,
+     "dose_fx_Gy": 2
     }
    ],
    "technique": "RT externe",

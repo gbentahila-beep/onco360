@@ -1,0 +1,213 @@
+{
+ "region": "snc",
+ "maj": "2026-11-01",
+ "sources": [
+  {
+   "n": 1,
+   "ref": "Kruser TJ et al. NRG brain tumor specialists consensus guidelines for glioblastoma contouring. J Neurooncol 2019",
+   "doi": "10.1007/s11060-019-03152-9"
+  },
+  {
+   "n": 2,
+   "ref": "Baumert BG et al. ESTRO-EANO guideline on target delineation and radiotherapy for IDH-mutant WHO CNS grade 2 and 3 diffuse glioma. Radiother Oncol 2025;202:110594",
+   "doi": "10.1016/j.radonc.2024.110594"
+  },
+  {
+   "n": 3,
+   "ref": "Soliman H et al. Consensus contouring guidelines for postoperative completely resected cavity stereotactic radiosurgery for brain metastases. Int J Radiat Oncol Biol Phys 2018",
+   "doi": "10.1016/j.ijrobp.2017.09.047"
+  },
+  {
+   "n": 4,
+   "ref": "Gondi V et al. Hippocampal-sparing whole-brain radiotherapy: a « how-to » technique using helical tomotherapy and linear accelerator-based intensity-modulated radiotherapy. Int J Radiat Oncol Biol Phys 2010",
+   "doi": "10.1016/j.ijrobp.2010.01.039"
+  },
+  {
+   "n": 5,
+   "ref": "Michalski J. ACNS0331 Medulloblastoma target volumes and organ at risk atlas. Children's Oncology Group"
+  }
+ ],
+ "sections": [
+  {
+   "id": "gbm",
+   "titre": "Glioblastome : volumes (schéma séquentiel 46 puis 60 Gy)",
+   "locs": [
+    "glioblastome"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition",
+    "Tronc cérébral",
+    "Chiasma et nerfs optiques"
+   ],
+   "lignes": [
+    [
+     "GTV1",
+     "Hypersignal T2 / FLAIR",
+     "Inclus jusqu'à l'étendue de l'anomalie IRM",
+     "Inclus jusqu'à l'étendue de l'anomalie IRM"
+    ],
+    [
+     "GTV2",
+     "Cavité + prise de contraste T1",
+     "Idem",
+     "Idem"
+    ],
+    [
+     "CTV_4600",
+     "2 cm autour de GTV1 et GTV2, corrigé des barrières anatomiques",
+     "Inclus s'il est à moins de 2 cm du FLAIR et en continuité anatomique",
+     "Inclus s'il est à moins de 2 cm du FLAIR et en continuité anatomique"
+    ],
+    [
+     "CTV_6000",
+     "2 cm autour de GTV2, corrigé des barrières anatomiques",
+     "À moins de 2 cm de la prise de contraste et en continuité : inclus, couvert à environ 54 Gy (PRV Dmax < 55 Gy). Atteinte macroscopique : dans le CTV_6000 sans marge ; 2 cm de tronc autour en CTV_5400 (contraintes « variation acceptable » 60 Gy cœur / 64 Gy surface)",
+     "À moins de 2 cm de la prise de contraste et en continuité : inclus, couvert à environ 54 Gy (PRV < 55 Gy). Au contact de la tumeur : environ 60 Gy, Dmax du PRV jusqu'à 60 Gy"
+    ]
+   ],
+   "src": [
+    1
+   ],
+   "notes": [
+    "Les mêmes principes s'appliquent au boost intégré 50 et 60 Gy en 30 fractions.",
+    "Hypophyse : peut être exclue du CTV_4600.",
+    "Faux du cerveau : ne pas déborder dans l'hémisphère controlatéral (RTOG : jusqu'à 5 mm au-delà de la faux) ; mais la faux ne descend pas jusqu'au toit des ventricules latéraux : ne pas trop retirer au niveau du corps calleux.",
+    "Tumeur sus-tentorielle (temporale, occipitale) : retirer la partie sous-tentorielle du CTV.",
+    "Thalamus : extension possible par le pédoncule cérébral vers le mésencéphale ; vérifier en coupes coronales. Commissures antérieure et postérieure et adhérence inter-thalamique : voies vers le côté opposé."
+   ]
+  },
+  {
+   "id": "gliome",
+   "titre": "Gliome diffus IDH-muté de grade 2 et 3",
+   "locs": [
+    "gliome"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "GTV",
+     "Reliquat tumoral et cavité opératoire ; prises de contraste T1 si elles évoquent un reliquat. Grade 2 : anomalies T2 / FLAIR incluses. Grade 3 : anomalies T2 / FLAIR incluses, sauf ce qui est considéré comme de l'œdème."
+    ],
+    [
+     "CTV",
+     "GTV + 10 mm (grade 2) ; GTV + 15 mm (grade 3)."
+    ],
+    [
+     "Dose",
+     "50,4 Gy / 28 fx (grade 2) ; 59,4 Gy / 33 fx (grade 3) ; RCMI de préférence."
+    ]
+   ],
+   "src": [
+    2
+   ]
+  },
+  {
+   "id": "cavite",
+   "titre": "Métastase opérée (cavité en stéréotaxie), résection complète",
+   "locs": [
+    "metastases_cerebrales"
+   ],
+   "colonnes": [
+    "Situation",
+    "CTV"
+   ],
+   "lignes": [
+    [
+     "Cavité",
+     "Toute la cavité opératoire rehaussée (T1 gadolinium axial) ; œdème exclu."
+    ],
+    [
+     "Trajet chirurgical",
+     "Tout le trajet visible au scanner ou à l'IRM post-opératoire."
+    ],
+    [
+     "Tumeur au contact de la dure-mère",
+     "Marge de 5 à 10 mm le long du volet osseux au-delà de la zone de contact initiale."
+    ],
+    [
+     "Tumeur sans contact dural",
+     "Marge de 1 à 5 mm le long du volet osseux."
+    ],
+    [
+     "Tumeur au contact d'un sinus veineux",
+     "1 à 5 mm le long du sinus."
+    ]
+   ],
+   "src": [
+    3
+   ]
+  },
+  {
+   "id": "hippo",
+   "titre": "Encéphale in toto avec épargne hippocampique",
+   "locs": [
+    "metastases_cerebrales"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "Hippocampe",
+     "Contouré sur l'IRM T1 axiale (coupes fines, recalée sur le scanner)."
+    ],
+    [
+     "Zone d'évitement",
+     "Hippocampe + 5 mm (expansion volumétrique)."
+    ]
+   ],
+   "src": [
+    4
+   ]
+  },
+  {
+   "id": "medullo",
+   "titre": "Médulloblastome : boost du lit tumoral (volume limité)",
+   "locs": [
+    "medulloblastome"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "GTV",
+     "Lit opératoire et reliquat."
+    ],
+    [
+     "CTV",
+     "GTV + 1,5 cm, limité à la fosse postérieure."
+    ],
+    [
+     "PTV",
+     "CTV + 0,3 à 0,5 cm."
+    ],
+    [
+     "Fosse postérieure entière (option)",
+     "CTV = fosse postérieure, PTV autour ; GTV non tracé."
+    ],
+    [
+     "Irradiation crânio-spinale",
+     "Inclure l'encéphale au-dessus de la lame criblée ; position couchée sur le ventre ou sur le dos ; plan composite (crânio-spinale + boosts) obligatoire."
+    ]
+   ],
+   "src": [
+    5
+   ]
+  }
+ ],
+ "sans_atlas": {
+  "meningiome": "Pas d'atlas de contourage publié dans la Bibliothèque : la recommandation EANO 2021 donne les indications et les doses, pas les volumes.",
+  "schwannome": "Pas d'atlas de contourage publié dans la Bibliothèque pour cette localisation.",
+  "hypophyse": "Pas d'atlas de contourage publié dans la Bibliothèque pour cette localisation.",
+  "craniopharyngiome": "Pas d'atlas de contourage publié dans la Bibliothèque pour cette localisation.",
+  "neurocytome": "Pas d'atlas de contourage publié dans la Bibliothèque pour cette localisation.",
+  "ependymome": "Pas d'atlas de contourage publié dans la Bibliothèque pour cette localisation."
+ }
+}

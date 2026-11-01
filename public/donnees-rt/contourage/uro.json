@@ -1,0 +1,125 @@
+{
+ "region": "uro",
+ "maj": "2026-11-01",
+ "sources": [
+  {
+   "n": 1,
+   "ref": "Dal Pra A et al. ESTRO ACROP guideline on prostate bed delineation for postoperative radiotherapy in prostate cancer. Clin Transl Radiat Oncol 2023;41:100638",
+   "doi": "10.1016/j.ctro.2023.100638"
+  },
+  {
+   "n": 2,
+   "ref": "eContour. Intact prostate contouring guide (d'après les protocoles RTOG 0126 et RTOG 0815)"
+  },
+  {
+   "n": 3,
+   "ref": "NRG Oncology. Protocole type, section radiothérapie, vessie (09/2020)"
+  }
+ ],
+ "sections": [
+  {
+   "id": "prostate",
+   "titre": "Prostate en place",
+   "locs": [
+    "prostate"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "CTV",
+     "Prostate + 1 cm proximal des vésicules séminales (RTOG 0126 : chez tous les patients) ; la part des vésicules dépend du risque d'envahissement."
+    ],
+    [
+     "Limite inférieure",
+     "Diaphragme uro-génital ; sinon au moins 0,7 cm au-dessus du bulbe pénien."
+    ],
+    [
+     "PTV",
+     "CTV + 5 à 10 mm (RTOG 0126 et 0815), selon contention et imagerie quotidienne ; marge postérieure souvent réduite (exemple : 7 mm, 5 mm en arrière)."
+    ]
+   ],
+   "src": [
+    2
+   ]
+  },
+  {
+   "id": "lit",
+   "titre": "Loge de prostatectomie (ESTRO-ACROP 2023)",
+   "locs": [
+    "prostate"
+   ],
+   "colonnes": [
+    "Limite",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "Inférieure",
+     "8 à 12 mm sous l'anastomose vésico-urétrale (coupe sous la dernière coupe avec de l'urine) ; si non visible, coupe juste au-dessus du bulbe pénien."
+    ],
+    [
+     "Antérieure",
+     "En haut : 1 à 2 cm de la paroi postérieure de la vessie, ou s'arrêter au bord postérieur de la paroi vésicale ; en bas : bord postérieur du pubis, sur la moitié à deux tiers de la symphyse."
+    ],
+    [
+     "Postérieure",
+     "Paroi antérieure du rectum ; en haut, fascia mésorectal s'il est visible ; inclure les angles antéro-latéraux du rectum et les clips."
+    ],
+    [
+     "Latérale",
+     "Bords internes des obturateurs internes, sans s'étendre en avant vers les ganglions obturateurs ; plus bas, bords internes des obturateurs internes ou des releveurs de l'anus."
+    ],
+    [
+     "Supérieure",
+     "Région des deux vésicules avec un « pont » de 3 à 5 mm ; sans envahissement des vésicules : base (tiers inférieur) du lit des vésicules, au niveau des canaux déférents sectionnés ; avec envahissement : tout le lit des vésicules ; inclure les clips du haut."
+    ]
+   ],
+   "src": [
+    1
+   ]
+  },
+  {
+   "id": "vessie",
+   "titre": "Vessie (protocole type NRG)",
+   "locs": [
+    "vessie"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "CTVbt",
+     "Tumeur vésicale d'origine (résection, scanner, IRM, TEP, examen sous anesthésie, compte rendu de cystoscopie) ; marqueurs possibles."
+    ],
+    [
+     "CTVwb",
+     "Vessie entière avec la paroi externe + CTVbt."
+    ],
+    [
+     "CTVn",
+     "Ganglions pelviens sous la bifurcation iliaque commune : présacrés de S1 à S3 avec 1 cm devant le sacrum ; iliaques (vaisseaux depuis S1, externes jusqu'aux têtes fémorales, internes jusqu'à la sortie du bassin) + 7 mm en avant, en arrière et en dehors ; obturateurs, bande de 1 cm en dedans de l'obturateur interne jusqu'au haut de la symphyse ; sans muscle, os ni organe."
+    ],
+    [
+     "PTVbt et PTVwb",
+     "CTV + 1 à 1,5 cm (3D ; jusqu'à 2 cm autour de la tumeur pour la vessie entière) ou 0,5 à 1 cm (RCMI)."
+    ],
+    [
+     "PTVn",
+     "CTVn + 0,5 cm."
+    ]
+   ],
+   "src": [
+    3
+   ]
+  }
+ ],
+ "sans_atlas": {
+  "seminome": "Pas d'atlas de contourage du séminome dans les sources du référentiel.",
+  "penis": "Pas d'atlas publié pour le cancer du pénis."
+ }
+}

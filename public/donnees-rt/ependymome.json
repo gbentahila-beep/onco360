@@ -31,8 +31,10 @@
      "volume": "PTV lit tumoral",
      "dose_Gy": 54,
      "mode": "seul",
-     "rythme": "Selon le centre",
-     "note": "Dose médiane de la série coréenne multicentrique (172 adultes)"
+     "rythme": "5 fx/sem",
+     "note": "Dose médiane de la série coréenne multicentrique (172 adultes) ; Wee 2020 : dose médiane 54,0 Gy en 30 fractions (grade II)",
+     "fractions": 30,
+     "dose_fx_Gy": 1.8
     }
    ],
    "technique": "RT conformationnelle",
@@ -67,8 +69,10 @@
      "volume": "PTV lit tumoral",
      "dose_Gy": 59.4,
      "mode": "seul",
-     "rythme": "Selon le centre",
-     "note": "Dose médiane de la même série"
+     "rythme": "5 fx/sem",
+     "note": "Dose médiane de la même série ; Wee 2020 : dose médiane 59,4 Gy en 33 fractions (grade III)",
+     "fractions": 33,
+     "dose_fx_Gy": 1.8
     }
    ],
    "technique": "RT conformationnelle",

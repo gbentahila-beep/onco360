@@ -2459,7 +2459,9 @@
    "doses": [
     {
      "volume": "PTV",
-     "dose_Gy": 30
+     "dose_Gy": 30,
+     "fractions": 15,
+     "dose_fx_Gy": 2
     }
    ],
    "ind": [
@@ -2482,7 +2484,9 @@
    "doses": [
     {
      "volume": "PTV",
-     "dose_Gy": 36
+     "dose_Gy": 36,
+     "fractions": 18,
+     "dose_fx_Gy": 2
     }
    ],
    "ind": [
@@ -8717,7 +8721,9 @@
    "doses": [
     {
      "volume": "PTV lit tumoral",
-     "dose_Gy": 54
+     "dose_Gy": 54,
+     "fractions": 30,
+     "dose_fx_Gy": 1.8
     }
    ],
    "ind": [
@@ -8741,7 +8747,9 @@
    "doses": [
     {
      "volume": "PTV lit tumoral",
-     "dose_Gy": 59.4
+     "dose_Gy": 59.4,
+     "fractions": 33,
+     "dose_fx_Gy": 1.8
     }
    ],
    "ind": [
@@ -8766,7 +8774,9 @@
    "doses": [
     {
      "volume": "PTV craniospinal",
-     "dose_Gy": 35.2
+     "dose_Gy": 35.2,
+     "fractions": 22,
+     "dose_fx_Gy": 1.6
     },
     {
      "volume": "PTV fosse postérieure",

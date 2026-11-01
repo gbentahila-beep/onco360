@@ -32,8 +32,10 @@
      "volume": "PTV craniospinal",
      "dose_Gy": 35.2,
      "mode": "sequentiel",
-     "rythme": "Selon le protocole HIT 2000",
-     "note": "Adultes de 21 ans ou plus suivis dans HIT 2000"
+     "rythme": "5 fx/sem",
+     "note": "Adultes de 21 ans ou plus suivis dans HIT 2000 ; NOA-07 (Beier 2017) : irradiation craniospinale 1,6 Gy jusqu'à 35,2 Gy",
+     "fractions": 22,
+     "dose_fx_Gy": 1.6
     },
     {
      "volume": "PTV fosse postérieure",

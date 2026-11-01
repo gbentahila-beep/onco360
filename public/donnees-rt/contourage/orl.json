@@ -18,6 +18,11 @@
    "doi": "10.1016/j.radonc.2019.01.018"
   },
   {
+   "n": 5,
+   "ref": "Lee AW et al. International guideline for the delineation of the clinical target volumes (CTV) for nasopharyngeal carcinoma. Radiother Oncol 2018;126:25-36",
+   "doi": "10.1016/j.radonc.2017.10.032"
+  },
+  {
    "n": 4,
    "ref": "Lapeyre M. Délinéation des volumes cibles des cancers des VADS, chapitre II : délinéation des CTV-P (T), patients non opérés. Centre Jean Perrin, Clermont-Ferrand, juin 2019"
   }
@@ -408,6 +413,74 @@
    ],
    "notes": [
     "CTV-P1 = GTV-P + 5 mm, corrigé de la même façon, toujours contenu dans le CTV-P2."
+   ]
+  },
+  {
+   "id": "ctvp-cavum",
+   "titre": "CTV du cavum (recommandation internationale)",
+   "locs": [
+    "cavum"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "src": [
+    5
+   ],
+   "lignes": [
+    [
+     "CTVp1 (dose haute)",
+     "GTVp + 5 mm (envisager d'exclure le clivus s'il n'est pas envahi) ; marge réduite à 1 mm au contact d'un organe critique. Inclure tout le cavum dans le CTVp1 : consensus faible (55 %), pratique des centres asiatiques ; sinon tout le cavum dans le CTVp2."
+    ],
+    [
+     "Limite caudale du cavum",
+     "Bord caudal de C1."
+    ],
+    [
+     "CTVn1",
+     "GTVn + 5 mm (10 mm à envisager si effraction capsulaire)."
+    ],
+    [
+     "CTVp2 (dose intermédiaire)",
+     "GTVp + 10 mm + tout le cavum ; marge minimale 2 mm au contact d'un organe critique."
+    ],
+    [
+     "CTVp2 : cavité nasale et sinus maxillaires",
+     "Au moins 5 mm en avant des choanes ; au moins 5 mm de la paroi postérieure des sinus maxillaires."
+    ],
+    [
+     "CTVp2 : ethmoïde postérieur",
+     "Inclure le vomer."
+    ],
+    [
+     "CTVp2 : base du crâne",
+     "Foramens ovale, rond et déchiré, pointe du rocher."
+    ],
+    [
+     "CTVp2 : sinus caverneux",
+     "Si T3-T4 (côté atteint seulement)."
+    ],
+    [
+     "CTVp2 : fosses ptérygoïdes, espaces parapharyngés",
+     "Inclus ; espace parapharyngé couvert en entier."
+    ],
+    [
+     "CTVp2 : sinus sphénoïdal",
+     "Moitié inférieure si T1-T2 ; en entier si T3-T4."
+    ],
+    [
+     "CTVp2 : clivus",
+     "Tiers antérieur si non envahi ; en entier si envahi."
+    ],
+    [
+     "CTVn2",
+     "CTVn1 + 5 mm ; rétropharyngés bilatéraux, niveaux II, III, Va et VIIb, plus au moins un niveau sous les niveaux atteints du côté homolatéral."
+    ],
+    [
+     "Niveau Ib",
+     "Si Ib atteint, glande sous-mandibulaire envahie, niveau II avec effraction, ou structures drainées d'abord vers Ib ; sinon Ib peut être omis du côté homolatéral."
+    ]
    ]
   },
   {

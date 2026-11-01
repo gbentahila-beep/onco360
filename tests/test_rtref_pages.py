@@ -29,7 +29,7 @@ async def main():
         await pg.add_init_script("window.__copie=[];Object.defineProperty(navigator,'clipboard',{value:{writeText:(t)=>{window.__copie.push(t);return Promise.resolve();}}});")
         await pg.goto(f'http://localhost:{PORT}/v2.html#radiotherapie'); await pg.wait_for_timeout(3000)
         ong = await ev("[...document.querySelectorAll('.rtr-sous button')].map(b => b.textContent)")
-        ok(ong == ['Référentiel', 'Organes à risque', 'Contraintes', 'Essais', 'Calcul BED / EQD2'], 'onglets en haut de la page Radiothérapie', ong)
+        ok(ong == ['Référentiel', 'Contourage', 'Organes à risque', 'Contraintes', 'Essais', 'Calcul BED / EQD2'], 'onglets en haut de la page Radiothérapie', ong)
         # Organes à risque
         await pg.click('.rtr-sous button:has-text("Organes à risque")'); await pg.wait_for_timeout(2000)
         ok(await ev("location.hash") == '#radiotherapie/oar' and await ev("document.querySelectorAll('.rtr-ot tbody tr').length") == 135 and await ev("[...document.querySelectorAll('.rtr-ot th')].map(t => t.textContent)") == ['Nom', 'TG-263', 'Définition'], 'Organes à risque : #radiotherapie/oar, 135 organes, colonnes Nom, TG-263, Définition (plus de Source)')

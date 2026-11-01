@@ -1,0 +1,104 @@
+{
+ "region": "os_palliatif",
+ "maj": "2026-11-01",
+ "sources": [
+  {
+   "n": 1,
+   "ref": "Cox BW et al. International Spine Radiosurgery Consortium consensus guidelines for target volume definition in spinal stereotactic radiosurgery. Int J Radiat Oncol Biol Phys 2012;83:e597-e605",
+   "doi": "10.1016/j.ijrobp.2012.03.009"
+  },
+  {
+   "n": 2,
+   "ref": "Redmond KJ et al. Consensus contouring guidelines for postoperative stereotactic body radiation therapy for metastatic solid tumor malignancies to the spine. Int J Radiat Oncol Biol Phys 2017"
+  }
+ ],
+ "sections": [
+  {
+   "id": "rachis",
+   "titre": "Stéréotaxie du rachis : CTV osseux (ISRC)",
+   "locs": [
+    "sbrt_os",
+    "metastases_osseuses"
+   ],
+   "colonnes": [
+    "Atteinte (GTV)",
+    "CTV"
+   ],
+   "lignes": [
+    [
+     "Une partie du corps vertébral",
+     "Corps vertébral entier."
+    ],
+    [
+     "Corps vertébral, d'un côté",
+     "Corps vertébral entier + pédicule et apophyse transverse du même côté."
+    ],
+    [
+     "Corps vertébral en entier",
+     "Corps vertébral entier + pédicules et apophyses transverses des deux côtés."
+    ],
+    [
+     "Corps vertébral et un pédicule",
+     "Corps vertébral entier, pédicule, apophyse transverse et lame du même côté."
+    ],
+    [
+     "Corps vertébral et deux pédicules",
+     "Corps vertébral entier, pédicules et apophyses transverses et lames des deux côtés."
+    ],
+    [
+     "Un pédicule",
+     "Pédicule, apophyse transverse et lame du même côté ± corps vertébral."
+    ],
+    [
+     "Une lame",
+     "Lame, pédicule et apophyse transverse du même côté, apophyse épineuse."
+    ],
+    [
+     "Apophyse épineuse",
+     "Apophyse épineuse entière et les deux lames."
+    ]
+   ],
+   "src": [
+    1
+   ],
+   "notes": [
+    "GTV : tumeur visible, composantes épidurale et paravertébrale comprises.",
+    "CTV : moelle anormale suspecte et espace médullaire normal voisin ; pas d'expansion hors de l'os (épidurale, paravertébrale) en l'absence d'atteinte ; CTV circulaire autour de la moelle seulement dans des cas choisis.",
+    "PTV : expansion uniforme ≤ 3 mm, retouchée au contact de la dure-mère, sans jamais chevaucher la moelle ou la queue de cheval."
+   ]
+  },
+  {
+   "id": "rachis_po",
+   "titre": "Stéréotaxie du rachis après chirurgie",
+   "locs": [
+    "sbrt_os",
+    "metastases_osseuses"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "GTV",
+     "Reliquat sur le scanner et l'IRM postopératoires, composantes épidurale et paravertébrale comprises."
+    ],
+    [
+     "CTV",
+     "Région opérée et tout le compartiment anatomique correspondant aux anomalies de l'IRM préopératoire ; matériel et cicatrice exclus sauf atteinte ; CTV circulaire seulement si atteinte préopératoire circulaire (ou presque, épidurale) ; jusqu'à 5 mm de plus au-delà de l'extension paravertébrale et en crânio-caudal pour une atteinte épidurale."
+    ],
+    [
+     "PTV",
+     "CTV + jusqu'à 2,5 mm, retouché au contact des organes critiques ; la moelle à éviter peut être soustraite du PTV."
+    ]
+   ],
+   "src": [
+    2
+   ]
+  }
+ ],
+ "sans_atlas": {
+  "surrenale": "Pas d'atlas publié pour la surrénale.",
+  "reirradiation": "Pas d'atlas publié pour la réirradiation."
+ }
+}

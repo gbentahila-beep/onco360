@@ -1,0 +1,262 @@
+{
+ "region": "digestif",
+ "maj": "2026-11-01",
+ "sources": [
+  {
+   "n": 1,
+   "ref": "Wu AJ et al. Expert consensus contouring guidelines for intensity modulated radiation therapy in esophageal and gastroesophageal junction cancer. Int J Radiat Oncol Biol Phys 2015;92:911-920",
+   "doi": "10.1016/j.ijrobp.2015.03.030"
+  },
+  {
+   "n": 2,
+   "ref": "Matzinger O et al. EORTC-ROG expert opinion: radiotherapy volume and treatment guidelines for neoadjuvant radiation of adenocarcinomas of the gastroesophageal junction and the stomach. Radiother Oncol 2009;92:164-175"
+  },
+  {
+   "n": 3,
+   "ref": "Brunner TB et al. ESTRO ACROP guidelines for target volume definition in pancreatic cancer. Radiother Oncol 2021;154:60-69",
+   "doi": "10.1016/j.radonc.2020.07.052"
+  },
+  {
+   "n": 4,
+   "ref": "Protocole NRG Oncology / RTOG 1112 (carcinome hépatocellulaire : sorafénib ± radiothérapie stéréotaxique)"
+  },
+  {
+   "n": 5,
+   "ref": "Valentini V et al. International consensus guidelines on clinical target volume delineation in rectal cancer. Radiother Oncol 2016;120:195-201",
+   "doi": "10.1016/j.radonc.2016.07.017"
+  },
+  {
+   "n": 6,
+   "ref": "Ng M et al. Australasian Gastrointestinal Trials Group (AGITG) contouring atlas and planning guidelines for intensity-modulated radiotherapy in anal cancer. Int J Radiat Oncol Biol Phys 2012",
+   "doi": "10.1016/j.ijrobp.2011.12.058"
+  }
+ ],
+ "sections": [
+  {
+   "id": "oeso",
+   "titre": "Œsophage et jonction œso-gastrique (RCMI)",
+   "locs": [
+    "oesophage"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "CTV",
+     "Lit tumoral et ganglions à risque : ganglions péri-œsophagiens, médiastinaux pour le tiers moyen et supérieur, extension sous-muqueuse ; en général GTV + 3 à 4 cm en haut et en bas, + 1,0 cm radial."
+    ],
+    [
+     "Tumeur au-dessus de la carène",
+     "Aires sus-claviculaires des deux côtés (limites analogues au niveau IV ORL, limite crâniale au cricoïde) ; au-dessus de la crosse aortique, CTV étendu vers le sternum et les clavicules (ganglions prévasculaires, station 3 IASLC)."
+    ],
+    [
+     "Tumeur distale ou de la jonction",
+     "CTV jusqu'à l'origine du tronc cœliaque (ganglions cœliaques, en général en regard de T12) ; entre la jonction et le tronc cœliaque : ganglions para-aortiques et du petit épiploon (petite courbure, gastrique gauche) et graisse entre petite courbure et foie (ganglions paracardiaux)."
+    ],
+    [
+     "Ganglions cœliaques : limites",
+     "À droite, bord latéral du corps vertébral (T12) ; à gauche, 0,5 à 1 cm au-delà du bord latéral de l'aorte ; en arrière, corps vertébral ; en avant, corps du pancréas ; reins exclus."
+    ]
+   ],
+   "src": [
+    1
+   ]
+  },
+  {
+   "id": "estomac",
+   "titre": "Estomac et jonction œso-gastrique, préopératoire (EORTC)",
+   "locs": [
+    "estomac",
+    "oesophage"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "GTV",
+     "Tumeur et extension périgastrique (GTV tumeur) ; ganglions atteints (GTV ganglionnaire)."
+    ],
+    [
+     "CTV tumeur",
+     "GTV tumeur + 1,5 cm."
+    ],
+    [
+     "CTV ganglionnaire",
+     "GTV ganglionnaire + 0,5 cm."
+    ],
+    [
+     "CTV gastrique, tiers proximal",
+     "Estomac sans pylore ni antre (au moins 5 cm du GTV)."
+    ],
+    [
+     "CTV gastrique, tiers moyen",
+     "Estomac du cardia au pylore."
+    ],
+    [
+     "CTV gastrique, tiers distal",
+     "Estomac sans cardia ni fundus (au moins 5 cm du GTV) ; pylore ou duodénum envahi : le long du duodénum, 3 cm au-delà de la tumeur."
+    ],
+    [
+     "CTV prophylactique",
+     "Stations ganglionnaires selon le siège : 5 mm autour des vaisseaux correspondants."
+    ],
+    [
+     "ITV sans mesure du mouvement",
+     "Jonction : 1 cm radial, 1,5 cm distal, 1 cm proximal. Estomac : 1,5 cm dans toutes les directions."
+    ],
+    [
+     "PTV",
+     "ITV + 5 mm (sauf mesures propres au service)."
+    ]
+   ],
+   "src": [
+    2
+   ]
+  },
+  {
+   "id": "pancreas",
+   "titre": "Pancréas",
+   "locs": [
+    "pancreas"
+   ],
+   "colonnes": [
+    "Situation",
+    "CTV",
+    "PTV"
+   ],
+   "lignes": [
+    [
+     "Néoadjuvant",
+     "Volume tumoral (marge selon la taille et le siège) ; ganglions prophylactiques optionnels (tête : hépatiques communs, cœliaques, hépatoduodénaux, pancréatico-duodénaux antérieurs et postérieurs, mésentériques supérieurs, para-aortiques ; corps et queue : hépatiques communs, cœliaques, hépatoduodénaux, mésentériques supérieurs, para-aortiques, sous-pancréatiques, artère splénique)",
+     "Avec 4D : ITV + 0,5 à 1 cm ; sans 4D : GTV (et CTV ganglionnaire) + 1,5 cm (antéro-postérieur, latéral) et ≥ 2 cm (crânio-caudal)"
+    ],
+    [
+     "Localement avancé ou récidive",
+     "Volume tumoral ; pas de CTV ganglionnaire prophylactique",
+     "Avec 4D : ITV + 0,5 à 1 cm ; sans 4D : GTV + 1,5 cm et ≥ 2 cm en crânio-caudal"
+    ],
+    [
+     "Stéréotaxie",
+     "Volume tumoral sur toutes les phases respiratoires (ITV) ; pas de CTV ganglionnaire",
+     "ITV + 0 à 5 mm (mesuré par le service)"
+    ],
+    [
+     "Adjuvant (consensus RTOG)",
+     "Volume tumoral préopératoire (clips) + 5–10 mm ; tronc cœliaque (10–15 mm proximaux) + 10 (−15) mm ; artère mésentérique supérieure (25–30 mm proximaux) + 10 (−15) mm ; veine porte (du confluent à la bifurcation hilaire) + 10 (−15) mm ; anastomose pancréatico-jéjunale + 5–10 mm ; aorte du haut des autres volumes au bas de L2 : à droite 25–30 mm, à gauche 10 mm, en avant 20–25 mm, en arrière 2 mm",
+     "—"
+    ]
+   ],
+   "src": [
+    3
+   ],
+   "notes": [
+    "Organes à risque : estomac, duodénum, grêle, moelle, reins droit et gauche séparés, foie. En stéréotaxie : estomac et duodénum en entier, autres anses au moins à hauteur du PTV."
+   ]
+  },
+  {
+   "id": "foie",
+   "titre": "Carcinome hépatocellulaire, stéréotaxie (RTOG 1112)",
+   "locs": [
+    "foie"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "CTV",
+     "CTV = GTV, sans expansion."
+    ],
+    [
+     "PTV",
+     "Au moins 4 mm autour du CTV dans toutes les directions ; au plus 20 mm (rarement) ; objectif ≤ 10 mm ; marges asymétriques permises selon la gestion du mouvement."
+    ]
+   ],
+   "src": [
+    4
+   ]
+  },
+  {
+   "id": "rectum",
+   "titre": "Rectum : sous-régions à inclure dans le CTV selon le stade",
+   "locs": [
+    "rectum"
+   ],
+   "colonnes": [
+    "Stade",
+    "À inclure"
+   ],
+   "lignes": [
+    [
+     "Toujours",
+     "Mésorectum, espace présacré pelvien, ganglions latéraux postérieurs."
+    ],
+    [
+     "cT3",
+     "+ ganglions latéraux antérieurs si nombreux ganglions du mésorectum (N2) ; espace présacré abdominal si ganglions atteints."
+    ],
+    [
+     "cT4 (organe pelvien antérieur)",
+     "+ ganglions latéraux antérieurs, iliaques externes ; inguinaux si envahissement du tiers inférieur du vagin."
+    ],
+    [
+     "cT4 (sphincter anal)",
+     "+ ganglions latéraux antérieurs, fosse ischio-rectale et complexe sphinctérien ; inguinaux si envahissement direct de la fosse ischio-rectale ou du sphincter externe."
+    ],
+    [
+     "cT3 avec ganglion hors du mésorectum",
+     "+ ganglions latéraux antérieurs et iliaques externes."
+    ],
+    [
+     "Limite haute des ganglions latéraux",
+     "cT3 N0 sans atteinte du fascia recti : peut être abaissée à la limite crâniale du mésorectum (bifurcation de l'artère rectale supérieure)."
+    ]
+   ],
+   "src": [
+    5
+   ]
+  },
+  {
+   "id": "anal",
+   "titre": "Canal anal (RCMI)",
+   "locs": [
+    "canal_anal"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "CTV de la tumeur",
+     "GTV, tout le canal anal de la jonction ano-rectale à la marge, sphincters interne et externe, + 20 mm isotropes en respectant les barrières anatomiques ; tumeur de la marge ou périanale : 20 mm radial et caudal pour couvrir la peau périanale."
+    ],
+    [
+     "CTV ganglionnaire atteint",
+     "Ganglion ou région ganglionnaire + 10 à 20 mm, en respectant les barrières."
+    ],
+    [
+     "CTV ganglionnaire prophylactique",
+     "Marge de 7 mm autour des vaisseaux pelviens (iliaques internes en haut, iliaques externes en avant ; obturateurs 3 à 5 mm au-dessus du canal obturateur) ; présacré : 10 mm en avant du sacrum ; mésorectum : marge interne de 10 mm en avant sur les coupes avec vessie, vésicules ou utérus ; inguinaux : au moins 20 mm en avant des vaisseaux, 10 à 20 mm en dedans des vaisseaux fémoraux."
+    ],
+    [
+     "PTV",
+     "CTV + 10 mm isotropes ; 5 à 7 mm avec imagerie quotidienne."
+    ],
+    [
+     "Intestin",
+     "Grêle et côlon tracés de 15 mm au-dessus du PTV jusqu'à la jonction recto-sigmoïdienne."
+    ]
+   ],
+   "src": [
+    6
+   ]
+  }
+ ],
+ "sans_atlas": {}
+}

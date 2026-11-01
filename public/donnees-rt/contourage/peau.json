@@ -1,0 +1,52 @@
+{
+ "region": "peau",
+ "maj": "2026-11-01",
+ "sources": [
+  {
+   "n": 1,
+   "ref": "Khan L et al. Recommendations for CTV margins in radiotherapy planning for non melanoma skin cancer. Radiother Oncol 2012;104:263-266",
+   "doi": "10.1016/j.radonc.2012.06.013"
+  }
+ ],
+ "sections": [
+  {
+   "id": "marges",
+   "titre": "Carcinomes cutanés : marge du CTV autour de la lésion visible",
+   "locs": [
+    "peau_carcinome"
+   ],
+   "colonnes": [
+    "Lésion",
+    "Marge GTV → CTV"
+   ],
+   "lignes": [
+    [
+     "Basocellulaire < 2 cm",
+     "10 mm"
+    ],
+    [
+     "Basocellulaire > 2 cm",
+     "13 mm"
+    ],
+    [
+     "Épidermoïde < 2 cm",
+     "11 mm"
+    ],
+    [
+     "Épidermoïde > 2 cm",
+     "14 mm"
+    ]
+   ],
+   "src": [
+    1
+   ],
+   "notes": [
+    "Marges couvrant l'extension microscopique dans au moins 95 % des cas (extension mesurée : 1 à 15 mm, moyenne 5,3 mm)."
+   ]
+  }
+ ],
+ "sans_atlas": {
+  "merkel": "Pas d'atlas publié pour le carcinome de Merkel dans les sources du référentiel.",
+  "melanome": "Pas d'atlas publié pour le mélanome dans les sources du référentiel."
+ }
+}

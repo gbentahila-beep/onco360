@@ -873,12 +873,12 @@ async function pageContourage(reste) {
   const l = reste ? loc(decodeURIComponent(reste)) : null; if (l) { CT.loc = l.id; CT.reg = l.region_id; } else if (reste === undefined && CT.loc && loc(CT.loc)) CT.reg = loc(CT.loc).region_id;
   const esc = A.esc, R = INDEX.regions, L = INDEX.localisations.filter((x) => x.region_id === CT.reg);
   if (CT.loc && !L.some((x) => x.id === CT.loc)) CT.loc = "";
-  z.innerHTML = '<div class="rtr-haut rtr-sh"><div class="cascade rtr-menus"><div><label for="rtrCr">Région</label><select id="rtrCr" onchange="rtrCt(\'r\',this.value)">' + R.map((r) => '<option value="' + r.id + '"' + (r.id === CT.reg ? " selected" : "") + ">" + esc(r.nom) + "</option>").join("") +
-    '</select></div><div><label for="rtrCl">Localisation</label><select id="rtrCl" onchange="rtrCt(\'l\',this.value)"><option value="">Toutes</option>' + L.map((x) => '<option value="' + x.id + '"' + (x.id === CT.loc ? " selected" : "") + ">" + esc(x.nom) + "</option>").join("") + '</select></div></div></div><div class="rtr-ctz" id="rtrCtz"><div class="rtr-ch">' + "<i></i>".repeat(3) + "</div></div>";
+  z.innerHTML = '<div class="rtr-haut rtr-sh"><div class="cascade rtr-menus"><div><label for="rtrCr">Région</label><select id="rtrCr" onchange="rtrCtg(\'r\',this.value)">' + R.map((r) => '<option value="' + r.id + '"' + (r.id === CT.reg ? " selected" : "") + ">" + esc(r.nom) + "</option>").join("") +
+    '</select></div><div><label for="rtrCl">Localisation</label><select id="rtrCl" onchange="rtrCtg(\'l\',this.value)"><option value="">Toutes</option>' + L.map((x) => '<option value="' + x.id + '"' + (x.id === CT.loc ? " selected" : "") + ">" + esc(x.nom) + "</option>").join("") + '</select></div></div></div><div class="rtr-ctz" id="rtrCtz"><div class="rtr-ch">' + "<i></i>".repeat(3) + "</div></div>";
   const d = await ctFichier(CT.reg), y = $("rtrCtz"); if (!y) return;
   y.innerHTML = htmlContourage(d) + AVERT_RT;
 }
-window.rtrCt = (k, v) => { if (k === "r") { CT.reg = v; CT.loc = ""; location.hash = "radiotherapie/contourage"; pageContourage(); } else { CT.loc = v; location.hash = "radiotherapie/contourage" + (v ? "/" + encodeURIComponent(v) : ""); } };
+window.rtrCtg = (k, v) => { if (k === "r") { CT.reg = v; CT.loc = ""; location.hash = "radiotherapie/contourage"; pageContourage(); } else { CT.loc = v; location.hash = "radiotherapie/contourage" + (v ? "/" + encodeURIComponent(v) : ""); } };
 function htmlContourage(d) {
   const esc = A.esc;
   if (!d) return '<p class="vide-c">Contourage de cette région : pas encore saisi</p>';

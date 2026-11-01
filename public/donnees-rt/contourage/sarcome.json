@@ -1,0 +1,76 @@
+{
+ "region": "sarcome",
+ "maj": "2026-11-01",
+ "sources": [
+  {
+   "n": 1,
+   "ref": "Wang D et al. Variation in the gross tumor volume and clinical target volume for preoperative radiotherapy of primary large high-grade soft tissue sarcoma of the extremity among RTOG sarcoma radiation oncologists. Int J Radiat Oncol Biol Phys 2011;81:e525-e528",
+   "doi": "10.1016/j.ijrobp.2011.04.038"
+  },
+  {
+   "n": 2,
+   "ref": "Baldini EH et al. Variability in target volume delineation for retroperitoneal sarcoma among sarcoma radiation oncologists. Int J Radiat Oncol Biol Phys 2015",
+   "doi": "10.1016/j.ijrobp.2015.04.039"
+  }
+ ],
+ "sections": [
+  {
+   "id": "membres",
+   "titre": "Sarcome des membres, radiothérapie préopératoire (RTOG)",
+   "locs": [
+    "sarcome_membres"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "GTV",
+     "Tumeur visible en IRM T1 avec injection ; fusion IRM et scanner recommandée."
+    ],
+    [
+     "CTV (haut grade, ≥ 5 cm)",
+     "GTV + 3 cm en longitudinal (proximal et distal), raccourci à la fin du compartiment s'il le dépasse ; + 1,5 cm radial, y compris toute partie non limitée par un fascia intact, l'os ou la peau ; œdème péritumoral de l'IRM T2 inclus en général (jugement clinique)."
+    ]
+   ],
+   "src": [
+    1
+   ],
+   "notes": [
+    "Non adapté à certaines histologies : rhabdomyosarcome, PNET extra-osseux, Ewing des tissus mous, Kaposi, angiosarcome, tumeur desmoïde, dermatofibrosarcome."
+   ]
+  },
+  {
+   "id": "rp",
+   "titre": "Sarcome du rétropéritoine, radiothérapie préopératoire",
+   "locs": [
+    "sarcome_retroperitoine"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "CTV (ou ITV en scanner 4D)",
+     "GTV + 1,5 cm uniforme, réduit à 0 mm à l'os, 5 mm vers le sac digestif et les cavités aériennes, 0 mm au rein et au foie (version amendée ; 2 mm dans la version initiale), 3 mm sous la peau ; s'étend en entier dans les muscles rétropéritonéaux."
+    ],
+    [
+     "CTV haut risque (complément)",
+     "Zone à risque de marge positive : en général le long de la paroi abdominale postérieure, espace para- et prévertébral homolatéral, gros vaisseaux ou organes laissés en place ; avec l'avis du chirurgien."
+    ],
+    [
+     "Sac digestif",
+     "Cavité péritonéale jusqu'au diaphragme, estomac et duodénum compris (atlas RTOG)."
+    ]
+   ],
+   "src": [
+    2
+   ]
+  }
+ ],
+ "sans_atlas": {
+  "chordome": "Pas d'atlas publié pour le chordome dans les sources du référentiel."
+ }
+}

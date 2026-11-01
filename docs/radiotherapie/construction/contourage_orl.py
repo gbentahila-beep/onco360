@@ -7,6 +7,7 @@ SOURCES = [
  {"n": 1, "ref": "Grégoire V et al. Delineation of the neck node levels for head and neck tumors: a 2013 update. DAHANCA, EORTC, HKNPCSG, NCIC CTG, NCRI, RTOG, TROG consensus guidelines. Radiother Oncol 2014", "doi": "10.1016/j.radonc.2013.10.010"},
  {"n": 2, "ref": "Grégoire V et al. Delineation of the primary tumour Clinical Target Volumes (CTV-P) in laryngeal, hypopharyngeal, oropharyngeal and oral cavity squamous cell carcinoma: AIRO, CACA, DAHANCA, EORTC, GEORCC, GORTEC, HKNPCSG, HNCIG, IAG-KHT, LPRHHT, NCIC CTG, NCRI, NRG Oncology, PHNS, SBRT, SOMERA, SRO, SSHNO, TROG consensus guidelines. Radiother Oncol 2018;126:3-24", "doi": "10.1016/j.radonc.2017.10.016"},
  {"n": 3, "ref": "Biau J et al. Selection of lymph node target volumes for definitive head and neck radiation therapy: a 2019 update. Radiother Oncol 2019;134:1-9", "doi": "10.1016/j.radonc.2019.01.018"},
+ {"n": 5, "ref": "Lee AW et al. International guideline for the delineation of the clinical target volumes (CTV) for nasopharyngeal carcinoma. Radiother Oncol 2018;126:25-36", "doi": "10.1016/j.radonc.2017.10.032"},
  {"n": 4, "ref": "Lapeyre M. Délinéation des volumes cibles des cancers des VADS, chapitre II : délinéation des CTV-P (T), patients non opérés. Centre Jean Perrin, Clermont-Ferrand, juin 2019"},
 ]
 C6 = ["Niveau", "Crânial", "Caudal", "Antérieur", "Postérieur", "Latéral", "Médial"]
@@ -79,6 +80,20 @@ SECTIONS = [
   "notes": ["II se divise en IIa et IIb par une ligne passant par le bord postérieur de la veine jugulaire interne.", "Chirurgicalement, V se divise en Va (haut) et Vb (bas) au niveau du bord caudal du cricoïde.", "VIIa : seuls les ganglions rétropharyngés latéraux sont considérés."]},
  {"id": "ecoles", "titre": "CTV de la tumeur : deux écoles", "locs": TETE, "colonnes": ["École", "Méthode", "Volumes et doses"], "lignes": [r[:3] for r in ECOLES], "src": [2, 4]},
  ctv(["cavite_buccale"], "cavité buccale", CAV), ctv(["oropharynx"], "oropharynx", ORO), ctv(["larynx"], "larynx", LARYNX), ctv(["hypopharynx"], "hypopharynx", HYPO),
+ {"id": "ctvp-cavum", "titre": "CTV du cavum (recommandation internationale)", "locs": ["cavum"], "colonnes": ["Volume", "Définition"], "src": [5], "lignes": [
+   ["CTVp1 (dose haute)", "GTVp + 5 mm (envisager d'exclure le clivus s'il n'est pas envahi) ; marge réduite à 1 mm au contact d'un organe critique. Inclure tout le cavum dans le CTVp1 : consensus faible (55 %), pratique des centres asiatiques ; sinon tout le cavum dans le CTVp2."],
+   ["Limite caudale du cavum", "Bord caudal de C1."],
+   ["CTVn1", "GTVn + 5 mm (10 mm à envisager si effraction capsulaire)."],
+   ["CTVp2 (dose intermédiaire)", "GTVp + 10 mm + tout le cavum ; marge minimale 2 mm au contact d'un organe critique."],
+   ["CTVp2 : cavité nasale et sinus maxillaires", "Au moins 5 mm en avant des choanes ; au moins 5 mm de la paroi postérieure des sinus maxillaires."],
+   ["CTVp2 : ethmoïde postérieur", "Inclure le vomer."],
+   ["CTVp2 : base du crâne", "Foramens ovale, rond et déchiré, pointe du rocher."],
+   ["CTVp2 : sinus caverneux", "Si T3-T4 (côté atteint seulement)."],
+   ["CTVp2 : fosses ptérygoïdes, espaces parapharyngés", "Inclus ; espace parapharyngé couvert en entier."],
+   ["CTVp2 : sinus sphénoïdal", "Moitié inférieure si T1-T2 ; en entier si T3-T4."],
+   ["CTVp2 : clivus", "Tiers antérieur si non envahi ; en entier si envahi."],
+   ["CTVn2", "CTVn1 + 5 mm ; rétropharyngés bilatéraux, niveaux II, III, Va et VIIb, plus au moins un niveau sous les niveaux atteints du côté homolatéral."],
+   ["Niveau Ib", "Si Ib atteint, glande sous-mandibulaire envahie, niveau II avec effraction, ou structures drainées d'abord vers Ib ; sinon Ib peut être omis du côté homolatéral."]]},
  sel("cavite_buccale", "cavité buccale", [["N0-1 (I, II ou III)", "I, II, III, + IVa, + IX", "I, II, III, + IVa"], ["N2a-b", "I, II, III, IVa, Va-b, + IX", "I, II, III, + IVa"], ["N2c", "Selon le N de chaque côté", "Selon le N de chaque côté"], ["N3", "I, II, III, IVa, Va-b, + VIIb, + IX", "I, II, III, + IVa"]],
    ["Irradiation unilatérale recommandée pour les tumeurs latéralisées N0-N2a des crêtes alvéolaires, du plancher latéral et de la muqueuse jugale ; discutée pour N2b ; envisageable pour le bord latéral de langue N0-N1 à plus de 1 cm de la ligne médiane.", IIB, "IVa : tumeur de la langue antérieure, extension à l'oropharynx, ou N1 avec atteinte du niveau III.", "IX : tumeur de la muqueuse jugale.", IVB, "V peut être omis si seuls I et II sont atteints.", VIIB]),
  sel("oropharynx", "oropharynx (p16+ et p16−)", [["N0-1 (II, III ou IV)", "(Ib), II, III, IVa, + VIIa (paroi postérieure)", "II, III, IVa, + VIIa (paroi postérieure)"], ["N2a-b", "Ib, II, III, IVa, Va-b, + VIIa, + VIIb", "II, III, IVa, + VIIa (paroi postérieure)"], ["N2c", "Selon le N de chaque côté", "Selon le N de chaque côté"], ["N3", "Ib, II, III, IVa, Va-b, + VIIa, + VIIb", "II, III, IVa, + VIIa (paroi postérieure)"]],

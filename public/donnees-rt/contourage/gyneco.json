@@ -1,0 +1,145 @@
+{
+ "region": "gyneco",
+ "maj": "2026-11-01",
+ "sources": [
+  {
+   "n": 1,
+   "ref": "Protocole EMBRACE II (Image guided intensity modulated external beam radiochemotherapy and MRI based adaptive brachytherapy in locally advanced cervical cancer), chapitre 9"
+  },
+  {
+   "n": 2,
+   "ref": "Small W Jr et al. NRG Oncology/RTOG consensus guidelines for delineation of clinical target volume for intensity-modulated pelvic radiation therapy in postoperative treatment of endometrial and cervical cancer: an update. Int J Radiat Oncol Biol Phys 2021;109:413-424",
+   "doi": "10.1016/j.ijrobp.2020.08.061"
+  }
+ ],
+ "sections": [
+  {
+   "id": "embrace_t",
+   "titre": "Col utérin en place : volumes de la tumeur (EMBRACE II)",
+   "locs": [
+    "col"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "GTV-T",
+     "Extension de la tumeur du col, dans et hors du col (IRM T2, examen clinique, TEP)."
+    ],
+    [
+     "CTV-T HR initial",
+     "GTV-T et reste du col non envahi."
+    ],
+    [
+     "CTV-T LR initial",
+     "CTV-T HR ; les deux paramètres en entier ; l'utérus en entier ; le vagin non envahi avec 20 mm sous le bord inférieur du CTV-T HR, le long de l'axe vaginal ; environ 5 mm en avant et en arrière vers vessie et rectum (parois non envahies exclues) ; paroi pelvienne, ligaments utéro-sacrés ou mésorectum envahis : 20 mm autour du CTV-T HR dans ces structures ; ganglions des paramètres possibles."
+    ],
+    [
+     "ITV-T LR (marge standard)",
+     "CTV-T LR + 10 mm antéro-postérieur, 10 mm supéro-inférieur, 5 mm latéral ; pas de marge vers le bas au vagin distal ; ni muscle ni os ; utérus haut envahi : + 5 mm autour du corps utérin."
+    ],
+    [
+     "GTV-N et CTV-N",
+     "Ganglion pathologique ; CTV-N = GTV-N, marge individuelle de 0 à 3 mm."
+    ],
+    [
+     "ITV45",
+     "ITV-T LR + CTV-E (pas d'ITV pour le CTV-E)."
+    ]
+   ],
+   "src": [
+    1
+   ]
+  },
+  {
+   "id": "embrace_n",
+   "titre": "Col utérin en place : aires ganglionnaires selon le risque (EMBRACE II)",
+   "locs": [
+    "col"
+   ],
+   "colonnes": [
+    "Groupe",
+    "Définition",
+    "Aires du CTV-E"
+   ],
+   "lignes": [
+    [
+     "Bas risque",
+     "Tumeur ≤ 4 cm et stade IA / IB1 / IIA1, N0, carcinome épidermoïde, sans envahissement utérin",
+     "« Petit bassin » : iliaques internes, iliaques externes, obturateurs, présacrés"
+    ],
+    [
+     "Risque intermédiaire",
+     "Ni bas ni haut risque",
+     "« Grand bassin » : petit bassin + iliaques communs (avec la bifurcation aortique) ; + inguinaux si vagin distal envahi ; + espace mésorectal si ganglions mésorectaux ou maladie localement avancée"
+    ],
+    [
+     "Haut risque",
+     "≥ 1 ganglion pathologique iliaque commun ou plus haut, ou ≥ 3 ganglions pathologiques",
+     "« Grand bassin + lombo-aortique » : limite haute au moins aux veines rénales (en général L2) et au moins 3 cm au-dessus du ganglion le plus haut"
+    ]
+   ],
+   "src": [
+    1
+   ],
+   "notes": [
+    "Aires = vaisseaux avec au moins 7 mm de tissu périvasculaire (clips ou lymphocèles compris) ; tout ganglion pathologique inclus en entier ; envahissement important de l'utérus ou du ligament large : discuter les ovaires."
+   ]
+  },
+  {
+   "id": "nrg_postop",
+   "titre": "Après chirurgie (endomètre, col) : CTV pelvien (NRG 2021)",
+   "locs": [
+    "endometre",
+    "col"
+   ],
+   "colonnes": [
+    "Volume",
+    "Définition"
+   ],
+   "lignes": [
+    [
+     "Lombo-aortique",
+     "Si atteinte prouvée ou suspicion forte. Haut : veine rénale gauche (col) ou 1–1,5 cm au-dessus des vaisseaux rénaux gauches (endomètre) ; bas : bifurcation aortique ; avant : 3–5 mm devant la veine cave, jusqu'à 7 mm devant l'aorte ; arrière : corps vertébral ; à droite 3–5 mm autour de la veine cave, à gauche 1–2 cm autour de l'aorte jusqu'au bord interne du psoas. Tracer sur un scanner sans injection."
+    ],
+    [
+     "Iliaques communs",
+     "De la bifurcation aortique à la bifurcation iliaque commune ; 7 mm autour des vaisseaux sans os ni muscle ; 1 cm en avant à partir du milieu des vaisseaux, au contact du psoas."
+    ],
+    [
+     "Présacrés",
+     "Pour tous les cancers du col opérés et les cancers de l'endomètre avec envahissement du stroma cervical. De la bifurcation iliaque interne / externe au premier niveau où apparaît le piriforme ; bande de 1 à 1,5 cm devant le sacrum."
+    ],
+    [
+     "Iliaques externes",
+     "De la bifurcation iliaque commune jusqu'à la sortie du bassin (ou l'artère circonflexe iliaque profonde) ; 7 mm autour des vaisseaux, jusqu'à 10 mm en avant."
+    ],
+    [
+     "Iliaques internes",
+     "De la bifurcation iliaque commune jusqu'à la sortie des vaisseaux du bassin ; 7 mm autour des vaisseaux."
+    ],
+    [
+     "Obturateurs",
+     "Bande de 15 à 18 mm en dedans de l'obturateur interne, entre vaisseaux iliaques externes et internes, jusqu'au trou obturé."
+    ],
+    [
+     "Vagin",
+     "3,5 à 4 cm proximaux du vagin et tissu paravaginal ou paramétrial visible ; en arrière jusqu'à la paroi rectale antérieure avec le tiers antérieur du mésorectum ; en avant, paroi postérieure de la vessie ; en dehors, bord interne du CTV obturateur ou diaphragme uro-génital ; urètre exclu en général."
+    ],
+    [
+     "ITV",
+     "Scanners vessie pleine et vide pour l'ITV, ou PTV plus large ; imagerie quotidienne recommandée."
+    ]
+   ],
+   "src": [
+    2
+   ]
+  }
+ ],
+ "sans_atlas": {
+  "vagin": "Pas d'atlas publié propre au cancer du vagin dans les sources du référentiel.",
+  "vulve": "Pas d'atlas de la vulve dans les sources du référentiel."
+ }
+}

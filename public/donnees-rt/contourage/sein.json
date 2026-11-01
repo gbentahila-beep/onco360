@@ -1,0 +1,112 @@
+{
+ "region": "sein",
+ "maj": "2026-11-01",
+ "sources": [
+  {
+   "n": 1,
+   "ref": "Offersen BV et al. ESTRO consensus guideline on target volume delineation for elective radiation therapy of early stage breast cancer. Radiother Oncol 2015;114:3-10 (version 1.1 : Radiother Oncol 2016)",
+   "doi": "10.1016/j.radonc.2014.11.030"
+  }
+ ],
+ "sections": [
+  {
+   "id": "estro",
+   "titre": "Volumes cibles du sein, de la paroi et des aires ganglionnaires (consensus ESTRO)",
+   "locs": [
+    "sein",
+    "sein_ccis"
+   ],
+   "colonnes": [
+    "Volume",
+    "Crânial",
+    "Caudal",
+    "Ventral",
+    "Dorsal",
+    "Médial",
+    "Latéral"
+   ],
+   "lignes": [
+    [
+     "Aisselle niveau 1 (CTVn_L1)",
+     "En dedans : 5 mm au-dessus de la veine axillaire ; en dehors : jusqu'à 1 cm sous le bord de la tête humérale, 5 mm autour de la veine axillaire",
+     "Niveau des côtes 4-5, selon les effets visibles de la biopsie du ganglion sentinelle",
+     "Grand et petit pectoraux",
+     "En haut, vaisseaux thoraco-dorsaux ; plus bas, ligne entre le bord antérieur du grand dorsal et les intercostaux",
+     "Niveau 2, niveau interpectoral et paroi thoracique",
+     "En haut, ligne entre grand pectoral et deltoïde ; plus bas, ligne entre grand pectoral et grand dorsal"
+    ],
+    [
+     "Aisselle niveau 2 (CTVn_L2)",
+     "Extrémité crâniale de l'artère axillaire (5 mm au-dessus de la veine axillaire)",
+     "Bord caudal du petit pectoral ; le cas échéant, sommet du curage",
+     "Petit pectoral",
+     "Jusqu'à 5 mm en arrière de la veine axillaire, ou côtes et intercostaux",
+     "Bord médial du petit pectoral",
+     "Bord latéral du petit pectoral"
+    ],
+    [
+     "Aisselle niveau 3 (CTVn_L3)",
+     "Extrémité crâniale de l'artère sous-clavière (5 mm au-dessus de la veine sous-clavière)",
+     "5 mm sous la veine sous-clavière ; le cas échéant, sommet du curage",
+     "Grand pectoral",
+     "Jusqu'à 5 mm en arrière de la veine sous-clavière, ou côtes et intercostaux",
+     "Jonction des veines sous-clavière et jugulaire interne (puis niveau 4)",
+     "Bord médial du petit pectoral"
+    ],
+    [
+     "Niveau 4 (CTVn_L4, sus-claviculaire)",
+     "Extrémité crâniale de l'artère sous-clavière (5 mm au-dessus de la veine sous-clavière)",
+     "Inclut la veine sous-clavière avec 5 mm, rejoint le bord crânial de la chaîne mammaire interne",
+     "Sterno-cléido-mastoïdien, bord dorsal de la clavicule",
+     "Plèvre",
+     "Inclut la veine jugulaire sans marge ; exclut la thyroïde et l'artère carotide commune",
+     "Inclut les scalènes antérieurs et rejoint le bord médial du niveau 3"
+    ],
+    [
+     "Chaîne mammaire interne (CTVn_IMN)",
+     "Limite caudale du niveau 4",
+     "Bord crânial de la 3e côte (4e dans certains cas)",
+     "Limite ventrale de la zone vasculaire",
+     "Plèvre",
+     "5 mm autour de la veine mammaire interne (de l'artère en haut, jusqu'au 1er espace intercostal inclus)",
+     "5 mm autour de la veine mammaire interne (idem)"
+    ],
+    [
+     "Ganglions interpectoraux (Rotter)",
+     "Extrémité crâniale de l'artère axillaire (5 mm au-dessus de la veine axillaire)",
+     "Limite caudale du niveau 2",
+     "Grand pectoral",
+     "Petit pectoral",
+     "Bord médial du petit pectoral",
+     "Bord latéral du petit pectoral"
+    ],
+    [
+     "Sein restant (CTVp_breast)",
+     "Bord supérieur du tissu mammaire palpable ou visible ; au plus haut, bord inférieur de l'articulation sterno-claviculaire",
+     "Dernière coupe où le sein est visible",
+     "5 mm sous la peau",
+     "Grand pectoral, ou côtes et intercostaux là où il n'y a pas de muscle",
+     "En dehors des vaisseaux perforants mammaires internes ; au plus, bord du sternum",
+     "Pli mammaire latéral ; en avant de l'artère thoracique latérale"
+    ],
+    [
+     "Paroi thoracique (CTVp_thoracic wall)",
+     "Selon les repères palpables ou visibles ; sein controlatéral si utile ; au plus haut, bord inférieur de l'articulation sterno-claviculaire",
+     "Selon les repères palpables ou visibles ; sein controlatéral si utile",
+     "5 mm sous la peau",
+     "Grand pectoral, ou côtes et intercostaux là où il n'y a pas de muscle",
+     "Selon les repères palpables ou visibles ; sein controlatéral si utile",
+     "Selon les repères palpables ou visibles ; sein controlatéral si utile ; en général en avant de la ligne axillaire moyenne"
+    ]
+   ],
+   "src": [
+    1
+   ],
+   "notes": [
+    "ALND = curage axillaire.",
+    "Chaîne mammaire interne : la veine est toujours en dedans de l'artère."
+   ]
+  }
+ ],
+ "sans_atlas": {}
+}
