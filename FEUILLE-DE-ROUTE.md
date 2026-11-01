@@ -1136,6 +1136,20 @@ Traitement en cours ; Tâches : Tâche, Patient, Assignée à, Créée par, Éch
     ni bleu marine, Arrêter / Supprimer la ligne en texte rouge (C19).
   Refusé le 01/11 : avertissement dimanche / férié à la création de la ligne (C5 : on traite parfois le week-end ou un férié) ; titre de la ligne en
   étiquettes (C16) ; aperçu de la fiche chimio (C20 : il existe déjà) ; taille et SC à la création (C21 : poids et SC déjà affichés).
+- [ ] **UX12 – Parcours de la radiothérapie (tour du 01/11/2026, réponses de Dr Bentahila)** :
+  - défauts : « Lieu de la radiothérapie » qui chevauche « Technique » (R1, avec UX1) ; RT clôturée avant la fin = barre « 25 / 25 (100 %) » et CR
+    « Nombre de séances : 25 » → compter jusqu'à la date de fin réelle (R2) ; CR de fin : les « à compléter par le médecin » réellement surlignés
+    (zones `or-ac`) et « Médecin référent » rempli avec le médecin du patient ; « Localisation » = diagnostic, voulu, on n'y touche pas (R3) ; « — »
+    orphelin sous les boutons de complément (R5) ;
+  - parcours : notifications du haut (nouvelle tâche, tâche terminée) qui partent seules après quelques secondes, et aucune quand la personne vient
+    elle-même de valider (R14) ; lien « Référentiel › » du ⋯ en texte normal, pas en bleu (R13, gardé dans le ⋯) ;
+  - mots : « Nouvelle prescription radiothérapie » → « + Nouvelle radiothérapie » (R15) ; « Terminé » / « Terminer la radiothérapie » / « Clôturer
+    le traitement » → « Clôturer » partout (R16, le bouton reste à sa place et dans son style) ;
+  - présentation : prescription = volumes et dose d'abord, acte facturé ensuite ; liste des actes par ordre alphabétique (R18).
+  **Ne pas modifier le pli confidentiel** (conventions, 01/11/2026). Refusé le 01/11 : pli confidentiel refait (R4) ; fenêtre « et maintenant ? »
+  après la prescription (R7) ; « Terminé » transformé (R10) ; ronds des étapes cliquables (R11) ; dose rappelée dans la fenêtre de dosimétrie
+  (R12) ; « Référentiel » sorti du ⋯ (R13) ; « Nombre d'actes facturés » (R17). Sans réponse : R6 (lignes de volumes alignées), R8 (fenêtre après
+  « Clôturer »), R9 (bouton « Documents ▾ » visible).
 Avant chaque lot : maquette ou captures avant / après montrées à Dr Bentahila ; un lot = une session, test sur ordinateur et à 390 px.
 
 ## À placer (nouveau plan)
