@@ -50,7 +50,8 @@
     "Après curage d'une rechute ganglionnaire palpable, à haut risque de nouvelle rechute dans l'aire",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [],

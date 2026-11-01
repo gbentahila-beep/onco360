@@ -1238,6 +1238,221 @@
      "note": "dose cumulée des deux irradiations"
     }
    ]
+  },
+  {
+   "id": "ct-sar-rp",
+   "titre": "Sarcome rétropéritonéal, radiothérapie préopératoire",
+   "fractionnement": "50,4 Gy / 28 fx",
+   "source": "Consensus international, sarcome rétropéritonéal (Baldini 2015), tableau 4",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-foie",
+     "indicateur": "Dmean",
+     "limitant": "< 26 Gy",
+     "note": "foie restant après la chirurgie prévue"
+    },
+    {
+     "oar_id": "oar-estomac",
+     "indicateur": "V45Gy",
+     "limitant": "≤ 100 %"
+    },
+    {
+     "oar_id": "oar-estomac",
+     "indicateur": "V50Gy",
+     "limitant": "< 50 %"
+    },
+    {
+     "oar_id": "oar-estomac",
+     "indicateur": "Dmax",
+     "limitant": "≤ 56 Gy"
+    },
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "V45Gy",
+     "limitant": "≤ 100 %"
+    },
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "V50Gy",
+     "limitant": "< 50 %"
+    },
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "Dmax",
+     "limitant": "≤ 56 Gy"
+    },
+    {
+     "oar_id": "oar-reins",
+     "indicateur": "Dmean",
+     "limitant": "< 15 Gy",
+     "note": "si les deux reins restent"
+    },
+    {
+     "oar_id": "oar-reins",
+     "indicateur": "V18Gy",
+     "limitant": "< 50 %",
+     "note": "si les deux reins restent ; < 15 % du rein restant si un rein est retiré"
+    },
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "≤ 50 Gy"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "V15Gy",
+     "limitant": "< 830 cm³",
+     "note": "cavité péritonéale"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "V45Gy",
+     "limitant": "≤ 195 cm³",
+     "note": "cavité péritonéale ; anses : V15 < 120 cm³, V55 < 20 cm³"
+    },
+    {
+     "oar_id": "oar-colon",
+     "indicateur": "V60Gy",
+     "limitant": "< 20 cm³",
+     "note": "anses individuelles"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "V50Gy",
+     "limitant": "< 50 %"
+    },
+    {
+     "oar_id": "oar-testicule-controlateral",
+     "indicateur": "V3Gy",
+     "limitant": "< 50 %",
+     "note": "fertilité ; Dmax < 18 Gy ; aussi bas que possible"
+    },
+    {
+     "oar_id": "oar-ovaire-d",
+     "indicateur": "Dmax",
+     "limitant": "< 3 Gy",
+     "note": "fertilité"
+    },
+    {
+     "oar_id": "oar-ovaire-g",
+     "indicateur": "Dmax",
+     "limitant": "< 3 Gy",
+     "note": "fertilité"
+    },
+    {
+     "oar_id": "oar-vessie",
+     "indicateur": "V50Gy",
+     "limitant": "≤ 100 %",
+     "note": "si nécessaire"
+    },
+    {
+     "oar_id": "oar-vulve",
+     "indicateur": "V30Gy",
+     "limitant": "< 50 %",
+     "note": "périnée (anus et vulve compris), si possible"
+    },
+    {
+     "oar_id": "oar-tete-femorale-d",
+     "indicateur": "Dmax",
+     "limitant": "< 50 Gy",
+     "note": "si possible ; V40 < 64 %, Dmean < 37 Gy"
+    },
+    {
+     "oar_id": "oar-tete-femorale-g",
+     "indicateur": "Dmax",
+     "limitant": "< 50 Gy",
+     "note": "si possible ; V40 < 64 %, Dmean < 37 Gy"
+    }
+   ]
+  },
+  {
+   "id": "ct-sar-chordome",
+   "titre": "Chordome, fractionnement classique (photons ou protons)",
+   "fractionnement": "1,8 à 2 Gy/fx",
+   "source": "Consensus mondial sur le chordome (Stacchiotti 2015), tableau des contraintes",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-chiasma",
+     "indicateur": "D2%",
+     "limitant": "< 60 GyE"
+    },
+    {
+     "oar_id": "oar-nerf-optique-d",
+     "indicateur": "D2%",
+     "limitant": "< 60 GyE"
+    },
+    {
+     "oar_id": "oar-nerf-optique-g",
+     "indicateur": "D2%",
+     "limitant": "< 60 GyE"
+    },
+    {
+     "oar_id": "oar-tronc-cerebral",
+     "indicateur": "Dmax",
+     "limitant": "< 63 GyE",
+     "note": "surface ; centre < 50 GyE"
+    },
+    {
+     "oar_id": "oar-lobe-temporal-d",
+     "indicateur": "D2cm³",
+     "limitant": "< 71 GyE"
+    },
+    {
+     "oar_id": "oar-lobe-temporal-g",
+     "indicateur": "D2cm³",
+     "limitant": "< 71 GyE"
+    },
+    {
+     "oar_id": "oar-queue-cheval",
+     "indicateur": "Dmax",
+     "limitant": "< 70,2 GyE",
+     "note": "avec les racines sacrées"
+    },
+    {
+     "oar_id": "oar-plexus-sacre",
+     "indicateur": "Dmax",
+     "limitant": "< 70,2 GyE"
+    },
+    {
+     "oar_id": "oar-nerf-sciatique",
+     "indicateur": "Dmax",
+     "limitant": "< 70,2 GyE"
+    },
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "67 GyE",
+     "note": "surface, rachis cervical ; centre 55 GyE ; thoracique ou lombaire : surface 63, centre 54 GyE"
+    }
+   ]
+  },
+  {
+   "id": "ct-sar-delaney",
+   "titre": "Chordome et chondrosarcome du rachis, 77,4 Gy RBE (DeLaney)",
+   "fractionnement": "77,4 Gy RBE / 43 fx",
+   "source": "Massachusetts General Hospital (DeLaney 2009), méthodes",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "≤ 63 Gy RBE",
+     "note": "surface, sur 5 cm au plus ; centre ≤ 54 Gy RBE"
+    },
+    {
+     "oar_id": "oar-queue-cheval",
+     "indicateur": "Dmax",
+     "limitant": "≤ 70,2 Gy RBE",
+     "note": "77,4 Gy RBE au contact de la tumeur"
+    },
+    {
+     "oar_id": "oar-grele",
+     "indicateur": "Dmax",
+     "limitant": "≤ 50,4 Gy RBE"
+    }
+   ]
   }
  ],
  "schemas": {
@@ -1511,6 +1726,21 @@
    "contraintes_ids": [
     "ct-pal-lee2007"
    ]
+  },
+  "srp-504-28": {
+   "contraintes_ids": [
+    "ct-sar-rp"
+   ]
+  },
+  "ch-service-704-56": {
+   "contraintes_ids": [
+    "ct-sar-chordome"
+   ]
+  },
+  "ch-delaney-774": {
+   "contraintes_ids": [
+    "ct-sar-delaney"
+   ]
   }
  },
  "mentions": {
@@ -1560,6 +1790,13 @@
   "metastases_osseuses",
   "sbrt_os",
   "surrenale",
-  "reirradiation"
+  "reirradiation",
+  "sarcome_membres",
+  "sarcome_retroperitoine",
+  "chordome",
+  "peau_carcinome",
+  "merkel",
+  "melanome",
+  "melanome_uveal"
  ]
 }

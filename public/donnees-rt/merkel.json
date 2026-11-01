@@ -77,7 +77,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "mk-gg-50",
@@ -112,7 +113,8 @@
     "Aires ganglionnaires",
     "Normofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "mk-macro-56",
@@ -146,7 +148,8 @@
     "Tumeur macroscopique ou inopérable",
     "Normofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   }
  ],
  "simulations": [

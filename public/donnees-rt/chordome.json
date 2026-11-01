@@ -49,7 +49,7 @@
    "systemique": "Aucune",
    "volumes_id": "vol-ch-service",
    "contraintes_ids": [
-    "ct-chordome-delaney"
+    "ct-sar-chordome"
    ],
    "points_attention": [
     "Récidive locale 11 % pour les tumeurs primitives contre 50 % pour les récidives (DeLaney 2014) : traiter dès la première prise en charge",
@@ -107,7 +107,7 @@
    "systemique": "Aucune",
    "volumes_id": "vol-ch-delaney",
    "contraintes_ids": [
-    "ct-chordome-delaney"
+    "ct-sar-delaney"
    ],
    "points_attention": [
     "Récidive locale 11 % pour les tumeurs primitives contre 50 % pour les récidives (DeLaney 2014) : traiter dès la première prise en charge",

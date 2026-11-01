@@ -63,7 +63,8 @@
     "Sarcome localisé des membres ou du tronc : RT pré-opératoire",
     "Normofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "sm-preop-4275-15",
@@ -103,7 +104,8 @@
     "Sarcome localisé des membres ou du tronc : RT pré-opératoire",
     "Hypofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "sm-postop-r0",
@@ -148,7 +150,8 @@
     "Sarcome opéré sans RT pré-opératoire : RT post-opératoire",
     "Normofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "sm-postop-r1",
@@ -200,7 +203,8 @@
     "Sarcome opéré sans RT pré-opératoire : RT post-opératoire",
     "Normofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "sm-postop-r2",
@@ -244,7 +248,8 @@
     "Sarcome opéré sans RT pré-opératoire : RT post-opératoire",
     "Normofractionné"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
   },
   {
    "id": "sm-curie-ldr",
@@ -278,7 +283,8 @@
     "Sarcome opéré sans RT pré-opératoire : RT post-opératoire",
     "Curiethérapie"
    ],
-   "contraintes_ids": []
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [

@@ -63,7 +63,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   },
   {
    "id": "mu-63",
@@ -106,7 +107,8 @@
      "limitant": "",
      "note": ""
     }
-   ]
+   ],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [],
