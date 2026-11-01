@@ -27,7 +27,7 @@ async def main():
         t = await ev(TXT)
         ok(await ev("!!document.querySelector('#rtrListe > h3.rtr-tous')") and 'Sommaire' not in t and 'Favoris' not in t and 'Consultés récemment' not in t, 'premier usage : tous les schémas, sans sommaire (ni Favoris ni Récents)')
         r0 = [await ev(NB), len(await ev(LIGNES)), await ev("document.querySelectorAll('.rtr-it').length"), await ev("[...document.querySelectorAll('#rtrListe .pages button')].map(b => b.textContent)")]
-        ok(await ev(NB) == 314 and len(await ev(LIGNES)) == 12 and await ev("[...document.querySelectorAll('#rtrListe .pages button')].map(b => b.textContent).includes('27')"), 'liste complète : 314 schémas en cartes, 12 par page (27 pages)', r0)
+        ok(await ev(NB) == 315 and len(await ev(LIGNES)) == 12 and await ev("[...document.querySelectorAll('#rtrListe .pages button')].map(b => b.textContent).includes('27')"), 'liste complète : 315 schémas en cartes, 12 par page (27 pages)', r0)
         ok(await ev("document.activeElement && document.activeElement.id") == 'rtrQ', 'ordinateur : le curseur est dans la recherche du module')
         ok(not await ev(DEBORDE), '1 440 px : accueil sans débordement')
         # Recherche, surlignage, clavier
@@ -68,7 +68,7 @@ async def main():
         ok(all(x.endswith(')') for x in await ev("[...document.querySelectorAll('#rtr_loc option')].slice(1).map(o => o.textContent)")) and await ev("document.querySelectorAll('#rtr_loc option').length") == 6, 'Région Uro : 5 localisations proposées, avec leur nombre de schémas')
         ok(await ev("[...document.querySelectorAll('#rtr_sit option')].slice(1).map(o => o.value).every(v => v.startsWith('ctx:'))"), 'Situation sans localisation : les contextes (En place, Rattrapage…)')
         await menu(pg, 'loc', 'prostate')
-        ok(await ev("document.querySelectorAll('#rtr_sit optgroup').length") >= 3 and await ev(NB) == 30, 'Prostate : 30 schémas ; situations groupées par contexte')
+        ok(await ev("document.querySelectorAll('#rtr_sit optgroup').length") >= 3 and await ev(NB) == 31, 'Prostate : 31 schémas ; situations groupées par contexte')
         await menu(pg, 'sit', 'pro-ep-fav')
         ok(await ev("!!document.querySelector('.rtr-crit')") and 'Faible' in await ev("document.querySelector('.rtr-crit').innerText"), 'situation choisie : ses critères au-dessus de la liste')
         await menu(pg, 'frac', 'Hypofractionné')
@@ -79,14 +79,14 @@ async def main():
         ok(await ev("[document.getElementById('rtr_loc').value, document.getElementById('rtr_sit').value]") == ['', ''], 'changer de région vide Localisation et Situation, plus valables')
         await pg.click('.rtr-mz .bt.gris'); await pg.wait_for_timeout(300)
         t = await ev(TXT)
-        ok('Tous les schémas' in t and t.index('Consultés récemment') < t.index('Favoris') < t.index('Tous les schémas') and await ev(NB) == 314, '« Effacer » : retour à la liste générale, Consultés récemment en tête')
+        ok('Tous les schémas' in t and t.index('Consultés récemment') < t.index('Favoris') < t.index('Tous les schémas') and await ev(NB) == 315, '« Effacer » : retour à la liste générale, Consultés récemment en tête')
         await menu(pg, 'frac', 'Curiethérapie')
         ok(await ev("document.querySelectorAll('.rtr-it').length") > 3, 'Fractionnement « Curiethérapie » : un intertitre par localisation')
         # Aucun résultat
         await pg.click('.rtr-mz .bt.gris'); await pg.fill('#rtrQ', 'prostate zzz'); await pg.wait_for_timeout(300)
         ok('Aucun schéma ne correspond' in await ev(TXT) and 'Chercher sans « zzz »' in await ev(TXT), 'aucun résultat : « Chercher sans « zzz » »')
         await pg.click('button:has-text("Chercher sans")'); await pg.wait_for_timeout(300)
-        ok(await ev("document.getElementById('rtrQ').value") == 'prostate' and await ev(NB) == 30, '« Chercher sans » : la recherche reprend sans le mot')
+        ok(await ev("document.getElementById('rtrQ').value") == 'prostate' and await ev(NB) == 31, '« Chercher sans » : la recherche reprend sans le mot')
         # Fil d'Ariane
         await pg.click('#rtrListe .rtr-l >> nth=0'); await pg.wait_for_timeout(1200)
         await pg.click('.rtr-ar a >> nth=1'); await pg.wait_for_timeout(800)
@@ -123,7 +123,7 @@ async def main():
         pg = await ouvrir(b, S3); await pg.add_init_script("window.__uid='UIDSECV'"); ev = pg.evaluate
         await pg.goto(f'http://localhost:{PORT}/v2.html#radiotherapie'); await pg.wait_for_timeout(2500)
         await pg.fill('#rtrQ', 'prostate'); await pg.wait_for_timeout(300)
-        ok(await ev(NB) == 30 and 'Modifié' in await ev(TXT), 'secrétaire « voir » : liste et version du cabinet lisibles')
+        ok(await ev(NB) == 31 and 'Modifié' in await ev(TXT), 'secrétaire « voir » : liste et version du cabinet lisibles')
         ok(not pg.errs, 'secrétaire : aucune erreur JavaScript', pg.errs[:2]); await pg.close()
         await b.close()
     print(f'\n{ok_n} réussis, {ko_n} échoués')

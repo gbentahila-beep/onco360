@@ -21,7 +21,7 @@ async def main():
         avant = await ev(f"JSON.stringify(window.__fs['{E}patients/{PID}'])")
         ok(await ev("!!document.querySelector('a.rtr-lien[href^=\"#radiotherapie/diag/\"]')"), 'onglet Radiothérapie du dossier : lien « Référentiel › »')
         await pg.evaluate("document.querySelector('#op-rt .mpts > button').click()"); await pg.wait_for_timeout(200); await pg.click('#ptsMenuF a.rtr-lien[href^="#radiotherapie/diag/"]'); await pg.wait_for_timeout(2500)
-        ok(await ev("location.hash") == '#radiotherapie' and await ev("[document.getElementById('rtr_reg').value, document.getElementById('rtr_loc').value]") == ['uro', 'prostate'] and await ev("parseInt(document.querySelector('#rtrListe .rtr-nb').textContent)") == 30, 'le référentiel s\'ouvre filtré sur la localisation du dossier (Prostate, 30 schémas)')
+        ok(await ev("location.hash") == '#radiotherapie' and await ev("[document.getElementById('rtr_reg').value, document.getElementById('rtr_loc').value]") == ['uro', 'prostate'] and await ev("parseInt(document.querySelector('#rtrListe .rtr-nb').textContent)") == 31, 'le référentiel s\'ouvre filtré sur la localisation du dossier (Prostate, 31 schémas)')
         await pg.go_back(); await pg.wait_for_timeout(2500)
         ok((await ev("location.hash")).startswith('#dossier/' + PID), 'Retour : le dossier', await ev("location.hash"))
         ok(await ev(f"JSON.stringify(window.__fs['{E}patients/{PID}'])") == avant, 'le module n\'a rien écrit dans le dossier')
