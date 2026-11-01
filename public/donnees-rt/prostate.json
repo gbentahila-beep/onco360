@@ -4,7 +4,7 @@
  "region_id": "uro",
  "nom": "Prostate",
  "ordre": 1,
- "date_maj": "2026-10-22",
+ "date_maj": "2026-11-01",
  "situations": [
   {
    "id": "pro-ep-fav",
@@ -77,6 +77,14 @@
    "contexte": "metastatique",
    "criteres": "Cancer métastatique hormonosensible de novo, faible volume métastatique, sous hormonothérapie",
    "ordre": 9
+  },
+  {
+   "id": "pro-oligo",
+   "localisation_id": "prostate",
+   "titre": "Récidive oligométastatique hormonosensible (1 à 3 métastases) : stéréotaxie",
+   "contexte": "oligometastatique",
+   "ordre": 10,
+   "criteres": "1 à 3 métastases (os, ganglions, viscères) d'un cancer de la prostate hormonosensible ; SBRT de toutes les lésions (ORIOLE) ; avec hormonothérapie dans EXTEND"
   }
  ],
  "schemas": [
@@ -1638,6 +1646,120 @@
     }
    ],
    "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+  },
+  {
+   "id": "pro-oligo-os-24",
+   "situation_id": "pro-oligo",
+   "titre": "Métastase osseuse : 24 Gy / 1 fx",
+   "type": "sbrt",
+   "preuve": "pratique_institutionnelle",
+   "essai_ids": [
+    "oriole-protocole",
+    "extend-protocole"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 24,
+     "fractions": 1,
+     "dose_fx_Gy": 24.0,
+     "mode": "seul",
+     "rythme": "1 fx",
+     "note": "16 à 24 Gy / 1 fx ; ou 27–36 Gy / 3 fx (EXTEND)"
+    }
+   ],
+   "technique": "SBRT guidée par l'image",
+   "systemique": "Aucune",
+   "simulation_id": "sim-pro-oligo",
+   "volumes_id": "vol-pro-oligo",
+   "points_attention": [
+    "5 fractions si l'intestin grêle est proche (ORIOLE)"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Uro",
+    "Prostate",
+    "Récidive oligométastatique hormonosensible (1 à 3 métastases) : stéréotaxie",
+    "Stéréotaxie"
+   ],
+   "contraintes_ids": [
+    "ct-extend-1fx"
+   ]
+  },
+  {
+   "id": "pro-oligo-gg-30",
+   "situation_id": "pro-oligo",
+   "titre": "Métastase ganglionnaire : 30 Gy / 3 fx",
+   "type": "sbrt",
+   "preuve": "pratique_institutionnelle",
+   "essai_ids": [
+    "extend-protocole"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 30,
+     "fractions": 3,
+     "dose_fx_Gy": 10.0,
+     "mode": "seul",
+     "rythme": "1 fx tous les 2 jours",
+     "note": "30 à 36 Gy / 3 fx un jour sur deux ; ou 30–45 Gy / 5–6 fx"
+    }
+   ],
+   "technique": "SBRT guidée par l'image",
+   "systemique": "Hormonothérapie (bras prostate d'EXTEND)",
+   "simulation_id": "sim-pro-oligo",
+   "volumes_id": "vol-pro-oligo",
+   "points_attention": [],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Uro",
+    "Prostate",
+    "Récidive oligométastatique hormonosensible (1 à 3 métastases) : stéréotaxie",
+    "Stéréotaxie"
+   ],
+   "contraintes_ids": [
+    "ct-extend-3fx"
+   ]
+  },
+  {
+   "id": "pro-oligo-visc-50",
+   "situation_id": "pro-oligo",
+   "titre": "Métastase pulmonaire ou hépatique : 50 Gy / 5 fx",
+   "type": "sbrt",
+   "preuve": "pratique_institutionnelle",
+   "essai_ids": [
+    "oriole-protocole",
+    "extend-protocole"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 50,
+     "fractions": 5,
+     "dose_fx_Gy": 10.0,
+     "mode": "seul",
+     "rythme": "1 fx tous les 2 jours",
+     "note": "50 à 60 Gy / 5 fx (ORIOLE) ; 50 Gy / 4 fx en périphérie (EXTEND)"
+    }
+   ],
+   "technique": "SBRT guidée par l'image",
+   "systemique": "Aucune",
+   "simulation_id": "sim-pro-oligo",
+   "volumes_id": "vol-pro-oligo",
+   "points_attention": [
+    "5 fractions si lésion ≥ 3 cm ou proche du médiastin (ORIOLE)"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Uro",
+    "Prostate",
+    "Récidive oligométastatique hormonosensible (1 à 3 métastases) : stéréotaxie",
+    "Stéréotaxie"
+   ],
+   "contraintes_ids": [
+    "ct-extend-5fx"
+   ]
   }
  ],
  "simulations": [
@@ -1680,6 +1802,12 @@
    "position": "Selon technique d'implantation (bloc opératoire)",
    "scanner": "Planification par échographie endorectale ; LDR : scanner de dosimétrie post-implant (coupes ≤ 3 mm)",
    "imagerie": "IRM utile pour le CTV"
+  },
+  {
+   "id": "sim-pro-oligo",
+   "position": "Décubitus dorsal",
+   "preparation": "Contention personnalisée (Alpha Cradle) ; TDM 4D si lésion mobile",
+   "scanner": "Scanner, ± IRM ; TEP au PSMA si possible"
   }
  ],
  "volumes": [
@@ -2049,6 +2177,27 @@
     "oar-foie": "si lombo-aortique",
     "oar-canal-medullaire": "si lombo-aortique"
    }
+  },
+  {
+   "id": "vol-pro-oligo",
+   "cibles": [
+    {
+     "nom": "GTV = CTV",
+     "type": "CTV",
+     "definition": "Métastase visible au scanner, à l'IRM ou à la TEP, CTV = GTV ; PTV = CTV + 5 mm (plus si mouvement respiratoire > 5 mm)",
+     "quand": "Toujours"
+    }
+   ],
+   "atlas": [],
+   "oar_ids": [
+    "oar-moelle",
+    "oar-poumons",
+    "oar-coeur",
+    "oar-oesophage",
+    "oar-duodenum",
+    "oar-rectum",
+    "oar-peau"
+   ]
   }
  ],
  "curie_indications": [

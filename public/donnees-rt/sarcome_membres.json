@@ -4,7 +4,7 @@
  "region_id": "sarcome",
  "nom": "Membres et tronc",
  "ordre": 42,
- "date_maj": "2026-10-25",
+ "date_maj": "2026-11-01",
  "situations": [
   {
    "id": "sm-preop",
@@ -21,6 +21,22 @@
    "contexte": "post_op",
    "criteres": "Sarcomes profonds de plus de 5 cm, grade 2–3, chirurgie R1 ou R2",
    "ordre": 2
+  },
+  {
+   "id": "sm-dfsp",
+   "localisation_id": "sarcome_membres",
+   "titre": "Dermatofibrosarcome protubérant",
+   "contexte": "post_op",
+   "ordre": 3,
+   "criteres": "RT si marges positives ou proches, tumeur volumineuse ou récidivante, ou si une exérèse large serait mutilante (Castle 2013)"
+  },
+  {
+   "id": "sm-osteo",
+   "localisation_id": "sarcome_membres",
+   "titre": "Ostéosarcome non opérable ou à marges insuffisantes",
+   "contexte": "post_op",
+   "ordre": 4,
+   "criteres": "Ostéosarcome inopérable (rachis, bassin) ou réséqué avec marges positives ou proches ; efficacité meilleure sur un reliquat microscopique ou minime (DeLaney 2005)"
   }
  ],
  "schemas": [
@@ -285,6 +301,126 @@
    ],
    "contraintes_ids": [],
    "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+  },
+  {
+   "id": "sm-dfsp-60",
+   "situation_id": "sm-dfsp",
+   "titre": "Post-opératoire 60 Gy / 30 fx",
+   "type": "rte_normo",
+   "preuve": "pratique_institutionnelle",
+   "essai_ids": [
+    "castle2013-dfsp"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 60,
+     "fractions": 30,
+     "dose_fx_Gy": 2.0,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "60 à 66 Gy ; 66 Gy si marges positives"
+    }
+   ],
+   "technique": "Électrons ou photons, bolus",
+   "systemique": "Aucune",
+   "simulation_id": "sim-sarcome-service",
+   "volumes_id": "vol-sm-dfsp",
+   "points_attention": [
+    "Contrôle local 98 % à 5 ans (Castle 2013)"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Sarcomes",
+    "Membres et tronc",
+    "Dermatofibrosarcome protubérant",
+    "Normofractionné"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+  },
+  {
+   "id": "sm-dfsp-pre-50",
+   "situation_id": "sm-dfsp",
+   "titre": "Pré-opératoire 50 Gy / 25 fx",
+   "type": "rte_normo",
+   "preuve": "pratique_institutionnelle",
+   "essai_ids": [
+    "castle2013-dfsp"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 50,
+     "fractions": 25,
+     "dose_fx_Gy": 2.0,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "50 à 50,4 Gy"
+    }
+   ],
+   "technique": "Électrons ou photons, bolus",
+   "systemique": "Aucune",
+   "simulation_id": "sim-sarcome-service",
+   "volumes_id": "vol-sm-dfsp",
+   "points_attention": [
+    "Pré-opératoire si la tumeur est volumineuse ou l'exérèse large difficile"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Sarcomes",
+    "Membres et tronc",
+    "Dermatofibrosarcome protubérant",
+    "Normofractionné"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+  },
+  {
+   "id": "sm-osteo-66",
+   "situation_id": "sm-osteo",
+   "titre": "CTV 50 Gy puis complément jusqu'à 66 Gy",
+   "type": "rte_normo",
+   "preuve": "pratique_institutionnelle",
+   "essai_ids": [
+    "delaney2005-osteo"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV CTV",
+     "dose_Gy": 50,
+     "fractions": 25,
+     "dose_fx_Gy": 2.0,
+     "mode": "sequentiel",
+     "rythme": "5 fx/sem",
+     "note": "45 à 50 Gy"
+    },
+    {
+     "volume": "PTV GTV",
+     "dose_Gy": 16,
+     "fractions": 8,
+     "dose_fx_Gy": 2.0,
+     "mode": "sequentiel",
+     "rythme": "5 fx/sem",
+     "note": "Complément, cumul 66 Gy (dose médiane) ; viser plus de 55 Gy"
+    }
+   ],
+   "technique": "RT conformationnelle ou protons",
+   "systemique": "Chimiothérapie de l'ostéosarcome selon le protocole",
+   "simulation_id": "sim-sarcome-service",
+   "volumes_id": "vol-sm-osteo",
+   "points_attention": [
+    "Au rachis et au bassin : 20 Gy pré-opératoires possibles contre l'ensemencement"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Sarcomes",
+    "Membres et tronc",
+    "Ostéosarcome non opérable ou à marges insuffisantes",
+    "Normofractionné"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [
@@ -392,6 +528,43 @@
    ],
    "atlas": [],
    "oar_ids": [
+    "oar-peau"
+   ]
+  },
+  {
+   "id": "vol-sm-dfsp",
+   "cibles": [
+    {
+     "nom": "CTV",
+     "type": "CTV",
+     "definition": "Lit opératoire (ou tumeur en pré-opératoire) avec une marge large dans le plan cutané",
+     "quand": "Toujours"
+    }
+   ],
+   "atlas": [],
+   "oar_ids": [
+    "oar-peau"
+   ]
+  },
+  {
+   "id": "vol-sm-osteo",
+   "cibles": [
+    {
+     "nom": "CTV",
+     "type": "CTV",
+     "definition": "Tumeur ou lit opératoire avec marge",
+     "quand": "Toujours"
+    },
+    {
+     "nom": "GTV",
+     "type": "GTV",
+     "definition": "Tumeur ou reliquat macroscopique",
+     "quand": "Complément"
+    }
+   ],
+   "atlas": [],
+   "oar_ids": [
+    "oar-moelle",
     "oar-peau"
    ]
   }

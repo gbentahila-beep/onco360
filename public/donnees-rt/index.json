@@ -63,8 +63,8 @@
    "nom": "Prostate",
    "region_id": "uro",
    "ordre": 1,
-   "date_maj": "2026-10-22",
-   "nb_schemas": 27,
+   "date_maj": "2026-11-01",
+   "nb_schemas": 30,
    "curietherapie": true
   },
   {
@@ -261,8 +261,8 @@
    "nom": "Poumon",
    "region_id": "thorax",
    "ordre": 23,
-   "date_maj": "2026-10-23",
-   "nb_schemas": 18,
+   "date_maj": "2026-11-01",
+   "nb_schemas": 19,
    "curietherapie": false
   },
   {
@@ -432,8 +432,8 @@
    "nom": "Membres et tronc",
    "region_id": "sarcome",
    "ordre": 42,
-   "date_maj": "2026-10-25",
-   "nb_schemas": 6,
+   "date_maj": "2026-11-01",
+   "nb_schemas": 9,
    "curietherapie": true
   },
   {
@@ -497,6 +497,15 @@
    "ordre": 49,
    "date_maj": "2026-11-01",
    "nb_schemas": 4,
+   "curietherapie": false
+  },
+  {
+   "id": "orl_inconnu",
+   "nom": "Adénopathie cervicale sans primitif",
+   "region_id": "orl",
+   "ordre": 50,
+   "date_maj": "2026-11-01",
+   "nb_schemas": 2,
    "curietherapie": false
   }
  ],
@@ -1532,6 +1541,54 @@
    "contexte": "en_place",
    "criteres": "Douleur malgré le traitement médical ; pas d'efficacité démontrée contre RT simulée dans l'arthrose de la main (Minten 2018)",
    "ordre": 4
+  },
+  {
+   "id": "pou-pancoast",
+   "localisation_id": "poumon",
+   "titre": "Tumeur du sillon supérieur (Pancoast) T3–T4 N0–N1 résécable",
+   "contexte": "en_place",
+   "criteres": "CBNPC du sillon supérieur T3–T4 N0–N1 : radiochimiothérapie d'induction puis résection (SWOG 9416)",
+   "ordre": 7
+  },
+  {
+   "id": "sm-dfsp",
+   "localisation_id": "sarcome_membres",
+   "titre": "Dermatofibrosarcome protubérant",
+   "contexte": "post_op",
+   "criteres": "RT si marges positives ou proches, tumeur volumineuse ou récidivante, ou si une exérèse large serait mutilante (Castle 2013)",
+   "ordre": 3
+  },
+  {
+   "id": "sm-osteo",
+   "localisation_id": "sarcome_membres",
+   "titre": "Ostéosarcome non opérable ou à marges insuffisantes",
+   "contexte": "post_op",
+   "criteres": "Ostéosarcome inopérable (rachis, bassin) ou réséqué avec marges positives ou proches ; efficacité meilleure sur un reliquat microscopique ou minime (DeLaney 2005)",
+   "ordre": 4
+  },
+  {
+   "id": "pro-oligo",
+   "localisation_id": "prostate",
+   "titre": "Récidive oligométastatique hormonosensible (1 à 3 métastases) : stéréotaxie",
+   "contexte": "oligometastatique",
+   "criteres": "1 à 3 métastases (os, ganglions, viscères) d'un cancer de la prostate hormonosensible ; SBRT de toutes les lésions (ORIOLE) ; avec hormonothérapie dans EXTEND",
+   "ordre": 10
+  },
+  {
+   "id": "inc-ep",
+   "localisation_id": "orl_inconnu",
+   "titre": "Carcinome épidermoïde cervical sans primitif : RT exclusive",
+   "contexte": "en_place",
+   "criteres": "Après bilan complet (TEP, endoscopie, amygdalectomie, mucosectomie de la base de langue). Muqueuses : amygdale, voile et toute la base de langue homolatéraux si HPV+ N1 ; oropharynx bilatéral si N2c ; cavum seul (II–V et rétropharyngés bilatéraux) si EBV+ ; pas de muqueuse si origine cutanée suspectée. Cou bilatéral si plusieurs adénopathies, N3 ou rupture capsulaire ; homolatéral si adénopathie unique sans rupture (ASCO 2020)",
+   "ordre": 1
+  },
+  {
+   "id": "inc-po",
+   "localisation_id": "orl_inconnu",
+   "titre": "Carcinome épidermoïde cervical sans primitif : après curage",
+   "contexte": "post_op",
+   "criteres": "RT si plusieurs ganglions envahis ou rupture capsulaire ; pas de RT pour un seul pN+ sans rupture (ASCO 2020)",
+   "ordre": 2
   }
  ],
  "schemas": [
@@ -10330,6 +10387,258 @@
     "Pathologies bénignes",
     "Arthrose douloureuse (genou, main)",
     "Hypofractionné"
+   ]
+  },
+  {
+   "id": "pou-pancoast-45",
+   "localisation_id": "poumon",
+   "situation_id": "pou-pancoast",
+   "titre": "Induction 45 Gy / 25 fx puis chirurgie",
+   "type": "rte_normo",
+   "preuve": "pratique_institutionnelle",
+   "essais": [
+    "SWOG 9416 / INT 0160",
+    "SWOG 9416 (premiers résultats)"
+   ],
+   "doses": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 45,
+     "fractions": 25,
+     "dose_fx_Gy": 1.8
+    }
+   ],
+   "ind": [
+    "Thorax",
+    "Poumon",
+    "Tumeur du sillon supérieur (Pancoast) T3–T4 N0–N1 résécable",
+    "Normofractionné"
+   ]
+  },
+  {
+   "id": "sm-dfsp-60",
+   "localisation_id": "sarcome_membres",
+   "situation_id": "sm-dfsp",
+   "titre": "Post-opératoire 60 Gy / 30 fx",
+   "type": "rte_normo",
+   "preuve": "pratique_institutionnelle",
+   "essais": [
+    "Castle 2013 (dermatofibrosarcome)"
+   ],
+   "doses": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 60,
+     "fractions": 30,
+     "dose_fx_Gy": 2.0
+    }
+   ],
+   "ind": [
+    "Sarcomes",
+    "Membres et tronc",
+    "Dermatofibrosarcome protubérant",
+    "Normofractionné"
+   ]
+  },
+  {
+   "id": "sm-dfsp-pre-50",
+   "localisation_id": "sarcome_membres",
+   "situation_id": "sm-dfsp",
+   "titre": "Pré-opératoire 50 Gy / 25 fx",
+   "type": "rte_normo",
+   "preuve": "pratique_institutionnelle",
+   "essais": [
+    "Castle 2013 (dermatofibrosarcome)"
+   ],
+   "doses": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 50,
+     "fractions": 25,
+     "dose_fx_Gy": 2.0
+    }
+   ],
+   "ind": [
+    "Sarcomes",
+    "Membres et tronc",
+    "Dermatofibrosarcome protubérant",
+    "Normofractionné"
+   ]
+  },
+  {
+   "id": "sm-osteo-66",
+   "localisation_id": "sarcome_membres",
+   "situation_id": "sm-osteo",
+   "titre": "CTV 50 Gy puis complément jusqu'à 66 Gy",
+   "type": "rte_normo",
+   "preuve": "pratique_institutionnelle",
+   "essais": [
+    "DeLaney 2005 (ostéosarcome)"
+   ],
+   "doses": [
+    {
+     "volume": "PTV CTV",
+     "dose_Gy": 50,
+     "fractions": 25,
+     "dose_fx_Gy": 2.0
+    },
+    {
+     "volume": "PTV GTV",
+     "dose_Gy": 16,
+     "fractions": 8,
+     "dose_fx_Gy": 2.0
+    }
+   ],
+   "ind": [
+    "Sarcomes",
+    "Membres et tronc",
+    "Ostéosarcome non opérable ou à marges insuffisantes",
+    "Normofractionné"
+   ]
+  },
+  {
+   "id": "pro-oligo-os-24",
+   "localisation_id": "prostate",
+   "situation_id": "pro-oligo",
+   "titre": "Métastase osseuse : 24 Gy / 1 fx",
+   "type": "sbrt",
+   "preuve": "pratique_institutionnelle",
+   "essais": [
+    "ORIOLE (protocole)",
+    "EXTEND (protocole)"
+   ],
+   "doses": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 24,
+     "fractions": 1,
+     "dose_fx_Gy": 24.0
+    }
+   ],
+   "ind": [
+    "Uro",
+    "Prostate",
+    "Récidive oligométastatique hormonosensible (1 à 3 métastases) : stéréotaxie",
+    "Stéréotaxie"
+   ]
+  },
+  {
+   "id": "pro-oligo-gg-30",
+   "localisation_id": "prostate",
+   "situation_id": "pro-oligo",
+   "titre": "Métastase ganglionnaire : 30 Gy / 3 fx",
+   "type": "sbrt",
+   "preuve": "pratique_institutionnelle",
+   "essais": [
+    "EXTEND (protocole)"
+   ],
+   "doses": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 30,
+     "fractions": 3,
+     "dose_fx_Gy": 10.0
+    }
+   ],
+   "ind": [
+    "Uro",
+    "Prostate",
+    "Récidive oligométastatique hormonosensible (1 à 3 métastases) : stéréotaxie",
+    "Stéréotaxie"
+   ]
+  },
+  {
+   "id": "pro-oligo-visc-50",
+   "localisation_id": "prostate",
+   "situation_id": "pro-oligo",
+   "titre": "Métastase pulmonaire ou hépatique : 50 Gy / 5 fx",
+   "type": "sbrt",
+   "preuve": "pratique_institutionnelle",
+   "essais": [
+    "ORIOLE (protocole)",
+    "EXTEND (protocole)"
+   ],
+   "doses": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 50,
+     "fractions": 5,
+     "dose_fx_Gy": 10.0
+    }
+   ],
+   "ind": [
+    "Uro",
+    "Prostate",
+    "Récidive oligométastatique hormonosensible (1 à 3 métastases) : stéréotaxie",
+    "Stéréotaxie"
+   ]
+  },
+  {
+   "id": "inc-70",
+   "localisation_id": "orl_inconnu",
+   "situation_id": "inc-ep",
+   "titre": "RT exclusive 70 Gy / 35 fx",
+   "type": "rte_normo",
+   "preuve": "recommandation",
+   "essais": [
+    "ASCO 2020 (sans primitif)"
+   ],
+   "doses": [
+    {
+     "volume": "PTV adénopathies",
+     "dose_Gy": 70,
+     "fractions": 35,
+     "dose_fx_Gy": 2.0
+    },
+    {
+     "volume": "PTV muqueuses à risque",
+     "dose_Gy": 50,
+     "fractions": 25,
+     "dose_fx_Gy": 2.0
+    },
+    {
+     "volume": "PTV ganglions électifs",
+     "dose_Gy": 50,
+     "fractions": 25,
+     "dose_fx_Gy": 2.0
+    }
+   ],
+   "ind": [
+    "ORL",
+    "Adénopathie cervicale sans primitif",
+    "Carcinome épidermoïde cervical sans primitif : RT exclusive",
+    "Normofractionné"
+   ]
+  },
+  {
+   "id": "inc-po-60",
+   "localisation_id": "orl_inconnu",
+   "situation_id": "inc-po",
+   "titre": "Post-opératoire 60 Gy / 30 fx",
+   "type": "rte_normo",
+   "preuve": "recommandation",
+   "essais": [
+    "ASCO 2020 (sans primitif)"
+   ],
+   "doses": [
+    {
+     "volume": "PTV niveaux envahis",
+     "dose_Gy": 60,
+     "fractions": 30,
+     "dose_fx_Gy": 2.0
+    },
+    {
+     "volume": "PTV autres niveaux et muqueuses",
+     "dose_Gy": 50,
+     "fractions": 25,
+     "dose_fx_Gy": 2.0
+    }
+   ],
+   "ind": [
+    "ORL",
+    "Adénopathie cervicale sans primitif",
+    "Carcinome épidermoïde cervical sans primitif : après curage",
+    "Normofractionné"
    ]
   }
  ]

@@ -5476,6 +5476,80 @@
    "population": "56 arthroses de la main, randomisé contre RT simulée",
    "bras": "6 Gy (6 × 1 Gy) vs RT simulée",
    "resultat": "Pas de différence de réponse à 3 mois (29 vs 36 %) : RT déconseillée dans l'arthrose de la main"
+  },
+  {
+   "id": "maghami2020-asco",
+   "acronyme": "ASCO 2020 (sans primitif)",
+   "type": "recommandation",
+   "revue": "J Clin Oncol 38:2570",
+   "annee": 2020,
+   "doi": "10.1200/JCO.20.00275",
+   "population": "Carcinome épidermoïde ganglionnaire cervical sans primitif retrouvé",
+   "bras": "Recommandations ASCO (Maghami 2020) : bilan, chirurgie, volumes et doses de RT, chimiothérapie",
+   "resultat": "RT exclusive 70 Gy aux adénopathies, environ 50 Gy aux muqueuses à risque, 40 à 50 Gy aux aires électives ; post-opératoire 60 Gy (60 à 66 Gy si rupture capsulaire)"
+  },
+  {
+   "id": "rusch2007-swog9416",
+   "acronyme": "SWOG 9416 / INT 0160",
+   "type": "essai",
+   "revue": "J Clin Oncol 25:313",
+   "annee": 2007,
+   "doi": "10.1200/JCO.2006.08.2826",
+   "population": "110 tumeurs du sillon supérieur T3-T4 N0-N1, phase 2",
+   "bras": "Cisplatine + étoposide et RT 45 Gy / 25 fx, puis résection",
+   "resultat": "Résection complète 76 % ; réponse histologique complète ou maladie minime 56 % ; survie à 5 ans 44 % (54 % après résection complète)"
+  },
+  {
+   "id": "rusch2001-swog9416",
+   "acronyme": "SWOG 9416 (premiers résultats)",
+   "type": "essai",
+   "revue": "J Thorac Cardiovasc Surg 121:472",
+   "annee": 2001,
+   "population": "Même essai, premiers résultats",
+   "bras": "Cisplatine + étoposide et RT 45 Gy / 25 fx, puis résection",
+   "resultat": "Résection complète 92 % des patients opérés ; 3 décès liés au traitement"
+  },
+  {
+   "id": "castle2013-dfsp",
+   "acronyme": "Castle 2013 (dermatofibrosarcome)",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2013,
+   "doi": "10.1016/j.ijrobp.2013.02.001",
+   "population": "53 dermatofibrosarcomes traités par chirurgie et RT (MD Anderson), rétrospectif",
+   "bras": "RT pré-opératoire 50–50,4 Gy (13 %) ou post-opératoire 60–66 Gy (87 %) ; dose médiane 60 Gy",
+   "resultat": "Contrôle local 98 % à 5 ans, 93 % à 10 ans"
+  },
+  {
+   "id": "delaney2005-osteo",
+   "acronyme": "DeLaney 2005 (ostéosarcome)",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2005,
+   "doi": "10.1016/j.ijrobp.2004.05.051",
+   "population": "41 ostéosarcomes non opérables ou à marges insuffisantes (MGH), rétrospectif",
+   "bras": "RT médiane 66 Gy (CTV 45–50 Gy puis complément sur le GTV)",
+   "resultat": "Contrôle local 71 % au-delà de 55 Gy ; meilleur sur un reliquat microscopique ou minime"
+  },
+  {
+   "id": "oriole-protocole",
+   "acronyme": "ORIOLE (protocole)",
+   "type": "protocole_institutionnel",
+   "revue": "Johns Hopkins J15180, version 4.1",
+   "annee": 2015,
+   "population": "Prostate hormonosensible oligométastatique (1 à 3 métastases), phase 2 randomisée",
+   "bras": "SBRT de toutes les métastases vs surveillance",
+   "resultat": "Doses types 16–24 Gy / 1 fx, 48–50 Gy / 4 fx, 50–60 Gy / 5 fx ; CTV = GTV, PTV = CTV + 5 mm"
+  },
+  {
+   "id": "extend-protocole",
+   "acronyme": "EXTEND (protocole)",
+   "type": "protocole_institutionnel",
+   "revue": "MD Anderson 2018-0349",
+   "annee": 2018,
+   "population": "Oligométastases (bras prostate : hormonothérapie), phase 2 randomisée",
+   "bras": "Traitement standard ± traitement local de toutes les métastases (SBRT, chirurgie)",
+   "resultat": "Doses par site : os 12–24 Gy / 1 fx ou 27–36 Gy / 3 fx ; ganglion 30–36 Gy / 3 fx ; poumon et foie 50 Gy / 4 fx ; contraintes par nombre de fractions"
   }
  ]
 }

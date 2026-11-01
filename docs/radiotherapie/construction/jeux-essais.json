@@ -2477,6 +2477,148 @@
      "limitant": "< 40 Gy"
     }
    ]
+  },
+  {
+   "id": "ct-extend-1fx",
+   "titre": "Stéréotaxie en 1 fraction (EXTEND)",
+   "fractionnement": "1 fx",
+   "source": "Protocole EXTEND (MD Anderson 2018-0349), tableau des contraintes",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "< 10 Gy"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "Dmax",
+     "limitant": "< 22 Gy"
+    },
+    {
+     "oar_id": "oar-oesophage",
+     "indicateur": "Dmax",
+     "limitant": "< 15,4 Gy"
+    },
+    {
+     "oar_id": "oar-poumons",
+     "indicateur": "D1000cc",
+     "limitant": "< 7 Gy"
+    },
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "Dmax",
+     "limitant": "< 12,4 Gy"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "Dmax",
+     "limitant": "< 18,4 Gy"
+    },
+    {
+     "oar_id": "oar-peau",
+     "indicateur": "Dmax",
+     "limitant": "< 26 Gy"
+    }
+   ]
+  },
+  {
+   "id": "ct-extend-3fx",
+   "titre": "Stéréotaxie en 3 fractions (EXTEND)",
+   "fractionnement": "3 fx",
+   "source": "Protocole EXTEND (MD Anderson 2018-0349), tableau des contraintes",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "< 21,9 Gy"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "Dmax",
+     "limitant": "< 30 Gy"
+    },
+    {
+     "oar_id": "oar-oesophage",
+     "indicateur": "Dmax",
+     "limitant": "< 25,2 Gy"
+    },
+    {
+     "oar_id": "oar-poumons",
+     "indicateur": "D1000cc",
+     "limitant": "< 12,4 Gy"
+    },
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "Dmax",
+     "limitant": "< 22,2 Gy"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "Dmax",
+     "limitant": "< 28,2 Gy"
+    },
+    {
+     "oar_id": "oar-peau",
+     "indicateur": "Dmax",
+     "limitant": "< 33 Gy"
+    }
+   ]
+  },
+  {
+   "id": "ct-extend-5fx",
+   "titre": "Stéréotaxie en 5 fractions (EXTEND)",
+   "fractionnement": "5 fx",
+   "source": "Protocole EXTEND (MD Anderson 2018-0349), tableau des contraintes",
+   "verification": "verifie",
+   "lignes": [
+    {
+     "oar_id": "oar-moelle",
+     "indicateur": "Dmax",
+     "limitant": "< 30 Gy"
+    },
+    {
+     "oar_id": "oar-coeur",
+     "indicateur": "Dmax",
+     "limitant": "< 38 Gy"
+    },
+    {
+     "oar_id": "oar-oesophage",
+     "indicateur": "Dmax",
+     "limitant": "< 35 Gy"
+    },
+    {
+     "oar_id": "oar-poumons",
+     "indicateur": "D1000cc",
+     "limitant": "< 13,5 Gy"
+    },
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "Dmax",
+     "limitant": "< 35 Gy"
+    },
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "V20Gy",
+     "limitant": "< 30 cc"
+    },
+    {
+     "oar_id": "oar-duodenum",
+     "indicateur": "V30Gy",
+     "limitant": "< 10 cc"
+    },
+    {
+     "oar_id": "oar-rectum",
+     "indicateur": "Dmax",
+     "limitant": "< 38 Gy"
+    },
+    {
+     "oar_id": "oar-peau",
+     "indicateur": "Dmax",
+     "limitant": "< 39,5 Gy"
+    }
+   ]
   }
  ],
  "schemas": {
@@ -2856,6 +2998,21 @@
    "contraintes_ids": [
     "ct-foie-sun2019"
    ]
+  },
+  "pro-oligo-os-24": {
+   "contraintes_ids": [
+    "ct-extend-1fx"
+   ]
+  },
+  "pro-oligo-gg-30": {
+   "contraintes_ids": [
+    "ct-extend-3fx"
+   ]
+  },
+  "pro-oligo-visc-50": {
+   "contraintes_ids": [
+    "ct-extend-5fx"
+   ]
   }
  },
  "mentions": {
@@ -2913,6 +3070,7 @@
   "merkel",
   "melanome",
   "melanome_uveal",
-  "benin"
+  "benin",
+  "orl_inconnu"
  ]
 }

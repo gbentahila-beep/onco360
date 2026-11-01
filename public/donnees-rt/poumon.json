@@ -4,7 +4,7 @@
  "region_id": "thorax",
  "nom": "Poumon",
  "ordre": 23,
- "date_maj": "2026-10-23",
+ "date_maj": "2026-11-01",
  "situations": [
   {
    "id": "pou-cbnpc-iii",
@@ -53,6 +53,14 @@
    "contexte": "palliatif",
    "criteres": "Symptômes thoraciques (toux, hémoptysie, douleur, dyspnée) chez un patient non curable",
    "ordre": 6
+  },
+  {
+   "id": "pou-pancoast",
+   "localisation_id": "poumon",
+   "titre": "Tumeur du sillon supérieur (Pancoast) T3–T4 N0–N1 résécable",
+   "contexte": "en_place",
+   "ordre": 7,
+   "criteres": "CBNPC du sillon supérieur T3–T4 N0–N1 : radiochimiothérapie d'induction puis résection (SWOG 9416)"
   }
  ],
  "schemas": [
@@ -922,6 +930,44 @@
    ],
    "contraintes_ids": [],
    "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+  },
+  {
+   "id": "pou-pancoast-45",
+   "situation_id": "pou-pancoast",
+   "titre": "Induction 45 Gy / 25 fx puis chirurgie",
+   "type": "rte_normo",
+   "preuve": "pratique_institutionnelle",
+   "essai_ids": [
+    "rusch2007-swog9416",
+    "rusch2001-swog9416"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 45,
+     "fractions": 25,
+     "dose_fx_Gy": 1.8,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "1,8 Gy par fraction ; résection 3 à 5 semaines après"
+    }
+   ],
+   "technique": "RT externe",
+   "systemique": "Cisplatine 50 mg/m² J1, J8, J29, J36 + étoposide 50 mg/m² J1–5 et J29–33, pendant la RT (SWOG 9416)",
+   "simulation_id": "sim-pou",
+   "volumes_id": "vol-pou-pancoast",
+   "points_attention": [
+    "Bilan après induction avant la chirurgie ; 2 cycles de cisplatine–étoposide de consolidation après la résection"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "Thorax",
+    "Poumon",
+    "Tumeur du sillon supérieur (Pancoast) T3–T4 N0–N1 résécable",
+    "Normofractionné"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
   }
  ],
  "simulations": [
@@ -1226,6 +1272,26 @@
     "oar-moelle",
     "oar-poumons",
     "oar-oesophage"
+   ]
+  },
+  {
+   "id": "vol-pou-pancoast",
+   "cibles": [
+    {
+     "nom": "CTV tumeur",
+     "type": "CTV",
+     "definition": "Tumeur primitive et ganglions envahis",
+     "quand": "Toujours"
+    }
+   ],
+   "atlas": [],
+   "oar_ids": [
+    "oar-poumons",
+    "oar-moelle",
+    "oar-plexus-brachial-d",
+    "oar-plexus-brachial-g",
+    "oar-oesophage",
+    "oar-coeur"
    ]
   }
  ],

@@ -1,0 +1,182 @@
+{
+ "version": "2026-10-25",
+ "id": "orl_inconnu",
+ "region_id": "orl",
+ "nom": "Adénopathie cervicale sans primitif",
+ "ordre": 50,
+ "date_maj": "2026-11-01",
+ "situations": [
+  {
+   "id": "inc-ep",
+   "titre": "Carcinome épidermoïde cervical sans primitif : RT exclusive",
+   "contexte": "en_place",
+   "ordre": 1,
+   "criteres": "Après bilan complet (TEP, endoscopie, amygdalectomie, mucosectomie de la base de langue). Muqueuses : amygdale, voile et toute la base de langue homolatéraux si HPV+ N1 ; oropharynx bilatéral si N2c ; cavum seul (II–V et rétropharyngés bilatéraux) si EBV+ ; pas de muqueuse si origine cutanée suspectée. Cou bilatéral si plusieurs adénopathies, N3 ou rupture capsulaire ; homolatéral si adénopathie unique sans rupture (ASCO 2020)",
+   "localisation_id": "orl_inconnu"
+  },
+  {
+   "id": "inc-po",
+   "titre": "Carcinome épidermoïde cervical sans primitif : après curage",
+   "contexte": "post_op",
+   "ordre": 2,
+   "criteres": "RT si plusieurs ganglions envahis ou rupture capsulaire ; pas de RT pour un seul pN+ sans rupture (ASCO 2020)",
+   "localisation_id": "orl_inconnu"
+  }
+ ],
+ "schemas": [
+  {
+   "id": "inc-70",
+   "situation_id": "inc-ep",
+   "titre": "RT exclusive 70 Gy / 35 fx",
+   "type": "rte_normo",
+   "preuve": "recommandation",
+   "essai_ids": [
+    "maghami2020-asco"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV adénopathies",
+     "dose_Gy": 70,
+     "fractions": 35,
+     "dose_fx_Gy": 2.0,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "70 Gy ou équivalent sur 7 semaines"
+    },
+    {
+     "volume": "PTV muqueuses à risque",
+     "dose_Gy": 50,
+     "fractions": 25,
+     "dose_fx_Gy": 2.0,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "Environ 50 Gy"
+    },
+    {
+     "volume": "PTV ganglions électifs",
+     "dose_Gy": 50,
+     "fractions": 25,
+     "dose_fx_Gy": 2.0,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "40 à 50 Gy"
+    }
+   ],
+   "technique": "IMRT",
+   "systemique": "Cisplatine si HPV− N2–N3, si HPV+ avec plusieurs adénopathies, bilatérales ou > 3 cm, ou si EBV+ stade II–IVA (ASCO 2020)",
+   "simulation_id": "sim-inc",
+   "volumes_id": "vol-inc",
+   "points_attention": [
+    "Chercher le primitif avant de traiter : TEP, endoscopie, amygdalectomie, mucosectomie de la base de langue"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "ORL",
+    "Adénopathie cervicale sans primitif",
+    "Carcinome épidermoïde cervical sans primitif : RT exclusive",
+    "Normofractionné"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
+  },
+  {
+   "id": "inc-po-60",
+   "situation_id": "inc-po",
+   "titre": "Post-opératoire 60 Gy / 30 fx",
+   "type": "rte_normo",
+   "preuve": "recommandation",
+   "essai_ids": [
+    "maghami2020-asco"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV niveaux envahis",
+     "dose_Gy": 60,
+     "fractions": 30,
+     "dose_fx_Gy": 2.0,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "60 à 66 Gy si rupture capsulaire"
+    },
+    {
+     "volume": "PTV autres niveaux et muqueuses",
+     "dose_Gy": 50,
+     "fractions": 25,
+     "dose_fx_Gy": 2.0,
+     "mode": "seul",
+     "rythme": "5 fx/sem"
+    }
+   ],
+   "technique": "IMRT",
+   "systemique": "Cisplatine si rupture capsulaire (ASCO 2020)",
+   "simulation_id": "sim-inc",
+   "volumes_id": "vol-inc",
+   "points_attention": [
+    "Un seul ganglion pN+ sans rupture capsulaire : pas de RT"
+   ],
+   "date_verif": "2026-11-01",
+   "ind": [
+    "ORL",
+    "Adénopathie cervicale sans primitif",
+    "Carcinome épidermoïde cervical sans primitif : après curage",
+    "Normofractionné"
+   ],
+   "contraintes_ids": [],
+   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
+  }
+ ],
+ "simulations": [
+  {
+   "id": "sim-inc",
+   "position": "Décubitus dorsal",
+   "preparation": "Masque thermoformé tête et épaules",
+   "scanner": "Scanner injecté fusionné à la TEP"
+  }
+ ],
+ "volumes": [
+  {
+   "id": "vol-inc",
+   "cibles": [
+    {
+     "nom": "CTV haut risque",
+     "type": "CTV",
+     "definition": "Adénopathies (en place) ou niveaux ganglionnaires qui les contenaient (après curage)",
+     "quand": "Toujours"
+    },
+    {
+     "nom": "CTV muqueuses",
+     "type": "CTV",
+     "definition": "Muqueuses à risque selon HPV, EBV et le nombre d'adénopathies (voir l'indication)",
+     "quand": "Sauf origine cutanée suspectée"
+    },
+    {
+     "nom": "CTV ganglions électifs",
+     "type": "CTV",
+     "definition": "Aires ganglionnaires homo- ou bilatérales (voir l'indication)",
+     "quand": "Toujours"
+    }
+   ],
+   "atlas": [],
+   "oar_ids": [
+    "oar-parotide-d",
+    "oar-parotide-g",
+    "oar-cavite-orale",
+    "oar-mandibule",
+    "oar-larynx",
+    "oar-moelle",
+    "oar-plexus-brachial-d",
+    "oar-plexus-brachial-g"
+   ]
+  }
+ ],
+ "curie_indications": [],
+ "systemique": [],
+ "hormonotherapie": [],
+ "points_attention": [
+  {
+   "cible": "orl_inconnu",
+   "point": "HPV (p16) et EBV sur l'adénopathie orientent les muqueuses à traiter",
+   "portee": "localisation"
+  }
+ ]
+}
