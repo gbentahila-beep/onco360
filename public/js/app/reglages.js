@@ -16,7 +16,7 @@ export const REGLAGES0 = {
   // entete (3.9, 12/10/2026) : « papier » = papier à en-tête (rien n'est imprimé en haut, marge du haut) ; « genere » = en-tête et pied imprimés
   // par Onco360 (eLogo : logo du lieu, eNom, eSpe, eInpe : médecin signataire ; eLieu : adresse et téléphone du lieu en pied ; R-E5, 19/10/2026 : plus de signature scannée, ancienne case eSig ignorée)
   // rSpe … rTva (R-B5, 19/10/2026) : mentions imprimées sur le reçu (identifiants du médecin de l'acte ; exonération de TVA à confirmer par le comptable)
-  impression: { rSpe: true, rInpe: true, rIf: true, rTp: true, rIce: true, rTva: false, a5: [45, 28, 18], a4: [60, 35, 22], doc: [45, 35, 22], age: false, poids: false, allergie: false, entete: "papier", eLogo: true, eNom: true, eSpe: true, eInpe: true, eLieu: true, fenRappel: false }, // fenRappel (R-G e, 19/10/2026) : allergie et poids rappelés en haut de la fenêtre d'ordonnance // âge, poids sous le nom sur les ordonnances (3.2 ; séparés le 12/10/2026)
+  impression: { rSpe: true, rInpe: true, rIf: true, rTp: true, rIce: true, rTva: false, a5: [45, 28, 18], a4: [60, 35, 22], doc: [45, 35, 22], age: false, poids: false, allergie: false, entete: "papier", eLogo: true, eNom: true, eSpe: true, eInpe: true, eLieu: true, fenRappel: false, rdvA4: false, rdvSavoir: "" }, // fenRappel (R-G e, 19/10/2026) : allergie et poids rappelés en haut de la fenêtre d'ordonnance // âge, poids sous le nom sur les ordonnances (3.2 ; séparés le 12/10/2026)
   whatsapp: { de: 1, a: 2 },
   alertes: { cure: 3, finTrait: 30 },
   auto: { rtHebdo: true, rtFin: true }, // rendez-vous créés d'office (12/10/2026) : consultations hebdomadaires de RT, consultation de fin de RT
@@ -25,6 +25,8 @@ export const REGLAGES0 = {
   // gardé sur son appareil)
   dossier: { parties: { avenir: true, passe: false, id: false, med: false, tum: false } }, // + messages à l'écran (SA6, 11/10/2026) // salle d'attente : minutes d'attente avant l'orange, puis le rouge (08/10/2026)
 };
+// IG2 (02/11/2026) : feuille de rendez-vous remise au patient (v2.js feuilleRdv) : A5 (sinon rdvA4) ; « À savoir » = rdvSavoir, vide = texte ci-dessous
+export const SAVOIR_RDV0 = "Venez 15 minutes avant l'heure, avec vos derniers résultats d'analyses, vos ordonnances et votre carte de mutuelle. En cas d'empêchement, prévenez le plus tôt possible.";
 const copie = (o) => JSON.parse(JSON.stringify(o));
 // Réglages en vigueur : ceux du cabinet, complétés par les valeurs par défaut
 export function reglages() {

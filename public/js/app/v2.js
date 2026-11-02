@@ -41,7 +41,7 @@ import * as ficheP from "./fichepatient.js";
 import * as infosMed from "./infosmed.js"; // lot A §4 (25/10/2026) : informations médicales en lignes
 import { installer as installerFichiers, htmlFichiers, nbFichiers, oublierFichiers, suivreEtablissementFichiers, supprimerFichiers, htmlVisionneuse, sigVisionneuse, apresVisionneuse, rafraichirVisionneuse, visionneuseGrande, pageDepot } from "./fichiers.js";
 import { installer as installerConsultations, datesConsultations, htmlConsultations, nbConsultations, oublierConsultations, suivreEtablissement, supprimerConsultations, boutonsPrescription } from "./consultations.js";
-import { installer as installerReglages, reglages, appliquerImpression, margesMm } from "./reglages.js";
+import { installer as installerReglages, reglages, appliquerImpression, margesMm, SAVOIR_RDV0 } from "./reglages.js";
 import { montantEnLettres } from "../donnees/factures.js";
 import { installer as installerTaches, pageTaches, demarrerTaches, blocAccueil as blocTaches, tachesDuPatient, tacheSysteme, droitsTache } from "./taches.js";
 import { chimiosVuesDuJour } from "./salle.js"; // 4.5
@@ -1735,6 +1735,10 @@ function pageDossier(id) {
       (o.em ? '<span class="rc-em">' + o.em + "</span>" : "") + '<span class="rl-t" title="' + esc(q) + '"><span class="rl-ty">' + esc(o.t || "") + "</span>" + (o.s ? '<span class="rl-q"> · ' + esc(o.s) + "</span>" : "") + "</span>" +
       (o.env ? '<span class="rc-wa" title="Rappel WhatsApp envoyé">' + ic("check") + "</span>" : "") + (o.al ? '<span class="rc-al">' + esc(o.al) + "</span>" : "") + (o.av ? '<span class="rc-av">' + esc(o.av) + "</span>" : "") + menuPts((o.m || []).filter(Boolean)) + "</div>"; };
   const NB = 3; // cartes visibles avant « Voir plus »
+  // IG2 (02/11/2026) : « Imprimer le rendez-vous » sur chaque ligne (consultation, séance de chimio, étapes de radiothérapie), même feuille
+  FRDV = {}; let nFr = 0;
+  const fr = (o) => { const k = x.id + "|" + (++nFr); FRDV[k] = Object.assign({ pid: x.id }, o); return b("Imprimer le rendez-vous", "imprimerFicheRdv('" + k + "')"); };
+  const medLigne = (lid) => (((P.lignes || []).find((L) => L.id === lid) || {}).med) || medPatient(x) || titulaireUid();
   const aVenir = (v) => (v.st || "prevu") === "prevu" && (v.f || v.d) >= t;
   const av = [];
   // Prix à encaisser (consultations validées, chimio comprise) : droit « encaissements »
@@ -1755,7 +1759,8 @@ function pageDossier(id) {
     const ret = /en retard/.test(c.lib), hh = inf && c.hr && c.hr.h ? c.hr : c.hc, h = (hh && hh.h) || "";
     const mm = String(c.lib).match(/^Chimio · (.*) · (C\d+(?: J\d+)?)(?: \(en retard\))?$/), cure = mm ? mm[2] : c.lib.replace(/^Chimio · /, "").replace(/ \(en retard\)$/, "");
     const quoi = inf && c.hr && c.hr.h ? "séance" + (c.hc && !c.hc.auto ? " (consultation " + c.hc.h + ")" : "") : c.hc ? "consultation" : "";
-    av.push({ d: c.d, h, rdv: 1, em: ic("seringue"), ty: "Séance chimio", t: cure + (quoi ? " · " + quoi : "") + (ret ? " · en retard" : ""), s: mm ? mm[1] : "", retard: ret, env: !ret && waEnv("chimio", c.d), m: (ret ? [] : [waMenu("chimio", c.d, h)]).concat(c.lid ? menuChimio(c) : []) });
+    const hP = (c.hc && c.hc.h) || (c.hr && c.hr.h) || "";
+    av.push({ d: c.d, h, rdv: 1, em: ic("seringue"), ty: "Séance chimio", t: cure + (quoi ? " · " + quoi : "") + (ret ? " · en retard" : ""), s: mm ? mm[1] : "", retard: ret, env: !ret && waEnv("chimio", c.d), m: (ret ? [] : [waMenu("chimio", c.d, h)]).concat(c.lid ? menuChimio(c) : [], ret ? [] : [fr({ d: c.d, h: hP, quoi: "Séance de chimiothérapie · " + cure, med: medLigne(c.lid) })]) });
   });
   if (voitRdv()) (P.rdvs || []).forEach((v) => {
     if (!aVenir(v)) return; const q = "'" + x.id + "','" + v.id + "'", cat = catRdv(v), m = [waMenu(cat, v.d, v.h || "")];
@@ -1777,6 +1782,8 @@ function pageDossier(id) {
   if (voitRTdossier(x)) (r.rt || []).filter((v) => !v.dosi).forEach((v) => {
     const fin = /Fin de radioth/.test(v.lib), m = fin ? [] : [waMenu("rt", v.d, v.h || "")];
     if (fin ? v.z === "fin" && traitModRT() : (v.z === "scan" || v.z === "deb") && traitModRT()) m.push(b("Modifier", "modifierEtapeRT('" + x.id + "','" + v.rt + "','" + v.z + "')"));
+    const R = (P.rts || []).find((z) => z.id === v.rt) || {};
+    m.push(fr({ d: v.d, f: v.f, h: v.h || "", quoi: v.z === "scan" ? "Scanner de centrage (radiothérapie)" : v.z === "deb" ? "Première séance de radiothérapie" : fin ? "Dernière séance de radiothérapie" : "Radiothérapie · " + v.lib.replace(/^RT · /, ""), lieu: R.hop || "", med: R.med || medPatient(x) || titulaireUid() }));
     av.push({ d: v.d, f: v.f, h: v.h || "", rdv: 1, em: ic("radiation"), ty: v.z === "scan" ? "Scanner RT" : v.z === "deb" ? "Début RT" : fin ? "Dernière séance RT" : "", t: v.lib.replace(/^RT · /, ""), env: !fin && waEnv("rt", v.d), m });
   });
   // 26/10/2026 (demande de Dr Bentahila) : la consultation d'un jour de chimiothérapie reçu reste ici tant qu'elle n'est pas validée (« Consultation :
@@ -1841,6 +1848,7 @@ function pageDossier(id) {
           if (peut("finances") || prixParServeur()) m.push(b("Modifier le prix", "chVenuChimio(" + qc + ")")); if (peut("finances")) m.push(b("Annuler le statut", "chAnnulerVenuChimio(" + qc + ")"));
           if (ae) aV = "À encaisser"; }
         else { m.push(info("Statut : à valider")); if (peut("finances") || prixParServeur()) m.push(b("Venu", "chVenuChimio(" + qc + ")")); aV = "À valider"; }
+        m.push(fr({ d, h: "", quoi: "Séance de chimiothérapie · C" + c.n + " J" + c.j, med: medLigne(c.lid) }));
         return { d, em: ic("seringue"), ty: "Séance chimio", t: "Chimiothérapie · C" + c.n + " J" + c.j, s: c.lib || "", av: aV, m }; }
       const mS = [], mP = [], mA = [], aS = statutM(v, mS, mA), aP = prixM(v, mP);
       return { d: v.d, h: v.h || "", em: typeRdv(v.type) === "hospit" ? '<svg class="pi"><use href="#i-hopital"/></svg>' : ic("stetho"), ty: typeCourtSalle(v)[0], t: libRdv(v), s: [v.mo ? "Motif : " + v.mo : "", v.n || "", v.rep && v.rep.length ? "Reporté (initialement le " + dfrA(v.rep[0].d) + ")" : ""].filter(Boolean).join(" · "), av: aS || aP, m: mS.concat(mP, mA, [b("Imprimer le rendez-vous", "imprimerRdv('" + x.id + "','" + v.id + "')")]) };
@@ -2040,13 +2048,33 @@ window.dosImprimerListe = (pid, k) => {
     "<table><tr><th>Date</th><th>Heure</th><th>Type</th><th>Détail</th>" + (k === "passe" ? "<th>Statut</th>" : "") + "</tr>" +
     L.map((o) => "<tr><td>" + esc(o.d ? dfrA(o.d) + (o.f && o.f !== o.d ? " → " + dfrA(o.f) : "") : "—") + "</td><td>" + esc(o.h || "") + "</td><td>" + esc(o.ty || "") + "</td><td>" + esc([o.ty && o.t === o.ty ? "" : String(o.t || "").replace(/<[^>]*>/g, ""), o.s].filter(Boolean).join(" · ")) + "</td>" + (k === "passe" ? "<td>" + esc(o.av || "") + "</td>" : "") + "</tr>").join("") + "</table>");
 };
+// IG2 (02/11/2026, audit UX : idée 2, D1 ; demande de Dr Bentahila) : une seule feuille de rendez-vous à remettre au patient, pour une consultation, une
+// séance de chimiothérapie, le scanner et les étapes de la radiothérapie : en haut le médecin et sa spécialité seulement (ni cabinet, ni adresse, ni
+// téléphone) ; le nom du patient sans n° de dossier ; la date avec l'année et l'heure en grand ; le type, le lieu, le médecin ; « À savoir » ; pied
+// « Imprimé le … ». A5 ou A4 et texte « À savoir » : Paramètres › Impression (reglages.impression.rdvA4 / rdvSavoir)
+let FRDV = {};
+function feuilleRdv(o) {
+  const x = o && D.patients.find((p) => p.id === o.pid); if (!x) return;
+  const I = reglages().impression, c = carteMedecin(o.med || titulaireUid()) || {}, mf = medecinFiche();
+  const dr = c.nom || mf.nom || "", spe = c.specialite || mf.specialite || "";
+  const et = (D.etabsTous || D.etabs || []).find((e) => e.code === (o.lieu || x.doc.etablissementId));
+  const jour = (d) => cap(jourLong(d)) + " " + d.slice(0, 4), savoir = String(I.rdvSavoir || "").trim() || SAVOIR_RDV0;
+  const lg = (l, v) => (v ? '<p class="fr-l"><span>' + esc(l) + "</span>" + esc(v) + "</p>" : "");
+  const css = "<style>.fr-dr{font-size:16px;font-weight:700;color:#1E2A44;margin:0}.fr-sp{margin:2px 0 0;color:#55607A}.fr-hr{border:0;border-top:1px solid #D5DDEB;margin:12px 0 14px}" +
+    ".fr-ti{margin:0 0 2px;font-size:13px;font-weight:700;color:#3563B0}.fr-p{margin:0 0 14px;font-size:18px;font-weight:700;color:#1E2A44}.fr-b{border:1.5px solid #3563B0;border-radius:10px;padding:14px 16px}" +
+    ".fr-d{margin:0;font-size:16px;font-weight:700;color:#1E2A44}.fr-h{margin:2px 0 10px;font-size:30px;font-weight:700;color:#3563B0;line-height:1.1}.fr-l{margin:5px 0;font-size:13px;color:#1E2A44}.fr-l span{color:#55607A}" +
+    ".fr-s{margin-top:14px;background:#F1F5FB;border-radius:8px;padding:10px 12px;font-size:12.5px;color:#1E2A44;white-space:pre-line}.fr-s b{display:block;margin-bottom:3px}.fr-pied{margin-top:16px;font-size:11px;color:#55607A}</style>";
+  imprimerHtml("Rendez-vous – " + x.r.nm, css + '<p class="fr-dr">' + esc(dr) + "</p>" + (spe ? '<p class="fr-sp">' + esc(spe) + "</p>" : "") + '<hr class="fr-hr">' +
+    '<p class="fr-ti">Rendez-vous</p><p class="fr-p">' + esc(x.r.nm) + "</p>" +
+    '<div class="fr-b"><p class="fr-d">' + esc(o.f && o.f !== o.d ? "Du " + jour(o.d) + " au " + jour(o.f) : jour(o.d)) + "</p>" + (o.h ? '<p class="fr-h">' + esc(o.h.replace(":", " h ")) + "</p>" : '<p class="fr-h" style="font-size:16px;color:#55607A">Heure : à confirmer</p>') +
+      lg("", o.quoi) + lg("Durée prévue : ", o.du ? o.du + " min" : "") + lg("Lieu : ", et ? [et.nom, et.adresse, et.ville].filter(Boolean).join(", ") : o.lieu || "") + lg("Médecin : ", multiMed() ? dr : "") + "</div>" +
+    '<div class="fr-s"><b>À savoir</b>' + esc(savoir) + "</div>" + '<p class="fr-pied">Imprimé le ' + esc(dfrA(D.t)) + "</p>", !I.rdvA4);
+}
+window.imprimerFicheRdv = (k) => feuilleRdv(FRDV[k]);
 window.imprimerRdv = (pid, rid) => {
   const x = D.patients.find((p) => p.id === pid); if (!x) return; const r = lireRdvs(x).find((v) => v.id === rid); if (!r) return;
-  const et = (D.etabsTous || D.etabs || []).find((e) => e.code === (r.lieu || x.doc.etablissementId)), du = typeRdv(r.type) === "hospit" ? 0 : dureeDe(r, r.lieu || x.doc.etablissementId);
-  const ligneP = (l, v) => (v ? '<div><span class="l">' + esc(l) + " : </span>" + esc(v) + "</div>" : "");
-  imprimerHtml("Rendez-vous – " + x.r.nm, "<h1>Rendez-vous</h1><p>" + esc(entetePrint()) + "</p>" + '<div class="rdv"><b>' + esc(x.r.nm) + "</b>" +
-    ligneP("Date", cap(jourLong(r.d)) + (r.f && r.f !== r.d ? " au " + jourLong(r.f) : "")) + ligneP("Heure", r.h || "") + ligneP("Type", libRdv(r)) + ligneP("Durée", du ? du + " min" : "") +
-    ligneP("Lieu", et ? et.nom + (et.adresse ? ", " + et.adresse : "") : r.lieu || "") + ligneP("Médecin", multiMed() ? nomMed(medRdv(r)) : "") + "</div>", true);
+  const lieu = r.lieu || x.doc.etablissementId;
+  feuilleRdv({ pid, d: r.d, f: r.f, h: r.h || "", quoi: libRdv(r), du: typeRdv(r.type) === "hospit" ? 0 : dureeDe(r, lieu), lieu, med: r.med || medPatient(x) || titulaireUid() });
 };
 // Liste ouverte au centre : tenue à jour quand le dossier se réaffiche (Venu, prix… faits depuis son menu « ⋯ »)
 function majRubriqueOuverte(pid) {

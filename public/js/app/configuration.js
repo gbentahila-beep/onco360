@@ -10,7 +10,7 @@ import { FERIES0 } from "../donnees/listes.js";
 import { dureeRdv } from "../moteur/rdv.js";
 import { typesDocuments, enregistrerTypes, TYPES_DOCUMENTS0 } from "./fichiers.js";
 import { typesTaches, enregistrerTypesTaches, TYPES_TACHES0, TYPE_RT, listeMembres } from "./taches.js";
-import { reglages, enregistrerReglages, REGLAGES0 } from "./reglages.js";
+import { reglages, enregistrerReglages, REGLAGES0, SAVOIR_RDV0 } from "./reglages.js";
 import { pageParametres } from "./parametres.js";
 import { installer as installerLabos, pageLaboratoires } from "./laboratoires.js";
 import { listeDiag, listeMut, listeCor, LISTES0 } from "./chimio.js";
@@ -391,7 +391,13 @@ const RUBRIQUES = {
       // R-B5 (19/10/2026) : mentions du reçu (identifiants saisis par chaque médecin dans Mon compte › Informations ; vide = non imprimé)
       '<section class="carte">' + titre("imprimer", "Reçus : mentions imprimées") + '<p class="sous">Identifiants du médecin qui a fait l\'acte (Mon compte › Informations) ; l\'adresse du lieu d\'exercice est toujours imprimée. Un identifiant vide n\'est pas imprimé.</p>' +
       [["rSpe", "Spécialité"], ["rInpe", "INPE"], ["rIf", "IF (identifiant fiscal)"], ["rTp", "TP (taxe professionnelle)"], ["rIce", "ICE"], ["recuA4", "Imprimer les reçus en A4 (sinon A5, ramené sur une seule feuille)"]].map(([k, lib]) => '<label class="chk" style="display:block;margin:4px 0"><input type="checkbox"' + (I[k] ? " checked" : "") + c.disE + ' onchange="cfRegB(\'impression\',\'' + k + '\',this.checked)"> ' + lib + "</label>").join("") +
-      "</section>"; // T6 (24/10/2026, d. 15) : « Acte exonéré de TVA » et la phrase sur le comptable retirées (absentes du reçu de l'hôpital Cheikh Khalifa)
+      "</section>" +
+      // IG2 (02/11/2026) : feuille « Imprimer le rendez-vous » du dossier (⋯ de chaque rendez-vous, séance, étape de radiothérapie)
+      '<section class="carte">' + titre("imprimer", "Feuille de rendez-vous") + '<p class="sous">Remise au patient : « Imprimer le rendez-vous » dans le menu ⋯ de chaque rendez-vous du dossier.</p>' +
+      '<label class="chk" style="display:block;margin:6px 0"><input type="radio" name="cfRdvF"' + (I.rdvA4 ? "" : " checked") + c.disE + ' onchange="cfRegB(\'impression\',\'rdvA4\',false)"> Format A5</label>' +
+      '<label class="chk" style="display:block;margin:6px 0"><input type="radio" name="cfRdvF"' + (I.rdvA4 ? " checked" : "") + c.disE + ' onchange="cfRegB(\'impression\',\'rdvA4\',true)"> Format A4</label>' +
+      '<label for="cfRdvS" style="display:block;margin-top:10px">Texte « À savoir »</label><textarea id="cfRdvS" rows="3" style="width:100%"' + c.disE + ' placeholder="' + A.esc(SAVOIR_RDV0) + '" oninput="cfRegTx(\'impression\',\'rdvSavoir\',this.value)">' + A.esc(I.rdvSavoir || "") + "</textarea>" +
+      '<p class="mesures">Vide = texte proposé par Onco360 (affiché en gris).</p></section>'; // T6 (24/10/2026, d. 15) : « Acte exonéré de TVA » et la phrase sur le comptable retirées (absentes du reçu de l'hôpital Cheikh Khalifa)
     return '<section class="carte">' + titre("imprimer", "Marges d'impression (mm)") + '<p class="sous">Haut = hauteur de l\'en-tête déjà imprimé sur votre papier, plus 5 à 10 mm.</p>' +
       [["a5", "Ordonnances A5", "Médicaments, analyses, examens, ordonnances types, courriers"], ["a4", "Ordonnances A4", "Les mêmes, en A4"], ["doc", "Documents A4", "Pli confidentiel, compte rendu, rendez-vous de radiothérapie"]].map(([q, t, sous]) =>
         '<h4 class="soustitre">' + t + '</h4><p class="mesures" style="margin:-4px 0 8px">' + sous + " · par défaut " + REGLAGES0.impression[q].slice(0, 3).join(" / ") + ' mm</p><div class="form" style="grid-template-columns:repeat(3,minmax(0,150px))">' + champ(q, 0, "Haut (en-tête)") + champ(q, 1, "Côtés") + champ(q, 2, "Bas") + "</div>").join("") + "</section>" + agePoids + enT;
@@ -656,7 +662,8 @@ window.cfPartie = (k, v) => { ED.reg.dossier.parties = Object.assign({}, ED.reg.
 window.cfVisionneuse = (v) => { const p = D().profil = D().profil || {}; p.dossier = Object.assign({}, p.dossier || {}, { visionneuse: v }); try { localStorage.removeItem("onco360.visionneuseGrande"); } catch (e) { /* stockage indisponible */ }
   setDoc(doc(db, "utilisateurs", D().u.uid), { dossier: p.dossier }, { merge: true }).then(() => A.toast("Réglage enregistré.")).catch((e) => A.toast("Réglage non enregistré : " + e.message)); };
 window.cfRetablirDossier = () => { ["onco360.visionneuseGrande", "onco360.dossierAgrandi", "onco360.dossierParties", "onco360.menuReplieDossier"].forEach((k) => { try { localStorage.removeItem(k); } catch (e) { /* stockage indisponible */ } }); A.toast("Affichage du dossier rétabli (sur cet appareil)."); };
-window.cfRegT = (g, k, v) => { ED.reg[g][k] = String(v); modif(true); }; // réglage texte (3.9 : en-tête des ordonnances)
+window.cfRegT = (g, k, v) => { ED.reg[g][k] = String(v); modif(true); };
+window.cfRegTx = (g, k, v) => { ED.reg[g][k] = String(v); modif(); }; // IG2 : texte saisi (sans redessiner la page) // réglage texte (3.9 : en-tête des ordonnances)
 window.cfReg = (g, k, v) => { ED.reg[g][k] = parseInt(v, 10) || 0; modif(g === "salle"); };
 window.cfImp = (q, n, v) => { const x = parseInt(v, 10); ED.reg.impression[q][n] = isNaN(x) ? REGLAGES0.impression[q][n] : Math.max(0, Math.min(150, x)); modif(); };
 window.cfCoul = (k, c) => { ED.coul[k] = c; modif(true); };
