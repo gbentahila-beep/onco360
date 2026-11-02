@@ -37,10 +37,10 @@ async def main():
             ok(n1 == n0 + 1, f'{nom} : « + » ajoute une ligne à la demande ({n0} → {n1})')
             await ev("fermerFenetre()"); await pg.wait_for_timeout(300)
 
-        # 4. Courriers : pas de « + », ⋯ ; Doc. : Ouvrir, Remettre, ⋯
+        # 4. Courriers : ⋯ et « + » (UX13 P14, 02/11/2026 : « + » = utiliser le courrier) ; Doc. : Ouvrir, Remettre, ⋯
         await ev(f"ordCourriers('{pid}')"); await pg.wait_for_timeout(1200)
         r = await ev("(() => { const tr = document.querySelector('#crListe tr.m'); return tr ? [!!tr.querySelector('details.bib-pts'), !!tr.querySelector('.ico.vert')] : null; })()")
-        ok(r == [True, False], 'Courriers : « ⋯ », pas de « + » ' + str(r))
+        ok(r == [True, True], 'Courriers : « ⋯ » et « + » (UX13 P14) ' + str(r))
         await ev("fermerFenetre()"); await pg.wait_for_timeout(300)
         await ev(f"ordDocumentation('{pid}')"); await pg.wait_for_timeout(1500)
         r = await ev("(() => { const td = document.querySelector('#dcListe td.act'); return td ? [[...td.querySelectorAll(':scope > .mini')].map(b => b.textContent.trim()), td.querySelector('details.bib-pts') ? [...td.querySelectorAll('details .m3-l button')].map(b => b.textContent.trim()) : null] : null; })()")
