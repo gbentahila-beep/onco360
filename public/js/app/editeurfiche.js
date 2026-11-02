@@ -2,6 +2,7 @@
 // fiche de la spécialité, retouches d'un cabinet) et à Onco360 (Paramètres › Cabinet, 11/10/2026 : retouches faites par le cabinet
 // lui-même). Sans Firebase : il modifie sur place la fiche effective qu'on lui donne ; l'appelant enregistre.
 import { FICHE, TYPES_CHAMP, CONSULT, TYPES_CHAMP_CS, libDe, sectionChamp, champsDe, libType, FIXES, LISTES_CAB, formulairesDe, formDuType } from "../donnees/catalogue.js";
+import { confirmer, alerte } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 const $ = (i) => document.getElementById(i);
 const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -115,10 +116,10 @@ export function editeurFiche(FI, mode, cs, o) {
     if ($(P + "Type") && !$(P + "Type").disabled) $(P + "Type").onchange = () => { const t = typeSel(); if ($(P + "ChoixZ")) $(P + "ChoixZ").style.display = t === "choix" ? "" : "none"; if ($(P + "UniteZ")) $(P + "UniteZ").style.display = t === "nombre" ? "" : "none"; };
     if ($(P + "Ann")) $(P + "Ann").onclick = () => { ED = null; refaire(); };
     if ($(P + "Orig")) $(P + "Orig").onclick = () => { $(P + "Lib").value = libDefaut(k); };
-    $(P + "Ok").onclick = () => {
-      const lib = $(P + "Lib").value.replace(/\s+/g, " ").trim().slice(0, 60); if (!lib) { alert("Indiquez le nom du champ."); return; }
+    $(P + "Ok").onclick = async () => {
+      const lib = $(P + "Lib").value.replace(/\s+/g, " ").trim().slice(0, 60); if (!lib) { await alerte("Indiquez le nom du champ."); return; }
       const type = typeSel(), choix = $(P + "Choix") ? $(P + "Choix").value.split("\n").map((z) => z.trim()).filter(Boolean).slice(0, 40) : [];
-      if (type === "choix" && !(c && c.liste) && !choix.length) { alert("Indiquez au moins un choix (un par ligne)."); return; }
+      if (type === "choix" && !(c && c.liste) && !choix.length) { await alerte("Indiquez au moins un choix (un par ligne)."); return; }
       const unite = $(P + "Unite") && !$(P + "Unite").disabled ? $(P + "Unite").value.trim().slice(0, 15) : null, sect = $(P + "Partie").value;
       const imp = !!($(P + "Imp") && $(P + "Imp").checked), ent = $(P + "Ent") ? $(P + "Ent").checked : null;
       const court = $(P + "Court") ? $(P + "Court").value.replace(/\s+/g, " ").trim().slice(0, 14) : null; // R-G a : libellé court du bandeau
@@ -152,10 +153,10 @@ export function editeurFiche(FI, mode, cs, o) {
     q("[data-cha]").forEach((b) => { b.onclick = () => { ED = "aj:" + b.dataset.cha; refaire(); }; });
     q("[data-chf]").forEach((b) => { b.onclick = () => { ED = "f:" + b.dataset.chf; refaire(); setTimeout(() => { const z = document.querySelector('[data-ed="' + P + '"] .ch-f'); if (z && z.scrollIntoView) z.scrollIntoView({ block: "nearest" }); }, 0); }; });
     if (!cs && $(P + "Liste") && o.ouvrirListe) $(P + "Liste").onclick = () => { const k = $(P + "Liste").dataset.liste; ED = null; o.ouvrirListe(k); };
-    if ($(P + "AOk")) $(P + "AOk").onclick = () => { const a = FI.ajouts.find((z) => z.id === ED.slice(3)); if (!a) return; const v = $(P + "NomA").value.replace(/\s+/g, " ").trim().slice(0, 60); if (!v) { alert("Indiquez le nom du champ."); return; } a.lib = v;
-      if ($(P + "Liste")) { const l = $(P + "Liste").value.split("\n").map((c) => c.trim()).filter(Boolean).slice(0, 40); if (!l.length) { alert("Gardez au moins un choix (un par ligne)."); return; } a.choix = l; }
+    if ($(P + "AOk")) $(P + "AOk").onclick = async () => { const a = FI.ajouts.find((z) => z.id === ED.slice(3)); if (!a) return; const v = $(P + "NomA").value.replace(/\s+/g, " ").trim().slice(0, 60); if (!v) { await alerte("Indiquez le nom du champ."); return; } a.lib = v;
+      if ($(P + "Liste")) { const l = $(P + "Liste").value.split("\n").map((c) => c.trim()).filter(Boolean).slice(0, 40); if (!l.length) { await alerte("Gardez au moins un choix (un par ligne)."); return; } a.choix = l; }
       ED = null; refaire(); };
-    q("[data-chs]").forEach((b) => { b.onclick = () => { const k = b.dataset.chs, a = FI.ajouts.find((z) => z.id === k); if (!confirm("Retirer le champ « " + (a && a.lib) + " » de la fiche ?\n(Les valeurs déjà saisies restent dans les dossiers.)")) return; FI.ajouts = FI.ajouts.filter((z) => z.id !== k); FI.ordre = FI.ordre.filter((z) => z !== k); delete FI.champs[k]; refaire(); }; });
+    q("[data-chs]").forEach((b) => { b.onclick = async () => { const k = b.dataset.chs, a = FI.ajouts.find((z) => z.id === k); if (!(await confirmer("Retirer le champ « " + (a && a.lib) + " » de la fiche ?\n(Les valeurs déjà saisies restent dans les dossiers.)"))) return; FI.ajouts = FI.ajouts.filter((z) => z.id !== k); FI.ordre = FI.ordre.filter((z) => z !== k); delete FI.champs[k]; refaire(); }; });
     if ($(P + "Nouv")) $(P + "Nouv").onclick = () => { ED = "nouveau"; refaire(); };
     if ($(P + "Simple")) $(P + "Simple").onclick = () => { if (cs) { FI.typesForm = FI.typesForm || {}; ((o.types && o.types().length ? o.types() : (FI.choixs || {}).type) || CONSULT[0][4] || []).forEach((t) => { FI.typesForm[t] = "simple"; }); refaire(); return; } FI.ajouts.forEach((a) => { FI.champs[a.id] = false; }); ["type", "d", "titre", "note"].forEach((k) => { FI.champs[k] = true; }); refaire(); };
     if ($(P + "Tout")) $(P + "Tout").onclick = () => { FI.ajouts.forEach((a) => { FI.champs[a.id] = true; }); refaire(); };
@@ -165,7 +166,7 @@ export function editeurFiche(FI, mode, cs, o) {
       if ($(P + "NF")) $(P + "NF").onclick = () => { const id = "f" + Date.now().toString(36); FI.formulaires.push({ id, nom: "Nouveau formulaire", champs: [] }); FSEL = id; ED = null; refaire(); setTimeout(() => { const n = $(P + "FNom"); if (n) { n.focus(); n.select(); } }, 0); };
       if ($(P + "FNom")) $(P + "FNom").onchange = () => { const v = $(P + "FNom").value.replace(/\s+/g, " ").trim().slice(0, 60); if (v) fSel().nom = v; refaire(); };
       if ($(P + "FDup")) $(P + "FDup").onclick = () => { const f = fSel(), id = "f" + Date.now().toString(36); FI.formulaires.push({ id, nom: ("Copie de " + f.nom).slice(0, 60), champs: f.champs.slice() }); FSEL = id; refaire(); };
-      if ($(P + "FSup")) $(P + "FSup").onclick = () => { const f = fSel(); if (!confirm("Supprimer le formulaire « " + f.nom + " » ?\n(Ses champs restent dans les autres formulaires ; les valeurs déjà saisies restent dans les consultations.)")) return;
+      if ($(P + "FSup")) $(P + "FSup").onclick = async () => { const f = fSel(); if (!(await confirmer("Supprimer le formulaire « " + f.nom + " » ?\n(Ses champs restent dans les autres formulaires ; les valeurs déjà saisies restent dans les consultations.)"))) return;
         FI.formulaires = FO().filter((z) => z !== f); const r = FO()[0].id; Object.keys(FI.typesForm || {}).forEach((t) => { if (FI.typesForm[t] === f.id) FI.typesForm[t] = r; }); FSEL = r; refaire(); };
       q("[data-cqx]").forEach((b) => { b.onclick = () => { const f = fSel(); f.champs = f.champs.filter((k) => k !== b.dataset.cqx); refaire(); }; });
       if ($(P + "Rep")) $(P + "Rep").onchange = () => { const v = $(P + "Rep").value; if (!v) return; fSel().champs.push(v); FI.champs[v] = true; setTimeout(refaire, 30); };
@@ -174,16 +175,16 @@ export function editeurFiche(FI, mode, cs, o) {
     if ($(P + "Type")) $(P + "Type").onchange = () => { $(P + "ChoixZ").style.display = $(P + "Type").value === "choix" ? "" : "none"; if ($(P + "UniteZ")) $(P + "UniteZ").style.display = $(P + "Type").value === "nombre" ? "" : "none"; };
     if ($(P + "Ann")) $(P + "Ann").onclick = () => { ED = null; refaire(); };
     const k = ED && ED.indexOf("lib:") === 0 ? ED.slice(4) : null;
-    if ($(P + "LOk")) $(P + "LOk").onclick = () => { const v = $(P + "NomA").value.replace(/\s+/g, " ").trim().slice(0, 60); FI.libs = FI.libs || {}; if (!v || v === LIB[k][1]) delete FI.libs[k]; else FI.libs[k] = v;
-      if ($(P + "Liste")) { const l = $(P + "Liste").value.split("\n").map((c) => c.trim()).filter(Boolean).slice(0, 40); if (!l.length) { alert("Gardez au moins un choix (un par ligne)."); return; } FI.choixs = FI.choixs || {}; FI.choixs[k] = l; }
+    if ($(P + "LOk")) $(P + "LOk").onclick = async () => { const v = $(P + "NomA").value.replace(/\s+/g, " ").trim().slice(0, 60); FI.libs = FI.libs || {}; if (!v || v === LIB[k][1]) delete FI.libs[k]; else FI.libs[k] = v;
+      if ($(P + "Liste")) { const l = $(P + "Liste").value.split("\n").map((c) => c.trim()).filter(Boolean).slice(0, 40); if (!l.length) { await alerte("Gardez au moins un choix (un par ligne)."); return; } FI.choixs = FI.choixs || {}; FI.choixs[k] = l; }
       ED = null; refaire(); };
     if ($(P + "LOrig")) $(P + "LOrig").onclick = () => { FI.libs = FI.libs || {}; delete FI.libs[k]; if (LIB[k][4]) { FI.choixs = FI.choixs || {}; FI.choixs[k] = LIB[k][4].slice(); } ED = null; refaire(); };
-    if ($(P + "Ok")) $(P + "Ok").onclick = () => {
-      const lib = $(P + "Lib").value.trim(); if (!lib) { alert("Indiquez le nom du champ."); return; }
+    if ($(P + "Ok")) $(P + "Ok").onclick = async () => {
+      const lib = $(P + "Lib").value.trim(); if (!lib) { await alerte("Indiquez le nom du champ."); return; }
       const pa = $(P + "Partie") ? $(P + "Partie").value : "identite";
       const d = { lib: lib.slice(0, 60), type: $(P + "Type").value, partie: pa === "tumeur" ? "clinique" : pa, tumeur: pa === "tumeur", choix: $(P + "Choix").value.split("\n").map((c) => c.trim()).filter(Boolean).slice(0, 40), imprimer: !!($(P + "Imp") && $(P + "Imp").checked), entete: !!($(P + "Ent") && $(P + "Ent").checked) };
       if ($(P + "Unite")) { const u = $(P + "Unite").value.trim().slice(0, 15); if (u && d.type === "nombre") d.unite = u; else delete d.unite; }
-      if (d.type === "choix" && !d.choix.length) { alert("Indiquez au moins un choix (un par ligne)."); return; }
+      if (d.type === "choix" && !d.choix.length) { await alerte("Indiquez au moins un choix (un par ligne)."); return; }
       if (ED === "nouveau") { const id = "x" + Date.now().toString(36) + Math.floor(Math.random() * 1296).toString(36); FI.ajouts.push(Object.assign({ id, cabinet: mode === "cabinet" }, d)); FI.ordre.push(id); FI.champs[id] = true; if (cs && fSel()) fSel().champs.push(id); }
       else { const a = FI.ajouts.find((z) => z.id === ED); if (a) { if (!d.unite) delete a.unite; Object.assign(a, d); } }
       if (!cs && $(P + "Ent")) { FI.entetes = FI.entetes || {}; FI.entetes[ED === "nouveau" ? FI.ordre[FI.ordre.length - 1] : ED] = d.entete; }

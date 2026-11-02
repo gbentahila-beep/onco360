@@ -27,7 +27,7 @@ async def main():
         pg = await ouvrir(b, S2); ev = pg.evaluate; await pg.add_init_script(MOCK)
         await pg.goto(f'http://localhost:{PORT}/v2.html?espace=bib-oncologie#parametres/fiche'); await pg.wait_for_timeout(3000)
         t = await pg.inner_text('#page')
-        ok(await pg.inner_text('#titrePage') == 'Paramètres du modèle' and 'Rien ne touche le cabinet du Dr Bentahila' in t, 'en-tête « Paramètres du modèle » (barre du haut) : ce que reçoit un cabinet neuf, rien ne touche le cabinet du Dr Bentahila')
+        ok(await pg.evaluate("(document.querySelector('#titrePage .tp-t')||document.getElementById('titrePage')).innerText") == 'Paramètres du modèle' and 'Rien ne touche le cabinet du Dr Bentahila' in t, 'en-tête « Paramètres du modèle » (barre du haut) : ce que reçoit un cabinet neuf, rien ne touche le cabinet du Dr Bentahila')
         fams = await ev("[...document.querySelectorAll('.cf-fam .cf-gt')].map(b=>b.textContent.trim())")
         ok(fams[:2] == ['Cabinet', 'Dossier patient'] and 'Agenda et rappels' in fams and 'Bibliothèques' in fams, 'familles comme chez un médecin', fams)
         sous = await ev("[...document.querySelectorAll('.cf-sous button')].map(b=>b.textContent.trim())")

@@ -242,7 +242,7 @@ body.mode-bib #specMenu{color:#6B2FA3;font-weight:bold}
 /* Comptable (09/10/2026) : menu réduit au bilan et au profil */
 body.role-comptable nav a[data-p]:not([data-p="bilan"]):not([data-p="profil"]){display:none!important}
 /* Journal d'audit (Paramètres, 09/10/2026) */
-.au-f{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}.au-bas{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0 8px}.au-bas .mesures{flex:1}
+.au-f{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}.au-ret{margin-bottom:12px}.au-bas{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0 8px}.au-bas .mesures{flex:1}
 .au-t td{font-size:var(--t4);vertical-align:top}.au-t td:first-child{white-space:nowrap}
 /* Premier démarrage d'un cabinet neuf (09/10/2026) */
 .ppas .pp{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;border:1px solid var(--gris-c);margin-top:8px;color:inherit;text-decoration:none;background:#fff}
@@ -567,7 +567,7 @@ a.lien-nm{text-decoration:none}a.lien-nm:hover{text-decoration:underline}
 .sa-jtxt{border:1px solid var(--trait);background:#fff;border-radius:var(--r-m);height:52px;padding:0 16px;font-weight:bold;color:var(--titre);font-size:var(--t5);white-space:nowrap}.sa-jtxt .fl{color:var(--doux);margin-left:6px}
 .sa-jours.repli .sa-sem{display:none}.sa-jours:not(.repli) .sa-jtxt{height:52px;padding:0 10px;font-size:0}.sa-jours:not(.repli) .sa-jtxt .fl{font-size:var(--t5);margin:0}
 @media (min-width:901px){
-.sa-carte.compact .sa-l:not(.ent){padding:3px 4px;margin-top:2px;font-size:var(--t3);min-height:32px;height:32px}
+.sa-carte.compact .sa-l:not(.ent){padding:3px 4px;margin-top:2px;font-size:var(--t3);min-height:32px;height:auto}
 .sa-carte.compact .sa-l>*:not(.actr){white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* T5 (24/10/2026, audit n° 11 U23) : le nom du patient n'est jamais coupé (sur deux lignes s'il le faut) ; la mutuelle et le motif cèdent la place */
 .sa-carte .sa-l>.nm,.sa-carte.compact .sa-l>.nm:not(.actr){white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}.sa-carte .sa-l>.nm .lien-nm{white-space:normal}
@@ -740,6 +740,10 @@ a.lien-nm{text-decoration:none}a.lien-nm:hover{text-decoration:underline}
 .tcures.ed td{padding:4px}.tcures.ed input,.tcures.ed select{width:100%}.tcures.ed select{min-width:150px}
 .grille-nl{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
 .form input.req,.form select.req{background:#FFFBE6}
+/* UX4 (02/11/2026) : champ en erreur entouré de rouge ; pied de toute fenêtre (boutons) fixé en bas pendant qu'on défile */
+.ch-err,.form .ch-err,input.ch-err,select.ch-err,textarea.ch-err{border-color:var(--rouge)!important;box-shadow:0 0 0 3px rgba(198,40,40,.16)!important}
+#fenetre:not(.pleine):not(.centre) #fenetreCorps>.boutons:last-child,#fenetre:not(.pleine):not(.centre) #fenetreCorps>div>.boutons:last-child{position:sticky;bottom:-22px;z-index:4;background:#fff;margin:18px -22px -22px;padding:12px 22px;border-top:1px solid var(--trait)}
+@media (max-width:640px){#fenetre:not(.pleine):not(.centre) #fenetreCorps>.boutons:last-child,#fenetre:not(.pleine):not(.centre) #fenetreCorps>div>.boutons:last-child{bottom:-16px;margin:14px -12px -16px;padding:10px 12px}}
 @media (max-width:640px){#fenetre{padding:6px}#fenetre .boite{padding:16px 12px;max-height:96vh}
   /* Filtres en puces : une ligne compacte qui défile horizontalement au lieu de remplir l'écran */
   .puces{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:5px;margin-bottom:6px;padding-bottom:2px}.puces::-webkit-scrollbar{display:none}
@@ -1087,13 +1091,16 @@ details.vig-b>summary::-webkit-details-marker{display:none}.vig-d{font-size:var(
 .pn-corps .mol-b .entete{display:flex;align-items:center;flex-wrap:nowrap;gap:8px}.pn-corps .mol-b .entete .actr{flex:none;flex-wrap:nowrap}.pn-corps .mol-b .actr .mini{padding:3px 8px}
 @container dos (min-width:940px){.dos-pn .pn-aide{display:grid;place-items:center;position:absolute;top:10px;right:12px;z-index:6;width:28px;height:28px;border-radius:50%;border:1px solid var(--trait);background:#fff;color:var(--prim);font-weight:bold;cursor:pointer}.dos-pn{position:relative}.pn-corps .cure-ent{padding-right:36px}.pn-corps>h3{padding-right:36px}}
 /* RT : 4 colonnes */
-.pn-corps .rt-f{grid-template-columns:repeat(4,minmax(0,1fr))}.pn-corps .rt-f>div:empty{display:none}.pn-corps .rt-f>.large:has(#rActe){grid-column:span 2}.pn-corps .rt-f>.large:has(#rFinCalc){grid-column:auto}
+.pn-corps .rt-f{grid-template-columns:repeat(4,minmax(0,1fr))}.rt-f>div{min-width:0}.rt-f select,.rt-f input{max-width:100%;min-width:0;text-overflow:ellipsis}.pn-corps .rt-f>div:empty{display:none}.pn-corps .rt-f>.large:has(#rActe){grid-column:span 2}.pn-corps .rt-f>.large:has(#rFinCalc){grid-column:auto}
 .pn-corps .rt-f #rFinCalc{font-size:var(--t4)!important;padding-top:7px}.pn-corps .rt-f .rt-vol{margin:0 0 4px!important}.pn-corps .rt-f #rNote{height:56px}.pn-corps .rt-f>.large:has(#rVmat),.pn-corps .rt-f>#rVmatM{grid-column:span 2}.pn-corps .rt-f>#rVmatM{padding:4px 8px!important}.pn-corps .rt-f>.large:has(#rVmat){align-self:end}.pn-corps .par-j label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* Onglet Chimiothérapie : une ligne par cure */
 .dos-trav .t-lig th{white-space:nowrap;padding:6px 6px;font-size:var(--t1)}.dos-trav .t-lig td{padding:5px 6px}.dos-trav .t-lig td.pcs{color:var(--doux);font-size:var(--t3)}
 /* 19/10/2026 (Dr Bentahila) : une ligne hebdomadaire (paclitaxel, paclitaxel-carboplatine) ne demande plus de défiler de côté : « J1 J8 » et
    « J15 à valider » l'un sous l'autre, poids · Cl · SC qui passe à la ligne, date prévue plus étroite */
 .t-lig td[data-l="Statut"] .badge{margin:1px 0}.t-lig td.pcs .nw{white-space:nowrap}.tcures input[type=date]{width:auto;max-width:150px;min-width:0}
+/* UX1 (01/11/2026) : dossier en trois colonnes, le tableau des cures tient dans sa colonne (marges des cases réduites) */
+.bn-loc{font-size:var(--t4);font-weight:bold;color:var(--titre);margin-top:2px;overflow-wrap:anywhere}
+.dos:not(.agrandi) .t-lig th,.dos:not(.agrandi) .t-lig td{padding-left:5px;padding-right:5px}.dos:not(.agrandi) .t-lig input[type=date]{max-width:140px}
 .dos-trav .t-lig .badge{padding:2px 7px;font-size:var(--t2)}.dos-trav .t-lig td .mini{padding:3px 8px}.dos-trav .acc-c>.actr{margin-bottom:4px!important}
 /* Note de consultation ouverte : titre avec signature et boutons, note sans cadre, ordonnances sur une ligne */
 .cs-h{display:flex;align-items:center;gap:2px 6px;flex-wrap:wrap}.cs-h .cs-t{flex:1 1 300px;min-width:0}.dos .cs.on .cs-t .ti{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.dos .cs.on .cs-t .au{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:0 1 auto}.cs-act{display:inline-flex;align-items:center;gap:6px;margin-left:auto;white-space:nowrap;padding:2px 0}.dos .cs.on .cs-t .au{flex:0 3 auto}
@@ -1852,6 +1859,8 @@ svg.i{vertical-align:calc(.36em - 10px)}svg.pi{vertical-align:calc(.36em - 7.5px
   .tb-rang .tb-in>.tb-c{flex:none;min-height:0;display:flex;flex-direction:column}.tb-rang .tb-in>.tb-c>section{flex:1 1 auto;min-height:0}
   .tb-rang.ajuste-d>.tb-d .tb-fx,.tb-rang.ajuste-g>.tb-g .tb-fx{flex:1 1 0}.tb-rang .tb-fx>section{max-height:none;overflow:auto}
   .tb-rang:not(.ajuste-d)>.tb-d .tb-in>.tb-c:last-child,.tb-rang:not(.ajuste-g)>.tb-g .tb-in>.tb-c:last-child{flex:1 1 auto}
+  /* UX2 (01/11/2026) : première rangée à la hauteur de l'écran, listes d'« Aujourd'hui » plus longues ; gauche et droite toujours de même hauteur */
+  .tb-rang.tb-r1{min-height:max(620px,calc(100vh - 190px))}.tb-r1 .cat-l{max-height:360px}
 }
 .tb-in>.tb-c:empty,.tb-in>.tb-c:has(>.cache),#accAbo:empty{display:none!important}
 @media (min-width:1280px){.tb-rang~.carte .kpi{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}}
@@ -2052,6 +2061,61 @@ ol.rtr-pts2>li::before{content:counter(pt);position:absolute;left:10px;top:12px;
   .rcp-r .dec:empty{display:none}.rcp-r [data-l]::before{content:attr(data-l) " : ";color:var(--doux);font-weight:normal;font-size:var(--t3)}
   .rcp-r [data-l]{display:block}
 }
+/* ───── Phase UX, UX5 à UX8 (02/11/2026) : même modèle partout, sans changer les contenus ───── */
+/* UX5 : haut de page = icône + titre + une ligne d'explication (barre du haut) */
+#titrePage:has(.tp-ex){display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:10px;align-items:center;line-height:1.2}
+#titrePage .tp-ic{grid-row:1 / span 2;width:24px;height:24px;color:var(--prim)}
+#titrePage .tp-t{overflow:hidden;text-overflow:ellipsis}
+#titrePage .tp-ex{grid-column:2;font-size:13px;font-weight:normal;color:var(--doux);overflow:hidden;text-overflow:ellipsis}
+@media (max-width:767px){#titrePage .tp-ex{display:none}#titrePage .tp-ic{grid-row:auto;width:20px;height:20px}}
+/* UX5 : bandeau bleu en tête des listes et des tableaux (icône, titre, nombre, actions à droite) */
+.bd-o{display:flex;align-items:center;gap:10px;min-height:48px;padding:8px 16px;box-sizing:border-box;background:var(--prim-c);color:var(--titre);font-weight:bold;font-size:15px}
+.bd-o>.i{width:20px;height:20px;color:var(--prim);flex:none}
+.bd-o .bd-n{min-width:24px;padding:2px 9px;border-radius:999px;background:var(--carte);color:var(--prim);font-size:13px;text-align:center;box-sizing:border-box}
+.bd-o .bd-a{margin-left:auto;display:flex;gap:8px;align-items:center}
+.pt-tab,.ta-tab{border-radius:12px;overflow:hidden}
+/* UX5 : page pleine = « ← » vers la page d'origine, « Échap pour annuler » dans le pied */
+.pg-ret{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px 0 8px;margin:0 0 -6px;border:0;border-radius:10px;background:none;color:var(--prim);font:inherit;font-weight:bold;font-size:14px;cursor:pointer}
+.pg-ret:hover{background:var(--prim-c)}.pg-ret .i{width:18px;height:18px}
+.pg-form>.boutons .pg-esc{margin-right:auto;align-self:center;font-size:13px;color:var(--doux)}
+@media (max-width:767px){.pg-form>.boutons .pg-esc{display:none}}
+/* UX6 : boutons = trois hauteurs (36 / 40 / 44 px), quatre couleurs (bleu principal, blanc à contour, vert valider, rouge supprimer), plus de bleu marine ;
+   « ⋯ » et ▾ d'au moins 36 px */
+@media (min-width:641px){.bt.petit{min-height:36px}}
+.mini{min-height:36px;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.bt.fonce,.mini.fonce{background:var(--prim);color:var(--carte);border-color:var(--prim)}
+.bt.orange,.mini.orange{background:var(--carte);color:var(--encre);border-color:var(--bord-champ)}
+.bt.vert,.mini.vert{background:var(--vert-f);color:var(--carte);border-color:var(--vert-f)}
+.mini.rouge{background:var(--carte);color:var(--rouge);border-color:var(--bord-champ)}
+.m3>summary,summary.ico,.ico,.bib-pts>summary{min-width:36px;min-height:36px;box-sizing:border-box}
+.ico{height:36px}
+.b3{min-width:36px;min-height:36px}
+/* UX7 : même présentation des tableaux (colonnes et noms inchangés) : en-tête 13 px gras sans majuscules sur #F1F5FB, lignes de 44 px, survol */
+.tcures th,.tcures.bilan th,.rtr-tab th,.lc th,.md-t th,table.pt th,.pt-h,.ta-h,.sa-l.ent{font-size:13px!important;font-weight:bold!important;text-transform:none!important;letter-spacing:0!important;background:#F1F5FB!important;color:var(--titre)!important}
+@media (min-width:768px){.tcures.bilan tbody td,.rtr-tab:not(.rtr-edt):not(.rtr-cartes):not(.rtr-cartes-h) tbody td,.lc:not(.mods-t) tbody td,.md-t tbody td,table.pt tbody td{height:44px;box-sizing:border-box}}
+.pt-r,.ta-tab .ta-r{min-height:44px}
+.tcures.bilan tbody tr:hover>td,.rtr-tab:not(.rtr-edt) tbody tr:hover>td,.lc tbody tr:hover>td,.md-t tbody tr:hover>td,table.pt tbody tr:hover>td{background:#F7FAFE}
+/* UX8 : tableau de bord, date avec flèches ; Salle d'attente, attente en couleur (verte, orange, rouge) */
+.accueil .tb-date{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin:4px 0 0}
+.accueil .tb-date span{min-width:150px;text-align:center;font-weight:bold;color:var(--titre)}
+.accueil .tb-fl{width:36px;min-width:36px;min-height:36px;font-size:22px;color:var(--prim);border-radius:50%}
+.accueil .tb-fl:hover{background:var(--prim-c)}
+.accueil .tb-auj{min-height:36px;margin-left:6px;padding:0 12px}
+.att-c{display:inline-block;min-width:38px;padding:2px 6px;border-radius:999px;font-weight:bold;text-align:center;box-sizing:border-box}
+/* 02/11/2026 : Radiothérapie, essais et pages de contourage modifiables par le cabinet */
+.rtr-ef{grid-template-columns:1fr 1fr}.rtr-ef .pleine-l{grid-column:1 / -1}
+@media (max-width:640px){.rtr-ef{grid-template-columns:1fr}}
+.rtr-cts h3 .rtr-ctmod{margin-left:10px;vertical-align:middle;font-size:13px}
+.rtr-ctaj{justify-content:flex-end;margin-bottom:8px}
+.rtr-cgt th,.rtr-cgt td{vertical-align:top;padding:6px}
+.rtr-cgt th{white-space:normal!important}
+.rtr-cgt th input{width:calc(100% - 44px);min-width:90px;min-height:36px;box-sizing:border-box;font-weight:bold}
+.rtr-cgt th .b3{vertical-align:middle}
+.rtr-cgt textarea{width:100%;min-width:140px;box-sizing:border-box;resize:vertical;font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--bord-champ);border-radius:8px}
+.rtr-cged .rtr-ohaut{display:flex;gap:8px;margin:10px 0}
+@media (max-width:767px){.rtr-cged .rtr-tw{overflow-x:auto;max-width:100%}table.rtr-cgt{display:table!important;width:auto!important}table.rtr-cgt thead{display:table-header-group!important}
+  table.rtr-cgt tbody{display:table-row-group!important}table.rtr-cgt tr{display:table-row!important}table.rtr-cgt th,table.rtr-cgt td{display:table-cell!important}table.rtr-cgt td::before{content:none!important}}
+.att-c.vert{background:var(--vert-c);color:var(--vert-f)}.att-c.orange{background:var(--orange-c);color:#9A5B00}.att-c.rouge{background:var(--rouge-c);color:var(--rouge)}
 </style>
 </head>
 <body>

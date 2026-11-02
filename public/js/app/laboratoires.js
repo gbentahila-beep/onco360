@@ -5,6 +5,7 @@
 // lu par toute l'équipe, modifié avec le droit « paramètres » (règle parametres/{d}). Aucune donnée patient.
 import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { db } from "../config.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null;
 export function installer(api) { A = api; }
@@ -81,7 +82,7 @@ window.lbModifier = (id) => {
     '<div class="err" id="fErr"></div><div class="boutons"><button class="b2" onclick="fermerFenetre()">Annuler</button><button class="b1" id="lbOk">Enregistrer</button></div>', "large");
   A.$("lbOk").onclick = async () => {
     const t = (e, s) => String((e.querySelector(s) || {}).value || "").replace(/\s+/g, " ").trim();
-    const nom = String(A.val("lbNom") || "").replace(/\s+/g, " ").trim(); if (!nom) { A.erreur("Indiquez le nom du laboratoire."); return; }
+    const nom = String(A.val("lbNom") || "").replace(/\s+/g, " ").trim(); if (!nom) { A.erreur("Indiquez le nom du laboratoire.", "lbNom"); return; }
     if ((LABS || []).some((z) => z.id !== (l && l.id) && norm(z.nom) === norm(nom))) { A.erreur("Ce laboratoire est déjà noté : « " + nom + " »."); return; }
     const delegues = [...document.querySelectorAll("#lbDels .lb-r")].map((r) => ({ nom: t(r, ".lb-dn"), tel: t(r, ".lb-dt"), email: t(r, ".lb-de") })).filter((d) => d.nom || d.tel || d.email);
     if (delegues.some((d) => d.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email))) { A.erreur("Une adresse e-mail n'est pas valide."); return; }
@@ -95,6 +96,6 @@ window.lbModifier = (id) => {
   };
 };
 window.lbSupprimer = async (id) => {
-  const l = (LABS || []).find((z) => z.id === id); if (!l || !peutModifier() || !confirm("Supprimer le laboratoire « " + l.nom + " » et tout ce qui est noté (délégués, produits) ?")) return;
+  const l = (LABS || []).find((z) => z.id === id); if (!l || !peutModifier() || !(await confirmer("Supprimer le laboratoire « " + l.nom + " » et tout ce qui est noté (délégués, produits) ?"))) return;
   try { await charger(); await sauver(LABS.filter((z) => z.id !== id)); A.toast("Laboratoire supprimé."); pageLaboratoires(); } catch (e) { A.toast("Suppression impossible : " + ((e && e.message) || e)); }
 };

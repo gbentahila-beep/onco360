@@ -6,6 +6,7 @@
 //     récupération (ce qui a été créé depuis est gardé, l'état d'avant est copié et peut être remis) ; fonction serveur recuperation.
 //   • « En cas de problème » : la marche à suivre, pour quelqu'un qui n'est pas développeur (même texte que guide/en-cas-de-probleme.md).
 import { app, GOOGLE_CLIENT_ID } from "../config.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null;
 export function installer(api) { A = api; }
@@ -111,7 +112,7 @@ window.rcLierDrive = async () => {
   }).requestCode();
 };
 window.rcDelierDrive = async () => {
-  if (!confirm("Ne plus déposer l'export de la semaine dans ce Google Drive ?\n\nLes exports déjà déposés y restent.")) return;
+  if (!(await confirmer("Ne plus déposer l'export de la semaine dans ce Google Drive ?\n\nLes exports déjà déposés y restent."))) return;
   try { AUTO = await appelLong("exportAuto", { espace: A.ESPACE, action: "delierDrive" }); } catch (e) { A.toast(e.message); }
   dessinerAuto();
 };
@@ -184,7 +185,7 @@ window.rcFichier = async (inp) => {
     const Z = await chargerZip(), zip = await Z.loadAsync(f), d = zip.file("donnees/onco360.json");
     if (!d) throw new Error("ce fichier n'est pas un export complet d'Onco360");
     const J = JSON.parse(await d.async("string")); if (J.application !== "Onco360" || !J.collections) throw new Error("ce fichier n'est pas un export complet d'Onco360");
-    if (J.espace && J.espace !== A.ESPACE && !confirm("Cet export vient d'un autre cabinet (" + J.espace + "). Continuer ?")) return;
+    if (J.espace && J.espace !== A.ESPACE && !(await confirmer("Cet export vient d'un autre cabinet (" + J.espace + "). Continuer ?"))) return;
     R.fichier = { nom: f.name, J }; msg("rcMsg", "");
   } catch (e) { R.fichier = null; msg("rcMsg", "Fichier illisible : " + esc(e.message), true); return; }
   dessinerRecup();
@@ -220,7 +221,7 @@ window.rcVoir = async () => {
 };
 window.rcAppliquer = async () => {
   const P = R.apercu; if (!P) return;
-  if (!confirm("Récupérer " + P.cible + " depuis " + P.source + " ?\n\n" + P.n + " élément(s) remis ; ce qui a été créé depuis est gardé. L'état actuel est d'abord copié : vous pourrez revenir en arrière.")) return;
+  if (!(await confirmer("Récupérer " + P.cible + " depuis " + P.source + " ?\n\n" + P.n + " élément(s) remis ; ce qui a été créé depuis est gardé. L'état actuel est d'abord copié : vous pourrez revenir en arrière."))) return;
   const b = A.$("rcOk"); A.occupe(b, true); msg("rcMsg", "Récupération…");
   try {
     const r = await appelRecup("appliquer", { confirmer: true });

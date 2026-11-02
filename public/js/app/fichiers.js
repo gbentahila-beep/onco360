@@ -8,6 +8,7 @@
 import { collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getStorage, ref, uploadBytesResumable, getBlob, deleteObject } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 import { app, db } from "../config.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null;
 export function installer(api) { A = api; }
@@ -484,7 +485,7 @@ window.fiModifier = async (pid, id) => {
 };
 window.fiSupprimer = async (pid, id) => {
   const x = trouver(pid), f = fiche(pid, id); if (!x || !f || !peutSupprimer(f)) return;
-  if (!confirm("Supprimer le document « " + (f.titre || f.nom) + " » du " + A.dfrA(f.d) + " ?\n\nLe fichier est effacé du dossier.")) return;
+  if (!(await confirmer("Supprimer le document « " + (f.titre || f.nom) + " » du " + A.dfrA(f.d) + " ?\n\nLe fichier est effacé du dossier."))) return;
   try {
     await deleteObject(ref(st(), f.chemin)).catch((e) => { if (!e || e.code !== "storage/object-not-found") throw e; });
     await deleteDoc(doc(db, "espaces", A.ESPACE, "fichiers", id));

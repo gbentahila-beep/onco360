@@ -27,6 +27,7 @@ import { margesMm, reglages } from "./reglages.js";
 import { allergique, motsAllergie, diagnosticComplet, tumeurDe } from "../moteur/statut.js"; // 3.2 (12/10/2026)
 import { marquerZones, zoneRestante, doublonsDe, doublonsListe, alertesAllergie, texteAlerte, paginer, cleMedicament, chimioOrale, doseOrale, remplirZones } from "../moteur/ordonnance.js"; // lot R-E (19/10/2026)
 import { surface } from "../moteur/doses.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null;
 export function installer(api) { A = api; installerDocumentation(api); }
@@ -477,7 +478,7 @@ window.otValider = async () => {
 };
 window.otSupprimer = async (id) => {
   if (!gereListes()) return;
-  const o = TYPES.find((z) => z.id === id); if (!o || !confirm("Supprimer l'ordonnance type « " + o.nom + " » ?\n\nLes ordonnances déjà faites ne changent pas.")) return;
+  const o = TYPES.find((z) => z.id === id); if (!o || !(await confirmer("Supprimer l'ordonnance type « " + o.nom + " » ?\n\nLes ordonnances déjà faites ne changent pas."))) return;
   try { await modifierTypes((L) => { const i = L.findIndex((z) => z.id === id); if (i >= 0) L.splice(i, 1); }); A.toast("Ordonnance type supprimée."); listeTypes(); }
   catch (e) { A.toast(e && e.code === "permission-denied" ? "Vous n'avez pas le droit de modifier les ordonnances types." : messageListe(e, "Suppression impossible.")); }
 };
@@ -580,7 +581,7 @@ window.anaFiche = (id) => {
     '<datalist id="lAnCat">' + cats.map((c) => '<option value="' + A.esc(c) + '">').join("") + "</datalist>" +
     '<div class="err" id="fErr"></div><div class="boutons"><button class="bt gris" onclick="anaRetour()">Annuler</button><button class="bt plein" id="anOk">Valider</button></div>');
   $("anOk").onclick = async () => {
-    const nom = A.val("anNom"), cat = A.val("anCat"), note = A.val("anNote"); if (!nom) { A.erreur("Indiquez le nom."); return; }
+    const nom = A.val("anNom"), cat = A.val("anCat"), note = A.val("anNote"); if (!nom) { A.erreur("Indiquez le nom.", "anNom"); return; }
     if (ANA.some((z) => z.id !== (a && a.id) && sansAcc(z.nom) === sansAcc(nom))) { A.erreur("Déjà dans la liste."); return; }
     A.occupe($("anOk"), true);
     try { ANA = await modifierListe(FAM.la, (L) => { const z = a && L.find((y) => y.id === a.id); if (z) Object.assign(z, { nom, cat, note }); else L.push({ id: "a" + Date.now().toString(36), nom, cat, note }); }); A.toast(a ? "Modifié." : "Ajouté à la liste."); anaRetour(); }
@@ -616,8 +617,8 @@ async function retirerDe(n, id) {
   try { const L = await modifierListe(n, (X) => { const i = X.findIndex((z) => z.id === id); if (i >= 0) X.splice(i, 1); }); if (n === FAM.la) ANA = L; else BIL = L; A.toast("Supprimé de la liste."); listeAnalyses(); }
   catch (e) { A.toast(e && e.code === "permission-denied" ? "Vous n'avez pas le droit de modifier cette liste." : messageListe(e, "Suppression impossible.")); }
 }
-window.anaSupprimer = (id) => { const a = ANA.find((z) => z.id === id); if (a && confirm("Supprimer « " + a.nom + " » de la liste ?")) retirerDe(FAM.la, id); };
-window.bilSupprimer = (id) => { const b = BIL.find((z) => z.id === id); if (b && confirm("Supprimer « " + b.nom + " » ?\n\nLes ordonnances déjà faites ne changent pas.")) retirerDe(FAM.lb, id); };
+window.anaSupprimer = async (id) => { const a = ANA.find((z) => z.id === id); if (a && (await confirmer("Supprimer « " + a.nom + " » de la liste ?"))) retirerDe(FAM.la, id); };
+window.bilSupprimer = async (id) => { const b = BIL.find((z) => z.id === id); if (b && (await confirmer("Supprimer « " + b.nom + " » ?\n\nLes ordonnances déjà faites ne changent pas."))) retirerDe(FAM.lb, id); };
 async function basculerFavori(n, id) {
   try { const L = await modifierListe(n, (X) => { const z = X.find((y) => y.id === id); if (z) z.fav = !z.fav; }); if (n === FAM.la) ANA = L; else BIL = L; listeAnalyses(); }
   catch (e) { A.toast(e && e.code === "permission-denied" ? "Vous n'avez pas le droit de modifier cette liste." : messageListe(e, "Modification impossible.")); }
@@ -637,7 +638,7 @@ window.otFavori = async (id) => {
 window.mdRetour = () => { if (S) (S.t === "ordo" ? vueTypes : vueListe)(); else A.fermerFenetre(); };
 window.mdSupprimer = async (id) => {
   if (!gereListes()) return;
-  const m = BIB.find((z) => z.id === id); if (!m || !confirm("Retirer « " + m.nom + " » de la liste des médicaments ?\n\nLes ordonnances déjà faites ne changent pas.")) return;
+  const m = BIB.find((z) => z.id === id); if (!m || !(await confirmer("Retirer « " + m.nom + " » de la liste des médicaments ?\n\nLes ordonnances déjà faites ne changent pas."))) return;
   try { await modifierBib((L) => { const i = L.findIndex((y) => y.id === id); if (i >= 0) L.splice(i, 1); }); A.toast("Médicament retiré de la liste."); liste(); }
   catch (e) { A.toast(e && e.code === "permission-denied" ? "Vous n'avez pas le droit de modifier la liste des médicaments." : messageListe(e, "Suppression impossible.")); }
 };
@@ -734,7 +735,7 @@ function inserer(n) {
 window.crChamp = (k) => inserer(document.createTextNode("{" + k + "}"));
 window.crZone = () => { const t = document.createElement("template"); t.innerHTML = ZONE; inserer(t.content.firstChild); };
 window.crRetour = () => { CRF = null; if (CQ) vueCourriers(); else A.fermerFenetre(); };
-window.crOrigine = () => { if (CRF && CRF.rt && confirm("Remettre le texte d'origine de ce document ? (enregistré seulement si vous validez)")) { $("crPage").innerHTML = MODELES_RT0[CRF.rt]; if ($("crNom") && NOMS_RT[CRF.rt]) $("crNom").value = NOMS_RT[CRF.rt]; } }; // nom d'origine aussi (R-B4)
+window.crOrigine = async () => { if (CRF && CRF.rt && (await confirmer("Remettre le texte d'origine de ce document ? (enregistré seulement si vous validez)"))) { $("crPage").innerHTML = MODELES_RT0[CRF.rt]; if ($("crNom") && NOMS_RT[CRF.rt]) $("crNom").value = NOMS_RT[CRF.rt]; } }; // nom d'origine aussi (R-B4)
 window.crValider = async () => {
   if (!CRF) return; const nom = A.val("crNom"), html = nettoyer($("crPage").innerHTML);
   if (!nom) { A.erreur("Donnez un nom au modèle."); return; }
@@ -746,7 +747,7 @@ window.crValider = async () => {
   catch (e) { A.occupe($("crOk"), false); A.erreur(e && e.code === "permission-denied" ? "Vous n'avez pas le droit de modifier les modèles de courriers." : "Enregistrement impossible : " + ((e && e.message) || e)); }
 };
 window.crSupprimer = async (id) => {
-  const m = CR.find((z) => z.id === id); if (!m || !confirm(m.rt ? "Remettre le modèle d'origine de « " + m.nom + " » ?\n\nLes documents déjà enregistrés ne changent pas." : "Supprimer le modèle « " + m.nom + " » ?\n\nLes courriers déjà faits ne changent pas.")) return;
+  const m = CR.find((z) => z.id === id); if (!m || !(await confirmer(m.rt ? "Remettre le modèle d'origine de « " + m.nom + " » ?\n\nLes documents déjà enregistrés ne changent pas." : "Supprimer le modèle « " + m.nom + " » ?\n\nLes courriers déjà faits ne changent pas."))) return;
   try { CR = await modifierListe("courriers", (L) => { const i = L.findIndex((z) => z.id === id); if (i >= 0) L.splice(i, 1); }); A.toast("Modèle supprimé."); listeCourriers(); }
   catch (e) { A.toast(e && e.code === "permission-denied" ? "Vous n'avez pas le droit de modifier les modèles de courriers." : messageListe(e, "Suppression impossible.")); }
 };
@@ -886,7 +887,7 @@ window.anImprimer = () => { const l = choisie(); if (!l || l.annulee) return; le
 // R-E7 (d. 29) : « Annuler » au lieu d'effacer (l'ordonnance reste lisible, barrée, avec la date et l'auteur de l'annulation)
 window.anSupprimer = async () => {
   const l = choisie(), x = H && trouver(H.pid); if (!l || !x || !peutSupprimer()) return;
-  if (!confirm("Supprimer l'ordonnance du " + A.dfrA(l.d) + " ?\n\n« " + (l.lib || "") + " »")) return;
+  if (!(await confirmer("Supprimer l'ordonnance du " + A.dfrA(l.d) + " ?\n\n« " + (l.lib || "") + " »"))) return;
   try { await supprimerPrescription(x, l.id); H.sel = null; A.toast("Ordonnance supprimée."); vueAntecedents(); }
   catch (e) { A.toast(e && e.code === "permission-denied" ? "Vous n'avez pas le droit de supprimer cette ordonnance." : "Suppression impossible."); }
 };

@@ -32,8 +32,18 @@ async def ouvrir(b, seed=None, w=1440, h=900, t="2026-10-06T10:00:00", tz=None):
     async def jz(route): await route.fulfill(body=JSZ,content_type='application/javascript')
     await pg.route('https://www.gstatic.com/**',fb); await pg.route('https://cdnjs.cloudflare.com/**',jz)
     await pg.add_init_script("window.__cguV="+json.dumps(CGU_V)+";window.__fs="+json.dumps(seed or S)+";window.__win=[];window.open=(u)=>{const w={document:{_h:'',open(){},write(x){this._h+=x},close(){}},focus(){},print(){},closed:false};window.__win.push({u,w});return w};")
+    # UX3 (02/11/2026) : fenêtres d'avertissement d'Onco360 (dialogues.js) répondues comme celles du navigateur : texte passé à window.confirm /
+    # alert / prompt (accepté et noté dans pg.dlg, ou remplacé par le test), puis le bouton cliqué ; window.__dlgManuel = vrai pour y répondre soi-même
+    await pg.add_init_script(DLG_AUTO)
     await pg.clock.set_fixed_time(t)
     return pg
+DLG_AUTO = """(() => { const voir = () => { if (window.__dlgManuel) return; document.querySelectorAll('.dlg-f:not([data-auto])').forEach((f) => { f.dataset.auto = '1';
+  const champ = f.querySelector('input'), n = f.querySelectorAll('.dlg-p button').length, txt = f.querySelector('.dlg-b').innerText;
+  setTimeout(() => { if (!document.contains(f)) return;
+    if (champ) { const r = window.prompt(txt, champ.value); if (r != null && r !== '') champ.value = r; f.querySelector(r == null ? '[data-k=non]' : '[data-k=oui]').click(); }
+    else if (n > 1) f.querySelector(window.confirm(txt) ? '[data-k=oui]' : '[data-k=non]').click();
+    else { window.alert(txt); f.querySelector('.dlg-p button').click(); } }, 0); }); };
+  new MutationObserver(voir).observe(document, { childList: true, subtree: true }); })();"""
 serveur()
 # Après la validation d'une séance de chimio : fenêtre « Prochaine séance » (heure de consultation, 12/10/2026) → « Plus tard »
 async def plus_tard(pg):

@@ -7,6 +7,7 @@ import { doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/fi
 import { db } from "../config.js";
 import { VIG0, vigAudit3 } from "../moteur/vigilance.js";
 import { FLACONS0, lireFlacons, ecrireFlacons, INTERACTIONS0, interactionsEffectives } from "../moteur/p10.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null;
 export function installer(api) { A = api; }
@@ -61,9 +62,9 @@ function htmlInteractions(ok) {
 }
 const imarquer = (redessiner) => { IMOD = true; if (redessiner) window.cfOnglet("vigilances"); else { const m = document.getElementById("viMod"); if (m) m.classList.remove("cache"); } };
 window.viCh = (i, k, v) => { if (!IE || !IE[i]) return; IE[i][k] = k === "cl" ? (String(v || "").trim() === "" ? "" : Number(String(v).replace(",", ".")) || "") : String(v || "").trim(); imarquer(); };
-window.viSup = (i) => { if (!confirm("Retirer cette interaction ?")) return; IE.splice(i, 1); imarquer(true); };
+window.viSup = async (i) => { if (!(await confirmer("Retirer cette interaction ?"))) return; IE.splice(i, 1); imarquer(true); };
 window.viAj = () => { IE.push({ id: "i" + Date.now().toString(36), a: "", b: "", m: "", cl: "" }); imarquer(true); };
-window.viDefaut = () => { if (!confirm("Remettre la liste de départ (vos interactions modifiées seront remplacées à l'enregistrement) ?")) return; IE = JSON.parse(JSON.stringify(INTERACTIONS0)); imarquer(true); };
+window.viDefaut = async () => { if (!(await confirmer("Remettre la liste de départ (vos interactions modifiées seront remplacées à l'enregistrement) ?"))) return; IE = JSON.parse(JSON.stringify(INTERACTIONS0)); imarquer(true); };
 window.viEnregistrer = async () => {
   const L = IE.filter((I) => I.a || I.b || I.m).map((I) => Object.assign({ id: I.id, a: I.a, b: I.b, m: I.m }, I.cl ? { cl: I.cl } : {}));
   if (L.some((I) => !I.a || !I.b || !I.m)) { A.toast("Chaque interaction a besoin de molécules, de traitements et d'un message."); return; }
@@ -117,9 +118,9 @@ export function htmlVigilances(ok) {
 }
 const marquer = (redessiner) => { VMOD = true; if (redessiner) window.cfOnglet("vigilances"); else { const m = document.getElementById("vgMod"); if (m) m.classList.remove("cache"); } };
 window.vgCh = (i, k, v) => { VE[i][k] = String(v || "").trim(); marquer(); };
-window.vgSup = (i) => { if (!confirm("Retirer « " + (VE[i].nom || "cette note") + " » ?")) return; VE.splice(i, 1); marquer(true); };
+window.vgSup = async (i) => { if (!(await confirmer("Retirer « " + (VE[i].nom || "cette note") + " » ?"))) return; VE.splice(i, 1); marquer(true); };
 window.vgAj = () => { VE.push({ id: "v" + Date.now().toString(36), nom: "", mots: "", txt: "" }); marquer(true); };
-window.vgDefaut = () => { if (!confirm("Remettre la liste de départ (vos notes modifiées seront remplacées à l'enregistrement) ?")) return; VE = JSON.parse(JSON.stringify(VIG0)); marquer(true); };
+window.vgDefaut = async () => { if (!(await confirmer("Remettre la liste de départ (vos notes modifiées seront remplacées à l'enregistrement) ?"))) return; VE = JSON.parse(JSON.stringify(VIG0)); marquer(true); };
 window.vgEnregistrer = async () => {
   const L = VE.filter((N) => N.nom || N.mots || N.txt);
   if (L.some((N) => !N.mots)) { A.toast("Indiquez au moins un mot cherché pour chaque molécule."); return; }

@@ -13,15 +13,18 @@ import { db } from "../config.js";
 import { fusionner, trier, chercher, motBloquant, termes, sansAcc, resumePrescription, fmtPrescription, controlePrescription, nombre, calculBED, calculable, fixe, libPreuve, nb, TYPES, FRACTIONNEMENTS, CONTEXTES,
   contraintesSchema, regimeDe, baseEffective, cleOar, REGIMES, appliquerDelta, deltaDe, lignesCouverture } from "../moteur/rtref.js";
 import { idProtocole, AVERT_TXT } from "./protocoles.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 // RT.12 (31/10/2026) : même avertissement que les protocoles (8.3), en bas des schémas et des cartes
 const AVERT_RT = '<p class="avert-ind">' + AVERT_TXT + "</p>";
 
 let A = null, INDEX = null, CAB = null, LISTE = null, ERREUR = null, CHARGE = null, PROTOS = {};
 // Bibliothèques modifiées par le cabinet (25/10/2026) : referentielRT/_oar { oar: { id: { nom, nom_tg263, definition } }, ajouts: [OAR] } et
 // referentielRT/_contraintes { lignes: [lignes modifiées (même id) ou ajoutées (cc-…)], retirees: [id] }
-let CAB_OAR = null, CAB_CT = null, CAB_PR = null;
+let CAB_OAR = null, CAB_CT = null, CAB_PR = null, CAB_ES = null, CAB_CTG = null;
 // referentielRT/_protocoles { liens: { traitement du référentiel: [identifiants de protocoles] } } : lien vers Protocoles choisi par le cabinet
-export const DOCS_BIB = ["_oar", "_contraintes", "_protocoles"];
+// 02/11/2026 (demande de Dr Bentahila) : referentielRT/_essais { essais: { id: champs modifiés }, ajouts: [essais du cabinet] } et
+// referentielRT/_contourage { data: JSON { région: { sections: { id: section modifiée }, ajouts: [tableaux du cabinet] } } } (tableaux en JSON : pas de listes de listes dans la base)
+export const DOCS_BIB = ["_oar", "_contraintes", "_protocoles", "_essais", "_contourage"];
 const LOCS = {}, TEXTES = new Map();
 // Recherche et menus de la session ; sel = ligne choisie au clavier ; filtres = menus ouverts sur téléphone
 const RF = { q: "", reg: "", loc: "", sit: "", frac: "", sel: -1, filtres: false, y: 0, ouvert: null };
@@ -40,7 +43,7 @@ function charger() {
       try { PROTOS = (await json("protocoles-chimio.json")).correspondances || {}; } catch (e) { console.warn("protocoles-chimio", e); PROTOS = {}; }
       CAB = {};
       try { (await getDocs(collection(db, "espaces", A.ESPACE, "referentielRT"))).forEach((d) => { CAB[d.id] = d.data(); }); } catch (e) { console.warn("référentiel du cabinet", e); }
-      CAB_OAR = CAB._oar || null; CAB_CT = CAB._contraintes || null; CAB_PR = CAB._protocoles || null; DOCS_BIB.forEach((k) => { delete CAB[k]; });
+      CAB_OAR = CAB._oar || null; CAB_CT = CAB._contraintes || null; CAB_PR = CAB._protocoles || null; CAB_ES = CAB._essais || null; CAB_CTG = CAB._contourage || null; DOCS_BIB.forEach((k) => { delete CAB[k]; });
       // fiches du cabinet : acronymes des essais lus dans la bibliothèque (la référence les a déjà dans index.json)
       if (Object.keys(CAB).length) await chargerBibs().catch(() => null);
       LISTE = fusionner(INDEX, CAB, acronymeDe); ERREUR = null;
@@ -194,7 +197,7 @@ window.rtrOnglet = (o) => { if (ED) { FICHE.onglet = o; dessinerFiche(); return;
 let ESSAIS = null, BB = null;
 // BB.oar et BB.base : référence + changements du cabinet ; BB.jeux = contraintes propres aux essais et à la curiethérapie ; BB.paires = droite et gauche
 const chargerBibs = () => BIBS || (BIBS = Promise.all(["oar.json", "contraintes.json", "essais.json"].map(json)).then(([o, c, e]) => { ESSAIS = {}; e.essais.forEach((x) => { ESSAIS[x.id] = x.acronyme; });
-  BB = { oarRef: o.oar, oarSources: o.sources || [], paires: o.paires || [], baseRef: c.base || [], jeuxRef: c.essais || [], aideCol: c.aide || {}, aide: c.aide_colonnes, essais: e.essais }; appliquerCab(); return BB; }).catch((e) => { BIBS = null; throw e; }));
+  BB = { oarRef: o.oar, oarSources: o.sources || [], paires: o.paires || [], baseRef: c.base || [], jeuxRef: c.essais || [], aideCol: c.aide || {}, aide: c.aide_colonnes, essaisRef: e.essais, essais: e.essais }; appliquerCab(); return BB; }).catch((e) => { BIBS = null; throw e; }));
 function appliquerCab() {
   if (!BB) return;
   const m = (CAB_OAR && CAB_OAR.oar) || {};
@@ -202,6 +205,9 @@ function appliquerCab() {
   BB.base = baseEffective(BB.baseRef, CAB_CT);
   const jx = (CAB_CT && CAB_CT.jeux) || {}; // RT.5 : contraintes d'un essai ou de la curiethérapie modifiées par le cabinet
   BB.jeux = BB.jeuxRef.map((j) => (Array.isArray(jx[j.id]) ? Object.assign({}, j, { lignes: jx[j.id], cabinet: true }) : j));
+  const me = (CAB_ES && CAB_ES.essais) || {}; // 02/11/2026 : essais modifiés ou ajoutés par le cabinet
+  BB.essais = BB.essaisRef.map((x) => (me[x.id] ? Object.assign({}, x, me[x.id], { cabinet: true }) : x)).concat(((CAB_ES && CAB_ES.ajouts) || []).map((x) => Object.assign({ type: "essai" }, x, { cabinet: true, ajout: true })));
+  ESSAIS = {}; BB.essais.forEach((x) => { ESSAIS[x.id] = x.acronyme; });
 }
 const acronymeDe = (id) => (ESSAIS && ESSAIS[id]) || id;
 async function ouvrirFiche(id, onglet) {
@@ -875,18 +881,85 @@ async function pageContourage(reste) {
   if (CT.loc && !L.some((x) => x.id === CT.loc)) CT.loc = "";
   z.innerHTML = '<div class="rtr-haut rtr-sh"><div class="cascade rtr-menus"><div><label for="rtrCr">Région</label><select id="rtrCr" onchange="rtrCtg(\'r\',this.value)">' + R.map((r) => '<option value="' + r.id + '"' + (r.id === CT.reg ? " selected" : "") + ">" + esc(r.nom) + "</option>").join("") +
     '</select></div><div><label for="rtrCl">Localisation</label><select id="rtrCl" onchange="rtrCtg(\'l\',this.value)"><option value="">Toutes</option>' + L.map((x) => '<option value="' + x.id + '"' + (x.id === CT.loc ? " selected" : "") + ">" + esc(x.nom) + "</option>").join("") + '</select></div></div></div><div class="rtr-ctz" id="rtrCtz"><div class="rtr-ch">' + "<i></i>".repeat(3) + "</div></div>";
-  const d = await ctFichier(CT.reg), y = $("rtrCtz"); if (!y) return;
-  y.innerHTML = htmlContourage(d) + AVERT_RT;
+  const d = ctEffectif(CT.reg, await ctFichier(CT.reg)), y = $("rtrCtz"); if (!y) return;
+  CT.d = d; y.innerHTML = htmlContourage(d) + AVERT_RT;
 }
+// 02/11/2026 (demande de Dr Bentahila) : pages de contourage modifiées par le cabinet (referentielRT/_contourage) : un tableau de l'atlas
+// modifié (titre, colonnes, lignes, notes) ou un tableau ajouté pour une localisation ; « Revenir à la référence » ou « Retirer le tableau »
+const ctCab = () => { try { return CAB_CTG && CAB_CTG.data ? JSON.parse(CAB_CTG.data) : {}; } catch (e) { console.warn("contourage du cabinet", e); return {}; } };
+function ctEffectif(r, d) {
+  const c = ctCab()[r]; if (!c) return d;
+  const base = d || { sources: [], sections: [], sans_atlas: {} }, mods = c.sections || {};
+  return Object.assign({}, base, { sections: base.sections.map((s) => (mods[s.id] ? Object.assign({}, s, mods[s.id], { cabinet: true }) : s))
+    .concat((c.ajouts || []).map((s) => Object.assign({ src: [] }, s, { cabinet: true, ajout: true }))) });
+}
+// Fenêtre pleine page : titre, en-têtes de colonnes, lignes (une case par colonne), notes (une par ligne) ; + Ligne, + Colonne, ✕
+let CGED = null;
+window.rtrCgForm = (id) => {
+  if (!peutModif() || !CT.d && id) return;
+  const s = id ? (CT.d.sections || []).find((x) => x.id === id) : null; if (id && !s) return;
+  CGED = { id, ajout: !s || !!s.ajout, titre: s ? s.titre : "", colonnes: s ? s.colonnes.slice() : ["Volume", "Définition"], lignes: s ? s.lignes.map((l) => l.slice()) : [["", ""]], notes: s ? (s.notes || []).join("\n") : "",
+    locs: s ? s.locs : CT.loc ? [CT.loc] : INDEX.localisations.filter((x) => x.region_id === CT.reg).map((x) => x.id), modifie: !!(s && s.cabinet && !s.ajout) };
+  dessinerCg();
+};
+function lireCg() {
+  if (!CGED || !$("rtrCgT")) return;
+  CGED.titre = A.val("rtrCgT"); CGED.notes = ($("rtrCgN") || {}).value || "";
+  document.querySelectorAll("#rtrCgTab [data-col]").forEach((e) => { CGED.colonnes[+e.dataset.col] = e.value; });
+  document.querySelectorAll("#rtrCgTab [data-r]").forEach((e) => { CGED.lignes[+e.dataset.r][+e.dataset.c] = e.value; });
+}
+function dessinerCg() {
+  const esc = A.esc, E = CGED, nc = E.colonnes.length;
+  A.fenetre('<div class="pg-form rtr-cged"><h3>' + (E.id && !E.ajout ? "Modifier le tableau" : E.id ? "Modifier le tableau du cabinet" : "Ajouter un tableau") + "</h3>" +
+    '<section class="pg-sec"><div class="form" style="grid-template-columns:1fr"><div><label for="rtrCgT">Titre</label><input id="rtrCgT" value="' + esc(E.titre) + '"></div></div>' +
+    '<div class="rtr-tw"><table class="rtr-tab rtr-edt rtr-cgt" id="rtrCgTab"><thead><tr>' + E.colonnes.map((c, i) => '<th><input data-col="' + i + '" value="' + esc(c) + '" aria-label="Titre de la colonne ' + (i + 1) + '">' +
+      (nc > 1 ? '<button type="button" class="b3" title="Retirer la colonne" aria-label="Retirer la colonne ' + (i + 1) + '" onclick="rtrCgCol(' + i + ')">' + A.ic("croix") + "</button>" : "") + "</th>").join("") + "<th></th></tr></thead><tbody>" +
+      E.lignes.map((l, r) => "<tr>" + E.colonnes.map((c, i) => '<td><textarea rows="' + Math.min(8, Math.max(2, Math.ceil(String(l[i] || "").length / 24))) + '" data-r="' + r + '" data-c="' + i + '" aria-label="' + esc(c || "Colonne " + (i + 1)) + ", ligne " + (r + 1) + '">' + esc(l[i] || "") + "</textarea></td>").join("") +
+        '<td class="rtr-cda"><button type="button" class="b3" title="Retirer la ligne" aria-label="Retirer la ligne ' + (r + 1) + '" onclick="rtrCgLigne(' + r + ')">' + A.ic("croix") + "</button></td></tr>").join("") + "</tbody></table></div>" +
+    '<div class="rtr-ohaut"><button type="button" class="mini" onclick="rtrCgLigne()">' + A.ic("plus") + 'Ligne</button><button type="button" class="mini" onclick="rtrCgCol()">' + A.ic("plus") + "Colonne</button></div>" +
+    '<div class="form" style="grid-template-columns:1fr"><div><label for="rtrCgN">Notes (une par ligne)</label><textarea id="rtrCgN" rows="3">' + esc(E.notes) + "</textarea></div></div></section>" +
+    '<div class="err" id="fErr"></div><div class="boutons">' + (E.modifie ? '<button class="bt rouge" onclick="rtrCgOk(\'ref\')">Revenir à la référence</button>' : "") + (E.id && E.ajout ? '<button class="bt rouge" onclick="rtrCgOk(\'sup\')">' + A.ic("corbeille") + "Retirer le tableau</button>" : "") +
+    '<button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" onclick="rtrCgOk()">' + A.ic("enregistrer") + "Enregistrer</button></div></div>", "page");
+}
+window.rtrCgLigne = (r) => { lireCg(); if (r == null) CGED.lignes.push(CGED.colonnes.map(() => "")); else CGED.lignes.splice(r, 1); dessinerCg(); };
+window.rtrCgCol = (i) => { lireCg(); if (i == null) { CGED.colonnes.push(""); CGED.lignes.forEach((l) => l.push("")); } else { CGED.colonnes.splice(i, 1); CGED.lignes.forEach((l) => l.splice(i, 1)); } dessinerCg(); };
+window.rtrCgOk = async (quoi) => {
+  lireCg(); const E = CGED; if (!E) return;
+  const sec = { titre: E.titre.trim(), colonnes: E.colonnes.map((c) => c.trim()), lignes: E.lignes.map((l) => l.map((v) => v.trim())).filter((l) => l.some(Boolean)), notes: E.notes.split("\n").map((n) => n.trim()).filter(Boolean) };
+  if (!quoi) {
+    if (!sec.titre) { A.erreur("Indiquez le titre du tableau.", "rtrCgT"); return; }
+    if (!sec.lignes.length) { A.erreur("Le tableau n'a aucune ligne remplie."); return; }
+  }
+  if (quoi === "sup" && !(await confirmer("Retirer le tableau « " + sec.titre + " » ?"))) return;
+  const ref = doc(db, "espaces", A.ESPACE, "referentielRT", "_contourage"), qui = { majPar: D().u.uid, majParNom: $("nomMenu") ? $("nomMenu").textContent : "", majLe: new Date().toISOString() };
+  try {
+    CAB_CTG = await runTransaction(db, async (tx) => {
+      const sn = await tx.get(ref), c = sn.exists() ? sn.data() : {}; let tout = {};
+      try { tout = c.data ? JSON.parse(c.data) : {}; } catch (er) { tout = {}; }
+      const R = tout[CT.reg] = tout[CT.reg] || {}; R.sections = R.sections || {}; R.ajouts = R.ajouts || [];
+      const aj = R.ajouts.findIndex((x) => x.id === E.id);
+      if (quoi === "ref") delete R.sections[E.id];
+      else if (quoi === "sup") { if (aj >= 0) R.ajouts.splice(aj, 1); }
+      else if (!E.id) R.ajouts.push(Object.assign({ id: "ctc-" + Date.now().toString(36), locs: E.locs }, sec, { majParNom: qui.majParNom }));
+      else if (aj >= 0) Object.assign(R.ajouts[aj], sec, { majParNom: qui.majParNom });
+      else R.sections[E.id] = Object.assign(sec, { majParNom: qui.majParNom });
+      const n = Object.assign({ data: JSON.stringify(tout) }, qui); tx.set(ref, n); return n;
+    });
+  } catch (e) { console.warn("contourage du cabinet", e); A.toast("Pas de connexion : réessayez"); return; }
+  CGED = null; A.fermerFenetre(); A.toast(quoi === "ref" ? "La référence s'affiche de nouveau" : quoi === "sup" ? "Tableau retiré" : "Enregistré"); pageContourage(CT.loc ? encodeURIComponent(CT.loc) : undefined);
+};
 window.rtrCtg = (k, v) => { if (k === "r") { CT.reg = v; CT.loc = ""; location.hash = "radiotherapie/contourage"; pageContourage(); } else { CT.loc = v; location.hash = "radiotherapie/contourage" + (v ? "/" + encodeURIComponent(v) : ""); } };
 function htmlContourage(d) {
   const esc = A.esc;
-  if (!d) return '<p class="vide-c">Contourage de cette région : pas encore saisi</p>';
-  const S = d.sections.filter((s) => !CT.loc || s.locs.indexOf(CT.loc) >= 0), sans = CT.loc && d.sans_atlas ? d.sans_atlas[CT.loc] : "";
+  const aj = peutModif() ? '<div class="rtr-ohaut rtr-ctaj"><button type="button" class="mini" onclick="rtrCgForm(null)">' + A.ic("plus") + "Ajouter un tableau</button></div>" : "";
+  if (!d) return aj + '<p class="vide-c">Contourage de cette région : pas encore saisi</p>';
+  const S = d.sections.filter((s) => !CT.loc || s.locs.indexOf(CT.loc) >= 0), sans = CT.loc && d.sans_atlas && !S.some((x) => x.ajout) ? d.sans_atlas[CT.loc] : "", mod = peutModif();
   const ns = [...new Set(S.flatMap((s) => s.src))].sort((a, b) => a - b), src = (n) => d.sources.find((x) => x.n === n) || {};
-  let h = sans ? '<p class="vide-c">' + esc(sans) + "</p>" : "";
+  let h = aj + (sans ? '<p class="vide-c">' + esc(sans) + "</p>" : "");
   if (!S.length && !sans) h += '<p class="vide-c">Pas d\'atlas publié pour cette localisation</p>';
-  h += S.map((s) => '<section class="rtr-cts" id="ct-' + esc(s.id) + '"><h3>' + esc(s.titre) + ' <span class="mesures">[' + s.src.join(", ") + "]</span></h3>" +
+  h += S.map((s) => '<section class="rtr-cts" id="ct-' + esc(s.id) + '"><h3>' + esc(s.titre) + ((s.src || []).length ? ' <span class="mesures">[' + s.src.join(", ") + "]</span>" : "") +
+    (s.cabinet ? ' <span class="badge b-or">' + (s.ajout ? "Ajouté par le cabinet" : "Modifié par le cabinet") + "</span>" : "") +
+    (mod ? '<button type="button" class="mini rtr-ctmod" onclick="rtrCgForm(\'' + esc(s.id) + '\')">' + A.ic("crayon") + "Modifier</button>" : "") + "</h3>" +
     '<div class="rtr-tw"><table class="rtr-tab rtr-cent rtr-ctt' + (s.colonnes.length <= 3 ? " rtr-ct2" : "") + '"><thead><tr>' + s.colonnes.map((c) => "<th>" + esc(c) + "</th>").join("") + "</tr></thead><tbody>" +
     s.lignes.map((r) => "<tr>" + r.map((v, i) => (i ? '<td data-l="' + esc(s.colonnes[i]) + '">' + esc(v) + "</td>" : '<th scope="row" data-l="' + esc(s.colonnes[0]) + '">' + esc(v) + "</th>")).join("") + "</tr>").join("") + "</tbody></table></div>" +
     ((s.notes || []).length ? '<ul class="rtr-pts mesures">' + s.notes.map((n) => "<li>" + esc(n) + "</li>").join("") + "</ul>" : "") + "</section>").join("");
@@ -1084,16 +1157,60 @@ function listeEssais() {
   const v = { acronyme: ({ x }) => sansAcc(x.acronyme), annee: ({ x }) => x.annee || 0, localisation: ({ locs }) => sansAcc(locs || "zzz"), revue: ({ x }) => sansAcc(x.revue || "") }[RS.essTri];
   L.sort((a, b) => (v(a) < v(b) ? -1 : v(a) > v(b) ? 1 : 0) * RS.essSens);
   const th = (k, l) => '<th><button type="button" class="rtr-tri' + (RS.essTri === k ? " on" : "") + '" onclick="RS_tri(\'' + k + '\')" aria-sort="' + (RS.essTri === k ? (RS.essSens > 0 ? "ascending" : "descending") : "none") + '">' + l + (RS.essTri === k ? (RS.essSens > 0 ? " ▲" : " ▼") : "") + "</button></th>";
-  z.innerHTML = '<p class="mesures rtr-nb">' + L.length + " essai" + (L.length > 1 ? "s" : "") + " et références</p>" + (L.length ? '<div class="rtr-tw"><table class="rtr-tab rtr-et2 rtr-cartes"><thead><tr>' + th("acronyme", "Acronyme") + th("annee", "Année") + th("localisation", "Localisation") + th("revue", "Revue") + "</tr></thead><tbody>" +
-    L.slice(0, 300).map(({ x, locs }) => '<tr class="rtr-clic" tabindex="0" onclick="rtrDetailEssai(this,\'' + esc(x.id) + '\')" onkeydown="if(event.key===\'Enter\')this.click()"><td data-l="Acronyme"><b>' + esc(x.acronyme) + '</b></td><td class="n" data-l="Année">' + esc(x.annee || "") + '</td><td data-l="Localisation">' + court(locs || "—", 50) + '</td><td data-l="Revue">' + esc(x.revue || "") + "</td></tr>").join("") + "</tbody></table></div>" + (L.length > 300 ? '<p class="mesures rtr-nb">Affinez la recherche pour voir les ' + (L.length - 300) + " autres.</p>" : "") : '<div class="vide-c">Aucun essai ne correspond</div>');
+  z.innerHTML = '<div class="rtr-ohaut"><p class="mesures rtr-nb">' + L.length + " essai" + (L.length > 1 ? "s" : "") + " et références</p>" + (peutModif() ? '<button type="button" class="mini" onclick="rtrEssaiForm(null)">' + A.ic("plus") + "Ajouter un essai</button>" : "") + "</div>" + (L.length ? '<div class="rtr-tw"><table class="rtr-tab rtr-et2 rtr-cartes"><thead><tr>' + th("acronyme", "Acronyme") + th("annee", "Année") + th("localisation", "Localisation") + th("revue", "Revue") + "</tr></thead><tbody>" +
+    L.slice(0, 300).map(({ x, locs }) => '<tr class="rtr-clic" tabindex="0" onclick="rtrDetailEssai(this,\'' + esc(x.id) + '\')" onkeydown="if(event.key===\'Enter\')this.click()"><td data-l="Acronyme"><b>' + esc(x.acronyme) + "</b>" + (x.cabinet ? ' <span class="badge b-or">Cabinet</span>' : "") + '</td><td class="n" data-l="Année">' + esc(x.annee || "") + '</td><td data-l="Localisation">' + court(locs || "—", 50) + '</td><td data-l="Revue">' + esc(x.revue || "") + "</td></tr>").join("") + "</tbody></table></div>" + (L.length > 300 ? '<p class="mesures rtr-nb">Affinez la recherche pour voir les ' + (L.length - 300) + " autres.</p>" : "") : '<div class="vide-c">Aucun essai ne correspond</div>');
 }
 window.rtrDetailEssai = (tr, id) => {
   const n = tr.nextElementSibling; if (n && n.classList.contains("rtr-det")) { n.remove(); return; }
   const x = BB.essais.find((e) => e.id === id), esc = A.esc, C = citants(x), d = document.createElement("tr"); d.className = "rtr-det";
   const liens = [].concat(x.pmid ? [x.pmid] : [], x.pmid_suite || []).map((p) => '<a href="https://pubmed.ncbi.nlm.nih.gov/' + esc(p) + '/" target="_blank" rel="noopener">PubMed ' + esc(p) + "</a>").concat([].concat(x.doi ? [x.doi] : [], x.doi_suite || []).map((o) => '<a href="https://doi.org/' + esc(o) + '" target="_blank" rel="noopener">DOI</a>')).join(" · ");
   d.innerHTML = '<td colspan="4">' + (x.resultat ? "<p>" + esc(x.resultat) + "</p>" : "") + (x.population ? '<p><span class="mesures">Population</span> ' + esc(x.population) + "</p>" : "") + (x.bras ? '<p><span class="mesures">Bras</span> ' + esc(x.bras) + "</p>" : "") + (liens ? "<p>" + liens + "</p>" : "") +
-    (x.usages ? '<p class="mesures">Utilisé pour : ' + x.usages.map(esc).join(" · ") + "</p>" : "") + (C.length || !(x.usages || x.bibliotheque) ? '<p class="mesures">Cité par ' + C.length + " schéma" + (C.length > 1 ? "s" : "") + (C.length ? " : " + C.slice(0, 12).map((e) => '<a href="#radiotherapie/s/' + encodeURIComponent(e.id) + '/essais">' + esc(e.titre) + "</a>").join(" · ") + (C.length > 12 ? " · …" : "") : "") + "</p>" : "") + "</td>";
+    (x.usages ? '<p class="mesures">Utilisé pour : ' + x.usages.map(esc).join(" · ") + "</p>" : "") + (C.length || !(x.usages || x.bibliotheque) ? '<p class="mesures">Cité par ' + C.length + " schéma" + (C.length > 1 ? "s" : "") + (C.length ? " : " + C.slice(0, 12).map((e) => '<a href="#radiotherapie/s/' + encodeURIComponent(e.id) + '/essais">' + esc(e.titre) + "</a>").join(" · ") + (C.length > 12 ? " · …" : "") : "") + "</p>" : "") +
+    (x.cabinet ? '<p class="mesures">' + (x.ajout ? "Ajouté" : "Modifié") + " par le cabinet" + (x.majParNom ? " (" + esc(x.majParNom) + ")" : "") + "</p>" : "") +
+    (peutModif() ? '<div class="actr rtr-jact"><button type="button" class="mini" onclick="event.stopPropagation();rtrEssaiForm(\'' + esc(x.id) + '\')">' + A.ic("crayon") + "Modifier</button></div>" : "") + "</td>";
   tr.after(d);
+};
+// 02/11/2026 (demande de Dr Bentahila) : ajouter un essai ou modifier un essai de la bibliothèque, pour le cabinet (referentielRT/_essais) ;
+// un essai de la référence modifié peut revenir à la référence, un essai ajouté peut être retiré
+const CHAMPS_ESSAI = [["acronyme", "Acronyme ou nom court", "input"], ["type", "Type", "type"], ["revue", "Revue (ex. Lancet Oncol 17:1047)", "input"], ["annee", "Année", "annee"],
+  ["population", "Population", "textarea"], ["bras", "Bras", "textarea"], ["resultat", "Résultat", "textarea"], ["localisation", "Localisation", "input"], ["pmid", "PMID", "input"], ["doi", "DOI", "input"]];
+const TYPES_ESSAI = [["essai", "Essai"], ["recommandation", "Recommandation"], ["protocole_institutionnel", "Protocole institutionnel"], ["atlas", "Atlas"]];
+window.rtrEssaiForm = (id) => {
+  if (!peutModif()) return;
+  const x = id ? BB.essais.find((e) => e.id === id) : { type: "essai" }, esc = A.esc; if (!x) return;
+  const champ = ([k, lib, ty]) => '<div' + (ty === "textarea" ? ' class="pleine-l"' : "") + '><label for="rtrE_' + k + '">' + lib + "</label>" +
+    (ty === "textarea" ? '<textarea id="rtrE_' + k + '" rows="3">' + esc(x[k] || "") + "</textarea>"
+      : ty === "type" ? '<select id="rtrE_' + k + '">' + TYPES_ESSAI.map(([v, l]) => '<option value="' + v + '"' + ((x.type || "essai") === v ? " selected" : "") + ">" + l + "</option>").join("") + "</select>"
+      : '<input id="rtrE_' + k + '"' + (ty === "annee" ? ' inputmode="numeric"' : "") + ' value="' + esc(x[k] == null ? "" : x[k]) + '">') + "</div>";
+  const revenir = id && !x.ajout && CAB_ES && CAB_ES.essais && CAB_ES.essais[id];
+  A.fenetre("<h3>" + (id ? "Modifier l'essai " + esc(x.acronyme) : "Ajouter un essai") + '</h3><div class="form rtr-ef">' + CHAMPS_ESSAI.map(champ).join("") + "</div>" +
+    (id && !x.ajout ? '<p class="mesures">Modification pour votre cabinet ; la référence d\'Onco360 reste disponible (« Revenir à la référence »).</p>' : "") + '<div class="err" id="fErr"></div>' +
+    '<div class="boutons">' + (revenir ? '<button class="bt rouge" onclick="rtrEssaiOk(\'' + esc(id) + '\',\'ref\')">Revenir à la référence</button>' : "") + (id && x.ajout ? '<button class="bt rouge" onclick="rtrEssaiOk(\'' + esc(id) + '\',\'sup\')">' + A.ic("corbeille") + "Retirer l'essai</button>" : "") +
+    '<button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" onclick="rtrEssaiOk(\'' + esc(id || "") + '\')">' + A.ic("enregistrer") + "Enregistrer</button></div>");
+};
+window.rtrEssaiOk = async (id, quoi) => {
+  const v = {}; CHAMPS_ESSAI.forEach(([k, , ty]) => { const s = A.val("rtrE_" + k); if (ty === "annee") { if (s !== "") v[k] = parseInt(s, 10); } else v[k] = s; });
+  if (!quoi) {
+    if (!v.acronyme) { A.erreur("Indiquez l'acronyme ou le nom court de l'essai.", "rtrE_acronyme"); return; }
+    if (v.annee != null && !(v.annee > 1900 && v.annee < 2100)) { A.erreur("L'année doit être un nombre (ex. 2016).", "rtrE_annee"); return; }
+    if (BB.essais.some((e) => e.id !== id && sansAcc(e.acronyme).trim() === sansAcc(v.acronyme).trim() && (e.annee || null) === (v.annee || null))) { A.erreur("Cet essai existe déjà (même acronyme, même année).", "rtrE_acronyme"); return; }
+  }
+  if (quoi === "sup" && !(await confirmer("Retirer l'essai « " + (BB.essais.find((e) => e.id === id) || {}).acronyme + " » du cabinet ?"))) return;
+  const ref = doc(db, "espaces", A.ESPACE, "referentielRT", "_essais"), qui = { majPar: D().u.uid, majParNom: $("nomMenu") ? $("nomMenu").textContent : "", majLe: new Date().toISOString() };
+  try {
+    CAB_ES = await runTransaction(db, async (tx) => {
+      const sn = await tx.get(ref), c = sn.exists() ? sn.data() : { essais: {}, ajouts: [] };
+      c.essais = c.essais || {}; c.ajouts = c.ajouts || [];
+      const aj = c.ajouts.findIndex((x) => x.id === id);
+      if (quoi === "ref") delete c.essais[id];
+      else if (quoi === "sup") { if (aj >= 0) c.ajouts.splice(aj, 1); }
+      else if (!id) c.ajouts.push(Object.assign({ id: "esc-" + Date.now().toString(36) }, v, qui));
+      else if (aj >= 0) Object.assign(c.ajouts[aj], v, qui);
+      else c.essais[id] = Object.assign(v, { majParNom: qui.majParNom });
+      Object.assign(c, qui); tx.set(ref, c); return c;
+    });
+  } catch (e) { console.warn("essais du cabinet", e); A.toast("Pas de connexion : réessayez"); return; }
+  A.fermerFenetre(); appliquerCab(); listeEssais(); A.toast(quoi === "ref" ? "La référence s'affiche de nouveau" : quoi === "sup" ? "Essai retiré" : "Enregistré");
 };
 // Calcul BED / EQD2 : un seul écran, tout se recalcule pendant la frappe (moteur/rtref.js calculBED) ; valeurs gardées pendant la session
 const CALC0 = () => ({ lignes: [{ d: "", n: "" }], ab: ["1,5", "3", "10", ""], org: "", x: "2,0", N: "25" });

@@ -20,7 +20,7 @@ export const REGLAGES0 = {
   whatsapp: { de: 1, a: 2 },
   alertes: { cure: 3, finTrait: 30 },
   auto: { rtHebdo: true, rtFin: true }, // rendez-vous créés d'office (12/10/2026) : consultations hebdomadaires de RT, consultation de fin de RT
-  salle: { orange: 20, rouge: 45, notifArrivee: true, notifRouge: true },
+  salle: { orange: 15, rouge: 30, notifArrivee: true, notifRouge: true },
   // R-G d (audit n° 5, 19/10/2026) : dossier patient, parties de la colonne Patient dépliées par défaut (chacun peut ensuite déplier / replier :
   // gardé sur son appareil)
   dossier: { parties: { avenir: true, passe: false, id: false, med: false, tum: false } }, // + messages à l'écran (SA6, 11/10/2026) // salle d'attente : minutes d'attente avant l'orange, puis le rouge (08/10/2026)

@@ -11,6 +11,7 @@
 import { collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc, query, where, serverTimestamp, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { db } from "../config.js";
 import { nouvelleConsultation, modifierConsultation, assurerConsultations } from "./consultations.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null;
 export function installer(api) { A = api; }
@@ -102,8 +103,8 @@ function formulaire(x, r) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) { A.erreur("Choisissez la date de la RCP."); return; }
     if (!/^\d{4}-\d{2}-\d{2}$/.test(ins)) { A.erreur("Indiquez la date d'inscription."); return; }
     if (!q) { A.erreur("Écrivez la question posée à la RCP."); $("rcpQ").focus(); return; }
-    if (!estRcp(v, c) && !confirm("Le " + libDate(v) + " n'est pas une date de RCP prévue dans Paramètres › RCP.\nInscrire quand même à cette date ?")) return;
-    if (!r && (R || []).some((z) => z.patientId === x.id && z.d === v && !z.fait) && !confirm(x.r.nm + " est déjà inscrit(e) à la RCP du " + A.dfrA(v) + ".\nAjouter une autre question ?")) return;
+    if (!estRcp(v, c) && !(await confirmer("Le " + libDate(v) + " n'est pas une date de RCP prévue dans Paramètres › RCP.\nInscrire quand même à cette date ?"))) return;
+    if (!r && (R || []).some((z) => z.patientId === x.id && z.d === v && !z.fait) && !(await confirmer(x.r.nm + " est déjà inscrit(e) à la RCP du " + A.dfrA(v) + ".\nAjouter une autre question ?"))) return;
     A.occupe($("rcpOk"), true);
     const maj = { d: v, ins, q, patientNom: x.r.nm, majPar: D().u.uid, majParNom: nomConnecte(), maj: serverTimestamp() };
     try {
@@ -134,7 +135,7 @@ window.rcpHistorique = (pid) => {
 };
 window.rcpSupprimer = async (id) => {
   const r = trouver(id); if (!r || !peutSupprimer(r)) return;
-  if (!confirm("Désinscrire " + nomDe(r) + " de la RCP du " + A.dfrA(r.d) + " ?\n\nQuestion : " + (r.q || "") + (r.decision ? "\n\nLa consultation « RCP » déjà écrite reste dans le dossier." : ""))) return;
+  if (!(await confirmer("Désinscrire " + nomDe(r) + " de la RCP du " + A.dfrA(r.d) + " ?\n\nQuestion : " + (r.q || "") + (r.decision ? "\n\nLa consultation « RCP » déjà écrite reste dans le dossier." : "")))) return;
   try {
     await deleteDoc(doc(db, "espaces", A.ESPACE, "rcp", id)); R = R.filter((z) => z.id !== id);
     const x = patient(r.patientId); if (x) A.journal(x, "Désinscrit(e) de la RCP du " + A.dfrA(r.d));
@@ -142,7 +143,7 @@ window.rcpSupprimer = async (id) => {
   } catch (e) { A.toast(e && e.code === "permission-denied" ? "Vous n'avez pas le droit de retirer cette inscription." : "Suppression impossible."); }
 };
 // Dossier affiché : redessiné (rendez-vous à venir)
-const raf = (pid) => { if (location.hash === "#dossier/" + encodeURIComponent(pid)) A.pageDossier(pid); };
+const raf = (pid) => { if (A.pidAdresse() === pid) A.pageDossier(pid); };
 
 // ───── Case « Fait » ─────
 async function marquer(r, oui) {
@@ -218,7 +219,7 @@ function dessinerListe() {
     const l = L.filter((r) => r.d === d), nf = l.filter((r) => r.fait).length;
     h += '<div class="rcp-j"><h4>' + esc(A.cap(libDate(d))) + (estRcp(d, c) && c.heure ? " · " + esc(c.heure.replace(":", "h")) : "") + '<span class="mesures">' + (l.length ? l.length + " dossier" + (l.length > 1 ? "s" : "") + (nf ? " · " + nf + " fait" + (nf > 1 ? "s" : "") : "") : "aucun dossier inscrit") + "</span></h4>";
     // 31/10/2026 (lot 5.1, demande de Dr Bentahila) : tableau au modèle des Tâches
-    if (l.length) h += '<div class="ta-tab rcp-tab"><div class="ta-h rcp-g" aria-hidden="true"><span>Patient</span><span>Né(e) le</span><span>Question</span><span>Décision</span><span>Inscrit</span><span>Statut</span><span>Actions</span></div>' + l.map(ligneListe).join("") + "</div>";
+    if (l.length) h += '<div class="ta-tab rcp-tab">' + A.bandeau("rcp", "Patients inscrits", l.length) + '<div class="ta-h rcp-g" aria-hidden="true"><span>Patient</span><span>Né(e) le</span><span>Question</span><span>Décision</span><span>Inscrit</span><span>Statut</span><span>Actions</span></div>' + l.map(ligneListe).join("") + "</div>";
     h += "</div>";
   });
   z.innerHTML = h + "</section>";
@@ -271,7 +272,7 @@ window.rcpImprimer = () => {
 // ───── Dossier ouvert depuis la liste RCP : Décision RCP · Valider · Fermer (barre d'actions du dossier) ─────
 let COURANT = null;
 window.rcpOuvrir = (id) => { const r = trouver(id); if (!r) return; if (!patient(r.patientId)) { A.toast("Ce dossier n'existe plus ou n'est pas dans vos établissements."); return; } COURANT = id; window.ouvrirDossier(r.patientId); };
-window.addEventListener("hashchange", () => { const r = COURANT && trouver(COURANT); if (r && location.hash !== "#dossier/" + encodeURIComponent(r.patientId)) COURANT = null; });
+window.addEventListener("hashchange", () => { const r = COURANT && trouver(COURANT); if (r && A.pidAdresse() !== r.patientId) COURANT = null; });
 // R-G a (audit n° 5, 19/10/2026) : plus de bulle flottante, la RCP (date, question, décision) et ses boutons sont à droite de la barre d'actions
 export function bulleRcp(x) {
   const r = COURANT && trouver(COURANT); if (!r || r.patientId !== x.id) return "";
@@ -301,7 +302,7 @@ window.rcpDecision = async () => {
 };
 window.rcpValider = async () => {
   const r = COURANT && trouver(COURANT); if (!r || !peutEcrire()) return;
-  if (!r.decision && !confirm("Aucune décision n'a été saisie (bouton « Décision RCP »).\nCocher « Fait » quand même ?")) return;
+  if (!r.decision && !(await confirmer("Aucune décision n'a été saisie (bouton « Décision RCP »).\nCocher « Fait » quand même ?"))) return;
   try { if (!r.fait) await marquer(r, true); A.toast(nomDe(r) + " : RCP faite."); retourListe(); }
   catch (e) { A.toast(e && e.code === "permission-denied" ? "Vous n'avez pas le droit de modifier la RCP." : "Enregistrement impossible."); }
 };

@@ -6,6 +6,7 @@ import { srcImage } from "../moteur/outils.js";
 
 let A = null;
 import * as aboP from "./abonnement.js";
+import { confirmer, alerte } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 export function installer(api) { A = api; }
 const D = () => A.D();
 let ONG = "infos", MEMBRES = null, ESPACE_DOC = null, Q = "";
@@ -161,9 +162,9 @@ window.pfLieuSec = (code) => {
     } catch (er) { A.occupe(A.$("fOk"), false); A.erreur(er && er.code === "permission-denied" ? "Vous n'avez pas le droit de modifier ce lieu." : (er.message || String(er))); }
   };
 };
-window.pfLieu = (code) => {
+window.pfLieu = async (code) => {
   const maxE = D().abo && D().abo.max.etablissements; // formule du cabinet (09/10/2026)
-  if (!code && maxE != null && (D().etabsTous || D().etabs).length >= maxE) { alert("Votre formule Onco360 permet " + maxE + " lieu" + (maxE > 1 ? "x" : "") + " d'exercice : la limite est atteinte.\nContactez l'éditeur d'Onco360 pour en ajouter."); return; }
+  if (!code && maxE != null && (D().etabsTous || D().etabs).length >= maxE) { await alerte("Votre formule Onco360 permet " + maxE + " lieu" + (maxE > 1 ? "x" : "") + " d'exercice : la limite est atteinte.\nContactez l'éditeur d'Onco360 pour en ajouter."); return; }
   const e = code ? (D().etabsTous || D().etabs).find((z) => z.code === code) : { actif: true }, esc = A.esc;
   A.fenetre("<h3>" + (code ? "Modifier l'établissement" : "Ajouter un établissement") + '</h3><div class="form">' +
     '<div><label for="lCode">Code court</label><input id="lCode" value="' + esc(e.code || "") + '" placeholder="ex. HGC"' + (code ? " disabled" : "") + '></div><div><label for="lTel">Téléphone</label><input id="lTel" type="tel" value="' + esc(e.tel || "") + '"></div>' +
@@ -178,7 +179,7 @@ window.pfLieu = (code) => {
   if (A.$("lSup")) A.$("lSup").onclick = async () => {
     const n = D().patients.filter((x) => x.doc.etablissementId === code).length;
     if (n) { A.erreur(n + " dossier" + (n > 1 ? "s sont rattachés" : " est rattaché") + " à " + code + " : changez d'abord leur établissement, ou décochez « Établissement actif » pour ne plus le proposer."); return; }
-    if (!confirm("Supprimer définitivement l'établissement " + code + " – " + (e.nom || "") + " ?")) return;
+    if (!(await confirmer("Supprimer définitivement l'établissement " + code + " – " + (e.nom || "") + " ?"))) return;
     A.occupe(A.$("lSup"), true);
     try {
       await deleteDoc(doc(db, "espaces", A.ESPACE, "etablissements", code));
@@ -263,8 +264,8 @@ window.pfMajAgenda = async () => {
   rafraichir();
 };
 window.pfDelierAgenda = async () => {
-  if (!confirm("Délier votre Google Agenda ? Onco360 ne le mettra plus à jour.")) return;
-  const sup = confirm("Supprimer aussi l'agenda « Onco360 » de votre compte Google ?\n\nOK = le supprimer · Annuler = le garder (il ne sera plus mis à jour)");
+  if (!(await confirmer("Délier votre Google Agenda ? Onco360 ne le mettra plus à jour."))) return;
+  const sup = (await confirmer("Supprimer aussi l'agenda « Onco360 » de votre compte Google ?\n\nOK = le supprimer · Annuler = le garder (il ne sera plus mis à jour)"));
   try { await appelServeur("agendaDelier", { supprimer: sup }); A.journal({ id: "", r: { nm: "" } }, "Google Agenda délié"); A.toast("Google Agenda délié."); } catch (e) { A.toast(e.message); }
   rafraichir();
 };
@@ -325,7 +326,7 @@ window.pfMembre = (uid) => {
       (m0 ? '<div style="margin-top:12px"><label style="font-weight:normal"><input id="mActif" type="checkbox" style="width:auto;margin-right:6px"' + (m.actif !== false ? " checked" : "") + ">Accès actif (décocher pour bloquer la connexion ; l'historique reste conservé)</label></div>" : '<p class="mesures" style="margin-top:10px">Le compte est créé immédiatement. La personne reçoit un e-mail pour choisir son mot de passe, puis se connecte sur chimio-hgc.web.app.</p>') +
       '<div class="err" id="fErr"></div><div class="boutons">' + (m0 ? '<button class="bt gris" id="mSup" style="margin-right:auto;color:var(--rouge)"><svg class="pi"><use href="#i-corbeille"/></svg>Supprimer l\'accès</button>' : "") + '<button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" id="fOk">' + (m0 ? "Enregistrer" : "Créer l'accès") + "</button></div>", "large");
     if (A.$("mSup")) A.$("mSup").onclick = async () => {
-      if (!confirm("Supprimer l'accès de " + (m.nom || m.email) + " ?\n\nLa personne ne pourra plus se connecter à Onco360. L'historique de ses actions est conservé.")) return;
+      if (!(await confirmer("Supprimer l'accès de " + (m.nom || m.email) + " ?\n\nLa personne ne pourra plus se connecter à Onco360. L'historique de ses actions est conservé."))) return;
       A.occupe(A.$("mSup"), true);
       try { await deleteDoc(doc(db, "espaces", A.ESPACE, "membres", uid)); A.journal({ id: "", r: { nm: "" } }, "Accès supprimé : " + (m.nom || m.email)); MEMBRES = null; A.fermerFenetre(); A.toast("Accès supprimé."); rafraichir(); }
       catch (e) { A.occupe(A.$("mSup"), false); A.erreur(e && e.code === "permission-denied" ? "Seul le médecin titulaire peut supprimer un accès." : (e.message || String(e))); }
@@ -335,7 +336,7 @@ window.pfMembre = (uid) => {
         // bornes lues par les règles (mêmes calculs que periodeRemplacant de functions/cabinets.js, recalculées aussi par le serveur)
         m.remplaceDebMs = m.remplaceDu ? Date.parse(m.remplaceDu + "T00:00:00+01:00") : 0; m.remplaceFinMs = m.remplaceAu ? Date.parse(m.remplaceAu + "T23:59:59Z") : 0; }
       else { m.tousEtablissements = A.$("mTous").checked; m.etablissements = [...document.querySelectorAll("[data-e]")].filter((c) => c.checked).map((c) => c.dataset.e); delete m.remplaceDu; delete m.remplaceAu; delete m.remplace; delete m.remplaceDebMs; delete m.remplaceFinMs; } if (A.$("mActif")) m.actif = A.$("mActif").checked; ["mPre", "mNom", "mMail", "mTel"].forEach((i) => { if (A.$(i)) m["_" + i] = A.val(i); }); };
-    A.$("mRole").onchange = () => { lire(); const r = A.val("mRole"); if (r === "remplacant") { if (m.role !== r) m.droits = Object.assign({}, DROITS_ROLE[r]); m.role = r; copierTitulaire(); } else { if (m.role === "remplacant" || confirm("Appliquer les droits par défaut du rôle « " + ROLES[r] + " » ?")) m.droits = Object.assign({}, DROITS_ROLE[r]); m.role = r; if (r === "medecin" || r === "comptable") m.tousEtablissements = true; } dessiner(); ["mPre", "mNom", "mMail", "mTel"].forEach((i) => { if (A.$(i)) A.$(i).value = m["_" + i] || ""; }); };
+    A.$("mRole").onchange = async () => { lire(); const r = A.val("mRole"); if (r === "remplacant") { if (m.role !== r) m.droits = Object.assign({}, DROITS_ROLE[r]); m.role = r; copierTitulaire(); } else { if (m.role === "remplacant" || (await confirmer("Appliquer les droits par défaut du rôle « " + ROLES[r] + " » ?"))) m.droits = Object.assign({}, DROITS_ROLE[r]); m.role = r; if (r === "medecin" || r === "comptable") m.tousEtablissements = true; } dessiner(); ["mPre", "mNom", "mMail", "mTel"].forEach((i) => { if (A.$(i)) A.$(i).value = m["_" + i] || ""; }); };
     if (A.$("mTous")) A.$("mTous").onchange = () => document.querySelectorAll("[data-e]").forEach((c) => { c.disabled = A.$("mTous").checked; });
     ["mDurS", "mDurP"].forEach((i) => { if (A.$(i)) A.$(i).onchange = () => { A.$("mPer").style.display = A.$("mDurP").checked ? "" : "none"; }; });
     A.$("fOk").onclick = async () => {
@@ -362,7 +363,7 @@ window.pfMembre = (uid) => {
           if (nouvel.invitation) {
             A.journal({ id: "", r: { nm: "" } }, "Invitation envoyée : " + nom + " (" + ROLES[m.role] + ")");
             MEMBRES = null; A.fermerFenetre(); rafraichir();
-            alert("Invitation envoyée à " + email + ".\nCette adresse a déjà un compte Onco360 : la personne verra l'invitation à sa prochaine connexion et l'acceptera pour entrer dans votre cabinet, avec son mot de passe habituel.");
+            await alerte("Invitation envoyée à " + email + ".\nCette adresse a déjà un compte Onco360 : la personne verra l'invitation à sa prochaine connexion et l'acceptera pour entrer dans votre cabinet, avec son mot de passe habituel.");
             return;
           }
           let envoi = "";

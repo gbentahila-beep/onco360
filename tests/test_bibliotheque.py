@@ -16,7 +16,7 @@ async def main():
     async with async_playwright() as p:
         b = await p.chromium.launch(); pg = await ouvrir(b, S2); await pg.add_init_script("window.__uid='ADM'")
         await pg.goto(f'http://localhost:{PORT}/v2.html?espace=bib-oncologie#accueil'); await pg.wait_for_timeout(3000)
-        ok(pg.url.endswith('#accueil') and 'Protocoles' in await pg.inner_text('#titrePage'), 'la bibliothèque s\'ouvre sur les Protocoles (pas de tableau de bord)')
+        ok(pg.url.endswith('#accueil') and 'Protocoles' in await pg.evaluate("(document.querySelector('#titrePage .tp-t')||document.getElementById('titrePage')).innerText"), 'la bibliothèque s\'ouvre sur les Protocoles (pas de tableau de bord)')
         vis = await pg.evaluate("[...document.querySelectorAll('nav a')].filter(a=>a.offsetParent!==null).map(a=>a.dataset.p||a.id)")
         # Lot B (25/10/2026) : Paramètres passe dans l'icône de la barre du haut (#btParam) ; Radiothérapie (référentiel, 25/10/2026) dans le menu
         ok(vis == ['protocoles', 'radiotherapie', 'outils', 'lienAdmin'] and await pg.evaluate("!!document.getElementById('btParam') && document.getElementById('btParam').offsetParent !== null"), 'menu : Protocoles, Radiothérapie, Outils cliniques (lot RT.13), Retour à l\'Administration ; Paramètres par l\'icône du haut ' + str(vis))
@@ -39,7 +39,7 @@ async def main():
         await pg.evaluate("fermerFenetre()")
         for h in ['patients', 'agenda', 'bilan', 'taches', 'dossier/x']:
             await pg.evaluate(f"location.hash='{h}'"); await pg.wait_for_timeout(300)
-        ok('Protocoles' in await pg.inner_text('#titrePage'), 'patients, agenda, bilan, tâches, dossier → Protocoles')
+        ok('Protocoles' in await pg.evaluate("(document.querySelector('#titrePage .tp-t')||document.getElementById('titrePage')).innerText"), 'patients, agenda, bilan, tâches, dossier → Protocoles')
         await pg.evaluate("location.hash='protocoles'"); await pg.wait_for_timeout(800)
         ok('316' in await pg.inner_text('#page') or await pg.evaluate("document.querySelectorAll('#page .proto, #page tr').length") > 50, 'les 316 protocoles sont là')
         ok(not pg.errs, 'aucune erreur JavaScript (bibliothèque) ' + str(pg.errs[:2]))

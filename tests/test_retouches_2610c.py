@@ -72,8 +72,11 @@ async def main():
         o = await ev("(async()=>{const m=await import('./js/app/fichepatient.js');return [[...document.querySelectorAll('#fenetreCorps [data-champ]')].map(e=>e.dataset.champ),m.champsFiche().filter(c=>c.present&&c.section==='id').map(c=>c.k)]})()")
         # 31/10/2026 (2.1, demande de Dr Bentahila) : trois sous-parties (Identité, Contact, Couverture et parcours de soins) ; tous les champs réglés sont là
         ok(sorted(o[0]) == sorted(o[1] + (['medecin'] if 'medecin' in o[0] else [])), 'Nouveau patient : tous les champs de Paramètres › Fiche patient', o)
-        await pg.keyboard.press('Escape'); await pg.wait_for_timeout(200)
-        ok(not await ev("document.getElementById('fenetre').classList.contains('cache')"), 'Échap ne ferme pas une fenêtre avec des champs à remplir')
+        # UX4 (02/11/2026) : Échap ferme toute fenêtre ; après une saisie, il demande d'abord « Quitter sans enregistrer ? » (rien n'est perdu sans le vouloir)
+        await ev("window.__dlgManuel = true"); await ev("[...document.querySelectorAll('#fenetreCorps input:not([type]), #fenetreCorps input[type=text]')].find(e => e.offsetParent).focus()"); await pg.keyboard.type('X')
+        await pg.keyboard.press('Escape'); await pg.wait_for_timeout(300)
+        ok(await ev("!!document.querySelector('.dlg-f')") and not await ev("document.getElementById('fenetre').classList.contains('cache')"), 'Échap après une saisie : question avant de fermer, la saisie reste')
+        await pg.click('.dlg-f [data-k=non]'); await ev("window.__dlgManuel = false")
         await ev("fermerFenetre()")
         await ev(f"auditPatient('{pid}')"); await pg.wait_for_timeout(800)
         if not await ev("document.getElementById('fenetre').classList.contains('cache')") and not await ev("!!document.querySelector('#fenetreCorps input, #fenetreCorps select, #fenetreCorps textarea')"):

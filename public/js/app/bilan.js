@@ -8,6 +8,7 @@ import { calculerBilan, dh, clePaye, cleAncienne, estPaye, RE_DOC_PAYE, docPaiem
 import { num } from "../moteur/outils.js";
 import { dateHeureMaroc } from "../moteur/heure.js";
 import { activite, tarif } from "../moteur/tarifs.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null;
 export function installer(api) { A = api; }
@@ -254,7 +255,7 @@ window.biActualiser = async () => { B = null; await pagePageBilan(); A.toast("Bi
 window.biPaye = async (i) => {
   const o = DATA.all[i]; if (!o || o.t === "kl") return; const k = clePaye(o), v = cleAncienne(o), avant = coche(o);
   if (!avant && PE[k]) { A.toast(ENC[k] === "enc" ? "Encaissé au cabinet : pour le changer, modifiez le prix ou le paiement dans le dossier du patient." : "Payé automatiquement (ancienne case « Payé auto. », actes validés avant le 12/10/2026)."); return; }
-  if (avant && !confirm("Remettre « " + o.lib + " » en attente de paiement ?")) return;
+  if (avant && !(await confirmer("Remettre « " + o.lib + " » en attente de paiement ?"))) return;
   try { await majCase(o, avant ? null : D().t); redessinerRg(); }
   catch (e) { A.toast("Enregistrement impossible : " + e.message); }
 };
@@ -398,13 +399,13 @@ window.biRgFiche = (k, cle) => {
 };
 window.biRgSup = async (id) => {
   const r = (B.reglements || []).find((z) => z.id === id); if (!r || !peutRg()) return;
-  if (!confirm("Supprimer le règlement reçu le " + A.dfrA(r.d) + " de " + (r.hop || "—") + " (" + (MODES[r.mode] || "") + ", " + dh(r.m) + ") ?")) return;
+  if (!(await confirmer("Supprimer le règlement reçu le " + A.dfrA(r.d) + " de " + (r.hop || "—") + " (" + (MODES[r.mode] || "") + ", " + dh(r.m) + ") ?"))) return;
   try { await sauverRg((l) => l.filter((z) => z.id !== id)); A.journal({ id: "", r: { nm: "" } }, "Règlement reçu supprimé : " + (r.hop || "") + " (" + r.m + " DH)"); redessinerRg(); }
   catch (e) { A.toast("Suppression impossible : " + ((e && e.message) || e)); }
 };
 window.biKlSup = async (n) => {
   const cle = CLES[n], e = B.versements.find((z) => cleV(z) === cle); if (!e || !peutKL()) return;
-  if (!confirm("Supprimer le versement « " + (e.lib || "Versement") + " » du " + A.dfrA(e.d) + " (" + dh(e.m) + ") ?\n\nIl sera retiré du bilan.")) return;
+  if (!(await confirmer("Supprimer le versement « " + (e.lib || "Versement") + " » du " + A.dfrA(e.d) + " (" + dh(e.m) + ") ?\n\nIl sera retiré du bilan."))) return;
   try { await sauverKL((l) => { if (!l.some((z) => cleV(z) === cle)) introuvable(); return l.filter((z) => cleV(z) !== cle); }); A.journal({ id: "", r: { nm: "" } }, "Versement supprimé : " + (e.lib || "Versement") + " (" + e.m + " DH)"); redessinerRg(); }
   catch (er) { A.toast("Suppression impossible : " + er.message); }
 };

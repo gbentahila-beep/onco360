@@ -7,6 +7,7 @@ import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs
 import { COLONNES, analyser, depuisTableau, MAX_LIGNES } from "../moteur/importpatients.js";
 import { enrichirListes } from "./chimio.js";
 import { DIAG } from "../donnees/listes.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null;
 export function installer(api) { A = api; }
@@ -86,7 +87,7 @@ function dessiner() {
 async function importer() {
   const a = IP.an, maxP = D().abo && D().abo.max.patients, place = maxP != null ? Math.max(0, maxP - D().patients.length) : Infinity;
   const choisies = a.lignes.filter((r) => r.etat === "ok" || (IP.doublons && r.etat === "doublon")).slice(0, place);
-  if (!choisies.length || !confirm("Créer " + choisies.length + " dossier(s) patient(s) à partir de « " + IP.nomFichier + " » ?")) return;
+  if (!choisies.length || !(await confirmer("Créer " + choisies.length + " dossier(s) patient(s) à partir de « " + IP.nomFichier + " » ?"))) return;
   const bt = A.$("ipGo"); bt.disabled = true;
   const mb = D().membre, fin = A.peut("finances"), crees = [], echecs = [], listes = new Set();
   for (let i = 0; i < choisies.length; i++) {

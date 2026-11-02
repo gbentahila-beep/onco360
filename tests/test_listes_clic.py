@@ -23,7 +23,7 @@ async def main():
             ok(n >= 1, 'formulaire : champ Mutuelle relié à la liste', n)
             if not n: await pg.close(); continue
             loc = pg.locator(sel).first
-            await loc.fill(''); await pg.keyboard.press('Escape'); await ev("document.activeElement && document.activeElement.blur()"); await pg.wait_for_timeout(300)
+            await loc.fill(''); await ev("document.activeElement && document.activeElement.blur()"); await pg.wait_for_timeout(300)
             await loc.click(); await pg.wait_for_timeout(400)
             ok(await ev(SUG) == [], 'clic sur le champ vide : rien ne s\'ouvre')
             L = await ev("[...document.getElementById('lMut').options].map(o => o.value)")

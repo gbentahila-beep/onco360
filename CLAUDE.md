@@ -471,6 +471,28 @@ temporaire si le cache npm du Mac refuse) — à relancer avant chaque mise en l
   UX10 (01/11/2026) : « Importer des tableaux (fichier) » (`ocTnmImport` : { sous-localisation: fiche tnmVide } → `tnm_<id>` + index, PDF joint gardé), test `tests/test_ux10.py` ;
   CTCAE v6.0 fourni : `public/donnees-outils/ctcae-v6.json` (refait par `python3 outils/ctcae-pdf.py <pdf> <json>`), servi en `no-cache`.
 
+## Phase UX, UX1 et UX2 (01/11/2026)
+- Salle : Patient en `minmax(120px, largeur mesurée)`, Statut 112 px, ligne compacte `height:auto` ; menus déroulants (`ajuster`, v2.js) bornés à la case `.form > div` ;
+  `toast` posé au-dessus de `#dos > [data-zone=barre]` ; audit.js `.au-ret` (retour au dossier) ; `.dos:not(.agrandi) .t-lig` marges réduites.
+- Dossier : `.bn-loc` (localisation `P.diag` dans le bloc patient), `DOS.agrandi` vrai par défaut (`onco360.dossierAgrandi`) ; tableau de bord : 1re rangée `.tb-r1`
+  (hauteur de l'écran, `.cat-l` 360 px) ; Activité récente sans `parUid` « onco360-admin » ; menu « Documents » caché si `estMed(role)`. Test `tests/test_ux1_2.py`.
+
+## Phase UX, UX3 à UX9 (02/11/2026), et essais / contourage modifiables
+- Fenêtres : `js/app/dialogues.js` = `confirmer(texte, o)` (→ vrai / faux), `alerte`, `saisir` (→ texte ou null), aussi sur `window` ; o = { titre, ton rouge | orange | neutre,
+  oui, non, html, focusNon } ; boutons tirés de la question (Supprimer… en rouge, « Annuler … ? » → Non / Oui, annuler, « … quand même ? » → orange) ; **plus aucun
+  `confirm` / `alert` / `prompt`** dans `public/js` (contrôlé par test_ux3_9) ; fonctions appelantes devenues `async` (`verifierValidation`, `dateReportOk`, `conflitAccepte`
+  de chimio.js, `accepterConflit`, `avertirPrixRecu` de v2.js) ; `fermerPanneau(force, apres)` reste synchrone (question puis `apres`). Tests : `DLG_AUTO` de base.py
+  répond aux fenêtres par `window.confirm/alert/prompt` du test (`pg.dlg`), sauf `window.__dlgManuel = true`.
+- UX4 : `erreur(t, champ)` (v2.js) entoure le champ (`.ch-err`, `aria-invalid`) ; `FEN_SALE` (saisie dans `#fenetreCorps`) → Échap demande « Quitter sans enregistrer ? » ;
+  pied `.boutons:last-child` collant. UX5 : `hautDePage(nom)` (`EXPLI`, `ICONE_PAGE`, `#titrePage .tp-ic/.tp-ex`), `bandeau(ic, titre, n)` = `API.bandeau` (`.bd-o`),
+  `fenetre(…, "page")` ajoute `.pg-ret` (`origineFenetre`) et `.pg-esc`. UX8 : `tbJour(±1 | 0)`, `TB_JOUR`, `programmeDuJour(jour)` ; salle `att-c vert|orange|rouge`
+  (`reglages.salle.orange / rouge`, 15 / 30 min). UX9 : `#dossier/<id>/<consultation|chimio|radiotherapie|documents|patient>` (`ONGLET_NOM`, `pidAdresse()` = `API.pidAdresse`).
+  CSS : bloc « Phase UX, UX5 à UX8 » de v2.html (lignes de 44 px à partir de 768 px, hors cartes `rtr-cartes(-h)`). Tests : `tests/test_ux3_9.py` ; titre d'une page lu par `#titrePage .tp-t` (innerText).
+- Radiothérapie (radiotherapie.js) : essais du cabinet `referentielRT/_essais` { essais: { id: essai modifié }, ajouts: [essais] } (`rtrEssaiForm(id | null)`,
+  `rtrEssaiOk(id, "" | "ref" | "sup")`, `BB.essaisRef`, badge « Cabinet ») ; contourage du cabinet `referentielRT/_contourage` { data: JSON { région: { sections: { id:
+  section modifiée }, ajouts } } } (pas de tableau de tableaux dans Firestore) ; `ctEffectif`, `rtrCgForm(id | null)`, `rtrCgLigne`, `rtrCgCol`, `rtrCgOk("" | "ref" | "sup")` ;
+  règle générique `referentielRT/{s}` (droit « modifier »), recopiés avec le modèle (`DOCS_BIB`).
+
 ## Lot L du 31/10/2026 (lancement)
 - CGU : `public/cgu.html` (texte), `js/donnees/cgu.js` (`CGU.version` : la changer à chaque nouvelle version) ; v2.js `verifierCgu` (fenêtre `#cguFond`, `utilisateurs/{uid}.cgu`
   { version, le, email, espace, cabinet } + `cguHist` ; règle `cguOk` : date du serveur) ; tests : le faux Firebase accepte d'office (`window.__cguV` de base.py), `window.__cguVierge` sinon.

@@ -44,8 +44,8 @@ async def main():
         pg = await ouvrir(b, s, w=1440, h=900); ev = pg.evaluate
         await pg.goto(f'http://localhost:{PORT}/v2.html#accueil'); await pg.wait_for_timeout(2500)
         r = await ev("[...document.querySelectorAll('nav a[data-p]')].filter(" + VIS + ").map(a => a.dataset.p)")
-        ok('documents' in r and r.index('documents') == r.index('patients') + 1, '5.3 : « Documents » dans le menu, sous Patients', r)
-        await pg.click('nav a[data-p="documents"]'); await pg.wait_for_timeout(1500)
+        ok('documents' not in r, 'UX2 : « Documents » retiré du menu du médecin (secrétaire seulement, test_ux1_2)', r)
+        await pg.goto(f'http://localhost:{PORT}/v2.html#documents'); await pg.wait_for_timeout(1500)
         await pg.set_input_files('#dpF', files=[{'name': 'bio.pdf', 'mimeType': 'application/pdf', 'buffer': b'%PDF-1.4 bio'}, {'name': 'scanner_thorax.pdf', 'mimeType': 'application/pdf', 'buffer': b'%PDF-1.4 scan'}]); await pg.wait_for_timeout(400)
         ok(await ev("document.querySelectorAll('.dp-r').length") == 2, '5.3 : deux fichiers choisis, une ligne chacun')
         await pg.select_option('#dpTT', 'Biologie'); await pg.wait_for_timeout(200)

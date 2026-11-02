@@ -12,6 +12,7 @@
 import { collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc, query, where, serverTimestamp, arrayUnion, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { db } from "../config.js";
 import { dateHeureMaroc } from "../moteur/heure.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 // RCP : page du menu principal depuis le 19/10/2026 (R-B1, rcp.js pageRcpMenu) ; #taches/rcp y renvoie
 
 let A = null;
@@ -51,7 +52,8 @@ async function membres() {
 export const listeMembres = () => membres(); // Paramètres › Tâches automatiques (responsable)
 // Tâches ouvertes d'un patient (dossier : « Rendez-vous et tâches à venir », P4 08/10/2026)
 export const tachesDuPatient = (pid) => (T || []).filter((t) => t.patientId === pid && t.statut !== "fait");
-const nomMembre = (m) => m ? String(m.nom || m.email || "").trim() : "";
+// UX4 (02/11/2026) : un seul format du nom d'un médecin à l'écran : « Dr » devant (comme le filtre « Médecin » de l'agenda)
+const nomMembre = (m) => { if (!m) return ""; const n = String(m.nom || m.email || "").trim(); return /^(medecin|remplacant)$/.test(m.role || "") && n && !/^(Dr|Pr)\b/i.test(n) ? "Dr " + n : n; };
 // Le médecin lit toutes les tâches ; les autres celles où ils sont auteur ou responsable (même filtre que les règles)
 const requete = () => (estMedecin() ? col() : query(col(), where("qui", "array-contains", D().u.uid)));
 async function charger() {
@@ -186,7 +188,7 @@ const nbCom = (t) => (t.fil || []).filter((f) => f.c).length;
 const initiales = (nom) => String(nom || "?").replace(/\([^)]*\)/g, " ").replace(/^\s*(Dr|Pr)\.?\s+/i, "").split(/\s+/).filter((m) => /^\p{L}/u.test(m)).slice(0, 2).map((m) => m[0]).join("").toUpperCase() || "?";
 const avatar = (nom, moi) => '<span class="ta-av">' + A.esc(initiales(nom)) + "</span><span class=\"ta-nm\">" + A.esc(moi ? "Moi" : nom || "?") + "</span>";
 const ENTETE = '<div class="ta-h" aria-hidden="true"><span>Tâche</span><span>Patient</span><span>Assignée à</span><span>Créée par</span><span>Échéance</span><span>Statut</span></div>';
-const tableau = (l) => (l.length ? '<div class="ta-tab">' + ENTETE + l.map(ligne).join("") + "</div>" : "");
+const tableau = (l) => (l.length ? '<div class="ta-tab">' + A.bandeau("taches", VUE === "mes" ? "Mes tâches" : "Toutes les tâches", l.length) + ENTETE + l.map(ligne).join("") + "</div>" : ""); // UX5 : bandeau
 function ligne(t) {
   const esc = A.esc, q = "'" + t.id + "'", moi = D().u.uid;
   const ech = !t.ech ? '<span class="mesures">—</span>' : t.debut && t.debut < t.ech && !t.h ? esc(A.dfr(t.debut) + " → " + A.dfrA(t.ech)) : esc(A.dfrA(t.ech) + (t.h ? " · " + t.h : ""));
@@ -298,7 +300,7 @@ function liste() {
 // tâches à venir » aussi (fenêtre fermée seulement)
 const raf = () => {
   if (location.hash.startsWith("#taches") && T && $("taL")) dessiner();
-  else if (location.hash.startsWith("#dossier/") && $("fenetre") && $("fenetre").classList.contains("cache")) A.pageDossier(decodeURIComponent(location.hash.slice(9)));
+  else if (location.hash.startsWith("#dossier/") && $("fenetre") && $("fenetre").classList.contains("cache")) A.pageDossier(A.pidAdresse());
 };
 window.taVue = (k) => { if (k === "rcp") { location.hash = "rcp"; return; } VUE = k; history.replaceState(null, "", "#taches"); if (T) dessiner(); else pageTaches(k); };
 window.taTerminees = () => { TERM = !TERM; liste(); };
@@ -418,7 +420,7 @@ window.taCommenter = async (id) => {
 window.taReattribuer = async (id) => {
   const t = trouver(id), uid = A.val("taRe"), moi = D().u.uid; if (!t || !uid || uid === t.pour || !peutModifier(t)) return;
   const m = (MB || []).find((z) => z.uid === uid), nom = nomMembre(m), perdue = !estMedecin() && t.de !== moi && uid !== moi;
-  if (perdue && !confirm("Réattribuer la tâche à " + nom + " ?\n\nVous ne la verrez plus dans votre liste (seuls son auteur, la personne responsable et le médecin la voient).")) return;
+  if (perdue && !(await confirmer("Réattribuer la tâche à " + nom + " ?\n\nVous ne la verrez plus dans votre liste (seuls son auteur, la personne responsable et le médecin la voient)."))) return;
   A.occupe($("taReOk"), true);
   try {
     await ecrire(t, { pour: uid, pourNom: nom, qui: [...new Set([t.de, uid])] }, "Réattribuée à " + nom);
@@ -429,7 +431,7 @@ window.taReattribuer = async (id) => {
 window.taModifier = (id) => { const t = trouver(id); if (t && peutModifier(t)) formulaire(t, null); };
 window.taSupprimer = async (id) => {
   const t = trouver(id); if (!t || !peutSupprimer(t)) return;
-  if (!confirm("Supprimer la tâche « " + t.titre + " » ?" + (t.statut === "fait" ? "\n\nElle est terminée : elle disparaîtra aussi de l'historique des tâches." : ""))) return;
+  if (!(await confirmer("Supprimer la tâche « " + t.titre + " » ?" + (t.statut === "fait" ? "\n\nElle est terminée : elle disparaîtra aussi de l'historique des tâches." : "")))) return;
   try { await deleteDoc(doc(db, "espaces", A.ESPACE, "taches", id)); T = T.filter((z) => z.id !== id); A.fermerFenetre(); A.toast("Tâche supprimée."); raf(); }
   catch (e) { A.toast(e && e.code === "permission-denied" ? "Vous n'avez pas le droit de supprimer cette tâche." : "Suppression impossible."); }
 };

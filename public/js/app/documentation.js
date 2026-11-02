@@ -10,6 +10,7 @@ import { getStorage, ref, uploadBytesResumable, getBlob, deleteObject } from "ht
 import { app, db } from "../config.js";
 import { DOCUMENTATION0, CATEGORIES_DOC0 } from "../donnees/documentation.js";
 import { enregistrerPrescription, assurerConsultations, lignesType, supprimerPrescription } from "./consultations.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null;
 export function installer(api) { A = api; }
@@ -196,7 +197,7 @@ window.dcFiche = (id) => {
 };
 window.dcSupprimer = async (id) => {
   const d = DOCS.find((z) => z.id === id); if (!d || !gere()) return;
-  if (!confirm("Supprimer « " + d.titre + " » de la documentation ?\n\nLes mentions « remis » dans les consultations restent, mais le document ne pourra plus être rouvert.")) return;
+  if (!(await confirmer("Supprimer « " + d.titre + " » de la documentation ?\n\nLes mentions « remis » dans les consultations restent, mais le document ne pourra plus être rouvert."))) return;
   try {
     if (d.chemin) await deleteObject(ref(st(), d.chemin)).catch((e) => { if (!e || e.code !== "storage/object-not-found") throw e; });
     await modifier((L) => { const i = L.findIndex((z) => z.id === id); if (i >= 0) L.splice(i, 1); }); A.toast("Document supprimé."); liste();
@@ -224,7 +225,7 @@ function hist(pid) {
 }
 window.docFermer = (pid) => { A.fermerFenetre(); A.pageDossier(pid); };
 window.docRetirerMention = async (pid, lid) => {
-  const x = trouver(pid); if (!x || !confirm("Retirer cette mention de la consultation ?")) return;
+  const x = trouver(pid); if (!x || !(await confirmer("Retirer cette mention de la consultation ?"))) return;
   try { await supprimerPrescription(x, lid); A.toast("Mention retirée."); hist(pid); }
   catch (e) { A.toast(e && e.code === "permission-denied" ? "Vous n'avez pas le droit de modifier cette consultation." : "Suppression impossible."); }
 };

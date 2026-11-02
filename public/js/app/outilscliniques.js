@@ -8,6 +8,7 @@ import { getStorage, ref as sref, uploadBytesResumable, getBlob } from "https://
 import { db, app } from "../config.js";
 import * as C from "../moteur/calculs.js";
 import { TNM_LOCS, sousTnm, tnmVide, CTCAE_TARDIFS0, CTCAE_V6, CTCAE_SITE, GROUPES_CALC, CALCS, PS, KARNOFSKY, AVERT_OUTILS } from "../donnees/outilscliniques.js";
+import { saisir } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null;
 export function installer(api) { A = api; }
@@ -212,7 +213,7 @@ window.ocCtImport = async (inp) => {
   catch (e) { console.warn("CTCAE", e); }
   if (!T || !T.length) { A.toast("Fichier non reconnu : il faut le fichier Excel du NCI (colonnes « CTCAE Term », « Grade 1 » … « Grade 5 »)."); return; }
   const v0 = (f.name.match(/v\s*(\d+(?:[._]\d+)?)/i) || [])[1];
-  const version = window.prompt ? (window.prompt("Version du CTCAE (" + T.length + " termes lus) :", v0 ? v0.replace("_", ".") : "6.0") || "").trim() : v0 || "";
+  const version = window.prompt ? ((await saisir("Version du CTCAE (" + T.length + " termes lus) :", v0 ? v0.replace("_", ".") : "6.0")) || "").trim() : v0 || "";
   const parts = []; let cur = [], taille = 0;
   T.forEach((t) => { const s = JSON.stringify(t).length; if (taille + s > 700000 && cur.length) { parts.push(cur); cur = []; taille = 0; } cur.push(t); taille += s; }); if (cur.length) parts.push(cur);
   try {

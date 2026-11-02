@@ -27,7 +27,7 @@ R = lambda sel: f"(() => {{ const e = document.querySelector('{sel}'); if (!e) r
 async def page(b, w, h, replie=False, init=''):
     pg = await ouvrir(b, S2, w=w, h=h)
     # lot A §10 (25/10/2026) : le dossier a son propre choix (replié par défaut) : le même que le reste ici
-    await pg.add_init_script("try{localStorage.setItem('onco360.menuReplie','" + ('1' if replie else '0') + "');localStorage.setItem('onco360.menuReplieDossier','" + ('1' if replie else '0') + "')}catch(e){}" + init)
+    await pg.add_init_script("try{localStorage.setItem('onco360.menuReplie','" + ('1' if replie else '0') + "');localStorage.setItem('onco360.menuReplieDossier','" + ('1' if replie else '0') + "');localStorage.setItem('onco360.dossierAgrandi','false')}catch(e){}" + init)
     await pg.goto(U); await pg.wait_for_timeout(3500); return pg
 async def main():
     async with async_playwright() as p:
@@ -39,7 +39,7 @@ async def main():
         pat, trav, docs, bar, ban = [await ev(R(s)) for s in ['.dos-pat', '.dos-trav', '.dos-docs', '.dos-barre', '.dos-ban']]
         ok(pat and trav and docs and pat[0] < trav[0] < docs[0] and trav[1] == docs[1] and pat[1] > trav[1] and abs(pat[2] - 300) <= 1 and trav[2] >= 500 and 400 <= docs[2] <= 760, 'trois colonnes : Patient 300 px (sous le bloc patient, lot A) · Travail ≥ 500 · Documents 400 à 760', (pat, trav, docs))
         ok(bar and bar[1] + bar[3] <= 901 and bar[1] >= pat[1] + pat[3], 'barre d\'actions visible, collée en bas', bar)
-        ok(ban and ban[1] < pat[1] and ban[3] <= 130 and abs(ban[0] - pat[0]) <= 1 and ban[1] == trav[1], 'bloc patient en haut de la colonne Patient (≤ 130 px ; le centre monte tout en haut)', ban)
+        ok(ban and ban[1] < pat[1] and ban[3] <= 160 and abs(ban[0] - pat[0]) <= 1 and ban[1] == trav[1], 'bloc patient en haut de la colonne Patient (≤ 160 px avec la ligne de localisation, UX2 ; le centre monte tout en haut)', ban)
         ok(await ev("['.dos-pat','.dos-trav','.dos-docs'].every(s => getComputedStyle(document.querySelector(s)).overflowY === 'auto' && document.querySelector(s).tabIndex === 0)"), 'chaque colonne défile seule (et s\'atteint au clavier)')
         ok(await ev("document.querySelector('.dos-trav').scrollHeight > document.querySelector('.dos-trav').clientHeight"), 'le centre a plus de contenu que sa hauteur : il défile')
         # bandeau

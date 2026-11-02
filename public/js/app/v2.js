@@ -73,9 +73,12 @@ const dfrA = (d) => d ? d.slice(8, 10) + "/" + d.slice(5, 7) + "/" + d.slice(0, 
 const bulle = (x, cls) => { const ph = srcImage(x && x.doc && x.doc.identite && x.doc.identite.photo); return '<div class="av' + (cls ? " " + cls : "") + '">' + (ph ? '<img src="' + ph + '" alt="">' : esc(initiales(x.r.nm))) + "</div>"; };
 const initiales = (nm) => String(nm || "").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase() || "··";
 let D = null;
-const toast = (t) => { const x = $("toast"); x.textContent = t; x.classList.remove("cache"); clearTimeout(toast.t); toast.t = setTimeout(() => x.classList.add("cache"), 3800); };
+// UX1 (01/11/2026) : dans le dossier, le message se pose au-dessus de la barre du bas (il la cachait)
+const toast = (t) => { const x = $("toast"), br = document.querySelector("#dos > [data-zone=barre]"), r = br && br.getClientRects().length ? br.getBoundingClientRect() : null;
+  x.style.bottom = r && r.top < innerHeight ? Math.round(innerHeight - r.top + 12) + "px" : ""; x.textContent = t; x.classList.remove("cache"); clearTimeout(toast.t); toast.t = setTimeout(() => x.classList.add("cache"), 3800); };
 window.ouvrirDossier = (id) => { location.hash = "dossier/" + encodeURIComponent(id); };
 import { CGU } from "../donnees/cgu.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 import { controlerDossier } from "../moteur/controle.js";
 const D0 = () => auj(); // jour du contrôle des dossiers (L5)
 // L1 (31/10/2026) : erreurs JavaScript envoyées au journal des erreurs de la plateforme (fonction noterErreur) : message, fichier, ligne, page
@@ -717,15 +720,29 @@ function placerCentre() { const f = $("fenetre"); if (!f.classList.contains("cen
 function quitterCentre() { CENTRE = false; const f = $("fenetre"); f.classList.remove("centre"); ["left", "top", "width", "height"].forEach((k) => { f.style[k] = ""; }); }
 document.addEventListener("click", (ev) => { if (ev.target.closest && ev.target.closest('#dos > [data-zone="barre"] .br-g button')) CENTRE = true; }, true);
 window.addEventListener("resize", placerCentre); window.addEventListener("scroll", placerCentre, true);
-function fenetre(html, taille) { $("fenetreCorps").innerHTML = html; if (!$("fenetreCorps").querySelector(".fen-x")) $("fenetreCorps").insertAdjacentHTML("afterbegin", CROIX); const auC = CENTRE && !!zonesCentre();
-  $("fenetreCorps").classList.toggle("large", taille === "large" && !auC); $("fenetre").classList.toggle("pleine", taille === "page" && !auC); $("fenetre").classList.toggle("centre", auC); if (auC) placerCentre(); else quitterCentre(); $("fenetreCorps").scrollTop = 0; $("fenetre").classList.remove("cache"); const f = $("fenetreCorps").querySelector("input,select,textarea"); if (f) setTimeout(() => f.focus(), 50); }
+// UX4 : FEN_SALE = quelque chose a été tapé dans la fenêtre ouverte (Échap demande alors avant de fermer)
+let FEN_SALE = false;
+document.addEventListener("input", (ev) => { if (ev.target && ev.target.closest && ev.target.closest("#fenetreCorps") && ev.target.type !== "search") FEN_SALE = true; });
+// UX5 : page pleine = « ← » vers la page d'origine (celle qui est dessous) et « Échap pour annuler » dans le pied
+function origineFenetre() {
+  const p = String(D.page || ""), i = p.indexOf("/"), nom = i < 0 ? p : p.slice(0, i);
+  if (nom === "dossier") { const x = D.patients.find((z) => z.id === decodeURIComponent(p.slice(i + 1))); return "Dossier" + (x ? " de " + x.r.nm : ""); }
+  return PAGES[nom] ? PAGES[nom][0] : "Retour";
+}
+function fenetre(html, taille) { FEN_SALE = false; $("fenetreCorps").innerHTML = html; if (!$("fenetreCorps").querySelector(".fen-x")) $("fenetreCorps").insertAdjacentHTML("afterbegin", CROIX); const auC = CENTRE && !!zonesCentre();
+  $("fenetreCorps").classList.toggle("large", taille === "large" && !auC); $("fenetre").classList.toggle("pleine", taille === "page" && !auC); $("fenetre").classList.toggle("centre", auC); if (auC) placerCentre(); else quitterCentre();
+  if (taille === "page" && !auC) { const pf = $("fenetreCorps").querySelector(".pg-form"); if (pf && !pf.querySelector(".pg-ret")) { pf.insertAdjacentHTML("afterbegin", '<button type="button" class="pg-ret" onclick="fermerFenetre()">' + ic("retour") + esc(origineFenetre()) + "</button>"); const bt = pf.querySelector(":scope > .boutons"); if (bt) bt.insertAdjacentHTML("afterbegin", '<span class="pg-esc">Échap pour annuler</span>'); } }
+  $("fenetreCorps").scrollTop = 0; $("fenetre").classList.remove("cache"); const f = $("fenetreCorps").querySelector("input,select,textarea"); if (f) setTimeout(() => f.focus(), 50); }
 // R-G e : la petite fenêtre se ferme d'abord ; sans petite fenêtre, c'est le panneau de chimio / RT qui se ferme
 // 25/10/2026 : apresFenetre(f) = f appelée une fois, à la prochaine fermeture de la petite fenêtre (ex. « Ligne créée » qui revient après chaque action)
 let APRES_FEN = null;
 window.fermerFenetre = () => { if (!$("fenetre").classList.contains("cache")) { $("fenetre").classList.add("cache"); $("fenetreCorps").innerHTML = ""; quitterCentre(); const f = APRES_FEN; APRES_FEN = null; if (f) setTimeout(f, 0); return; } fermerPanneau(); };
 const val = (i) => { const e = $(i); return e ? String(e.value || "").trim() : ""; };
 const occupe = (b, oui) => { if (!b) return; b.disabled = oui; b.dataset.t = b.dataset.t || b.textContent; b.textContent = oui ? "Enregistrement…" : b.dataset.t; };
-const erreur = (t) => { const e = $("fErr"); if (e) e.textContent = t; };
+// UX4 (02/11/2026) : erreur(texte, champ) : le champ fautif (id ou élément) est entouré de rouge et reprend la main ; rouge retiré dès qu'on le modifie
+const erreur = (t, champ) => { const e = $("fErr"); if (e) e.textContent = t; document.querySelectorAll(".ch-err").forEach((c) => { c.classList.remove("ch-err"); c.removeAttribute("aria-invalid"); });
+  const c = typeof champ === "string" ? $(champ) : champ; if (c && c.classList) { c.classList.add("ch-err"); c.setAttribute("aria-invalid", "true"); try { c.focus(); } catch (er) { console.warn(er); } } };
+["input", "change"].forEach((n) => document.addEventListener(n, (ev) => { const c = ev.target; if (c && c.classList && c.classList.contains("ch-err")) { c.classList.remove("ch-err"); c.removeAttribute("aria-invalid"); } }, true));
 const absenceLe = (d) => (D.cal.abs || []).find((a) => d >= a.du && d <= a.au);
 // Montants : séparateur des milliers à l'affichage (60 000) et pendant la saisie (champ class="mt")
 const fmtMil = (n) => (n == null || n === "" || isNaN(n) ? "" : Number(n).toLocaleString("fr-FR", { maximumFractionDigits: 2 }).replace(/[\u202f\u00a0]/g, " "));
@@ -738,7 +755,7 @@ function fmtSaisie(el) {
 document.addEventListener("input", (ev) => { if (ev.target && ev.target.classList && ev.target.classList.contains("mt")) fmtSaisie(ev.target); });
 const ferieLe = (d) => (D.ctx.feries || []).map((f) => (typeof f === "string" ? { d: f, nom: "Jour férié" } : f)).find((f) => f.d === d);
 const PN = { sale: false, apres: [] }; // panneau de chimio / RT (R-G e) : changements non enregistrés, fonctions appelées à sa fermeture
-const API = { D: () => D, get ESPACE() { return ESPACE; }, apresFenetre: (f) => { APRES_FEN = f || null; }, ecouteDossiers: () => !!ECOUTE_D, $, esc, ic, dfr, dfrA, cap, jourLong, val, occupe, erreur, toast, fenetre, fermerFenetre: () => window.fermerFenetre(), panneau: (h) => panneau(h), fermerPanneau: (f) => fermerPanneau(f), panneauOuvert: () => panneauOuvert(), petiteSurPanneau: () => panneauOuvert() && petiteOuverte(), surFermerPanneau: (f) => PN.apres.push(f), fermerPetite: () => fermerPetite(), corpsLarge: () => (grilleDossier() && $("panneauCorps") ? $("panneauCorps") : $("fenetreCorps")), peut, voit, traitMod, enregistrer, pageDossier: (id) => reafficher(id), recalculer, journal };
+const API = { D: () => D, get ESPACE() { return ESPACE; }, apresFenetre: (f) => { APRES_FEN = f || null; }, ecouteDossiers: () => !!ECOUTE_D, $, esc, ic, dfr, dfrA, cap, jourLong, val, occupe, erreur, toast, fenetre, fermerFenetre: () => window.fermerFenetre(), panneau: (h) => panneau(h), fermerPanneau: (f, apres) => fermerPanneau(f, apres), panneauOuvert: () => panneauOuvert(), petiteSurPanneau: () => panneauOuvert() && petiteOuverte(), surFermerPanneau: (f) => PN.apres.push(f), fermerPetite: () => fermerPetite(), corpsLarge: () => (grilleDossier() && $("panneauCorps") ? $("panneauCorps") : $("fenetreCorps")), peut, voit, traitMod, enregistrer, pageDossier: (id) => reafficher(id), recalculer, journal };
 API.typesRdv = (e) => typesRdv(e); API.typesC = () => D.typesC || []; API.actsDe = () => actsDe(D.tarifs, D.activites); // Paramètres › Horaires : durée par type de consultation (AG2)
 // Heure facultative du scanner de centrage (AG5, 11/10/2026) : r.scanH = { h, du } ou retirée (droit « radiothérapie : modifier »)
 // 26/10/2026 (demande de Dr Bentahila) : états vides harmonisés = petite illustration au trait aux couleurs d'Onco360, titre, texte court, bouton
@@ -843,6 +860,8 @@ function entete() {
   const ini = initiales((p.prenom || "") + " " + nom);
   ["avMenu", "avTete"].forEach((i) => { if (srcImage(p.photo)) $(i).innerHTML = '<img src="' + srcImage(p.photo) + '" alt="' + esc(ini) + '">'; else $(i).textContent = ini; }); $("avTete").title = D.u.email;
   document.querySelectorAll("nav a[data-droit]").forEach((a) => { if (!(mb.droits && mb.droits[a.dataset.droit])) a.classList.add("cache"); });
+  // UX2 (01/11/2026, décision de Dr Bentahila) : menu « Documents » pour la secrétaire seulement (le médecin dépose depuis le dossier)
+  if (estMed(mb.role)) document.querySelectorAll('nav a[data-p="documents"]').forEach((a) => a.classList.add("cache"));
   { const a = document.querySelector('nav a[data-p="radiotherapie"]'); if (a) a.classList.toggle("cache", !voitRefRT()); } // droit à niveaux (RT1)
   // Modules de la formule : body.sans-<module> cache tout ce qui porte data-mod="<module>" (menu, boutons, onglets)
   Object.keys(D.abo.modules).forEach((k) => document.body.classList.toggle("sans-" + k, !D.abo.modules[k]));
@@ -871,15 +890,15 @@ function entete() {
 }
 
 // ───── Calculs ─────
-function programmeDuJour() {
-  const t = D.t, ouvreAuj = ouvre(t, D.ctx.feries), rt = [], co = [], ch = [];
+function programmeDuJour(jour) {
+  const t = jour || D.t, ici = t === D.t, ouvreAuj = ouvre(t, D.ctx.feries), rt = [], co = [], ch = []; // UX8 : jour = autre jour du tableau de bord (flèches)
   D.patients.forEach((pt) => {
     const { id, P, r } = pt, okRT = voitRT(pt), okCo = voitRdv();
     if (okRT) (r.rtE || []).forEach((x) => {
       if (!ouvreAuj || !x.deb || x.deb > t || !x.fin || x.fin < t) return;
       const nb = parseInt(x.nb, 10), k = nb && x.rest ? nb - x.rest + 1 : null;
       // Rang calculé d'après le calendrier (jours ouvrés depuis la 1re séance) : les séances faites ne sont pas enregistrées, d'où « prévue »
-      const lib = x.deb === t ? "1re séance" : x.fin === t ? "Dernière séance prévue" : x.rest <= 5 ? "Dernière semaine" : k ? "Séance " + k + " / " + nb + " prévue" : "En cours";
+      const lib = x.deb === t ? "1re séance" : x.fin === t ? "Dernière séance prévue" : !ici ? "Séance prévue" : x.rest <= 5 ? "Dernière semaine" : k ? "Séance " + k + " / " + nb + " prévue" : "En cours";
       rt.push({ id, nm: r.nm, lib, de: x.acte, cls: x.deb === t ? "b-ch" : x.rest <= 5 ? "b-or" : "b-rt", o: x.deb === t ? 0 : x.rest <= 5 ? 1 : 2 });
     });
     if (okRT) (r.rt || []).forEach((x) => { if (x.d === t && /Scanner/.test(x.lib)) rt.push({ id, nm: r.nm, lib: "Scanner de centrage", de: x.lib.replace(/^RT · /, "").replace(/ · Scanner de centrage$/, ""), cls: "b-co", o: 0 }); });
@@ -892,7 +911,7 @@ function programmeDuJour() {
   });
   // 4.5 (28/10/2026, demande de Dr Bentahila) : une consultation de chimio validée reste dans la carte, marquée « Vu » (comme les consultations) ; la cure du jour
   // et « À valider » disparaissent toujours une fois validées (badge « Vu » donné par la salle d'attente)
-  try { chimiosVuesDuJour().forEach((v) => { const pt = D.patients.find((z) => z.id === v.pid), lib = "C" + v.n + " J" + (v.j || 1); if (!pt || ch.some((o) => o.id === v.pid && o.lib === lib)) return; ch.push({ id: v.pid, nm: pt.r.nm, lib, de: v.lib, vu: true }); }); } catch (e) { /* salle d'attente pas encore lue */ }
+  if (ici) try { chimiosVuesDuJour().forEach((v) => { const pt = D.patients.find((z) => z.id === v.pid), lib = "C" + v.n + " J" + (v.j || 1); if (!pt || ch.some((o) => o.id === v.pid && o.lib === lib)) return; ch.push({ id: v.pid, nm: pt.r.nm, lib, de: v.lib, vu: true }); }); } catch (e) { /* salle d'attente pas encore lue */ }
   rt.sort((a, b) => a.o - b.o || a.nm.localeCompare(b.nm)); co.sort((a, b) => a.h.localeCompare(b.h)); ch.sort((a, b) => (a.vu ? 1 : 0) - (b.vu ? 1 : 0) || a.nm.localeCompare(b.nm));
   return { rt, co, ch };
 }
@@ -1121,17 +1140,33 @@ const PAGES_TOUS = () => ({ tous: ["Mes cabinets aujourd'hui", () => pageTous()]
 const PAGES = { accueil: ["Tableau de bord", pageAccueil], rcp: ["RCP", () => pageRcpMenu()], agenda: ["Agenda / Rendez-vous", () => pageAgenda()], configuration: ["Paramètres", () => { location.replace("#parametres"); }], profil: ["Mon compte", (a) => pageProfil(a)], protocoles: ["Protocoles", (a) => pageProtocoles(a)], radiotherapie: ["Radiothérapie", (a) => pageRadiotherapie(a)], outils: ["Outils cliniques", (a) => pageOutils(a)], parametres: ["Paramètres", (a) => pageConfiguration(a || "@")], bilan: ["Bilan", () => pagePageBilan()], salle: ["Salle d'attente", () => pageSalle()], patients: ["Patients", pagePatients], documents: ["Documents", () => pageDepot()], taches: ["Tâches", (a) => pageTaches(a)], dossier: ["Dossier patient", pageDossier] };
 function route() {
   if (CABINETS.length > 1 && !PAGES.tous) Object.assign(PAGES, PAGES_TOUS()); // secrétaire de plusieurs cabinets (19.7)
-  const h = location.hash.replace("#", ""), i = h.indexOf("/"), p = i < 0 ? h : h.slice(0, i), arg = i < 0 ? null : decodeURIComponent(h.slice(i + 1)), nom = PAGES[p] && module(PAGE_MODULE[p] || "") && !(p === "protocoles" && D.reg && D.reg.fonctions["chimio.protocoles"] === false) && (p !== "radiotherapie" || voitRefRT()) && (!estComptable() || PAGES_COMPTABLE.indexOf(p) >= 0) && (!D.bib || PAGES_BIB.indexOf(p) >= 0) ? p : estComptable() ? "bilan" : D.bib ? "protocoles" : "accueil";
+  const h0 = location.hash.replace("#", ""), so = /^dossier\/[^/]+\/([a-z]+)$/.exec(h0), h = so ? h0.slice(0, h0.length - so[1].length - 1) : h0; // UX9 : onglet du dossier dans l'adresse
+  const i = h.indexOf("/"), p = i < 0 ? h : h.slice(0, i), arg = i < 0 ? null : decodeURIComponent(h.slice(i + 1)), nom = PAGES[p] && module(PAGE_MODULE[p] || "") && !(p === "protocoles" && D.reg && D.reg.fonctions["chimio.protocoles"] === false) && (p !== "radiotherapie" || voitRefRT()) && (!estComptable() || PAGES_COMPTABLE.indexOf(p) >= 0) && (!D.bib || PAGES_BIB.indexOf(p) >= 0) ? p : estComptable() ? "bilan" : D.bib ? "protocoles" : "accueil";
   if (!$("fenetre").classList.contains("cache")) window.fermerFenetre();
   quitterCentre(); fermerPanneau(true); $("page").classList.toggle("p-dos", nom === "dossier"); menuDossier(nom === "dossier"); // R-G : panneau fermé, menu replié dans le dossier seulement
   D.page = nom + (arg ? "/" + encodeURIComponent(arg) : ""); { const tp = nom === "parametres" && D.bib ? "Paramètres du modèle" : PAGES[nom][0], co = { "Agenda / Rendez-vous": "Agenda", "Paramètres du modèle": "Paramètres" }[tp]; // 1.11 : nom court sur téléphone
-    $("titrePage").innerHTML = co ? '<span class="tp-lg">' + esc(tp) + '</span><span class="tp-sm">' + esc(co) + "</span>" : esc(tp); } $("page").classList.toggle("large", nom === "agenda");
+    $("titrePage").innerHTML = co ? '<span class="tp-lg">' + esc(tp) + '</span><span class="tp-sm">' + esc(co) + "</span>" : esc(tp); hautDePage(nom); } $("page").classList.toggle("large", nom === "agenda");
   document.querySelectorAll("nav a").forEach((a) => a.classList.toggle("actif", a.dataset.p === (nom === "dossier" ? "patients" : nom)));
   $("btParam").classList.toggle("on", nom === "parametres"); $("mcCompte").classList.toggle("actif", nom === "profil"); // Lot B : Paramètres et Mon compte hors du menu
-  if (nom === "dossier" && arg) { delete ONGLET[arg]; oublierConsultations(arg); oublierDocs(arg); oublierFichiers(arg); noterRecent(arg); } // dossier ouvert : onglet Consultation, consultations relues ; derniers dossiers (lot A)
+  TB_JOUR = null;
+  if (nom === "dossier" && arg) { delete ONGLET[arg]; if (so && ONGLET_K[so[1]]) ONGLET[arg] = ONGLET_K[so[1]]; oublierConsultations(arg); oublierDocs(arg); oublierFichiers(arg); noterRecent(arg); } // dossier ouvert : onglet Consultation, consultations relues ; derniers dossiers (lot A)
   PAGES[nom][1](arg); window.scrollTo(0, 0);
   if (!estComptable() && !D.bib) presenceDossier(nom === "dossier" ? arg : null); // « Dossier ouvert par » (salle d'attente)
 }
+// UX5 (02/11/2026) : haut de page = icône du menu + titre + une ligne d'explication (barre du haut ; le dossier a son propre haut)
+const EXPLI = { accueil: "Votre journée en un coup d'œil", agenda: "Rendez-vous, séances de chimiothérapie et étapes de radiothérapie", salle: "Patients du jour : arrivée, passage, encaissement",
+  patients: "Dossiers du cabinet : recherche et filtres", documents: "Déposer des documents dans les dossiers", taches: "Tâches de l'équipe : échéances et suivi", rcp: "Dates des RCP et patients inscrits",
+  protocoles: "Bibliothèque des protocoles de chimiothérapie", radiotherapie: "Référentiel : schémas, contraintes, contourage, essais", outils: "Stadification TNM, toxicités CTCAE, calculs",
+  bilan: "Actes, encaissements et versements", parametres: "Réglages du cabinet et des listes", profil: "Vos informations et votre compte", tous: "Vos cabinets aujourd'hui" };
+const ICONE_PAGE = { parametres: "parametres", profil: "profil", tous: "hopital" };
+function hautDePage(nom) {
+  const t = $("titrePage"); if (nom === "dossier") return;
+  const u = document.querySelector('nav a[data-p="' + nom + '"] use'), h = u ? u.getAttribute("href") : ICONE_PAGE[nom] ? "#i-" + ICONE_PAGE[nom] : "";
+  t.innerHTML = (h ? '<svg class="i tp-ic" aria-hidden="true"><use href="' + h + '"/></svg>' : "") + '<span class="tp-t">' + t.innerHTML + "</span>" + (EXPLI[nom] ? '<span class="tp-ex">' + esc(EXPLI[nom]) + "</span>" : "");
+}
+// UX5 : bandeau bleu en tête d'une liste ou d'un tableau : icône, titre, nombre, actions à droite
+const bandeau = (icone, titre, n, actions) => '<div class="bd-o">' + ic(icone) + '<span class="bd-t">' + esc(titre) + "</span>" + (n != null ? '<span class="bd-n">' + n + "</span>" : "") + (actions ? '<span class="bd-a">' + actions + "</span>" : "") + "</div>";
+API.bandeau = bandeau;
 // Changer de page : le résumé en cours d'écriture est d'abord enregistré ; s'il ne peut pas l'être, on reste sur le dossier
 // Garde d'une page en modification (RTR, RT5 du 25/10/2026, API.garde) : on reste sur la page, qui demande « Quitter sans enregistrer ? » ;
 // si l'on quitte, la garde est retirée et l'adresse demandée est rouverte
@@ -1281,27 +1316,33 @@ function aidesCartes() {
 }
 // 20/10/2026 (demande de Dr Bentahila) : aussi dans la page Bilan (versements et règlements, par établissement, mois par mois, référents)
 new MutationObserver(() => { if (D && (D.page === "accueil" || D.page === "bilan")) aidesCartes(); }).observe($("page"), { childList: true, subtree: true });
+// UX8 : jour affiché par la carte « Aujourd'hui » (null = aujourd'hui) ; remis à aujourd'hui à chaque changement de page
+let TB_JOUR = null;
+window.tbJour = (s) => { TB_JOUR = s ? addJ(TB_JOUR || D.t, s) : null; if (TB_JOUR === D.t) TB_JOUR = null; pageAccueil(); };
 function pageAccueil() {
-  const pj = programmeDuJour(), ag = agenda7(), ab = absences(), tot = pj.rt.length + pj.co.length + pj.ch.length;
+  const pj = programmeDuJour(), ag = agenda7(), ab = absences(), jr = TB_JOUR || D.t, pjJ = jr === D.t ? pj : programmeDuJour(jr), tot = pjJ.rt.length + pjJ.co.length + pjJ.ch.length;
   const ligne = (o, cat) => '<div class="li" onclick="ouvrirDossier(\'' + o.id + '\')">' + (cat === "co" ? '<span class="h">' + esc(o.h) + "</span>" : "") +
     '<div class="tx"><b>' + esc(o.nm) + '</b><div class="de">' + esc(cat === "co" ? o.lib : o.de) + "</div></div>" +
-    (cat === "co" ? (o.fait ? '<span class="badge b-ch">Vu</span>' : o.rid ? badgeSalle(o.id, "r-" + o.rid) : "") : (cat === "ch" ? badgeSalle(o.id, "chimio") : "") + '<span class="badge ' + (o.cls || "b-ch") + '"' + (cat === "rt" && / prévue$/.test(o.lib) ? ' title="Calculé d\'après le calendrier (jours ouvrés depuis la 1re séance) : les séances faites ne sont pas enregistrées."' : "") + ">" + esc(o.lib) + "</span>") + "</div>";
+    (cat === "co" ? (o.fait ? '<span class="badge b-ch">Vu</span>' : o.rid && jr === D.t ? badgeSalle(o.id, "r-" + o.rid) : "") : (cat === "ch" && jr === D.t ? badgeSalle(o.id, "chimio") : "") + '<span class="badge ' + (o.cls || "b-ch") + '"' + (cat === "rt" && / prévue$/.test(o.lib) ? ' title="Calculé d\'après le calendrier (jours ouvrés depuis la 1re séance) : les séances faites ne sont pas enregistrées."' : "") + ">" + esc(o.lib) + "</span>") + "</div>";
   // 26/10/2026 (demande de Dr Bentahila) : une catégorie sans rien reste affichée, avec une pastille et une phrase
   const categorie = (cls, icone, titre, l, vide) => l.length ? '<div class="cat"><div class="tc">' + ic(icone) + titre + '<span class="n">' + l.length + '</span></div><div class="cat-l">' + l.map((o) => ligne(o, cls)).join("") + "</div></div>" // 4.1 : défile au-delà de sa hauteur
     : vide ? '<div class="cat"><div class="tc">' + ic(icone) + titre + "</div>" + videMini(icone, vide) + "</div>" : "";
   const A2 = accueilEffectif(D.reg, D.accueilCab); D.accueilCartes = A2.cartes;
 
-  let h = '<section class="accueil"><div><h2>Bonjour ' + esc(estMed(D.membre.role) ? [D.titre, D.nomAff].filter(Boolean).join(" ") : cap(String((D.profil && D.profil.prenom) || "").toLowerCase()) || D.nomAff) + "</h2><p>" + cap(jourLong(D.t)) + "</p></div>" +
+  let h = '<section class="accueil"><div><h2>Bonjour ' + esc(estMed(D.membre.role) ? [D.titre, D.nomAff].filter(Boolean).join(" ") : cap(String((D.profil && D.profil.prenom) || "").toLowerCase()) || D.nomAff) + "</h2>" +
+    // UX8 (02/11/2026) : date avec flèches jour précédent / suivant (carte « Aujourd'hui » de ce jour-là) ; « Aujourd'hui » pour revenir
+    '<p class="tb-date"><button type="button" class="b3 tb-fl" onclick="tbJour(-1)" aria-label="Jour précédent" title="Jour précédent">‹</button><span>' + cap(jourLong(jr)) + (jr.slice(0, 4) !== D.t.slice(0, 4) ? " " + jr.slice(0, 4) : "") + '</span><button type="button" class="b3 tb-fl" onclick="tbJour(1)" aria-label="Jour suivant" title="Jour suivant">›</button>' +
+    (jr !== D.t ? '<button type="button" class="b2 tb-auj" onclick="tbJour(0)">Aujourd\'hui</button>' : "") + "</p></div>" +
     '<div class="actions"><button class="b2" onclick="nouveauRdv()">' + ic("plus") + 'Rendez-vous</button><button class="b1" onclick="nouveauPatient()">' + ic("plus") + "Patient</button></div></section>"; // 31/10/2026 (demande de Dr Bentahila) : « + Patient » en principal, à droite
 
   // Cartes du tableau de bord : construites une par une, puis placées selon l'organisation réglée (administration, puis cabinet)
   const cartes = {}, carte = (k, fn) => { const avant = h; h = ""; fn(); cartes[k] = h; h = avant; };
   carte("ppas", () => { h += premiersPas(); });
   carte("jour", () => {
-  h += '<section class="jour"><div class="ent"><h3><span class="ic">' + ic("agenda") + "</span>Aujourd'hui</h3><span>" + cap(jourLong(D.t)) + (ouvre(D.t, D.ctx.feries) ? "" : " · jour non ouvré") + '</span>' + (tot ? '<span class="tot">' + tot + " au programme</span>" : "") + "</div>" +
+  h += '<section class="jour"><div class="ent"><h3><span class="ic">' + ic("agenda") + "</span>" + (jr === D.t ? "Aujourd'hui" : "Ce jour-là") + "</h3><span>" + cap(jourLong(jr)) + (ouvre(jr, D.ctx.feries) ? "" : " · jour non ouvré") + '</span>' + (tot ? '<span class="tot">' + tot + " au programme</span>" : "") + "</div>" +
     // T5 (24/10/2026, audit n° 11 U24) : consultations et chimiothérapie d'abord, puis la radiothérapie (dépliée, réponse de Dr Bentahila)
-    categorie("co", "stetho", "Consultations", pj.co, "Aucune consultation prévue aujourd'hui.") + categorie("ch", "seringue", "Chimiothérapie", pj.ch, "Aucune chimiothérapie prévue aujourd'hui.") +
-    categorie("rt", "radiation", "Radiothérapie", pj.rt, module("rt") ? "Aucune radiothérapie à suivre aujourd'hui." : "") + "</section>";
+    categorie("co", "stetho", "Consultations", pjJ.co, "Aucune consultation prévue " + (jr === D.t ? "aujourd'hui." : "ce jour-là.")) + categorie("ch", "seringue", "Chimiothérapie", pjJ.ch, "Aucune chimiothérapie prévue " + (jr === D.t ? "aujourd'hui." : "ce jour-là.")) +
+    categorie("rt", "radiation", "Radiothérapie", pjJ.rt, module("rt") ? "Aucune radiothérapie à suivre " + (jr === D.t ? "aujourd'hui." : "ce jour-là.") : "") + "</section>";
   });
   carte("afaire", () => { h += blocAFaire(pj); });
   carte("actions", () => { h += actionsRapides(); }); // 4.2
@@ -1369,7 +1410,8 @@ function pageAccueil() {
     if (r.l) { h += cartes[r.l]; return; }
     if (!r.g.length || !r.d.length) { h += r.g.concat(r.d).map(bloc).join(""); return; }
     const fg = r.g.some((k) => FLEX.indexOf(k) >= 0), fd = r.d.some((k) => FLEX.indexOf(k) >= 0);
-    h += '<div class="tb-rang' + (fd && !fg ? " ajuste-d" : fg && !fd ? " ajuste-g" : "") + '"><div class="tb-col tb-g"><div class="tb-in">' + r.g.map(bloc).join("") + '</div></div><div class="tb-col tb-d"><div class="tb-in">' + abo() + r.d.map(bloc).join("") + "</div></div></div>";
+    // UX2 (01/11/2026) : la première rangée (Aujourd'hui, Actions rapides, À valider) plus haute : toute la hauteur de l'écran
+    const r1 = !h.includes('class="tb-rang'); h += '<div class="tb-rang' + (r1 ? " tb-r1" : "") + (fd && !fg ? " ajuste-d" : fg && !fd ? " ajuste-g" : "") + '"><div class="tb-col tb-g"><div class="tb-in">' + r.g.map(bloc).join("") + '</div></div><div class="tb-col tb-d"><div class="tb-in">' + abo() + r.d.map(bloc).join("") + "</div></div></div>";
   });
   $("page").innerHTML = h;
   remplirActivite(); remplirDocuments(); // 4.3, 4.4 : lus après l'affichage
@@ -1446,7 +1488,8 @@ async function remplirActivite() {
   let L = [];
   try { const sn = tout ? await lireAvecRepli(query(col, orderBy("le", "desc"), limit(30)), query(col, limit(200))) : await lireAvecRepli(query(col, where("parUid", "==", D.u.uid), orderBy("le", "desc"), limit(30)), query(col, where("parUid", "==", D.u.uid)));
     sn.forEach((d) => L.push(d.data())); } catch (e) { z.innerHTML = '<p class="sous">Activité illisible pour le moment.</p>'; return; }
-  L = L.map((a) => Object.assign({}, a, { ms: msDe(a.le) })).sort((a, b) => b.ms - a.ms).slice(0, 30);
+  // UX2 (01/11/2026) : sans les réglages faits par l'Administration d'Onco360 (avis, réglage du cabinet : parUid « onco360-admin »)
+  L = L.filter((a) => a.parUid !== "onco360-admin").map((a) => Object.assign({}, a, { ms: msDe(a.le) })).sort((a, b) => b.ms - a.ms).slice(0, 30);
   if (!document.querySelector("#accAct .act-l")) return;
   const vu = ACT.tout ? L : L.slice(0, 5);
   z.innerHTML = L.length ? '<div class="act-v' + (ACT.tout ? " tout" : "") + '">' + vu.map((a) => { const x = D.patients.find((p) => p.id === a.patientId);
@@ -1516,7 +1559,7 @@ function listePatients() {
   // 31/10/2026 (demande de Dr Bentahila, 2.4) : tableau sur le modèle de la page Tâches : Nom Prénom, date de naissance (âge), n° de dossier, médecin,
   // établissement, cancer, dernières nouvelles (ou « Décédé »), traitement en cours ; un clic sur la rangée ouvre le dossier ; téléphone : une carte par patient
   const vide = '<span class="mesures nd">—</span>';
-  $("lst").innerHTML = l.length ? '<div class="pt-tab' + (multiMed() ? " m" : "") + '" role="table" aria-label="Patients"><div class="pt-h" role="row"><span role="columnheader">Nom Prénom</span><span role="columnheader">Date de naissance</span><span role="columnheader" class="c-num">N° de dossier</span><span role="columnheader" class="c-med">Médecin</span><span role="columnheader">Établissement</span><span role="columnheader">Cancer</span><span role="columnheader">Dernières nouvelles</span><span role="columnheader">Traitement en cours</span></div>' + l.map((xp) => { const { id, r } = xp;
+  $("lst").innerHTML = l.length ? '<div class="pt-tab' + (multiMed() ? " m" : "") + '" role="table" aria-label="Patients">' + bandeau("patients", "Patients", l.length) + '<div class="pt-h" role="row"><span role="columnheader">Nom Prénom</span><span role="columnheader">Date de naissance</span><span role="columnheader" class="c-num">N° de dossier</span><span role="columnheader" class="c-med">Médecin</span><span role="columnheader">Établissement</span><span role="columnheader">Cancer</span><span role="columnheader">Dernières nouvelles</span><span role="columnheader">Traitement en cours</span></div>' + l.map((xp) => { const { id, r } = xp;
     const a = age(r.ddn, t), rtC = (r.rtS || []).find((s) => s.st === "cours"), rtP = (r.rtS || []).find((s) => s.st === "prev"), cl = xp.doc.clinique || {}, num = numDossier(xp);
     const tr = [r.t && r.t.st === "cours" ? ic("seringue") + esc(r.t.nom + (r.t.c && r.t.k ? " · C" + r.t.k + "/" + r.t.nb : "")) : "", rtC ? ic("radiation") + esc("RT " + rtC.a + " jusqu'au " + dfr(rtC.fin)) : rtP ? ic("radiation") + esc("RT prévue le " + dfr(rtP.deb)) : ""].filter(Boolean);
     const dn = cl.statut === "decede" ? '<span class="badge b-dc">Décédé' + (cl.decesLe ? " le " + esc(dfrA(cl.decesLe)) : "") + "</span>" : (() => { const d = dernieresNouvelles(xp.P, datesConsultations(id), t); return (d ? esc(dfrA(d)) : vide) + (cl.statut === "perdu" ? ' <span class="badge b-or">' + esc(libStatut("perdu")) + "</span>" : ""); })();
@@ -1574,8 +1617,14 @@ function rechercheTete() {
 const ST_RDV = { prevu: ["Prévu", "b-co"], fait: ["Venu", "b-ch"], absent: ["Non venu", "b-al"], reporte: ["Reporté", "b-or"] };
 // Onglet choisi par patient : gardé quand le dossier se réaffiche après un enregistrement, oublié quand on rouvre le dossier (route)
 const ONGLET = {};
+// UX9 (02/11/2026) : l'onglet choisi est noté dans l'adresse (#dossier/<id>/chimio…, sans nouvelle page dans l'historique) : recharger la
+// page ou revenir en arrière rouvre le même onglet ; pidAdresse() = patient de l'adresse, avec ou sans onglet
+const ONGLET_NOM = { co: "consultation", ch: "chimio", rt: "radiotherapie", doc: "documents", pat: "patient" };
+const ONGLET_K = Object.fromEntries(Object.entries(ONGLET_NOM).map(([k, v]) => [v, k]));
+const pidAdresse = () => { const m = /^#dossier\/([^/]+)/.exec(location.hash); return m ? decodeURIComponent(m[1]) : null; };
+API.pidAdresse = pidAdresse;
 window.ongletDossier = (pid, k) => {
-  ONGLET[pid] = k; const d = $("dos"); if (d) d.classList.toggle("t-pat", k === "pat"); // lot A §11 : téléphone, onglet Patient = la colonne Patient
+  ONGLET[pid] = k; if (pidAdresse() === pid && ONGLET_NOM[k]) history.replaceState(history.state, "", "#dossier/" + encodeURIComponent(pid) + "/" + ONGLET_NOM[k]); const d = $("dos"); if (d) d.classList.toggle("t-pat", k === "pat"); // lot A §11 : téléphone, onglet Patient = la colonne Patient
   document.querySelectorAll(".o-barre [role=tab]").forEach((b) => { const on = b.id === "og-" + k; b.classList.toggle("on", on); b.setAttribute("aria-selected", on); });
   document.querySelectorAll(".o-pan").forEach((p) => p.classList.toggle("cache", p.id !== "op-" + k));
   { const nt = $("nTxt"); if (nt) window.hauteurResume(nt); } // 3.7 : résumé de toute sa hauteur une fois la colonne Patient visible (téléphone)
@@ -1598,7 +1647,8 @@ window.dosTout = () => { const L = [...document.querySelectorAll(".dos-pat detai
 window.dosDroite = (k) => { DOS.droite = k; const d = $("dos"); if (!d) return; d.classList.toggle("d-docs", k === "docs"); d.querySelectorAll(".dos-sw button").forEach((b) => { const on = b.dataset.k === k; b.classList.toggle("on", on); b.setAttribute("aria-selected", on); }); if (k === "docs") rafraichirVisionneuse(d.dataset.pid); };
 // Agrandir : le centre prend la place de la colonne Documents (gardé pour chacun)
 window.dosAgrandir = () => { DOS.agrandi = !DOS.agrandi; lsEcrire("onco360.dossierAgrandi", DOS.agrandi); const d = $("dos"); if (d) d.classList.toggle("agrandi", DOS.agrandi); document.querySelectorAll(".dos-agr").forEach((b) => { b.title = DOS.agrandi ? "Réduire : rendre sa place à la colonne Documents" : "Agrandir : le centre prend la place de la colonne Documents"; b.setAttribute("aria-pressed", DOS.agrandi); }); if (!DOS.agrandi && d) rafraichirVisionneuse(d.dataset.pid); };
-DOS.agrandi = !!lsLire("onco360.dossierAgrandi", false);
+// UX2 (01/11/2026) : centre déplié d'emblée, ⤢ ramène la colonne Documents (choix gardé)
+DOS.agrandi = !!lsLire("onco360.dossierAgrandi", true);
 // Flèche du bandeau : replie le menu pour le dossier seulement (le choix d'ailleurs est gardé et remis en quittant le dossier)
 // Lot A §10 (25/10/2026) : dans le dossier, menu en icônes par défaut (76 px ; déplié par la flèche seulement, plus au survol : 26/10/2026) ; le choix de la personne
 // (flèche du menu, onco360.menuReplieDossier) reste gardé
@@ -1634,6 +1684,7 @@ function pageDossier(id) {
   // photo (agrandie au clic), nom et « ⋯ » (Journal : titulaire, comme avant) ; « N° · date de naissance (âge) · hôpital » ; pastilles Chimio et RT
   // en cours (non cliquables), statut du patient ; allergie si elle est renseignée. Le reste de l'ancien bandeau : dans « Identité et administratif ».
   // Afficher et Modifier du haut : retirés (clic sur le titre d'une rubrique). Réglages « En-tête du dossier » d'avant : ignorés (gardés).
+  // UX2 (01/11/2026, décision de Dr Bentahila) : la localisation sous « N° · date de naissance · lieu » ; rien d'autre d'ajouté.
   const enCh = r.t && r.t.st === "cours", enRT = (r.rtS || []).some((s) => s.st === "cours"), num = numDossier(x);
   const mBp = D.espaceDoc && D.espaceDoc.titulaire === D.u.uid ? ['<button class="mini" onclick="auditPatient(' + qx + ')" title="Journal d\'audit de ce dossier : qui l\'a ouvert, modifié…">Journal</button>'] : [];
   if (peut("supprimerPatient")) mBp.push('<button class="mini rouge-t" onclick="dosSupprimer(' + qx + ')">Supprimer le patient</button>');
@@ -1641,6 +1692,7 @@ function pageDossier(id) {
     '<button type="button" class="bn-ph" onclick="' + (!P.photo && peut("identite") ? "photoPatient" : "dosPhoto") + "(" + qx + ')" title="' + (P.photo ? "Agrandir la photo" : peut("identite") ? "Ajouter une photo du patient" : "Photo du patient") + '" aria-label="Photo du patient">' + bulle(x, "ph-ban") + "</button>" +
     '<div class="bp-id"><div class="bp-l1"><h2>' + esc(r.nm) + "</h2>" + menuPts(mBp) + "</div>" +
     '<div class="bn-m">' + esc([num ? "N° " + num : "", P.ddn ? dfrA(P.ddn) + (a != null ? " (" + a + " ans)" : "") : a != null ? a + " ans" : "", x.doc.etablissementId || ""].filter(Boolean).join(" · ")) + "</div>" +
+    (P.diag ? '<div class="bn-loc" title="Localisation">' + esc(P.diag) + "</div>" : "") +
     '<div class="bn-bd">' + (P.statut ? '<span class="badge ' + (P.statut === "decede" ? "b-dc" : P.statut === "perdu" ? "b-or" : "b-gr") + '">' + esc(libStatut(P.statut)) + (P.statut === "decede" && P.decesLe ? " le " + dfrA(P.decesLe) : "") + "</span>" : "") +
       (enCh ? '<span class="badge b-co" title="Chimiothérapie en cours : ' + esc(r.t.nom || "") + '">Chimio' + (r.t.nb ? " C" + (r.t.k || r.t.nb) + "/" + r.t.nb : "") + "</span>" : "") +
       (enRT ? '<span class="badge b-rt">RT en cours</span>' : "") + '<span id="presSlot"></span></div>' +
@@ -1990,10 +2042,11 @@ function majRubriqueOuverte(pid) {
   const z = document.querySelector("#panneauCorps [data-rub] .rc-liste, #fenetreCorps [data-rub] .rc-liste"); if (!z) return;
   const k = z.closest("[data-rub]").dataset.rub; if (RUB[pid] && RUB[pid][k] != null) z.innerHTML = RUB[pid][k];
 }
-// Fermer le panneau ; changements non enregistrés : « Quitter sans enregistrer ? » (rien n'est bloqué)
-function fermerPanneau(force) {
+// Fermer le panneau ; changements non enregistrés : « Quitter sans enregistrer ? » (rien n'est bloqué) ; UX3 : la question est dans
+// l'application, le panneau reste ouvert (faux) et se ferme si l'on quitte, puis apres() (la suite de celui qui fermait)
+function fermerPanneau(force, apres) {
   const p = $("panneau"); if (!p || p.hidden) return true;
-  if (PN.sale && !force && !confirm("Quitter sans enregistrer ?")) return false;
+  if (PN.sale && !force) { confirmer("Quitter sans enregistrer ?", { oui: "Quitter", non: "Rester" }).then((ok) => { if (ok && fermerPanneau(true) && apres) apres(); }); return false; }
   p.hidden = true; $("panneauCorps").innerHTML = ""; PN.sale = false; const d = $("dos"); if (d) d.classList.remove("pn-ouv");
   PN.apres.forEach((f) => { try { f(); } catch (e) { console.warn("panneau", e); } });
   return true;
@@ -2027,8 +2080,8 @@ document.addEventListener("scroll", (e) => { if (!(e.target && e.target.closest 
 // droit « supprimerPatient », deux confirmations
 window.dosSupprimer = async (id) => {
   const x = D.patients.find((p) => p.id === id); if (!x || !peut("supprimerPatient")) return;
-  if (!confirm("Supprimer définitivement le dossier de " + x.r.nm + " ?\n\nToutes ses lignes de traitement et ses cures seront effacées.\n\nLe médecin titulaire peut le récupérer pendant 7 jours (Paramètres › Cabinet › Export des données › Récupérer des données).")) return;
-  if (!confirm("Confirmer la suppression du dossier de " + x.r.nm + " ?")) return;
+  if (!(await confirmer("Supprimer définitivement le dossier de " + x.r.nm + " ?\n\nToutes ses lignes de traitement et ses cures seront effacées.\n\nLe médecin titulaire peut le récupérer pendant 7 jours (Paramètres › Cabinet › Export des données › Récupérer des données)."))) return;
+  if (!(await confirmer("Confirmer la suppression du dossier de " + x.r.nm + " ?"))) return;
   try {
     await supprimerConsultations(x); await supprimerDocs(x); await supprimerFichiers(x); await supprimerRcp(x);
     await deleteDoc(doc(db, "espaces", ESPACE, "patients", x.id));
@@ -2058,7 +2111,7 @@ window.modifierIdentite = (id, sec, centre) => { // centre (lot A §3) : formula
     if (lu.erreur) { erreur(lu.erreur); return; }
     if (okC && $("fStatut")) { // 3.3 : statut du patient (décès : date obligatoire)
       const st = val("fStatut"); if (st) nC.statut = st; else delete nC.statut;
-      if (st === "decede") { if (!val("fDeces")) { erreur("Indiquez la date du décès."); return; } nC.decesLe = val("fDeces"); } else delete nC.decesLe;
+      if (st === "decede") { if (!val("fDeces")) { erreur("Indiquez la date du décès.", "fDeces"); return; } nC.decesLe = val("fDeces"); } else delete nC.decesLe;
     }
     if (okI && JSON.stringify(nI) !== JSON.stringify(I)) changes.identite = nI;
     if (okC && JSON.stringify(nC) !== JSON.stringify(C)) changes.clinique = nC;
@@ -2176,7 +2229,7 @@ window.ouvrirRdv = (id, rid, pre, opt) => {
     '<section class="pg-sec"><h4 class="soustitre">Rendez-vous</h4>' + champsRdv + "</section>" + btsBas + "</div>", "page");
   else {
     const nv = !!O.choix && peut("creerPatient");
-    const zoneP = (O.choix ? '<div class="rq-seg" role="group" aria-label="Patient"><button type="button" data-m="ex" class="on" aria-pressed="true">Patient existant</button>' + (nv ? '<button type="button" data-m="nv" id="rqNv" aria-pressed="false">Nouveau patient</button>' : "") + "</div>" : "") +
+    const zoneP = (O.choix ? '<div class="rq-seg" role="group" aria-label="Patient"><button type="button" data-m="ex" class="on" aria-pressed="true">Patient existant</button>' + (nv ? '<button type="button" data-m="nv" id="rqNv" aria-pressed="false">+ Patient</button>' : "") + "</div>" : "") +
       '<div id="rqCh"' + (x ? ' class="cache"' : "") + '><div class="recherche">' + ic("loupe") + '<input id="rq" type="search" placeholder="Nom, prénom, n° de dossier…" title="Nom, prénom, n° de dossier, date de naissance" autocomplete="off" aria-label="Rechercher le patient"></div><div id="rqL" class="liste-choix"></div>' +
       (nv ? "" : O.choix ? '<p class="mesures rq-abs">Patient absent de la liste : demandez la création de son dossier.</p>' : "") + "</div>" +
       '<div id="rqSel" class="rq-sel' + (x ? "" : " cache") + '"></div>';
@@ -2198,8 +2251,8 @@ window.ouvrirRdv = (id, rid, pre, opt) => {
       (sh.length ? '<p class="mesures" style="margin:6px 0 0">Déjà ce jour-là, sans heure : ' + sh.map((o) => esc(o.lib + " de " + o.nm)).join(" ; ") + ".</p>" : "");
   };
   let accepte = ""; // heure déjà acceptée malgré un créneau pris (un seul clic d'avertissement)
-  $("fCr").onclick = (ev) => { const b = ev.target.closest("[data-h]"); if (!b) return; const h = b.dataset.h;
-    if (b.dataset.pris) { if (!accepterConflit(val("fD"), h, +val("fDu") || 30, sauf, medChoisi())) return; accepte = val("fD") + " " + h; }
+  $("fCr").onclick = async (ev) => { const b = ev.target.closest("[data-h]"); if (!b) return; const h = b.dataset.h;
+    if (b.dataset.pris) { if (!(await accepterConflit(val("fD"), h, +val("fDu") || 30, sauf, medChoisi()))) return; accepte = val("fD") + " " + h; }
     $("fH").value = h; majC(); };
   $("fType").onchange = () => { if (!duMain) $("fDu").value = String(dureeType(val("fType"), etabR())); maj(); majC(); };
   $("fDu").onchange = () => { duMain = true; majC(); }; if ($("fMed")) $("fMed").onchange = () => { medMain = true; majC(); }; if ($("fLieu")) $("fLieu").onchange = () => { lieuMain = true; majH(); majC(); }; maj(); $("fD").addEventListener("change", () => { majH(); majC(); }); $("fH").addEventListener("change", majC); majH(); majC();
@@ -2222,17 +2275,17 @@ window.ouvrirRdv = (id, rid, pre, opt) => {
     if ($("rqNv")) $("rqNv").onclick = () => { const e = etat(), nm = val("rq"); creerPatient({ nom: nm, retour: () => window.ouvrirRdv(null, null, e, O), ensuite: (nx) => window.ouvrirRdv(nx.id, null, e, O) }); };
   }
   $("fOk").onclick = async () => {
-    if (!x) { erreur("Choisissez le patient (Patient existant), ou créez-le (Nouveau patient)."); if ($("rq")) $("rq").focus(); return; }
+    if (!x) { erreur("Choisissez le patient (Patient existant), ou créez-le (+ Patient)."); if ($("rq")) $("rq").focus(); return; }
     const o = types.find((z) => z.v === val("fType")) || types[0], type = o.type, act = o.act, d = val("fD"), hs = type === "Hospitalisation", h = hs ? "" : val("fH"), f = hs ? val("fF") : "";
     if (!d) { erreur("Indiquez la date."); return; }
     if (hs && f && f < d) { erreur("La date de sortie est avant la date d'entrée."); return; }
     const ab = absenceLe(d), fe = !ab && ferieLe(d), hz = horsHoraires(etabR(), d, h);
-    if (!ab && !fe && hz && !confirm(hz + "\n\nEnregistrer quand même (urgence, rendez-vous exceptionnel) ?")) return;
-    if (fe && !confirm("Le " + dfrA(d) + " est un jour férié (" + (fe.nom || "") + "). Enregistrer quand même ?")) return;
-    if (ab && !confirm("Absence prévue ce jour-là (" + (ab.m || "absence") + ", du " + dfrA(ab.du) + " au " + dfrA(ab.au) + "). Enregistrer quand même ?")) return;
+    if (!ab && !fe && hz && !(await confirmer(hz + "\n\nEnregistrer quand même (urgence, rendez-vous exceptionnel) ?"))) return;
+    if (fe && !(await confirmer("Le " + dfrA(d) + " est un jour férié (" + (fe.nom || "") + "). Enregistrer quand même ?"))) return;
+    if (ab && !(await confirmer("Absence prévue ce jour-là (" + (ab.m || "absence") + ", du " + dfrA(ab.du) + " au " + dfrA(ab.au) + "). Enregistrer quand même ?"))) return;
     // double réservation (19.4) : un autre rendez-vous de consultation qui chevauche cette heure
     const du = hs ? 0 : +val("fDu") || dureeType(val("fType"), etabR());
-    if (h && accepte !== d + " " + h && !accepterConflit(d, h, du, sauf, medChoisi())) return;
+    if (h && accepte !== d + " " + h && !(await accepterConflit(d, h, du, sauf, medChoisi()))) return;
     const l = lireRdvs(x), r0d = r0 ? r0.d : "", r0h = r0 ? r0.h || "" : "";
     if (r0) {
       const r = l.find((v) => v.id === rid);
@@ -2326,7 +2379,7 @@ function fenetreRecu(o) {
     const total = Math.max(0, px * (o.nj != null ? o.nj : 1) - rem);
     if (rem > px * (o.nj != null ? o.nj : 1)) { erreur("La remise dépasse le prix."); return; }
     const md = val("pvMode"), mode = total <= 0 ? "" : $("pvRegle").checked ? md : md === "vir" ? "ap" : "ae";
-    if (o.cleRecu && !avertirPrixRecu(rcV, total)) return; // R-B5 : un reçu a déjà été remis pour un autre montant
+    if (o.cleRecu && !(await avertirPrixRecu(rcV, total))) return; // R-B5 : un reçu a déjà été remis pour un autre montant
     const w = recu && estRegle(mode) && total > 0 ? window.open("", "_blank") : null; // fenêtre d'impression ouverte au clic (sinon bloquée)
     occupe($("fOk"), true);
     try { await o.valider({ total, px, rem, mode, w, rcV }); }
@@ -2366,7 +2419,7 @@ async function recuRemis(x, cle) {
   if (!cle || estComptable() || !(peut("finances") || peut("encaissements"))) return null;
   const s = await getDoc(doc(db, "espaces", ESPACE, "recus", idRecu(x.id, cle))).catch(() => null); return s && s.exists() ? s.data() : null;
 }
-const avertirPrixRecu = (rc, m) => !rc || Number(rc.m) === Number(m) || confirm("Un reçu n° " + rc.numero + " a été remis pour " + fmtMil(rc.m) + " DH.\n\nChanger le prix quand même ? Le prochain reçu imprimé portera un nouveau numéro, l'ancien sera noté annulé.");
+const avertirPrixRecu = async (rc, m) => !rc || Number(rc.m) === Number(m) || (await confirmer("Un reçu n° " + rc.numero + " a été remis pour " + fmtMil(rc.m) + " DH.\n\nChanger le prix quand même ? Le prochain reçu imprimé portera un nouveau numéro, l'ancien sera noté annulé."));
 async function noterPrixRecu(x, cle, rc, m) {
   if (!rc || Number(rc.m) === Number(m)) return;
   await updateDoc(doc(db, "espaces", ESPACE, "recus", idRecu(x.id, cle)), { prix: arrayUnion({ le: new Date().toISOString(), par: D.u.uid, parNom: API.nomAgissant(), avant: rc.m, apres: m }) }).catch((e) => console.warn("historique du prix", e));
@@ -2432,7 +2485,7 @@ window.statutRdv = async (id, rid, st) => {
   const x = D.patients.find((p) => p.id === id); if (!x) return;
   const l = lireRdvs(x), r = l.find((v) => v.id === rid); if (!r) return; const ancien = r.st || "prevu";
   if (st === "prevu" && !annulable(r)) { toast("Statut posé par le médecin : lui seul peut l'annuler."); return; }
-  if (st === "supprimer") { if (!confirm("Supprimer ce rendez-vous ?" + (ancien === "fait" ? "\n\nAttention : il est validé « Venu » ; son prix ne comptera plus dans le bilan." : ""))) return;
+  if (st === "supprimer") { if (!(await confirmer("Supprimer ce rendez-vous ?" + (ancien === "fait" ? "\n\nAttention : il est validé « Venu » ; son prix ne comptera plus dans le bilan." : "")))) return;
     // 3.15 c : consultation créée d'office (fin de RT, hebdomadaire de RT) : gardée comme « supprimée » pour ne pas être recréée
     if (r.rtfin || r.rtc) Object.assign(r, { st: "supprime", supLe: new Date().toISOString(), sp: D.u.uid }); else l.splice(l.indexOf(r), 1); }
   else if (st === "absent" && ancien === "prevu") { absentRdv(x, l, r); return; }
@@ -2522,10 +2575,10 @@ function absentRdv(x, l, r) {
     if (rep) {
       if (!d) { erreur("Indiquez la nouvelle date."); return; }
       const ab = absenceLe(d), fe = !ab && ferieLe(d), hz = horsHoraires(etab, d, h);
-      if (!ab && !fe && hz && !confirm(hz + "\n\nReporter quand même ?")) return;
-      if (fe && !confirm("Le " + dfrA(d) + " est un jour férié (" + (fe.nom || "") + "). Reporter quand même ?")) return;
-      if (ab && !confirm("Absence prévue ce jour-là (" + (ab.m || "absence") + "). Reporter quand même ?")) return;
-      if (h && !accepterConflit(d, h, dureeDe(r, etab), { pid: x.id, rid: r.id }, medRdv(r))) return; // R-A3 : créneau déjà pris
+      if (!ab && !fe && hz && !(await confirmer(hz + "\n\nReporter quand même ?"))) return;
+      if (fe && !(await confirmer("Le " + dfrA(d) + " est un jour férié (" + (fe.nom || "") + "). Reporter quand même ?"))) return;
+      if (ab && !(await confirmer("Absence prévue ce jour-là (" + (ab.m || "absence") + "). Reporter quand même ?"))) return;
+      if (h && !(await accepterConflit(d, h, dureeDe(r, etab), { pid: x.id, rid: r.id }, medRdv(r)))) return; // R-A3 : créneau déjà pris
     }
     r.st = "absent"; delete r.dv; r.sp = D.u.uid;
     // R-C1 (19/10/2026, audit 4 C2) : le report garde le médecin, la durée et le lieu du rendez-vous manqué ; confirmation WhatsApp proposée
@@ -2555,9 +2608,9 @@ function occupDuJour(d, sauf, med) {
   return occupations(pats, d, { sauf, med, multi: multiMed(), titulaire: titulaireUid(), dureeDe: (r, etab) => dureeDe(r, etab) });
 }
 // Avertissement d'un clic quand l'heure choisie touche autre chose (« garder quand même ? ») ; vrai = on continue
-function accepterConflit(d, h, du, sauf, med) { // med absent : celui du titulaire (consultation de chimio, étape de RT : pas encore de médecin noté)
+async function accepterConflit(d, h, du, sauf, med) { // med absent : celui du titulaire (consultation de chimio, étape de RT : pas encore de médecin noté)
   const cf = chevauche(rdvsDuJour(d, sauf, med === undefined ? titulaireUid() : med), h, du);
-  return !cf.length || confirm("Créneau déjà pris le " + dfrA(d) + " par : " + texteConflit(cf) + ".\n\nGarder quand même ?");
+  return !cf.length || (await confirmer("Créneau déjà pris le " + dfrA(d) + " par : " + texteConflit(cf) + ".\n\nGarder quand même ?"));
 }
 API.conflitAccepte = accepterConflit; // chimio.js (heure de la consultation d'une séance)
 // AG2 : créneaux au pas du lieu ; proposé = la durée voulue (`duV`, sinon le pas) tient avant la fin de la plage ; pris = touche
@@ -2626,9 +2679,9 @@ window.ouvrirRT = (id, rid) => {
   $("rActe").onchange = () => { const a = val("rActe"); $("rRyt").value = /st[ée]r[ée]otax/i.test(a) ? "2" : "1"; if (/curieth/i.test(a) && !(parseInt(val("rNbA"), 10) >= 2)) $("rNbA").value = "2"; calc(); };
   const zV = $("rVmatM"); if (zV) { const majV = () => zV.classList.toggle("cache", !$("rVmat").checked); $("rVmat").onchange = majV; majV(); }
   const sauver = (liste, quoi) => sauverRT(x, liste, quoi);
-  if (r0) $("rSup").onclick = async () => { if (!confirm("Supprimer cette prescription de radiothérapie ?")) return; try { await sauver(l.filter((v) => v.id !== rid), "Prescription de radiothérapie supprimée"); fermerFenetre(); toast("Prescription supprimée."); pageDossier(x.id); } catch (e) { erreur(e.message); } };
+  if (r0) $("rSup").onclick = async () => { if (!(await confirmer("Supprimer cette prescription de radiothérapie ?"))) return; try { await sauver(l.filter((v) => v.id !== rid), "Prescription de radiothérapie supprimée"); fermerFenetre(); toast("Prescription supprimée."); pageDossier(x.id); } catch (e) { erreur(e.message); } };
   $("fOk").onclick = async () => {
-    if (!val("rActe")) { erreur("Indiquez l'acte."); return; }
+    if (!val("rActe")) { erreur("Indiquez l'acte.", "rActe"); return; }
     lireVol(); const n0 = val("rNb"); if (n0 && !(parseInt(n0, 10) > 0)) { erreur("Le nombre de fractions doit être un nombre."); return; }
     if (VOL.slice(1).some((v) => v.ty === "seq" && v.dose && !(parseInt(v.nb, 10) > 0))) { erreur("Indiquez le nombre de fractions de chaque complément séquentiel."); return; }
     if (val("rRyt") === "jours" && !joursCoches().length) { erreur("Cochez au moins un jour de séance."); return; }
@@ -2639,13 +2692,13 @@ window.ouvrirRT = (id, rid) => {
     // 3.5 : chaque volume (dose par fraction) ; dose totale du volume principal + compléments séquentiels, et de chaque complément intégré
     const nb0 = (z) => parseFloat(String(z || "").replace(",", ".")) || 0, dT = nb0(VOL[0].dose) + VOL.filter((v, i) => i && v.ty === "seq").reduce((t0, v) => t0 + nb0(v.dose), 0);
     const trop = VOL.filter((v) => (dpfVolume(v, VOL) || 0) > 22).map((v) => texteVolume(v, VOL)), tropT = dT > 80 || VOL.some((v) => v.ty === "int" && nb0(v.dose) > 80);
-    if (trop.length || tropT) { if (!confirm("Vérifiez la prescription :\n" + VOL.map((v) => "• " + texteVolume(v, VOL)).join("\n") + "\n\n" + (trop.length ? "Plus de 22 Gy par fraction. " : "") + (tropT ? "Plus de 80 Gy au total (" + String(dT).replace(".", ",") + " Gy)." : "") + "\n\nEnregistrer quand même ?")) return; }
+    if (trop.length || tropT) { if (!(await confirmer("Vérifiez la prescription :\n" + VOL.map((v) => "• " + texteVolume(v, VOL)).join("\n") + "\n\n" + (trop.length ? "Plus de 22 Gy par fraction. " : "") + (tropT ? "Plus de 80 Gy au total (" + String(dT).replace(".", ",") + " Gy)." : "") + "\n\nEnregistrer quand même ?", { ton: "rouge", oui: "Enregistrer quand même" }))) return; }
     // dose, fractions, rythme ou technique changés après la dosimétrie validée → la dosimétrie est à revalider (gardée dans l'historique)
     const volP = VOL.length > 1 || VOL[0].nom ? VOL.map((v) => { const o = { nom: v.nom || "", dose: String(v.dose || "").replace(",", "."), ty: v.ty }; if (v.ty !== "int") o.nb = String(v.nb || ""); return o; }) : null;
     const cle = (o) => [String(o.dose || "").replace(",", "."), String(o.nb || ""), o.ryt || "1", o.tech || "", JSON.stringify(o.vol || null), o.ryt === "jours" ? (o.jours || []).join(",") : ""].join("|");
     const neuf = { dose: val("rDose"), nb: n, ryt: val("rRyt"), tech: val("rTech"), vol: volP, jours: joursCoches() };
     const revalider = r0 && r0.dosi && !r0.fin && cle(r0) !== cle(neuf);
-    if (revalider && !confirm("La prescription change alors que la dosimétrie a été validée le " + dfrA(r0.dosi) + ".\nLa dosimétrie devra être revalidée (la validation actuelle est gardée dans l'historique et une tâche « Valider la dosimétrie » est recréée).\n\nEnregistrer ?")) return;
+    if (revalider && !(await confirmer("La prescription change alors que la dosimétrie a été validée le " + dfrA(r0.dosi) + ".\nLa dosimétrie devra être revalidée (la validation actuelle est gardée dans l'historique et une tâche « Valider la dosimétrie » est recréée).\n\nEnregistrer ?"))) return;
     const r = r0 || { id: "rt" + Date.now().toString(36), cree: D.t };
     if (revalider) { r.dosiHist = (r.dosiHist || []).concat([{ dosi: r.dosi, dosiPar: r.dosiPar || "", dosiLe: r.dosiLe || "", retireLe: new Date().toISOString(), raison: "prescription modifiée : " + cle(r0) + " → " + cle(neuf) }]); r.dosiN = (r.dosiN || 0) + 1; delete r.dosi; delete r.dosiPar; delete r.dosiLe; }
     const medR = $("rMed") ? val("rMed") : r.med || medPourPatient(x); if (medR) r.med = medR; // R-C3
@@ -2678,11 +2731,11 @@ window.modifierEtapeRT = (id, rid, z, apres, pre) => { // pre { d, h } : glissé
     '<div class="err" id="fErr"></div><div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" id="fOk">Enregistrer</button></div>');
   if (pre) { $("eD").value = pre.d; if (pre.h) $("eH").value = pre.h; }
   $("fOk").onclick = async () => {
-    const d = val("eD"), h = val("eH"); if (!d) { erreur("Indiquez la date."); return; }
+    const d = val("eD"), h = val("eH"); if (!d) { erreur("Indiquez la date.", "eD"); return; }
     if (deb && r.scan && d < r.scan) { erreur("La 1re séance est avant le scanner de centrage (" + dfrA(r.scan) + ")."); return; }
     if (fin && r.deb && d < r.deb) { erreur("La fin est avant la 1re séance (" + dfrA(r.deb) + ")."); return; }
     if (!deb && !fin && r.deb && d > r.deb) { erreur("Le scanner est après la 1re séance (" + dfrA(r.deb) + ")."); return; }
-    if (h && (d !== d0 || h !== (H.h || "")) && !accepterConflit(d, h, +val("eDu") || du, { pid: x.id, k: x.id + "|rt|" + (r.id || l.indexOf(r)) + "|" + (deb ? "deb" : fin ? "fin" : "scan") }, r.med || medPatient(x) || undefined)) return; // R-A3 ; R-C3 : médecin de la RT
+    if (h && (d !== d0 || h !== (H.h || "")) && !(await accepterConflit(d, h, +val("eDu") || du, { pid: x.id, k: x.id + "|rt|" + (r.id || l.indexOf(r)) + "|" + (deb ? "deb" : fin ? "fin" : "scan") }, r.med || medPatient(x) || undefined))) return; // R-A3 ; R-C3 : médecin de la RT
     // 1re séance déplacée = début de la radiothérapie déplacé dans la prescription : fin calculée, consultations hebdomadaires et consultation
     // de fin (si elle n'a pas été déplacée à la main) suivent (sauverRT) ; une fin saisie à la main est décalée d'autant de jours
     if (deb && r.deb && r.finPrev && d !== r.deb) r.finPrev = addJ(r.finPrev, ecart(d, r.deb));
@@ -2712,19 +2765,19 @@ async function sauverRT(x, liste, quoi) {
 }
 // Dosimétrie : validée par un médecin (contourage et plan de traitement vérifiés) ; « annuler » la remet à valider
 const peutDosi = () => traitModRT() && estMed(D.membre.role);
-window.dosiRT = (id, rid, annuler, apres) => {
+window.dosiRT = async (id, rid, annuler, apres) => {
   const x = D.patients.find((p) => p.id === id); if (!x) return;
   if (!peutDosi()) { toast("La dosimétrie est validée par le médecin."); return; }
   const l = JSON.parse(x.doc.rtsJson || "[]"), r = l.find((v) => v.id === rid); if (!r) return;
-  if (annuler) { if (!confirm("Annuler la validation de la dosimétrie du " + dfrA(r.dosi) + " ?")) return; delete r.dosi; delete r.dosiPar; delete r.dosiLe; sauverRT(x, l, "Validation de la dosimétrie annulée").then(() => { toast("Dosimétrie remise à valider."); apres ? apres() : pageDossier(x.id); }).catch((e) => toast(e.message)); return; }
+  if (annuler) { if (!(await confirmer("Annuler la validation de la dosimétrie du " + dfrA(r.dosi) + " ?"))) return; delete r.dosi; delete r.dosiPar; delete r.dosiLe; sauverRT(x, l, "Validation de la dosimétrie annulée").then(() => { toast("Dosimétrie remise à valider."); apres ? apres() : pageDossier(x.id); }).catch((e) => toast(e.message)); return; }
   if (!r.cont) { toast("Validez d'abord le contourage (étape avant la dosimétrie)."); return; }
   fenetre("<h3>Valider la dosimétrie – " + esc(x.r.nm) + '</h3><p class="sous">' + esc(r.acte || "Radiothérapie") + (r.scan ? " · scanner le " + dfrA(r.scan) : "") + (r.deb ? " · 1re séance le " + dfrA(r.deb) : "") + "</p>" +
     '<div class="form"><div><label for="dD">Date de validation</label><input id="dD" type="date" value="' + D.t + '"></div><div></div>' +
     '<label class="large chk" style="font-weight:normal"><input id="dOk" type="checkbox"> J\'ai vérifié les volumes (contourage), la dose prescrite et le plan de traitement, et je valide la dosimétrie.</label></div>' +
     '<div class="err" id="fErr"></div><div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt vert" id="fOk"><svg class="pi"><use href="#i-check"/></svg>Valider la dosimétrie</button></div>');
   $("fOk").onclick = async () => {
-    const d = val("dD"); if (!d) { erreur("Indiquez la date."); return; }
-    if (!$("dOk").checked) { erreur("Cochez la case de vérification pour valider."); return; }
+    const d = val("dD"); if (!d) { erreur("Indiquez la date.", "dD"); return; }
+    if (!$("dOk").checked) { erreur("Cochez la case de vérification pour valider.", "dOk"); return; }
     if (r.scan && d < r.scan) { erreur("La date est avant le scanner (" + dfrA(r.scan) + ")."); return; }
     Object.assign(r, { dosi: d, dosiPar: nomMedecin(), dosiLe: new Date().toISOString() }); occupe($("fOk"), true);
     try { await sauverRT(x, l, "Dosimétrie validée le " + dfrA(d) + " (" + nomMedecin() + ")"); fermerFenetre(); toast("Dosimétrie validée."); apres ? apres() : pageDossier(x.id); }
@@ -2733,14 +2786,14 @@ window.dosiRT = (id, rid, annuler, apres) => {
 };
 // Contourage (09/10/2026) : validé par un médecin (volumes cibles et organes à risque) ; ouvre la dosimétrie (et sa tâche).
 // « annuler » le remet à valider (pas si la dosimétrie est déjà validée). « apres » : appelé à la place de réafficher le dossier.
-window.contRT = (id, rid, annuler, apres) => {
+window.contRT = async (id, rid, annuler, apres) => {
   const x = D.patients.find((p) => p.id === id); if (!x) return;
   if (!peutDosi()) { toast("Le contourage est validé par le médecin."); return; }
   const l = JSON.parse(x.doc.rtsJson || "[]"), r = l.find((v) => v.id === rid); if (!r) return;
   const fin = () => (apres ? apres() : pageDossier(x.id));
   if (annuler) {
     if (r.dosi) { toast("Annulez d'abord la validation de la dosimétrie."); return; }
-    if (!confirm("Annuler la validation du contourage du " + dfrA(r.cont) + " ?")) return;
+    if (!(await confirmer("Annuler la validation du contourage du " + dfrA(r.cont) + " ?"))) return;
     delete r.cont; delete r.contPar; delete r.contLe; sauverRT(x, l, "Validation du contourage annulée").then(() => { toast("Contourage remis à valider."); fin(); }).catch((e) => toast(e.message)); return;
   }
   fenetre("<h3>Valider le contourage – " + esc(x.r.nm) + '</h3><p class="sous">' + esc(r.acte || "Radiothérapie") + (r.scan ? " · scanner le " + dfrA(r.scan) : "") + (r.deb ? " · 1re séance le " + dfrA(r.deb) : "") + "</p>" +
@@ -2749,8 +2802,8 @@ window.contRT = (id, rid, annuler, apres) => {
     '<p class="mesures">La dosimétrie devient alors « à valider » (tâche pour le médecin jusqu\'à la 1re séance).</p>' +
     '<div class="err" id="fErr"></div><div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt vert" id="fOk"><svg class="pi"><use href="#i-check"/></svg>Valider le contourage</button></div>');
   $("fOk").onclick = async () => {
-    const d = val("cD"); if (!d) { erreur("Indiquez la date."); return; }
-    if (!$("cOk").checked) { erreur("Cochez la case de vérification pour valider."); return; }
+    const d = val("cD"); if (!d) { erreur("Indiquez la date.", "cD"); return; }
+    if (!$("cOk").checked) { erreur("Cochez la case de vérification pour valider.", "cOk"); return; }
     if (r.scan && d < r.scan) { erreur("La date est avant le scanner (" + dfrA(r.scan) + ")."); return; }
     Object.assign(r, { cont: d, contPar: nomMedecin(), contLe: new Date().toISOString() }); occupe($("fOk"), true);
     try { await sauverRT(x, l, "Contourage validé le " + dfrA(d) + " (" + nomMedecin() + ")"); fermerFenetre(); toast("Contourage validé : la dosimétrie est à valider."); fin(); }
@@ -2758,14 +2811,14 @@ window.contRT = (id, rid, annuler, apres) => {
   };
 };
 // Bouton « Terminé » : clôture à la date choisie (aujourd'hui par défaut) ; « Rouvrir » annule la clôture
-window.terminerRT = (id, rid, rouvrir, apres) => {
+window.terminerRT = async (id, rid, rouvrir, apres) => {
   const x = D.patients.find((p) => p.id === id); if (!x) return;
   const l = JSON.parse(x.doc.rtsJson || "[]"), r = l.find((v) => v.id === rid); if (!r) return;
-  if (rouvrir) { if (!confirm("Rouvrir cette radiothérapie (annuler la clôture du " + dfrA(r.fin) + ") ?")) return; delete r.fin; sauverRT(x, l, "Radiothérapie rouverte").then(() => { toast("Radiothérapie rouverte."); apres ? apres() : pageDossier(x.id); }).catch((e) => toast(e.message)); return; }
+  if (rouvrir) { if (!(await confirmer("Rouvrir cette radiothérapie (annuler la clôture du " + dfrA(r.fin) + ") ?"))) return; delete r.fin; sauverRT(x, l, "Radiothérapie rouverte").then(() => { toast("Radiothérapie rouverte."); apres ? apres() : pageDossier(x.id); }).catch((e) => toast(e.message)); return; }
   fenetre("<h3>Terminer la radiothérapie – " + esc(x.r.nm) + '</h3><p class="sous">' + esc(r.acte || "") + (r.deb ? " · 1re séance le " + dfrA(r.deb) : "") + '</p><div class="form"><div class="large"><label for="tD">Date de la dernière séance</label><input id="tD" type="date" value="' + D.t + '"></div></div>' +
     '<div class="err" id="fErr"></div><div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" id="fOk">Clôturer le traitement</button></div>');
   $("fOk").onclick = async () => {
-    const d = val("tD"); if (!d) { erreur("Indiquez la date."); return; }
+    const d = val("tD"); if (!d) { erreur("Indiquez la date.", "tD"); return; }
     if (r.deb && d < r.deb) { erreur("La date est avant la 1re séance (" + dfrA(r.deb) + ")."); return; }
     r.fin = d; occupe($("fOk"), true);
     try { await sauverRT(x, l, "Radiothérapie terminée le " + dfrA(d)); fermerFenetre(); toast("Radiothérapie clôturée."); apres ? apres() : pageDossier(x.id); }
@@ -2850,12 +2903,13 @@ document.querySelectorAll("nav a").forEach((a) => a.addEventListener("click", fe
 }
 // 31/10/2026 (demande de Dr Bentahila, 1.5) : un menu déroulant est toujours assez large pour le libellé choisi (plus de « Toutes les échéanc », de
 // « Terminé » coupé) : largeur minimale = texte + marges + place de la flèche, sans dépasser son cadre ; recalculé quand la page ou le choix change
+// UX1 (01/11/2026) : dans un formulaire en grille, le cadre est la case du champ (« Lieu de la radiothérapie » chevauchait « Technique »)
 {
   const C = document.createElement("canvas").getContext("2d");
   const ajuster = (sl) => { if (!sl.getClientRects().length || sl.multiple || sl.size > 1) return; const o = sl.options[sl.selectedIndex]; if (!o) return;
     const cs = getComputedStyle(sl); C.font = cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
     const w = Math.ceil(C.measureText(o.text).width + parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight) + parseFloat(cs.borderLeftWidth) + parseFloat(cs.borderRightWidth) + 2);
-    if (sl.clientWidth + parseFloat(cs.borderLeftWidth) * 2 >= w) return; const p = sl.closest(".carte, .boite, .pn-corps, #page"), max = p ? p.clientWidth - 32 : w; sl.style.minWidth = Math.max(0, Math.min(w, max > 0 ? max : w)) + "px"; };
+    if (sl.clientWidth + parseFloat(cs.borderLeftWidth) * 2 >= w) return; const f = sl.closest(".form > div"), p = sl.closest(".carte, .boite, .pn-corps, #page"), max = f ? f.clientWidth : p ? p.clientWidth - 32 : w; sl.style.minWidth = Math.max(0, Math.min(w, max > 0 ? max : w)) + "px"; };
   let att = 0; const tout = () => { att = 0; document.querySelectorAll("#page select, #fenetreCorps select").forEach(ajuster); };
   const plus_tard = () => { if (!att) att = requestAnimationFrame(tout); };
   new MutationObserver(plus_tard).observe(document.body, { childList: true, subtree: true });
@@ -2922,10 +2976,13 @@ document.addEventListener("keydown", (ev) => {
   if (ev.key !== "Escape") return;
   if (!$("menuCompte").classList.contains("cache")) { menuCompte(false); ($("btCompte").offsetParent ? $("btCompte") : $("avTete")).focus(); return; }
   document.querySelectorAll("details.m3[open]").forEach((d) => d.removeAttribute("open")); // Échap ferme aussi un menu ⋯ ouvert
-  // Lot E : Échap ferme une fenêtre marquée data-echap ; 26/10/2026 (étapes 2 à 4) : aussi toute fenêtre sans zone de saisie (rien ne peut être perdu)
-  const fc = $("fenetreCorps"), saisie = fc.querySelector('textarea, select, [contenteditable="true"], input:not([type=checkbox]):not([type=radio]):not([type=hidden])');
-  if (!$("fenetre").classList.contains("cache") && (fc.querySelector("[data-echap]") || !saisie) && !$("ptsMenuF")) window.fermerFenetre();
+  // Lot E : Échap ferme une fenêtre marquée data-echap ; 26/10/2026 (étapes 2 à 4) : aussi toute fenêtre sans zone de saisie (rien ne peut être perdu) ;
+  // UX4 (02/11/2026) : toute fenêtre ; si quelque chose a été tapé, « Quitter sans enregistrer ? » d'abord (une liste ouverte se ferme seule d'abord)
+  if ($("fenetre").classList.contains("cache") || $("ptsMenuF") || ev.defaultPrevented) return;
+  const fc = $("fenetreCorps"); if ([...fc.querySelectorAll("[role=listbox], .tape-l, .ls-l")].some((l) => l.offsetParent && !l.classList.contains("cache"))) return;
+  if (!FEN_SALE || fc.querySelector("[data-echap]")) { window.fermerFenetre(); return; }
+  confirmer("Quitter sans enregistrer ?", { oui: "Quitter", non: "Rester" }).then((ok) => { if (ok) window.fermerFenetre(); });
 });
 $("mcCompte").onclick = () => { menuCompte(false); fermerMenu(); };
 window.addEventListener("resize", () => menuCompte(false));
-$("btSortie").onclick = async () => { menuCompte(false); if (!confirm("Se déconnecter d'Onco360 sur cet appareil ?")) return; await signOut(auth); location.replace("index.html"); };
+$("btSortie").onclick = async () => { menuCompte(false); if (!(await confirmer("Se déconnecter d'Onco360 sur cet appareil ?"))) return; await signOut(auth); location.replace("index.html"); };

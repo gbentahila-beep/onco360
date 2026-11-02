@@ -27,6 +27,7 @@ import { hmMaroc, jourMaroc, minutesMaroc } from "../moteur/heure.js";
 import { tarif } from "../moteur/tarifs.js";
 import { oublierEncaissements } from "./chimio.js";
 import { reglages } from "./reglages.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null;
 export function installer(api) { A = api; }
@@ -34,7 +35,7 @@ const D = () => A.D();
 const $ = (i) => document.getElementById(i);
 const col = () => collection(db, "espaces", A.ESPACE, "salle");
 // Minutes d'attente : orange, puis rouge (Paramètres › Alertes, parametres/reglages.salle ; par défaut 20 et 45)
-const seuils = () => { const s = (reglages().salle) || {}; return [s.orange || 20, s.rouge || 45]; };
+const seuils = () => { const s = (reglages().salle) || {}; return [s.orange || 15, s.rouge || 30]; }; // UX8 (02/11/2026) : 15 et 30 min par défaut
 // Documents lus (id → données) : le jour même (écoute) et le jour affiché. Toute modification fait avancer GEN, qui invalide les
 // lignes gardées en mémoire (SA5, 10/10/2026)
 let GEN = 0;
@@ -312,31 +313,31 @@ window.saBouger = (pid, cle, s) => {
   essayer(() => ecrire(f[i], { rang }, { attendu: ["salle"] }));
 };
 // Valider : rendez-vous → « Venu » (fenêtre de prix) ; chimio → « Venu » de la consultation de chimio (fenêtre de prix)
-window.saValider = (pid, cle, depuisDossier) => {
+window.saValider = async (pid, cle, depuisDossier) => {
   const l = depuisDossier ? trouver(pid, cle, D().t) : trouver(pid, cle); if (!l || !peutRdv() || l.jour > D().t) return;
   RETOUR = depuisDossier ? cle : null;
   if (l.rdv) { window.statutRdv(pid, l.rdv.id, "fait"); return; }
   if (!A.peutPrix()) { A.toast("Vous n'avez pas le droit de valider la consultation de chimiothérapie."); return; }
-  if (!l.chimio.recue && !confirm("La " + (l.chimio.j === 1 ? "cure" : "séance J" + l.chimio.j) + " n'est pas encore validée dans le dossier.\n\nValider quand même la consultation ?")) return;
+  if (!l.chimio.recue && !(await confirmer("La " + (l.chimio.j === 1 ? "cure" : "séance J" + l.chimio.j) + " n'est pas encore validée dans le dossier.\n\nValider quand même la consultation ?"))) return;
   window.chVenuChimio(pid, l.chimio.lid, l.chimio.n, l.chimio.j);
 };
 // Absent : rendez-vous → fenêtre « Absent » (report possible, v2.js) ; séance de chimio → fenêtre « Reporter » du dossier
 // (raison « Patient absent », cette séance seulement ou toute la suite) ou « Absent, sans reporter » (08/10/2026). Le report
 // change la date dans le protocole : la séance quitte ce jour (elle reste dans « Absents » avec la nouvelle date).
-window.saAbsent = (pid, cle) => {
+window.saAbsent = async (pid, cle) => {
   const l = trouver(pid, cle); if (!l || !peutRdv() || l.jour > D().t) return;
   if (l.rdv) { window.statutRdv(pid, l.rdv.id, "absent"); return; }
   const marquer = (nd) => essayer(() => ecrire(l, Object.assign({ etat: "absent", sp: D().u.uid, rep: nd || null, motif: l.motif, fin: maintenant() }, qui("fin"))));
   const i = l.x.P.lignes.findIndex((z) => z.id === l.chimio.lid);
-  if (i < 0 || !(A.traitMod() || A.peut("planningChimio"))) { if (confirm(l.x.r.nm + " : marquer absent(e) à la séance de chimiothérapie ?\n\n(Le report de la séance se fait par le médecin.)")) marquer(null); return; }
+  if (i < 0 || !(A.traitMod() || A.peut("planningChimio"))) { if ((await confirmer(l.x.r.nm + " : marquer absent(e) à la séance de chimiothérapie ?\n\n(Le report de la séance se fait par le médecin.)"))) marquer(null); return; }
   if (l.chimio.j === 1) window.chReporter(pid, i, l.chimio.n - 1, marquer); else window.chReporterJ(pid, i, l.chimio.n - 1, l.chimio.j, marquer);
 };
 window.saEncaisser = (pid, cle) => { const l = trouver(pid, cle); if (!l) return; if (l.rdv) window.prixRdv(pid, l.rdv.id, true); else window.chVenuChimio(pid, l.chimio.lid, l.chimio.n, l.chimio.j, true); };
 window.saRecu = (pid, cle) => { const l = trouver(pid, cle); if (!l) return; if (l.rdv) window.recuRdv(pid, l.rdv.id); else window.recuCons(pid, l.chimio.lid + "|" + l.chimio.n + "|" + l.chimio.j); };
 // Annuler : retour à l'étape précédente (Vu → En consultation, Absent → À venir, En salle → À venir, En consultation → En salle)
-window.saAnnuler = (pid, cle) => {
+window.saAnnuler = async (pid, cle) => {
   const l = trouver(pid, cle); if (!l) return;
-  if (l.etat === "salle") { if (!confirm("Annuler l'arrivée de " + l.x.r.nm + " (retour dans « À venir ») ?")) return; essayer(async () => { await ecrire(l, { etat: "", arr: null, arrPar: null, arrNom: null, ordre: null, rang: null }, { attendu: ["salle"] }); await suivre(l, ["salle"], { etat: "", arr: null, arrPar: null, arrNom: null, ordre: null, rang: null }); }); return; }
+  if (l.etat === "salle") { if (!(await confirmer("Annuler l'arrivée de " + l.x.r.nm + " (retour dans « À venir ») ?"))) return; essayer(async () => { await ecrire(l, { etat: "", arr: null, arrPar: null, arrNom: null, ordre: null, rang: null }, { attendu: ["salle"] }); await suivre(l, ["salle"], { etat: "", arr: null, arrPar: null, arrNom: null, ordre: null, rang: null }); }); return; }
   if (!peutRdv()) return;
   if (l.etat === "consult") { window.saRetour(pid, cle); return; }
   if (l.rdv) { window.statutRdv(pid, l.rdv.id, "prevu"); return; }
@@ -396,12 +397,13 @@ export function apresPrix(x, cle, jour) {
 const COLS = [
   ["ord", "N° d'ordre", "36px"], ["h", "RDV", "44px", 1], ["nm", "Patient", "minmax(170px,2fr)", 1], ["type", "Type", "76px"],
   ["mo", "Motif", "minmax(56px,1fr)"], ["cor", "Correspondant", "minmax(70px,.8fr)"], ["mut", "Mutuelle", "58px"], ["ar", "Arrivée", "42px"],
-  ["att", "Attente", "42px"], ["pres", "Présence", "44px"], ["st", "Statut", "92px", 1], ["px", "Prix", "52px"], ["com", "Commentaire", "minmax(70px,1fr)"], ["act", "", "104px", 1]];
+  ["att", "Attente", "42px"], ["pres", "Présence", "44px"], ["st", "Statut", "112px", 1], ["px", "Prix", "52px"], ["com", "Commentaire", "minmax(70px,1fr)"], ["act", "", "104px", 1]];
 const TITRE_COURT = { ord: "N°", ar: "Arr.", att: "Att.", pres: "Prés.", cor: "Corresp.", mut: "Mut.", com: "Comment." };
 const largeurs = () => (D().profil && D().profil.salleLargeurs) || {};
 // 26/10/2026 (demande de Dr Bentahila) : Patient, Type, Motif, Correspondant et Mutuelle à la largeur de leur texte le plus long du jour (mesuré,
 // avec un plafond) pour être lus en entier ; le Commentaire prend la place qui reste (coupé par « … », texte entier au survol). Une largeur tirée
 // à la main (poignée de l'en-tête) reste prioritaire. Place insuffisante : le Motif rétrécit d'abord (coupé par « … », texte entier au survol).
+// UX1 (01/11/2026) : puis le Patient (nom sur deux lignes), pour que la colonne des boutons ne recouvre plus PRIX ; Statut à 112 px (« En salle » entier).
 let MESURE = null;
 const largeurTexte = (s, police) => { if (!MESURE) MESURE = document.createElement("canvas").getContext("2d"); MESURE.font = police; return MESURE.measureText(String(s || "")).width; };
 const BORNES = { nm: [150, 340], type: [60, 130], mo: [80, 460], cor: [70, 220], mut: [50, 160] };
@@ -417,7 +419,7 @@ function largeursAuto(L) {
 }
 let DERN = []; // lignes du jour affichées (largeurs automatiques gardées pendant qu'on tire une poignée)
 const gabarit = (cv, L = DERN) => { const a = L && L.length ? largeursAuto(L) : {};
-  return cv.map((c) => (c[0] !== "act" && largeurs()[c[0]] ? largeurs()[c[0]] + "px" : a[c[0]] ? (c[0] === "mo" ? "minmax(" + Math.min(a.mo, 100) + "px," + a.mo + "px)" : a[c[0]] + "px") : c[0] === "com" ? "minmax(60px,1fr)" : c[2])).join(" "); };
+  return cv.map((c) => (c[0] !== "act" && largeurs()[c[0]] ? largeurs()[c[0]] + "px" : a[c[0]] ? (c[0] === "mo" ? "minmax(" + Math.min(a.mo, 100) + "px," + a.mo + "px)" : c[0] === "nm" ? "minmax(" + Math.min(a.nm, 120) + "px," + a.nm + "px)" : a[c[0]] + "px") : c[0] === "com" ? "minmax(60px,1fr)" : c[2])).join(" "); };
 // Réglage du cabinet (10/10/2026) : n° de passage, prix, commentaire retirés = colonnes absentes pour tous
 const fnS = (k) => !D().reg || D().reg.fonctions["salle." + k] !== false;
 const COL_FN = { ord: "passage", px: "prix", com: "commentaire" };
@@ -606,7 +608,7 @@ window.saCloturer = () => {
   A.fenetre(X + "<h3>Clôturer la journée – " + A.esc(A.cap(A.jourLong(JOUR))) + "</h3>" + (g.length ? '<p class="sous">Validez les patients vus (fenêtre de prix) ; ceux qui ne sont jamais arrivés passent en « Absent » (sans report), en un clic.</p>' + g.map(([e, t, l]) => '<h4 class="soustitre">' + t + " (" + l.length + ")</h4>" + l.map(ligne).join("")).join("") : '<p class="sous">Tout est clôturé : chaque patient est vu ou absent.</p>') +
     '<div class="err" id="fErr"></div><div class="boutons">' + (L.some((l) => l.etat === "") ? '<button class="b2 danger" id="saCloA">Jamais arrivés → Absent</button>' : "") + '<button class="b2" onclick="fermerFenetre()">Fermer</button></div>', "large");
   if ($("saCloA")) $("saCloA").onclick = async () => {
-    const l0 = L.filter((l) => l.etat === ""); if (!confirm(l0.length + " patient" + (l0.length > 1 ? "s" : "") + " jamais arrivé" + (l0.length > 1 ? "s" : "") + " : marquer « Absent » sans report ?")) return;
+    const l0 = L.filter((l) => l.etat === ""); if (!(await confirmer(l0.length + " patient" + (l0.length > 1 ? "s" : "") + " jamais arrivé" + (l0.length > 1 ? "s" : "") + " : marquer « Absent » sans report ?"))) return;
     A.occupe($("saCloA"), true); let n = 0;
     for (const l of l0) { try { if (l.rdv) { if (await window.rdvAbsentDirect(l.pid, l.rdv.id)) n++; } else { await ecrire(l, Object.assign({ etat: "absent", sp: D().u.uid, motif: l.motif, fin: maintenant() }, qui("fin")), { attendu: [""] }); n++; } } catch (e) { /* ligne changée entre-temps */ } }
     A.fermerFenetre(); A.toast(n + " patient" + (n > 1 ? "s" : "") + " marqué" + (n > 1 ? "s" : "") + " absent" + (n > 1 ? "s" : "") + "."); dessiner();
@@ -631,9 +633,10 @@ function statut(l) {
   return '<span class="rd prevu"><i></i>Prévu</span>';
 }
 // Durées en hh:mm (colonnes Attente et Présence)
+// UX8 (02/11/2026) : attente en couleur, verte avant le 1er seuil
 function attente(l) {
   const d = l.doc; if (!d.arr) return "";
-  if (l.etat === "salle") { if (l.jour !== D().t) return ""; const m = minutes(d.arr), c = m >= seuils()[1] ? "rouge" : m >= seuils()[0] ? "orange" : ""; return '<span class="' + c + '" title="En attente depuis ' + duree(m) + '">' + hhmm(m) + "</span>"; }
+  if (l.etat === "salle") { if (l.jour !== D().t) return ""; const m = minutes(d.arr), c = "att-c " + (m >= seuils()[1] ? "rouge" : m >= seuils()[0] ? "orange" : "vert"); return '<span class="' + c + '" title="En attente depuis ' + duree(m) + '">' + hhmm(m) + "</span>"; }
   return d.deb ? hhmm(Math.max(0, Math.round((d.deb - d.arr) / 60000))) : "";
 }
 function presence(l) {
@@ -724,7 +727,7 @@ export function bullesDossier(x) {
   }).join("") + "</div>";
 }
 function majBulles() {
-  const z = $("saBulles"), m = /^#dossier\/(.+)$/.exec(location.hash), pid = m ? decodeURIComponent(m[1]) : null;
+  const z = $("saBulles"), pid = A.pidAdresse();
   if (!pid) return;
   const x = D().patients.find((p) => p.id === pid); if (!x) return;
   const h = bullesDossier(x);
@@ -803,7 +806,7 @@ const qui0uvre = (pid) => { const l = []; PRES.forEach((p, uid) => { if (uid !==
 function presenceHtml(pid) { const l = qui0uvre(pid); return l.length ? '<div class="sa-pres" title="Dossier ouvert en ce moment par ' + A.esc(l.join(", ")) + '"><svg class="pi"><use href="#i-document"/></svg>Ouvert par ' + A.esc(l.join(", ")) + "</div>" : ""; }
 function majPresence() {
   document.querySelectorAll("#saL .sa-pz[data-p]").forEach((e) => { const h = presenceHtml(e.dataset.p); if (e.innerHTML !== h) e.innerHTML = h; });
-  const m = /^#dossier\/(.+)$/.exec(location.hash), pid = m ? decodeURIComponent(m[1]) : null; if (!pid) return;
+  const pid = A.pidAdresse(); if (!pid) return;
   // R-G a : dans le bandeau du dossier (place « presSlot »)
   const l = qui0uvre(pid), z = $("presSlot");
   const h = l.length ? '<span class="pres-dossier" id="presDossier" title="Dossier ouvert en ce moment par ' + A.esc(l.join(", ")) + '"><svg class="pi"><use href="#i-document"/></svg>Ouvert aussi par <b>' + A.esc(l.join(", ")) + "</b></span>" : "";

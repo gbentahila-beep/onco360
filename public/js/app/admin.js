@@ -13,6 +13,7 @@ import { editeurFiche } from "./editeurfiche.js";
 import { referentiel } from "../moteur/typesconsult.js";
 import { CHAMPS_EDITEUR, EDITEUR_REQUIS, editeurIncomplet, REGLAGES_ABO0, MODELES_RELANCE0, CANAUX, remplirRelance, MODES_FACT, MOYENS, PRIX0, ajouterJours, prolonger, etatFacturation, prixCabinet, attendus, impaye } from "../donnees/facturation.js";
 import { MODULES, ROLES_MAX, SPECIALITES, specialiteDe, FORMULES as FORMULES0, abonnementEffectif, BIBLIOTHEQUES_SPE, MODULE_FAMILLE, MODULE_MENU, MODULES_BASE, MODULES_PREVUS } from "../donnees/modules.js";
+import { confirmer, alerte, saisir } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 const $ = (i) => document.getElementById(i);
 const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -88,7 +89,7 @@ function ouvrirRelance(c) {
     '<textarea id="rlTxt" rows="9">' + esc(txt) + "</textarea>" +
     '<div class="pied"><button class="bt wa" id="rlWa"' + (tel ? "" : ' disabled title="Pas de téléphone pour ce médecin (Modifier)"') + ">Envoyer par WhatsApp</button><button id=\"rlMail\"" + (mail ? "" : " disabled") + '>Envoyer par e-mail</button><button class="clair" id="rlCop">Copier</button><button class="clair" id="rlTel">Noter : relancé par téléphone</button><button class="clair" id="rlAnn">Fermer</button></div>' +
     '<p class="m">' + esc([tel ? "WhatsApp : +" + tel : "", mail ? "E-mail : " + mail : ""].filter(Boolean).join(" · ")) + "</p>");
-  const noter = async (canal) => { try { await envoyerFacturation(c, { action: "relance", canal, type }, "Relance notée (" + ((CANAUX.find((x) => x[0] === canal) || [])[1]) + ") pour « " + esc(c.nom) + " »."); } catch (e) { alert("Relance non notée : " + e.message); } };
+  const noter = async (canal) => { try { await envoyerFacturation(c, { action: "relance", canal, type }, "Relance notée (" + ((CANAUX.find((x) => x[0] === canal) || [])[1]) + ") pour « " + esc(c.nom) + " »."); } catch (e) { await alerte("Relance non notée : " + e.message); } };
   $("rlAnn").onclick = fermer;
   $("rlWa").onclick = () => { window.open("https://wa.me/" + tel + "?text=" + encodeURIComponent($("rlTxt").value), "_blank"); noter("whatsapp"); };
   $("rlMail").onclick = () => { window.open("mailto:" + encodeURIComponent(mail) + "?subject=" + encodeURIComponent("Votre abonnement Onco360") + "&body=" + encodeURIComponent($("rlTxt").value), "_blank"); noter("email"); };
@@ -105,14 +106,14 @@ function ouvrirModeles() {
     const modeles = {}; Object.keys(MODELES_RELANCE0).forEach((k) => { modeles[k] = $("md_" + k).value; });
     const b = $("mdOk"); b.disabled = true; b.textContent = "Enregistrement…";
     try { const o = await serveur("reglagesAbonnements", { reglages: Object.assign({}, RA, { modeles }) }); RA = Object.assign({ modeles: Object.assign({}, MODELES_RELANCE0) }, REGLAGES_ABO0, o.reglages); fermer(true); RES = "Modèles des messages de relance enregistrés."; dessiner(); }
-    catch (e) { b.disabled = false; b.textContent = "Enregistrer"; alert("Enregistrement impossible : " + e.message); }
+    catch (e) { b.disabled = false; b.textContent = "Enregistrer"; await alerte("Enregistrement impossible : " + e.message); }
   };
 }
 // ───── Factures (18.4) : Mon entreprise, voir / imprimer une facture ─────
 document.addEventListener("click", (e) => { const t = e.target.closest && e.target.closest("[data-vfac],[data-editeur]"); if (!t) return; if (t.dataset.editeur !== undefined) ouvrirEditeur(); else voirFacture(FACT.find((x) => x.id === t.dataset.vfac || x.numero === t.dataset.num)); });
-function voirFacture(F) {
-  if (!F) { alert("Facture introuvable (actualisez la page)."); return; }
-  const w = window.open("", "_blank"); if (!w) { alert("Autorisez les fenêtres (pop-up) pour afficher la facture."); return; }
+async function voirFacture(F) {
+  if (!F) { await alerte("Facture introuvable (actualisez la page)."); return; }
+  const w = window.open("", "_blank"); if (!w) { await alerte("Autorisez les fenêtres (pop-up) pour afficher la facture."); return; }
   w.document.open(); w.document.write(htmlFacture(F).replace("</body>", '<script>setTimeout(function(){window.print()},300)<\/script></body>')); w.document.close(); w.focus();
 }
 function ouvrirEditeur() {
@@ -125,7 +126,7 @@ function ouvrirEditeur() {
     const d = {}; CHAMPS_EDITEUR.forEach(([k]) => { d[k] = $("ed_" + k).value; });
     const b = $("edOk"); b.disabled = true; b.textContent = "Enregistrement…";
     try { const o = await serveur("editeurEnregistrer", { editeur: d }); EDITEUR = o.editeur; fermer(true); RES = "Mon entreprise enregistré" + (o.manque.length ? " (à compléter pour faire des factures : " + esc(o.manque.join(", ")) + ")" : " : les factures peuvent être créées") + "."; dessiner(); }
-    catch (e) { b.disabled = false; b.textContent = "Enregistrer"; alert("Enregistrement impossible : " + e.message); }
+    catch (e) { b.disabled = false; b.textContent = "Enregistrer"; await alerte("Enregistrement impossible : " + e.message); }
   };
 }
 // Réglages des abonnements (18.3) : suspension des cabinets en retard (me demander, automatique, jamais), délais
@@ -140,10 +141,10 @@ function ouvrirReglagesAbo() {
   $("raAnn").onclick = fermer;
   $("raOk").onclick = async () => {
     const r = { suspension: (document.querySelector('input[name="raSusp"]:checked') || {}).value || "demander", delai: $("raDel").value, rappel: $("raRap").value, essai: $("raEss").value };
-    if (r.suspension === "auto" && !confirm("Suspendre automatiquement les cabinets en retard de plus de " + r.delai + " jours ?\n\nChaque nuit, Onco360 le fera sans vous demander.")) return;
+    if (r.suspension === "auto" && !(await confirmer("Suspendre automatiquement les cabinets en retard de plus de " + r.delai + " jours ?\n\nChaque nuit, Onco360 le fera sans vous demander."))) return;
     const b = $("raOk"); b.disabled = true; b.textContent = "Enregistrement…";
     try { const o = await serveur("reglagesAbonnements", { reglages: Object.assign({ modeles: RA.modeles }, r) }); RA = Object.assign({ modeles: Object.assign({}, MODELES_RELANCE0) }, REGLAGES_ABO0, o.reglages); fermer(true); RES = "Réglages des abonnements enregistrés."; dessiner(); }
-    catch (e) { b.disabled = false; b.textContent = "Enregistrer"; alert("Enregistrement impossible : " + e.message); }
+    catch (e) { b.disabled = false; b.textContent = "Enregistrer"; await alerte("Enregistrement impossible : " + e.message); }
   };
 }
 // Actualiser (18.1) : relit cabinets, abonnements et activité ; heure de la dernière lecture
@@ -281,9 +282,9 @@ function ouvrirAbonnement(c) {
   $("abMode").onchange = maj; maj(); $("abAnn").onclick = fermer;
   $("abOk").onclick = async () => {
     const r = { mode: $("abMode").value, prix: $("abPrix").value, essaiFin: $("abEssai").value, echeance: $("abEch").value, note: $("abNote").value, jamaisSuspendre: $("abJam").checked };
-    if ((r.mode === "mensuel" || r.mode === "annuel") && !r.echeance) { alert("Indiquez l'échéance (fin de la période déjà payée, ou aujourd'hui si rien n'est encore payé)."); return; }
+    if ((r.mode === "mensuel" || r.mode === "annuel") && !r.echeance) { await alerte("Indiquez l'échéance (fin de la période déjà payée, ou aujourd'hui si rien n'est encore payé)."); return; }
     const b = $("abOk"); b.disabled = true; b.textContent = "Enregistrement…";
-    try { await envoyerFacturation(c, { action: "regler", reglage: r }, "Abonnement de « " + esc(c.nom) + " » enregistré."); } catch (e) { b.disabled = false; b.textContent = "Enregistrer"; alert("Enregistrement impossible : " + e.message); }
+    try { await envoyerFacturation(c, { action: "regler", reglage: r }, "Abonnement de « " + esc(c.nom) + " » enregistré."); } catch (e) { b.disabled = false; b.textContent = "Enregistrer"; await alerte("Enregistrement impossible : " + e.message); }
   };
 }
 function ouvrirClient(c) {
@@ -296,9 +297,9 @@ function ouvrirClient(c) {
   $("clAnn").onclick = fermer;
   $("clOk").onclick = async () => {
     const d = { raison: $("clRai").value, ice: $("clIce").value, if: $("clIf").value, email: $("clMail").value, adresse: $("clAdr").value }, ice = d.ice.replace(/\s/g, "");
-    if (ice && !/^\d{15}$/.test(ice) && !confirm("L'ICE marocain compte 15 chiffres (ici : " + ice.length + "). Enregistrer quand même ?")) return;
+    if (ice && !/^\d{15}$/.test(ice) && !(await confirmer("L'ICE marocain compte 15 chiffres (ici : " + ice.length + "). Enregistrer quand même ?"))) return;
     const b = $("clOk"); b.disabled = true; b.textContent = "Enregistrement…";
-    try { await envoyerFacturation(c, { action: "client", client: d }, "Coordonnées de facturation de « " + esc(c.nom) + " » enregistrées."); } catch (e) { b.disabled = false; b.textContent = "Enregistrer"; alert("Enregistrement impossible : " + e.message); }
+    try { await envoyerFacturation(c, { action: "client", client: d }, "Coordonnées de facturation de « " + esc(c.nom) + " » enregistrées."); } catch (e) { b.disabled = false; b.textContent = "Enregistrer"; await alerte("Enregistrement impossible : " + e.message); }
   };
 }
 function ouvrirPaiement(c) {
@@ -317,9 +318,9 @@ function ouvrirPaiement(c) {
   $("pPer").onchange = () => { $("pM").value = montant($("pPer").value) || ""; ap(); }; $("pD").onchange = ap; ap(); $("pAnn").onclick = fermer;
   $("pOk").onclick = async () => {
     const p = { d: $("pD").value, m: $("pM").value, periode: $("pPer").value, moyen: $("pMoy").value, ref: $("pRef").value, note: $("pNote").value };
-    if (!p.d || !(Number(p.m) > 0)) { alert("Indiquez la date et le montant."); return; }
+    if (!p.d || !(Number(p.m) > 0)) { await alerte("Indiquez la date et le montant."); return; }
     const b = $("pOk"); b.disabled = true; b.textContent = "Enregistrement…";
-    try { const n0 = FACT.length; await envoyerFacturation(c, { action: "paiement", paiement: p }, "Paiement de " + esc(dh(p.m)) + " enregistré pour « " + esc(c.nom) + " »."); if (FACT.length > n0) RES += " Facture " + esc(FACT[0].numero) + " créée."; else RES += " Facture non créée : complétez « Mon entreprise » (Comptabilité), puis « Créer la facture » dans les paiements du cabinet."; dessiner(); ouvrirFiche(c); } catch (e) { b.disabled = false; b.textContent = "Enregistrer le paiement"; alert("Enregistrement impossible : " + e.message); }
+    try { const n0 = FACT.length; await envoyerFacturation(c, { action: "paiement", paiement: p }, "Paiement de " + esc(dh(p.m)) + " enregistré pour « " + esc(c.nom) + " »."); if (FACT.length > n0) RES += " Facture " + esc(FACT[0].numero) + " créée."; else RES += " Facture non créée : complétez « Mon entreprise » (Comptabilité), puis « Créer la facture » dans les paiements du cabinet."; dessiner(); ouvrirFiche(c); } catch (e) { b.disabled = false; b.textContent = "Enregistrer le paiement"; await alerte("Enregistrement impossible : " + e.message); }
   };
 }
 function brancherCabinets() {
@@ -350,28 +351,28 @@ function brancherActions(R) {
   on("[data-recup]", (b) => { RC = Object.assign(RC, { cab: b.dataset.recup, sources: null, liste: null, apercu: null, res: "", err: "", le: RC.le || localA(new Date(Date.now() - 3600000)) }); fermer(true); location.hash = "sauvegardes"; serveurLong("recuperation", { espace: RC.cab, action: "sources" }).then((x) => { RC.sources = x; dessiner(); }, (e) => { RC.err = e.message; dessiner(); }); });
   on("[data-abo]", (b) => ouvrirAbonnement(cab(b.dataset.abo)));
   on("[data-client]", (b) => ouvrirClient(cab(b.dataset.client)));
-  on("[data-dt]", async (b) => { const [id, qid] = b.dataset.dt.split(":"), c = cab(id); b.disabled = true; try { await envoyerFacturation(c, { action: "demandeTraitee", id: qid }, "Demande marquée traitée."); } catch (e) { b.disabled = false; alert("Impossible : " + e.message); } });
-  on("[data-facturer]", async (b) => { const [id, pid] = b.dataset.facturer.split(":"), c = cab(id); if (editeurIncomplet(EDITEUR).length) { alert("Complétez d'abord « Mon entreprise » (onglet Comptabilité) : raison sociale, ICE, IF, adresse, ville."); return; }
-    b.disabled = true; try { await envoyerFacturation(c, { action: "facturer", id: pid }, "Facture créée."); } catch (e) { b.disabled = false; alert("Impossible : " + e.message); } });
-  on("[data-rp]", async (b) => { const [id, pid] = b.dataset.rp.split(":"), c = cab(id), p = c && ((c.facturation || {}).paiements || []).find((x) => x.id === pid); if (!p || !confirm("Retirer le paiement du " + dfr(p.d) + " (" + dh(p.m) + ") ?")) return;
-    b.disabled = true; try { await envoyerFacturation(c, { action: "retirerPaiement", id: pid }, "Paiement retiré."); } catch (e) { b.disabled = false; alert("Impossible : " + e.message); } });
+  on("[data-dt]", async (b) => { const [id, qid] = b.dataset.dt.split(":"), c = cab(id); b.disabled = true; try { await envoyerFacturation(c, { action: "demandeTraitee", id: qid }, "Demande marquée traitée."); } catch (e) { b.disabled = false; await alerte("Impossible : " + e.message); } });
+  on("[data-facturer]", async (b) => { const [id, pid] = b.dataset.facturer.split(":"), c = cab(id); if (editeurIncomplet(EDITEUR).length) { await alerte("Complétez d'abord « Mon entreprise » (onglet Comptabilité) : raison sociale, ICE, IF, adresse, ville."); return; }
+    b.disabled = true; try { await envoyerFacturation(c, { action: "facturer", id: pid }, "Facture créée."); } catch (e) { b.disabled = false; await alerte("Impossible : " + e.message); } });
+  on("[data-rp]", async (b) => { const [id, pid] = b.dataset.rp.split(":"), c = cab(id), p = c && ((c.facturation || {}).paiements || []).find((x) => x.id === pid); if (!p || !(await confirmer("Retirer le paiement du " + dfr(p.d) + " (" + dh(p.m) + ") ?"))) return;
+    b.disabled = true; try { await envoyerFacturation(c, { action: "retirerPaiement", id: pid }, "Paiement retiré."); } catch (e) { b.disabled = false; await alerte("Impossible : " + e.message); } });
 }
 // ───── Cabinet de démonstration (étape 9 S3, 09/10/2026) ─────
 async function creerDemo() {
-  const email = prompt("Adresse e-mail du compte de démonstration (identifiant de connexion ; une adresse à vous, par exemple avec « +demo ») :", "ritabentahila+demo@gmail.com");
+  const email = (await saisir("Adresse e-mail du compte de démonstration (identifiant de connexion ; une adresse à vous, par exemple avec « +demo ») :", "ritabentahila+demo@gmail.com"));
   if (!email || !email.trim()) return;
   const b = $("dCree"); b.disabled = true; b.textContent = "Création du cabinet et des 8 patients fictifs…";
   try {
     const o = await serveur("creerCabinetDemo", { email: email.trim().toLowerCase() });
     RES = "Cabinet de démonstration créé : " + o.patients + " patients fictifs, " + o.protocoles + " fichiers de protocoles. Pour vous y connecter, utilisez « Lien du mot de passe » dans sa fiche (compte " + esc(email.trim()) + ").";
     CABINETS = null; GARDER = true; location.hash = "cabinets"; dessiner(); charger(); // retour à la liste (la carte est dans Nouveau cabinet depuis le 10/10)
-  } catch (e) { b.disabled = false; b.textContent = "Créer le cabinet de démonstration"; alert("Création impossible : " + e.message); }
+  } catch (e) { b.disabled = false; b.textContent = "Créer le cabinet de démonstration"; await alerte("Création impossible : " + e.message); }
 }
 async function reinitDemo(b) {
-  if (!confirm("Réinitialiser le cabinet de démonstration ?\n\nLes patients, consultations, tâches et rendez-vous de la démo sont effacés puis recréés (8 patients fictifs, dates d'aujourd'hui). Aucun autre cabinet n'est touché.")) return;
+  if (!(await confirmer("Réinitialiser le cabinet de démonstration ?\n\nLes patients, consultations, tâches et rendez-vous de la démo sont effacés puis recréés (8 patients fictifs, dates d'aujourd'hui). Aucun autre cabinet n'est touché."))) return;
   b.disabled = true; b.textContent = "Réinitialisation…";
   try { const o = await serveur("demoReinitialiser"); fermer(); RES = "Démonstration réinitialisée : " + o.patients + " patients fictifs au " + esc(dfr(o.jour)) + "."; CABINETS = null; dessiner(); charger(); }
-  catch (e) { b.disabled = false; b.textContent = "Réinitialiser la démo"; alert("Impossible : " + e.message); }
+  catch (e) { b.disabled = false; b.textContent = "Réinitialiser la démo"; await alerte("Impossible : " + e.message); }
 }
 // ───── Bibliothèque de référence de chaque spécialité (10/10/2026) = protocoles, bibliothèques et paramètres du modèle ─────
 // Ce que reçoit un cabinet neuf, selon la spécialité de sa formule. Chacune est un espace sans patient, ouvert dans Onco360
@@ -379,17 +380,17 @@ async function reinitDemo(b) {
 const LIBS = [["protocoles", "Protocoles de chimiothérapie"], ["medicaments", "Médicaments"], ["ordostypes", "Ordonnances types"], ["analyses", "Analyses"], ["bilans", "Bilans biologiques"], ["examens", "Examens complémentaires"], ["courriers", "Courriers"], ["documentation", "Documentation (Doc.)"], ["referentielRT", "Schémas de radiothérapie modifiés"]];
 function brancherReference() {
   document.querySelectorAll("[data-publier]").forEach((b) => { b.onclick = async () => {
-    const notes = prompt("Publier une nouvelle version de la bibliothèque de référence.\n\nCe qui a changé (journal des changements, lu par les cabinets) :", "");
+    const notes = (await saisir("Publier une nouvelle version de la bibliothèque de référence.\n\nCe qui a changé (journal des changements, lu par les cabinets) :", ""));
     if (!notes || !notes.trim()) return;
     b.disabled = true; b.textContent = "Publication…";
     try { const o = await serveur("referencePublier", { notes }); b.textContent = "Version " + o.version + " publiée"; RES = "Bibliothèque de référence : version " + o.version + " publiée ; les cabinets la verront dans Protocoles."; CABINETS = null; }
-    catch (e) { b.disabled = false; b.textContent = "Publier une version"; alert("Impossible : " + e.message); }
+    catch (e) { b.disabled = false; b.textContent = "Publier une version"; await alerte("Impossible : " + e.message); }
   }; });
   document.querySelectorAll("[data-bib]").forEach((b) => { b.onclick = async () => {
-    if (!confirm("La bibliothèque s'ouvre dans Onco360 (Protocoles et Paramètres), à la place de l'Administration.\nPour revenir : lien « Retour à l'Administration » du menu.")) return;
+    if (!(await confirmer("La bibliothèque s'ouvre dans Onco360 (Protocoles et Paramètres), à la place de l'Administration.\nPour revenir : lien « Retour à l'Administration » du menu."))) return;
     b.disabled = true; b.textContent = "Ouverture…";
     try { const o = await serveur("bibliothequeOuvrir", { bib: b.dataset.bib }); location.href = "v2.html?espace=" + encodeURIComponent(o.espace) + "#protocoles"; }
-    catch (e) { b.disabled = false; b.textContent = "Ouvrir et modifier"; alert("Impossible : " + e.message); }
+    catch (e) { b.disabled = false; b.textContent = "Ouvrir et modifier"; await alerte("Impossible : " + e.message); }
   }; });
 }
 
@@ -446,7 +447,7 @@ async function ouvrirReprendreModele() {
   $("modNon").onclick = () => fermer(true);
   $("modOk").onclick = async () => { const b = $("modOk"); b.disabled = true; b.textContent = "Copie (une minute environ)…";
     try { const r = await serveur("modeleReprendre", { confirmer: true }); fermer(true); RES = "Cabinet du Dr Bentahila copié dans le modèle de « " + esc(r.specialite) + " » (" + r.n + " différence" + (r.n > 1 ? "s" : "") + "). Le modèle ne dépend plus de son cabinet."; CABINETS = null; dessiner(); charger(); } // relu : sinon les cartes Fiche patient et Formulaire montraient l'ancien modèle
-    catch (er) { b.disabled = false; b.textContent = "Copier dans le modèle"; alert("Impossible : " + er.message); } };
+    catch (er) { b.disabled = false; b.textContent = "Copier dans le modèle"; await alerte("Impossible : " + er.message); } };
 }
 // Écart au modèle (18/10/2026) : ce que le cabinet a changé dans ses paramètres, partie par partie ; lecture seule (fonction modeleEcart)
 async function ouvrirEcartModele(c) {
@@ -474,7 +475,7 @@ function ouvrirAppliquerModele(c) {
       $("mpRes").innerHTML = tableDiffs(o.diffs) + (o.n ? '<p class="m">L\'état actuel du cabinet est d\'abord mis de côté (copie), et l\'application est notée au journal.</p><div class="barre"><button id="mpOk">Appliquer</button></div>' : '<p class="m">Rien à ajouter : le cabinet a déjà tout le modèle.</p>');
       if ($("mpOk")) $("mpOk").onclick = async () => { const k = $("mpOk"); k.disabled = true; k.textContent = "Application…";
         try { const r = await serveur("modeleAppliquer", { espace: c.id, parties: parties(), confirmer: true }); fermer(true); RES = "Modèle appliqué à « " + c.nom + " » (" + r.n + " ajout" + (r.n > 1 ? "s" : "") + ")."; dessiner(); }
-        catch (er) { k.disabled = false; k.textContent = "Appliquer"; alert("Impossible : " + er.message); } }; }
+        catch (er) { k.disabled = false; k.textContent = "Appliquer"; await alerte("Impossible : " + er.message); } }; }
     catch (er) { $("mpRes").innerHTML = '<p class="err">' + esc(er.message) + "</p>"; }
     finally { b.disabled = false; b.textContent = "Voir ce qui serait ajouté"; } };
 }
@@ -486,7 +487,7 @@ function fenetre(html) {
 }
 // GARDE : fonction appelée avant de fermer la fenêtre (réglage modifié et non enregistré : confirmation) ; fermer(true) ferme sans demander
 let GARDE = null;
-function fermer(force) { if (force !== true && GARDE && !GARDE()) return; GARDE = null; $("modal").classList.add("cache"); $("modal").innerHTML = ""; document.body.classList.remove("bloque"); }
+function fermer(force) { if (force !== true && GARDE) { const g = GARDE; Promise.resolve(g()).then((ok) => { if (ok && GARDE === g) fermer(true); }); return; } GARDE = null; $("modal").classList.add("cache"); $("modal").innerHTML = ""; document.body.classList.remove("bloque"); }
 document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("modal").classList.contains("cache")) fermer(); });
 
 // ───── Onglet Nouveau cabinet ─────
@@ -526,7 +527,7 @@ async function creer() {
   res.innerHTML = "";
   if (!d.formule || !FORMULES_()[d.formule]) { res.innerHTML = '<p class="err">Choisissez un pack (aucun pack pour cette spécialité : créez-en un dans Par spécialité).</p>'; return; }
   if (!d.cabinet || !d.nom || !d.email) { res.innerHTML = '<p class="err">Indiquez au moins le nom du cabinet, le nom du médecin et son e-mail.</p>'; return; }
-  if (!confirm("Créer le cabinet « " + d.cabinet + " » pour " + [d.prenom, d.nom].join(" ") + " (" + d.email + ") ?")) return;
+  if (!(await confirmer("Créer le cabinet « " + d.cabinet + " » pour " + [d.prenom, d.nom].join(" ") + " (" + d.email + ") ?"))) return;
   const b = $("aOk"); b.disabled = true; b.textContent = "Création…";
   try {
     const o = await serveur("creerCabinet", d);
@@ -550,13 +551,13 @@ function ouvrirInfos(c) {
   $("iAnn").onclick = fermer;
   $("iOk").onclick = async () => {
     const v = (i) => $(i).value.trim(), d = { espace: c.id, nom: v("iNom"), ville: v("iVil"), adresse: v("iAdr"), telephone: v("iTel"), titulaireNom: v("iTit"), titulaireTel: v("iTtel") }, ok = $("iOk");
-    if (d.nom.length < 2) { alert("Indiquez le nom du cabinet."); return; }
+    if (d.nom.length < 2) { await alerte("Indiquez le nom du cabinet."); return; }
     ok.disabled = true; ok.textContent = "Enregistrement…";
     try {
       await serveur("infosCabinet", d);
       Object.assign(c, { nom: d.nom, ville: d.ville, adresse: d.adresse, telephone: d.telephone }); if (d.titulaireNom) Object.assign(c.titulaire, { nom: d.titulaireNom, telephone: d.titulaireTel });
       fermer(); RES = "Cabinet « " + esc(d.nom) + " » enregistré."; dessiner();
-    } catch (e) { ok.disabled = false; ok.textContent = "Enregistrer"; alert("Enregistrement impossible : " + e.message); }
+    } catch (e) { ok.disabled = false; ok.textContent = "Enregistrer"; await alerte("Enregistrement impossible : " + e.message); }
   };
 }
 
@@ -625,7 +626,7 @@ function editeurReglage(o) {
   const lire = () => { document.querySelectorAll("#fCorps [data-x]").forEach((x) => { A.max[x.dataset.x] = x.value === "" ? null : Number(x.value); }); document.querySelectorAll("#fCorps [data-px]").forEach((x) => { A.prix = A.prix || {}; A.prix[x.dataset.px] = x.value === "" ? null : Number(x.value); }); if ($("fNom")) nom = $("fNom").value.trim(); };
   const etat0 = J([A, R, nom]), modifie = () => J([A, R, nom]) !== etat0;
   const majEtat = () => { const e = $("fEtat"); if (e) e.textContent = modifie() ? "Modifications non enregistrées" : ""; };
-  GARDE = () => { lire(); return !modifie() || confirm("Fermer sans enregistrer ?\nLes modifications de ce réglage seront perdues."); };
+  GARDE = async () => { lire(); return !modifie() || (await confirmer("Fermer sans enregistrer ?\nLes modifications de ce réglage seront perdues.")); };
   const refaire = (sansLire) => { if (!sansLire) lire(); const ouverts = [...document.querySelectorAll("#fCorps details")].map((d) => d.open); $("fCorps").innerHTML = corps(); document.querySelectorAll("#fCorps details").forEach((d, i) => { d.open = !!ouverts[i]; }); brancher(); majEtat(); };
   const bouger = (v, sens) => { const [l, i] = v.split(":"), k = Number(i), j = k + sens, L = R[l]; if (j < 0 || j >= L.length) return; [L[k], L[j]] = [L[j], L[k]]; refaire(); };
   // Toute modification (case, nombre) : pastilles « retouché » et état mis à jour (refaire léger, sans perdre la saisie en cours d'un nombre)
@@ -654,10 +655,10 @@ function editeurReglage(o) {
   brancher();
   $("fAnn").onclick = fermer;
   $("fOk").onclick = async () => {
-    lire(); if (!o.avecPack && !nom) { alert("Indiquez le nom du pack."); return; }
-    if ((FE && FE.enCours()) || (CE && CE.enCours())) { if (!confirm("Un champ est en cours de modification (fiche ou consultation) et ne sera pas enregistré. Continuer ?")) return; }
+    lire(); if (!o.avecPack && !nom) { await alerte("Indiquez le nom du pack."); return; }
+    if ((FE && FE.enCours()) || (CE && CE.enCours())) { if (!(await confirmer("Un champ est en cours de modification (fiche ou consultation) et ne sera pas enregistré. Continuer ?"))) return; }
     const b = $("fOk"), g = GARDE; b.disabled = true; b.textContent = "Enregistrement…"; GARDE = null;
-    try { await o.enregistrer(A, R, nom); } catch (e) { GARDE = g; b.disabled = false; b.textContent = "Enregistrer"; alert("Enregistrement impossible : " + e.message); }
+    try { await o.enregistrer(A, R, nom); } catch (e) { GARDE = g; b.disabled = false; b.textContent = "Enregistrer"; await alerte("Enregistrement impossible : " + e.message); }
   };
 }
 // Réglage d'un cabinet : pack de départ, puis retouches dans le cabinet. En miroir (20/10/2026, demande de Dr Bentahila : « je veux voir
@@ -699,7 +700,7 @@ async function ouvrirFormule(c) {
 async function renvoyer(b, email) {
   b.disabled = true;
   try { await sendPasswordResetEmail(auth, email); b.textContent = "E-mail envoyé"; }
-  catch (e) { b.disabled = false; alert("Envoi impossible : " + e.message); }
+  catch (e) { b.disabled = false; await alerte("Envoi impossible : " + e.message); }
 }
 // Lien pour choisir le mot de passe, à envoyer soi-même (WhatsApp, SMS…) : valable environ 1 heure, un seul usage
 async function lien(b, c) {
@@ -714,34 +715,34 @@ async function lien(b, c) {
       '<textarea id="lnTexte" rows="7" readonly>' + esc(txt) + "</textarea>" +
       '<div class="pied"><button id="lnCopier">Copier le message</button><a class="bt wa" target="_blank" rel="noopener" href="https://wa.me/' + tel + "?text=" + encodeURIComponent(txt) + '">Envoyer par WhatsApp</a></div>');
     $("lnCopier").onclick = async () => { const t = $("lnTexte"); try { await navigator.clipboard.writeText(t.value); } catch (e) { t.select(); document.execCommand("copy"); } $("lnCopier").textContent = "Copié"; };
-  } catch (e) { alert("Lien impossible : " + e.message); }
+  } catch (e) { await alerte("Lien impossible : " + e.message); }
   b.disabled = false; b.textContent = t0;
 }
 // Suspendre (abonnement non payé : plus personne n'entre, rien n'est effacé) ou réactiver
 async function etat(b, c, actif) {
   if (!c) return;
-  if (!confirm(actif ? "Réactiver le cabinet « " + c.nom + " » ? Son équipe pourra de nouveau se connecter." : "Suspendre le cabinet « " + c.nom + " » ?\n\nPlus personne de ce cabinet ne pourra se connecter. Rien n'est effacé : vous pourrez le réactiver à tout moment.")) return;
+  if (!(await confirmer(actif ? "Réactiver le cabinet « " + c.nom + " » ? Son équipe pourra de nouveau se connecter." : "Suspendre le cabinet « " + c.nom + " » ?\n\nPlus personne de ce cabinet ne pourra se connecter. Rien n'est effacé : vous pourrez le réactiver à tout moment."))) return;
   b.disabled = true;
   try { await serveur("etatCabinet", { espace: c.id, actif }); fermer(); c.actif = actif; c.suspenduLe = actif ? "" : new Date().toISOString(); RES = "Cabinet « " + esc(c.nom) + " » " + (actif ? "réactivé." : "suspendu."); dessiner(); }
-  catch (e) { b.disabled = false; alert("Impossible : " + e.message); }
+  catch (e) { b.disabled = false; await alerte("Impossible : " + e.message); }
 }
 // Annuler une suppression demandée (pendant les 30 jours)
 async function annulerSuppression(b, c) {
-  if (!c || !confirm("Annuler la suppression du cabinet « " + c.nom + " » ? Il reste suspendu (lecture seule) : réactivez-le ensuite si besoin.")) return;
+  if (!c || !(await confirmer("Annuler la suppression du cabinet « " + c.nom + " » ? Il reste suspendu (lecture seule) : réactivez-le ensuite si besoin."))) return;
   b.disabled = true;
   try { await serveur("annulerSuppression", { espace: c.id }); fermer(); c.suppressionPrevue = ""; RES = "Suppression du cabinet « " + esc(c.nom) + " » annulée."; dessiner(); }
-  catch (e) { b.disabled = false; alert("Impossible : " + e.message); }
+  catch (e) { b.disabled = false; await alerte("Impossible : " + e.message); }
 }
 // Supprimer (cabinet suspendu seulement, nom retapé) : export final puis effacement après 30 jours
 async function supprimer(b, c) {
   if (!c) return;
   // L6 (d) (31/10/2026) : export final d'abord, effacement 30 jours plus tard (annulable jusque-là)
-  const t = prompt("SUPPRESSION du cabinet « " + c.nom + " » : un export final est fait maintenant (téléchargeable par le médecin titulaire, cabinet en lecture seule), puis dans 30 jours ses " + (c.patients || 0) + " dossiers, ses fichiers et les comptes de ses " + (c.membres || 0) + " membres seront effacés. Vous pourrez annuler pendant ces 30 jours.\n\nPour confirmer, tapez exactement le nom du cabinet :");
+  const t = (await saisir("SUPPRESSION du cabinet « " + c.nom + " » : un export final est fait maintenant (téléchargeable par le médecin titulaire, cabinet en lecture seule), puis dans 30 jours ses " + (c.patients || 0) + " dossiers, ses fichiers et les comptes de ses " + (c.membres || 0) + " membres seront effacés. Vous pourrez annuler pendant ces 30 jours.\n\nPour confirmer, tapez exactement le nom du cabinet :"));
   if (t == null) return;
-  if (t.trim() !== String(c.nom).trim()) { alert("Le nom ne correspond pas : rien n'a été supprimé."); return; }
+  if (t.trim() !== String(c.nom).trim()) { await alerte("Le nom ne correspond pas : rien n'a été supprimé."); return; }
   b.disabled = true; b.textContent = "Suppression…";
   try { const o = await serveur("supprimerCabinet", { espace: c.id, confirmation: t.trim() }); fermer(); c.suppressionPrevue = o.prevue; RES = "Cabinet « " + esc(c.nom) + " » : export final fait" + (o.export ? " (" + o.export.patients + " dossier(s))" : "") + ", effacement prévu le " + esc(dfr(String(o.prevue).slice(0, 10))) + "."; dessiner(); }
-  catch (e) { b.disabled = false; b.textContent = "Supprimer"; alert("Suppression impossible : " + e.message); }
+  catch (e) { b.disabled = false; b.textContent = "Supprimer"; await alerte("Suppression impossible : " + e.message); }
 }
 
 // ───── Onglet Modules et menus (10/10/2026) ─────
@@ -942,7 +943,7 @@ function brancherSauvegardes() {
     const b = $("rcVoir"); b.disabled = true; b.textContent = "Comparaison…"; RC.err = ""; RC.res = "";
     try { RC.apercu = await serveurLong("recuperation", { espace: RC.cab, action: "apercu", source: sourceA(), quoi: q }); } catch (e) { RC.err = e.message; } rerender(); };
   if ($("rcOk")) $("rcOk").onclick = async () => { const P = RC.apercu, c = cab(RC.cab);
-    if (!confirm("Récupérer " + P.cible + " dans « " + (c ? c.nom : RC.cab) + " » depuis " + P.source + " ?\n\n" + P.n + " élément(s) remis ; ce qui a été créé depuis est gardé ; l'état actuel est d'abord copié.")) return;
+    if (!(await confirmer("Récupérer " + P.cible + " dans « " + (c ? c.nom : RC.cab) + " » depuis " + P.source + " ?\n\n" + P.n + " élément(s) remis ; ce qui a été créé depuis est gardé ; l'état actuel est d'abord copié."))) return;
     const b = $("rcOk"); b.disabled = true; b.textContent = "Récupération…";
     try { const r = await serveurLong("recuperation", { espace: RC.cab, action: "appliquer", source: sourceA(), quoi: quoiA(), confirmer: true });
       RC.res = "Fait : " + r.cible + " — " + r.n + " élément(s) remis" + (r.pdf && (r.pdf.remis || r.pdf.introuvables) ? " ; PDF remis : " + r.pdf.remis + (r.pdf.introuvables ? ", introuvables : " + r.pdf.introuvables : "") : "") + ". Prévenez le cabinet de recharger Onco360.";
@@ -1134,13 +1135,13 @@ function brancherSpecialites() {
   if ($("modVoir")) { $("modVoir").onclick = () => ouvrirReprendreModele(); etatModele(); }
   document.querySelectorAll("[data-pm]").forEach((b) => { b.onclick = () => ouvrirPack(b.dataset.pm); });
   document.querySelectorAll("[data-pd]").forEach((b) => { b.onclick = () => { const F = JSON.parse(JSON.stringify(FORMULES_()[b.dataset.pd])); F.lib = (F.lib + " (copie)").slice(0, 40); ouvrirPack("", F); }; });
-  document.querySelectorAll("[data-ps]").forEach((b) => { b.onclick = async () => { const L = JSON.parse(JSON.stringify(FORMULES_())), f = L[b.dataset.ps]; if (!confirm("Supprimer le pack « " + f.lib + " » ? (aucun cabinet ne l'utilise)")) return; delete L[b.dataset.ps]; try { await enregistrerPacks(L, "Pack « " + esc(f.lib) + " » supprimé"); } catch (e) { alert("Impossible : " + e.message); } }; });
+  document.querySelectorAll("[data-ps]").forEach((b) => { b.onclick = async () => { const L = JSON.parse(JSON.stringify(FORMULES_())), f = L[b.dataset.ps]; if (!(await confirmer("Supprimer le pack « " + f.lib + " » ? (aucun cabinet ne l'utilise)"))) return; delete L[b.dataset.ps]; try { await enregistrerPacks(L, "Pack « " + esc(f.lib) + " » supprimé"); } catch (e) { await alerte("Impossible : " + e.message); } }; });
   const bouge = async (k, sens) => { const E = Object.entries(FORMULES_()), mes = E.filter(([, f]) => specialiteDe(f.specialite) === SPEC).map(([c]) => c), i = mes.indexOf(k), j = i + sens; if (j < 0 || j >= mes.length) return;
     [mes[i], mes[j]] = [mes[j], mes[i]]; const L = {}; E.filter(([, f]) => specialiteDe(f.specialite) !== SPEC).forEach(([c, f]) => { L[c] = f; }); mes.forEach((c) => { L[c] = FORMULES_()[c]; });
-    try { await enregistrerPacks(JSON.parse(JSON.stringify(L)), "Ordre des packs enregistré"); } catch (e) { alert("Impossible : " + e.message); } };
+    try { await enregistrerPacks(JSON.parse(JSON.stringify(L)), "Ordre des packs enregistré"); } catch (e) { await alerte("Impossible : " + e.message); } };
   document.querySelectorAll("[data-ph]").forEach((b) => { b.onclick = () => bouge(b.dataset.ph, -1); });
   document.querySelectorAll("[data-pb]").forEach((b) => { b.onclick = () => bouge(b.dataset.pb, 1); });
   if ($("pNouv")) $("pNouv").onclick = () => ouvrirPack("");
-  if ($("pProp")) $("pProp").onclick = async () => { const L = JSON.parse(JSON.stringify(FORMULES_())); Object.entries(FORMULES0).forEach(([k, f]) => { if (!L[k] && specialiteDe(f.specialite) === SPEC) L[k] = JSON.parse(JSON.stringify(f)); }); try { await enregistrerPacks(L, "Packs proposés ajoutés"); } catch (e) { alert("Impossible : " + e.message); } };
+  if ($("pProp")) $("pProp").onclick = async () => { const L = JSON.parse(JSON.stringify(FORMULES_())); Object.entries(FORMULES0).forEach(([k, f]) => { if (!L[k] && specialiteDe(f.specialite) === SPEC) L[k] = JSON.parse(JSON.stringify(f)); }); try { await enregistrerPacks(L, "Packs proposés ajoutés"); } catch (e) { await alerte("Impossible : " + e.message); } };
   brancherReference();
 }

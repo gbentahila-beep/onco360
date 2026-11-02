@@ -11,6 +11,7 @@ import { collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, query, 
 import { db } from "../config.js";
 import { CONSULT, consultEffective, libDe, formulairesDe, champDuType } from "../donnees/catalogue.js";
 import { nomActuel } from "../moteur/typesconsult.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null;
 export function installer(api) { A = api; }
@@ -273,7 +274,7 @@ export const modifierConsultation = (pid, cid, apres) => { const x = trouver(pid
 window.csModifier = (pid, cid) => { const x = trouver(pid), c = (CS[pid] || []).find((z) => z.id === cid); if (x && c && peutEcrire()) formulaire(x, c); };
 window.csSupprimer = async (pid, cid) => {
   const x = trouver(pid), c = (CS[pid] || []).find((z) => z.id === cid); if (!x || !c || !peutSupprimer(c)) return;
-  if (!confirm("Supprimer la consultation du " + A.dfrA(c.d) + " (« " + nomCs(c) + " ») ?\n\nSa note et ses prescriptions seront effacées.")) return;
+  if (!(await confirmer("Supprimer la consultation du " + A.dfrA(c.d) + " (« " + nomCs(c) + " ») ?\n\nSa note et ses prescriptions seront effacées."))) return;
   try { await deleteDoc(doc(db, "espaces", A.ESPACE, "consultations", cid)); CS[pid] = CS[pid].filter((z) => z.id !== cid); A.journal(x, "Consultation supprimée : " + nomCs(c) + " du " + A.dfrA(c.d)); A.toast("Consultation supprimée."); A.pageDossier(pid); }
   catch (e) { A.toast(e && e.code === "permission-denied" ? "Vous n'avez pas le droit de supprimer cette consultation." : "Suppression impossible."); }
 };

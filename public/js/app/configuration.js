@@ -26,6 +26,7 @@ import { CARTES, accueilEffectif, FICHE, CONSULT, STADES, GRADES, formEffectif, 
 import { editeurFiche } from "./editeurfiche.js";
 import { estStd, estNote, AUTO as AUTO_TY, cleDuree, renommer, nouvelleCle, aEnregistrer } from "../moteur/typesconsult.js";
 import { htmlVigilances } from "./vigilances.js"; // notes « À vérifier » par molécule (12/10/2026) // fiche patient et formulaire de consultation du cabinet (11/10/2026)
+import { confirmer, saisir } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null;
 export function installer(api) { A = api; installerLabos(api); A.enteteParametres = () => entete(); A.pageParametres = () => pageConfiguration(); installerRecuperation(api); installerImport(api); }
@@ -215,7 +216,7 @@ function resultatsParam(q, L) {
 // Bouton de retrait discret (gris, rouge au survol) à la place de la croix rouge sur chaque ligne
 // 3.10 (12/10/2026, audit) : retrait dans un menu ⋯ (plus de corbeille à portée de clic) et confirmation avant de retirer
 const sup = (action, lib) => '<details class="m3 cf-sup"><summary class="sup" title="Plus d\'actions" aria-label="Plus d\'actions : ' + lib + '">⋯</summary><div class="m3-l">' +
-  '<button type="button" class="mini" data-q="' + lib + ' ?" onclick="this.closest(\'details\').removeAttribute(\'open\');if(confirm(this.dataset.q)){' + action + '}">' + A.ic("corbeille") + lib + "</button></div></details>";
+  '<button type="button" class="mini" data-q="' + lib + ' ?" onclick="this.closest(\'details\').removeAttribute(\'open\');confirmer(this.dataset.q).then((ok)=>{if(ok){' + action + '}})">' + A.ic("corbeille") + lib + "</button></div></details>";
 const titre = (ico, t, n) => '<h3><span class="ic">' + A.ic(ico) + "</span>" + t + (n != null ? ' <span class="cf-n">' + n + "</span>" : "") + "</h3>";
 const typesListe = (L, okE, disE, pre, aj, fixe) => '<div class="cf-td">' + L.map((t, i) => '<div class="it"><b class="n">' + (i + 1) + '</b><input value="' + A.esc(t) + '"' + disE + ' aria-label="Type ' + (i + 1) + '" onchange="' + pre + "(" + i + ',this.value)">' +
   (okE ? '<button class="ico" title="Monter" aria-label="Monter" onclick="' + pre + "Bouger(" + i + ',-1)"' + (i ? "" : " disabled") + '>↑</button><button class="ico" title="Descendre" aria-label="Descendre" onclick="' + pre + "Bouger(" + i + ',1)"' + (i < L.length - 1 ? "" : " disabled") + ">↓</button>" + sup(pre + "Sup(" + i + ")", "Retirer « " + A.esc(t) + " »") : "") + "</div>").join("") + (fixe || "") + "</div>" +
@@ -457,10 +458,10 @@ window.cfTyMode = (i, v) => { const t = ED.typesC[i], au = t && AUTO_TY[t.k]; if
 const aide = (lib) => "<span>" + lib + "</span>"; // 26/10/2026 (style minimaliste) : plus de « ? » à côté des colonnes
 window.A_aide = (b) => A.toast(b.title);
 window.cfTyBouger = (i, d) => { const L = ED.typesC, j = i + d; if (j < 0 || j >= L.length) return; [L[i], L[j]] = [L[j], L[i]]; modif(true); };
-window.cfTyAj = () => { const nom = prompt("Nom du nouveau type de consultation (ex. Deuxième avis) :"); if (!nom || !nom.trim()) return; const n = nom.replace(/\s+/g, " ").trim().slice(0, 80);
+window.cfTyAj = async () => { const nom = (await saisir("Nom du nouveau type de consultation (ex. Deuxième avis) :")); if (!nom || !nom.trim()) return; const n = nom.replace(/\s+/g, " ").trim().slice(0, 80);
   if (ED.typesC.some((z) => z.nom.toLowerCase() === n.toLowerCase())) { A.toast("Ce type existe déjà."); return; }
   ED.typesC.push({ k: nouvelleCle(ED.typesC, n), nom: n, rdv: true, anciens: [] }); modif(true); };
-window.cfTySup = (i) => { const t = ED.typesC[i]; if (!t || estStd(t.k)) return; if (!confirm("Retirer le type « " + t.nom + " » ?\nIl ne sera plus proposé ; les rendez-vous et consultations déjà enregistrés gardent leur nom.")) return; ED.typesC.splice(i, 1); modif(true); };
+window.cfTySup = async (i) => { const t = ED.typesC[i]; if (!t || estStd(t.k)) return; if (!(await confirmer("Retirer le type « " + t.nom + " » ?\nIl ne sera plus proposé ; les rendez-vous et consultations déjà enregistrés gardent leur nom."))) return; ED.typesC.splice(i, 1); modif(true); };
 window.cfDureeT = (k, v) => { ED.durees = ED.durees || {}; if (+v) ED.durees[k] = +v; else delete ED.durees[k]; modif(); };
 const VARS_WA = [["prenom", "Prénom"], ["nom", "Nom complet"], ["jour", "mardi 14 octobre"], ["heure", "« à 10h00 » (vide sans heure)"], ["jour_ar", "le jour en arabe"], ["heure_ar", "l'heure en arabe (vide sans heure)"], ["lieu", "Établissement"], ["adresse", "Adresse"], ["medecin", "Nom du médecin"]];
 let WAO = null; // message WhatsApp ouvert
@@ -681,21 +682,21 @@ window.cfRcp = (k, v) => { ED.rcp[k] = String(v || "").trim(); modif(false); };
 window.cfRcpAj = (k) => { ED.rcp[k].push(D().t); modif(true); };
 window.cfRcpSup = (k, i) => { ED.rcp[k].splice(i, 1); modif(true); };
 window.cfRcpDate = (k, i, v) => { ED.rcp[k][i] = v; modif(true); };
-window.cfDefaut = () => {
-  if (ONG === "accueil") { if (!confirm("Revenir aux cartes du tableau de bord réglées pour votre formule ?")) return; ED.accueil = JSON.parse(JSON.stringify(accueilEffectif(D().reg, null))); modif(true); return; }
-  if (ONG === "fiche") { if (!confirm("Revenir à la fiche patient de départ ?\nLes champs ajoutés par le cabinet sont retirés de la fiche (les valeurs déjà saisies restent dans les dossiers).")) return; ED.fiche = baseFiche(); FE = null; modif(true); return; }
-  if (ONG === "consultation") { if (!confirm("Revenir au formulaire de consultation de départ ?\nLes champs ajoutés par le cabinet sont retirés (les valeurs déjà saisies restent dans les consultations).")) return; ED.consultation = baseConsult(); CE = null; modif(true); return; }
-  if (ONG === "rcp") { if (!confirm("Effacer les dates de RCP (jours, heure, lieu, dates ajoutées et annulées) ?\nLes patients déjà inscrits gardent leur date.")) return; ED.rcp = RCP0(); modif(true); return; }
-  if (ONG === "whatsapp") { if (!confirm("Rétablir tous les messages WhatsApp et le délai du bouton vert par défaut ?")) return; ED.wa = {}; ED.reg.whatsapp = copie(REGLAGES0.whatsapp); modif(true); return; }
-  if (ONG === "listes" && LS === "taches") { if (!confirm("Rétablir la liste des types de tâches de base ?")) return; ED.ttache = TYPES_TACHES0.slice(); modif(true); return; }
-  if (ONG === "listes" && LS === "documents") { if (!confirm("Rétablir la liste des types de documents de départ ?")) return; ED.tdoc = TYPES_DOCUMENTS0.slice(); modif(true); return; }
-  if (ONG === "listes") { if (!confirm("Rétablir les listes de départ (mutuelles, correspondants, informations médicales, localisations) ?\nLes ajouts et corrections du cabinet seront perdus.")) return; ED.listes = Object.assign({ diag: LISTES0.diag.slice(), stade: STADES.slice(), grade: GRADES.slice(), mut: LISTES0.mut.slice().sort((a, z) => a.localeCompare(z, "fr")), cor: LISTES0.cor.slice().sort((a, z) => a.localeCompare(z, "fr")) }, listesMedDe(departMed)); ED.listesOrig = JSON.parse(JSON.stringify(ED.listes)); modif(true); return; }
-  if (ONG === "impression") { if (!confirm("Rétablir les marges d'impression par défaut ?")) return; ED.reg.impression = copie(REGLAGES0.impression); modif(true); return; }
-  if (ONG === "alertes") { if (!confirm("Rétablir les délais " + (A.D().membre.role === "assistante" ? "de la salle d'attente" : "des alertes et de la salle d'attente") + " par défaut ?")) return; if (A.D().membre.role !== "assistante") ED.reg.alertes = copie(REGLAGES0.alertes); ED.reg.salle = copie(REGLAGES0.salle); modif(true); return; }
-  if (ONG === "couleurs") { if (!confirm("Rétablir les couleurs Google Agenda par défaut ?")) return; ED.coul = Object.assign({}, COULEURS0); modif(true); return; }
-  if (ONG === "taches") { if (!confirm("Rétablir la liste des types de tâches de base ?")) return; ED.ttache = TYPES_TACHES0.slice(); modif(true); return; }
-  if (ONG === "documents") { if (!confirm("Rétablir la liste des types de documents de départ ?")) return; ED.tdoc = TYPES_DOCUMENTS0.slice(); modif(true); return; }
-  if (!confirm("Rétablir les horaires (8 h 30 – 18 h, du lundi au vendredi, pour tous les établissements) et la liste des jours fériés par défaut ?\nLes absences ne sont pas modifiées.")) return;
+window.cfDefaut = async () => {
+  if (ONG === "accueil") { if (!(await confirmer("Revenir aux cartes du tableau de bord réglées pour votre formule ?"))) return; ED.accueil = JSON.parse(JSON.stringify(accueilEffectif(D().reg, null))); modif(true); return; }
+  if (ONG === "fiche") { if (!(await confirmer("Revenir à la fiche patient de départ ?\nLes champs ajoutés par le cabinet sont retirés de la fiche (les valeurs déjà saisies restent dans les dossiers)."))) return; ED.fiche = baseFiche(); FE = null; modif(true); return; }
+  if (ONG === "consultation") { if (!(await confirmer("Revenir au formulaire de consultation de départ ?\nLes champs ajoutés par le cabinet sont retirés (les valeurs déjà saisies restent dans les consultations)."))) return; ED.consultation = baseConsult(); CE = null; modif(true); return; }
+  if (ONG === "rcp") { if (!(await confirmer("Effacer les dates de RCP (jours, heure, lieu, dates ajoutées et annulées) ?\nLes patients déjà inscrits gardent leur date."))) return; ED.rcp = RCP0(); modif(true); return; }
+  if (ONG === "whatsapp") { if (!(await confirmer("Rétablir tous les messages WhatsApp et le délai du bouton vert par défaut ?"))) return; ED.wa = {}; ED.reg.whatsapp = copie(REGLAGES0.whatsapp); modif(true); return; }
+  if (ONG === "listes" && LS === "taches") { if (!(await confirmer("Rétablir la liste des types de tâches de base ?"))) return; ED.ttache = TYPES_TACHES0.slice(); modif(true); return; }
+  if (ONG === "listes" && LS === "documents") { if (!(await confirmer("Rétablir la liste des types de documents de départ ?"))) return; ED.tdoc = TYPES_DOCUMENTS0.slice(); modif(true); return; }
+  if (ONG === "listes") { if (!(await confirmer("Rétablir les listes de départ (mutuelles, correspondants, informations médicales, localisations) ?\nLes ajouts et corrections du cabinet seront perdus."))) return; ED.listes = Object.assign({ diag: LISTES0.diag.slice(), stade: STADES.slice(), grade: GRADES.slice(), mut: LISTES0.mut.slice().sort((a, z) => a.localeCompare(z, "fr")), cor: LISTES0.cor.slice().sort((a, z) => a.localeCompare(z, "fr")) }, listesMedDe(departMed)); ED.listesOrig = JSON.parse(JSON.stringify(ED.listes)); modif(true); return; }
+  if (ONG === "impression") { if (!(await confirmer("Rétablir les marges d'impression par défaut ?"))) return; ED.reg.impression = copie(REGLAGES0.impression); modif(true); return; }
+  if (ONG === "alertes") { if (!(await confirmer("Rétablir les délais " + (A.D().membre.role === "assistante" ? "de la salle d'attente" : "des alertes et de la salle d'attente") + " par défaut ?"))) return; if (A.D().membre.role !== "assistante") ED.reg.alertes = copie(REGLAGES0.alertes); ED.reg.salle = copie(REGLAGES0.salle); modif(true); return; }
+  if (ONG === "couleurs") { if (!(await confirmer("Rétablir les couleurs Google Agenda par défaut ?"))) return; ED.coul = Object.assign({}, COULEURS0); modif(true); return; }
+  if (ONG === "taches") { if (!(await confirmer("Rétablir la liste des types de tâches de base ?"))) return; ED.ttache = TYPES_TACHES0.slice(); modif(true); return; }
+  if (ONG === "documents") { if (!(await confirmer("Rétablir la liste des types de documents de départ ?"))) return; ED.tdoc = TYPES_DOCUMENTS0.slice(); modif(true); return; }
+  if (!(await confirmer("Rétablir les horaires (8 h 30 – 18 h, du lundi au vendredi, pour tous les établissements) et la liste des jours fériés par défaut ?\nLes absences ne sont pas modifiées."))) return;
   ED.horaires = HORAIRES0(); ED.horairesEtab = {}; ED.feries = copie(FERIES0); modif(true);
 };
 window.cfEnregistrer = async () => {
@@ -717,7 +718,7 @@ window.cfEnregistrer = async () => {
     renoms.forEach(({ k, de, vers }) => { const [bloc, f, lib] = CHAMP_L[k], B = ch[bloc] || Object.assign({}, x.doc[bloc] || {}); if (String(B[f] || "").trim().toLowerCase() === de.toLowerCase()) { B[f] = vers; ch[bloc] = B; qu.push(lib + " : " + de + " → " + vers); } });
     if (qu.length) aMaj.push({ x, ch, quoi: "Liste corrigée (Paramètres) : " + qu.join(" ; ") });
   });
-  if (aMaj.length && !confirm(renoms.length + " nom" + (renoms.length > 1 ? "s corrigés" : " corrigé") + " dans les listes :\n" + renoms.slice(0, 8).map((r) => "• " + r.de + " → " + r.vers).join("\n") + (renoms.length > 8 ? "\n…" : "") + "\n\n" + aMaj.length + " dossier" + (aMaj.length > 1 ? "s" : "") + " de vos patients" + (D().membre.tousEtablissements ? "" : " (et ceux des autres lieux du cabinet)") + " seront corrigés aussi. Continuer ?")) return;
+  if (aMaj.length && !(await confirmer(renoms.length + " nom" + (renoms.length > 1 ? "s corrigés" : " corrigé") + " dans les listes :\n" + renoms.slice(0, 8).map((r) => "• " + r.de + " → " + r.vers).join("\n") + (renoms.length > 8 ? "\n…" : "") + "\n\n" + aMaj.length + " dossier" + (aMaj.length > 1 ? "s" : "") + " de vos patients" + (D().membre.tousEtablissements ? "" : " (et ceux des autres lieux du cabinet)") + " seront corrigés aussi. Continuer ?"))) return;
   const listes = {}; for (const k of ["diag", "stade", "grade", "mut", "cor"].concat(LISTES_MED.map((z) => z[0]))) { // lot A : listes des informations médicales
     const l = ED.listes[k].map((t) => String(t || "").trim()).filter(Boolean);
     const dbl = l.find((t, i) => l.findIndex((u) => u.toLowerCase() === t.toLowerCase()) !== i); if (dbl) { A.toast("Listes : « " + dbl + " » figure deux fois."); return; }
@@ -734,7 +735,7 @@ window.cfEnregistrer = async () => {
   if (ttache.concat([TYPE_RT]).some((t, i, a) => a.findIndex((u) => u.toLowerCase() === t.toLowerCase()) !== i)) { A.toast("Deux types de tâches portent le même nom (« " + TYPE_RT + " » est déjà le type fixe)."); return; }
   const rcp = Object.assign({}, ED.rcp, { jours: ED.rcp.jours.slice().sort(), plus: Array.from(new Set(ED.rcp.plus.filter(Boolean))).sort(), annulees: Array.from(new Set(ED.rcp.annulees.filter(Boolean))).sort() });
   const cal = Object.assign({}, D().cal, { horaires: ED.horaires, horairesEtab: ED.horairesEtab, durees: ED.durees || {}, abs: ED.abs, feries: ED.feries.slice().sort((a, b) => a.d.localeCompare(b.d)) });
-  if (((ONG === "fiche" && FE && FE.enCours()) || (ONG === "consultation" && CE && CE.enCours())) && !confirm("Un champ est en cours de modification et ne sera pas enregistré. Continuer ?")) return;
+  if (((ONG === "fiche" && FE && FE.enCours()) || (ONG === "consultation" && CE && CE.enCours())) && !(await confirmer("Un champ est en cours de modification et ne sera pas enregistré. Continuer ?"))) return;
   const b = A.$("cfOk"); A.occupe(b, true);
   const tout = A.peut("parametres"); // sinon secrétaire : ni couleurs Google Agenda, ni tâches automatiques (règles du serveur)
   try {

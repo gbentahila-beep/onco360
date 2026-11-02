@@ -35,7 +35,7 @@ async def main():
         ok(await ev("document.querySelector('nav a[data-p=radiotherapie] use').getAttribute('href')") == '#i-radiation', 'icône du menu : radiation (jeu de v2.html)')
         await ev("location.hash='radiotherapie'"); await pg.wait_for_timeout(1500)
         t = await ev("document.getElementById('page').innerText")
-        ok(await ev("document.getElementById('titrePage').textContent") == 'Radiothérapie' and 'Tous les schémas' in t and await ev("parseInt(document.querySelector('#rtrListe .rtr-nb').textContent)") == 316, 'page Radiothérapie : référentiel lu (316 schémas listés)', t[:200])
+        ok(await ev("(document.querySelector('#titrePage .tp-t')||document.getElementById('titrePage')).innerText") == 'Radiothérapie' and 'Tous les schémas' in t and await ev("parseInt(document.querySelector('#rtrListe .rtr-nb').textContent)") == 316, 'page Radiothérapie : référentiel lu (316 schémas listés)', t[:200])
         ok(await ev("!!document.querySelector('nav a[data-p=radiotherapie].actif')"), 'entrée du menu en surbrillance')
         # 26/10/2026 (demande de Dr Bentahila) : « + Nouveau schéma » est le seul bouton plein (comme « + Créer un protocole »)
         ok(await ev("[...document.querySelectorAll('#page .bt.plein, #page .b1')].every(e => e.classList.contains('rtr-nouv'))"), 'page en lecture : aucun bouton plein, sauf « + Nouveau schéma »')
@@ -67,22 +67,22 @@ async def main():
             pg = await page(b, jeu(lambda s: s.__setitem__(E + 'membres/' + uid, membre(role, droits))), uid); ev = pg.evaluate
             ok(('radiotherapie' in await ev(MENU)) == voit, lib + ' : menu ' + ('visible' if voit else 'caché'), await ev(MENU))
             await ev("location.hash='radiotherapie'"); await pg.wait_for_timeout(1200)
-            ok((await ev("document.getElementById('titrePage').textContent") == 'Radiothérapie') == voit, lib + ' : #radiotherapie ' + ('ouverte' if voit else 'refusée'), await ev("document.getElementById('titrePage').textContent"))
+            ok((await ev("(document.querySelector('#titrePage .tp-t')||document.getElementById('titrePage')).innerText") == 'Radiothérapie') == voit, lib + ' : #radiotherapie ' + ('ouverte' if voit else 'refusée'), await ev("(document.querySelector('#titrePage .tp-t')||document.getElementById('titrePage')).innerText"))
             ok(not pg.errs, lib + ' : aucune erreur JavaScript', pg.errs[:2]); await pg.close()
         # Comptable, même avec « voir » : jamais
         pg = await page(b, jeu(lambda s: s.__setitem__(E + 'membres/UIDCOMP', membre('comptable', {'finances': True, 'referentielRT': 'voir'}))), 'UIDCOMP'); ev = pg.evaluate
         ok(await ev(MENU) == ['bilan'], 'comptable (« voir ») : menu Bilan seulement (Mon compte : menu du nom, lot B)', await ev(MENU))
         await ev("location.hash='radiotherapie'"); await pg.wait_for_timeout(1000)
-        ok('Bilan' in await ev("document.getElementById('titrePage').textContent"), 'comptable : #radiotherapie → Bilan'); await pg.close()
+        ok('Bilan' in await ev("(document.querySelector('#titrePage .tp-t')||document.getElementById('titrePage')).innerText"), 'comptable : #radiotherapie → Bilan'); await pg.close()
         # Fonction coupée, module retiré
         for f, lib in [(lambda s: abo(s, 'fonctions', {'rt.referentiel': False}), 'fonction rt.referentiel coupée'), (lambda s: formule(s, 'oncologie', [k for k in MODS if k != 'rt']), 'formule sans module rt')]:
             pg = await page(b, jeu(f), None, 'radiotherapie'); ev = pg.evaluate
             ok('radiotherapie' not in await ev(MENU), lib + ' : menu caché', await ev(MENU))
-            ok(await ev("document.getElementById('titrePage').textContent") != 'Radiothérapie', lib + ' : #radiotherapie → tableau de bord', await ev("document.getElementById('titrePage').textContent"))
+            ok(await ev("(document.querySelector('#titrePage .tp-t')||document.getElementById('titrePage')).innerText") != 'Radiothérapie', lib + ' : #radiotherapie → tableau de bord', await ev("(document.querySelector('#titrePage .tp-t')||document.getElementById('titrePage')).innerText"))
             ok(not pg.errs, lib + ' : aucune erreur JavaScript', pg.errs[:2]); await pg.close()
         # Menu réglé avant le 25/10 (sans « Radiothérapie ») : inséré juste après Protocoles, le reste dans l'ordre réglé
         pg = await page(b, jeu(lambda s: abo(s, 'menu', ['patients', 'protocoles', 'accueil', 'agenda', 'salle', 'taches', 'rcp', 'parametres', 'bilan', 'profil']))); ev = pg.evaluate
-        ok((await ev(MENU))[:4] == ['patients', 'documents', 'protocoles', 'radiotherapie'], 'menu déjà réglé : son ordre gardé, « Radiothérapie » après « Protocoles » (« Documents » sous « Patients » : lot 5.3)', await ev(MENU)); await pg.close()
+        ok((await ev(MENU))[:3] == ['patients', 'protocoles', 'radiotherapie'], 'menu déjà réglé : son ordre gardé, « Radiothérapie » après « Protocoles » (« Documents » : secrétaire seulement, UX2)', await ev(MENU)); await pg.close()
         # Formule « Radiothérapie – Essentiel » (modules.js : rt, agenda, prescriptions, documents, gagenda, listes, bilan), sans chimio
         pg = await page(b, jeu(lambda s: formule(s, 'radiotherapie', ['rt', 'agenda', 'prescriptions', 'documents', 'gagenda', 'listes', 'bilan']))); ev = pg.evaluate
         m = await ev(MENU)

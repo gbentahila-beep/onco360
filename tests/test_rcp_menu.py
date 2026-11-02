@@ -21,7 +21,7 @@ async def main():
         ok(await ev("document.getElementById('nbRcp').textContent") == '1' and not await ev("document.getElementById('nbRcp').classList.contains('cache')"), 'pastille du menu RCP : 1 inscription sans décision')
         await ev("location.hash='rcp'"); await pg.wait_for_timeout(1500)
         t = await ev("document.getElementById('page').innerText")
-        ok('RCP' in await ev("document.getElementById('titrePage').textContent") and 'PATIENT TEST 3' in t and 'Question fictive' in t, 'page RCP : liste des inscriptions (même contenu que l\'ancien onglet)', t[:300])
+        ok('RCP' in await ev("(document.querySelector('#titrePage .tp-t')||document.getElementById('titrePage')).innerText") and 'PATIENT TEST 3' in t and 'Question fictive' in t, 'page RCP : liste des inscriptions (même contenu que l\'ancien onglet)', t[:300])
         ok(await ev("!!document.querySelector('nav a[data-p=rcp].actif')"), 'entrée « RCP » du menu en surbrillance')
         await ev("location.hash='taches'"); await pg.wait_for_timeout(1500)
         ok(not await ev("!!document.querySelector('[onclick=\"taVue(\\'rcp\\')\"]')"), 'page Tâches : plus d\'onglet RCP')
@@ -43,7 +43,7 @@ async def main():
         pg = await ouvrir(b, S3); ev = pg.evaluate
         await pg.goto(f'http://localhost:{PORT}/v2.html#accueil'); await pg.wait_for_timeout(3500)
         menu = await ev("[...document.querySelectorAll('nav a')].filter(a => a.offsetParent !== null).map(a => a.dataset.p)")
-        ok(menu[:4] == ['patients', 'documents', 'taches', 'rcp'], 'menu déjà réglé : son ordre gardé, RCP juste après Tâches (« Documents » sous « Patients » : lot 5.3)', menu)
+        ok(menu[:3] == ['patients', 'taches', 'rcp'], 'menu déjà réglé : son ordre gardé, RCP juste après Tâches (« Documents » : secrétaire seulement, UX2)', menu)
         await pg.close()
         # Module RCP retiré : entrée cachée, page → tableau de bord
         S4 = json.loads(json.dumps(S2)); ed = S4.setdefault(E[:-1], {}); ed.setdefault('abonnement', {}).setdefault('modules', {})['rcp'] = False
@@ -51,7 +51,7 @@ async def main():
         pg = await ouvrir(b, S4); ev = pg.evaluate
         await pg.goto(f'http://localhost:{PORT}/v2.html#rcp'); await pg.wait_for_timeout(3500)
         ok(await ev("document.querySelector('nav a[data-p=rcp]').offsetParent === null"), 'module RCP retiré : entrée du menu cachée')
-        ok(await ev("location.hash") in ('#accueil', '#rcp') and 'RCP' != await ev("document.getElementById('titrePage').textContent"), 'module RCP retiré : la page RCP renvoie au tableau de bord', await ev("document.getElementById('titrePage').textContent"))
+        ok(await ev("location.hash") in ('#accueil', '#rcp') and 'RCP' != await ev("(document.querySelector('#titrePage .tp-t')||document.getElementById('titrePage')).innerText"), 'module RCP retiré : la page RCP renvoie au tableau de bord', await ev("(document.querySelector('#titrePage .tp-t')||document.getElementById('titrePage')).innerText"))
         await pg.close(); await b.close()
     print(f'\n{ok_n} réussis, {ko_n} échoués')
 asyncio.run(main())

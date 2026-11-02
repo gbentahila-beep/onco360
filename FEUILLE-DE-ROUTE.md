@@ -1096,30 +1096,34 @@ Avis de Claude (01/11/2026) : plan cohérent ; ordre 2 → 3 → 4 → 5 (les es
 mêmes colonnes et mêmes noms de colonnes (ex. Patients : Nom Prénom, Date de naissance, N° de dossier, Établissement, Cancer, Dernières nouvelles,
 Traitement en cours ; Tâches : Tâche, Patient, Assignée à, Créée par, Échéance, Statut), mêmes contenus, mêmes couleurs. On touche à la présentation
 (alignements, tailles, espacements, bandeaux, boutons, fenêtres), aux mots et aux défauts. Ordre : UX1 → UX13.
-- [ ] **UX1 – Défauts trouvés au tour** : prescription de RT (le champ « Lieu de la radiothérapie » chevauche « Technique ») ; Salle d'attente (statut
+- [x] **UX1 – Défauts trouvés au tour** (fait le 01/11/2026, branche `ux-1-2`, test `tests/test_ux1_2.py`) : prescription de RT (le champ « Lieu de la radiothérapie » chevauche « Technique ») ; Salle d'attente (statut
   coupé « En sall… », boutons sous la colonne PRIX) ; le message en bas (toast) cache la barre du dossier ; « Journal » du dossier ouvre Paramètres sans
   retour au patient ; tableau des cures qui déborde en disposition trois colonnes (529 px de contenu pour 477 px).
-- [ ] **UX2 – Décisions du 01/11 sur Onco360** : en-tête du dossier = ajouter la localisation, allergie seulement si « oui », rien d'autre (Chimio C1/1
+- [x] **UX2 – Décisions du 01/11 sur Onco360** (fait le 01/11/2026, même branche et même test ; « Actions rapides » garde sa hauteur, la carte « À valider » prend la place) : en-tête du dossier = ajouter la localisation, allergie seulement si « oui », rien d'autre (Chimio C1/1
   et RT en cours déjà là ; en-tête gardé à sa place) ; centre (Consult. / Chimio / RT / Docs) déplié d'emblée, la double flèche ⤢ ramène la colonne
   Documents (`DOS.agrandi` vrai par défaut, v2.js) ; tableau de bord : cartes Aujourd'hui, Actions rapides et À valider plus hautes, gauche et droite
   toujours à la même hauteur ; « Activité récente » sans les réglages de l'Administration ; menu « Documents » du menu général pour la secrétaire seulement (retiré du menu du médecin ; confirmé le 01/11/2026).
-- [ ] **UX3 – Fenêtres d'avertissement dans l'application** à la place des fenêtres du navigateur (162 : 111 confirm, 46 alert, 5 prompt) : rouge =
+- [x] **UX3 – Fenêtres d'avertissement dans l'application** (fait le 02/11/2026, branche `ux-1-2`, test `tests/test_ux3_9.py`) : `js/app/dialogues.js` (`confirmer`, `alerte`, `saisir`), toutes les fenêtres du navigateur remplacées (Onco360 et Administration) ; demandé : à la place des fenêtres du navigateur (162 : 111 confirm, 46 alert, 5 prompt) : rouge =
   clinique, orange = à vérifier, neutre ; d'abord la chimio (vigilance de « Valider la cure », chimio.js) ; s'appuyer sur `question()` d'ordonnances.js.
-- [ ] **UX4 – Mêmes gestes et mêmes mots partout** : pied de fenêtre fixe, Échap partout, mêmes mots (Valider / Enregistrer, Annuler / Fermer),
+- [x] **UX4 – Mêmes gestes et mêmes mots partout** (fait le 02/11/2026, branche `ux-1-2`, test `tests/test_ux3_9.py`) : Échap ferme toute fenêtre (demande « Quitter sans enregistrer ? » après une saisie ; remplace la règle du 26/10 « Échap ne ferme pas une fenêtre avec des champs à remplir »), champ en erreur entouré de rouge, pied de fenêtre fixe, « Dr » devant le nom du médecin, « + Patient » ; demandé : pied de fenêtre fixe, Échap partout, mêmes mots (Valider / Enregistrer, Annuler / Fermer),
   champ en erreur entouré de rouge, un seul format du nom du médecin ; boutons d'ajout nommés pareil partout : « + Patient », « + Rendez-vous »
   (jamais « Nouveau patient » / « Nouveau rendez-vous »).
-- [ ] **UX5 – Même modèle sur toutes les pages** (sans changer leur contenu) : haut de page = icône + titre + une ligne d'explication, boutons
+- [x] **UX5 – Même modèle sur toutes les pages** (fait le 02/11/2026, branche `ux-1-2`, test `tests/test_ux3_9.py`) : icône et explication en haut de page (cachée sur téléphone), bandeau bleu des listes Patients, Tâches, RCP, « ← page d'origine » et « Échap pour annuler » des pages pleines ; demandé (sans changer leur contenu) : haut de page = icône + titre + une ligne d'explication, boutons
   principaux à droite ; bandeau bleu Onco360 en tête des cartes et des tableaux (icône, titre, nombre, actions à droite) ; liste vide = icône + phrase
   + bouton ; pages pleines avec « ← » vers la page d'origine et « Échap pour annuler ».
-- [ ] **UX6 – Boutons** : trois hauteurs (36 / 40 / 44 px), quatre couleurs, plus de bleu marine ; « ⋯ » et ▾ d'au moins 36 px (aujourd'hui le dossier
+- [x] **UX6 – Boutons** (fait le 02/11/2026, branche `ux-1-2`, test `tests/test_ux3_9.py`) : petits boutons, ⋯ et ▾ à 36 px, plus de bleu marine (bleu Onco360), orange en contour ; demandé : trois hauteurs (36 / 40 / 44 px), quatre couleurs, plus de bleu marine ; « ⋯ » et ▾ d'au moins 36 px (aujourd'hui le dossier
   seul a 8 hauteurs de bouton, de 19 à 52 px, et 43 cibles de moins de 36 px ; la fenêtre de cure, 5 couleurs).
-- [ ] **UX7 – Même présentation des tableaux** (colonnes et noms inchangés) : en-tête 13 px gras sans majuscules, fond #F1F5FB ; lignes de 44 px, survol,
+- [x] **UX7 – Même présentation des tableaux** (fait le 02/11/2026, branche `ux-1-2`, test `tests/test_ux3_9.py`) ; demandé (colonnes et noms inchangés) : en-tête 13 px gras sans majuscules, fond #F1F5FB ; lignes de 44 px, survol,
   même ombre ; avec le bandeau de UX5.
-- [ ] **UX8 – Tableau de bord, Salle, Bilan** : bandeau d'accueil « Bonjour Dr … », date avec flèches jour précédent / suivant, boutons « + Patient »
+- [x] **UX8 – Tableau de bord, Salle, Bilan** (fait le 02/11/2026, branche `ux-1-2`, test `tests/test_ux3_9.py`) : flèches ‹ › autour de la date et « Aujourd'hui » (programme du jour choisi), attente en couleur (vert < 15 min, orange 15 à 30, rouge > 30 ; seuils des Paramètres) ; demandé : bandeau d'accueil « Bonjour Dr … », date avec flèches jour précédent / suivant, boutons « + Patient »
   et « + Rendez-vous » ; Salle : couleur selon l'attente (< 15 min, 15 à 30, > 30), **pas de tuiles en haut** ; Bilan : tuiles en haut (encaissé du
   jour, du mois, reste à encaisser).
   **Retiré le 01/11/2026 : tuiles du Bilan** (refusé).
-- [ ] **UX9 – Onglets du dossier avec leur adresse** : `#dossier/<id>/chimio`… ; recharger la page ou revenir en arrière rouvre le bon onglet.
+- [x] **UX9 – Onglets du dossier avec leur adresse** (fait le 02/11/2026, branche `ux-1-2`, test `tests/test_ux3_9.py`) ; demandé : `#dossier/<id>/chimio`… ; recharger la page ou revenir en arrière rouvre le bon onglet.
+- [x] **Radiothérapie : essais et pages de contourage modifiables (demande du 02/11/2026, avec UX3 à UX9, même test)** : onglet Essais = « Ajouter un
+  essai », « Modifier » sur chaque essai, « Revenir à la référence », badge « Cabinet » (`referentielRT/_essais`) ; Contourage = « Modifier » sur chaque tableau
+  (titre, colonnes, lignes, notes, en pleine page), « Ajouter un tableau », « Revenir à la référence » (`referentielRT/_contourage`) ; la référence
+  (`donnees-rt/`) n'est jamais modifiée ; droit « modifier » du référentiel RT ; recopié avec le modèle des cabinets neufs.
 - [ ] **UX10 – TNM** : rempli à partir du PDF de Dr Bentahila, pour son cabinet seulement (droits d'auteur AJCC : les autres cabinets importent leur
   manuel ou une licence). **01/11/2026 : tableaux prêts** d'après le PDF fourni (AJCC, **7e édition, 2010**) : 34 sous-localisations sur 36 (cTNM, pTNM,
   groupes de stades, notes du manuel, critères en plus : grade, PSA / Gleason, histologie, âge, marqueurs S), définitions en anglais comme le manuel ;

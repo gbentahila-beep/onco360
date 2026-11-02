@@ -7,6 +7,7 @@ import { tableMol, edValide, editerAvec, menusCascade, valeursCascade } from "./
 import { correctionsAudit3 } from "../moteur/audit3.js";
 import { RISQUES, risqueEmetique, libRisque } from "../moteur/seuils.js";
 import { trierRecherche, curesProposees, filtreLocalisation, filtreValide } from "../moteur/recherche.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 // P9 : fonctions serveur (europe-west1), chargées seulement quand on s'en sert
 const serveur = async (nom, d) => { const { getFunctions, httpsCallable } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-functions.js"); const { app } = await import("../config.js"); return (await httpsCallable(getFunctions(app, "europe-west1"), nom, { timeout: 120000 })(d || {})).data; };
 
@@ -364,7 +365,7 @@ async function noterSupprimes(ids) {
   }).catch((er) => console.warn("protocoles supprimés : liste non mise à jour", ids, er));
 }
 window.prSuppr = async (id) => {
-  const p = D().ctx.bib[id]; if (!confirm("Supprimer définitivement le protocole « " + p.nom + " » ?\nLes patients déjà traités gardent leur copie.")) return;
+  const p = D().ctx.bib[id]; if (!(await confirmer("Supprimer définitivement le protocole « " + p.nom + " » ?\nLes patients déjà traités gardent leur copie."))) return;
   const d = D().bibDoc[id];
   try {
     await sauverDocs([id], true); delete D().ctx.bib[id]; D().bibOrdre[d] = (D().bibOrdre[d] || []).filter((x) => x !== id); A.fermerFenetre();
@@ -416,7 +417,7 @@ window.prOuvrir = (id) => {
     try {
       edValide();
       if (valide(ED) && !ED.dr.length) throw new Error("Un protocole « Validé » doit contenir au moins une molécule.");
-      if (!ED.c && !confirm("Cycle = 0 : traitement continu, sans cures répétées. Confirmer ?")) return;
+      if (!ED.c && !(await confirmer("Cycle = 0 : traitement continu, sans cures répétées. Confirmer ?"))) return;
       ED.ind = (ED.ind || []).map((x) => [0, 1, 2, 3].map((k) => String(x[k] || "").trim())).filter((x) => x.some(Boolean));
       if (!ED.ind.length) delete ED.ind;
       dedupIds(ED); delete ED.nouv;

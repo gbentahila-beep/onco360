@@ -22,6 +22,7 @@ import { notesVigilance, flaconsCabinet, interactionsCabinet } from "./vigilance
 import { interactions, foie, arrondiFlacon, flaconsPour } from "../moteur/p10.js";
 import { seuilsJour, hebdomadaire, SEUILS_HEBDO, risqueDe, libRisque } from "../moteur/seuils.js";
 import { hmMaroc } from "../moteur/heure.js";
+import { confirmer, alerte } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null; // outils fournis par l'application (v2.js)
 export function installer(api) { A = api; const f0 = window.fermerFenetre; window.fermerFenetre = () => { if (!A.petiteSurPanneau()) CM = null; f0(); }; A.surFermerPanneau(() => { CM = null; }); } // R-G e : une petite fenêtre fermée au-dessus du panneau garde la cure
@@ -122,8 +123,8 @@ export function fenetreHeureSeance(x, lid, s, titre, puis) {
   document.getElementById("hNon").onclick = fin;
   const noter = async (q, bt) => { A.occupe(bt, true); try { await heureSeance(trouver(x.id), lid, s.k + 1, s.j, q); A.toast("Enregistré."); fin(); } catch (e) { A.occupe(bt, false); A.toast(e.message); } };
   const retirer = inf ? { seance: null } : { cons: "" };
-  ok.onclick = () => { const h = A.val("hS"); if (!h) { if (aSup) noter(retirer, ok); else fin(); return; }
-    if (!inf && h !== ((hcm && hcm.h) || "") && !A.conflitAccepte(s.d, h, (hcm && +hcm.du) || DU_CONS, { pid: x.id, k: cleSeance(x, lid, s.k + 1, s.j) }, medLigne(x, lid))) return; // R-A3 : créneau déjà pris
+  ok.onclick = async () => { const h = A.val("hS"); if (!h) { if (aSup) noter(retirer, ok); else fin(); return; }
+    if (!inf && h !== ((hcm && hcm.h) || "") && !(await A.conflitAccepte(s.d, h, (hcm && +hcm.du) || DU_CONS, { pid: x.id, k: cleSeance(x, lid, s.k + 1, s.j) }, medLigne(x, lid)))) return; // R-A3 : créneau déjà pris
     noter(inf ? { seance: { h, du: +A.val("hDu") || DU_SEANCE } } : { cons: h }, ok); };
   if (sup) sup.onclick = () => noter(retirer, sup);
 }
@@ -151,8 +152,8 @@ window.chModifierRdvChimio = (pid, lid, n, j, apres, pre) => { // apres : retour
   if (okD) document.getElementById("mD").oninput = () => document.getElementById("mSz").classList.toggle("cache", A.val("mD") === d0);
   if (pre && okD) { document.getElementById("mD").value = pre.d; if (pre.h) document.getElementById("mH").value = pre.h; document.getElementById("mSz").classList.toggle("cache", pre.d === d0); }
   document.getElementById("fOk").onclick = async () => {
-    const d = A.val("mD"), h = A.val("mH"); if (!d) { A.erreur("Indiquez la date."); return; }
-    if (h && (d !== d0 || h !== ((hcm && hcm.h) || "")) && !A.conflitAccepte(d, h, (hcm && +hcm.du) || DU_CONS, { pid, k: cleSeance(x, lid, n, j) }, medLigne(x, lid))) return; // R-A3 : créneau déjà pris
+    const d = A.val("mD"), h = A.val("mH"); if (!d) { A.erreur("Indiquez la date.", "mD"); return; }
+    if (h && (d !== d0 || h !== ((hcm && hcm.h) || "")) && !(await A.conflitAccepte(d, h, (hcm && +hcm.du) || DU_CONS, { pid, k: cleSeance(x, lid, n, j) }, medLigne(x, lid)))) return; // R-A3 : créneau déjà pris
     A.occupe(document.getElementById("fOk"), true);
     try {
       if (okD && d !== d0) {
@@ -352,7 +353,7 @@ function ouvrirCure() {
 }
 window.chJour = (j) => { if (!CM) return; CM.j = j; ouvrirCure(); };
 window.chRetourCure = () => { if (!CM) return; CM.j = null; ouvrirCure(); };
-window.chFermerCure = () => { const id = CM && CM.pid; if (A.panneauOuvert()) { if (A.petiteSurPanneau()) A.fermerPetite(); if (!A.fermerPanneau()) return; } else A.fermerFenetre(); CM = null; if (id) A.pageDossier(id); }; // panneau : « Quitter sans enregistrer ? »
+window.chFermerCure = () => { const id = CM && CM.pid; if (A.panneauOuvert()) { if (A.petiteSurPanneau()) A.fermerPetite(); if (!A.fermerPanneau(false, () => window.chFermerCure())) return; } else A.fermerFenetre(); CM = null; if (id) A.pageDossier(id); }; // panneau : « Quitter sans enregistrer ? »
 window.chSousAnnuler = () => { if (CM) ouvrirCure(); else A.fermerFenetre(); };
 
 // 1) Vue de la cure : tableau des séances (J1, J8, J15…) avec leurs actions, fiche chimio, consultation encaissée.
@@ -628,11 +629,11 @@ export const alertesBio = (b, o) => { const a = [], f = (v) => String(v).replace
 // Repères rénaux d'une séance : clairance par molécule, créatinine ou clairance hors des bornes, créatinine plancher du carboplatine
 const REIN_VU = {};
 function alertesRein(e, G, alertes) { const rc = reperesClairance(e, G); return rc.concat((alertes || []).filter((m) => rc.indexOf(m) < 0 && /^(créatinine de|clairance de|carboplatine : créatinine de)/.test(m))); }
-function verifierValidation(x, i, k, n) {
+async function verifierValidation(x, i, k, n) {
   const L = lignesDe(x)[i], E = etatLigne(L, x.P, D().ctx), r = controleSeance(E[k], n, L.crU, poidsAvant(E, k, n), poidsDebut(E));
   const vu = REIN_VU[x.id + "|" + L.id + "|" + k + "|" + n], Gv = E[k] && E[k].g[n]; // S3 : déjà montré à la saisie de cette créatinine
   if (vu && Gv && Gv.creat === vu.creat) r.alertes = r.alertes.filter((m) => vu.m.indexOf(m) < 0);
-  if (r.refus.length) { alert("Validation impossible :\n\n• " + r.refus.join("\n• ") + "\n\nCorrigez la dose (ou saisissez la créatinine) dans la fenêtre de la cure, puis validez."); return null; }
+  if (r.refus.length) { await alerte("• " + r.refus.join("\n• ") + "\n\nCorrigez la dose (ou saisissez la créatinine) dans la fenêtre de la cure, puis validez.", { titre: "Validation impossible", ton: "rouge" }); return null; }
   const nb = (id) => { const v = num(A.val(id)); return v == null ? null : v; };
   const bio = { pnn: bioGL("pnn", nb("bPnn")), plq: bioGL("plq", nb("bPlq")), hb: nb("bHb") };
   EXAMENS.forEach(([cle]) => { bio[cle] = cle === "ta" || cle === "prot" ? A.val("bx_" + cle) || null : nb("bx_" + cle); }); // 12/10/2026
@@ -646,8 +647,8 @@ function verifierValidation(x, i, k, n) {
   interactions({ prods: cv.prods.filter((z) => z && !premedP(z)).concat(cv.prods.filter((z) => z && /ONDANSETRON|ONSET/i.test(z.p))), texte: cv.patient.texte, ordos: (champsBib(pc, L) || {}).ordos, liste: interactionsCabinet(), cl: E[k] && E[k].g[n] ? E[k].g[n].cl : null }).forEach((s) => vg.push(s));
   foie({ prods: cv.prods.filter((z) => z && z.u !== "txt"), bio, crU: L.crU }).forEach((s) => vg.push(s));
   const al = r.alertes.concat(alertesBio(bio, { hebdo }));
-  if ((al.length || vg.length) && !confirm("À vérifier avant de valider (repères, vous gardez la main) :\n\n" + (al.length ? "• " + al.join("\n• ") : "") +
-    (vg.length ? (al.length ? "\n\n" : "") + "Vigilance par molécule :\n• " + vg.join("\n• ") : "") + "\n\nValider quand même ?")) return null;
+  if ((al.length || vg.length) && !(await confirmer("Repères, vous gardez la main.\n\n" + (al.length ? "• " + al.join("\n• ") : "") +
+    (vg.length ? (al.length ? "\n\n" : "") + "Vigilance par molécule :\n• " + vg.join("\n• ") : ""), { titre: "À vérifier avant de valider", ton: "rouge", oui: "Valider quand même" }))) return null;
   Object.keys(BIOB).forEach((c2) => { if (c2.indexOf(x.id + "|" + i + "|" + k + "|") === 0) delete BIOB[c2]; });
   return { bio, vig: vg };
 }
@@ -686,8 +687,8 @@ window.chDate = (id, i, k, v) => {
   }).then((ok) => { if (ok) confirmerApres(id, v, "Cure déplacée"); });
 };
 window.chValider = (id, i, k) => window.chOuvrir(id, i, k, 1);
-window.chValiderJ1 = (id, i, k) => {
-  const x = trouver(id), ok = verifierValidation(x, i, k, 0); if (!ok) return;
+window.chValiderJ1 = async (id, i, k) => {
+  const x = trouver(id), ok = (await verifierValidation(x, i, k, 0)); if (!ok) return;
   executer(x, async () => {
     const d = A.val("vD") || D().t, lignes = lignesDe(x), L = lignes[i], c = L.cures[k], E = etatLigne(L, x.P, D().ctx), g = seancesDe(protocoleCure(L, k, D().ctx.bib) || protocoleDe(L, D().ctx.bib));
     if (E[k] && E[k].date && d !== E[k].date) { if (choix("vS") === "suite") decalerSuivantes(L, k, ecart(d, E[k].date), x.P); else figerSuivantes(L, k, E); }
@@ -700,8 +701,8 @@ window.chValiderJ1 = (id, i, k) => {
     SEL.pid = x.id; SEL.l = i; SEL.c = k; if (CM) CM.j = null;
   });
 };
-window.chRetablir = (id, i, k) => {
-  const x = trouver(id); if (!confirm("Remettre la cure C" + (k + 1) + " en « prévue » ?")) return;
+window.chRetablir = async (id, i, k) => {
+  const x = trouver(id); if (!(await confirmer("Remettre la cure C" + (k + 1) + " en « prévue » ?"))) return;
   direct(x, async () => { const lignes = lignesDe(x), c = lignes[i].cures[k]; c.st = "prevue"; delete c.reelle; delete c.valLe; delete c.ann; delete c.fige; await sauverLignes(x, lignes, "C" + (k + 1) + " rétablie (prévue)"); });
 };
 // Séance de chimio manquée (salle d'attente, 08/10/2026) : la fenêtre de report s'ouvre avec « Patient absent » ; « Absent sans
@@ -714,7 +715,7 @@ window.chReporter = (id, i, k, salle) => {
     '<div><label for="rR">Raison</label><select id="rR">' + RAISONS.map((r) => "<option>" + r + "</option>").join("") + "</select></div>" +
     '<div class="large"><label for="rC">Commentaire</label><input id="rC"></div>' + choixSuite("rS", "Cures suivantes", "suite") + "</div>" + optSalle(salle) + boutons("Reporter", "orange"));
   lierSalle(salle);
-  document.getElementById("fOk").onclick = () => dateReportOk(A.val("rD")) && executer(x, async () => {
+  document.getElementById("fOk").onclick = async () => (await dateReportOk(A.val("rD"))) && executer(x, async () => {
     const nd = A.val("rD"); if (!nd) throw new Error("Indiquez la nouvelle date.");
     const lignes = lignesDe(x), L = lignes[i], E = etatLigne(L, x.P, D().ctx), c = L.cures[k];
     if (choix("rS") === "seule") figerSuivantes(L, k, E); else libererSuivantes(L, k);
@@ -742,7 +743,7 @@ window.chFiche = (id, i, k) => {
 
 // ───── Séances J8 / J15… ─────
 window.chValiderSeance = (id, i, k, j) => window.chOuvrir(id, i, k, j);
-window.chValiderJ = (id, i, k, j) => { const x = trouver(id), L0 = lignesDe(x)[i], n0 = seancesDe(protocoleCure(L0, k, D().ctx.bib) || protocoleDe(L0, D().ctx.bib)).findIndex((g) => g.j === j), ok = verifierValidation(x, i, k, n0 > 0 ? n0 : 0); if (!ok) return; executer(x, async () => { await majSeance(x, i, k, j, A.val("sD") || D().t, true, null, ok); if (CM) CM.j = null; }); };
+window.chValiderJ = async (id, i, k, j) => { const x = trouver(id), L0 = lignesDe(x)[i], n0 = seancesDe(protocoleCure(L0, k, D().ctx.bib) || protocoleDe(L0, D().ctx.bib)).findIndex((g) => g.j === j), ok = (await verifierValidation(x, i, k, n0 > 0 ? n0 : 0)); if (!ok) return; executer(x, async () => { await majSeance(x, i, k, j, A.val("sD") || D().t, true, null, ok); if (CM) CM.j = null; }); };
 window.chDateSeance = (id, i, k, j, v) => {
   const x = trouver(id); if (!v) return;
   A.fenetre("<h3>Nouvelle date de J" + j + " – cure C" + (k + 1) + '</h3><p class="sous">→ <b>' + A.dfrA(v) + '</b></p><div class="form">' + choixSuite("sS", "Séances et cures suivantes") + "</div>" + boutons("Enregistrer"));
@@ -755,7 +756,7 @@ window.chReporterJ = (id, i, k, j, salle) => {
     '<div><label for="rR">Raison</label><select id="rR">' + RAISONS.map((r) => "<option>" + r + "</option>").join("") + "</select></div>" +
     '<div class="large"><label for="rC">Commentaire</label><input id="rC"></div>' + choixSuite("sS", "Séances et cures suivantes", "suite") + "</div>" + optSalle(salle) + boutons("Reporter", "orange"));
   lierSalle(salle);
-  document.getElementById("fOk").onclick = () => dateReportOk(A.val("rD")) && executer(x, async () => {
+  document.getElementById("fOk").onclick = async () => (await dateReportOk(A.val("rD"))) && executer(x, async () => {
     const nd = A.val("rD"); if (!nd) throw new Error("Indiquez la nouvelle date.");
     await majSeance(x, i, k, j, nd, false, { de: d0, a: nd, raison: A.val("rR"), com: A.val("rC"), le: D().t });
     if (salle) salle(nd);
@@ -786,12 +787,12 @@ window.chAnnulerJ = (id, i, k, j) => {
     if (CM) CM.j = null;
   });
 };
-window.chRetablirJ = (id, i, k, j) => {
-  const x = trouver(id); if (!confirm("Rétablir la séance J" + j + " (remise en « prévue ») ?")) return;
+window.chRetablirJ = async (id, i, k, j) => {
+  const x = trouver(id); if (!(await confirmer("Rétablir la séance J" + j + " (remise en « prévue ») ?"))) return;
   direct(x, async () => { const lignes = lignesDe(x), z = lignes[i].cures[k].sea[j]; z.st = "prevue"; delete z.ann; await sauverLignes(x, lignes, "Séance J" + j + " de la C" + (k + 1) + " rétablie"); });
 };
-window.chAnnulerSeance = (id, i, k, j) => {
-  const x = trouver(id); if (!confirm("Annuler la validation de J" + j + " ?")) return;
+window.chAnnulerSeance = async (id, i, k, j) => {
+  const x = trouver(id); if (!(await confirmer("Annuler la validation de J" + j + " ?"))) return;
   direct(x, async () => { const lignes = lignesDe(x), z = lignes[i].cures[k].sea[j]; z.st = "prevue"; delete z.d; delete z.valLe; delete z.fige; await sauverLignes(x, lignes, "Validation de la séance J" + j + " de la C" + (k + 1) + " annulée"); });
 };
 
@@ -837,9 +838,9 @@ window.chVenuChimio = async (pid, lid, n, j, encaisser) => {
       if (w) A.imprimerRecu(w, x, { d: date || D().t, lib: "Consultation de chimiothérapie", m: total, rem, mode, cle: cleR }); // sans le protocole (donnée médicale) ; clé = cleRecuCons (moteur/recus.js)
     } });
 };
-window.chAnnulerVenuChimio = (pid, lid, n, j) => {
+window.chAnnulerVenuChimio = async (pid, lid, n, j) => {
   const x = trouver(pid), sec = prixParServeur(); if (!x || !(A.peut("finances") || sec)) return;
-  if (!confirm("Annuler « Venu » pour la chimiothérapie C" + n + " J" + j + " ?")) return;
+  if (!(await confirmer("Annuler « Venu » pour la chimiothérapie C" + n + " J" + j + " ?"))) return;
   (sec ? prixChimioServeur(x, lid, n, j, null)
     : majMontants(x, (M2) => { const a = M2.cures[lid] = M2.cures[lid] || {}, cc = a[n] = a[n] || {}; const J = Object.assign({}, consJours(cc)); delete J[j]; cc.consJ = J; majCons(cc); }))
     .then(() => { A.journal(x, "Chimiothérapie C" + n + " J" + j + " : statut annulé"); A.toast("Statut annulé."); A.salleVenuChimio(x, lid, n, j, false); A.pageDossier(x.id); }).catch((er) => A.toast(er.message || String(er)));
@@ -850,7 +851,7 @@ window.chHon = (id, i, k, j, v) => { const x = trouver(id), L = x.P.lignes[i]; d
 
 // ───── Doses (poids, créatinine, % global, % et dose par molécule et par jour) ─────
 // Poids, créatinine, % des anticancéreux : à J1 dans la cure, à J8/J15… dans la séance (c.sea[j])
-window.chChamp = (id, i, k, f, v, j) => {
+window.chChamp = async (id, i, k, f, v, j) => {
   const x = trouver(id); j = j || 1;
   if (seanceValidee(lignesDe(x)[i], k, j)) { A.toast(MSG_VERROU); A.pageDossier(x.id); return; }
   // 2.3 (12/10/2026) : poids hors de 30-200 kg ou qui varie de plus de 10 % depuis la séance précédente → confirmation (médecin et
@@ -860,9 +861,9 @@ window.chChamp = (id, i, k, f, v, j) => {
     const n0 = Math.max(0, g0.findIndex((z) => z.j === j)), av = E0[k] ? poidsAvant(E0, k, n0) : null, msg = [];
     if (w != null && (w < 30 || w > 200)) msg.push("Poids de " + w + " kg : hors de 30 à 200 kg.");
     if (w != null && av && Math.abs(w - av) / av > 0.1) msg.push("Le poids passe de " + av + " à " + w + " kg (" + (w > av ? "+" : "") + Math.round((w - av) / av * 100) + " %) depuis la séance précédente.");
-    if (msg.length && !confirm(msg.join("\n") + "\n\nConfirmer ce poids ?")) { A.pageDossier(x.id); return; }
+    if (msg.length && !(await confirmer(msg.join("\n") + "\n\nConfirmer ce poids ?", { ton: "rouge", oui: "Confirmer le poids" }))) { A.pageDossier(x.id); return; }
   }
-  if (f === "pctAll" && num(v) > 100 && !confirm("Dose des anticancéreux à " + num(v) + " % (au-dessus de 100 %).\n\nConfirmer ?")) { A.pageDossier(x.id); return; }
+  if (f === "pctAll" && num(v) > 100 && !(await confirmer("Dose des anticancéreux à " + num(v) + " % (au-dessus de 100 %).\n\nConfirmer ?", { ton: "rouge", oui: "Confirmer la dose" }))) { A.pageDossier(x.id); return; }
   if (f === "poids" && !A.traitMod()) { direct(x, () => poidsSecretaire(x, lignesDe(x)[i], k, j, v)); return; }
   direct(x, async () => {
     const lignes = lignesDe(x), L = lignes[i], c = L.cures[k], w = String(v || "").replace(",", ".").trim();
@@ -880,7 +881,7 @@ window.chChamp = (id, i, k, f, v, j) => {
       // carboplatine ; ce qui a été montré ici n'est pas remontré à la validation pour la même créatinine (une seule fenêtre)
       const E2 = etatLigne(L, x.P, D().ctx), g2 = groupes(protocoleCure(L, k, D().ctx.bib) || protocoleDe(L, D().ctx.bib)), n2 = Math.max(0, g2.findIndex((z) => z.j === j)), G2 = E2[k] && E2[k].g[n2];
       const m2 = E2[k] && G2 ? alertesRein(E2[k], G2, controleSeance(E2[k], n2, L.crU).alertes) : [];
-      if (m2.length) { REIN_VU[x.id + "|" + L.id + "|" + k + "|" + n2] = { creat: G2.creat, m: m2 }; setTimeout(() => alert("Fonction rénale (DFG " + G2.cl + " ml/min, Cockcroft-Gault) :\n\n• " + m2.join("\n• ")), 300); }
+      if (m2.length) { REIN_VU[x.id + "|" + L.id + "|" + k + "|" + n2] = { creat: G2.creat, m: m2 }; setTimeout(async () => { await alerte("DFG " + G2.cl + " ml/min (Cockcroft-Gault).\n\n• " + m2.join("\n• "), { titre: "Fonction rénale", ton: "rouge" }); }, 300); }
     }
   });
 };
@@ -897,15 +898,15 @@ async function poidsSecretaire(x, L, k, j, v) {
   A.toast("Poids validé : " + w + " kg.");
 }
 function eclate(c, d) { ["pct", "ov"].forEach((t) => { if (c[t] && num(c[t][d.id]) != null) { joursDe(d).forEach((j) => { if (c[t][d.id + "@" + j] == null) c[t][d.id + "@" + j] = c[t][d.id]; }); delete c[t][d.id]; } }); }
-function majDose(id, i, k, did, j, v, type) {
+async function majDose(id, i, k, did, j, v, type) {
   const x = trouver(id);
   if (seanceValidee(lignesDe(x)[i], k, j)) { A.toast(MSG_VERROU); A.pageDossier(x.id); return; }
   // 12/10/2026 : dose qui semble trop forte (un 0 de trop…) → confirmation ; le médecin garde la main
   const nv = num(v);
   if (nv != null && nv > 0) {
     const L0 = lignesDe(x)[i], E0 = etatLigne(L0, x.P, D().ctx), e0 = E0[k], xi = e0 ? e0.ids.indexOf(did) : -1, z0 = xi >= 0 ? e0.dj[xi][j] : null, nom = xi >= 0 ? e0.prod[xi].p : did;
-    if (type === "pct" && nv > 100 && !confirm(nom + " : " + nv + " % de la dose du protocole (au-dessus de 100 %).\n\nConfirmer ?")) { A.pageDossier(x.id); return; }
-    if (type === "ov" && z0 && z0.v && nv > z0.v * 1.1 && !confirm(nom + " : " + nv + " mg, soit " + Math.round((nv / z0.v) * 100) + " % de la dose calculée (" + z0.v + " mg).\n\nConfirmer cette dose ?")) { A.pageDossier(x.id); return; }
+    if (type === "pct" && nv > 100 && !(await confirmer(nom + " : " + nv + " % de la dose du protocole (au-dessus de 100 %).\n\nConfirmer ?", { ton: "rouge", oui: "Confirmer la dose" }))) { A.pageDossier(x.id); return; }
+    if (type === "ov" && z0 && z0.v && nv > z0.v * 1.1 && !(await confirmer(nom + " : " + nv + " mg, soit " + Math.round((nv / z0.v) * 100) + " % de la dose calculée (" + z0.v + " mg).\n\nConfirmer cette dose ?", { ton: "rouge", oui: "Confirmer la dose" }))) { A.pageDossier(x.id); return; }
   }
   direct(x, async () => {
     const lignes = lignesDe(x), L = lignes[i], c = L.cures[k], q = protocoleCure(L, k, D().ctx.bib) || protocoleDe(L, D().ctx.bib), d = q.dr.find((z) => z.id === did), key = did + "@" + j, w = String(v || "").replace(",", ".").trim();
@@ -943,15 +944,15 @@ window.chRetMol = (id, i, k, j) => {
   A.fenetre("<h3>Retirer une molécule à partir de " + (j > 1 ? "la séance " : "la cure ") + aPartir(k, j) + '</h3><p class="sous">' + (j > 1 ? "Les jours précédents de cette cure et les cures précédentes gardent la molécule." : "Les cures précédentes gardent la molécule.") + "</p>" + l.map((d) => '<div class="rdv"><div class="tx">' + A.esc(d.p) + ' <span class="mesures">' + A.esc((d.j || []).filter((y) => y !== 99).map((y) => "J" + y).join(" ")) + "</span></div>" + b("Retirer", "chOkRet('" + id + "'," + i + "," + k + ",'" + A.esc(d.id) + "'," + j + ")", "rouge") + "</div>").join("") + '<div class="boutons"><button class="bt gris" onclick="chSousAnnuler()">Fermer</button></div>');
 };
 window.chOkRet = (id, i, k, did, j) => { const x = trouver(id); j = j || 1; direct(x, async () => { const lignes = lignesDe(x), L = lignes[i], q = protocoleCure(L, k, D().ctx.bib) || protocoleDe(L, D().ctx.bib), d = q.dr.find((z) => z.id === did); L.mods = L.mods || []; const md = { k, op: "del", id: did, nom: d ? d.p : did }; if (j > 1) md.j = j; L.mods.push(md); await sauverLignes(x, lignes, (d ? d.p : did) + " retiré à partir de " + aPartir(k, j)); }); };
-window.chAnnMod = (id, i, k, j) => { const x = trouver(id); if (!confirm("Annuler cette modification ?")) return; direct(x, async () => { const lignes = lignesDe(x); lignes[i].mods.splice(j, 1); await sauverLignes(x, lignes, "Modification des molécules annulée (C" + (k + 1) + ")"); }); };
+window.chAnnMod = async (id, i, k, j) => { const x = trouver(id); if (!(await confirmer("Annuler cette modification ?"))) return; direct(x, async () => { const lignes = lignesDe(x); lignes[i].mods.splice(j, 1); await sauverLignes(x, lignes, "Modification des molécules annulée (C" + (k + 1) + ")"); }); };
 
 // 19/10/2026 (Dr Bentahila) : supprimer une cure de trop (ajoutée par « + 1 cure » pour essayer…) : seulement la dernière de la ligne, jamais
 // validée (aucune séance reçue), et s'il en reste une ; une cure au milieu ne se supprime pas (les cures suivantes changeraient de numéro :
 // dates, heures, prix, salle d'attente) : on l'annule
 const cureSupprimable = (L, k) => { const c = (L.cures || [])[k]; return !!c && k === L.cures.length - 1 && k > 0 && c.st !== "recue" && !Object.values(c.sea || {}).some((z) => z && z.st === "recue"); };
-window.chSupprCure = (id, i, k) => {
+window.chSupprCure = async (id, i, k) => {
   const x = trouver(id), L0 = x && x.P.lignes[i]; if (!L0 || !cureSupprimable(L0, k)) { A.toast("Seule la dernière cure, jamais validée, peut être supprimée ; sinon : Annuler la cure."); return; }
-  if (!confirm("Supprimer la cure C" + (k + 1) + " ? La ligne passera à " + k + " cure" + (k > 1 ? "s" : "") + ".")) return;
+  if (!(await confirmer("Supprimer la cure C" + (k + 1) + " ? La ligne passera à " + k + " cure" + (k > 1 ? "s" : "") + "."))) return;
   direct(x, async () => {
     const lignes = lignesDe(x), L = lignes[i]; L.cures.splice(k, 1); L.mods = (L.mods || []).filter((m) => m.k < k); if (!L.mods.length) delete L.mods;
     if (SEL.c === k) SEL.c = null; if (CM && CM.pid === id && CM.k === k) { CM = null; if (A.panneauOuvert()) A.fermerPanneau(true); else A.fermerFenetre(); }
@@ -963,24 +964,24 @@ window.chSupprCure = (id, i, k) => {
 };
 // T2 (24/10/2026, audit n° 11 U13) : nouvelle date d'un report comparée au week-end, aux fériés et aux absences du médecin, comme les rendez-vous :
 // avertissement d'un clic, rien de bloqué
-function dateReportOk(d) {
+async function dateReportOk(d) {
   if (!d) return true;
   const js = new Date(d + "T12:00:00Z").getUTCDay(), f = A.ferieLe(d), ab = A.absenceLe && A.absenceLe(d), m = [];
   if (js === 0 || js === 6) m.push("c'est un " + (js === 0 ? "dimanche" : "samedi"));
   if (f) m.push("jour férié (" + (f.nom || "férié") + ")");
   if (ab) m.push("absence prévue" + (ab.motif ? " (" + ab.motif + ")" : ""));
-  return !m.length || confirm("Nouvelle date le " + A.dfrA(d) + " : " + m.join(", ") + ".\n\nReporter quand même ?");
+  return !m.length || (await confirmer("Nouvelle date le " + A.dfrA(d) + " : " + m.join(", ") + ".\n\nReporter quand même ?", { ton: "orange", oui: "Reporter quand même" }));
 }
 // ───── Lignes ─────
 window.chAjouterCure = (id, i) => { const x = trouver(id); direct(x, async () => { const lignes = lignesDe(x); lignes[i].cures.push({}); await sauverLignes(x, lignes, "Cure ajoutée (" + lignes[i].cures.length + " cures)"); }); };
-window.chReprendre = (id, i) => { const x = trouver(id); if (!confirm("Reprendre cette ligne de traitement ?")) return; direct(x, async () => { const lignes = lignesDe(x); delete lignes[i].arret; await sauverLignes(x, lignes, "Ligne reprise"); }); };
+window.chReprendre = async (id, i) => { const x = trouver(id); if (!(await confirmer("Reprendre cette ligne de traitement ?"))) return; direct(x, async () => { const lignes = lignesDe(x); delete lignes[i].arret; await sauverLignes(x, lignes, "Ligne reprise"); }); };
 window.chSupprLigne = async (id, i) => {
   const x = trouver(id), L0 = x.P.lignes[i], p = protocoleDe(L0, D().ctx.bib);
   // 24/10/2026 (dossier signalé par Dr Bentahila) : une ligne supprimée emporte ses cures validées et ses consultations encaissées hors du bilan
   const nv = (L0.cures || []).filter((c) => c && c.st === "recue").length;
   let enc = 0; if (A.peut("finances")) { const M = await chargerMontants(x).catch(() => null), cc = (M && M.cures && M.cures[L0.id]) || {}; Object.values(cc).forEach((c) => { Object.values(consJours(c)).forEach((m) => { enc += num(m) || 0; }); }); }
   const perte = nv || enc ? "\n\nAttention : " + [nv ? nv + " cure" + (nv > 1 ? "s validées" : " validée") : "", enc ? "consultations encaissées (" + enc + " DH)" : ""].filter(Boolean).join(" et ") + " ne compteront plus dans le bilan. Pour garder l'historique, utilisez plutôt « Arrêter la ligne »." : "";
-  if (!confirm("Supprimer définitivement cette ligne (" + p.nom + ") et toutes ses cures ?" + perte)) return;
+  if (!(await confirmer("Supprimer définitivement cette ligne (" + p.nom + ") et toutes ses cures ?" + perte))) return;
   direct(x, async () => { const lignes = lignesDe(x); lignes.splice(i, 1); SEL.c = null; await sauverLignes(x, lignes, "Ligne supprimée : " + p.nom); SEL.l = ligneCourante(x.P, D().ctx); });
 };
 window.chArreter = (id, i) => {
@@ -1276,13 +1277,13 @@ export async function enrichirListes(cor, mut, diag) {
 
 // ───── Nouveau patient (même formulaire que l'application actuelle) ─────
 // opts (19.4) : { nom (tapé dans la recherche), ensuite(x) } : depuis « Nouveau rendez-vous », on revient au rendez-vous au lieu du dossier
-export function nouveauPatient(opts) {
+export async function nouveauPatient(opts) {
   const o = opts || {};
   const okC = A.traitMod() || A.peut("fichePatient"), etabs = D().etabs, mb = D().membre;
   const permis = mb.tousEtablissements ? etabs : etabs.filter((e) => (mb.etablissements || []).indexOf(e.code) >= 0);
   if (!A.peut("creerPatient")) { A.toast("Vous n'avez pas le droit de créer un patient."); return; }
   const maxP = D().abo && D().abo.max.patients; // formule du cabinet (09/10/2026)
-  if (maxP != null && D().patients.length >= maxP) { alert("Votre formule Onco360 permet " + maxP + " dossiers patients : la limite est atteinte.\nContactez l'éditeur d'Onco360 pour passer à une formule supérieure."); return; }
+  if (maxP != null && D().patients.length >= maxP) { await alerte("Votre formule Onco360 permet " + maxP + " dossiers patients : la limite est atteinte.\nContactez l'éditeur d'Onco360 pour passer à une formule supérieure."); return; }
   // 3.11 (12/10/2026) : même formulaire que « Modifier » (fiche réglable : parties, ordre, types) ; partie médicale seulement avec le droit
   // 20/10/2026 (demande de Dr Bentahila) : Identité et administratif seulement ; informations médicales et fiche tumeur : dans le dossier
   // 31/10/2026 (demande de Dr Bentahila, 2.1) : en pleine page (menu et barre du haut gardés), en trois sous-parties (Identité, Contact, Couverture et parcours
@@ -1299,7 +1300,7 @@ export function nouveauPatient(opts) {
     if (!lu.identite.med) { const m0 = ficheP.medecinParDefaut(); if (m0) lu.identite.med = m0; else if (A.multiMed()) { A.erreur("Choisissez le médecin du patient."); return; } }
     const nomF = lu.identite.nomF, prenom = lu.identite.prenom;
     const deja = D().patients.find((p) => (p.P.nomF || "").toUpperCase() === nomF && String(p.P.prenom || "").toLowerCase() === prenom.toLowerCase());
-    if (deja && !confirm("Un patient " + deja.r.nm + " existe déjà. Créer quand même un nouveau dossier ?")) return;
+    if (deja && !(await confirmer("Un patient " + deja.r.nm + " existe déjà. Créer quand même un nouveau dossier ?", { ton: "orange", oui: "Créer quand même" }))) return;
     const id = "P" + Date.now().toString(36) + Math.floor(Math.random() * 1000), etab = lu.etab || (permis[0] && permis[0].code) || "";
     const docP = { etablissementId: etab, identite: lu.identite, version: 1, maj: serverTimestamp(), majPar: D().u.uid };
     if (okC) docP.clinique = lu.clinique;

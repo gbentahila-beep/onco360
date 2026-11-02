@@ -193,7 +193,7 @@ async def main():
             await pg.goto(f'http://localhost:{PORT}/v2.html#agenda'); await pg.wait_for_timeout(2300)
             await ev("document.querySelector('.ag-nouv').click()"); await pg.wait_for_timeout(600)
             r = await ev("[document.getElementById('fenetre').classList.contains('pleine'), [...document.querySelectorAll('.rq-seg button')].map(e => e.textContent), !!document.getElementById('fType') && !!document.getElementById('fD') && !!document.getElementById('fMo') && !!document.getElementById('fDu'), [...document.querySelectorAll('#fenetreCorps .boutons button')].map(e => e.textContent.trim())]")
-            ok(r[0] and r[1] == ['Patient existant', 'Nouveau patient'] and r[2] and r[3] == ['Annuler', 'Enregistrer'], '2.3 : Nouveau rendez-vous en pleine page : patient existant ou nouveau, rendez-vous dessous tout de suite, Annuler / Enregistrer', r)
+            ok(r[0] and r[1] == ['Patient existant', '+ Patient'] and r[2] and r[3] == ['Annuler', 'Enregistrer'], '2.3 : Nouveau rendez-vous en pleine page : patient existant ou nouveau, rendez-vous dessous tout de suite, Annuler / Enregistrer', r)
             await pg.fill('#fMo', 'Motif gardé'); await pg.click('#fOk'); await pg.wait_for_timeout(300)
             ok('Choisissez le patient' in await ev("document.getElementById('fErr').textContent"), '2.3 : Enregistrer sans patient : « Choisissez le patient »')
             await pg.click('#rqNv'); await pg.wait_for_timeout(500)

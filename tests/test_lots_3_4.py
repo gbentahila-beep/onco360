@@ -27,7 +27,7 @@ async def main():
     async with async_playwright() as p:
         b = await p.chromium.launch()
         print('Lot 3 – dossier patient (1 440 px)')
-        pg = await ouvrir(b, s, w=1440, h=900); ev = pg.evaluate
+        pg = await ouvrir(b, s, w=1440, h=900); ev = pg.evaluate; await pg.add_init_script("localStorage.setItem('onco360.dossierAgrandi','false')")  # UX2 : dossier en trois colonnes pour ces vérifications
         await pg.goto(f'http://localhost:{PORT}/v2.html#dossier/{pid}'); await pg.wait_for_timeout(2600)
         # 3.1 boutons d'ajout à gauche
         r = {}

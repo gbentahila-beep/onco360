@@ -3,6 +3,7 @@
 import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { db } from "../config.js";
 import { ACTIVITES, valeurAu, net } from "../moteur/tarifs.js";
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null;
 export function installer(api) { A = api; }
@@ -96,14 +97,14 @@ const valDatee = (a, f, v) => { const cur = valeurAu(a, EFFET) || { depuis: EFFE
   e[f] = num(v) == null ? (f === "brut" ? null : 0) : num(v); };
 window.paCom = (f, v) => { if (!ED.seanceCommune) ED.seanceCommune = { type: "seance", libelle: "Séance de chimiothérapie", historique: [] }; if (!ED.seanceCommune.historique.length) ED.seanceCommune.historique.push({ depuis: "2000-01-01", brut: 0, retro: 0, impot: 0 }); valDatee(ED.seanceCommune, f, v); modif(true); };
 window.paValL = (code, type, f, v) => { const a = ligneDe(code, type); if (!a) return; valDatee(a, f, v); modif(true); };
-window.paPropre = (code, type, v) => {
+window.paPropre = async (code, type, v) => {
   const rt = type === "rt", a = ligneDe(code, type);
   if (v === "pro" && !a) {
     const c = rt ? ED.tauxRT || { retro: 0, impot: 0 } : (ED.seanceCommune && valeurAu(ED.seanceCommune, EFFET)) || { brut: 0, retro: 0, impot: 0 };
     if (!ED.etablissements[code]) ED.etablissements[code] = { activites: [] };
     ED.etablissements[code].activites.push({ type, libelle: rt ? "Radiothérapie (tarif de l'acte)" : "Séance de chimiothérapie", historique: [{ depuis: "2000-01-01", brut: rt ? null : c.brut != null ? c.brut : 0, retro: c.retro || 0, impot: c.impot || 0 }] });
   } else if (v === "com" && a) {
-    if (!confirm(code + " prendra le tarif commun" + (rt ? " de la radiothérapie" : " de la séance") + ", aussi pour les actes déjà faits (ses taux propres sont retirés à l'enregistrement).\n\nContinuer ?")) { pageParametres(); return; }
+    if (!(await confirmer(code + " prendra le tarif commun" + (rt ? " de la radiothérapie" : " de la séance") + ", aussi pour les actes déjà faits (ses taux propres sont retirés à l'enregistrement).\n\nContinuer ?"))) { pageParametres(); return; }
     const L = ED.etablissements[code].activites; L.splice(L.indexOf(a), 1);
   }
   modif(true);
@@ -141,9 +142,9 @@ window.paNouvAct = () => {
   };
 };
 window.paLib = (i, v) => { v = String(v || "").trim(); const a = ED.etablissements[ETAB].activites[i]; if (!v) { pageParametres(); return; } a.libelle = v; modif(); };
-window.paSupAct = (i) => {
+window.paSupAct = async (i) => {
   const a = ED.etablissements[ETAB].activites[i];
-  if (!confirm("Retirer l'activité « " + a.libelle + " » de " + ETAB + " ?\n\nElle ne sera plus proposée pour les rendez-vous. Les actes déjà réalisés de ce type ne seront plus comptés au bilan pour cet établissement.")) return;
+  if (!(await confirmer("Retirer l'activité « " + a.libelle + " » de " + ETAB + " ?\n\nElle ne sera plus proposée pour les rendez-vous. Les actes déjà réalisés de ce type ne seront plus comptés au bilan pour cet établissement."))) return;
   ED.etablissements[ETAB].activites.splice(i, 1); modif(true);
 };
 // Grille copiée pour un nouveau lieu : celle de l'établissement de repli, sinon la première ; cabinet neuf : toutes les activités à 0
@@ -156,7 +157,7 @@ window.paCreer = () => {
 };
 window.paActe = (i, f, v) => { ED.actesRT[i][f] = f === "prix" ? num(v) : String(v).trim(); modif(); };
 window.paAjActe = () => { ED.actesRT.push({ nom: "Nouvel acte", prix: 0 }); modif(true); };
-window.paSupActe = (i) => { if (!confirm("Retirer l'acte « " + ED.actesRT[i].nom + " » du catalogue ?\nLes prescriptions existantes gardent leur acte et leur prix.")) return; ED.actesRT.splice(i, 1); modif(true); };
+window.paSupActe = async (i) => { if (!(await confirmer("Retirer l'acte « " + ED.actesRT[i].nom + " » du catalogue ?\nLes prescriptions existantes gardent leur acte et leur prix."))) return; ED.actesRT.splice(i, 1); modif(true); };
 window.paVmat = (v) => { ED.vmat = num(v); modif(); };
 window.paTauxRT = (f, v) => { const t = Object.assign({}, ED.tauxRT || {}); t[f] = num(v); if (t.retro == null && t.impot == null) delete ED.tauxRT; else ED.tauxRT = { retro: t.retro == null ? null : t.retro, impot: t.impot == null ? null : t.impot }; modif(); };
 window.paEnregistrer = async () => {

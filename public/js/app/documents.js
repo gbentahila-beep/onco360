@@ -13,6 +13,7 @@ import { diagnosticComplet, tumeurDe } from "../moteur/statut.js"; // fiche tume
 import { nettoyer, modeleRT, POLICES, CSS_POLICES, tailleSelection, tailleTout, policeSelection, policeTout, selGardee } from "./ordonnances.js";
 import { MODELES_RT0, remplirModele } from "../donnees/modelesrt.js"; // modèles modifiables (12/10/2026)
 import { margesMm } from "./reglages.js"; // marges d'impression réglables (Paramètres › Impression)
+import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 
 let A = null;
 export function installer(api) { A = api; }
@@ -185,8 +186,8 @@ function vue(x, r, html) {
 window.dcTaille = (s) => { const p = $("dcPage"); if (!tailleSelection(p, s)) tailleTout(p, s); };
 window.dcPolice = (k) => { const p = $("dcPage"); if (!policeSelection(p, k, selGardee())) policeTout(p, k); };
 window.dcFermer = () => { const pid = F && F.pid; F = null; A.fermerFenetre(); if (pid) A.pageDossier(pid); };
-window.dcRepartir = () => {
-  if (!F || !confirm("Remplacer le texte par un document neuf, rempli avec les informations actuelles du dossier ?\n\nVos modifications ne seront perdues que si vous enregistrez ensuite.")) return;
+window.dcRepartir = async () => {
+  if (!F || !(await confirmer("Remplacer le texte par un document neuf, rempli avec les informations actuelles du dossier ?\n\nVos modifications ne seront perdues que si vous enregistrez ensuite."))) return;
   const x = D().patients.find((p) => p.id === F.pid), r = x && (x.P.rts || []).find((v) => v.id === F.rid); if (!r) return;
   $("dcPage").innerHTML = contenuNeuf(x, r, F.type); $("dcPage").querySelectorAll(".dc-saut").forEach((z) => z.setAttribute("contenteditable", "false"));
 };
@@ -212,7 +213,7 @@ window.dcEnregistrer = async (imp) => {
   const html = nettoyer($("dcPage").innerHTML);
   // 2.5 : mentions encore à compléter → avertissement avant d'imprimer (elles ne s'impriment pas)
   const reste = $("dcPage").querySelectorAll(".dc-ar, .dc-af").length;
-  if (imp && reste && !confirm("Il reste " + reste + " mention" + (reste > 1 ? "s" : "") + " à compléter (« À REMPLIR » ou « à compléter par le médecin »).\nElle" + (reste > 1 ? "s" : "") + " ne s'imprimeront pas : la ligne restera vide.\n\nEnregistrer et imprimer quand même ?")) return;
+  if (imp && reste && !(await confirmer("Il reste " + reste + " mention" + (reste > 1 ? "s" : "") + " à compléter (« À REMPLIR » ou « à compléter par le médecin »).\nElle" + (reste > 1 ? "s" : "") + " ne s'imprimeront pas : la ligne restera vide.\n\nEnregistrer et imprimer quand même ?"))) return;
   let w = null; if (imp) { try { w = window.open("", "_blank"); } catch (e) { w = null; } }
   ["dcOk", "dcImp"].forEach((i) => A.occupe($(i), true));
   try {

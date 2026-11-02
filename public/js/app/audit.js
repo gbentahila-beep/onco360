@@ -48,7 +48,9 @@ export async function afficherAudit(z) {
   const personnes = [...new Map(L.filter((l) => l.par || l.pour).map((l) => [l.par || l.pour, l.parNom || "?"])).entries()].sort((a, b) => a[1].localeCompare(b[1]));
   const parties = [...new Set(L.map((l) => l.lib))].sort();
   const nb = (t) => V.filter((l) => l.type === t).length;
-  z.innerHTML = '<section class="carte"><h3><span class="ic">' + A.ic("liste") + "</span>Journal d'audit</h3>" +
+  // UX1 (01/11/2026) : ouvert depuis le « Journal » d'un dossier = bouton de retour au dossier
+  const retour = F.patId ? '<button type="button" class="bt clair petit au-ret" onclick="ouvrirDossier(\'' + esc(F.patId) + '\')">‹ Retour au dossier' + (F.pat ? " de " + esc(F.pat) : "") + "</button>" : "";
+  z.innerHTML = '<section class="carte">' + retour + '<h3><span class="ic">' + A.ic("liste") + "</span>Journal d'audit</h3>" +
     '<p class="sous">Qui a consulté, créé, modifié ou supprimé quoi, et quand. Noté par le serveur avec l\'identité de la personne connectée : personne ne peut modifier ni effacer une ligne, pas même le titulaire. Pour une modification, seule la partie du dossier touchée est indiquée (pas les valeurs).</p>' +
     '<div class="form au-f"><div><label for="auDu">Du</label><input type="date" id="auDu" value="' + esc(F.du) + '"></div><div><label for="auAu">Au</label><input type="date" id="auAu" value="' + esc(F.au) + '"></div>' +
     '<div><label for="auQui">Personne</label><select id="auQui">' + opt("", "Tout le monde", F.qui) + personnes.map(([u, n]) => opt(u, n, F.qui)).join("") + "</select></div>" +

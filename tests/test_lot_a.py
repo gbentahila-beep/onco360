@@ -26,7 +26,7 @@ async def main():
     async with async_playwright() as p:
         b = await p.chromium.launch()
         print('Bloc patient (§1)')
-        pg = await ouvrir(b, jeu(), w=1600, h=900); ev = pg.evaluate
+        pg = await ouvrir(b, jeu(), w=1600, h=900); ev = pg.evaluate; await pg.add_init_script("localStorage.setItem('onco360.dossierAgrandi','false')")  # UX2 : dossier en trois colonnes pour ces vérifications
         await pg.add_init_script("try{localStorage.setItem('onco360.menuReplieDossier','1')}catch(e){}")
         await pg.goto(f'http://localhost:{PORT}/v2.html#dossier/{pid}'); await pg.wait_for_timeout(3000)
         bp = await ev("(()=>{const b=document.querySelector('.dos-ban .bp');return b?b.innerText:''})()")
@@ -71,7 +71,7 @@ async def main():
         ok(not pg.errs, 'aucune erreur JavaScript', pg.errs[:2]); await pg.close()
 
         print('Recherche du haut (§2)')
-        pg = await ouvrir(b, jeu(), w=1440, h=900); ev = pg.evaluate
+        pg = await ouvrir(b, jeu(), w=1440, h=900); ev = pg.evaluate; await pg.add_init_script("localStorage.setItem('onco360.dossierAgrandi','false')")  # UX2 : dossier en trois colonnes pour ces vérifications
         await pg.goto(f'http://localhost:{PORT}/v2.html#dossier/{pid}'); await pg.wait_for_timeout(2500)
         ok(await ev("JSON.stringify(window.__fs['utilisateurs/UIDRITA'].recents)") == json.dumps([pid, 'FANTOME', pid2]).replace(' ', ''), 'dossier ouvert : en tête des derniers dossiers (utilisateurs/{uid}.recents)', await ev("window.__fs['utilisateurs/UIDRITA'].recents"))
         await pg.click('#trQ'); await pg.wait_for_timeout(300)
@@ -158,7 +158,7 @@ async def main():
         s = jeu()
         for i, (ty, ti) in enumerate([("Consultation de suivi", "Tolérance correcte"), ("Consultation d'annonce", "Annonce")]):
             s[E + 'consultations/cLa' + str(i)] = {'patientId': pid, 'etablissementId': 'HGC', 'd': '2026-10-0' + str(5 - i), 'type': ty, 'titre': ti, 'note': 'Note ' + str(i), 'lignes': [], 'o': 1791000000000 + i, 'creePar': 'UIDRITA', 'creeParNom': 'Dr Médecin Test', 'majPar': 'UIDRITA'}
-        pg = await ouvrir(b, s, w=1440, h=900); ev = pg.evaluate
+        pg = await ouvrir(b, s, w=1440, h=900); ev = pg.evaluate; await pg.add_init_script("localStorage.setItem('onco360.dossierAgrandi','false')")  # UX2 : trois colonnes vérifiées ici
         await pg.goto(f'http://localhost:{PORT}/v2.html#dossier/{pid}'); await pg.wait_for_timeout(3000)
         r = await ev("(()=>{const o=document.querySelector('#csListe .cs.on'),f=document.querySelector('#csListe .cs:not(.on)');return {nom:o&&o.querySelector('.cs-t .in').textContent,pied:o&&[...o.querySelectorAll('.cs-pied button')].map(b=>b.textContent),sig:o&&(o.querySelector('.cs-pied .cs-sig')||{}).textContent,ferme:f&&f.querySelector('.cs-t .in').textContent,fond:o&&getComputedStyle(o.querySelector('.cs-h')).backgroundColor,bord:o&&getComputedStyle(o).borderTopWidth}})()")
         ok(r['nom'] == 'Dr Médecin Test' and r['ferme'] == 'MT' and r['pied'] == ['Modifier', 'Supprimer'] and 'Signée le' in (r['sig'] or '') and r['fond'] == 'rgb(255, 255, 255)' and r['bord'] == '1px', 'consultation ouverte : nom complet, « Signée le … », Modifier / Supprimer en bas, en-tête blanc, filet 1 px ; fermée : initiales', r)
