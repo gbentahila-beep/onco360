@@ -39,7 +39,7 @@ async def main():
         reste = [d for p in ff for d in p['dr'] if 'NIVESTIM' in d['p']]
         ok(ff and len(reste) <= 2, 'NIVESTIM systématique retiré des FOLFOX / FOLFIRI (restent : mFOLFOX6 + pembrolizumab, structuré « si G-CSF décidé », et PRODIGE 5, non traité par l\'audit)', [d.get('pos') for d in reste])
         ok(any('PRODIGE 23' in p['nom'] for p in B.values()) and any('KEYNOTE-A18 – phase 2' in p['nom'] for p in B.values()), 'PRODIGE 23 et KEYNOTE-A18 phase 2 créés')
-        await ev(f"prOuvrir('{ia['id']}')"); await pg.wait_for_timeout(700)
+        await ev(f"prModifier('{ia['id']}')"); await pg.wait_for_timeout(700)
         tf = await pg.inner_text('#fenetreCorps')
         ok('Risque émétique' in tf and 'Ordonnances liées' in tf and 'Seuils du jour' in tf and 'Calculé : Modéré haut' in tf, 'fiche du protocole : risque émétique (calculé), ordonnances liées, seuils du jour', tf[:200])
         await ev("fermerFenetre()")

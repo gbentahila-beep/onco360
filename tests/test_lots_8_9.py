@@ -20,7 +20,7 @@ async def main():
             pg = await ouvrir(b, s, w=w, h=900 if w > 500 else 844); ev = pg.evaluate
             await pg.goto(f'http://localhost:{PORT}/v2.html#protocoles'); await pg.wait_for_timeout(2500)
             ok(AVERT in await ev("document.getElementById('page').innerText"), '8.3 : ' + str(w) + ' px : avertissement en bas de la liste des protocoles')
-            await ev(f"prOuvrir('{PROTO}')"); await pg.wait_for_timeout(700)
+            await ev(f"prModifier('{PROTO}')"); await pg.wait_for_timeout(700)
             r = await ev("(() => { const f = document.getElementById('fenetre'), C = [...document.querySelectorAll('#fenetreCorps details.pr-cad')], R = C.map((c) => c.getBoundingClientRect()); return [f.classList.contains('pleine'), C.map((c) => c.querySelector('summary').textContent.trim()), C.every((c) => c.open), new Set(R.map((r) => Math.round(r.left))).size, new Set(R.map((r) => Math.round(r.width))).size, document.getElementById('fenetreCorps').innerText.indexOf('" + AVERT + "') >= 0, !!document.getElementById('fOk'), !!document.getElementById('prDup')]; })()")
             ok(r[0], '8.1 : ' + str(w) + ' px : le protocole s\'ouvre en pleine page', r)
             ok(r[1][:5] == ['Protocole', 'Prescription', "Indications (branches de l'arborescence)", 'Molécules', 'Remarques'] and r[2] and r[3] == 1 and r[4] == 1, '8.2 : cadres repliables ouverts, alignés (même bord, même largeur)', r)

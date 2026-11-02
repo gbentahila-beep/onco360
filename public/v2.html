@@ -2193,9 +2193,34 @@ details.dp>summary .dp-t,.dp-proch .lbl,.tr-res p.tr-rec,.dos .cs-o .ck,.ta-fil-
 .rtr-ong:has(.rtr-pas) button{padding-top:12px}
 .rtr-ong .rtr-pas{position:static;height:auto;margin:0 0 0 4px}
 .rtr-ong button.on .rtr-pas{background:var(--prim-c);color:var(--prim)}
+/* ───── Phase IG, IG4 (02/11/2026, idées 6, 7 et 8 acceptées par Dr Bentahila ; 7 : choix A) ─────
+   6 : forme de la page en gris clair pendant le chargement (script en bas de v2.html), menu caché tant que les droits ne sont pas lus.
+   7 : tableau de bord sans défilement dans une carte : 5 lignes, puis « Voir les N … › » qui déplie la carte ; la page seule défile.
+   8 : protocole ouvert en lecture (protocoles.js voir) : « Modifier » et « Dupliquer » en haut, « Signaler une erreur » et « Supprimer » dans ⋯. */
+body.demarrage nav a,body.demarrage #nomMenu,body.demarrage #specMenu,body.demarrage #avMenu,body.demarrage #avTete{visibility:hidden}
+.chargement.sq-page{padding:0;text-align:left;display:flex;flex-direction:column;gap:var(--ecart)}
+.sq-c{background:var(--carte);border-radius:12px;box-shadow:var(--ombre);padding:18px}
+.sq{display:block;border-radius:8px;margin:0 0 10px;max-width:100%;background:linear-gradient(90deg,#E6EDF6 0%,#F1F5FB 50%,#E6EDF6 100%);background-size:200% 100%;animation:sqv 1.4s ease-in-out infinite}
+.sq-c>.sq:last-child{margin-bottom:0}
+@keyframes sqv{0%{background-position:100% 0}100%{background-position:-100% 0}}
+@media (prefers-reduced-motion:reduce){.sq{animation:none}}
+.sq-dos{display:grid;grid-template-columns:300px minmax(0,1fr);gap:var(--ecart)}.sq-col{display:flex;flex-direction:column;gap:var(--ecart)}
+.sq-2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:var(--ecart)}
+.sq-t{text-align:center;color:var(--d-txt2);font-size:14px;margin:0}
+@media (max-width:899px){.sq-dos,.sq-2{grid-template-columns:minmax(0,1fr)}}
+.tb-fx>section,.tb-rang .tb-fx>section{max-height:none!important;overflow:visible!important}
+.tb-rang.ajuste-d>.tb-d>.tb-in,.tb-rang.ajuste-g>.tb-g>.tb-in{position:static}
+.af-g:not(.ouv) .af-l.af-sup,.sept-l:not(.ouv) .sept-sup{display:none}
+.tb-voir{display:flex;align-items:center;width:100%;min-height:40px;padding:8px 12px;margin-top:4px;border:0;border-top:1px solid var(--trait);background:none;color:var(--prim);font:inherit;font-size:14px;font-weight:500;text-align:left;cursor:pointer}
+.tb-voir:hover{background:var(--prim-c)}
+@media (pointer:coarse){.tb-voir{min-height:44px}}
+.pr-haut{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px}.pr-haut .mpts{margin-left:auto}
+.pr-dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px 18px;margin:0}
+.pr-dl div{min-width:0}.pr-dl dt{font-size:13px;color:var(--d-txt2);margin:0 0 2px}.pr-dl dd{margin:0;font-size:15px;color:var(--encre);overflow-wrap:anywhere}
+.pr-dl .large{grid-column:1/-1}
 </style>
 </head>
-<body>
+<body class="demarrage">
 <script>try { if (localStorage.getItem("onco360.menuReplie") === "1") document.body.classList.add("menu-replie"); } catch (e) {}</script>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-accueil" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1" /> <rect width="7" height="7" x="14" y="3" rx="1" /> <rect width="7" height="7" x="14" y="14" rx="1" /> <rect width="7" height="7" x="3" y="14" rx="1" /></symbol>
@@ -2287,12 +2312,26 @@ details.dp>summary .dp-t,.dp-proch .lbl,.tr-res p.tr-rec,.dos .cs-o .ck,.ta-fil-
     <div id="panneauAlertes" class="cache" role="dialog" aria-label="Alertes"></div>
   </header>
   <main id="page"><div class="chargement">Chargement de vos données…</div></main>
-
+  <script>
+  // IG4 (02/11/2026, audit UX, idée 6) : dès l'ouverture (ou un rechargement, ou un lien vers un dossier), la forme de la page demandée en gris clair,
+  // avec son titre ; v2.js la remplace quand les données arrivent. Le menu reste caché tant que les droits ne sont pas lus (body.demarrage)
+  (function () {
+    var h = ((location.hash || "").slice(1).split("/")[0]) || "accueil";
+    var T = { accueil: "Tableau de bord", agenda: "Agenda / Rendez-vous", salle: "Salle d'attente", patients: "Patients", dossier: "Dossier patient", taches: "Tâches", rcp: "RCP", protocoles: "Protocoles", radiotherapie: "Radiothérapie", outils: "Outils cliniques", bilan: "Bilan", parametres: "Paramètres", configuration: "Paramètres", profil: "Mon compte", documents: "Documents", tous: "Mes cabinets" };
+    var t = document.getElementById("titrePage"); if (t) t.textContent = T[h] || "Onco360";
+    var b = function (w, ht, m) { return '<i class="sq" style="width:' + w + ";height:" + ht + "px" + (m ? ";margin:" + m : "") + '"></i>'; };
+    var c = function (x) { return '<div class="sq-c">' + x + "</div>"; }, l = function (n) { var s = ""; for (var i = 0; i < n; i++) s += b("100%", 36); return s; };
+    var g = h === "dossier" ? '<div class="sq-dos"><div class="sq-col">' + c(b("70%", 22) + b("90%", 14) + b("55%", 14)) + c(b("50%", 14) + b("100%", 60) + l(3)) + "</div>" + c(b("60%", 18, "0 auto 22px") + b("220px", 36) + b("100%", 140) + l(2)) + "</div>"
+      : h === "accueil" ? c(b("40%", 26) + b("30%", 14)) + '<div class="sq-2">' + c(b("40%", 18) + l(4)) + c(b("50%", 18) + l(3)) + "</div>"
+      : c(b("100%", 40, "0")) + c(b("35%", 18) + l(6));
+    var p = document.getElementById("page"); if (p) p.innerHTML = '<div class="chargement sq-page" aria-busy="true">' + g + '<p class="sq-t">Chargement de vos données…</p></div>';
+  })();
+  </script>
 </div>
 <div id="toast" class="cache" role="status"></div>
 <script>
 // Sécurité : si l'application ne démarre pas, on le dit clairement et on propose de se déconnecter
-setTimeout(function () { if (document.querySelector("#page .chargement")) document.getElementById("page").innerHTML = '<div id="secours"><h3>Onco360 n\'a pas pu démarrer</h3><p>Vérifiez la connexion Internet, puis rechargez la page. Si le problème continue, déconnectez-vous puis reconnectez-vous, ou prévenez l\'administrateur.</p><p style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="bt plein" onclick="location.reload()">Recharger</button><button class="bt clair" id="btSecours" onclick="onco360Deconnecter()">Se déconnecter</button></p></div>'; var bs = document.getElementById("btSortie"); if (bs && document.getElementById("secours")) bs.onclick = onco360Deconnecter; }, 25000);
+setTimeout(function () { if (document.querySelector("#page .chargement")) document.body.classList.remove("demarrage"); if (document.querySelector("#page .chargement")) document.getElementById("page").innerHTML = '<div id="secours"><h3>Onco360 n\'a pas pu démarrer</h3><p>Vérifiez la connexion Internet, puis rechargez la page. Si le problème continue, déconnectez-vous puis reconnectez-vous, ou prévenez l\'administrateur.</p><p style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="bt plein" onclick="location.reload()">Recharger</button><button class="bt clair" id="btSecours" onclick="onco360Deconnecter()">Se déconnecter</button></p></div>'; var bs = document.getElementById("btSortie"); if (bs && document.getElementById("secours")) bs.onclick = onco360Deconnecter; }, 25000);
 // Déconnexion de secours : marche même si l'application n'a pas pu se charger (la page de connexion termine la déconnexion)
 function onco360Deconnecter() {
   var b = document.getElementById("btSecours"); if (b) { b.disabled = true; b.textContent = "Déconnexion…"; }

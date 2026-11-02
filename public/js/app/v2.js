@@ -176,11 +176,11 @@ function verifierCgu() {
 // ───── Chargement ─────
 onAuthStateChanged(auth, async (u) => {
   if (!u) { location.replace("index.html"); return; }
-  try { D = await charger(u); appliquerImpression(); entete(); rechercheTete(); route(); verifierCgu(); bandeauxCabinet(); menuCabinets().catch(() => {});
+  try { D = await charger(u); appliquerImpression(); entete(); rechercheTete(); route(); document.body.classList.remove("demarrage"); verifierCgu(); bandeauxCabinet(); menuCabinets().catch(() => {});
     if (D.bib) { lireAccueilCab(); Promise.all([figerListes(), figerDocumentation()]).catch((e) => console.warn("bibliothèque", e)); return; } // bibliothèque de référence (modèle) : rien d'autre que son tableau de bord
     lireAccueilCab();
     if (D.membre.role !== "comptable") { ecouterDossiers(); ecouterRappels(); if (module("taches")) demarrerTaches(); if (module("salle")) demarrerSalle(); if (module("rcp")) demarrerRcp(); } publierTarifsC(); planifierReleve(3000); chargerMedecins(); chargerSignataires().then(publierCarte).catch(() => {}); effacerSignature().catch((e) => console.warn("signature", e)); nomTitulaire().then(migrations); marquerProtocoles().then(() => appliquerAudit3()).then(() => appliquerP4()).then(() => appliquerP5b()).then(() => appliquerAudit10()).then(() => appliquerProtocolesRT()).then(() => ordosAudit3()).then(() => majBibliotheques().catch((er) => console.warn("bibliothèques (R-E3)", er))).then(() => vigilancesAudit3()).catch((er) => console.warn("protocoles", er)); }
-  catch (e) { $("page").innerHTML = '<div class="carte"><h3>Impossible d\'ouvrir Onco360</h3><p class="sous">' + esc(e && e.code === "permission-denied" ? "Accès refusé : votre accès a peut-être été désactivé. Contactez le médecin titulaire." : e.message) + '</p><button class="bt clair" onclick="document.getElementById(\'btSortie\').click()">Se déconnecter</button></div>'; }
+  catch (e) { document.body.classList.remove("demarrage"); $("page").innerHTML = '<div class="carte"><h3>Impossible d\'ouvrir Onco360</h3><p class="sous">' + esc(e && e.code === "permission-denied" ? "Accès refusé : votre accès a peut-être été désactivé. Contactez le médecin titulaire." : e.message) + '</p><button class="bt clair" onclick="document.getElementById(\'btSortie\').click()">Se déconnecter</button></div>'; }
 });
 // Cabinets de la personne (19.2, 10/10/2026 : secrétaire de plusieurs médecins) : comptes/{uid}.espaces, le cabinet choisi dans le
 // menu « Cabinet » en premier (gardé dans ce navigateur), puis le principal ; les autres servent de repli (cabinet suspendu…)
@@ -1255,10 +1255,16 @@ window.alerteRemise = async (cle) => {
   try { await ecrireAlertesVues(v); } catch (e) { toast("Enregistrement impossible : " + (e.message || e)); return; }
   fermerFenetre(); if (String(D.page || "") === "accueil") pageAccueil(); toast("Alerte remise dans le tableau de bord.");
 };
+const AF_OUV = new Set(); // groupes dépliés (« Voir les N … ») : gardés quand la carte se redessine
+window.tbVoir = (b) => { const g = b.closest(".af-g, .sept"), k = b.dataset.voir, z = g.classList.contains("sept") ? g.querySelector(".sept-l") : g, ouv = !z.classList.contains("ouv");
+  z.classList.toggle("ouv", ouv); if (ouv) AF_OUV.add(k); else AF_OUV.delete(k); b.textContent = ouv ? "Voir moins" : b.dataset.lib; };
 function blocAFaire(pj) {
-  const role = D.membre.role, t = D.t, G = [], plus = (l, n) => (l.length > n ? '<div class="af-plus">+ ' + (l.length - n) + " autre" + (l.length - n > 1 ? "s" : "") + "</div>" : "");
+  // IG4 (02/11/2026, idée 7, choix A) : 5 lignes par groupe, puis « Voir les N … › » qui déplie le groupe dans la carte (plus de défilement dans la carte)
+  const role = D.membre.role, t = D.t, G = [], NB_AF = 5;
+  const plus = (l, titre) => { if (l.length <= NB_AF) return ""; const lib = "Voir les " + l.length + " " + titre.charAt(0).toLowerCase() + titre.slice(1) + " ›";
+    return '<button type="button" class="tb-voir" data-voir="' + esc(titre) + '" data-lib="' + esc(lib) + '" onclick="tbVoir(this)">' + (AF_OUV.has(titre) ? "Voir moins" : lib) + "</button>"; };
   const ligne = (o) => '<div class="af-l' + (o.retard ? " ret" : "") + '"' + (o.cure ? ' onclick="' + o.cure + '"' : o.id ? ' onclick="ouvrirDossier(\'' + o.id + '\')"' : "") + '><div class="tx"><b>' + esc(o.nm) + "</b>" + (o.de ? '<span class="de">' + esc(o.de) + "</span>" : "") + "</div>" + (o.badge || "") + (o.bt || "") + "</div>";
-  const groupe = (icone, titre, l, n) => { if (l.length) G.push('<div class="af-g"><div class="af-t">' + ic(icone) + "<span>" + titre + '</span><span class="n">' + l.length + "</span></div>" + l.slice(0, n || 6).map(ligne).join("") + plus(l, n || 6) + "</div>"); };
+  const groupe = (icone, titre, l) => { if (l.length) G.push('<div class="af-g' + (AF_OUV.has(titre) ? " ouv" : "") + '"><div class="af-t">' + ic(icone) + "<span>" + titre + '</span><span class="n">' + l.length + "</span></div>" + l.map((o, i) => ligne(o).replace('<div class="af-l', '<div class="af-l' + (i >= NB_AF ? " af-sup" : ""))).join("") + plus(l, titre) + "</div>"); };
   const btn = (lib, js) => '<button class="bt petit vert" onclick="event.stopPropagation();' + js + '">' + ic("check") + lib + "</button>";
   const resume = (icone, html, lien, lib) => G.push('<div class="af-g"><div class="af-r">' + ic(icone) + "<span>" + html + "</span>" + (lien ? '<button class="lien" onclick="' + lien + '">' + lib + " ›</button>" : "") + "</div></div>");
   let titre;
@@ -1353,14 +1359,15 @@ function pageAccueil() {
   carte("sept", () => {
   h += '<section class="carte sept"><h3><span class="ic">' + ic("liste") + '</span>Les 7 prochains jours</h3><p class="sous">Rendez-vous, cures, séances et radiothérapie. Bouton WhatsApp vert : rappel à envoyer (rendez-vous dans ' + (reglages().whatsapp.de * 24) + " à " + (reglages().whatsapp.a * 24) + ' h).</p>';
   if (!ag.length) h += '<p class="sous">Rien de prévu sur les 7 prochains jours.</p>';
-  else h += '<div class="sept-l">';
-  let jc = "";
-  ag.forEach((e) => {
-    if (e.d !== jc) { if (jc) h += "</div>"; jc = e.d; h += '<div class="jour7"><h4>' + cap(jourLong(e.d)) + "</h4>"; }
-    h += '<div class="ev" onclick="ouvrirDossier(\'' + e.id + '\')"><span class="h' + (e.h ? "" : " j") + '">' + (e.h || "Journée") + '</span><span class="evi">' + e.em + '</span><div class="tx"><b>' + esc(e.nm) + "</b><br><span>" + esc(e.de) + '</span></div>' + btnWA(D.patients.find((z) => z.id === e.id), e.cat, e.d, e.h) + '<button class="lien">Ouvrir le dossier</button></div>';
+  else h += '<div class="sept-l' + (AF_OUV.has("sept") ? " ouv" : "") + '">';
+  let jc = "", ie = 0;
+  ag.forEach((e) => { const sup = ie++ >= 5 ? " sept-sup" : "";
+    if (e.d !== jc) { if (jc) h += "</div>"; jc = e.d; h += '<div class="jour7' + sup + '"><h4>' + cap(jourLong(e.d)) + "</h4>"; }
+    h += '<div class="ev' + sup + '" onclick="ouvrirDossier(\'' + e.id + '\')"><span class="h' + (e.h ? "" : " j") + '">' + (e.h || "Journée") + '</span><span class="evi">' + e.em + '</span><div class="tx"><b>' + esc(e.nm) + "</b><br><span>" + esc(e.de) + '</span></div>' + btnWA(D.patients.find((z) => z.id === e.id), e.cat, e.d, e.h) + '<button class="lien">Ouvrir le dossier</button></div>';
   });
   if (jc) h += "</div>";
   if (ag.length) h += "</div>";
+  if (ag.length > 5) { const lib = "Voir les " + ag.length + " rendez-vous, cures et séances ›"; h += '<button type="button" class="tb-voir" data-voir="sept" data-lib="' + esc(lib) + '" onclick="tbVoir(this)">' + (AF_OUV.has("sept") ? "Voir moins" : lib) + "</button>"; }
   h += "</section>";
   });
   carte("taches", () => { if (module("taches")) h += blocTaches({ sansRT: estMed(D.membre.role) && A2.cartes.afaire !== false }); }); // Mes tâches (étape T4) ; contourage, dosimétrie, fin de RT : dans « À valider »
