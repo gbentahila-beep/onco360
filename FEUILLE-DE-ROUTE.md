@@ -1131,7 +1131,8 @@ Traitement en cours ; Tâches : Tâche, Patient, Assignée à, Créée par, Éch
   (scripts dans `archives-privees-onco360/tnm-ajcc7/`). Bouton « Importer des tableaux (fichier) » (Outils cliniques › Stadification, médecin ;
   `ocTnmImport`), test `tests/test_ux10.py` (`ONCO360_TNM=<fichier>` vérifie les 34 fiches). **Reste** : mise en ligne, puis import dans le cabinet par
   Dr Bentahila ; à remplacer par la 8e édition (ou la version 9) si elle fournit le PDF.
-- [ ] **UX11 – Parcours de la chimiothérapie (tour du 01/11/2026, réponses de Dr Bentahila)** :
+- [x] **UX11 – Parcours de la chimiothérapie (tour du 01/11/2026, réponses de Dr Bentahila)** (fait le 02/11/2026, branche `ux-1-2`, test `tests/test_ux11_13.py` ;
+  `prochaineSeance` de moteur/resume.js, `rythme` de moteur/outils.js) :
   - défauts : compteur et « Prochaine » qui sautent à la cure suivante alors qu'un jour de la cure reste à faire (J1 validé, J15 reporté : afficher
     C1/6 et la date du J15) (C1) ; « Ordonnances du protocole (fait) » marqué même fermé sans imprimer (C2) ; texte « J1, J1 et J15 » en double sur la
     ligne et la fiche (C3) ; séance validée : % et doses en cases blanches et titre « (modifiable) » alors qu'elles sont figées → grisées comme le poids
@@ -1147,7 +1148,8 @@ Traitement en cours ; Tâches : Tâche, Patient, Assignée à, Créée par, Éch
     ni bleu marine, Arrêter / Supprimer la ligne en texte rouge (C19).
   Refusé le 01/11 : avertissement dimanche / férié à la création de la ligne (C5 : on traite parfois le week-end ou un férié) ; titre de la ligne en
   étiquettes (C16) ; aperçu de la fiche chimio (C20 : il existe déjà) ; taille et SC à la création (C21 : poids et SC déjà affichés).
-- [ ] **UX12 – Parcours de la radiothérapie (tour du 01/11/2026, réponses de Dr Bentahila)** :
+- [x] **UX12 – Parcours de la radiothérapie (tour du 01/11/2026, réponses de Dr Bentahila)** (fait le 02/11/2026, branche `ux-1-2`, test `tests/test_ux11_13.py` ;
+  R1 déjà fait avec UX1 ; `compteurRT` jusqu'à la fin réelle ; CR : mentions surlignées, un clic les sélectionne ; notifications 8 s) :
   - défauts : « Lieu de la radiothérapie » qui chevauche « Technique » (R1, avec UX1) ; RT clôturée avant la fin = barre « 25 / 25 (100 %) » et CR
     « Nombre de séances : 25 » → compter jusqu'à la date de fin réelle (R2) ; CR de fin : les « à compléter par le médecin » réellement surlignés
     (zones `or-ac`) et « Médecin référent » rempli avec le médecin du patient ; « Localisation » = diagnostic, voulu, on n'y touche pas (R3) ; « — »
@@ -1161,7 +1163,10 @@ Traitement en cours ; Tâches : Tâche, Patient, Assignée à, Créée par, Éch
   après la prescription (R7) ; « Terminé » transformé (R10) ; ronds des étapes cliquables (R11) ; dose rappelée dans la fenêtre de dosimétrie
   (R12) ; « Référentiel » sorti du ⋯ (R13) ; « Nombre d'actes facturés » (R17). Sans réponse : R6 (lignes de volumes alignées), R8 (fenêtre après
   « Clôturer »), R9 (bouton « Documents ▾ » visible).
-- [ ] **UX13 – Prescriptions, RCP, rendez-vous, tâches, feuille de soins (tour du 01/11/2026, réponses de Dr Bentahila)** :
+- [x] **UX13 – Prescriptions, RCP, rendez-vous, tâches, feuille de soins (tour du 01/11/2026, réponses de Dr Bentahila)** (fait le 02/11/2026, branche
+  `ux-1-2`, test `tests/test_ux11_13.py` ; P11 : deux colonnes dès que la fenêtre a 820 px (Médic., Ordo. type, Analyses, Examens ; Courriers et Doc. n'ont
+  pas d'ordonnance en préparation) ; P18 : **table localisation → CIM-10 `js/donnees/cim10.js` à relire par Dr Bentahila** ; acte du jour = type et prix du
+  rendez-vous du jour (prix enregistré, sinon tarif) ; P15 : les deux fenêtres étaient déjà la même, la date choisie est maintenant rangée à sa place) :
   - défauts : Ordo. type d'analyses affiché « 2 médicaments » → « 2 analyses » (P2) ; tâche affichée deux fois dans « Rendez-vous et tâches à venir »
     juste après « + Tâche » (une seule créée ; affichage, P4) ; Courriers : champs bruts {patient} {age}… dans la liste → valeurs du patient ou « … »
     (P5) ; message WhatsApp arabe : nom du lieu en français coupé (« Clinique de » / « démonstration. ») → isoler le texte latin (P6) ; barre du bas

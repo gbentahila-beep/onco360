@@ -5,7 +5,8 @@
 // traitant depuis sa carte (signataires/{uid}) ; actes : une ligne, « + Ajouter un acte », total = montant des frais. Aperçu des pages remplies,
 // puis Imprimer (A4 paysage ; « Imprimer le fond » décoché pour imprimer sur la feuille officielle). Placement : donnees/feuillesoins.js.
 import { FORMULAIRES, feuilleDe, rendreFeuille, totalActes, montantTxt, CSS_FEUILLE } from "../donnees/feuillesoins.js";
-import { assurerConsultations } from "./consultations.js";
+import { assurerConsultations, enregistrerPrescription } from "./consultations.js";
+import { cimDe } from "../donnees/cim10.js";
 
 let A = null;
 export function installer(api) { A = api; if (!document.getElementById("styleFeuilles")) { const st = document.createElement("style"); st.id = "styleFeuilles"; st.textContent = CSS_FEUILLE; document.head.appendChild(st); } }
@@ -22,7 +23,8 @@ function valeursDepart(x) {
   const I = x.doc.identite || {}, et = A.etabDe(x.doc.etablissementId) || {}, med = medecinDe(x), ville = et.ville || "", d = D().t, nm = nomP(I, x);
   return { tel: I.tel || "", assNom: nm, assAffil: "", assImmat: I.numAdh || "", assCin: I.cin || "", lien: "", adresse: I.adresse || "", pieces: "", dossier: "",
     malNom: nm, malDdn: I.ddn || "", malCin: I.cin || "", sexe: /^f/i.test(I.sexe || "") ? "F" : /^m/i.test(I.sexe || "") ? "M" : "", inpe: med.inpe || "", medNom: med.nom || "", etabNom: et.nom || "",
-    type: "maladie", pli: "", dGross: "", dAccouch: "", dHosp: "", dAcc: "", causes: "", cim: "", faitA: ville, faitM: ville, le: d, leM: d, d,
+    // UX13 (P18, 02/11/2026) : code CIM-10 proposé d'après la localisation (donnees/cim10.js, table à relire), modifiable
+    type: "maladie", pli: "", dGross: "", dAccouch: "", dHosp: "", dAcc: "", causes: "", cim: cimDe((x.doc.clinique || {}).diag || x.r.diag), faitA: ville, faitM: ville, le: d, leM: d, d,
     actes: [{ d, code: "", lettre: "", valeur: "", m: "" }], consId: "" };
 }
 window.fsOuvrir = async (pid) => {
@@ -49,6 +51,7 @@ function dessiner() {
       ch("d", "Date de la consultation", { type: "date" }) + sel("type", "Type de soins", TYPES) +
       (cnops ? sel("pli", "Pli confidentiel remis", [["", "Non renseigné"], ["oui", "Oui"], ["non", "Non"]]) : "") +
       ch("cim", "Code CIM-10", { ph: "Ex. C50" }) + ch("pieces", "Pièces jointes", { num: true }) +
+      (V.cim && V.cim === cimDe((x.doc.clinique || {}).diag || x.r.diag) ? '<p class="large mesures" style="margin:-6px 0 0">Code CIM-10 proposé d\'après la localisation : à vérifier, modifiable.</p>' : "") +
       (cnops && V.type === "maternite" ? ch("dGross", "Date de grossesse", { type: "date" }) + ch("dAccouch", "Date prévue d'accouchement", { type: "date" }) : "") +
       (cnops && V.type === "hospit" ? ch("dHosp", "Date d'hospitalisation", { type: "date" }) : "") +
       (cnops && V.type === "accident" ? ch("dAcc", "Date d'accident", { type: "date" }) + ch("causes", "Causes") : "") + "</div></section>" +
@@ -86,9 +89,17 @@ function brancher() {
     else if (b.id === "fsVoir") apercu(); };
 }
 // Consultation choisie : sa date (date des soins des actes, « Le » de l'assuré et du médecin) ; « Saisie libre » : aujourd'hui
-function choisirCons(id) {
-  const c = F.cons.find((z) => z.id === id), d = c && c.d ? c.d : D().t;
+// UX13 (P18, 02/11/2026) : le 1er acte reprend le type et le prix de la consultation (rendez-vous du jour : prix enregistré, sinon tarif du lieu ;
+// A.consultationDuJour de v2.js) ; un acte déjà tapé n'est pas remplacé
+async function choisirCons(id) {
+  const c = F.cons.find((z) => z.id === id), d = c && c.d ? c.d : D().t, pid = F.pid;
   F.V.consId = c ? c.id : ""; F.V.d = d; F.V.le = d; F.V.leM = d; F.V.actes.forEach((a) => { a.d = d; });
+  dessiner();
+  if (!c || !A.consultationDuJour) return;
+  const x = x0(), q = await A.consultationDuJour(x, d, c.titre || c.type || "").catch(() => null);
+  if (!F || F.pid !== pid || F.V.consId !== c.id || !q) return;
+  const a = F.V.actes[0]; if (!a || a.lettre || a.m) return;
+  a.lettre = q.type || ""; if (q.m != null && q.m !== "") a.m = String(q.m);
   dessiner();
 }
 const valeursFeuille = () => Object.assign({}, F.V, { montant: totalActes(F.V.actes) ? montantTxt(totalActes(F.V.actes)) : "", assNom: F.V.lien ? F.V.assNom : F.V.malNom, assCin: F.V.lien ? F.V.assCin : F.V.malCin });
@@ -96,11 +107,11 @@ const valeursFeuille = () => Object.assign({}, F.V, { montant: totalActes(F.V.ac
 const tailleMm = (f) => { const ar = f.w / f.h, W = Math.min(295, 208 * ar); return [Math.round(W * 10) / 10, Math.round((W / ar) * 10) / 10]; };
 function apercu() {
   const esc = A.esc, x = x0(), f = FORMULAIRES[F.k], V = valeursFeuille();
-  if (!V.malNom) { A.erreur("Indiquez le nom du malade."); return; }
+  if (!V.malNom) { A.erreur("Indiquez le nom du malade.", "fs_malNom"); return; }
   A.fenetre('<div class="pg-form fs-form"><h3>Aperçu — feuille de soins ' + esc(f.nom) + " — " + esc(x.r.nm) + "</h3>" +
     '<label class="chk" style="margin:0 0 10px"><input type="checkbox" id="fsFond"' + (F.fond ? " checked" : "") + "> Imprimer le fond du formulaire (à décocher pour imprimer sur la feuille officielle)</label>" +
     '<div class="fs-apercu" id="fsAp">' + rendreFeuille(F.k, V, { fond: true }) + "</div>" +
-    '<div class="boutons"><button class="bt gris" id="fsRet">Modifier</button><button class="bt gris" onclick="fsFermer()">Annuler</button><button class="bt plein" id="fsImp">' + A.ic("imprimer") + "Imprimer</button></div></div>", "page");
+    '<div class="boutons"><button class="bt gris" id="fsRet">Modifier</button><button class="bt gris" onclick="fsFermer()">Annuler</button><button class="bt plein" id="fsImp">' + A.ic("imprimer") + "Enregistrer + Imprimer</button></div></div>", "page");
   $("fsFond").onchange = () => { F.fond = $("fsFond").checked; };
   $("fsRet").onclick = () => dessiner();
   $("fsImp").onclick = () => imprimer();
@@ -115,5 +126,9 @@ function imprimer() {
     "<script>(function(){var im=[].slice.call(document.images),n=im.length,go=function(){setTimeout(function(){window.focus();window.print();},150)};if(!n){go();return;}im.forEach(function(i){if(i.complete){if(!--n)go();}else{i.onload=i.onerror=function(){if(!--n)go();};}});})();<\/script></body></html>";
   w.document.open(); w.document.write(html); w.document.close();
   A.journal(x, "Feuille de soins " + f.nom + " imprimée (" + A.dfrA(F.V.d) + (totalActes(F.V.actes) ? ", " + montantTxt(totalActes(F.V.actes)) + " DH" : "") + ")");
+  // UX13 (P19, 02/11/2026) : feuille imprimée notée dans la consultation du jour, comme une ordonnance (ligne « Feuille de soins »)
+  const tt = totalActes(F.V.actes);
+  enregistrerPrescription(x, { t: "fs", d: D().t, lib: f.nom + " du " + A.dfrA(F.V.d) + (tt ? " · " + montantTxt(tt) + " DH" : ""), par: A.nomAgissant(), parUid: D().u.uid })
+    .then(() => A.toast("Feuille de soins notée dans la consultation du jour.")).catch((e) => A.toast("Feuille imprimée, mais pas notée dans la consultation : " + ((e && e.message) || e)));
 }
-window.fsFermer = () => { F = null; A.fermerFenetre(); };
+window.fsFermer = () => { const pid = F && F.pid; F = null; A.fermerFenetre(); if (pid && decodeURIComponent(location.hash).indexOf(pid) >= 0) A.pageDossier(pid); }; // P19 : ligne notée visible

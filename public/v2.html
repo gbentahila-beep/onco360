@@ -307,6 +307,13 @@ body.role-comptable nav a[data-p]:not([data-p="bilan"]):not([data-p="profil"]){d
 .ico{border:1px solid var(--trait);background:#fff;border-radius:8px;min-width:32px;height:32px;padding:0 6px;display:inline-grid;place-items:center;color:var(--titre);font-weight:bold;font-size:var(--t3);margin-left:4px}
 .ico .pi{margin:0;width:16px;height:16px}.ico:hover{background:var(--prim-c)}.ico:disabled{opacity:.35;cursor:default}.ico.vert{color:var(--vert);border-color:var(--vert-b)}.ico.rouge{color:var(--rouge);border-color:#EDC3CB}
 .md-ordo{border:1px solid var(--trait);border-radius:var(--r-m);padding:4px 12px;max-height:26vh;overflow:auto}
+/* UX13 (P11, 02/11/2026) : ordonnance en préparation toujours visible : à droite de la liste quand la fenêtre a la place, sinon dessous avec un bandeau collant */
+.md-cq{container:md/inline-size}.md-cols{display:block}.md-d{scroll-margin-top:56px}
+.md-band{position:sticky;top:-22px;z-index:5;display:flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:44px;margin:0 0 10px;border:1px solid var(--prim);border-radius:var(--r-m);background:var(--prim-c);color:var(--prim);font:inherit;font-weight:bold;font-size:var(--t4);cursor:pointer}
+@media (max-width:640px){.md-band{top:-16px}}
+@container md (min-width:820px){.md-band{display:none}.md-cols{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,1fr);gap:18px;align-items:start}
+  .md-d{position:sticky;top:0;border-left:1px solid var(--trait);padding-left:18px}.md-d>.soustitre{margin-top:0}.md-g .md-liste{max-height:56vh}.md-d .md-ordo{max-height:46vh}}
+.md-cq .md-ordo .it{flex-wrap:wrap}.md-cq .md-ordo .it .tx{flex-basis:calc(100% - 40px)}.md-cq .md-ordo .it>.actr{width:100%;justify-content:flex-end}
 .md-ordo .it.ed .tx{display:flex;flex-direction:column;gap:6px}.md-ordo .it.ed input,.md-ordo .it.ed textarea{width:100%;padding:7px 9px;border:1px solid var(--bord-champ);border-radius:8px;font:inherit;font-size:var(--t4)}.md-ordo .it.ed input{font-weight:bold}
 .md-ajout{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap;margin-top:8px}.md-ajout .recherche{flex:1;min-width:220px;position:relative}.md-ajout .recherche input{padding:9px 12px 9px 40px;font-size:var(--t5)}
 .md-ajout .sug{top:100%;margin-top:2px}.md-ajout .sug div{font-size:var(--t4)}
@@ -388,6 +395,11 @@ body.role-comptable nav a[data-p]:not([data-p="bilan"]):not([data-p="profil"]){d
 .form input,.form select,.form textarea{width:100%;padding:11px 12px;border:1px solid var(--bord-champ);border-radius:var(--r-s);font-size:var(--t6);background:#fff;color:var(--encre);font-family:inherit}
 .form textarea{min-height:70px;resize:vertical}
 .form input:disabled,.form select:disabled,.form textarea:disabled{background:var(--gris-c);color:var(--doux)}
+.tcures.doses input:disabled{background:var(--gris-c);color:var(--doux);border-color:var(--bord)}
+/* UX11 C17 (02/11/2026) : nom des molécules en texte simple (la classe pr des boutons de prescription leur donnait un cadre) */
+.tcures td.pr{border:0;border-radius:0;background:none;overflow:visible;font-weight:bold;color:var(--titre)}
+@media (min-width:641px){.tcures td.pr{display:table-cell}}
+.tcures.ed .ed-p{display:flex;align-items:center;gap:4px}.tcures.ed .ed-p input{flex:1;min-width:175px!important}.tcures.ed .ed-p .mini{flex:none;min-width:36px;padding:0 8px}
 .boutons{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
 .bt.gris{background:var(--gris-c);color:var(--encre)}
 .err{color:var(--rouge);font-weight:bold;font-size:var(--t4);margin-top:10px}
@@ -563,6 +575,7 @@ a.lien-nm{text-decoration:none}a.lien-nm:hover{text-decoration:underline}
 .sa-cm{border:0;background:none;padding:0 5px 0 0;color:var(--orange);cursor:pointer;vertical-align:-2px}.sa-cm .pi{width:15px;height:15px;margin:0}.sa-cm:hover{color:var(--prim)}
 .sa-menu{position:fixed;z-index:95;background:#fff;border:1px solid var(--trait);border-radius:var(--r-m);box-shadow:0 12px 32px rgba(30,42,68,.2);padding:6px;min-width:230px;display:flex;flex-direction:column}
 .sa-menu button{border:0;background:none;text-align:left;padding:9px 12px;border-radius:8px;font-size:var(--t4);color:var(--encre);cursor:pointer}.sa-menu button:hover,.sa-menu button:focus{background:var(--prim-c);outline:0}
+.sa-menu a.mp-lien{display:block;padding:9px 12px;border-radius:8px;font-size:var(--t4);color:var(--encre);text-decoration:none}.sa-menu a.mp-lien:hover,.sa-menu a.mp-lien:focus{background:var(--prim-c);outline:0}
 .sa-menu-t{font-size:var(--t2);color:var(--doux);padding:6px 12px 4px;font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:280px}
 .sa-jtxt{border:1px solid var(--trait);background:#fff;border-radius:var(--r-m);height:52px;padding:0 16px;font-weight:bold;color:var(--titre);font-size:var(--t5);white-space:nowrap}.sa-jtxt .fl{color:var(--doux);margin-left:6px}
 .sa-jours.repli .sa-sem{display:none}.sa-jours:not(.repli) .sa-jtxt{height:52px;padding:0 10px;font-size:0}.sa-jours:not(.repli) .sa-jtxt .fl{font-size:var(--t5);margin:0}
@@ -671,7 +684,7 @@ a.lien-nm{text-decoration:none}a.lien-nm:hover{text-decoration:underline}
   .sa-ftr{display:inline-flex;flex:1 1 40%;justify-content:center}.sa-etab #saSuiv{flex:1 1 40%;justify-content:center}
   .sa-pg:not(.ouv) #saEtab,.sa-pg:not(.ouv) #saMed,.sa-pg:not(.ouv) .sa-etab [data-fn="salle.colonnes"],.sa-pg:not(.ouv) .sa-outils,.sa-pg:not(.ouv) .sa-cal{display:none}
   .sa-pg.ouv .sa-ftr{background:var(--prim-c);color:var(--prim)}
-  .sa-pg .bt,.sa-pg select,.sa-per button,.sa-cal,.sa-jours #saAuj,.sa-o button,.sa-menu button{min-height:44px}
+  .sa-pg .bt,.sa-pg select,.sa-per button,.sa-cal,.sa-jours #saAuj,.sa-o button,.sa-menu button,.sa-menu a.mp-lien{min-height:44px}
   .sa-fl{width:44px}.sa-jours.repli .sa-jtxt,.sa-sem{flex:1 1 calc(100% - 112px)}.sa-j{min-height:48px}
   .sa-l .mini{min-height:44px;min-width:44px;padding:8px 16px;font-size:var(--t4)}.sa-l .actr{gap:8px}
   .sa-l a.lien-nm{display:inline-block;padding:12px 0 10px;font-size:var(--t5)}.sa-cm{min-width:44px;min-height:44px;padding:0;text-align:center}
@@ -1030,6 +1043,9 @@ details.dp>summary .dp-t:hover,details.dp>summary .dp-t:focus-visible{color:var(
 .br-g{display:flex;gap:6px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:thin;align-items:center;padding:2px 0}
 .br-g .pr{flex:none}.br-g .pr button{white-space:nowrap;padding:7px 8px;gap:5px}.br-g .pr .fl{padding:7px 5px}.br-sep{flex:none;width:1px;height:26px;background:var(--trait);margin:0 2px}
 .br-n{display:inline-block;background:var(--prim-c);color:var(--prim);border-radius:20px;padding:0 6px;font-size:var(--t1);font-weight:bold;margin-left:2px}
+/* UX13 (P7, 02/11/2026) : nombre en pastille dans le coin du bouton, hors du flux : la barre ne bouge plus quand une ordonnance est faite */
+.br-g .pr>button:first-child{position:relative}.br-g .br-n{position:absolute;top:-8px;right:-5px;margin:0;min-width:20px;height:18px;line-height:18px;padding:0 5px;box-sizing:border-box;text-align:center;z-index:1;box-shadow:0 0 0 2px #fff}
+.dos-barre .br-g{padding-top:10px;margin-top:-8px}
 .br-g .sm{display:none}.br-g .pi{display:none}.br-g .pr .fl{padding:7px 4px}.dos-barre .rcp-bulle .lbl .sm{display:none}
 .dos-trav .o-barre button{padding:11px 10px 9px;font-size:var(--t4)}
 .br-d{display:flex;gap:8px;align-items:center;flex:none}.br-d:empty{display:none}

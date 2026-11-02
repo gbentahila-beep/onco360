@@ -8,6 +8,7 @@ import { correctionsAudit3 } from "../moteur/audit3.js";
 import { RISQUES, risqueEmetique, libRisque } from "../moteur/seuils.js";
 import { trierRecherche, curesProposees, filtreLocalisation, filtreValide } from "../moteur/recherche.js";
 import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
+import { rythme } from "../moteur/outils.js"; // UX11 C3 (02/11/2026)
 // P9 : fonctions serveur (europe-west1), chargées seulement quand on s'en sert
 const serveur = async (nom, d) => { const { getFunctions, httpsCallable } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-functions.js"); const { app } = await import("../config.js"); return (await httpsCallable(getFunctions(app, "europe-west1"), nom, { timeout: 120000 })(d || {})).data; };
 
@@ -334,7 +335,7 @@ window.prExporter = async (f) => {
   let w = null; try { w = window.open("", "_blank"); } catch (er) { w = null; } if (!w || !w.document) { A.toast("Autorisez l'ouverture des fenêtres pour imprimer."); return; }
   const g = {}; L.forEach((p) => { (g[loc(p)] = g[loc(p)] || []).push(p); }); const esc = A.esc;
   w.document.open(); w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Livret des protocoles</title><style>@page{size:A4;margin:12mm}body{font-family:Arial,sans-serif;font-size:10.5px;color:#1E2A44}h1{font-size:18px}h2{font-size:14px;border-bottom:2px solid #3563B0;margin:16px 0 6px;page-break-after:avoid}.p{page-break-inside:avoid;margin:0 0 10px}.p b{font-size:11.5px}.m{margin:2px 0 0 10px}.g{color:#5A6478}</style></head><body><h1>Livret des protocoles – ' + esc(A.dfrA(D().t)) + " (" + L.length + ")</h1>" +
-    Object.keys(g).sort().map((k) => "<h2>" + esc(k) + "</h2>" + g[k].map((p) => '<div class="p"><b>' + esc(p.nom) + "</b>" + (p.c ? " – cycle " + p.c + " j" : " – continu") + (p.r ? '<div class="g">' + esc(p.r) + "</div>" : "") + (p.dr || []).map((d) => '<div class="m">' + esc(ligneP(d)) + "</div>").join("") + (p.src ? '<div class="g">Source : ' + esc(p.src) + "</div>" : "") + "</div>").join("")).join("") + "</body></html>");
+    Object.keys(g).sort().map((k) => "<h2>" + esc(k) + "</h2>" + g[k].map((p) => '<div class="p"><b>' + esc(p.nom) + "</b>" + (p.c ? " – cycle " + p.c + " j" : " – continu") + (p.r ? '<div class="g">' + esc(rythme(p.r)) + "</div>" : "") + (p.dr || []).map((d) => '<div class="m">' + esc(ligneP(d)) + "</div>").join("") + (p.src ? '<div class="g">Source : ' + esc(p.src) + "</div>" : "") + "</div>").join("")).join("") + "</body></html>");
   w.document.close(); setTimeout(() => { w.focus(); w.print(); }, 400);
 };
 window.prSignaler = (id) => {
@@ -447,12 +448,12 @@ window.prIndSup = (i) => { ED.ind.splice(i, 1); REDESSINER(); };
 function voir() {
   const esc = A.esc;
   A.fenetre('<div class="pg-form pr-fiche"><h3>' + esc(ED.nom) + " " + badgeSt(ED) + "</h3>" +
-    cadre("Protocole", '<p class="mesures" style="margin:0">' + esc(ED.r || "") + (ED.c ? " – cycle " + ED.c + " j" : " – continu") + "</p>" + (traceVal(ED) ? '<p class="mesures" style="margin:6px 0 0">' + esc(traceVal(ED)) + "</p>" : "")) +
+    cadre("Protocole", '<p class="mesures" style="margin:0">' + esc(rythme(ED.r)) + (ED.c ? " – cycle " + ED.c + " j" : " – continu") + "</p>" + (traceVal(ED) ? '<p class="mesures" style="margin:6px 0 0">' + esc(traceVal(ED)) + "</p>" : "")) +
     ((ED.ind || []).length ? cadre("Indications", '<div class="tableau"><table class="tcures"><tr><th>Cancer</th><th>Localisation</th><th>Situation</th><th>Sous-groupe</th></tr>' + ED.ind.map((x) => "<tr>" + [0, 1, 2, 3].map((k) => "<td>" + esc(x[k] || "") + "</td>").join("") + "</tr>").join("") + "</table></div>") : "") +
     cadre("Molécules", '<div class="tableau"><table class="tcures"><tr><th>Produit</th><th>Dose</th><th>Unité</th><th>Jours</th><th>Voie</th><th>Durée</th></tr>' +
       ED.dr.map((d) => "<tr><td>" + esc(d.p) + "</td><td>" + esc(d.u === "txt" ? d.pos || "" : d.d != null ? d.d : (d.c1 != null ? d.c1 + "/" + d.cn : "")) + "</td><td>" + esc(d.u) + "</td><td>" + esc(d.jl || (d.j || []).filter((y) => y !== 99).map((y) => "J" + y).join(" ")) + "</td><td>" + esc(d.v || "") + "</td><td>" + esc(d.t || "") + "</td></tr>").join("") + "</table></div>" +
       '<p class="mesures" style="margin:8px 0 0">Risque émétique : ' + esc(libRisque(ED.re || risqueEmetique(ED, premed))) + ((ED.ordos || []).length ? " · Ordonnances liées : " + ED.ordos.map(esc).join(" ; ") : "") + "</p>" +
       ((ED.seuils || []).length ? '<p class="mesures" style="margin:4px 0 0">Seuils du jour : ' + ED.seuils.map(esc).join(" · ") + "</p>" : "")) +
-    (ED.no ? cadre("Remarques", '<p style="color:#8A1C2B;font-size:13px;margin:0">' + ED.no.map(esc).join("<br>") + "</p>") : "") +
+    (ED.no ? cadre("Remarques", '<p class="mesures" style="margin:0">' + ED.no.map(esc).join("<br>") + "</p>") : "") +
     AVERT + '<div class="boutons"><button class="bt gris" onclick="prSignaler(\'' + esc(ED.id) + '\')">Signaler une erreur</button><button class="bt gris" onclick="fermerFenetre()">Fermer</button></div></div>', "page");
 }

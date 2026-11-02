@@ -5,9 +5,9 @@ import { doc, getDoc, setDoc, serverTimestamp, runTransaction } from "https://ww
 import { db } from "../config.js";
 import { fusionner, separer } from "../donnees/conversion.js";
 import { poidsActuel } from "../moteur/poids.js"; // R-A5 (18/10/2026)
-import { statutLigne, ligneCourante } from "../moteur/resume.js";
+import { statutLigne, ligneCourante, prochaineSeance } from "../moteur/resume.js";
 import { etatLigne, protocoleDe, protocoleCure, seancesCure, seancesDe, dedupIds, joursDe, clairance, jourVersSeance, instantane, controleSeance, poidsAvant, poidsDebut, protocoleValide, REPERES, avecMolecule, reinSensible, reperesClairance, texteNiv, premed as premedP } from "../moteur/doses.js";
-import { addJ, ecart, num, age } from "../moteur/outils.js";
+import { addJ, ecart, num, age, rythme } from "../moteur/outils.js";
 import { tarif } from "../moteur/tarifs.js";
 import { consJours, associeVrai } from "../moteur/finances.js";
 import { trierRecherche, curesProposees, filtreLocalisation, filtreValide } from "../moteur/recherche.js";
@@ -171,7 +171,7 @@ window.chHeure = (id, i, k, j) => {
   const x = trouver(id), L = x && x.P.lignes[i]; if (!L) return;
   const e = etatLigne(L, x.P, D().ctx)[k], s = j === 1 ? { k, j: 1, d: e.date, o: e.c } : (() => { const z = seancesCure(L, e, D().ctx.bib).find((o) => o.j === j); return z ? { k, j, d: z.prevue, o: (e.c.sea || {})[j] || {} } : null; })();
   if (!s || !s.d) { A.toast("Date de la séance inconnue."); return; }
-  const cm = CM; fenetreHeureSeance(x, L.id, s, estInfirmiere() ? "Séance à l'hôpital de jour" : "Consultation de la séance de chimio", () => { const y = trouver(id); if (cm && y) { CM = cm; A.pageDossier(id); ouvrirCure(); } else A.pageDossier(id); });
+  const cm = CM; fenetreHeureSeance(x, L.id, s, estInfirmiere() ? "Séance à l'hôpital de jour" : "Heure de consultation – C" + e.n + (j > 1 ? " · J" + j : ""), () => { const y = trouver(id); if (cm && y) { CM = cm; A.pageDossier(id); ouvrirCure(); } else A.pageDossier(id); });
 };
 async function chargerMontants(x) {
   if (!A.peut("finances")) return null;
@@ -279,15 +279,18 @@ document.addEventListener("scroll", (ev) => { if (ev.target && ev.target.closest
 const unSeulJour = (L, k) => groupes(protocoleCure(L, k, D().ctx.bib) || protocoleDe(L, D().ctx.bib)).length <= 1;
 // Statut d'une cure : « J1 et J8 reçues · J15 à valider », puis « C2 terminée » quand toutes les séances sont reçues
 const etiqJ = (l) => l.length === 1 ? l[0] + " reçue" : l.slice(0, -1).join(", ") + " et " + l[l.length - 1] + " reçues";
-const badgeCure = (e) => {
+// UX11 C6 (02/11/2026) : séance reportée = « J15 reportée au … » (avec la ligne L), plus « J15 à valider »
+const badgeCure = (e, L) => {
   if (e.st === "recue") {
     const g = e.g || [{ j: 1 }], sea = e.c.sea || {}, rec = ["J1"], att = [];
-    g.slice(1).forEach((z) => { const st = sea[z.j] && sea[z.j].st; if (st === "recue") rec.push("J" + z.j); else if (st !== "annulee") att.push("J" + z.j); });
+    g.slice(1).forEach((z) => { const st = sea[z.j] && sea[z.j].st; if (st === "recue") rec.push("J" + z.j); else if (st !== "annulee") att.push(z.j); });
     if (!att.length) return '<span class="badge b-ch"><svg class="pi"><use href="#i-check"/></svg>C' + e.n + " terminée</span>";
-    return '<span class="badge b-ch"><svg class="pi"><use href="#i-check"/></svg>' + etiqJ(rec) + '</span> <span class="badge b-co"><svg class="pi"><use href="#i-horloge"/></svg>' + att[0] + " à valider</span>";
+    const z0 = sea[att[0]] || {}, pr = z0.rep && z0.rep.length && L ? (seancesCure(L, e, D().ctx.bib).find((z) => z.j === att[0]) || {}).prevue : null;
+    return '<span class="badge b-ch"><svg class="pi"><use href="#i-check"/></svg>' + etiqJ(rec) + "</span> " + (pr ? '<span class="badge b-or">↪ J' + att[0] + " reportée au " + A.dfrA(pr) + "</span>"
+      : '<span class="badge b-co"><svg class="pi"><use href="#i-horloge"/></svg>J' + att[0] + " à valider</span>");
   }
   if (e.st === "annulee") return '<span class="badge b-al">✖ Annulée</span>';
-  if (e.c.rep && e.c.rep.length) return '<span class="badge b-or">↪ Reportée</span>';
+  if (e.c.rep && e.c.rep.length) return '<span class="badge b-or">↪ Reportée' + (e.date ? " au " + A.dfrA(e.date) : "") + "</span>";
   return '<span class="badge b-gr"><svg class="pi"><use href="#i-horloge"/></svg>Prévue</span>';
 };
 const libStatut = (st) => (st.code === "stop" ? '<svg class="pi"><use href="#i-stop"/></svg>Arrêtée le ' + A.dfrA(st.fin) : st.code === "fin" ? '<svg class="pi"><use href="#i-check"/></svg>Terminée' : '<i class="dot v"></i>En cours');
@@ -305,14 +308,15 @@ export function htmlChimio(x) {
   if (!(P.lignes || []).length && !okT) return "";
   // à l'ouverture du dossier : la ligne en cours, sinon la dernière ; les autres fermées (11/10/2026)
   if (SEL.pid !== x.id) { SEL.pid = x.id; const lc = ligneCourante(P, ctx); SEL.l = lc != null ? lc : (P.lignes || []).length ? P.lignes.length - 1 : null; SEL.c = null; }
-  let h = '<section class="carte" id="cChimio"><div class="entete"><h3><span class="ic">' + A.ic("seringue") + '</span>Chimiothérapie</h3>' + (okT ? '<button class="bt clair petit" onclick="chNouvelleLigne(' + q1 + ')">' + A.ic("plus") + "Nouvelle prescription chimiothérapie</button>" : "") + "</div>"; // 3.1 (30/10/2026) : nom, bouton à gauche
-  if (!(P.lignes || []).length) h += A.etatVide({ ill: "chimio", titre: "Aucune chimiothérapie pour l'instant", txt: okT ? "« Nouvelle prescription chimiothérapie » pour en prescrire une." : "" }); // 3.4
+  let h = '<section class="carte" id="cChimio"><div class="entete"><h3><span class="ic">' + A.ic("seringue") + '</span>Chimiothérapie</h3>' + (okT ? '<button class="bt clair petit" onclick="chNouvelleLigne(' + q1 + ')">' + A.ic("plus") + "Nouvelle ligne de traitement</button>" : "") + "</div>"; // 3.1 (30/10/2026) : nom, bouton à gauche
+  if (!(P.lignes || []).length) h += A.etatVide({ ill: "chimio", titre: "Aucune chimiothérapie pour l'instant", txt: okT ? "« + Nouvelle ligne de traitement » pour en prescrire une." : "" }); // 3.4
   (P.lignes || []).forEach((L, i) => {
     // 3.7 (12/10/2026) : l'intention de la ligne (« Métastatique · 2e ligne »…) à la place de « Chimio · ligne n » ; en-tête raccourci (plus de
     // « Protocole : », date de début une seule fois : dans la période à droite)
     const s = statutLigne(L, P, ctx), p = protocoleDe(L, ctx.bib), ouv = SEL.l === i, tag = libIntention(L) || (associeVrai(L, p) ? "Associé · ligne " : "Chimio · ligne ") + (i + 1);
-    const cur = p.c ? (s.next ? "C" + s.next.n + "/" + L.cures.length : "C" + L.cures.length + "/" + L.cures.length) : "";
-    h += '<div class="acc' + (ouv ? " on" : "") + '"><div class="acc-t" onclick="chTog(' + q1 + "," + i + ')"><span><b class="tag">' + (ouv ? "▾" : "▸") + " [" + esc(tag) + "]</b> <b>" + esc(p.nom) + "</b>" + (cur ? " | " + cur : "") + (s.code === "cours" && s.next ? " | Prochaine : <b>" + A.dfrA(s.next.date) + "</b>" : "") + '</span><span class="st">' + periode(s, p) + " &nbsp; " + libStatut(s) + "</span></div>" +
+    // UX11 C1 (02/11/2026) : la prochaine séance peut être le J8 / J15 d'une cure déjà commencée (J1 reçu) : compteur et date de cette séance
+    const nx = prochaineSeance(L, s, D().ctx.bib), cur = p.c ? (nx ? "C" + nx.n + "/" + L.cures.length : "C" + L.cures.length + "/" + L.cures.length) : "";
+    h += '<div class="acc' + (ouv ? " on" : "") + '"><div class="acc-t" onclick="chTog(' + q1 + "," + i + ')"><span><b class="tag">' + (ouv ? "▾" : "▸") + " [" + esc(tag) + "]</b> <b>" + esc(p.nom) + "</b>" + (cur ? " | " + cur : "") + (s.code === "cours" && nx && nx.date ? " | Prochaine : <b>" + A.dfrA(nx.date) + "</b>" + (nx.j > 1 ? " (J" + nx.j + ")" : "") : "") + '</span><span class="st">' + periode(s, p) + " &nbsp; " + libStatut(s) + "</span></div>" +
       (ouv ? vueLigne(x, i) : "") + "</div>";
   });
   return h + "</section>";
@@ -329,7 +333,7 @@ function vueLigne(x, i) {
     const pend = e.st === "prevue", qc = ql + "," + k;
     h += "<tr" + (SEL.c === k ? ' class="sel"' : "") + '><td data-l="Cure"><b>C' + e.n + '</b></td><td data-l="Date prévue">' + (pend && okPl && !L.arret ? '<input type="date" value="' + esc(e.prevue || "") + '" onchange="chDate(' + qc + ',this.value)">' : A.dfrA(e.prevue)) + (pend && e.prevue && !L.arret ? boutonHeure(x, i, k, 1, e.c) : "") + // heure de la consultation (3.7)
       (e.c.rep && e.c.rep.length ? '<div class="mesures">' + e.c.rep.map((r) => "reportée du " + A.dfrA(r.de) + " (" + esc(r.raison) + ")").join("<br>") + "</div>" : "") + "</td>" +
-      '<td data-l="Réalisée le">' + (e.st === "recue" ? A.dfrA(e.c.reelle) : "—") + '</td><td data-l="Statut">' + badgeCure(e) + (e.st === "annulee" && e.c.ann ? '<div class="mesures">' + esc(e.c.ann.raison || "") + (e.c.ann.com ? " – " + esc(e.c.ann.com) : "") + "</div>" : "") + "</td>" +
+      '<td data-l="Réalisée le">' + (e.st === "recue" ? A.dfrA(e.c.reelle) : "—") + '</td><td data-l="Statut">' + badgeCure(e, L) + (e.st === "annulee" && e.c.ann ? '<div class="mesures">' + esc(e.c.ann.raison || "") + (e.c.ann.com ? " – " + esc(e.c.ann.com) : "") + "</div>" : "") + "</td>" +
       '<td class="pcs" data-l="Poids · ' + (auc ? "Cl · " : "") + 'SC">' + [e.poids ? e.poids + " kg" : "", auc && e.cl ? e.cl + " ml/min" : "", e.sc ? fr2(e.sc) + " m²" : ""].filter(Boolean).map((v) => '<span class="nw">' + v + "</span>").join(" · ") + "</td>" +
       // 3.14 (12/10/2026) : « Ouvrir » toujours en bouton principal ; « Valider », « Reporter », « Annuler » dans ⋯
       '<td class="act"><div class="btns">' + b("Ouvrir", "chOuvrir(" + qc + ")", "fonce") +
@@ -362,8 +366,8 @@ function vueCure(x, i, k) {
   const P = x.P, L = P.lignes[i], { q, e } = etatCure(L, k, P), esc = A.esc, okT = A.traitMod(), okPl = okT || A.peut("planningChimio"), c = e.c, qc = "'" + x.id + "'," + i + "," + k;
   const g = groupes(q), multi = g.length > 1, motif = (o) => (o ? esc(o.raison || "") + (o.com ? " – " + esc(o.com) : "") : "");
   let h = '<div class="cure-ent"><div><h3 style="margin:0">Cure C' + e.n + (q.c ? " / " + L.cures.length : "") + " — " + esc(q.nom) + "</h3>" +
-    '<p class="sous" style="margin:4px 0 0">' + esc(x.r.nm) + " " + badgeCure(e) + "</p></div>" +
-    '<button class="bt fonce petit" data-fn="chimio.fiche" onclick="chFiche(' + qc + ')"><svg class="pi"><use href="#i-imprimer"/></svg>FICHE CHIMIO</button></div>';
+    '<p class="sous" style="margin:4px 0 0">' + esc(x.r.nm) + " " + badgeCure(e, L) + "</p></div>" +
+    '<button class="bt clair petit" data-fn="chimio.fiche" onclick="chFiche(' + qc + ')"><svg class="pi"><use href="#i-imprimer"/></svg>Fiche chimio</button></div>';
   const td = (lib, v, cls) => '<td data-l="' + lib + '"' + (cls ? ' class="' + cls + '"' : "") + ">" + v + "</td>";
   const reps = (l) => (l && l.length ? '<div class="mesures">' + l.map((r) => "↪ reportée du " + A.dfrA(r.de) + " (" + esc(r.raison) + ")").join("<br>") + "</div>" : "");
   const statut = (st, rep, ann) => st === "recue" ? '<span class="badge b-ch"><svg class="pi"><use href="#i-check"/></svg>Reçue</span>' : st === "annulee" ? '<span class="badge b-al">✖ Annulée</span>' + (ann ? '<div class="mesures">' + motif(ann) + "</div>" : "") : rep ? '<span class="badge b-or">↪ Reportée</span>' : '<span class="badge b-gr"><svg class="pi"><use href="#i-horloge"/></svg>Prévue</span>';
@@ -405,10 +409,10 @@ function vueJour(x, i, k, j) {
   if (figeJ) dis = " disabled";
   // bouton « Retour à la cure » en bas, à côté de Reporter / Valider (12/10/2026, demande de Dr Bentahila)
   const RET = (unSeulJour(L, k) ? '<button class="bt gris" style="margin-right:auto" onclick="chFermerCure()">Fermer</button>' // cure d'un seul jour : pas de tableau des jours (3.7)
-    : '<button class="bt gris" style="margin-right:auto" onclick="chRetourCure()">‹ Retour à la cure C' + e.n + "</button>") +
+    : '<button class="bt gris" style="margin-right:auto" onclick="chRetourCure()">‹ Séances de la C' + e.n + "</button>") +
     (A.peut("ecrireConsultations") ? '<button class="bt clair" data-fn="prescriptions" onclick="chOrdos(' + qc + "," + j + ')">' + A.ic("imprimer") + "Ordonnances</button>" : ""); // P6 (18/10/2026)
   let h = '<div class="cure-ent"><div><h3 style="margin:0">C' + e.n + " · " + etiquette(gr) + " — " + esc(q.nom) + '</h3><p class="sous" style="margin:4px 0 0">' + esc(x.r.nm) + (dJ ? " · " + A.dfrA(dJ) : "") + (dJ && !figeJ && (j === 1 ? e.st === "prevue" : sea && sea.st === "prevue") ? boutonHeure(x, i, k, gr.j, j === 1 ? c : (c.sea || {})[j] || {}) : "") + "</p></div>" + // heure de la consultation, à côté de la date (3.7)
-    (j === 1 ? '<button class="bt fonce petit" data-fn="chimio.fiche" onclick="chFiche(' + qc + ')"><svg class="pi"><use href="#i-imprimer"/></svg>FICHE CHIMIO</button>' : "") + "</div>";
+    (j === 1 ? '<button class="bt clair petit" data-fn="chimio.fiche" onclick="chFiche(' + qc + ')"><svg class="pi"><use href="#i-imprimer"/></svg>Fiche chimio</button>' : "") + "</div>";
   // Paramètres de la séance (J1, J8…) : saisis ici, sinon repris de la séance précédente (puis de la cure précédente)
   const G = (e.g && e.g[gi]) || { poids: e.poids, creat: e.creat, sc: e.sc, cl: e.cl, pctAll: num(c.pctAll), saisi: {} };
   // Poids validé par la secrétaire (10/10/2026) : séance prévue aujourd'hui (ou en retard), droit « planning » sans « traitements »
@@ -416,7 +420,7 @@ function vueJour(x, i, k, j) {
   const poidsSec = !okT && A.peut("planningChimio") && enAttente && !!dJ && dJ <= D().t, pv = (c.pv || {})[gr.j];
   // 19/10/2026 (demande de Dr Bentahila : tout voir sans défiler) : poids, surface, %, créatinine, DFG et bilan du jour dans une seule grille serrée
   const bioIn = !figeJ && okT ? bilanJour({ x, i, k, j, figeJ, F, okT, G, e, qc, gr, dis, u, auc: q.dr.some((d) => /AUC/.test(d.u)), prods: figeJ && F && F.doses ? Object.values(F.doses) : Object.values(instantane(e, gi).doses), crU: L.crU, inline: true }) : "";
-  h += '<div class="form par-j" style="grid-template-columns:repeat(auto-fill,minmax(118px,1fr));margin-top:4px"><div><label for="chPoids">Poids (kg)</label><input id="chPoids" inputmode="decimal" value="' + esc(G.poids || "") + '"' + (G.saisi.poids ? ' class="saisi"' : "") + (poidsSec ? "" : dis) + ' onchange="chChamp(' + qc + ',\'poids\',this.value,' + gr.j + ')">' +
+  h += '<div class="form par-j" style="grid-template-columns:repeat(auto-fill,minmax(102px,1fr));margin-top:4px"><div><label for="chPoids">Poids (kg)</label><input id="chPoids" inputmode="decimal" value="' + esc(G.poids || "") + '"' + (G.saisi.poids ? ' class="saisi"' : "") + (poidsSec ? "" : dis) + ' onchange="chChamp(' + qc + ',\'poids\',this.value,' + gr.j + ')">' +
     (poidsSec ? '<button class="bt vert petit" style="margin-top:6px" onclick="chChamp(' + qc + ',\'poids\',document.getElementById(\'chPoids\').value,' + gr.j + ')"><svg class="pi"><use href="#i-check"/></svg>Valider le poids</button>' : "") +
     (pv ? '<div class="mesures">Poids validé par ' + esc(pv.nom || "") + " le " + A.dfrA(String(pv.le || "").slice(0, 10)) + " à " + (pv.le && !isNaN(Date.parse(pv.le)) ? hmMaroc(Date.parse(pv.le)) : "").replace(":", " h ") + "</div>" : "") + "</div>" +
     '<div><label>Surface corporelle</label><input disabled value="' + (G.sc ? fr2(G.sc) + " m²" : "—") + '"></div>' +
@@ -437,7 +441,7 @@ function vueJour(x, i, k, j) {
   const tous = []; q.dr.forEach((d) => joursDe(d).forEach((jj) => { if (tous.indexOf(jj) < 0) tous.push(jj); })); tous.sort((a, z) => a - z);
   const jours = multi ? tous.filter((jj) => jourVersSeance(g, jj) === gi) : tous; // « selon prescription » (G-CSF…) : avec J1
   h += tableDoses(x, i, k, q, e, jours, qc, dis, dJ ? addJ(dJ, 1 - gr.j) : e.date);
-  if (j === 1 && q.no) h += '<div style="color:#8A1C2B;margin-top:8px;font-size:12.5px">' + q.no.map(esc).join("<br>") + "</div>";
+  if (j === 1 && q.no) h += '<div class="mesures" style="margin-top:8px">' + q.no.map(esc).join("<br>") + "</div>"; // UX11 C18 : remarques du protocole en gris, plus en rouge
   // Validation du jour
   h += '<div class="valj">';
   if (j === 1) {
@@ -445,7 +449,7 @@ function vueJour(x, i, k, j) {
     else if (e.st === "annulee") h += '<span class="badge b-al">✖ Cure annulée</span>';
     else if (okT) h += '<div class="form" style="grid-template-columns:minmax(0,220px) 1fr;align-items:end"><div><label for="vD">Date de réalisation</label>' + dateInput("vD", D().t) + "</div>" +
       (e.date ? '<div class="mesures" id="vSz">' + choixSuite("vS", "Si la date diffère de la date prévue (" + A.dfrA(e.date) + ")") + "</div>" : "<div></div>") + "</div>" +
-      '<div class="err" id="fErr"></div><div class="boutons" style="margin-top:8px">' + RET + '<button class="bt gris" data-fn="chimio.report" style="color:#B46A00" onclick="chReporter(' + qc + ')">↪ Reporter' + (multi ? " J1 (la cure)" : " la cure") + '</button><button class="bt vert" id="fOk" onclick="chValiderJ1(' + qc + ')"><svg class="pi"><use href="#i-check"/></svg>' + (multi ? "Valider J1" : "Valider la cure") + "</button></div>";
+      '<div class="err" id="fErr"></div><div class="boutons" style="margin-top:8px">' + RET + '<button class="bt clair" data-fn="chimio.report" onclick="chReporter(' + qc + ')">↪ Reporter' + (multi ? " J1 (la cure)" : " la cure") + '</button><button class="bt vert" id="fOk" onclick="chValiderJ1(' + qc + ')"><svg class="pi"><use href="#i-check"/></svg>' + (multi ? "Valider J1" : "Valider la cure") + "</button></div>";
   } else if (sea) {
     const rp = ((c.sea || {})[j] || {}).rep || [];
     if (rp.length) h += '<p class="mesures" style="margin:0 0 8px">' + rp.map((r) => "↪ Reportée du " + A.dfrA(r.de) + " au " + A.dfrA(r.a) + " (" + esc(r.raison) + (r.com ? " – " + esc(r.com) : "") + ")").join("<br>") + "</p>";
@@ -454,14 +458,14 @@ function vueJour(x, i, k, j) {
     else if (sea.st === "recue") h += '<span class="badge b-ch"><svg class="pi"><use href="#i-check"/></svg>' + etiquette(gr) + " reçue le " + A.dfrA(sea.d) + "</span>" + (okT ? ' <a href="#" class="lienr" onclick="chAnnulerSeance(' + qc + "," + j + ');return false">annuler la validation</a>' : "");
     else if (okT) h += '<div class="form" style="grid-template-columns:minmax(0,220px) 1fr;align-items:end"><div><label for="sD">Date de réalisation</label>' + dateInput("sD", sea.prevue && ecart(sea.prevue, D().t) <= 0 ? sea.prevue : D().t) + "</div>" +
       (sea.prevue ? "<div>" + choixSuite("sS", "Si la date diffère de la date prévue (" + A.dfrA(sea.prevue) + ")") + "</div>" : "<div></div>") + "</div>" +
-      '<div class="err" id="fErr"></div><div class="boutons" style="margin-top:8px">' + RET + '<button class="bt gris" style="color:#B46A00" onclick="chReporterJ(' + qc + "," + j + ')">↪ Reporter ' + etiquette(gr) + '</button><button class="bt vert" id="fOk" onclick="chValiderJ(' + qc + "," + j + ')"><svg class="pi"><use href="#i-check"/></svg>Valider ' + etiquette(gr) + "</button></div>";
+      '<div class="err" id="fErr"></div><div class="boutons" style="margin-top:8px">' + RET + '<button class="bt clair" onclick="chReporterJ(' + qc + "," + j + ')">↪ Reporter ' + etiquette(gr) + '</button><button class="bt vert" id="fOk" onclick="chValiderJ(' + qc + "," + j + ')"><svg class="pi"><use href="#i-check"/></svg>Valider ' + etiquette(gr) + "</button></div>";
   }
   if (h.indexOf(RET) < 0) h += '<div class="boutons" style="margin-top:10px">' + RET + "</div>"; // 3.14 : un seul « Fermer » (cure d'un seul jour) // séance validée, annulée… : retour en bas aussi
   return h + "</div>";
 }
 function tableDoses(x, i, k, q, e, jours, qc, dis, d0) {
   const esc = A.esc;
-  let h = '<div class="tableau"><table class="tcures doses tsea"><tr><th>Jour</th><th>Produit</th><th>Posologie</th><th>Dose 100 %</th><th>% dose</th><th>Dose retenue (modifiable)</th></tr>'; // téléphone : cartes (3.7)
+  let h = '<div class="tableau"><table class="tcures doses tsea"><tr><th>Jour</th><th>Produit</th><th>Posologie</th><th>Dose 100 %</th><th>% dose</th><th>Dose retenue' + (dis ? "" : " (modifiable)") + "</th></tr>"; // téléphone : cartes (3.7) ; UX11 C4 : séance validée = cases grisées, sans « (modifiable) »
   jours.forEach((j) => {
     h += '<tr class="jr"><td colspan="6">' + (j === 99 ? "Selon prescription" : "J" + j + (d0 ? " – " + A.dfrA(addJ(d0, j - 1)) : "")) + "</td></tr>";
     q.dr.forEach((d, xx) => {
@@ -469,7 +473,7 @@ function tableDoses(x, i, k, q, e, jours, qc, dis, d0) {
       const txt = d.u === "txt", multiJ = joursDe(d).length > 1, z = (e.dj && e.dj[xx] && e.dj[xx][j]) || { dose: e.doses[xx], pc: 100 };
       // P10 k (18/10/2026) : dose arrondie au flacon proposée (lien qui l'applique comme une dose saisie), séance non validée seulement
       const arf = !txt && !dis && !premedP(d) && z.dose != null ? arrondiFlacon(d.p, z.dose, flaconsCabinet()) : null;
-      h += '<tr><td data-l="Jour">' + esc(multiJ ? "J" + j : d.jl || (d.j || []).filter((y) => y !== 99).map((y) => "J" + y).join(" ")) + '</td><td data-l="Produit" class="pr">' + esc(d.p) + '</td><td data-l="Posologie">' + esc(poso(d)) + '</td><td data-l="Dose 100 %">' + esc(doseTxt(d, z.v !== undefined ? z.v : e.calc[xx])) +
+      h += '<tr><td data-l="Jour">' + esc(multiJ ? "J" + j : d.jl || [...new Set((d.j || []).filter((y) => y !== 99))].map((y) => "J" + y).join(" ")) + '</td><td data-l="Produit" class="pr">' + esc(d.p) + '</td><td data-l="Posologie">' + esc(poso(d)) + '</td><td data-l="Dose 100 %">' + esc(doseTxt(d, z.v !== undefined ? z.v : e.calc[xx])) +
         (arf ? '<br><a href="#" class="lien" style="font-size:12px" title="Appliquer cette dose arrondie" onclick="chOv(' + qc + ",'" + esc(d.id) + "'," + j + "," + arf.dose + ');return false">' + esc(arf.lib) + "</a>" : "") + '</td><td data-l="% dose">' +
         (txt ? "" : '<input inputmode="decimal" style="max-width:80px' + (z.pc !== 100 ? ";color:var(--rouge);font-weight:bold" : "") + '"' + (z.pi ? ' class="saisi"' : "") + ' value="' + z.pc + '"' + dis + ' onchange="chPct(' + qc + ",'" + esc(d.id) + "'," + j + ',this.value)"> %') + '</td><td data-l="Dose retenue">' +
         (txt ? esc(texteNiv(d.dt || "", e.poids)) : '<input inputmode="decimal" style="max-width:130px"' + (z.ov ? ' class="saisi"' : "") + ' value="' + (z.dose == null ? "" : z.dose) + '"' + dis + ' onchange="chOv(' + qc + ",'" + esc(d.id) + "'," + j + ',this.value)">') + "</td></tr>";
@@ -647,6 +651,10 @@ async function verifierValidation(x, i, k, n) {
   interactions({ prods: cv.prods.filter((z) => z && !premedP(z)).concat(cv.prods.filter((z) => z && /ONDANSETRON|ONSET/i.test(z.p))), texte: cv.patient.texte, ordos: (champsBib(pc, L) || {}).ordos, liste: interactionsCabinet(), cl: E[k] && E[k].g[n] ? E[k].g[n].cl : null }).forEach((s) => vg.push(s));
   foie({ prods: cv.prods.filter((z) => z && z.u !== "txt"), bio, crU: L.crU }).forEach((s) => vg.push(s));
   const al = r.alertes.concat(alertesBio(bio, { hebdo }));
+  // UX11 C8 (02/11/2026) : bilan du jour non saisi (PNN, plaquettes, hémoglobine et examens proposés pour les molécules) : signalé, sans bloquer
+  const prodsV = cv.prods.filter((z) => z && z.u !== "txt"), manq = [["pnn", "PNN"], ["plq", "plaquettes"], ["hb", "hémoglobine"]].filter(([c2]) => bio[c2] == null).map(([, l]) => l)
+    .concat(EXAMENS.filter((X) => examensProposes(prodsV).indexOf(X[0]) >= 0 && bio[X[0]] == null).map((X) => X[1].toLowerCase()));
+  if (manq.length && document.getElementById("bPnn")) al.unshift("Bilan du jour non saisi : " + manq.join(", ") + ".");
   if ((al.length || vg.length) && !(await confirmer("Repères, vous gardez la main.\n\n" + (al.length ? "• " + al.join("\n• ") : "") +
     (vg.length ? (al.length ? "\n\n" : "") + "Vigilance par molécule :\n• " + vg.join("\n• ") : ""), { titre: "À vérifier avant de valider", ton: "rouge", oui: "Valider quand même" }))) return null;
   Object.keys(BIOB).forEach((c2) => { if (c2.indexOf(x.id + "|" + i + "|" + k + "|") === 0) delete BIOB[c2]; });
@@ -698,7 +706,8 @@ window.chValiderJ1 = async (id, i, k) => {
     if (ok.vig.length) c.fige.vig = ok.vig; // vigilances confirmées (12/10/2026)
     if (g.length > 1) { c.sea = c.sea || {}; g.slice(1).forEach((s) => { if (!c.sea[s.j]) c.sea[s.j] = { st: "prevue" }; }); }
     await sauverLignes(x, lignes, "Cure C" + (k + 1) + " validée (" + A.dfrA(d) + ")");
-    SEL.pid = x.id; SEL.l = i; SEL.c = k; if (CM) CM.j = null;
+    // UX11 C11 (02/11/2026) : après « Valider J1 », retour à la liste des cures du dossier (plus la vue des séances de la cure)
+    SEL.pid = x.id; SEL.l = i; SEL.c = k; CM = null;
   });
 };
 window.chRetablir = async (id, i, k) => {
@@ -713,7 +722,7 @@ window.chReporter = (id, i, k, salle) => {
   const x = trouver(id), e = etatLigne(x.P.lignes[i], x.P, D().ctx)[k], d0 = e && e.date ? e.date : D().t;
   A.fenetre("<h3>Reporter la cure C" + (k + 1) + " – " + A.esc(x.r.nm) + '</h3><p class="sous">Prévue le ' + A.dfrA(d0) + '</p><div class="form"><div><label for="rD">Nouvelle date</label>' + dateInput("rD", addJ(d0, 7)) + "</div>" +
     '<div><label for="rR">Raison</label><select id="rR">' + RAISONS.map((r) => "<option>" + r + "</option>").join("") + "</select></div>" +
-    '<div class="large"><label for="rC">Commentaire</label><input id="rC"></div>' + choixSuite("rS", "Cures suivantes", "suite") + "</div>" + optSalle(salle) + boutons("Reporter", "orange"));
+    '<div class="large"><label for="rC">Commentaire</label><input id="rC"></div>' + choixSuite("rS", "Cures suivantes") + "</div>" + optSalle(salle) + boutons("Reporter", "orange")); // UX11 C7 : « Cette date seulement » par défaut, comme dans la séance
   lierSalle(salle);
   document.getElementById("fOk").onclick = async () => (await dateReportOk(A.val("rD"))) && executer(x, async () => {
     const nd = A.val("rD"); if (!nd) throw new Error("Indiquez la nouvelle date.");
@@ -754,7 +763,7 @@ window.chReporterJ = (id, i, k, j, salle) => {
   const x = trouver(id), L = x.P.lignes[i], e = etatLigne(L, x.P, D().ctx)[k], s0 = seancesCure(L, e, D().ctx.bib).find((z) => z.j === j), d0 = (s0 && s0.prevue) || D().t;
   A.fenetre("<h3>Reporter J" + j + " – cure C" + (k + 1) + " – " + A.esc(x.r.nm) + '</h3><p class="sous">Prévue le ' + A.dfrA(d0) + '</p><div class="form"><div><label for="rD">Nouvelle date</label>' + dateInput("rD", addJ(d0, 7)) + "</div>" +
     '<div><label for="rR">Raison</label><select id="rR">' + RAISONS.map((r) => "<option>" + r + "</option>").join("") + "</select></div>" +
-    '<div class="large"><label for="rC">Commentaire</label><input id="rC"></div>' + choixSuite("sS", "Séances et cures suivantes", "suite") + "</div>" + optSalle(salle) + boutons("Reporter", "orange"));
+    '<div class="large"><label for="rC">Commentaire</label><input id="rC"></div>' + choixSuite("sS", "Séances et cures suivantes") + "</div>" + optSalle(salle) + boutons("Reporter", "orange")); // UX11 C7
   lierSalle(salle);
   document.getElementById("fOk").onclick = async () => (await dateReportOk(A.val("rD"))) && executer(x, async () => {
     const nd = A.val("rD"); if (!nd) throw new Error("Indiquez la nouvelle date.");
@@ -997,13 +1006,13 @@ export function editerAvec(ed, redraw) { ED = ed; REDRAW = redraw; }
 const hasAUC = (p) => (p.dr || []).some((d) => d.u === "AUC");
 export function tableMol() {
   const esc = A.esc;
-  let h = '<div class="tableau"><table class="tcures ed"><tr><th>Produit</th><th>Dose</th><th>Unité</th><th>Jours (ex. 1,8,15)</th><th>Libellé jour</th><th>Précision</th><th>Voie</th><th>Soluté + volume</th><th>Durée</th><th title="Dose maximale, arrondi, rythme">Options</th><th></th></tr>';
+  let h = '<div class="tableau"><table class="tcures ed"><tr><th>Produit</th><th>Dose</th><th>Unité</th><th>Jours (ex. 1,8,15)</th><th>Libellé jour</th><th>Précision</th><th>Voie</th><th>Soluté + volume</th><th>Durée</th><th title="Dose maximale, arrondi, rythme">Options</th></tr>'; // UX11 C10 (02/11/2026) : ↑ et − juste après le produit
   ED.dr.forEach((d, i) => {
     const dose = d.u === "txt" ? d.pos || "" : d.u === "mg_c1" || d.u === "mg/kg_c1" ? (d.c1 == null ? "" : d.c1 + "/" + d.cn) : d.d == null ? "" : d.d;
     const inp = (v, f, w, l) => '<td><input' + (l ? ' list="' + l + '"' : "") + ' value="' + esc(v == null ? "" : v) + '" style="min-width:' + (w || 70) + 'px" onchange="edSet(' + i + ",'" + f + "',this.value)\"></td>";
-    h += "<tr>" + inp(d.p, "p", 190, "dmol") + inp(dose, "dose", 70) + '<td><select onchange="edSet(' + i + ",'u',this.value)\">" + UNITES_ED.map((u) => '<option value="' + u[0] + '"' + (u[0] === d.u ? " selected" : "") + ">" + u[1] + "</option>").join("") + "</select></td>" +
-      inp((d.j || []).filter((x) => x !== 99).join(","), "j", 80) + inp(d.jl, "jl", 90) + inp(d.n, "n", 80) + inp(d.v, "v", 60) + inp(d.s, "s", 110) + inp(d.t, "t", 60) + options(d, i) +
-      '<td style="white-space:nowrap"><button class="mini" title="Monter" onclick="edMonter(' + i + ')">↑</button><button class="mini rouge" title="Retirer" onclick="edRetirer(' + i + ')">−</button></td></tr>';
+    const ordre = '<button class="mini" title="Monter" aria-label="Monter" onclick="edMonter(' + i + ')">↑</button><button class="mini rouge" title="Retirer" aria-label="Retirer" onclick="edRetirer(' + i + ')">−</button>';
+    h += "<tr>" + inp(d.p, "p", 190, "dmol").replace("<td>", '<td><div class="ed-p">').replace("\"></td>", '">' + ordre + "</div></td>") + inp(dose, "dose", 70) + '<td><select onchange="edSet(' + i + ",'u',this.value)\">" + UNITES_ED.map((u) => '<option value="' + u[0] + '"' + (u[0] === d.u ? " selected" : "") + ">" + u[1] + "</option>").join("") + "</select></td>" +
+      inp((d.j || []).filter((x) => x !== 99).join(","), "j", 80) + inp(d.jl, "jl", 90) + inp(d.n, "n", 80) + inp(d.v, "v", 60) + inp(d.s, "s", 110) + inp(d.t, "t", 60) + options(d, i) + "</tr>";
   });
   return h + '</table></div><datalist id="dmol">' + DICT.map((x) => '<option value="' + esc(x.split("|")[0]) + '">').join("") + "</datalist>" +
     '<div class="actr" style="justify-content:flex-start;margin-top:8px"><button class="bt vert petit" onclick="edAjout()">+ Ajouter une molécule</button><button class="bt vert petit" onclick="edAjout(\'niv\')">+ Nivestim 30 MU</button></div>';
@@ -1051,7 +1060,7 @@ window.chProto = (id, i) => {
   const x = trouver(id), L = x.P.lignes[i], okT = A.traitMod(), esc = A.esc;
   ED = JSON.parse(JSON.stringify(protocoleDe(L, D().ctx.bib)));
   if (!okT) {
-    A.panneau("<h3>Protocole de la ligne " + (i + 1) + "</h3><p><b>" + esc(ED.nom) + '</b><br><span class="mesures">' + esc(ED.r || "") + '</span></p><div class="tableau"><table class="tcures"><tr><th>Produit</th><th>Posologie</th><th>Jours</th><th>Voie</th><th>Durée</th></tr>' + ED.dr.map((d) => "<tr><td>" + esc(d.p) + "</td><td>" + esc(poso(d)) + "</td><td>" + esc(d.jl || (d.j || []).filter((y) => y !== 99).map((y) => "J" + y).join(" ")) + "</td><td>" + esc(d.v || "") + "</td><td>" + esc(d.t || "") + "</td></tr>").join("") + '</table></div><div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Fermer</button></div>');
+    A.panneau("<h3>Protocole de la ligne " + (i + 1) + "</h3><p><b>" + esc(ED.nom) + '</b><br><span class="mesures">' + esc(rythme(ED.r)) + '</span></p><div class="tableau"><table class="tcures"><tr><th>Produit</th><th>Posologie</th><th>Jours</th><th>Voie</th><th>Durée</th></tr>' + ED.dr.map((d) => "<tr><td>" + esc(d.p) + "</td><td>" + esc(poso(d)) + "</td><td>" + esc(d.jl || (d.j || []).filter((y) => y !== 99).map((y) => "J" + y).join(" ")) + "</td><td>" + esc(d.v || "") + "</td><td>" + esc(d.t || "") + "</td></tr>").join("") + '</table></div><div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Fermer</button></div>');
     return;
   }
   REDRAW = () => {
@@ -1131,7 +1140,7 @@ function dessinerNL() {
   const cl = auc ? clairance(age(P.ddn, NL.j1), num(NL.po), num(NL.cr), P.sexe, "mgL") : null;
   const ch = (lib, f, v, typ) => "<div><label>" + lib + '</label><input class="req"' + (typ === "date" ? ' type="date"' : ' inputmode="decimal"') + ' value="' + esc(v == null ? "" : v) + '" onchange="nlSet(\'' + f + "',this.value)\"></div>";
   A.panneau("<h3>Nouvelle ligne de traitement</h3>" +
-    '<div class="bloc gris"><b>' + esc(p.nom) + '</b><br><span class="mesures">' + esc(p.r || "") + '</span> <button class="mini" onclick="nlChanger()">Changer de protocole</button>' +
+    '<div class="bloc gris"><b>' + esc(p.nom) + '</b><br><span class="mesures">' + esc(rythme(p.r)) + '</span> <button class="mini" onclick="nlChanger()">Changer de protocole</button>' +
       // T1 (24/10/2026, U3) : intention choisie ici, dans le même écran que le nombre de cures et la date (plus de fenêtre à part)
       '<div class="nl-int" style="margin-top:8px"><span class="mesures">Intention :</span> <span class="puces" style="display:inline-flex;flex-wrap:wrap;gap:4px">' + INTENTIONS.map(([k, l]) => '<button type="button" class="puce' + (NL.intent === k ? " on" : "") + '" onclick="nlIntent(\'' + k + '\')">' + l + "</button>").join("") + "</span>" +
       (NL.intent === "meta" ? ' <label class="mesures" style="font-weight:normal;margin-left:6px">Ligne n° <select onchange="nlRang(this.value)">' + [1, 2, 3, 4, 5, 6, 7, 8].map((n) => '<option value="' + n + '"' + (n === +(NL.rang || 1) ? " selected" : "") + ">" + rangLib(n) + "</option>").join("") + "</select></label>" : "") + "</div></div>" +
@@ -1163,13 +1172,13 @@ function suiteLigne(pid, nom, fait) {
   A.fenetre("<h3>Ligne créée</h3><p class=\"sous\">" + esc(nom) + " — et maintenant ?</p><div class=\"boutons\" style=\"flex-wrap:wrap;justify-content:flex-start\">" +
     bt("slFiche", "imprimer", "Fiche de chimio (prise en charge)", "fiche") +
     (A.peut("ecrireConsultations") ? bt("slOrdo", "imprimer", "Ordonnances du protocole", "ordo").replace('<button ', '<button data-fn="prescriptions" ') : "") +
-    (A.traitMod() || A.peut("planning") ? bt("slHeure", "horloge", "Heure de la C1", "heure") : "") +
+    (A.traitMod() || A.peut("planning") ? bt("slHeure", "horloge", "Heure de consultation – C1", "heure") : "") +
     '</div><p class="mesures">Vous pouvez en faire plusieurs : cette fenêtre revient après chacune.</p><div class="boutons"><button class="bt plein" onclick="fermerFenetre()">' + (Object.keys(F).length ? "Terminer" : "Plus tard") + "</button></div>");
   const on = (id, f) => { const b = document.getElementById(id); if (b) b.onclick = f; };
   const revenir = (k) => () => suiteLigne(pid, nom, Object.assign({}, F, { [k]: 1 }));
   // fiche : imprimée dans un nouvel onglet, la fenêtre reste ; ordonnances et heure : leur fenêtre, puis retour ici à sa fermeture
   on("slFiche", () => { window.chFiche(pid, i, 0); revenir("fiche")(); });
-  on("slOrdo", () => { A.fermerFenetre(); window.chOrdos(pid, i, 0, 1, { initial: true }); if (A.apresFenetre) A.apresFenetre(revenir("ordo")); });
+  on("slOrdo", () => { A.fermerFenetre(); window.__orPcFait = false; window.chOrdos(pid, i, 0, 1, { initial: true }); if (A.apresFenetre) A.apresFenetre(() => (window.__orPcFait ? revenir("ordo")() : suiteLigne(pid, nom, F))); }); // UX11 C2 : fermée sans rien enregistrer = pas « (fait) »
   on("slHeure", () => { A.fermerFenetre(); window.chHeure(pid, i, 0, 1); if (A.apresFenetre) A.apresFenetre(revenir("heure")); });
 }
 // 12/10/2026 (signalé par Dr Bentahila : « la page se recharge, je n'arrive plus à choisir ») : un choix dans les menus ne redessine plus

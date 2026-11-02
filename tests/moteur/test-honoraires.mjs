@@ -29,7 +29,8 @@ const ctx = { aujourdhui: "2026-10-25", bib: {}, feries: [] }, Pt = { nom: "PATI
 cas("vraie chimio cochée « associé » : pas un traitement associé (associeVrai)", !associeVrai(Lc, PC) && associeVrai({ assoc: 1 }, P(["ZOLADEX 3,6 mg (goséréline)"], 1)));
 cas("vraie chimio cochée « associé » : ligne en cours du dossier", ligneCourante(Pt, ctx) === 0);
 const r = resume(JSON.parse(JSON.stringify(Pt)), ctx);
-cas("bandeau : cure et nombre de cures connus (C2/6)", r.t && r.t.st === "cours" && r.t.k === 2 && r.t.nb === 6);
+// UX11 C1 (02/11/2026) : J8 de la C1 encore à faire → « C1/6 », prochaine séance = ce J8
+cas("bandeau : cure et nombre de cures connus (C1/6 : J8 de la C1 à faire)", r.t && r.t.st === "cours" && r.t.k === 1 && r.t.nb === 6 && r.t.next === "2026-10-29");
 const Pz = { nom: "PATIENT TEST", lignes: [Object.assign({}, Lc, { pr: Object.assign(P(["ZOLADEX 3,6 mg (goséréline)"], 1), { id: "x|z", c: 28 }) })], rdvs: [], rts: [] };
 const rz = resume(JSON.parse(JSON.stringify(Pz)), ctx);
 cas("vraie ligne associée seule (goséréline) : cure et nombre de cures aussi donnés", rz.t && (rz.t.st !== "cours" || rz.t.nb === 6));

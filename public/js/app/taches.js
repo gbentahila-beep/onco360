@@ -92,6 +92,9 @@ function prevenir(id, avant) {
   const t = trouver(id), moi = D().u.uid, f = t && derniere(t); if (!t || !f || f.par === moi || !concerneMoi(t)) return;
   const a = avant && avant.get(id); if (a && (a.fil || []).length >= (t.fil || []).length) return;
   if (ficheOuverte(id)) return; // déjà sous les yeux : la fiche se met à jour
+  // UX12 (R14, 02/11/2026) : tâche automatique créée ou terminée par Onco360 juste après ma propre écriture dans le dossier (contourage, dosimétrie,
+  // clôture validés par moi) : rien à annoncer
+  if (t.auto && f.par === "onco360") { const x = D().patients.find((p) => p.id === t.patientId); if (x && x.doc && x.doc.majPar === moi) return; }
   const qui = f.parNom || "Un collègue", ti = "« " + t.titre + " »";
   let m;
   if (!a) m = t.pour === moi ? ((t.fil || []).length === 1 ? "Nouvelle tâche de " + qui + " : " + ti : qui + " vous a confié " + ti) : qui + " : " + ti;
@@ -108,7 +111,7 @@ function notifier(m, id) {
   n.querySelector(".tx").onclick = () => { n.remove(); window.taVoir(id); };
   n.querySelector(".x").onclick = () => n.remove();
   z.appendChild(n); while (z.children.length > 4) z.firstChild.remove();
-  setTimeout(() => n.remove(), 12000);
+  setTimeout(() => n.remove(), 8000); // UX12 (R14) : part seule après quelques secondes
 }
 // Ouvrir une tâche depuis n'importe quelle page (message, tableau de bord)
 let A_OUVRIR = null;
@@ -453,7 +456,7 @@ async function formulaire(t, pid) {
     '<div><label for="taH">Heure <span class="mesures">(facultatif)</span></label><input id="taH" type="time" value="' + esc(t ? t.h || "" : "") + '"></div>' +
     '<div class="large" data-fn="taches.urgent"><label style="font-weight:normal;color:var(--encre)"><input id="taUrg" type="checkbox" style="width:auto;margin-right:8px"' + (t && t.urgent ? " checked" : "") + ">Urgent</label></div>" +
     '<div class="large" style="position:relative"><label for="taPq">Patient <span class="mesures">(facultatif)</span></label><div id="taPch"></div><input id="taPq" placeholder="Nom, prénom…" autocomplete="off"><div id="taPl" class="sug cache"></div></div></div>' +
-    '<div class="err" id="fErr"></div><div class="boutons"><button class="b2" onclick="fermerFenetre()">Annuler</button><button class="b1" id="taOk">' + (t ? "Enregistrer" : "Créer la tâche") + "</button></div></div>");
+    '<div class="err" id="fErr"></div><div class="boutons"><button class="b2" onclick="fermerFenetre()">Annuler</button><button class="b1" id="taOk">' + "Enregistrer" + "</button></div></div>");
   // Type rapide : préremplit le titre s'il est vide (ou s'il n'était que le type précédent)
   $("taTypes").onclick = (ev) => {
     const b = ev.target.closest("[data-t]"); if (!b) return; const avant = type; type = type === b.dataset.t ? "" : b.dataset.t;
@@ -477,9 +480,9 @@ async function formulaire(t, pid) {
 
   $("taOk").onclick = async () => {
     const titre = A.val("taTitre"), desc = String($("taDesc").value || "").replace(/\s+$/, ""), pour = A.val("taPour"), ech = A.val("taEch"), h = ech ? A.val("taH") : "", urgent = $("taUrg").checked;
-    if (!titre) { A.erreur("Donnez un titre à la tâche."); $("taTitre").focus(); return; }
-    if (!pour) { A.erreur("Choisissez pour qui est la tâche."); $("taPour").focus(); return; }
-    if (ech && !/^\d{4}-\d{2}-\d{2}$/.test(ech)) { A.erreur("Échéance : date invalide."); return; }
+    if (!titre) { A.erreur("Donnez un titre à la tâche.", "taTitre"); return; }
+    if (!pour) { A.erreur("Choisissez pour qui est la tâche.", "taPour"); return; }
+    if (ech && !/^\d{4}-\d{2}-\d{2}$/.test(ech)) { A.erreur("Échéance : date invalide.", "taEch"); return; }
     const m = mb.find((z) => z.uid === pour), x = P.id ? D().patients.find((z) => z.id === P.id) : null;
     const champs = { titre, desc, type, urgent, ech, h, pour, pourNom: nomMembre(m), patientId: P.id || "", patientNom: P.id ? P.nom : "", etablissementId: x ? x.doc.etablissementId || "" : t && P.id === t.patientId ? t.etablissementId || "" : "" };
     A.occupe($("taOk"), true);
@@ -496,7 +499,7 @@ async function formulaire(t, pid) {
       } else {
         const n = Object.assign({ de: moi, deNom: nomConnecte(), qui: [...new Set([moi, pour])], statut: "afaire", fil: [entree(pour === moi ? "Créée (pour soi-même)" : "Créée pour " + champs.pourNom)], o: Date.now(), cree: serverTimestamp(), maj: serverTimestamp(), majPar: moi }, champs);
         const r = await addDoc(col(), n);
-        if (T) T.push(Object.assign({ id: r.id }, n));
+        if (T && !T.some((z) => z.id === r.id)) T.push(Object.assign({ id: r.id }, n)); // UX13 (P4) : l'écoute en direct l'a peut-être déjà ajoutée
         A.fermerFenetre(); A.toast(pour === moi ? "Tâche créée." : "Tâche créée pour " + champs.pourNom + "."); raf();
       }
     } catch (e) { A.occupe($("taOk"), false); A.erreur(messageErreur(e)); }
@@ -508,7 +511,7 @@ export async function tacheSysteme(o) {
   const moi = D().u.uid, nom = nomConnecte();
   const n = { titre: o.titre, desc: o.desc || "", type: "Autre", urgent: true, ech: D().t, h: "", pour: moi, pourNom: nom, patientId: o.patientId || "", patientNom: o.patientNom || "", etablissementId: o.etablissementId || "",
     de: moi, deNom: nom, qui: [moi], statut: "afaire", fil: [entree("Créée par Onco360 (audit n° 10)")], o: Date.now(), cree: serverTimestamp(), maj: serverTimestamp(), majPar: moi };
-  const r = await addDoc(col(), n); if (T) T.push(Object.assign({ id: r.id }, n)); return r.id;
+  const r = await addDoc(col(), n); if (T && !T.some((z) => z.id === r.id)) T.push(Object.assign({ id: r.id }, n)); return r.id;
 }
 // Nouvelle tâche, depuis la page Tâches ou depuis le dossier d'un patient (patient déjà choisi)
 window.taNouvelle = (pid) => formulaire(null, pid || "");

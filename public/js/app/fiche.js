@@ -1,5 +1,5 @@
 // Onco360 – fiche de chimiothérapie (A4 paysage). Logo : celui de l'établissement du patient (Paramètres › Lieux d'exercice).
-import { addJ, srcImage } from "../moteur/outils.js";
+import { addJ, srcImage, rythme } from "../moteur/outils.js";
 import { vesicant } from "../moteur/vigilance.js"; // mention « vésicant » (12/10/2026)
 import { diagnosticComplet } from "../moteur/statut.js";
 import { texteNiv } from "../moteur/doses.js";
@@ -27,7 +27,7 @@ export function ficheHTML(P, L, p, e, med) {
   h += '<table class="ht"><tr><td class="lb" style="width:9%">Identité</td><td colspan="3" class="v" style="text-align:left;width:27%">' + esc(P.nom) + (P.allergie === "oui" ? '<br><b style="color:#A1232B">ALLERGIE : ' + esc(P.allergies || "oui") + "</b>" : "") + /* 3.2 (12/10/2026) */ '<br><span class="lb">' + "Né(e) le " + dfr(P.ddn) + "</span>" + (P._imp && P._imp.length ? '<br><span class="lb">' + P._imp.map((c) => esc(c.lib) + " : " + esc(c.texte)).join(" · ") + "</span>" : "") + "</td>" + // champs ajoutés de la fiche (10/10/2026)
     '<td colspan="2" rowspan="3" style="text-align:center;vertical-align:top;width:24%"><div class="lb">Médecin prescripteur</div><div class="v" style="margin-top:6px">' + esc(med.nom) + '</div><div class="v" style="margin-top:3px;font-weight:normal">INPE : ' + esc(med.inpe) + "</div></td>" +
     '<td rowspan="4" style="text-align:center;vertical-align:top;width:14%"><div class="lb">Rendez vous' + (p.c ? "<br>Prochaine cure (J" + (p.c + 1) + ")" : "") + '</div><div class="v" style="font-size:15px;margin-top:12px">' + rdv + "</div></td>" +
-    '<td rowspan="4" style="vertical-align:top"><div class="lb">Observations</div><div style="margin-top:3px">' + esc(p.r) + "</div>" + (auc ? '<div style="margin-top:6px">Créatinine : <b>' + (e.creat || "") + " " + (L.crU === "mgL" ? "mg/L" : "µmol/L") + "</b> – Sexe : <b>" + esc(P.sexe) + "</b><br>Clairance (Cockcroft) : <b>" + (e.cl || "") + " ml/min</b></div>" : "") + "</td></tr>";
+    '<td rowspan="4" style="vertical-align:top"><div class="lb">Observations</div><div style="margin-top:3px">' + esc(rythme(p.r)) + "</div>" + (auc ? '<div style="margin-top:6px">Créatinine : <b>' + (e.creat || "") + " " + (L.crU === "mgL" ? "mg/L" : "µmol/L") + "</b> – Sexe : <b>" + esc(P.sexe) + "</b><br>Clairance (Cockcroft) : <b>" + (e.cl || "") + " ml/min</b></div>" : "") + "</td></tr>";
   h += '<tr><td class="lb">Diagnostic</td><td colspan="3" style="text-align:left">' + esc(diagnosticComplet(P) || P.diag || "") + "</td></tr>"; // localisation, stade, précision (3.1 bis)
   h += '<tr><td class="lb">Date J1</td><td colspan="3" class="v" style="text-align:left">' + dfr(e.date) + "</td></tr>";
   h += '<tr><td style="padding:0" colspan="4"><table><tr><td class="lb" style="text-align:center;' + B + '">Âge</td><td class="lb" style="text-align:center;' + B + '">Poids (kg)</td><td class="lb" style="text-align:center;' + B + '">Taille (cm)</td><td class="lb" style="text-align:center;border:0">S.C (m²)</td></tr><tr><td class="v" style="' + B + '">' + (e.age != null ? e.age : "") + '</td><td class="v" style="' + B + '">' + (e.poids || "") + '</td><td class="v" style="' + B + '">' + (e.taille || "") + '</td><td class="v" style="border:0">' + fr(e.sc, 2) + "</td></tr></table></td>" +
@@ -36,12 +36,13 @@ export function ficheHTML(P, L, p, e, med) {
   // T6 (24/10/2026, décision 49) : nom du patient et titres des colonnes répétés en haut de chaque page (thead, répété par le navigateur à l'impression)
   h += '<table class="tb"><thead><tr class="rp"><td colspan="12">' + esc(P.nom) + (p.c ? " · cure " + cyc : "") + " · " + esc(p.nom) + '</td></tr><tr><th style="width:7%">Date</th><th style="width:5%">Jour</th><th style="width:16%">Produit</th><th style="width:10%">Posologie</th><th style="width:8%">Dose totale</th><th style="width:5%">Mode<br>d’admin.</th><th style="width:9%">Type de soluté<br>+ volume</th><th style="width:5%">Durée</th><th style="width:5%">OK<br>CHIMIO<br><i>(médecin)</i></th><th style="width:8%">Date de<br>validation<br><i>(médecin)</i></th><th style="width:12%">Cachet<br>médecin</th><th>Date<br>d’administration<br><i>(infirmière)</i></th></tr></thead><tbody>';
   let n = 0; const vide = '<tr class="vd">' + "<td></td>".repeat(12) + "</tr>";
+  // UX11 C3 (02/11/2026) : sur la ligne d'un jour, ce jour seulement (le libellé « J1 et J15 » de la molécule se répétait sur chaque jour)
   days.forEach((j, di) => {
     const ds = p.dr.map((d, x) => ({ d, x })).filter((o) => (o.d.j || []).indexOf(j) >= 0);
     if (di > 0) { h += vide; n++; }
     ds.forEach((o, r) => {
       const d = o.d, dt = d.nd || !e.date ? "" : dfr(addJ(e.date, j - 1)).slice(0, 10), z = e.dj && e.dj[o.x] && e.dj[o.x][j];
-      h += "<tr><td>" + dt + "</td><td>" + esc(d.jl || "J" + j) + '</td><td class="p">' + esc(d.p) + (d.u !== "txt" && vesicant(d.p) ? "<br><b>vésicant</b>" : "") + "</td><td>" + esc(poso(d, e.poids)) + '</td><td class="d">' + esc(doseTxt(d, z ? z.dose : e.doses[o.x], e.poids)) + "</td><td>" + esc(d.v || "") + "</td><td>" + esc(d.s || "") + "</td><td>" + esc(d.t || "") + '</td><td class="bx">☐</td>' + (r === 0 ? '<td class="m" rowspan="' + ds.length + '"></td><td class="m" rowspan="' + ds.length + '"></td><td class="m" rowspan="' + ds.length + '"></td>' : "") + "</tr>"; n++;
+      h += "<tr><td>" + dt + "</td><td>" + esc(j === 99 || d.nd || (d.j || []).length < 2 ? d.jl || "J" + j : "J" + j) + '</td><td class="p">' + esc(d.p) + (d.u !== "txt" && vesicant(d.p) ? "<br><b>vésicant</b>" : "") + "</td><td>" + esc(poso(d, e.poids)) + '</td><td class="d">' + esc(doseTxt(d, z ? z.dose : e.doses[o.x], e.poids)) + "</td><td>" + esc(d.v || "") + "</td><td>" + esc(d.s || "") + "</td><td>" + esc(d.t || "") + '</td><td class="bx">☐</td>' + (r === 0 ? '<td class="m" rowspan="' + ds.length + '"></td><td class="m" rowspan="' + ds.length + '"></td><td class="m" rowspan="' + ds.length + '"></td>' : "") + "</tr>"; n++;
     });
   });
   for (; n < 12; n++) h += vide;

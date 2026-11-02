@@ -80,29 +80,32 @@ function apresChangement() {
 window.rcpInscrire = (pid) => { const x = patient(pid); if (x && peutEcrire()) formulaire(x, null); };
 window.rcpModifier = (id) => { const r = trouver(id), x = r && patient(r.patientId); if (!r) return; if (!x) { A.toast("Ce dossier n'existe plus ou n'est pas dans vos établissements."); return; } if (peutEcrire()) formulaire(x, r); };
 function formulaire(x, r) {
-  const esc = A.esc, t = D().t, c = CFG || CFG0(), dates = prochainesRcp(12, c);
-  if (r && r.d && dates.indexOf(r.d) < 0) dates.unshift(r.d);
+  // UX13 (P15, 02/11/2026) : Inscrire et Modifier proposent la même liste (prochaines dates de RCP, « (prochaine) », « Autre date… ») ; la date
+  // déjà choisie y est rangée à sa place
+  const esc = A.esc, t = D().t, c = CFG || CFG0(), dates = prochainesRcp(12, c), prochaine = dates[0];
+  if (r && r.d && dates.indexOf(r.d) < 0) { dates.push(r.d); dates.sort(); }
   const choisie = r ? r.d : dates[0] || "";
   const autre = !choisie || dates.indexOf(choisie) < 0;
   const deja = (R || []).filter((z) => z.patientId === x.id && (!r || z.id !== r.id)).sort(tri).reverse();
   A.fenetre("<h3>" + (r ? "Modifier l'inscription en RCP" : "Inscrire en RCP") + "</h3>" +
     '<p class="sous" style="margin-top:-4px">' + esc(x.r.nm) + (x.r.diag ? " · " + esc(x.r.diag) : "") + "</p>" +
     '<div class="form"><div><label for="rcpD">Date de la RCP</label>' +
-    (dates.length ? '<select id="rcpD">' + dates.map((d) => '<option value="' + d + '"' + (d === choisie ? " selected" : "") + ">" + esc(A.cap(libDate(d))) + (d === dates[0] && !r ? " (prochaine)" : "") + "</option>").join("") + '<option value="autre"' + (autre && dates.length ? " selected" : "") + ">Autre date…</option></select>" : "") +
+    (dates.length ? '<select id="rcpD">' + dates.map((d) => '<option value="' + d + '"' + (d === choisie ? " selected" : "") + ">" + esc(A.cap(libDate(d))) + (d === prochaine ? " (prochaine)" : "") + "</option>").join("") + '<option value="autre"' + (autre && dates.length ? " selected" : "") + ">Autre date…</option></select>" : "") +
     '<input id="rcpDa" type="date" value="' + esc(choisie || "") + '"' + (dates.length && !autre ? ' class="cache"' : "") + ' style="margin-top:6px" aria-label="Autre date de RCP"></div>' +
     '<div><label for="rcpIns">Date d\'inscription</label><input id="rcpIns" type="date" value="' + esc(r ? r.ins || "" : t) + '"></div>' +
     '<div class="large"><label for="rcpQ">Question posée à la RCP</label><textarea id="rcpQ" rows="5" class="cs-note" placeholder="Ex. Indication d\'une radiothérapie adjuvante ? Chimiothérapie néoadjuvante ?">' + esc(r ? r.q || "" : "") + "</textarea></div></div>" +
     (dates.length ? "" : '<p class="mesures">Aucune date de RCP réglée : choisissez la date, ou réglez les jours de RCP dans Paramètres › RCP.</p>') +
     (c.heure || c.lieu ? '<p class="mesures">RCP ' + esc(heureLieu(c)) + "</p>" : "") +
-    '<div class="err" id="fErr"></div><div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" id="rcpOk">' + (r ? "Enregistrer" : "Inscrire") + "</button></div>" +
+    '<div class="err" id="fErr"></div><div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" id="rcpOk">' + "Enregistrer" + "</button></div>" +
     (deja.length ? '<h4 style="margin:18px 0 6px">Inscriptions de ce patient</h4>' + deja.map(ligneHisto).join("") : ""));
   if ($("rcpD")) $("rcpD").onchange = () => { const v = $("rcpD").value; $("rcpDa").classList.toggle("cache", v !== "autre"); if (v !== "autre") $("rcpDa").value = v; };
   $("rcpQ").focus();
+  // UX13 (P22) : champ manquant entouré de rouge
   $("rcpOk").onclick = async () => {
     const v = $("rcpD") && $("rcpD").value !== "autre" ? $("rcpD").value : A.val("rcpDa"), ins = A.val("rcpIns"), q = String($("rcpQ").value || "").trim();
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) { A.erreur("Choisissez la date de la RCP."); return; }
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(ins)) { A.erreur("Indiquez la date d'inscription."); return; }
-    if (!q) { A.erreur("Écrivez la question posée à la RCP."); $("rcpQ").focus(); return; }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) { A.erreur("Choisissez la date de la RCP.", $("rcpD") && $("rcpD").value !== "autre" ? "rcpD" : "rcpDa"); return; }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(ins)) { A.erreur("Indiquez la date d'inscription.", "rcpIns"); return; }
+    if (!q) { A.erreur("Écrivez la question posée à la RCP.", "rcpQ"); return; }
     if (!estRcp(v, c) && !(await confirmer("Le " + libDate(v) + " n'est pas une date de RCP prévue dans Paramètres › RCP.\nInscrire quand même à cette date ?"))) return;
     if (!r && (R || []).some((z) => z.patientId === x.id && z.d === v && !z.fait) && !(await confirmer(x.r.nm + " est déjà inscrit(e) à la RCP du " + A.dfrA(v) + ".\nAjouter une autre question ?"))) return;
     A.occupe($("rcpOk"), true);

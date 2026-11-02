@@ -17,3 +17,5 @@ export const srcImage = (u) => (typeof u === "string" && (/^data:image\/(png|jpe
 // Accord selon le médecin (1.7, 11/10/2026) : genre "f" / "m" du profil ; sans genre, le texte reste tel quel
 export const accordMedecin = (t, g) => (g === "m" ? String(t).replace(/soussignée/g, "soussigné") : g === "f" ? String(t).replace(/soussigné(?!e)/g, "soussignée") : String(t));
 export const absentMedecin = (g) => (g === "m" ? "Absent" : g === "f" ? "Absente" : "Absent(e)");
+// UX11 C3 (02/11/2026) : rythme d'un protocole affiché sans jour répété (« J1, J1 et J15 » de la bibliothèque → « J1 et J15 »)
+export function rythme(r) { return String(r == null ? "" : r).replace(/\b(J\d+)(?:(?:, | et )\1\b)+/g, "$1"); }

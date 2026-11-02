@@ -507,6 +507,19 @@ temporaire si le cache npm du Mac refuse) — à relancer avant chaque mise en l
 - Guide : `guide/demarrage.md` → `public/guide/demarrage.html` par `python3 outils/guide-html.py` ; captures `tests/guide_captures.py` (jeu fictif). Lancement : `docs/lancement/`.
 - Test : `tests/test_lot_l.py` ; règles : `tests/regles/test-cgu.mjs`, cas L6 de `test-cabinets.mjs` (sur le Mac).
 
+## Phase UX, UX11 à UX13 (02/11/2026)
+- Chimio : `prochaineSeance(L, s, bib)` (moteur/resume.js : cure en cours tant qu'un jour reste à faire, `r.t.k` / `r.t.next`), `rythme(r)` (moteur/outils.js, copie
+  functions/site/moteur) sur le rythme des protocoles ; `badgeCure(e, L)` (« J15 reportée au … »), « Bilan du jour non saisi » dans `verifierValidation`.
+- Radiothérapie : `compteurRT` compte jusqu'à `r.fin` (copie functions/site) ; CR de fin (documents.js `valeursCr`) : séances faites « n sur N prévues », `referent` =
+  médecin du patient (`A.nomMed`), mentions `.dc-af` surlignées, un clic les sélectionne, retouchées → classe retirée (imprimées) ; le pli n'a pas changé.
+  `listeActes` trié ; lien du ⋯ `a.mp-lien` ; taches.js `prevenir` : rien pour une tâche automatique quand le dossier vient d'être écrit par soi.
+- Prescriptions (ordonnances.js) : `deuxCols(g, titre, ajout)` (`.md-cq` conteneur `md`, `.md-cols` en grille dès 820 px, bandeau `.md-band` collant + `#mdN`,
+  `mdVoirOrdo`), `ligneLibre()` (plus de 2e recherche dans Ordo. type / Analyses) ; `compteLignes(o)` ; tri exact d'abord dans Médic. ; Courriers : aperçu
+  `remplirCourrier` + « + » ; « Historique » ; boutons « Enregistrer » / « Enregistrer + Imprimer ». Barre du dossier : `.br-n.br-0` (place réservée).
+- `isolerLatin(m)` (configuration.js) dans `messageWA` ; `API.consultationDuJour(x, d, titre)` (v2.js) ; feuille de soins : `cimDe` (`js/donnees/cim10.js`,
+  table à relire par Dr Bentahila), ligne `{ t: "fs" }` dans la consultation du jour (`libLigne` → « Feuille de soins ») ; nouveau rendez-vous : aujourd'hui s'il
+  reste un créneau, sinon `prochainJour`. Test : `tests/test_ux11_13.py`.
+
 ## Méthode de travail souhaitée
 - **Règles du travail par lots (31/10/2026)** : voir `FEUILLE-DE-ROUTE.md`, « Comment on travaille » (patch unique sans pousser ni mettre en ligne quand un autre Claude
   applique ; auteur Rita Bentahila ; mise en page seulement si demandé ; texte ≥ 13 px, zones ≥ 40 / 44 px, 390 / 900 / 1 280 / 1 600 px ; pas de commentaire au milieu

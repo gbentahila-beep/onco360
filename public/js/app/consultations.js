@@ -40,7 +40,7 @@ export const FAMILLES = [
 // 3.13 : type affiché sous son nom actuel (renommé dans Paramètres › Types de consultation : l'ancien nom reste enregistré)
 const TL = () => (A.typesC ? A.typesC() : []);
 const nomCs = (c) => [c.type ? nomActuel(TL(), c.type) : "", c.titre].filter(Boolean).join(" · ") || "Consultation";
-const libLigne = (t) => (FAMILLES.find((f) => f.t === t) || { lib: t }).lib;
+const libLigne = (t) => (FAMILLES.find((f) => f.t === t) || { lib: t === "fs" ? "Feuille de soins" : t }).lib; // UX13 (P19) : feuille de soins notée
 // Formulaire de consultation réglable (16.7, 10/10/2026) : celui de la spécialité (le même pour tous les packs) + retouches du cabinet
 // (D().reg.consultation) : ordre, champs présents, nom affiché, liste des types, champs ajoutés (valeurs dans extra { id: valeur }).
 // Sans réglage : la fenêtre d'aujourd'hui (type, date, titre, note).
@@ -147,9 +147,10 @@ const BIB_DE = { medic: "medicaments", ordo: "ordostypes", analyse: "analyses", 
 // faite ici s'ajoute en ligne dans la consultation du jour ; ▾ = antécédents des prescriptions.
 export function boutonsPrescription(x) {
   if (!peutEcrire()) return "";
+  // UX13 (P7, 02/11/2026) : nombre en pastille dans le coin du bouton (v2.html), hors du flux : la barre ne bouge plus quand une ordonnance est faite
   const q = "'" + x.id + "'", n = {};
   (CS[x.id] || []).forEach((c) => (c.lignes || []).forEach((l) => { if (!l.annulee) n[l.t] = (n[l.t] || 0) + 1; })); // ordonnance annulée : pas comptée (R-E7)
-  return ["medic", "ordo", "analyse", "exam", "courrier", "doc"].map((t) => FAMILLES.find((f) => f.t === t)).map((f) => '<div class="pr" data-mod="prescriptions" data-fn="prescriptions.' + f.t + '" data-bib="' + (BIB_DE[f.t] || "") + '"><button type="button" onclick="csPrescrire(' + q + ",'" + f.t + '\')" title="' + f.titre + ' : nouvelle prescription"><svg class="pi"><use href="#i-' + f.ic + '"/></svg><span class="lb">' + (f.t === "exam" ? '<span class="lg">Examens compl.</span><span class="sm">Examens</span>' : f.lib) + "</span>" + (n[f.t] ? '<small class="br-n" data-fn="prescriptions.compteur" title="' + n[f.t] + " déjà faite" + (n[f.t] > 1 ? "s" : "") + ' pour ce patient">' + n[f.t] + "</small>" : "") + '</button><button type="button" class="fl" data-fn="prescriptions.antecedents" onclick="csAntecedents(' + q + ",'" + f.t + '\')" title="' + f.titre + ' : antécédents des prescriptions" aria-label="' + f.titre + ' : antécédents des prescriptions">▾</button></div>').join("") +
+  return ["medic", "ordo", "analyse", "exam", "courrier", "doc"].map((t) => FAMILLES.find((f) => f.t === t)).map((f) => '<div class="pr" data-mod="prescriptions" data-fn="prescriptions.' + f.t + '" data-bib="' + (BIB_DE[f.t] || "") + '"><button type="button" onclick="csPrescrire(' + q + ",'" + f.t + '\')" title="' + f.titre + ' : nouvelle prescription"><svg class="pi"><use href="#i-' + f.ic + '"/></svg><span class="lb">' + (f.t === "exam" ? '<span class="lg">Examens compl.</span><span class="sm">Examens</span>' : f.lib) + "</span>" + (n[f.t] ? '<small class="br-n" data-fn="prescriptions.compteur" title="' + n[f.t] + " déjà faite" + (n[f.t] > 1 ? "s" : "") + ' pour ce patient">' + n[f.t] + "</small>" : "") + '</button><button type="button" class="fl" data-fn="prescriptions.antecedents" onclick="csAntecedents(' + q + ",'" + f.t + '\')" title="' + f.titre + ' : historique des prescriptions" aria-label="' + f.titre + ' : historique des prescriptions">▾</button></div>').join("") +
     // 31/10/2026 (lot 9.1) : « Feuille de soins » (CNOPS, CNSS ; feuillesoins.js), entre Doc. et + RCP, ouverte au centre
     '<div class="pr" data-mod="prescriptions" data-fn="prescriptions.feuille"><button type="button" onclick="fsOuvrir(' + q + ')" title="Feuille de soins (CNOPS, CNSS) remplie pour le patient"><svg class="pi"><use href="#i-document"/></svg><span class="lb"><span class="lg">Feuille de soins</span><span class="sm">F. soins</span></span></button></div>' +
     // « + RCP » (09/10/2026, rcp.js) : inscription à la prochaine RCP ; flèche = inscriptions du patient

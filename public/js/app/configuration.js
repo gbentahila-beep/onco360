@@ -73,6 +73,12 @@ export const WA_AR = {
   autre: "مرحبا \u2068{nom}\u2069، نذكركم بموعدكم يوم {jour_ar} {heure_ar} في \u2068{lieu}\u2069.",
 };
 export const aDeLArabe = (m) => /[\u0600-\u06FF]/.test(String(m || ""));
+// UX13 (P6, 02/11/2026) : message du cabinet écrit avant l'isolement (ou retouché à la main) : dans la partie arabe, chaque nom en lettres latines
+// ({nom}, {prenom}, {lieu}, {adresse}) est isolé à l'envoi, pour que « Clinique de démonstration. » ne soit pas coupé ni retourné
+export const isolerLatin = (m) => {
+  const s = String(m || ""), i = s.search(/[\u0600-\u06FF]/); if (i < 0) return s;
+  return s.slice(0, i) + s.slice(i).replace(/(\u2068|\u2066)?\{(nom|prenom|lieu|adresse)\}(\u2069)?/g, (t, a, k) => (a ? t : "\u2068{" + k + "}\u2069"));
+};
 // T7 (24/10/2026, audit n° 10 d. 56) : 3 retouches de l'arabe de la séance de chimio (« تحاليل » au pluriel, prémédication = « الأدوية التي وُصفت لكم
 // قبل الحصة », « مشكلة … قبل الحضور » en arabe classique) ; reprises une fois dans les messages du cabinet (waAr3, v2.js)
 export const AR_RETOUCHES = [["آخر تحليل للدم", "آخر تحاليل الدم"], ["الأدوية الوقائية إذا وُصفت لكم", "الأدوية التي وُصفت لكم قبل الحصة"], ["أي مشكل، اتصلوا بنا قبل التنقل", "أي مشكلة، اتصلوا بنا قبل الحضور"]];

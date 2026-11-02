@@ -130,11 +130,11 @@ export function genererConsultRT(P, ctx) {
 }
 
 // Compteur de séances réalisées (nouveauté v2) : séances prévues de la 1re séance jusqu'à aujourd'hui inclus,
-// lundi–vendredi hors fériés, rythme quotidien ou 1 jour sur 2. Radiothérapie terminée = toutes les séances.
+// lundi–vendredi hors fériés, rythme quotidien ou 1 jour sur 2. Radiothérapie clôturée = séances jusqu'à la date de fin réelle
+// (UX12 R2, 02/11/2026 : clôturée avant la fin prévue, elle ne compte plus « 25 / 25 »).
 export function compteurRT(r, ctx) {
   const nb = parseInt(r.nb, 10); if (!r.deb || !nb) return null;
-  if (r.fin) return { faites: nb, nb, pct: 100 };
-  const t = ctx.aujourdhui; if (r.deb > t) return { faites: 0, nb, pct: 0 };
+  const t = r.fin || ctx.aujourdhui; if (r.deb > t) return { faites: 0, nb, pct: 0 };
   const c = Math.min(nb, joursSeances(r, ctx.feries).filter((z) => z.d <= t).reduce((s0, z) => s0 + z.n, 0));
   return { faites: c, nb, pct: Math.round((c * 100) / nb) };
 }

@@ -48,7 +48,7 @@ async def main():
             ok(await ev("document.getElementById('fenetre').classList.contains('cache')"), 'Échap ferme la fenêtre')
             await ev("taNouvelle()"); await pg.wait_for_timeout(800)
             f = await ev("[...document.querySelectorAll('#fenetreCorps .boutons button')].map(e => e.textContent.trim() + ':' + e.className)")
-            ok(f == ['Annuler:b2', 'Créer la tâche:b1'] and await ev("!!document.querySelector('#fenetreCorps .fen-x')"), 'Nouvelle tâche : ✕, puis Annuler (secondaire) et Créer la tâche (principal) en bas à droite', f)
+            ok(f == ['Annuler:b2', 'Enregistrer:b1'] and await ev("!!document.querySelector('#fenetreCorps .fen-x')"), 'Nouvelle tâche : ✕, puis Annuler (secondaire) et Créer la tâche (principal) en bas à droite', f)
             await ev("document.querySelector('#fenetreCorps .fen-x').click()"); await pg.wait_for_timeout(300)
             ok(await ev("document.getElementById('fenetre').classList.contains('cache')"), '✕ ferme la fenêtre')
             # état vide : une phrase grise centrée, un seul bouton

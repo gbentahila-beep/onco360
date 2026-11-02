@@ -45,7 +45,8 @@ async def main():
         ok(await ev("!!document.querySelector('[data-bl]:checked')") and await ev(f"[...document.querySelectorAll('[data-ot]:checked')].length") >= 2, 'bilan coché, ordonnances liées cochées (capécitabine + fièvre à la 1re cure)')
         ok('Imprimer les 3 ordonnances' in t, 'bouton « Imprimer les 3 ordonnances »', t[-300:])
         await ev("fermerFenetre()"); await pg.wait_for_timeout(500)
-        ok('Ligne créée' in await ev(txt) and 'Ordonnances du protocole (fait)' in await ev(txt), 'Fermer : retour à « Ligne créée » (ordonnances « fait »)')
+        # UX11 (C2, 02/11/2026) : fermée sans imprimer, la ligne « Ordonnances du protocole » n'est pas marquée « fait »
+        ok('Ligne créée' in await ev(txt) and 'Ordonnances du protocole' in await ev(txt) and 'Ordonnances du protocole (fait)' not in await ev(txt), 'Fermer sans imprimer : retour à « Ligne créée », ordonnances pas « fait »')
         await pg.click('#slOrdo'); await pg.wait_for_timeout(1500)
         n0 = await ev("window.__win.length"); await pg.click('#orPcImp'); await pg.wait_for_timeout(2500)
         h = await ev(f"(window.__win.length > {n0}) ? window.__win[window.__win.length - 1].w.document._h : ''")
@@ -55,7 +56,7 @@ async def main():
         await pg.wait_for_timeout(500)
         ok('Ligne créée' in await ev(txt), 'après l\'impression : retour à « Ligne créée »')
         await pg.click('#slHeure'); await pg.wait_for_timeout(800); await ev("fermerFenetre()"); await pg.wait_for_timeout(500)
-        t = await ev(txt); ok('Heure de la C1 (fait)' in t and 'Fiche de chimio (prise en charge) (fait)' in t and 'Terminer' in t, 'heure : retour aussi ; les trois « fait », bouton « Terminer »')
+        t = await ev(txt); ok('Heure de consultation – C1 (fait)' in t and 'Ordonnances du protocole (fait)' in t and 'Fiche de chimio (prise en charge) (fait)' in t and 'Terminer' in t, 'heure : retour aussi ; les trois « fait », bouton « Terminer »')
         await pg.click('#fenetreCorps .boutons:last-child .bt.plein'); await pg.wait_for_timeout(400)
         ok(await ev("document.getElementById('fenetre').classList.contains('cache')"), '« Terminer » ferme')
         ok(not pg.errs, 'aucune erreur JavaScript', pg.errs[:2]); await pg.close()

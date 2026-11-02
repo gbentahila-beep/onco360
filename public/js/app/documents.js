@@ -7,7 +7,7 @@
 import { collection, doc, getDoc, getDocs, setDoc, deleteDoc, updateDoc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { db } from "../config.js";
 import { addJ, ouvre, accordMedecin } from "../moteur/outils.js";
-import { finRT, joursSeances, volumesRT, texteVolume, libRythme } from "../moteur/rt.js";
+import { finRT, joursSeances, volumesRT, texteVolume, libRythme, compteurRT } from "../moteur/rt.js";
 import { assurerConsultations, consultationsDe } from "./consultations.js"; // bilan de contrôle (3.6)
 import { diagnosticComplet, tumeurDe } from "../moteur/statut.js"; // fiche tumeur (3.1 bis)
 import { nettoyer, modeleRT, POLICES, CSS_POLICES, tailleSelection, tailleTout, policeSelection, policeTout, selGardee } from "./ordonnances.js";
@@ -90,15 +90,16 @@ function valeursPli(P, r, ctx, o) {
 function valeursCr(P, r, ctx, o) {
   const { dates } = datesSeancesRT(r, ctx), deb = dates[0] || r.deb || "", fin = r.fin || dates[dates.length - 1] || finRT(r, ctx.feries) || "";
   const vol = volumesRT(r), T = tumeurDe(P);
-  const nb = parseInt(r.nb, 10) || "", dose = parseFloat(String(r.dose || "").replace(",", ".")), dpf = dose && nb ? Math.round((dose / nb) * 100) / 100 : "";
+  const prevues = parseInt(r.nb, 10) || "", cpt = r.fin && prevues ? compteurRT(r, ctx) : null, nb = cpt && cpt.faites < prevues ? cpt.faites : prevues, dose = parseFloat(String(r.dose || "").replace(",", ".")), dpf = dose && prevues ? Math.round((dose / prevues) * 100) / 100 : "";
   const puce = (lib, v, suite) => '<p class="dc-li">•&nbsp; <b>' + lib + " : </b>" + AF(v) + (v && suite ? suite : "") + "</p>";
   return { nom_prenom: AF(((P.nomF || "").toUpperCase() + " " + (P.prenom || "")).trim()), naissance: AF(dfrA(P.ddn)), sexe: AF(P.sexe === "F" ? "Féminin" : P.sexe === "H" ? "Masculin" : ""),
-    referent: AF(P.cor || ""), etablissement: AF(o.etabNom || r.hop || P.hop || ""), debut: AF(dfrA(deb)), fin: AF(dfrA(fin)), diagnostic: AF(diagnosticComplet(P)), oms: AF(T.oms),
+    // UX12 (R3, 02/11/2026) : médecin référent = le médecin du patient (sinon celui qui rédige) ; R2 : RT clôturée avant la fin = séances faites
+    referent: AF(o.referent || ""), etablissement: AF(o.etabNom || r.hop || P.hop || ""), debut: AF(dfrA(deb)), fin: AF(dfrA(fin)), diagnostic: AF(diagnosticComplet(P)), oms: AF(T.oms),
     resume_clinique: AF(r.note || P.notes || ""), visee: AF(r.intent === "curative" ? "Curative" : r.intent === "palliative" ? "Palliative" : ""), technique: AF(TECH[r.tech] || (r.vmat ? "VMAT" : "")),
     localisation: AF(r.loc || [T.localisation, T.cote ? "côté " + T.cote.toLowerCase() : ""].filter(Boolean).join(", ")),
     doses: vol.length > 1 || (vol[0] && vol[0].nom) ? '<p class="dc-li">•&nbsp; <b>Volumes et doses : </b></p>' + vol.map((v) => '<p class="dc-li">&nbsp;&nbsp;&nbsp;&nbsp;– ' + esc(texteVolume(v, vol)) + "</p>").join("")
       : puce("Dose prescrite", vGy(dose), " <b>Gy</b>") + puce("Dose par fraction", vGy(dpf), " <b>Gy</b>"),
-    seances: AF(nb ? String(nb) + (r.ryt && r.ryt !== "1" ? " (" + libRythme(r) + ")" : "") : ""), toxicites: AF(""), prochain_rdv: AF(prochainRdv(P, fin, ctx)), bilan: AF(o.bilan || ""), signature: signature(o) };
+    seances: AF(nb ? String(nb) + (nb !== prevues ? " sur " + prevues + " prévues" : "") + (r.ryt && r.ryt !== "1" ? " (" + libRythme(r) + ")" : "") : ""), toxicites: AF(""), prochain_rdv: AF(prochainRdv(P, fin, ctx)), bilan: AF(o.bilan || ""), signature: signature(o) };
 }
 // R-B4 (19/10/2026) : calendrier de fin de radiothérapie (demande du 17/10, mise en page de l'export de l'accélérateur) : les séances réparties
 // entre la 1re séance et la fin (fin validée, sinon fin prévue) par datesSeancesRT (inchangé) ; 1re ligne « Mise en place RA » 15 min, dernière
@@ -150,6 +151,7 @@ function infos(x, r) {
 const MOD = {}; // modèles lus : { pli, cr, rdv }
 function contenuNeuf(x, r, type) {
   const o = Object.assign(infos(x, r), { bilan: bilanControle(x.id, D().ctx) }), ctx = D().ctx;
+  if (type === "cr") o.referent = A.nomMed(r.med || A.medPourPatient(x)) || o.medecin;
   const V = type === "pli" ? valeursPli(x.P, r, ctx, o) : type === "cr" ? valeursCr(x.P, r, ctx, o) : valeursRdv(x.P, r, ctx, o);
   return remplirModele(MOD[type] || MODELES_RT0[type], V);
 }
@@ -182,6 +184,10 @@ function vue(x, r, html) {
     '<div class="err" id="fErr"></div><div class="boutons"><button class="bt gris" onclick="dcFermer()">Fermer</button><button class="bt clair" id="dcOk" onclick="dcEnregistrer(false)">Enregistrer</button><button class="bt plein" id="dcImp" onclick="dcEnregistrer(true)">' + A.ic("imprimer") + "Enregistrer + Imprimer</button></div>", "large");
   $("dcPage").innerHTML = html;
   $("dcPage").querySelectorAll(".dc-saut").forEach((z) => z.setAttribute("contenteditable", "false"));
+  // UX12 (R3) : compte rendu, un clic sur « à compléter par le médecin » la sélectionne (la frappe la remplace, comme les zones des ordonnances) ;
+  // une mention retouchée redevient du texte normal, imprimé
+  $("dcPage").addEventListener("click", (ev) => { const m = ev.target.closest && ev.target.closest(".dc-af"); if (!m) return; const g = document.createRange(), s = window.getSelection(); g.selectNodeContents(m); s.removeAllRanges(); s.addRange(g); });
+  $("dcPage").addEventListener("input", () => $("dcPage").querySelectorAll(".dc-af").forEach((m) => { if (m.textContent !== "à compléter par le médecin") m.removeAttribute("class"); })); // le curseur reste en place
 }
 window.dcTaille = (s) => { const p = $("dcPage"); if (!tailleSelection(p, s)) tailleTout(p, s); };
 window.dcPolice = (k) => { const p = $("dcPage"); if (!policeSelection(p, k, selGardee())) policeTout(p, k); };
@@ -201,7 +207,7 @@ function imprimer(w, html) {
 // Mise en page commune (fenêtre et impression)
 const CSS_DOC = ".dc p{margin:0 0 7px}.dc .dc-titre{text-align:center;font-weight:bold;font-size:15pt;margin:4px 0 16px}.dc .dc-cr{font-size:14pt}.dc .dc-d{text-align:right;margin-bottom:14px}.dc .dc-c{text-align:center}.dc .dc-g{font-size:13pt}" +
   ".dc .dc-note:empty{display:none}.dc .dc-rub{font-weight:bold;border-bottom:1px solid #9AA3B5;padding-bottom:3px;margin:14px 0 6px}.dc .dc-h{font-weight:bold;font-size:12pt;margin:14px 0 6px}.dc .dc-li{margin-left:14px}.dc .dc-sig{text-align:right;margin-top:22px;margin-bottom:60px;break-inside:avoid;page-break-inside:avoid;break-before:avoid;page-break-before:avoid}.dc .dc-note{font-size:9pt;color:#555;margin-top:6px}" +
-  ".dc .dc-ar{background:#FFF200;font-weight:bold}.dc .dc-af{color:#8A8A8A;font-style:italic}.dc .dc-saut{page-break-before:always;break-before:page;height:0}" +
+  ".dc .dc-ar{background:#FFF200;font-weight:bold}.dc .dc-af{background:#FFF1B8;color:#6B5200;font-style:italic;padding:0 2px;border-radius:3px}.dc .dc-saut{page-break-before:always;break-before:page;height:0}" +
   ".dc .dc-tab{width:100%;border-collapse:collapse;margin:4px 0 8px}.dc .dc-tab th,.dc .dc-tab td{border:1px solid #8C8C8C;padding:5px 7px;vertical-align:top;text-align:left}.dc .dc-tab th{background:#DCE6F2}.dc .dc-tab td p{margin:0 0 3px}" +
   ".dc .dc-rdv th{background:#2B4A7E;color:#fff;font-size:9pt;line-height:1.15;padding:2px 4px}.dc .dc-rdv td{font-size:9pt;line-height:1.2;padding:1px 4px;white-space:nowrap}.dc .dc-rdv .dc-n{text-align:right}" +
   // R-B4 : une seule page A4 : texte réduit au-delà de 25 lignes (8 pt), puis de 40 (7 pt, interligne serré)

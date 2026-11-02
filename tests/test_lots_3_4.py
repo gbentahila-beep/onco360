@@ -34,9 +34,9 @@ async def main():
         for k in ('co', 'ch', 'rt', 'doc'):
             await ev(f"ongletDossier('{pid}','{k}')"); await pg.wait_for_timeout(300)
             r[k] = await ev(f"(() => {{ const p = document.getElementById('op-{k}'), b = [...p.querySelectorAll('button')].find(e => (" + VIS + ")(e) && /^Nouvelle|^Ajouter/.test(e.textContent.trim())); if (!b) return null; const P = p.getBoundingClientRect(), B = b.getBoundingClientRect(); return [b.textContent.trim(), Math.round(B.left - P.left) <= 30]; })()")
-        ok(r == {'co': ['Nouvelle consultation', True], 'ch': ['Nouvelle prescription chimiothérapie', True], 'rt': ['Nouvelle prescription radiothérapie', True], 'doc': ['Ajouter un document', True]}, '3.1 : boutons d\'ajout à gauche dans les quatre onglets, nouveaux noms', r)
+        ok(r == {'co': ['Nouvelle consultation', True], 'ch': ['Nouvelle ligne de traitement', True], 'rt': ['Nouvelle radiothérapie', True], 'doc': ['Ajouter un document', True]}, '3.1 : boutons d\'ajout à gauche dans les quatre onglets, noms du 02/11 (UX11 C13, UX12 R15)', r)
         await ev(f"ongletDossier('{pid}','rt')"); await pg.wait_for_timeout(200)
-        ok(await ev("(() => { const a = document.querySelector('#op-rt a.rtr-lien'); return !!a && !!a.closest('.mpts .cache'); })()"), '3.1 : « Référentiel › » sous « ⋯ » à droite')
+        ok(await ev("(() => { const a = document.querySelector('#op-rt a.mp-lien'); return !!a && !!a.closest('.mpts .cache'); })()"), '3.1 : « Référentiel › » sous « ⋯ » à droite')
         await ev(f"ongletDossier('{pid}','doc')"); await pg.wait_for_timeout(200)
         ok(await ev("(() => { const f = document.querySelector('#op-doc .fi-barre'); const v = [...f.children].filter(e => e.getClientRects().length); return v.length >= 3 && v[0].tagName === 'BUTTON' && v[1].classList.contains('recherche') && v[2].tagName === 'SELECT' && v[0].getBoundingClientRect().left < v[1].getBoundingClientRect().left; })()"), '3.1 : Documents : « + Ajouter un document », puis la recherche, puis les types')
         # 3.9 ligne de chimio

@@ -19,31 +19,31 @@ async def main():
         pg = await ouvrir(b, S); ev = pg.evaluate
         await onglet_rt(pg, PID)
         avant = await ev(f"JSON.stringify(window.__fs['{E}patients/{PID}'])")
-        ok(await ev("!!document.querySelector('a.rtr-lien[href^=\"#radiotherapie/diag/\"]')"), 'onglet Radiothérapie du dossier : lien « Référentiel › »')
-        await pg.evaluate("document.querySelector('#op-rt .mpts > button').click()"); await pg.wait_for_timeout(200); await pg.click('#ptsMenuF a.rtr-lien[href^="#radiotherapie/diag/"]'); await pg.wait_for_timeout(2500)
+        ok(await ev("!!document.querySelector('a.mp-lien[href^=\"#radiotherapie/diag/\"]')"), 'onglet Radiothérapie du dossier : lien « Référentiel › »')
+        await pg.evaluate("document.querySelector('#op-rt .mpts > button').click()"); await pg.wait_for_timeout(200); await pg.click('#ptsMenuF a.mp-lien[href^="#radiotherapie/diag/"]'); await pg.wait_for_timeout(2500)
         ok(await ev("location.hash") == '#radiotherapie' and await ev("[document.getElementById('rtr_reg').value, document.getElementById('rtr_loc').value]") == ['uro', 'prostate'] and await ev("parseInt(document.querySelector('#rtrListe .rtr-nb').textContent)") == 31, 'le référentiel s\'ouvre filtré sur la localisation du dossier (Prostate, 31 schémas)')
         await pg.go_back(); await pg.wait_for_timeout(2500)
         ok((await ev("location.hash")).startswith('#dossier/' + PID), 'Retour : le dossier', await ev("location.hash"))
         ok(await ev(f"JSON.stringify(window.__fs['{E}patients/{PID}'])") == avant, 'le module n\'a rien écrit dans le dossier')
         if SANS:
-            await onglet_rt(pg, SANS[0]); await pg.evaluate("document.querySelector('#op-rt .mpts > button').click()"); await pg.wait_for_timeout(200); await pg.click('#ptsMenuF a.rtr-lien[href^="#radiotherapie/diag/"]'); await pg.wait_for_timeout(2500)
+            await onglet_rt(pg, SANS[0]); await pg.evaluate("document.querySelector('#op-rt .mpts > button').click()"); await pg.wait_for_timeout(200); await pg.click('#ptsMenuF a.mp-lien[href^="#radiotherapie/diag/"]'); await pg.wait_for_timeout(2500)
             ok('Tous les schémas' in await ev("document.getElementById('page').innerText") and await ev("document.getElementById('rtr_loc').value") == '', 'diagnostic sans correspondance dans le référentiel : la liste générale')
         ok(not pg.errs, 'aucune erreur JavaScript', pg.errs[:2]); await pg.close()
         # Sans le droit, sans la fonction : pas de lien
         S2 = json.loads(json.dumps(S)); S2[E + 'membres/UIDSEC'] = {'role': 'assistante', 'actif': True, 'nom': 'SECRETAIRE Test', 'tousEtablissements': True, 'etablissements': [], 'droits': {'identite': True, 'fichePatient': True, 'rendezvous': True, 'radiotherapie': 'voir'}}
         pg = await ouvrir(b, S2); await pg.add_init_script("window.__uid='UIDSEC'"); ev = pg.evaluate
         await onglet_rt(pg, PID)
-        ok(await ev("!document.querySelector('a.rtr-lien[href^=\"#radiotherapie/diag/\"]')"), 'secrétaire sans le droit referentielRT : pas de lien')
+        ok(await ev("!document.querySelector('a.mp-lien[href^=\"#radiotherapie/diag/\"]')"), 'secrétaire sans le droit referentielRT : pas de lien')
         ok(not pg.errs, 'secrétaire : aucune erreur JavaScript', pg.errs[:2]); await pg.close()
         S3 = json.loads(json.dumps(S)); a = S3.setdefault(E[:-1], {}).setdefault('abonnement', {}); a['formule'] = 'complet'; a.setdefault('reglage', {})['fonctions'] = {'rt.referentiel': False}
         pg = await ouvrir(b, S3); ev = pg.evaluate
         await onglet_rt(pg, PID)
-        ok(await ev("!document.querySelector('a.rtr-lien[href^=\"#radiotherapie/diag/\"]')"), 'fonction rt.referentiel coupée : pas de lien')
+        ok(await ev("!document.querySelector('a.mp-lien[href^=\"#radiotherapie/diag/\"]')"), 'fonction rt.referentiel coupée : pas de lien')
         ok(not pg.errs, 'fonction coupée : aucune erreur JavaScript', pg.errs[:2]); await pg.close()
         # Téléphone
         pg = await ouvrir(b, S, w=390, h=800); ev = pg.evaluate
         await onglet_rt(pg, PID)
-        ok(await ev("!!document.querySelector('a.rtr-lien[href^=\"#radiotherapie/diag/\"]')") and await ev("document.documentElement.scrollWidth <= innerWidth + 1"), '390 px : lien présent, sans débordement')
+        ok(await ev("!!document.querySelector('a.mp-lien[href^=\"#radiotherapie/diag/\"]')") and await ev("document.documentElement.scrollWidth <= innerWidth + 1"), '390 px : lien présent, sans débordement')
         ok(not pg.errs, '390 px : aucune erreur JavaScript', pg.errs[:2]); await pg.close()
         await b.close()
     print(f'\n{ok_n} réussis, {ko_n} échoués')

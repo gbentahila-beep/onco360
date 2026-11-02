@@ -26,7 +26,7 @@ import { installer as installerDocuments, docsDe, boutonDoc, oublierDocs, suivre
 import { installer as installerVigilances, vigilancesAudit3 } from "./vigilances.js";
 import { installer as installerChimio, htmlChimio, nouveauPatient as creerPatient, champDiag, activerDiag, listeMut, listeCor, figerCuresValidees, alertesBio, enrichirListes, majMontants, encaissementsDe, construireEncaissements, ecrireEncaissements, prixParServeur, oublierEncaissements } from "./chimio.js";
 import { installer as installerAgenda, pageAgenda } from "./agenda.js";
-import { installer as installerConfig, pageConfiguration, horaires, dureeDe, dureeType, WA0, remplir, messageAvecArabe, retouchesArabe, jourAr, heureAr } from "./configuration.js";
+import { installer as installerConfig, pageConfiguration, horaires, dureeDe, dureeType, WA0, remplir, messageAvecArabe, retouchesArabe, jourAr, heureAr, isolerLatin } from "./configuration.js";
 import { installer as installerProfil, pageProfil, DROITS_ROLE, droitsEffectifs, lireImage, estMed } from "./profil.js";
 import { installer as installerProtocoles, pageProtocoles, marquerProtocoles, appliquerAudit3, appliquerP4, appliquerP5b, appliquerAudit10, appliquerProtocolesRT } from "./protocoles.js";
 import { installer as installerParametres, pageParametres } from "./parametres.js";
@@ -955,7 +955,7 @@ function lieuWA(x, cat, d) {
 function messageWA(x, cat, d, h) {
   const P = x.P, code = lieuWA(x, cat, d), e = (D.etabsTous || D.etabs).find((z) => z.code === code) || {}, j = new Date(d + "T12:00:00");
   const m = messageAvecArabe(D.wa && D.wa[cat] != null ? D.wa[cat] : WA0[cat] || WA0.autre, cat); // R-C5 : français puis arabe classique
-  return remplir(m, { prenom: P.prenom ? cap(String(P.prenom).toLowerCase()) : x.r.nm, nom: x.r.nm, jour: JOURS_L[j.getDay()] + " " + j.getDate() + " " + MOIS_L[j.getMonth()], heure: h ? "à " + h.replace(":", "h") : "", jour_ar: jourAr(d), heure_ar: heureAr(h), lieu: e.nom || code || "", adresse: e.adresse || "", medecin: signatureWA() });
+  return remplir(isolerLatin(m), { prenom: P.prenom ? cap(String(P.prenom).toLowerCase()) : x.r.nm, nom: x.r.nm, jour: JOURS_L[j.getDay()] + " " + j.getDate() + " " + MOIS_L[j.getMonth()], heure: h ? "à " + h.replace(":", "h") : "", jour_ar: jourAr(d), heure_ar: heureAr(h), lieu: e.nom || code || "", adresse: e.adresse || "", medecin: signatureWA() });
 }
 // Rappels envoyés (19.4, 10/10/2026) : { "AAAA-MM-JJ|catégorie": { le, par, nom } } (droit « rendezvous »).
 // R-C4 (19/10/2026, audit 4 C7) : rangés dans une petite collection à part, rappels/{patient} = { patientId, etablissementId, l: { … }, majPar,
@@ -1775,7 +1775,7 @@ function pageDossier(id) {
     etatLigne(L, P, D.ctx).forEach((e) => { if (e.st !== "recue") return;
       [{ j: 1, d: e.c.reelle }].concat(seancesCure(L, e, D.ctx.bib).filter((z) => z.st === "recue").map((z) => ({ j: z.j, d: z.d }))).forEach((z) => {
         const k = L.id + "|" + e.n + "|" + z.j; if (((EN && EN.cons) || {})[k] || !(z.d >= "2026-10-07")) return; consAttente[k] = 1;
-        av.push({ d: z.d || "", h: "", rdv: 1, em: ic("seringue"), ty: "Séance chimio", t: "C" + e.n + " J" + z.j + " · consultation", s: pn, av: "À valider", m: menuChimio({ lid: L.id, n: e.n, j: z.j, d: z.d || "" }) }); }); }); });
+        av.push({ d: z.d || "", h: "", rdv: 1, em: ic("seringue"), ty: "Séance chimio", t: "C" + e.n + " J" + z.j + " · consultation", s: pn, av: "Consult. à valider", m: menuChimio({ lid: L.id, n: e.n, j: z.j, d: z.d || "" }) }); }); }); });
   av.sort((p, q) => (p.d + (p.h || "00")).localeCompare(q.d + (q.h || "00")));
   av.forEach((v) => { v.al = absenceLe(v.d) ? absentMedecin(medecinFiche().genre) : ferieLe(v.d) ? "Férié" : ""; if (v.rep && v.rep.length) v.s = [v.s, "Reporté (initialement le " + dfrA(v.rep[0].d) + ")"].filter(Boolean).join(" · "); });
   const cAv = av.map((v) => large(v)), lAv = av.map((v) => ligne(v)), toutAv = AV_TOUT.has(x.id);
@@ -1949,11 +1949,11 @@ function htmlRT(x, okRT) {
   const JS = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"], TECH = { stereo: "Stéréotaxie", vmat: "VMAT", imrt: "IMRT", "3d": "3D" };
   // RTR, RT8 (25/10/2026) : « Référentiel › » ouvre le référentiel de radiothérapie filtré sur la localisation du dossier (clinique.diag,
   // traduit par donnees-rt/diag-localisation.json ; sans correspondance : l'accueil du module) ; avec le droit referentielRT et la fonction
-  const ref = voitRefRT() ? '<a class="rtr-lien" href="#radiotherapie/diag/' + encodeURIComponent(P.diag || "") + '">Référentiel ›</a>' : "";
+  const ref = voitRefRT() ? '<a class="mp-lien" href="#radiotherapie/diag/' + encodeURIComponent(P.diag || "") + '">Référentiel ›</a>' : "";
   // 3.1 (30/10/2026, demande de Dr Bentahila) : « + Nouvelle prescription radiothérapie » à gauche ; « Référentiel › » sous « ⋯ » à droite (comme Consultation)
-  let hr = okRT || ref ? '<div class="entete cs-outils">' + (okRT ? '<button class="bt clair petit" onclick="ouvrirRT(\'' + x.id + '\')">' + ic("plus") + "Nouvelle prescription radiothérapie</button>" : "") + (ref ? '<span class="cs-esp"></span>' + menuPts([ref]) : "") + "</div>" : "";
+  let hr = okRT || ref ? '<div class="entete cs-outils">' + (okRT ? '<button class="bt clair petit" onclick="ouvrirRT(\'' + x.id + '\')">' + ic("plus") + "Nouvelle radiothérapie</button>" : "") + (ref ? '<span class="cs-esp"></span>' + menuPts([ref]) : "") + "</div>" : "";
   // 3.4 : état vide illustré, comme Documents
-  if (!(P.rts || []).length) hr += etatVide({ ill: "rt", titre: "Aucune radiothérapie pour l'instant", txt: okRT ? "« Nouvelle prescription radiothérapie » pour en prescrire une." : "" });
+  if (!(P.rts || []).length) hr += etatVide({ ill: "rt", titre: "Aucune radiothérapie pour l'instant", txt: okRT ? "« + Nouvelle radiothérapie » pour en prescrire une." : "" });
   // Une seule radiothérapie ouverte (11/10/2026) : la plus récente à l'ouverture du dossier ; les autres fermées (titre, dose, séances,
   // boutons ; sans les étapes)
   if (RTO.pid !== x.id) { RTO.pid = x.id; RTO.id = (P.rts || []).length ? P.rts[P.rts.length - 1].id : null; }
@@ -1966,7 +1966,7 @@ function htmlRT(x, okRT) {
     const dz = dosimetrie(v, t), cz = contourage(v, t); // périodes à valider : contourage (scanner → 1re séance), puis dosimétrie (contourage → 1re séance)
     // 19/10/2026 (demande de Dr Bentahila) : prescription pliée = la ligne de titre et Modifier / Terminé (Rouvrir) ; le reste seulement ouverte
     if (!ouv) { hr += '<div class="rt' + (ouv ? " on" : "") + '"><div class="tl" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;cursor:pointer" onclick="rtTog(' + q + ')" title="' + (ouv ? "Refermer" : "Voir les étapes") + '"><b style="font-size:16px;color:var(--titre)">' + (ouv ? "▾ " : "▸ ") + esc(v.acte || "Radiothérapie") + (nbA(v) > 1 ? " × " + nbA(v) : "") + '</b><span class="badge ' + cls + '">' + ({ fin: '<svg class="pi"><use href="#i-check"/></svg>', cours: '<i class="dot v"></i>', dep: '<i class="dot o"></i>', prev: '<svg class="pi"><use href="#i-horloge"/></svg>' }[s.c] || "") + esc(s.lib) + "</span>" + (v.hop ? '<span class="badge b-gr">' + esc(v.hop) + "</span>" : "") + (v.intent ? '<span class="badge b-gr">' + (v.intent === "curative" ? "Curative" : "Palliative") + "</span>" : "") + "</div>" +
-      (okRT ? '<div class="actr rt-pl"><button class="mini" onclick="ouvrirRT(' + q + ')">Modifier</button>' + (v.deb ? (v.fin ? '<button class="mini" onclick="terminerRT(' + q + ',1)">Rouvrir</button>' : '<button class="mini v" onclick="terminerRT(' + q + ')">Terminé</button>') : "") + "</div>" : "") + "</div>"; return; }
+      (okRT ? '<div class="actr rt-pl"><button class="mini" onclick="ouvrirRT(' + q + ')">Modifier</button>' + (v.deb ? (v.fin ? '<button class="mini" onclick="terminerRT(' + q + ',1)">Rouvrir</button>' : '<button class="mini v" onclick="terminerRT(' + q + ')">Clôturer</button>') : "") + "</div>" : "") + "</div>"; return; }
     hr += '<div class="rt' + (ouv ? " on" : "") + '"><div class="tl" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;cursor:pointer" onclick="rtTog(' + q + ')" title="' + (ouv ? "Refermer" : "Voir les étapes") + '"><b style="font-size:16px;color:var(--titre)">' + (ouv ? "▾ " : "▸ ") + esc(v.acte || "Radiothérapie") + (nbA(v) > 1 ? " × " + nbA(v) : "") + '</b><span class="badge ' + cls + '">' + ({ fin: '<svg class="pi"><use href="#i-check"/></svg>', cours: '<i class="dot v"></i>', dep: '<i class="dot o"></i>', prev: '<svg class="pi"><use href="#i-horloge"/></svg>' }[s.c] || "") + esc(s.lib) + "</span>" + (v.hop ? '<span class="badge b-gr">' + esc(v.hop) + "</span>" : "") + (v.intent ? '<span class="badge b-gr">' + (v.intent === "curative" ? "Curative" : "Palliative") + "</span>" : "") + "</div>" +
       // 3.5 (12/10/2026) : volumes (principal et compléments) et rythme
       (Array.isArray(v.vol) && v.vol.length ? '<p class="st" style="color:var(--doux);font-size:13.5px;margin:6px 0 0">' + volumesRT(v).map((z, n, l) => esc(texteVolume(z, l))).join("<br>") + "<br>" + esc([nb ? nb + " séances" : "", TECH[v.tech] || (v.vmat ? "VMAT" : ""), libRythme(v)].filter(Boolean).join(" · ")) + "</p>"
@@ -1981,7 +1981,7 @@ function htmlRT(x, okRT) {
       (v.cj && ouv ? '<p class="st" style="color:var(--doux);font-size:13.5px;margin:2px 0 0">Consultation hebdomadaire le ' + JS[+v.cj] + (v.ch ? " à " + esc(v.ch) : "") + "</p>" : "") +
       (c ? '<div style="margin-top:10px" title="Calcul d\'après le calendrier (les séances réelles sont suivies dans ARIA)"><b>Séances prévues à ce jour : ' + c.faites + " / " + c.nb + "</b> (" + c.pct + ' %)<div class="barre"><i style="width:' + c.pct + '%"></i></div></div>' : "") +
       (v.note && ouv ? '<p class="sous" style="margin:8px 0 0">' + esc(v.note) + "</p>" : "") +
-      '<div class="actr" style="justify-content:flex-start;margin-top:12px">' + (okRT ? '<button class="mini" onclick="ouvrirRT(' + q + ')">Modifier</button>' + (v.deb ? (v.fin ? '<button class="mini" onclick="terminerRT(' + q + ',1)">Rouvrir</button>' : '<button class="mini v" onclick="terminerRT(' + q + ')">Terminé</button>') : "") : "") +
+      '<div class="actr" style="justify-content:flex-start;margin-top:12px">' + (okRT ? '<button class="mini" onclick="ouvrirRT(' + q + ')">Modifier</button>' + (v.deb ? (v.fin ? '<button class="mini" onclick="terminerRT(' + q + ',1)">Rouvrir</button>' : '<button class="mini v" onclick="terminerRT(' + q + ')">Clôturer</button>') : "") : "") +
       // 26/10/2026 (demande de Dr Bentahila) : Pli confidentiel, Compte rendu de fin et Rendez-vous sous « ⋯ » (moins de place ; coche = déjà enregistré)
       menuPts([v.acte && peut("documents") ? boutonDoc(x, v, "pli", "Pli confidentiel") : "", v.deb && nb && peut("documents") ? boutonDoc(x, v, "cr", "Compte rendu de fin") : "", v.deb && nb && peut("documents") ? boutonDoc(x, v, "rdv", "Rendez-vous") : ""].filter(Boolean)) + "</div></div>";
   });
@@ -2189,7 +2189,7 @@ function typesRdv(etab) {
 }
 const lireRdvs = (x) => JSON.parse(x.doc.rdvsJson || "[]");
 // Actes de radiothérapie : catalogue des tarifs (droit « finances »), sinon liste de référence ; l'acte déjà saisi est toujours proposé
-const listeActes = (cur) => { const l = (D.tarifs && D.tarifs.actesRT && D.tarifs.actesRT.length ? D.tarifs.actesRT.map((a) => a.nom) : ACTES_RT.slice()); if (cur && l.indexOf(cur) < 0) l.push(cur); return l; };
+const listeActes = (cur) => { const l = (D.tarifs && D.tarifs.actesRT && D.tarifs.actesRT.length ? D.tarifs.actesRT.map((a) => a.nom) : ACTES_RT.slice()); if (cur && l.indexOf(cur) < 0) l.push(cur); return l.sort((a, b) => String(a).localeCompare(String(b), "fr", { sensitivity: "base", numeric: true })); }; // UX12 (R18) : ordre alphabétique
 const apresRdv = (x) => { if (location.hash.indexOf("#agenda") === 0) pageAgenda(); else if (/^#(salle|dossier)/.test(location.hash)) reafficher(x.id); else route(); }; // 2.3 : on reste sur la page d'où l'on vient
 // 31/10/2026 (demande de Dr Bentahila, 2.3) : nouveau rendez-vous en pleine page, depuis tous les boutons « + Rendez-vous ». En haut, le patient :
 // « Patient existant » (recherche dessous) ou « Nouveau patient » (le formulaire 2.1 s'ouvre ; Créer le patient ramène au rendez-vous avec ce patient
@@ -2255,7 +2255,15 @@ window.ouvrirRdv = (id, rid, pre, opt) => {
     if (b.dataset.pris) { if (!(await accepterConflit(val("fD"), h, +val("fDu") || 30, sauf, medChoisi()))) return; accepte = val("fD") + " " + h; }
     $("fH").value = h; majC(); };
   $("fType").onchange = () => { if (!duMain) $("fDu").value = String(dureeType(val("fType"), etabR())); maj(); majC(); };
-  $("fDu").onchange = () => { duMain = true; majC(); }; if ($("fMed")) $("fMed").onchange = () => { medMain = true; majC(); }; if ($("fLieu")) $("fLieu").onchange = () => { lieuMain = true; majH(); majC(); }; maj(); $("fD").addEventListener("change", () => { majH(); majC(); }); $("fH").addEventListener("change", majC); majH(); majC();
+  $("fDu").onchange = () => { duMain = true; majC(); }; if ($("fMed")) $("fMed").onchange = () => { medMain = true; majC(); }; if ($("fLieu")) $("fLieu").onchange = () => { lieuMain = true; majH(); majC(); }; maj(); $("fD").addEventListener("change", () => { majH(); majC(); }); $("fH").addEventListener("change", majC);
+  // UX13 (P17, 02/11/2026) : nouveau rendez-vous sans date choisie (agenda) : aujourd'hui s'il reste un créneau libre, sinon le prochain jour ouvert du
+  // lieu ; ses créneaux s'affichent tout de suite
+  if (nouveau && !(pre && pre.d)) {
+    const ouvert = (z) => ouvre(z, D.ctx.feries) && !absenceLe(z) && (horaires(etabR()).jours[new Date(z + "T12:00:00").getDay()] || []).length;
+    const reste = ouvert(D.t) && creneaux(etabR(), D.t, sauf, +val("fDu"), medChoisi()).l.some((c) => !c.occ.length && c.h > hmMaintenant());
+    $("fD").value = reste ? D.t : prochainJour(etabR(), D.t);
+  }
+  majH(); majC();
   if (nouveau) { // 2.3 : patient choisi en haut (ou à choisir) ; le lieu et le médecin suivent le patient tant qu'on ne les a pas changés à la main
     const dessinerSel = () => { $("rqSel").innerHTML = x ? selP(x) +
       (O.choix ? '<button type="button" class="bt gris" id="rqChg">Changer</button>' : "") : ""; if ($("rqChg")) $("rqChg").onclick = () => { x = null; $("rqSel").classList.add("cache"); $("rqCh").classList.remove("cache"); $("rq").value = ""; majL(); $("rq").focus(); }; };
@@ -2503,6 +2511,20 @@ window.statutRdv = async (id, rid, st) => {
 // Fenêtre « Venu » = « Nouveau reçu » (lot R, 31/10/2026) : prix des Paramètres (tarif du lieu), remise en DH, mode, « Réglé en totalité » ;
 // enregistré dans les montants du dossier. Médecin : directement ; secrétaire : par le serveur (prixConsultation). Déjà « Venu » : seul le prix change.
 // Montants : brut = total (prix − remise), rem = remise, px = prix affiché ; hospitalisation : tj = prix par jour, rem (total = jours ouvrés × tj − rem).
+// UX13 (P18, 02/11/2026) : feuille de soins : type et prix de la consultation d'un jour = rendez-vous du jour (prix enregistré : montants avec le droit
+// « finances », encaissement avec le droit « encaissements » ; sinon tarif du lieu) ; sans rendez-vous, tarif du type de la consultation
+API.consultationDuJour = async (x, d, titre) => {
+  const r = (x.P.rdvs || []).filter((z) => z.d === d && ["annule", "absent"].indexOf(z.st || "prevu") < 0).sort((a, b) => (b.st === "fait") - (a.st === "fait"))[0];
+  const type = r ? r.type || "" : titre || "", t = r ? r.act || typeRdv(r.type) : typeRdv(titre), etab = (r && r.lieu) || x.P.hop || x.doc.etablissementId || "";
+  if (t === "hospit") return { type, m: null };
+  let m = null;
+  if (r) try {
+    if (peut("finances")) { const s = await getDoc(doc(db, "espaces", ESPACE, "patientsFinances", x.id)), o = ((s.exists() ? JSON.parse(s.data().montantsJson || "{}") : {}).rdv || {})[r.id]; if (o) m = o.brut != null ? +o.brut : o.prix != null ? +o.prix : null; }
+    else if (peut("encaissements")) { const s = await getDoc(doc(db, "espaces", ESPACE, "encaissements", x.id)), o = ((s.exists() ? JSON.parse(s.data().data || "{}") : {}).rdv || {})[r.id]; if (o && o.m != null) m = +o.m; }
+  } catch (e) { console.warn("prix de la consultation", e); }
+  if (m == null) { const v = tarifsVus() && tarifAu(tarifsVus(), etab, t, d); if (v && v.brut) m = +v.brut; }
+  return { type, m };
+};
 async function prixVenu(x, l, r, opts) {
   const t = r.act || typeRdv(r.type), hs = t === "hospit", etab = x.P.hop || x.doc.etablissementId || "", v0 = tarifsVus() && tarifAu(tarifsVus(), etab, t, r.d), v = v0 || { brut: 0, retro: 0, impot: 0 };
   const sec = !peut("finances"), deja = r.st === "fait", enc = !!(opts && opts.encaisser);
@@ -2633,7 +2655,6 @@ window.ouvrirRT = (id, rid) => {
   const ch = (i, lib, v, o) => '<div class="' + ((o && o.large) ? "large" : "") + '"><label for="' + i + '">' + lib + '</label><input id="' + i + '" value="' + esc(v == null ? "" : v) + '"' + (o && o.type ? ' type="' + o.type + '"' : "") + (o && o.liste ? ' list="' + o.liste + '"' : "") + (o && o.mode ? ' inputmode="' + o.mode + '"' : "") + "></div>";
   const sel = (i, lib, v, opts, o) => '<div class="' + ((o && o.large) ? "large" : "") + '"><label for="' + i + '">' + lib + '</label><select id="' + i + '">' + opts.map((p) => '<option value="' + esc(p[0]) + '"' + (String(p[0]) === String(v == null ? "" : v) ? " selected" : "") + ">" + esc(p[1]) + "</option>").join("") + "</select></div>";
   panneau("<h3>" + (r0 ? "Modifier la prescription" : "Nouvelle prescription de radiothérapie") + " – " + esc(x.r.nm) + '</h3><div class="form rt-f">' +
-    '<div class="large"><label for="rActe">Acte</label><select id="rActe"><option value="">— Choisir l\'acte —</option>' + listeActes(R.acte).map((a) => '<option' + (a === R.acte ? " selected" : "") + ">" + esc(a) + "</option>").join("") + "</select></div>" +
     // R-C3 (19/10/2026) : lieu de la RT (pré-rempli avec celui du patient, modifiable : vu au cabinet, traité en clinique) et médecin (à partir de
     // 2 médecins ; défaut : celui du patient, sinon le médecin connecté) : étapes, consultations automatiques, agenda, WhatsApp, bilan (r.hop)
     sel("rHop", "Lieu de la radiothérapie", R.hop || "", [["", "—"]].concat(D.etabs.map((e) => [e.code, e.code + " – " + e.nom + (e.code === x.doc.etablissementId ? " (lieu du patient)" : "")])), {}) +
@@ -2642,7 +2663,9 @@ window.ouvrirRT = (id, rid) => {
     // 3.5 (12/10/2026) : volumes [{ nom, dose, nb, ty }] : le principal (rDose / rNb), puis des compléments séquentiels (à la suite) ou
     // intégrés (mêmes séances) ; pas d'organes à risque (Onco360 n'est pas ARIA)
     '<div class="large"><label>Volumes</label><div id="rVol"></div><div class="actr" style="justify-content:flex-start;margin-top:6px"><button type="button" class="bt clair petit" onclick="rtVolAj(\'seq\')">' + ic("plus") + 'Complément séquentiel</button><button type="button" class="bt clair petit" onclick="rtVolAj(\'int\')">' + ic("plus") + "Complément intégré</button></div>" +
-      '<div id="rDpf" class="mesures" style="font-size:14px;color:var(--titre);margin-top:6px">—</div></div>' +
+      '<div id="rDpf" class="mesures" style="font-size:14px;color:var(--titre);margin-top:6px"></div></div>' +
+    // UX12 (R18, 02/11/2026) : volumes et dose d'abord, acte facturé ensuite ; R5 : plus de « — » seul sous les boutons de complément
+    '<div class="large"><label for="rActe">Acte</label><select id="rActe"><option value="">— Choisir l\'acte —</option>' + listeActes(R.acte).map((a) => '<option' + (a === R.acte ? " selected" : "") + ">" + esc(a) + "</option>").join("") + "</select></div>" +
     sel("rRyt", "Rythme", R.ryt || "1", RYTHMES, {}) + ch("rNbA", "Nombre d'actes", R.nbA || 1, { mode: "numeric" }) +
     // R-C1 (audit 4 d. 20) : le calcul ne change pas ; l'aide dit la différence entre les deux rythmes
     '<p class="large mesures" style="margin:-4px 0 0">« Jours choisis » donne un rythme fixe (par exemple lundi, mercredi, vendredi). « 1 jour sur 2 » alterne sur les jours ouvrés : après un week-end ou un jour férié, le jour de la semaine change.</p>' +
@@ -2669,7 +2692,7 @@ window.ouvrirRT = (id, rid) => {
   window.rtVolSup = (i) => { lireVol(); VOL.splice(i, 1); dessinerVol(); calc(); };
   const calc = () => {
     lireVol(); const n = seancesVolumes(VOL);
-    $("rDpf").innerHTML = VOL.some((v) => v.dose) ? VOL.map((v) => esc(texteVolume(v, VOL))).join("<br>") + (VOL.length > 1 && n ? "<br><b>" + n + " séances</b>" : "") : "—";
+    $("rDpf").innerHTML = VOL.some((v) => v.dose) ? VOL.map((v) => esc(texteVolume(v, VOL))).join("<br>") + (VOL.length > 1 && n ? "<br><b>" + n + " séances</b>" : "") : "";
     $("rJoursZ").classList.toggle("cache", val("rRyt") !== "jours");
     const f = val("rDeb") && n ? finRT({ deb: val("rDeb"), nb: n, ryt: val("rRyt"), jours: joursCoches() }, D.ctx.feries) : null;
     $("rFinCalc").textContent = f ? cap(jourLong(f)) + " " + f.slice(0, 4) : "—";
@@ -2815,8 +2838,8 @@ window.terminerRT = async (id, rid, rouvrir, apres) => {
   const x = D.patients.find((p) => p.id === id); if (!x) return;
   const l = JSON.parse(x.doc.rtsJson || "[]"), r = l.find((v) => v.id === rid); if (!r) return;
   if (rouvrir) { if (!(await confirmer("Rouvrir cette radiothérapie (annuler la clôture du " + dfrA(r.fin) + ") ?"))) return; delete r.fin; sauverRT(x, l, "Radiothérapie rouverte").then(() => { toast("Radiothérapie rouverte."); apres ? apres() : pageDossier(x.id); }).catch((e) => toast(e.message)); return; }
-  fenetre("<h3>Terminer la radiothérapie – " + esc(x.r.nm) + '</h3><p class="sous">' + esc(r.acte || "") + (r.deb ? " · 1re séance le " + dfrA(r.deb) : "") + '</p><div class="form"><div class="large"><label for="tD">Date de la dernière séance</label><input id="tD" type="date" value="' + D.t + '"></div></div>' +
-    '<div class="err" id="fErr"></div><div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" id="fOk">Clôturer le traitement</button></div>');
+  fenetre("<h3>Clôturer la radiothérapie – " + esc(x.r.nm) + '</h3><p class="sous">' + esc(r.acte || "") + (r.deb ? " · 1re séance le " + dfrA(r.deb) : "") + '</p><div class="form"><div class="large"><label for="tD">Date de la dernière séance</label><input id="tD" type="date" value="' + D.t + '"></div></div>' +
+    '<div class="err" id="fErr"></div><div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Annuler</button><button class="bt plein" id="fOk">Clôturer</button></div>');
   $("fOk").onclick = async () => {
     const d = val("tD"); if (!d) { erreur("Indiquez la date.", "tD"); return; }
     if (r.deb && d < r.deb) { erreur("La date est avant la 1re séance (" + dfrA(r.deb) + ")."); return; }

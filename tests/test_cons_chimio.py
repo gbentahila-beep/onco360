@@ -8,7 +8,7 @@ def ok(c, m, d=None):
     else: ko_n += 1; print('  ✘ ' + m + ('' if d is None else ' ' + str(d)[:300]))
 JOUR = '2026-10-20'
 S2, PIDS = avec_demo(S, E, JOUR)
-AV = "[...document.querySelectorAll('#rdvListe .rc')].filter(c => /consultation/.test(c.innerText) && /À valider/.test(c.innerText))"
+AV = "[...document.querySelectorAll('#rdvListe .rc')].filter(c => /consultation/.test(c.innerText) && /Consult. à valider/.test(c.innerText))"
 async def main():
     async with async_playwright() as p:
         b = await p.chromium.launch()
@@ -25,7 +25,7 @@ async def main():
             await ev(f"voirAvTout('{pid}')"); await pg.wait_for_timeout(300)
             o = await ev(AV + ".map(c => [...c.querySelectorAll('button')].map(b => b.getAttribute('onclick') || '').find(o => o.startsWith('chVenuChimio'))).filter(Boolean)[0] || ''")
             if o: P, oc = pid, o; break
-        ok(bool(P), 'cure validée, consultation non validée : reste dans « Rendez-vous et tâches à venir », « À valider », bouton « Consultation : venu »', oc)
+        ok(bool(P), 'cure validée, consultation non validée : reste dans « Rendez-vous et tâches à venir », « Consult. à valider » (UX11, C15), bouton « Consultation : venu »', oc)
         if P:
             a = oc[oc.index('(') + 1:oc.rindex(')')].replace("'", '').split(',')
             k = a[1] + '|' + a[2] + '|' + a[3]

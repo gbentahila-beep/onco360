@@ -36,7 +36,8 @@ async def main():
         await pg.click('#fOk'); await pg.wait_for_timeout(1500)
         await ev("location.hash='accueil'"); await pg.wait_for_timeout(800); await ev("location.hash='dossier/PTA2'"); await pg.wait_for_timeout(2500)
         bd = await ev("(document.querySelector('.bn-bd')||{}).innerText||''")
-        ok('C2/6' in bd and 'undefined' not in bd, 'bandeau : « Chimio C2/6 »', bd)
+        # UX11 (C1, 02/11/2026) : C1 J1 validée, J8 et J15 encore à faire → la cure en cours reste C1
+        ok('C1/6' in bd and 'undefined' not in bd, 'bandeau : « Chimio C1/6 » (J8 et J15 de la C1 encore à faire)', bd)
         t = await ev("document.body.textContent")
         ok('Modifier le prix' in t and 'Annuler le statut' in t, 'médecin : « Modifier le prix » et « Annuler le statut » sur la consultation validée')
         apres = await ca(pg)

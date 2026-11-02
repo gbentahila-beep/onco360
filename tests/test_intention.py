@@ -34,7 +34,7 @@ async def main():
         await ev("document.querySelectorAll(':is(#fenetreCorps,#panneauCorps):not(:empty) input.req').forEach(i=>{if(!i.value){i.value=i.type==='date'?'2026-10-12':'10';i.dispatchEvent(new Event('change'))}})"); await pg.wait_for_timeout(300)
         await pg.click('#fOk'); await pg.wait_for_timeout(2000)
         t2 = await ev("(document.getElementById('fenetreCorps')||{}).innerText||''")
-        ok('Ligne créée' in t2 and 'Fiche de chimio' in t2 and 'Heure de la C1' in t2 and 'Plus tard' in t2, 'T1 (U7) : la suite est proposée (fiche, ordonnances, heure de la C1, « Plus tard »)', t2[:300])
+        ok('Ligne créée' in t2 and 'Fiche de chimio' in t2 and 'Heure de consultation – C1' in t2 and 'Plus tard' in t2, 'T1 (U7) : la suite est proposée (fiche, ordonnances, heure de consultation – C1 (UX11 C14), « Plus tard »)', t2[:300])
         await ev("fermerFenetre()"); await pg.wait_for_timeout(300)
         L = lignes_de(await ev("window.__fs"))[pid]
         ok(len(L) == n0 + 1 and L[-1].get('intent') == 'meta' and L[-1].get('rang') == 2, 'ligne créée avec son intention (métastatique, 2e ligne)', [l.get('intent') for l in L])

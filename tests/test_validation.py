@@ -66,8 +66,8 @@ async def main():
         pg = await ouvrir(b, S); ev = pg.evaluate
         await pg.goto(f'http://localhost:{PORT}/v2.html#dossier/{pid}'); await pg.wait_for_timeout(2500)
         await ev(f"chOuvrir('{pid}', {i}, {k}, 1)"); await pg.wait_for_timeout(1200)
-        pos = await ev("(()=>{const f=document.querySelector(':is(:is(#fenetreCorps,#panneauCorps):not(:empty),#panneauCorps):not(:empty)'),r=[...f.querySelectorAll('button')].find(x=>/Retour à la cure/.test(x.textContent));return r?{bas:r.parentElement.className==='boutons',avec:/Valider/.test(r.parentElement.textContent),haut:f.innerHTML.indexOf('Retour à la cure')>f.innerHTML.indexOf('Molécules')}:null})()")
-        ok(pos and pos['bas'] and pos['avec'] and pos['haut'], 'bouton « Retour à la cure » en bas, à côté de Reporter / Valider', pos)
+        pos = await ev("(()=>{const f=document.querySelector(':is(:is(#fenetreCorps,#panneauCorps):not(:empty),#panneauCorps):not(:empty)'),r=[...f.querySelectorAll('button')].find(x=>/Séances de la C/.test(x.textContent));return r?{bas:r.parentElement.className==='boutons',avec:/Valider/.test(r.parentElement.textContent),haut:f.innerHTML.indexOf('Séances de la C')>f.innerHTML.indexOf('Molécules')}:null})()")
+        ok(pos and pos['bas'] and pos['avec'] and pos['haut'], 'bouton « ‹ Séances de la C… » (UX11 C12) en bas, à côté de Reporter / Valider', pos)
         mol = await ev("(()=>{const i=[...document.querySelectorAll(':is(#fenetreCorps,#panneauCorps):not(:empty) input[onchange^=\"chPct\"]')][0];return i?i.getAttribute('onchange'):null})()")
         if mol:
             n0 = len(pg.dlg); await ev(mol.replace('this.value', "'1000'")); await pg.wait_for_timeout(1200)
@@ -94,7 +94,8 @@ async def main():
         ok(not pg.errs, 'aucune erreur JavaScript', pg.errs[:2]); await pg.close()
         print('Cure normale, sans bilan')
         pg, c = await valider(b, S)
-        ok(not pg.dlg and c.get('st') == 'recue' and 'bio' not in c.get('fige', {}), 'validée sans aucune question', pg.dlg)
+        # UX11 C8 (02/11/2026) : bilan non saisi signalé, sans bloquer (« Valider quand même »)
+        ok(len(pg.dlg) == 1 and 'Bilan du jour non saisi' in pg.dlg[0] and c.get('st') == 'recue' and 'bio' not in c.get('fige', {}), 'validée : seul « Bilan du jour non saisi » signalé, sans bloquer', pg.dlg)
         await pg.close()
         print('Poids saisi par la secrétaire : écart de plus de 10 %')
         S3 = json.loads(json.dumps(S))

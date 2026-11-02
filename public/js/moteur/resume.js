@@ -19,6 +19,14 @@ export function statutLigne(L, P, ctx) {
   else r.code = "cours";
   return r;
 }
+// UX11 C1 (02/11/2026) : prochaine séance d'une ligne = J8 / J15… d'une cure reçue encore prévu, sinon la prochaine cure prévue (ordre des cures)
+export function prochaineSeance(L, s, bib) {
+  for (const e of s.E) {
+    if (e.st === "recue") { const z = seancesCure(L, e, bib).find((o) => o.st === "prevue"); if (z) return { n: e.n, j: z.j, date: z.prevue }; }
+    else if (e.st === "prevue") return { n: e.n, j: 1, date: e.date };
+  }
+  return null;
+}
 // B8 – ligne principale en cours (les lignes associées sont ignorées)
 // 25/10/2026 : une ligne cochée « Traitement associé » par erreur sur une vraie chimiothérapie reste la ligne en cours (associeVrai)
 export function ligneCourante(P, ctx) { const ls = P.lignes || []; for (let i = ls.length - 1; i >= 0; i--) { if (!associeVrai(ls[i], protocoleDe(ls[i], ctx.bib)) && statutLigne(ls[i], P, ctx).code === "cours") return i; } return null; }
@@ -33,8 +41,8 @@ export function resume(P, ctx) {
     if (s.code === "cours" && s.next) r.act.push({ nom: p.nom, k: s.next.n, nb: L.cures.length, d: s.next.date, c: p.c, li });
   });
   const i = ligneCourante(P, ctx);
-  if (i != null) { const L = P.lignes[i], s = statutLigne(L, P, ctx), p = protocoleDe(L, ctx.bib); r.t = { nom: p.nom, st: "cours", k: s.next ? s.next.n : null, nb: L.cures.length, next: s.next ? s.next.date : null, last: s.last ? s.last.date : null, c: p.c, li: i }; }
-  else if ((P.lignes || []).length) { const L2 = P.lignes[P.lignes.length - 1], s2 = statutLigne(L2, P, ctx); r.t = Object.assign({ nom: protocoleDe(L2, ctx.bib).nom, st: s2.code, fin: s2.fin }, s2.code === "cours" ? { k: s2.next ? s2.next.n : null, nb: L2.cures.length } : {}); }
+  if (i != null) { const L = P.lignes[i], s = statutLigne(L, P, ctx), p = protocoleDe(L, ctx.bib); const nx = prochaineSeance(L, s, ctx.bib); r.t = { nom: p.nom, st: "cours", k: nx ? nx.n : null, nb: L.cures.length, next: nx ? nx.date : null, last: s.last ? s.last.date : null, c: p.c, li: i }; }
+  else if ((P.lignes || []).length) { const L2 = P.lignes[P.lignes.length - 1], s2 = statutLigne(L2, P, ctx); r.t = Object.assign({ nom: protocoleDe(L2, ctx.bib).nom, st: s2.code, fin: s2.fin }, s2.code === "cours" ? { k: (prochaineSeance(L2, s2, ctx.bib) || {}).n || null, nb: L2.cures.length } : {}); }
   // 2. séances J8/J15 à faire des cures reçues
   (P.lignes || []).forEach((L, li) => {
     if (L.arret) return; const p = protocoleDe(L, ctx.bib);
