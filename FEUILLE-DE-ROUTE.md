@@ -1161,8 +1161,9 @@ Traitement en cours ; Tâches : Tâche, Patient, Assignée à, Créée par, Éch
   - présentation : prescription = volumes et dose d'abord, acte facturé ensuite ; liste des actes par ordre alphabétique (R18).
   **Ne pas modifier le pli confidentiel** (conventions, 01/11/2026). Refusé le 01/11 : pli confidentiel refait (R4) ; fenêtre « et maintenant ? »
   après la prescription (R7) ; « Terminé » transformé (R10) ; ronds des étapes cliquables (R11) ; dose rappelée dans la fenêtre de dosimétrie
-  (R12) ; « Référentiel » sorti du ⋯ (R13) ; « Nombre d'actes facturés » (R17). Sans réponse : R6 (lignes de volumes alignées), R8 (fenêtre après
-  « Clôturer »), R9 (bouton « Documents ▾ » visible).
+  (R12) ; « Référentiel » sorti du ⋯ (R13) ; « Nombre d'actes facturés » (R17). Réponses du 02/11 : R6 (lignes de volumes alignées) fait le 02/11/2026
+  (colonne du bouton « Retirer » de même largeur sur chaque ligne, test_ux11_13) ; R8 (fenêtre après « Clôturer ») refusé. Sans réponse : R9 (bouton
+  « Documents ▾ » visible).
 - [x] **UX13 – Prescriptions, RCP, rendez-vous, tâches, feuille de soins (tour du 01/11/2026, réponses de Dr Bentahila)** (fait le 02/11/2026, branche
   `ux-1-2`, test `tests/test_ux11_13.py` ; P11 : deux colonnes dès que la fenêtre a 820 px (Médic., Ordo. type, Analyses, Examens ; Courriers et Doc. n'ont
   pas d'ordonnance en préparation) ; P18 : **table localisation → CIM-10 `js/donnees/cim10.js` à relire par Dr Bentahila** ; acte du jour = type et prix du

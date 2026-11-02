@@ -130,6 +130,9 @@ async def main():
         ok(r['avant'] and r['tri'], 'UX12 (R18) : volumes et dose d\'abord, acte ensuite ; actes par ordre alphabétique', r)
         await ev("document.querySelectorAll('#rVol input').forEach(i => { i.value = ''; i.dispatchEvent(new Event('input')) })"); await pg.wait_for_timeout(200)
         ok(await ev("document.getElementById('rDpf').textContent") == '', 'UX12 (R5) : plus de « — » seul sous les boutons de complément')
+        await ev("rtVolAj('seq')"); await ev("rtVolAj('int')"); await pg.wait_for_timeout(200)
+        g = await ev("JSON.stringify([...document.querySelectorAll('#rVol .rt-vol')].map(r => [...r.querySelectorAll('input')].map(i => Math.round(i.getBoundingClientRect().left))))")
+        l = json.loads(g); ok(len(l) == 3 and all(x == l[0] for x in l), 'UX12 (R6) : cases des volumes alignées (principal, compléments)', g)
         await ev("fermerFenetre()"); await pg.wait_for_timeout(300)
         ok(not pg.errs, 'aucune erreur JavaScript', pg.errs)
         # ───── 390 px ─────
