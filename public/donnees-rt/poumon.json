@@ -74,7 +74,8 @@
     "rtog0617",
     "rtog0617lt",
     "pacific",
-    "pacific5y"
+    "pacific5y",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -91,7 +92,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-pou",
    "volumes_id": "vol-pou-rct",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t11"
+   ],
    "couverture": "RTOG 0617 : 99 % du PTV ≥ 93 % de la dose",
    "points_attention": [
     "La marge CTV s'ajoute toujours, même en 4D ou en gating. ITV = réunion des CTV sur le cycle respiratoire",
@@ -112,8 +115,7 @@
      "limitant": "≥ 93 % de la dose",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pou-rct-66-33",
@@ -123,7 +125,8 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "proclaim",
-    "pacific"
+    "pacific",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -140,7 +143,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-pou",
    "volumes_id": "vol-pou-rct",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t11"
+   ],
    "points_attention": [
     "La marge CTV s'ajoute toujours, même en 4D ou en gating. ITV = réunion des CTV sur le cycle respiratoire"
    ],
@@ -150,8 +155,7 @@
     "Poumon",
     "CBNPC stade III non résécable : radiochimiothérapie",
     "Normofractionné"
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pou-port-54-27",
@@ -200,7 +204,8 @@
    "essai_ids": [
     "rtog0236",
     "rtog0236lt",
-    "chisel"
+    "chisel",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -218,7 +223,8 @@
    "simulation_id": "sim-pou-sbrt",
    "volumes_id": "vol-pou-sbrt",
    "contraintes_ids": [
-    "ct-thx-rtog0236"
+    "ct-thx-rtog0236",
+    "ct-astro-t13"
    ],
    "couverture": "(i)GTV : D98 % ≥ 100 % (souple : ≥ 110 %), D0,035 cc entre 118 et 143 %. PTV : D90 % ≥ 99 % (souple : D95 % ≥ 95 %). PTVéval (PTV moins les OAR) : D95 % ≥ 100 % (souple : D98 % ≥ 100 %). Aucune dose > 105 % hors du PTV. R100 % entre 1 et 1,2 ; R50 % et D2cm selon le volume du PTV",
    "points_attention": [
@@ -228,7 +234,7 @@
     "Séances tous les 2 jours (voire 3). CBCT avant le premier arc et entre les arcs ; écart os / tissu mou > 1 cm : appeler médecin et physicien",
     "Patient opérable : SBRT non inférieure à la lobectomie dans STARS révisé (bras unique, comparaison appariée). Décision en RCP",
     "Métastases : SABR-COMET (phase 2) améliore la survie (5 ans 42 % vs 18 %) au prix de 4,5 % de décès liés au traitement",
-    "34 Gy / 1 fx (RTOG 0915, phase 2) : non retenu",
+    "34 Gy / 1 fx (RTOG 0915, phase 2) : fiche à part, tumeur périphérique de petite taille",
     "Surveillance : TDM à 3, 6 et 12 mois, puis tous les 6 mois pendant 3 ans, puis annuelle"
    ],
    "date_verif": "2026-10-23",
@@ -262,7 +268,8 @@
    "type": "sbrt",
    "preuve": "recommandation",
    "essai_ids": [
-    "acrop-sbrt-poumon"
+    "acrop-sbrt-poumon",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -279,7 +286,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-pou-sbrt",
    "volumes_id": "vol-pou-sbrt",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t13"
+   ],
    "couverture": "(i)GTV : D98 % ≥ 100 % (souple : ≥ 110 %), D0,035 cc entre 118 et 143 %. PTV : D90 % ≥ 99 % (souple : D95 % ≥ 95 %). PTVéval (PTV moins les OAR) : D95 % ≥ 100 % (souple : D98 % ≥ 100 %). Aucune dose > 105 % hors du PTV. R100 % entre 1 et 1,2 ; R50 % et D2cm selon le volume du PTV",
    "points_attention": [
     "54 Gy / 3 fx : tumeur primitive seulement, jamais pour une métastase",
@@ -288,7 +297,7 @@
     "Séances tous les 2 jours (voire 3). CBCT avant le premier arc et entre les arcs ; écart os / tissu mou > 1 cm : appeler médecin et physicien",
     "Patient opérable : SBRT non inférieure à la lobectomie dans STARS révisé (bras unique, comparaison appariée). Décision en RCP",
     "Métastases : SABR-COMET (phase 2) améliore la survie (5 ans 42 % vs 18 %) au prix de 4,5 % de décès liés au traitement",
-    "34 Gy / 1 fx (RTOG 0915, phase 2) : non retenu",
+    "34 Gy / 1 fx (RTOG 0915, phase 2) : fiche à part, tumeur périphérique de petite taille",
     "Surveillance : TDM à 3, 6 et 12 mois, puis tous les 6 mois pendant 3 ans, puis annuelle"
    ],
    "date_verif": "2026-10-23",
@@ -313,8 +322,7 @@
      "limitant": "",
      "note": ""
     }
-   ],
-   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pou-sbrt-48-4",
@@ -325,7 +333,8 @@
    "essai_ids": [
     "acrop-sbrt-poumon",
     "chisel",
-    "es-lustre"
+    "es-lustre",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -342,7 +351,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-pou-sbrt",
    "volumes_id": "vol-pou-sbrt",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t14"
+   ],
    "couverture": "(i)GTV : D98 % ≥ 100 % (souple : ≥ 110 %), D0,035 cc entre 118 et 143 %. PTV : D90 % ≥ 99 % (souple : D95 % ≥ 95 %). PTVéval (PTV moins les OAR) : D95 % ≥ 100 % (souple : D98 % ≥ 100 %). Aucune dose > 105 % hors du PTV. R100 % entre 1 et 1,2 ; R50 % et D2cm selon le volume du PTV",
    "points_attention": [
     "54 Gy / 3 fx : tumeur primitive seulement, jamais pour une métastase",
@@ -351,7 +362,7 @@
     "Séances tous les 2 jours (voire 3). CBCT avant le premier arc et entre les arcs ; écart os / tissu mou > 1 cm : appeler médecin et physicien",
     "Patient opérable : SBRT non inférieure à la lobectomie dans STARS révisé (bras unique, comparaison appariée). Décision en RCP",
     "Métastases : SABR-COMET (phase 2) améliore la survie (5 ans 42 % vs 18 %) au prix de 4,5 % de décès liés au traitement",
-    "34 Gy / 1 fx (RTOG 0915, phase 2) : non retenu",
+    "34 Gy / 1 fx (RTOG 0915, phase 2) : fiche à part, tumeur périphérique de petite taille",
     "Surveillance : TDM à 3, 6 et 12 mois, puis tous les 6 mois pendant 3 ans, puis annuelle"
    ],
    "date_verif": "2026-10-23",
@@ -376,8 +387,54 @@
      "limitant": "",
      "note": ""
     }
+   ]
+  },
+  {
+   "id": "pou-sbrt-34-1",
+   "situation_id": "pou-sbrt",
+   "titre": "SBRT 34 Gy / 1 fx (petite tumeur périphérique)",
+   "type": "sbrt",
+   "preuve": "recommandation",
+   "essai_ids": [
+    "rtog0915",
+    "src-nccn-cbnpc",
+    "src-va-astro-2026"
    ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   "prescriptions": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 34,
+     "fractions": 1,
+     "dose_fx_Gy": 34.0,
+     "mode": "seul",
+     "rythme": "Séance unique",
+     "note": "Tumeur périphérique T1–T2 N0, à plus de 2 cm de l'arbre bronchique proximal"
+    }
+   ],
+   "technique": "VMAT, inspiration bloquée ou 4D, CBCT avant et pendant la séance",
+   "systemique": "Aucune",
+   "simulation_id": "sim-pou-sbrt",
+   "volumes_id": "vol-pou-sbrt",
+   "contraintes_ids": [
+    "ct-astro-t12"
+   ],
+   "couverture": "",
+   "points_attention": [
+    "RTOG 0915 (phase 2 randomisée, 94 patients) : 34 Gy / 1 fx aussi bien toléré que 48 Gy / 4 fx (toxicité de grade ≥ 3 : 10,3 vs 13,3 %) ; contrôle tumoral à 1 an 97 vs 92,7 %",
+    "Tumeur périphérique seulement, à plus de 2 cm de l'arbre bronchique proximal (critère de RTOG 0915) ; NCCN : surtout tumeur de moins de 2 cm, à plus de 1 cm de la paroi thoracique",
+    "Séance unique : CBCT avant le premier arc et entre les arcs ; écart os / tissu mou > 1 cm : appeler médecin et physicien",
+    "Lésion centrale = PTV à moins de 2 cm de toute structure sensible (définition IASLC). Ultracentrale = PTV au contact de l'arbre bronchique proximal, du cœur, des vaisseaux pulmonaires ou de l'œsophage",
+    "Patient opérable : SBRT non inférieure à la lobectomie dans STARS révisé (bras unique, comparaison appariée). Décision en RCP",
+    "Surveillance : TDM à 3, 6 et 12 mois, puis tous les 6 mois pendant 3 ans, puis annuelle"
+   ],
+   "date_verif": "2026-11-02",
+   "couverture_lignes": [],
+   "ind": [
+    "Thorax",
+    "Poumon",
+    "Stéréotaxie pulmonaire : CBNPC stade I ou métastase",
+    "Stéréotaxie"
+   ]
   },
   {
    "id": "pou-sbrt-50-5",
@@ -387,7 +444,8 @@
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
     "rtog0813",
-    "lenglet"
+    "lenglet",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -405,7 +463,8 @@
    "simulation_id": "sim-pou-sbrt",
    "volumes_id": "vol-pou-sbrt",
    "contraintes_ids": [
-    "ct-thx-rtog0813"
+    "ct-thx-rtog0813",
+    "ct-astro-t15"
    ],
    "couverture": "(i)GTV : D98 % ≥ 100 % (souple : ≥ 110 %), D0,035 cc entre 118 et 143 %. PTV : D90 % ≥ 99 % (souple : D95 % ≥ 95 %). PTVéval (PTV moins les OAR) : D95 % ≥ 100 % (souple : D98 % ≥ 100 %). Aucune dose > 105 % hors du PTV. R100 % entre 1 et 1,2 ; R50 % et D2cm selon le volume du PTV",
    "points_attention": [
@@ -415,7 +474,7 @@
     "Séances tous les 2 jours (voire 3). CBCT avant le premier arc et entre les arcs ; écart os / tissu mou > 1 cm : appeler médecin et physicien",
     "Patient opérable : SBRT non inférieure à la lobectomie dans STARS révisé (bras unique, comparaison appariée). Décision en RCP",
     "Métastases : SABR-COMET (phase 2) améliore la survie (5 ans 42 % vs 18 %) au prix de 4,5 % de décès liés au traitement",
-    "34 Gy / 1 fx (RTOG 0915, phase 2) : non retenu",
+    "34 Gy / 1 fx (RTOG 0915, phase 2) : fiche à part, tumeur périphérique de petite taille",
     "Surveillance : TDM à 3, 6 et 12 mois, puis tous les 6 mois pendant 3 ans, puis annuelle"
    ],
    "date_verif": "2026-10-23",
@@ -451,7 +510,8 @@
    "essai_ids": [
     "lenglet",
     "hilus",
-    "es-lustre"
+    "es-lustre",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -469,7 +529,8 @@
    "simulation_id": "sim-pou-sbrt",
    "volumes_id": "vol-pou-sbrt",
    "contraintes_ids": [
-    "ct-thx-hilus"
+    "ct-thx-hilus",
+    "ct-astro-t16"
    ],
    "couverture": "(i)GTV : D98 % ≥ 100 % (souple : ≥ 110 %), D0,035 cc entre 118 et 143 %. PTV : D90 % ≥ 99 % (souple : D95 % ≥ 95 %). PTVéval (PTV moins les OAR) : D95 % ≥ 100 % (souple : D98 % ≥ 100 %). Aucune dose > 105 % hors du PTV. R100 % entre 1 et 1,2 ; R50 % et D2cm selon le volume du PTV",
    "points_attention": [
@@ -479,7 +540,7 @@
     "Séances tous les 2 jours (voire 3). CBCT avant le premier arc et entre les arcs ; écart os / tissu mou > 1 cm : appeler médecin et physicien",
     "Patient opérable : SBRT non inférieure à la lobectomie dans STARS révisé (bras unique, comparaison appariée). Décision en RCP",
     "Métastases : SABR-COMET (phase 2) améliore la survie (5 ans 42 % vs 18 %) au prix de 4,5 % de décès liés au traitement",
-    "34 Gy / 1 fx (RTOG 0915, phase 2) : non retenu",
+    "34 Gy / 1 fx (RTOG 0915, phase 2) : fiche à part, tumeur périphérique de petite taille",
     "Surveillance : TDM à 3, 6 et 12 mois, puis tous les 6 mois pendant 3 ans, puis annuelle"
    ],
    "date_verif": "2026-10-23",
@@ -507,6 +568,53 @@
    ]
   },
   {
+   "id": "pou-sabr-70-10",
+   "situation_id": "pou-sbrt",
+   "titre": "SBRT 70 Gy / 10 fx (central, volumineux ou au contact de la paroi)",
+   "type": "sbrt",
+   "preuve": "recommandation",
+   "essai_ids": [
+    "src-li2014",
+    "src-nccn-cbnpc",
+    "src-va-astro-2026"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 70,
+     "fractions": 10,
+     "dose_fx_Gy": 7.0,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "Tumeur centrale, volumineuse ou au contact de la paroi thoracique ou du plexus brachial, non éligible à 50 Gy / 4 fx"
+    }
+   ],
+   "technique": "VMAT, scanner 4D, CBCT quotidien",
+   "systemique": "Aucune",
+   "simulation_id": "sim-pou-sbrt",
+   "volumes_id": "vol-pou-sbrt",
+   "contraintes_ids": [
+    "ct-astro-t17"
+   ],
+   "couverture": "",
+   "points_attention": [
+    "MD Anderson (Li 2014, 82 patients non éligibles à 50 Gy / 4 fx) : survie à 2 ans 66,9 %, contrôle local 96,2 % ; pneumopathie de grade 3 : 2,4 %",
+    "Mieux toléré que 50 Gy / 4 fx par la paroi thoracique et le plexus brachial. Paroi : V50Gy ≤ 60 cm³ (douleur pariétale au-delà, Li 2014)",
+    "Tumeur envahissant l'arbre bronchique proximal : non indiqué (un décès par hémoptysie dans la série de Li 2014)",
+    "Lésion centrale = PTV à moins de 2 cm de toute structure sensible (définition IASLC). Ultracentrale = PTV au contact de l'arbre bronchique proximal, du cœur, des vaisseaux pulmonaires ou de l'œsophage",
+    "Patient opérable : SBRT non inférieure à la lobectomie dans STARS révisé (bras unique, comparaison appariée). Décision en RCP",
+    "Surveillance : TDM à 3, 6 et 12 mois, puis tous les 6 mois pendant 3 ans, puis annuelle"
+   ],
+   "date_verif": "2026-11-02",
+   "couverture_lignes": [],
+   "ind": [
+    "Thorax",
+    "Poumon",
+    "Stéréotaxie pulmonaire : CBNPC stade I ou métastase",
+    "Stéréotaxie"
+   ]
+  },
+  {
    "id": "pou-sbrt-55-5-igr",
    "situation_id": "pou-sbrt",
    "titre": "SBRT 55 Gy / 5 fx (contact costal ou T2 N0)",
@@ -527,7 +635,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-pou-sbrt-igr",
    "volumes_id": "vol-pou-sbrt-igr",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t15"
+   ],
    "couverture": "95 % du PTV à la dose prescrite, 99 % à 90 % ; Dmax 110–140 %",
    "points_attention": [
     "54 Gy / 3 fx : tumeur primitive seulement, jamais pour une métastase",
@@ -536,7 +646,7 @@
     "Séances tous les 2 jours (voire 3). CBCT avant le premier arc et entre les arcs ; écart os / tissu mou > 1 cm : appeler médecin et physicien",
     "Patient opérable : SBRT non inférieure à la lobectomie dans STARS révisé (bras unique, comparaison appariée). Décision en RCP",
     "Métastases : SABR-COMET (phase 2) améliore la survie (5 ans 42 % vs 18 %) au prix de 4,5 % de décès liés au traitement",
-    "34 Gy / 1 fx (RTOG 0915, phase 2) : non retenu",
+    "34 Gy / 1 fx (RTOG 0915, phase 2) : fiche à part, tumeur périphérique de petite taille",
     "Surveillance : TDM à 3, 6 et 12 mois, puis tous les 6 mois pendant 3 ans, puis annuelle",
     "Le protocole Gustave Roussy donne deux couvertures du PTV (90 % ou 95 % à la dose prescrite) : retenir 95 % (fiche dosimétrique)"
    ],
@@ -547,7 +657,9 @@
     "Stéréotaxie pulmonaire : CBNPC stade I ou métastase",
     "Stéréotaxie"
    ],
-   "essai_ids": [],
+   "essai_ids": [
+    "src-va-astro-2026"
+   ],
    "couverture_lignes": [
     {
      "volume": "PTV",
@@ -563,8 +675,7 @@
      "limitant": "",
      "note": ""
     }
-   ],
-   "ct_mention": "Schéma du service sans essai publié : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pou-sbrt-50-10-igr",
@@ -599,7 +710,7 @@
     "Séances tous les 2 jours (voire 3). CBCT avant le premier arc et entre les arcs ; écart os / tissu mou > 1 cm : appeler médecin et physicien",
     "Patient opérable : SBRT non inférieure à la lobectomie dans STARS révisé (bras unique, comparaison appariée). Décision en RCP",
     "Métastases : SABR-COMET (phase 2) améliore la survie (5 ans 42 % vs 18 %) au prix de 4,5 % de décès liés au traitement",
-    "34 Gy / 1 fx (RTOG 0915, phase 2) : non retenu",
+    "34 Gy / 1 fx (RTOG 0915, phase 2) : fiche à part, tumeur périphérique de petite taille",
     "Surveillance : TDM à 3, 6 et 12 mois, puis tous les 6 mois pendant 3 ans, puis annuelle"
    ],
    "date_verif": "2026-10-23",
@@ -626,6 +737,53 @@
     }
    ],
    "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+  },
+  {
+   "id": "pou-hypo-60-15",
+   "situation_id": "pou-sbrt",
+   "titre": "RT hypofractionnée 60 Gy / 15 fx (stade I, si la stéréotaxie n'est pas possible)",
+   "type": "rte_hypo",
+   "preuve": "essai_phase3",
+   "essai_ids": [
+    "es-lustre",
+    "src-nrglu004",
+    "src-va-astro-2026"
+   ],
+   "prescriptions": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 60,
+     "fractions": 15,
+     "dose_fx_Gy": 4.0,
+     "mode": "seul",
+     "rythme": "5 fx/sem",
+     "note": "CBNPC stade I inopérable ; tumeur centrale ou ultracentrale"
+    }
+   ],
+   "technique": "VMAT, scanner 4D, CBCT quotidien",
+   "systemique": "Aucune",
+   "simulation_id": "sim-pou-sbrt-igr",
+   "volumes_id": "vol-pou-hypo",
+   "contraintes_ids": [
+    "ct-astro-t18"
+   ],
+   "couverture": "",
+   "points_attention": [
+    "LUSTRE (phase 3, 233 CBNPC stade I inopérables) : contrôle local à 3 ans 82 % vs 88 % en stéréotaxie (p = 0,15), survie identique ; toxicité de grade 3-4 des tumeurs centrales 5 vs 11 %",
+    "Option quand la stéréotaxie n'est pas réalisable : tumeur ultracentrale, gros volume, contraintes des organes non tenues",
+    "Objectifs de couverture du PTV repris du protocole NRG LU004 (60 Gy / 15 fx)",
+    "Séances quotidiennes ; CBCT quotidien",
+    "Lésion centrale = PTV à moins de 2 cm de toute structure sensible (définition IASLC). Ultracentrale = PTV au contact de l'arbre bronchique proximal, du cœur, des vaisseaux pulmonaires ou de l'œsophage",
+    "Surveillance : TDM à 3, 6 et 12 mois, puis tous les 6 mois pendant 3 ans, puis annuelle"
+   ],
+   "date_verif": "2026-11-02",
+   "couverture_lignes": [],
+   "ind": [
+    "Thorax",
+    "Poumon",
+    "Stéréotaxie pulmonaire : CBNPC stade I ou métastase",
+    "Hypofractionné"
+   ]
   },
   {
    "id": "pou-cbpc-45-30",
@@ -675,7 +833,8 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "convert",
-    "adriatic"
+    "adriatic",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -693,7 +852,8 @@
    "simulation_id": "sim-pou",
    "volumes_id": "vol-pou-cbpc",
    "contraintes_ids": [
-    "ct-thx-convert-66"
+    "ct-thx-convert-66",
+    "ct-astro-t11"
    ],
    "points_attention": [
     "45 Gy bifractionnés reste le standard. 66 Gy / 33 fx et 70 Gy / 35 fx ne font pas mieux (CONVERT, CALGB 30610)"
@@ -713,7 +873,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "calgb30610"
+    "calgb30610",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -730,7 +891,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-pou",
    "volumes_id": "vol-pou-cbpc",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t11"
+   ],
    "points_attention": [
     "45 Gy bifractionnés reste le standard. 66 Gy / 33 fx et 70 Gy / 35 fx ne font pas mieux (CONVERT, CALGB 30610)"
    ],
@@ -740,8 +903,7 @@
     "Poumon",
     "CBPC limité : radiochimiothérapie",
     "Normofractionné"
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pou-cbpc-60-40",
@@ -1203,6 +1365,49 @@
     "oar-poumon-d",
     "oar-poumon-g",
     "oar-paroi-thoracique",
+    "oar-gros-vaisseaux",
+    "oar-cotes",
+    "oar-peau"
+   ],
+   "oar_notes": {
+    "oar-plexus-brachial-d": "si apical",
+    "oar-plexus-brachial-g": "si apical",
+    "oar-gros-vaisseaux": "si juxta-aortique"
+   }
+  },
+  {
+   "id": "vol-pou-hypo",
+   "cibles": [
+    {
+     "nom": "ITV",
+     "type": "ITV",
+     "definition": "GTV = CTV, contouré sur le MIP et vérifié sur chaque phase",
+     "quand": "Scanner 4D"
+    },
+    {
+     "nom": "PTV",
+     "type": "PTV",
+     "definition": "ITV + 4 mm. Sans 4D : GTV + 5 mm en antéro-postérieur et latéral, 9 mm en cranio-caudal",
+     "quand": "Toujours",
+     "marge": "4 mm"
+    }
+   ],
+   "atlas": [
+    {
+     "nom": "Atlas RTOG"
+    }
+   ],
+   "oar_ids": [
+    "oar-canal-medullaire",
+    "oar-oesophage",
+    "oar-plexus-brachial-d",
+    "oar-plexus-brachial-g",
+    "oar-coeur",
+    "oar-trachee",
+    "oar-arbre-bronchique",
+    "oar-poumon-d",
+    "oar-poumon-g",
+    "oar-paroi-thoracique",
     "oar-gros-vaisseaux"
    ],
    "oar_notes": {
@@ -1243,7 +1448,9 @@
     "oar-poumons",
     "oar-coeur",
     "oar-oesophage",
-    "oar-moelle"
+    "oar-moelle",
+    "oar-plexus-brachial-d",
+    "oar-plexus-brachial-g"
    ]
   },
   {
@@ -1416,7 +1623,7 @@
   },
   {
    "cible": "pou-sbrt",
-   "point": "34 Gy / 1 fx (RTOG 0915, phase 2) : non retenu",
+   "point": "34 Gy / 1 fx (RTOG 0915, phase 2) : fiche à part, tumeur périphérique de petite taille",
    "portee": "situation"
   },
   {

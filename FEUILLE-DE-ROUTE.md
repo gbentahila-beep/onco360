@@ -1089,6 +1089,16 @@ un essai introuvable → le demander à Dr Bentahila, sinon son résumé (abstra
 - [x] Lot 6d – Rattrapage prostate (NRG-GU003 complété, SHARE 65 Gy / 26 fx ; `ajouts_estes4.py`) ; onglet Essais : 139 fiches pour toutes les sources (contraintes, contourage, OAR, atlas ; `essais_sources.py`, champs `alias` / `usages`, contrôle dans test-rtref-contenu) : 611 fiches ; Key Studies croisées avec la Bibliothèque (`docs/radiotherapie/estes-key-studies-croisement.tsv`).
 - [x] Lot 6e – Essais d'Estes (Key Studies) dont l'article est dans la Bibliothèque (01/11/2026) : 193 fiches neuves dans l'onglet Essais (`es-…`, chiffres d'Estes seulement, écrites par site dans `estes_<site>.py`, rassemblées par `estes_assembler.py` dans `estes-essais.json`, versées par `essais_estes.py` ; champs `localisation` = dossier de l'article, `bibliotheque` = son chemin) : 804 fiches ; 56 citations ajoutées aux schémas qui ont testé le même fractionnement (LUSTRE, LoRD-KNeA, DEPART, STELLAR, STAR-TREC, PORTEC-4a, IAEA-ACC, TE19…) et schéma neuf liposarcome myxoïde 36 Gy / 18 fx (DOREMY, `ajouts_estes5.py`) : 316 schémas. Écartés : candidats dont l'article trouvé n'était pas le bon (auteur cité en références), doublons de fiches existantes, essais sans article dans la Bibliothèque.
 - [ ] Lot 6f – Colonnes Sim / Field / Notes des Oral Boards ; HYPNO (55 Gy / 20 fx ORL), POLCAGB (vésicule néoadjuvante) et Louvain (40 Gy sur le cou prophylactique) : schémas à décider avec Dr Bentahila.
+- [x] **Lot 7 – Consensus VA / ASTRO 2026** (02/11/2026, demande de Dr Bentahila : « l'article est de confiance ») : Puckett et al., *Pract Radiat Oncol* 2026
+  (DOI 10.1016/j.prro.2025.11.003), 25 tableaux relus sur les pages et figés dans `docs/radiotherapie/construction/astro-2026.json`, versés par
+  `astro_2026.py` (idempotent) puis `essais_sources.py`. 26 jeux `ct-astro-tNN` (tableau 1 aussi sans les aires, `ct-astro-t01-sein`) sur 104 protocoles ;
+  chaque ligne porte sa source (petit numéro, « Sources » sous le tableau) ; même valeur que l'essai = une ligne, deux sources (moteur `sansDoublon`) ;
+  couverture des cibles dans « Objectifs de couverture » ; jeu FAST-Forward retiré de sein-40-15, sein-40-15-boost16, sein-paroi-40-15, ccis-40-15
+  (FAST-Forward gardé dans leurs essais) ; organes de l'article ajoutés au contourage (sans doublon voisin ; pas dans vol-pro-oligo ni le sein homolatéral de
+  vol-sein-ipb) ; page Contraintes : 186 lignes ajoutées (`va26-…`, champ `schemas` : seulement dans les protocoles du tableau), 123 lignes identiques
+  avec l'article en source, 16 attributions erronées corrigées (`MAL_ATTRIBUEES`) ; rectum V60Gy ≤ 0,01 % (tableau 20) non repris ; 35 fiches Essais
+  neuves (références citées, PMID) ; trois protocoles poumon neufs : SBRT 34 Gy / 1 fx (RTOG 0915), 70 Gy / 10 fx (Li 2014, MD Anderson), 60 Gy / 15 fx
+  (LUSTRE ; contourage `vol-pou-hypo`) : 319 schémas, 839 essais.
 Avis de Claude (01/11/2026) : plan cohérent ; ordre 2 → 3 → 4 → 5 (les essais lus au lot 2 servent à l'indication et aux corrections).
 
 ## Phase UX – Interface et facilité d'utilisation (plan du 01/11/2026, refait le même jour : tours d'Onco360 et de SmartDoc avec Dr Bentahila)

@@ -262,7 +262,7 @@
    "region_id": "thorax",
    "ordre": 23,
    "date_maj": "2026-11-01",
-   "nb_schemas": 19,
+   "nb_schemas": 22,
    "curietherapie": false
   },
   {
@@ -1618,7 +1618,8 @@
    "preuve": "essai_phase3",
    "essais": [
     "CHHiP",
-    "PROFIT"
+    "PROFIT",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -1643,7 +1644,8 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essais": [
-    "NRG/RTOG 0415"
+    "NRG/RTOG 0415",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -1670,7 +1672,8 @@
    "essais": [
     "PROFIT",
     "PACE-B",
-    "MD Anderson, 70 vs 78 Gy"
+    "MD Anderson, 70 vs 78 Gy",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -1695,7 +1698,8 @@
    "type": "sbrt",
    "preuve": "essai_phase3",
    "essais": [
-    "PACE-B"
+    "PACE-B",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -1745,7 +1749,8 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essais": [
-    "CHHiP"
+    "CHHiP",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -1784,7 +1789,8 @@
     "Normofractionné"
    ],
    "essais": [
-    "MD Anderson, 70 vs 78 Gy"
+    "MD Anderson, 70 vs 78 Gy",
+    "Consensus VA / ASTRO 2026"
    ]
   },
   {
@@ -1795,7 +1801,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essais": [
-    "FLAME"
+    "FLAME",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -1850,6 +1857,9 @@
     "Prostate",
     "En place — intermédiaire défavorable ou haut risque, avec irradiation pelvienne (N0 M0)",
     "Hypofractionné"
+   ],
+   "essais": [
+    "Consensus VA / ASTRO 2026"
    ]
   },
   {
@@ -1915,6 +1925,9 @@
     "Prostate",
     "En place — intermédiaire défavorable ou haut risque, avec irradiation pelvienne (N0 M0)",
     "Normofractionné"
+   ],
+   "essais": [
+    "Consensus VA / ASTRO 2026"
    ]
   },
   {
@@ -1925,7 +1938,8 @@
    "type": "rte_hypo",
    "preuve": "pratique_institutionnelle",
    "essais": [
-    "STAMPEDE, abiratérone M0"
+    "STAMPEDE, abiratérone M0",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -2112,7 +2126,8 @@
    "essais": [
     "GETUG-AFU 16",
     "RADICALS-RT",
-    "GETUG-AFU 17"
+    "GETUG-AFU 17",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -2205,7 +2220,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essais": [
-    "NRG/RTOG 0534 SPPORT"
+    "NRG/RTOG 0534 SPPORT",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -2254,6 +2270,9 @@
     "Prostate",
     "Après prostatectomie — rattrapage précoce ou adjuvant",
     "Normofractionné"
+   ],
+   "essais": [
+    "Consensus VA / ASTRO 2026"
    ]
   },
   {
@@ -2342,7 +2361,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essais": [
-    "PEACE-1, radiothérapie"
+    "PEACE-1, radiothérapie",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -2368,7 +2388,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "CHHiP",
-    "PROFIT"
+    "PROFIT",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -3710,7 +3731,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "Durand-Labrunie (France)",
-    "ASTRO foie primitif"
+    "ASTRO foie primitif",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -3738,7 +3760,8 @@
     "NRG/RTOG 1112",
     "RTOG 1112 (IGRT)",
     "Bujold 2013",
-    "ASTRO foie primitif"
+    "ASTRO foie primitif",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -3815,7 +3838,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "SABR-COMET",
-    "SABR-COMET (5 ans)"
+    "SABR-COMET (5 ans)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -3840,7 +3864,8 @@
    "type": "sbrt",
    "preuve": "option",
    "essais": [
-    "Rusthoven 2009"
+    "Rusthoven 2009",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -3900,7 +3925,8 @@
    "essais": [
     "Hong 2016",
     "Tao 2016",
-    "ASTRO foie primitif"
+    "ASTRO foie primitif",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -3926,7 +3952,8 @@
    "preuve": "essai_phase3",
    "essais": [
     "ACCORD 12",
-    "PRODIGE 23"
+    "PRODIGE 23",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -3962,7 +3989,8 @@
     "Polonais I",
     "TROG 01.04",
     "NSABP R-03",
-    "CAO/ARO/AIO-12"
+    "CAO/ARO/AIO-12",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -3992,7 +4020,8 @@
     "Swedish Rectal Cancer Trial",
     "MRC CR07 / NCIC-CTG C016",
     "Polonais I",
-    "TROG 01.04"
+    "TROG 01.04",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4018,7 +4047,8 @@
    "preuve": "essai_phase3",
    "essais": [
     "Stockholm III",
-    "STAR-TREC"
+    "STAR-TREC",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4045,7 +4075,8 @@
    "essais": [
     "RAPIDO",
     "STELLAR",
-    "Polonais II"
+    "Polonais II",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4070,7 +4101,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essais": [
-    "PRODIGE 23"
+    "PRODIGE 23",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4101,7 +4133,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essais": [
-    "CAO/ARO/AIO-94"
+    "CAO/ARO/AIO-94",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4132,7 +4165,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essais": [
-    "ACCORD 12"
+    "ACCORD 12",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4357,7 +4391,8 @@
     "EORTC 22931",
     "RTOG 9501",
     "EORTC 22931 et RTOG 9501",
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4396,7 +4431,8 @@
    "essais": [
     "EORTC 22931",
     "RTOG 9501",
-    "EORTC 22931 et RTOG 9501"
+    "EORTC 22931 et RTOG 9501",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4428,7 +4464,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "RTOG 9501",
-    "EORTC 22931 et RTOG 9501"
+    "EORTC 22931 et RTOG 9501",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4462,7 +4499,8 @@
     "MACH-NC 2009",
     "MACH-NC 2021",
     "Bonner (cetuximab)",
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4500,7 +4538,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "RTOG 0225",
-    "MACH-NC 2009"
+    "MACH-NC 2009",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4663,7 +4702,8 @@
     "MACH-NC 2021",
     "NRG / RTOG 1016",
     "De-ESCALaTE HPV",
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4703,7 +4743,8 @@
     "NRG / RTOG 1016",
     "DAHANCA 6 et 7",
     "MARCH",
-    "IAEA-ACC"
+    "IAEA-ACC",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4729,7 +4770,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "RTOG 0225",
-    "MACH-NC 2009"
+    "MACH-NC 2009",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4806,7 +4848,8 @@
     "EORTC 22931",
     "RTOG 9501",
     "EORTC 22931 et RTOG 9501",
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4845,7 +4888,8 @@
    "essais": [
     "EORTC 22931",
     "RTOG 9501",
-    "EORTC 22931 et RTOG 9501"
+    "EORTC 22931 et RTOG 9501",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4877,7 +4921,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "RTOG 9501",
-    "EORTC 22931 et RTOG 9501"
+    "EORTC 22931 et RTOG 9501",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4939,7 +4984,8 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essais": [
-    "Yamazaki"
+    "Yamazaki",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4964,7 +5010,8 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essais": [
-    "Yamazaki"
+    "Yamazaki",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -4989,7 +5036,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essais": [
-    "RTOG 9512"
+    "RTOG 9512",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5017,7 +5065,8 @@
     "RTOG 91-11",
     "RTOG 91-11, 10 ans",
     "MACH-NC 2009",
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5056,7 +5105,8 @@
    "essais": [
     "GORTEC 2000-01",
     "RTOG 91-11, 10 ans",
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5094,7 +5144,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "RTOG 0225",
-    "RTOG 91-11"
+    "RTOG 91-11",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5171,7 +5222,8 @@
     "EORTC 22931",
     "RTOG 9501",
     "EORTC 22931 et RTOG 9501",
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5210,7 +5262,8 @@
    "essais": [
     "EORTC 22931",
     "RTOG 9501",
-    "EORTC 22931 et RTOG 9501"
+    "EORTC 22931 et RTOG 9501",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5242,7 +5295,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "RTOG 9501",
-    "EORTC 22931 et RTOG 9501"
+    "EORTC 22931 et RTOG 9501",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5275,7 +5329,8 @@
    "essais": [
     "MACH-NC 2009",
     "MACH-NC 2021",
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5314,7 +5369,8 @@
    "essais": [
     "EORTC 24891",
     "GORTEC 2000-01",
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5352,7 +5408,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "RTOG 0225",
-    "MACH-NC 2009"
+    "MACH-NC 2009",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5429,7 +5486,8 @@
     "EORTC 22931",
     "RTOG 9501",
     "EORTC 22931 et RTOG 9501",
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5468,7 +5526,8 @@
    "essais": [
     "EORTC 22931",
     "RTOG 9501",
-    "EORTC 22931 et RTOG 9501"
+    "EORTC 22931 et RTOG 9501",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5500,7 +5559,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "RTOG 9501",
-    "EORTC 22931 et RTOG 9501"
+    "EORTC 22931 et RTOG 9501",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5570,7 +5630,8 @@
    "essais": [
     "Chen 2011 (stade II)",
     "Institut Curie — RT des VADS (tumeur en place et opérée)",
-    "Sun Yat-sen, nasopharynx bas risque (Tang)"
+    "Sun Yat-sen, nasopharynx bas risque (Tang)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5610,7 +5671,8 @@
     "Zhang 2019 (GP)",
     "Sun 2016 (TPF)",
     "Intergroupe 0099",
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5649,7 +5711,8 @@
    "essais": [
     "RTOG 0225",
     "Zhang 2019 (GP)",
-    "Sun 2016 (TPF)"
+    "Sun 2016 (TPF)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5723,7 +5786,8 @@
    "type": "rte_normo",
    "preuve": "pratique_institutionnelle",
    "essais": [
-    "RTOG 0225"
+    "RTOG 0225",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5761,7 +5825,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "Guillemin 2021",
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5798,7 +5863,8 @@
    "type": "rte_normo",
    "preuve": "pratique_institutionnelle",
    "essais": [
-    "Guillemin 2021"
+    "Guillemin 2021",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5829,7 +5895,8 @@
    "type": "rte_normo",
    "preuve": "pratique_institutionnelle",
    "essais": [
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5906,7 +5973,8 @@
     "Terhaard 2005 (DHNOCG)",
     "Piram 2019",
     "Frédéric-Moreau 2019",
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5943,7 +6011,8 @@
    "type": "rte_normo",
    "preuve": "pratique_institutionnelle",
    "essais": [
-    "Terhaard 2005 (DHNOCG)"
+    "Terhaard 2005 (DHNOCG)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -5975,7 +6044,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "Terhaard 2005 (DHNOCG)",
-    "Institut Curie — RT des VADS (tumeur en place et opérée)"
+    "Institut Curie — RT des VADS (tumeur en place et opérée)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6189,7 +6259,8 @@
     "RTOG 0617",
     "RTOG 0617 (long terme)",
     "PACIFIC",
-    "PACIFIC (5 ans)"
+    "PACIFIC (5 ans)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6215,7 +6286,8 @@
    "preuve": "essai_phase3",
    "essais": [
     "PROCLAIM",
-    "PACIFIC"
+    "PACIFIC",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6268,7 +6340,8 @@
    "essais": [
     "RTOG 0236",
     "RTOG 0236 (5 ans)",
-    "CHISEL (TROG 09.02)"
+    "CHISEL (TROG 09.02)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6293,7 +6366,8 @@
    "type": "sbrt",
    "preuve": "recommandation",
    "essais": [
-    "ESTRO ACROP SBRT poumon"
+    "ESTRO ACROP SBRT poumon",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6320,7 +6394,8 @@
    "essais": [
     "ESTRO ACROP SBRT poumon",
     "CHISEL (TROG 09.02)",
-    "LUSTRE"
+    "LUSTRE",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6328,6 +6403,33 @@
      "dose_Gy": 48,
      "fractions": 4,
      "dose_fx_Gy": 12
+    }
+   ],
+   "ind": [
+    "Thorax",
+    "Poumon",
+    "Stéréotaxie pulmonaire : CBNPC stade I ou métastase",
+    "Stéréotaxie"
+   ]
+  },
+  {
+   "id": "pou-sbrt-34-1",
+   "localisation_id": "poumon",
+   "situation_id": "pou-sbrt",
+   "titre": "SBRT 34 Gy / 1 fx (petite tumeur périphérique)",
+   "type": "sbrt",
+   "preuve": "recommandation",
+   "essais": [
+    "RTOG 0915",
+    "NCCN poumon non à petites cellules (version 3.2026)",
+    "Consensus VA / ASTRO 2026"
+   ],
+   "doses": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 34,
+     "fractions": 1,
+     "dose_fx_Gy": 34.0
     }
    ],
    "ind": [
@@ -6346,7 +6448,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "RTOG 0813",
-    "Lenglet (Curie)"
+    "Lenglet (Curie)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6373,7 +6476,8 @@
    "essais": [
     "Lenglet (Curie)",
     "HILUS",
-    "LUSTRE"
+    "LUSTRE",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6381,6 +6485,33 @@
      "dose_Gy": 60,
      "fractions": 8,
      "dose_fx_Gy": 7.5
+    }
+   ],
+   "ind": [
+    "Thorax",
+    "Poumon",
+    "Stéréotaxie pulmonaire : CBNPC stade I ou métastase",
+    "Stéréotaxie"
+   ]
+  },
+  {
+   "id": "pou-sabr-70-10",
+   "localisation_id": "poumon",
+   "situation_id": "pou-sbrt",
+   "titre": "SBRT 70 Gy / 10 fx (central, volumineux ou au contact de la paroi)",
+   "type": "sbrt",
+   "preuve": "recommandation",
+   "essais": [
+    "Li 2014 (SABR 70 Gy / 10 fx)",
+    "NCCN poumon non à petites cellules (version 3.2026)",
+    "Consensus VA / ASTRO 2026"
+   ],
+   "doses": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 70,
+     "fractions": 10,
+     "dose_fx_Gy": 7.0
     }
    ],
    "ind": [
@@ -6410,6 +6541,9 @@
     "Poumon",
     "Stéréotaxie pulmonaire : CBNPC stade I ou métastase",
     "Stéréotaxie"
+   ],
+   "essais": [
+    "Consensus VA / ASTRO 2026"
    ]
   },
   {
@@ -6435,6 +6569,33 @@
     "Poumon",
     "Stéréotaxie pulmonaire : CBNPC stade I ou métastase",
     "Stéréotaxie"
+   ]
+  },
+  {
+   "id": "pou-hypo-60-15",
+   "localisation_id": "poumon",
+   "situation_id": "pou-sbrt",
+   "titre": "RT hypofractionnée 60 Gy / 15 fx (stade I, si la stéréotaxie n'est pas possible)",
+   "type": "rte_hypo",
+   "preuve": "essai_phase3",
+   "essais": [
+    "LUSTRE",
+    "NRG LU004",
+    "Consensus VA / ASTRO 2026"
+   ],
+   "doses": [
+    {
+     "volume": "PTV",
+     "dose_Gy": 60,
+     "fractions": 15,
+     "dose_fx_Gy": 4.0
+    }
+   ],
+   "ind": [
+    "Thorax",
+    "Poumon",
+    "Stéréotaxie pulmonaire : CBNPC stade I ou métastase",
+    "Hypofractionné"
    ]
   },
   {
@@ -6473,7 +6634,8 @@
    "preuve": "essai_phase3",
    "essais": [
     "CONVERT",
-    "ADRIATIC"
+    "ADRIATIC",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6498,7 +6660,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essais": [
-    "CALGB 30610 / RTOG 0538"
+    "CALGB 30610 / RTOG 0538",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6794,7 +6957,8 @@
    "preuve": "recommandation",
    "essais": [
     "Katano 2026",
-    "ESMO 2015, tumeurs épithéliales thymiques"
+    "ESMO 2015, tumeurs épithéliales thymiques",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6820,7 +6984,8 @@
    "preuve": "recommandation",
    "essais": [
     "Katano 2026",
-    "ESMO 2015, tumeurs épithéliales thymiques"
+    "ESMO 2015, tumeurs épithéliales thymiques",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6847,7 +7012,8 @@
    "essais": [
     "START A et B, 10 ans",
     "FAST-Forward",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6875,7 +7041,8 @@
     "START A et B, 10 ans",
     "IMPORT HIGH",
     "EORTC 22881 (boost), 20 ans",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6906,7 +7073,8 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essais": [
-    "Whelan (Ontario)"
+    "Whelan (Ontario)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6932,7 +7100,8 @@
    "preuve": "essai_phase3",
    "essais": [
     "FAST-Forward",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -6958,7 +7127,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "FAST-Forward",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7019,7 +7189,8 @@
     "EBCTCG 2011 (conservation)",
     "Sénorif 2026 — Référentiel sein (juillet 2026)",
     "NSABP B-06",
-    "Lyon, complément de 10 Gy"
+    "Lyon, complément de 10 Gy",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7055,7 +7226,8 @@
    "essais": [
     "IMRT-MC2",
     "IMRT-MC2, 5 ans",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7125,7 +7297,8 @@
    "essais": [
     "FAST-Forward",
     "EBCTCG 2014 (mastectomie)",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7151,7 +7324,8 @@
    "preuve": "essai_phase3",
    "essais": [
     "EBCTCG 2014 (mastectomie)",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7183,7 +7357,8 @@
     "MA.20",
     "AMAROS",
     "AMAROS, 10 ans",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7220,7 +7395,8 @@
     "HypoG-01 (UNICANCER)",
     "Wang 2019",
     "ESTRO ACROP 2022 (fractionnement)",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7258,7 +7434,8 @@
    "preuve": "essai_phase3",
    "essais": [
     "IMPORT LOW",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7284,7 +7461,8 @@
    "preuve": "essai_phase3",
    "essais": [
     "Florence (APBI IMRT)",
-    "Florence, 10 ans"
+    "Florence, 10 ans",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7364,7 +7542,8 @@
    "essais": [
     "Woodward 2017",
     "KATHERINE",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7389,7 +7568,8 @@
    "type": "rte_normo",
    "preuve": "recommandation",
    "essais": [
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7423,7 +7603,8 @@
    "type": "rte_normo",
    "preuve": "recommandation",
    "essais": [
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7461,7 +7642,8 @@
     "NSABP B-17",
     "RTOG 9804",
     "UK/ANZ DCIS",
-    "NSABP B-24"
+    "NSABP B-24",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7490,7 +7672,8 @@
    "preuve": "essai_phase3",
    "essais": [
     "BIG 3-07 / TROG 07.01",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7524,7 +7707,8 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essais": [
-    "BIG 3-07 / TROG 07.01"
+    "BIG 3-07 / TROG 07.01",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7556,7 +7740,8 @@
    "preuve": "essai_phase3",
    "essais": [
     "DBCG HYPO",
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -7581,7 +7766,8 @@
    "type": "rte_normo",
    "preuve": "recommandation",
    "essais": [
-    "Sénorif 2026 — Référentiel sein (juillet 2026)"
+    "Sénorif 2026 — Référentiel sein (juillet 2026)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -10342,7 +10528,8 @@
    "type": "sbrt",
    "preuve": "essai_phase3",
    "essais": [
-    "Xi 2025 (SBRT vs radiofréquence)"
+    "Xi 2025 (SBRT vs radiofréquence)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -10630,7 +10817,8 @@
    "preuve": "pratique_institutionnelle",
    "essais": [
     "ORIOLE (protocole)",
-    "EXTEND (protocole)"
+    "EXTEND (protocole)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -10655,7 +10843,8 @@
    "type": "rte_normo",
    "preuve": "recommandation",
    "essais": [
-    "ASCO 2020 (sans primitif)"
+    "ASCO 2020 (sans primitif)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {
@@ -10692,7 +10881,8 @@
    "type": "rte_normo",
    "preuve": "recommandation",
    "essais": [
-    "ASCO 2020 (sans primitif)"
+    "ASCO 2020 (sans primitif)",
+    "Consensus VA / ASTRO 2026"
    ],
    "doses": [
     {

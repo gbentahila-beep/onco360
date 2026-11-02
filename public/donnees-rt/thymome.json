@@ -109,7 +109,8 @@
    "preuve": "recommandation",
    "essai_ids": [
     "katano2026-thymome",
-    "esmo-thymus-2015"
+    "esmo-thymus-2015",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -125,7 +126,9 @@
    "technique": "RT conformationnelle moderne (RCMI)",
    "systemique": "Selon RCP",
    "volumes_id": "vol-thymome",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t11"
+   ],
    "points_attention": [
     "Stade II R0 : bénéfice de la PORT discuté (méta-analyses discordantes) ; l'essai français RADIORYTHMIC compare PORT et surveillance dans les stades IIb–III R0",
     "Méta-analyse de 31 études : PORT associée à une meilleure SG (HR 0,73) après résection complète, bénéfice net pour les stades III–IV et le carcinome thymique"
@@ -136,8 +139,7 @@
     "Thymome",
     "Tumeur épithéliale thymique opérée : RT post-opératoire",
     "Normofractionné"
-   ],
-   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
+   ]
   },
   {
    "id": "th-excl-66",
@@ -147,7 +149,8 @@
    "preuve": "recommandation",
    "essai_ids": [
     "katano2026-thymome",
-    "esmo-thymus-2015"
+    "esmo-thymus-2015",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -163,7 +166,9 @@
    "technique": "RT conformationnelle moderne (RCMI)",
    "systemique": "Voir Traitement systémique",
    "volumes_id": "vol-thymome",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t11"
+   ],
    "date_verif": "2026-10-24",
    "ind": [
     "Thorax",
@@ -171,8 +176,7 @@
     "Tumeur non résécable : RT exclusive",
     "Normofractionné"
    ],
-   "points_attention": [],
-   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
+   "points_attention": []
   }
  ],
  "simulations": [],
@@ -206,7 +210,9 @@
     "oar-oesophage",
     "oar-moelle",
     "oar-gros-vaisseaux",
-    "oar-arbre-bronchique"
+    "oar-arbre-bronchique",
+    "oar-plexus-brachial-d",
+    "oar-plexus-brachial-g"
    ]
   }
  ],

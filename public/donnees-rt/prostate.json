@@ -96,7 +96,8 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "chhip",
-    "profit"
+    "profit",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -114,7 +115,8 @@
    "simulation_id": "sim-pro-ep",
    "volumes_id": "vol-pro-ep",
    "contraintes_ids": [
-    "ct-uro-chhip"
+    "ct-uro-chhip",
+    "ct-astro-t20"
    ],
    "couverture": "CTV D98% ≥ 58,8 Gy ; PTV D95% ≥ 57 Gy ; D1cc ≤ 107 %",
    "points_attention": [
@@ -158,7 +160,8 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "rtog0415"
+    "rtog0415",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -174,7 +177,9 @@
    "systemique": "Aucune (risque faible)",
    "simulation_id": "sim-pro-ep",
    "volumes_id": "vol-pro-ep",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t21"
+   ],
    "couverture": "CTV D98% ≥ 68,6 Gy ; PTV D95% ≥ 66,5 Gy ; D1cc ≤ 107 %",
    "date_verif": "2026-10-22",
    "ind": [
@@ -206,8 +211,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pro-fav-78-39",
@@ -218,7 +222,8 @@
    "essai_ids": [
     "profit",
     "paceb",
-    "es-mdanderson70vs78gy"
+    "es-mdanderson70vs78gy",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -236,7 +241,8 @@
    "simulation_id": "sim-pro-ep",
    "volumes_id": "vol-pro-ep",
    "contraintes_ids": [
-    "ct-uro-paceb-78"
+    "ct-uro-paceb-78",
+    "ct-astro-t19"
    ],
    "couverture": "CTV D98% ≥ 76,4 Gy ; PTV D95% ≥ 74,1 Gy ; D1cc ≤ 107 % ; option 76 Gy / 38 fx : CTV D98% ≥ 74,5 Gy, PTV D95% ≥ 72,2 Gy",
    "date_verif": "2026-10-22",
@@ -285,7 +291,8 @@
    "type": "sbrt",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "paceb"
+    "paceb",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -303,7 +310,8 @@
    "simulation_id": "sim-pro-sbrt",
    "volumes_id": "vol-pro-sbrt",
    "contraintes_ids": [
-    "ct-uro-pace-sbrt"
+    "ct-uro-pace-sbrt",
+    "ct-astro-t23"
    ],
    "couverture": "PTV D98% ≥ 34,4 Gy ; PTV D95% ≥ 36,25 Gy ; PTV D2% ≤ 43,5 Gy ; Dmax ≤ 45,3 Gy (acceptable ≤ 48 Gy) ; CTV D99% ≥ 36,25 Gy ; CTV D95% ≥ 40 Gy (acceptable D90% ≥ 40 Gy)",
    "points_attention": [
@@ -407,7 +415,8 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "chhip"
+    "chhip",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -425,7 +434,8 @@
    "simulation_id": "sim-pro-ep",
    "volumes_id": "vol-pro-ep",
    "contraintes_ids": [
-    "ct-uro-chhip"
+    "ct-uro-chhip",
+    "ct-astro-t20"
    ],
    "couverture": "CTV D98% ≥ 58,8 Gy ; PTV D95% ≥ 57 Gy ; D1cc ≤ 107 %",
    "date_verif": "2026-10-22",
@@ -482,7 +492,8 @@
    "simulation_id": "sim-pro-ep",
    "volumes_id": "vol-pro-ep",
    "contraintes_ids": [
-    "ct-uro-getug"
+    "ct-uro-getug",
+    "ct-astro-t19"
    ],
    "couverture": "CTV D98% ≥ 76,4 Gy ; PTV D95% ≥ 74,1 Gy (80 Gy : 78,4 / 76 Gy) ; D1cc ≤ 107 %",
    "date_verif": "2026-10-22",
@@ -493,7 +504,8 @@
     "Normofractionné"
    ],
    "essai_ids": [
-    "es-mdanderson70vs78gy"
+    "es-mdanderson70vs78gy",
+    "src-va-astro-2026"
    ],
    "points_attention": [],
    "couverture_lignes": [
@@ -527,7 +539,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "flame"
+    "flame",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -563,7 +576,8 @@
     "Normofractionné"
    ],
    "contraintes_ids": [
-    "ct-uro-flame"
+    "ct-uro-flame",
+    "ct-astro-t19"
    ]
   },
   {
@@ -603,7 +617,9 @@
    "systemique": "Int. défavorable : 4–6 mois. Haut risque : 18 à 36 mois ; très haut risque : HT 3 ans + abiratérone 2 ans",
    "simulation_id": "sim-pro-ep",
    "volumes_id": "vol-pro-ep",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t21"
+   ],
    "couverture": "PRO : CTV D98% ≥ 68,6 / PTV D95% ≥ 66,5 Gy ; VS : 54,9 / 53,2 Gy ; PELV : 49,4 / 47,9 Gy ; D1cc ≤ 107 %",
    "date_verif": "2026-10-22",
    "ind": [
@@ -612,7 +628,9 @@
     "En place — intermédiaire défavorable ou haut risque, avec irradiation pelvienne (N0 M0)",
     "Hypofractionné"
    ],
-   "essai_ids": [],
+   "essai_ids": [
+    "src-va-astro-2026"
+   ],
    "points_attention": [],
    "couverture_lignes": [
     {
@@ -643,8 +661,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "Schéma du service sans essai publié : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pro-pelv-poprt",
@@ -728,7 +745,9 @@
    "systemique": "Int. défavorable : 4–6 mois. Haut risque : 18 à 36 mois ; très haut risque : HT 3 ans + abiratérone 2 ans",
    "simulation_id": "sim-pro-ep",
    "volumes_id": "vol-pro-ep",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t19"
+   ],
    "couverture": "PRO 78 : 76,4 / 74,1 Gy ; VS 54 : 52,9 / 51,3 Gy ; PELV 50 : 49 / 47,5 Gy ; D1cc ≤ 107 %",
    "date_verif": "2026-10-22",
    "ind": [
@@ -737,7 +756,9 @@
     "En place — intermédiaire défavorable ou haut risque, avec irradiation pelvienne (N0 M0)",
     "Normofractionné"
    ],
-   "essai_ids": [],
+   "essai_ids": [
+    "src-va-astro-2026"
+   ],
    "points_attention": [],
    "couverture_lignes": [
     {
@@ -768,8 +789,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "Schéma du service sans essai publié : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pro-n1-70-28",
@@ -778,7 +798,8 @@
    "type": "rte_hypo",
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
-    "stampede-abi"
+    "stampede-abi",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -820,7 +841,9 @@
    "systemique": "HT 24–36 mois ; avec abiratérone : HT 3 ans + abiratérone 2 ans (STAMPEDE)",
    "simulation_id": "sim-pro-ep",
    "volumes_id": "vol-pro-ep",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t21"
+   ],
    "couverture": "PRO 68,6 / 66,5 ; VS 54,9 / 53,2 ; PELV 49,4 / 47,9 ; ADP : CTV D98% ≥ 60,4 / PTV D95% ≥ 58,5 Gy",
    "date_verif": "2026-10-22",
    "ind": [
@@ -859,8 +882,7 @@
      "limitant": "≥ 60,4 / PTV D95% ≥ 58,5 Gy",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pro-boost-ldr",
@@ -1160,7 +1182,8 @@
    "essai_ids": [
     "getug-afu16",
     "radicals-rt",
-    "getug-afu17"
+    "getug-afu17",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -1204,7 +1227,8 @@
    "simulation_id": "sim-pro-loge",
    "volumes_id": "vol-pro-loge",
    "contraintes_ids": [
-    "ct-uro-radicals-66"
+    "ct-uro-radicals-66",
+    "ct-astro-t22"
    ],
    "couverture": "LOGE : CTV D98% ≥ 64,7 / PTV D95% ≥ 62,7 Gy ; PELV : 53,4 / 51,7 ; ADP : 61,4 / 59,6 ; NODULE : 69,5 / 67,4 Gy ; D1cc ≤ 107 %",
    "points_attention": [
@@ -1379,7 +1403,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "spport"
+    "spport",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -1416,7 +1441,8 @@
     "Normofractionné"
    ],
    "contraintes_ids": [
-    "ct-uro-rtog0534"
+    "ct-uro-rtog0534",
+    "ct-astro-t22"
    ]
   },
   {
@@ -1447,7 +1473,9 @@
    "systemique": "Selon risque",
    "simulation_id": "sim-pro-loge",
    "volumes_id": "vol-pro-loge-service",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t22"
+   ],
    "points_attention": [
     "Rattrapage précoce (PSA ≥ 0,1–0,2 ng/ml) préféré à la RT adjuvante systématique : contrôle comparable, moins de toxicité urinaire et érectile (RADICALS-RT, GETUG-AFU 17, RAVES)",
     "Identifier les clips de prostatectomie (à inclure) et ceux du curage (à exclure du CTV_LOGE)"
@@ -1459,8 +1487,9 @@
     "Après prostatectomie — rattrapage précoce ou adjuvant",
     "Normofractionné"
    ],
-   "essai_ids": [],
-   "ct_mention": "Schéma du service sans essai publié : base de contraintes appliquée."
+   "essai_ids": [
+    "src-va-astro-2026"
+   ]
   },
   {
    "id": "pro-recid-46-23",
@@ -1601,7 +1630,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "peace1"
+    "peace1",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -1617,7 +1647,9 @@
    "systemique": "HT + abiratérone (PEACE-1)",
    "simulation_id": "sim-pro-ep",
    "volumes_id": "vol-pro-ep",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t19"
+   ],
    "points_attention": [
     "STAMPEDE : pas de bénéfice de survie chez les patients non sélectionnés ; l'indication vise le faible volume métastatique"
    ],
@@ -1627,8 +1659,7 @@
     "Prostate",
     "Métastatique d'emblée, faible volume — radiothérapie de la prostate",
     "Normofractionné"
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pro-pelv-60-54",
@@ -1638,7 +1669,8 @@
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
     "chhip",
-    "profit"
+    "profit",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -1671,7 +1703,9 @@
     "En place — intermédiaire défavorable ou haut risque, avec irradiation pelvienne (N0 M0)",
     "Hypofractionné"
    ],
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t20"
+   ],
    "points_attention": [],
    "couverture_lignes": [
     {
@@ -1688,8 +1722,7 @@
      "limitant": "≥ 57 Gy",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "pro-oligo-os-24",
@@ -1774,7 +1807,8 @@
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
     "oriole-protocole",
-    "extend-protocole"
+    "extend-protocole",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -1802,7 +1836,8 @@
     "Stéréotaxie"
    ],
    "contraintes_ids": [
-    "ct-extend-5fx"
+    "ct-extend-5fx",
+    "ct-astro-t15"
    ]
   }
  ],
@@ -1934,7 +1969,8 @@
     "oar-rein-d",
     "oar-rein-g",
     "oar-foie",
-    "oar-canal-medullaire"
+    "oar-canal-medullaire",
+    "oar-colon"
    ],
    "oar_notes": {
     "oar-bulbe": "facultatif",
@@ -1980,7 +2016,8 @@
     "oar-grele",
     "oar-tete-femorale-d",
     "oar-tete-femorale-g",
-    "oar-bulbe"
+    "oar-bulbe",
+    "oar-colon"
    ],
    "oar_notes": {
     "oar-uretre": "facultatif",
@@ -2065,7 +2102,8 @@
     "oar-rein-d",
     "oar-rein-g",
     "oar-foie",
-    "oar-canal-medullaire"
+    "oar-canal-medullaire",
+    "oar-colon"
    ],
    "oar_notes": {
     "oar-bulbe": "facultatif",
@@ -2212,7 +2250,8 @@
     "oar-rein-d",
     "oar-rein-g",
     "oar-foie",
-    "oar-canal-medullaire"
+    "oar-canal-medullaire",
+    "oar-colon"
    ],
    "oar_notes": {
     "oar-bulbe": "facultatif",

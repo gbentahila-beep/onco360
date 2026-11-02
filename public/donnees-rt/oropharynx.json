@@ -43,7 +43,8 @@
     "mach-nc-2021",
     "rtog1016",
     "de-escalate",
-    "curie-vads-2021"
+    "curie-vads-2021",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -78,7 +79,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-en-place",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "PTV : D95 % ≥ 95 % ; CTV : D98 % ≥ 98 % ; PTV70 : D2 % ≤ 107 %",
    "points_attention": [
     "HPV positif : le cetuximab donne une survie inférieure au cisplatine (RTOG 1016) sans réduire la toxicité (De-ESCALaTE) ; la désescalade reste du domaine des essais",
@@ -113,8 +116,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "oro-70-35-6fx",
@@ -126,7 +128,8 @@
     "rtog1016",
     "dahanca67",
     "march",
-    "es-iaeaacc"
+    "es-iaeaacc",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -144,7 +147,8 @@
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-en-place",
    "contraintes_ids": [
-    "ct-orl-rtog1016"
+    "ct-orl-rtog1016",
+    "ct-astro-t06"
    ],
    "points_attention": [
     "HPV positif : le cetuximab donne une survie inférieure au cisplatine (RTOG 1016) sans réduire la toxicité (De-ESCALaTE) ; la désescalade reste du domaine des essais",
@@ -167,7 +171,8 @@
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
     "rtog0225",
-    "mach-nc"
+    "mach-nc",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -203,7 +208,8 @@
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-oro-igr",
    "contraintes_ids": [
-    "ct-orl-rtog0225"
+    "ct-orl-rtog0225",
+    "ct-astro-t06"
    ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "points_attention": [
@@ -338,7 +344,8 @@
     "eortc22931",
     "rtog9501",
     "bernier2005",
-    "curie-vads-2021"
+    "curie-vads-2021",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -373,7 +380,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-postop",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "PTV : D95 % ≥ 95 % ; CTV : D98 % ≥ 98 % ; PTV66 ∪ PTV59,4 : D2 % ≤ 107 %",
    "date_verif": "2026-10-24",
    "ind": [
@@ -405,8 +414,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "oro-postop-66-54-service",
@@ -417,7 +425,8 @@
    "essai_ids": [
     "eortc22931",
     "rtog9501",
-    "bernier2005"
+    "bernier2005",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -443,7 +452,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-oro-postop-service",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "date_verif": "2026-10-24",
    "ind": [
@@ -475,8 +486,7 @@
      "limitant": "≈ 105 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "oro-postop-60-54-service",
@@ -486,7 +496,8 @@
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
     "rtog9501",
-    "bernier2005"
+    "bernier2005",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -512,7 +523,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-oro-postop-service",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "date_verif": "2026-10-24",
    "ind": [
@@ -544,8 +557,7 @@
      "limitant": "≈ 105 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "oro-rte-pdr-bdl",
@@ -677,7 +689,10 @@
     "oar-thyroide",
     "oar-cochlee-d",
     "oar-cochlee-g",
-    "oar-muscles-nuque"
+    "oar-muscles-nuque",
+    "oar-plexus-brachial-d",
+    "oar-plexus-brachial-g",
+    "oar-oesophage-cervical"
    ]
   },
   {
@@ -744,7 +759,9 @@
     "oar-cochlee-d",
     "oar-cochlee-g",
     "oar-plexus-brachial-d",
-    "oar-plexus-brachial-g"
+    "oar-plexus-brachial-g",
+    "oar-oesophage-cervical",
+    "oar-constricteurs"
    ]
   },
   {

@@ -117,7 +117,8 @@
    "essai_ids": [
     "chen2011-npc",
     "curie-vads-2021",
-    "es-sunyatsennasopharynxbasrisqu"
+    "es-sunyatsennasopharynxbasrisqu",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -152,7 +153,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-cav-curie",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "PTV : D95 % ≥ 95 % ; CTV : D98 % ≥ 98 % ; PTV70 : D2 % ≤ 107 %",
    "date_verif": "2026-10-24",
    "ind": [
@@ -184,8 +187,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "cav-av-70-35-curie",
@@ -197,7 +199,8 @@
     "zhang2019-gp",
     "sun2016-tpf",
     "int0099",
-    "curie-vads-2021"
+    "curie-vads-2021",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -232,7 +235,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-cav-curie",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "PTV : D95 % ≥ 95 % ; CTV : D98 % ≥ 98 % ; PTV70 : D2 % ≤ 107 %",
    "points_attention": [
     "La chimiothérapie adjuvante cisplatine–5-FU après RCT n'améliore pas la survie sans échec (Chen 2012)"
@@ -266,8 +271,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "cav-av-6996-33",
@@ -278,7 +282,8 @@
    "essai_ids": [
     "rtog0225",
     "zhang2019-gp",
-    "sun2016-tpf"
+    "sun2016-tpf",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -314,7 +319,8 @@
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-cav-igr",
    "contraintes_ids": [
-    "ct-orl-rtog0225"
+    "ct-orl-rtog0225",
+    "ct-astro-t06"
    ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "points_attention": [
@@ -444,7 +450,8 @@
    "type": "rte_normo",
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
-    "rtog0225"
+    "rtog0225",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -480,7 +487,8 @@
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-cav-igr",
    "contraintes_ids": [
-    "ct-orl-rtog0225"
+    "ct-orl-rtog0225",
+    "ct-astro-t06"
    ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "date_verif": "2026-10-24",
@@ -621,7 +629,9 @@
     "oar-lobe-frontal",
     "oar-glande-lacrymale-d",
     "oar-glande-lacrymale-g",
-    "oar-hypophyse"
+    "oar-hypophyse",
+    "oar-plexus-brachial-d",
+    "oar-plexus-brachial-g"
    ]
   },
   {
@@ -688,7 +698,9 @@
     "oar-cavite-orale",
     "oar-larynx",
     "oar-constricteurs",
-    "oar-thyroide"
+    "oar-thyroide",
+    "oar-plexus-brachial-d",
+    "oar-plexus-brachial-g"
    ]
   }
  ],

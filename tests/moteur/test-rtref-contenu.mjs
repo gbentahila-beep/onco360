@@ -56,8 +56,9 @@ cas("jeux de contraintes : identifiants uniques (" + JEUX.length + ")", doublons
 cas("jeux de contraintes : vérifiés (référence) ou du service", JEUX.every(j => ["verifie", "service"].includes(j.verification)), liste(JEUX.filter(j => !["verifie", "service"].includes(j.verification)).map(j => j.id)));
 cas("jeux de contraintes : titre, source et au moins une ligne", JEUX.every(j => j.titre && j.source && Array.isArray(j.lignes) && j.lignes.length));
 const PSEUDO = new Set(["cible-ctv", "cible-ptv"]);
-const lignesKo = JEUX.flatMap(j => j.lignes.filter(l => !oarIds.has(l.oar_id) && !PSEUDO.has(l.oar_id)).map(l => j.id + ":" + l.oar_id));
-cas("jeux de contraintes : chaque ligne renvoie à un OAR connu (ou cible-ctv / cible-ptv)", lignesKo.length === 0, liste(lignesKo));
+// une paire (« parotides ») vaut ses deux organes (consensus VA / ASTRO, 02/11/2026)
+const lignesKo = JEUX.flatMap(j => j.lignes.filter(l => !oarIds.has(l.oar_id) && !CLES.has(l.oar_id) && !PSEUDO.has(l.oar_id)).map(l => j.id + ":" + l.oar_id));
+cas("jeux de contraintes : chaque ligne renvoie à un OAR ou une paire connus (ou cible-ctv / cible-ptv)", lignesKo.length === 0, liste(lignesKo));
 cas("jeux de contraintes : chaque ligne a une valeur (Idéal, Limitant ou note « à rapporter »)", JEUX.every(j => j.lignes.every(l => l.ideal || l.limitant || l.note)));
 cas("essais : identifiants uniques (" + ESS.length + ")", doublons(ESS.map(e => e.id)).length === 0, liste(doublons(ESS.map(e => e.id))));
 cas("essais : acronyme présent, année entière, PMID en chiffres", ESS.every(e => e.acronyme && (e.annee === undefined || Number.isInteger(e.annee)) && (e.pmid === undefined || /^\d+$/.test(e.pmid))),
@@ -176,7 +177,7 @@ const SANS_FICHE = new Set(["Pratique usuelle", "Source à préciser", "Tableur 
 const ALIAS = new Set(ESS.flatMap(e => e.alias || [])), DOIS = new Set(ESS.filter(e => e.doi).map(e => e.doi.toLowerCase()));
 const sansFiche = [], vu = (nom, doi) => { if (!SANS_FICHE.has(nom) && !ALIAS.has(nom) && !(doi && DOIS.has(doi.toLowerCase()))) sansFiche.push(nom); };
 BASE.forEach(l => (l.source || "").split(" ; ").map(s => s.trim()).filter(Boolean).forEach(s => vu(s)));
-JEUX.forEach(j => vu(j.source));
+JEUX.forEach(j => { vu(j.source); j.lignes.forEach(l => (l.source || "").split(" ; ").map(s => s.trim()).filter(Boolean).forEach(s => vu(s))); });
 (J["oar.json"].sources || []).forEach(s => vu(s.ref, s.doi));
 const DOS_CTG = join(DOS, "contourage");
 if (existsSync(DOS_CTG)) readdirSync(DOS_CTG).filter(f => f.endsWith(".json")).forEach(f => (JSON.parse(readFileSync(join(DOS_CTG, f), "utf8")).sources || []).forEach(s => vu(s.ref, s.doi)));

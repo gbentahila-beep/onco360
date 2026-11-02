@@ -31,7 +31,8 @@
    "type": "rte_normo",
    "preuve": "recommandation",
    "essai_ids": [
-    "maghami2020-asco"
+    "maghami2020-asco",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -76,8 +77,9 @@
     "Carcinome épidermoïde cervical sans primitif : RT exclusive",
     "Normofractionné"
    ],
-   "contraintes_ids": [],
-   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ]
   },
   {
    "id": "inc-po-60",
@@ -86,7 +88,8 @@
    "type": "rte_normo",
    "preuve": "recommandation",
    "essai_ids": [
-    "maghami2020-asco"
+    "maghami2020-asco",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -121,8 +124,9 @@
     "Carcinome épidermoïde cervical sans primitif : après curage",
     "Normofractionné"
    ],
-   "contraintes_ids": [],
-   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ]
   }
  ],
  "simulations": [
@@ -165,7 +169,11 @@
     "oar-larynx",
     "oar-moelle",
     "oar-plexus-brachial-d",
-    "oar-plexus-brachial-g"
+    "oar-plexus-brachial-g",
+    "oar-tronc-cerebral",
+    "oar-glande-sous-max-d",
+    "oar-glande-sous-max-g",
+    "oar-constricteurs"
    ]
   }
  ],

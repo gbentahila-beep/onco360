@@ -209,9 +209,11 @@ export function choisirLignes(L, fx, dpf) {
   const n = Math.max(...ok.map((l) => l.fx));
   return { lignes: ok.filter((l) => l.fx === n), proche: n };
 }
-// Lignes de la base pour une clé : celles de la localisation si elle en a pour ce régime, sinon les lignes générales
-export function lignesBase(base, cle, loc, rg) {
-  const L = (base || []).filter((l) => l.oar_id === cle && l.regime === rg.regime);
+// Lignes de la base pour une clé : celles de la localisation si elle en a pour ce régime, sinon les lignes générales.
+// Ligne réservée à des protocoles (schemas : lignes du consensus VA / ASTRO, 02/11/2026) : seulement dans ces fiches
+const pourFiche = (l, sid) => !l.schemas || l.schemas.indexOf(sid) >= 0;
+export function lignesBase(base, cle, loc, rg, sid) {
+  const L = (base || []).filter((l) => l.oar_id === cle && l.regime === rg.regime && pourFiche(l, sid));
   const ici = choisirLignes(L.filter((l) => l.loc && l.loc.indexOf(loc) >= 0), rg.fx, rg.dpf);
   return ici.lignes.length ? ici : choisirLignes(L.filter((l) => !l.loc), rg.fx, rg.dpf);
 }
@@ -222,28 +224,36 @@ export function contraintesSchema({ schema, loc, oarIds, oar, base, essais }) {
   const cle = (id) => cleOar(parId[id]) || id, rg = regimeDe(schema);
   const parEssai = {};
   (schema.contraintes_ids || []).forEach((jid) => { const j = (essais || []).find((x) => x.id === jid); if (!j) return;
-    j.lignes.forEach((l, i) => { const k = cle(l.oar_id); (parEssai[k] = parEssai[k] || []).push(Object.assign({ id: "e:" + j.id + ":" + i }, l, { oar_id: k, source: j.titre + (j.source ? " (" + j.source + ")" : "") })); }); });
+    // ligne réservée à des localisations (loc) ou exclue de certaines (hors) : « oropharynx seulement » du consensus VA / ASTRO (02/11/2026)
+    j.lignes.forEach((l, i) => { if ((l.loc && l.loc.indexOf(loc) < 0) || (l.hors && l.hors.indexOf(loc) >= 0)) return; const k = cle(l.oar_id); (parEssai[k] = parEssai[k] || []).push(Object.assign({ id: "e:" + j.id + ":" + i }, l, { oar_id: k, source: l.source || j.titre + (j.source ? " (" + j.source + ")" : "") })); }); });
   const cles = []; (oarIds || []).forEach((id) => { const k = cle(id); if (cles.indexOf(k) < 0) cles.push(k); });
   Object.keys(parEssai).forEach((k) => { if (cles.indexOf(k) < 0) cles.push(k); });
   // contraintes ajoutées par le cabinet dans la page Contraintes : dans toutes les fiches de ce régime (séances et localisation si elles sont
   // précisées), en plus des lignes choisies (demande du 26/10/2026 : « si j'en ajoute, elles se mettent dans toutes les fiches »)
-  const ajouts = (k) => (rg ? (base || []).filter((l) => l.ajout && l.oar_id === k && l.regime === rg.regime && (!l.fx || l.fx === rg.fx) && (!l.loc || l.loc.indexOf(loc) >= 0)) : []);
+  const ajouts = (k) => (rg ? (base || []).filter((l) => l.ajout && pourFiche(l, schema.id) && l.oar_id === k && l.regime === rg.regime && (!l.fx || l.fx === rg.fx) && (!l.loc || l.loc.indexOf(loc) >= 0)) : []);
   const avecAjouts = (x) => { const a = ajouts(x.cle).filter((l) => !x.lignes.some((y) => y.id === l.id)); return a.length ? Object.assign(x, { lignes: x.lignes.concat(a), origine: x.origine === "aucune" ? "base" : x.origine }) : x; };
   return cles.map((k) => {
     if (parEssai[k]) return { cle: k, origine: "essai", lignes: parEssai[k] };
     if (!rg) return { cle: k, origine: "aucune", lignes: [] };
-    const b = lignesBase(base, k, loc, rg);
+    const b = lignesBase(base, k, loc, rg, schema.id);
     if (b.lignes.length) return { cle: k, origine: "base", lignes: b.lignes, proche: b.proche };
     if (rg.regime === "stereo") {
       // stéréotaxie sans valeur publiée pour ce nombre de séances (ni moins) : nombre de séances publié le plus proche, signalé (jamais le normofractionné)
-      const L = (base || []).filter((l) => l.oar_id === k && l.regime === "stereo" && l.fx && !l.dpf), ici = L.filter((l) => l.loc && l.loc.indexOf(loc) >= 0), G = ici.length ? ici : L.filter((l) => !l.loc);
+      const L = (base || []).filter((l) => l.oar_id === k && l.regime === "stereo" && l.fx && !l.dpf && pourFiche(l, schema.id)), ici = L.filter((l) => l.loc && l.loc.indexOf(loc) >= 0), G = ici.length ? ici : L.filter((l) => !l.loc);
       if (G.length && num(rg.fx)) { const n = G.map((l) => l.fx).reduce((m, x) => (Math.abs(x - rg.fx) < Math.abs(m - rg.fx) ? x : m)); return { cle: k, origine: "base", lignes: G.filter((l) => l.fx === n), proche: n, plusLarge: n > rg.fx }; }
     }
-    if (rg.regime === "hypo") { const n = lignesBase(base, k, loc, { regime: "normo" }); if (n.lignes.length) return { cle: k, origine: "conversion", lignes: n.lignes }; }
+    if (rg.regime === "hypo") { const n = lignesBase(base, k, loc, { regime: "normo" }, schema.id); if (n.lignes.length) return { cle: k, origine: "conversion", lignes: n.lignes }; }
     return { cle: k, origine: "aucune", lignes: [] };
   }).map(avecAjouts).map((x) => Object.assign(x, { lignes: sansDoublon(x.lignes) })).sort((a, b) => (/^cible-/.test(b.cle) ? 1 : 0) - (/^cible-/.test(a.cle) ? 1 : 0));
 }
-function sansDoublon(L) { const vus = new Set(); return L.filter((l) => { const c = [l.indicateur, l.ideal, l.limitant, l.note].join("|"); if (vus.has(c)) return false; vus.add(c); return true; }); }
+// même contrainte citée par deux sources (l'essai du schéma et le consensus VA / ASTRO, 02/11/2026) : une seule ligne, sources réunies
+function sansDoublon(L) {
+  const vus = new Map(), r = [];
+  L.forEach((l) => { const c = [l.indicateur, l.ideal, l.limitant, l.note].join("|"), d = vus.get(c);
+    if (!d) { const x = Object.assign({}, l); vus.set(c, x); r.push(x); return; }
+    const S = String(d.source || "").split(" ; ").filter(Boolean); String(l.source || "").split(" ; ").forEach((x) => { if (x && S.indexOf(x) < 0) S.push(x); }); d.source = S.join(" ; "); });
+  return r;
+}
 // Base du cabinet : lignes modifiées (même id), ajoutées (id « cc-… ») et retirées (retirees) par-dessus la référence
 export function baseEffective(ref, cab) {
   if (!cab) return ref || [];

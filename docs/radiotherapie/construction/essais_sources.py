@@ -10,10 +10,11 @@ lire = lambda f: json.loads((R / f).read_text())
 def ecrire(f, d): (R / f).write_text(json.dumps(d, ensure_ascii=False, indent=1) + "\n")
 SANS = {"Pratique usuelle", "Source à préciser", "Tableur du service « Canal anal » (pratique du service)", "Fiche du service", "Fiche du service (atlas RTOG, RECORAD)"}
 
-def N(id_, acr, typ, revue="", annee=None, doi=None, pop=""):
+def N(id_, acr, typ, revue="", annee=None, doi=None, pop="", pmid=None):
   x = {"id": "src-" + id_, "acronyme": acr, "type": typ}
   if revue: x["revue"] = revue
   if annee: x["annee"] = annee
+  if pmid: x["pmid"] = pmid
   if doi: x["doi"] = doi
   if pop: x["population"] = pop
   return x
@@ -41,7 +42,9 @@ REGLES = [
   (r"Consensus VA \(Veterans Affairs\), prostate 2022$", VA("prostate", "prostate", 2022)),
   (r"Consensus VA \(Veterans Affairs\), rectum 2022$", VA("rectum", "rectum", 2022)),
   (r"Consensus VA \(Veterans Affairs\), sein 2022$", VA("sein", "sein", 2022)),
-  (r"Consensus VA / ASTRO, Practical Radiation Oncology 2026$", N("va-astro-2026", "Consensus VA / ASTRO 2026", "recommandation", "Pract Radiat Oncol", 2026, pop="Contraintes de dose"),),
+  (r"Consensus VA / ASTRO, Practical Radiation Oncology 2026(, tableau \d+)?$", dict(N("va-astro-2026", "Consensus VA / ASTRO 2026", "recommandation", "Pract Radiat Oncol", 2026,
+    "10.1016/j.prro.2025.11.003", "Compendium des contraintes de dose (histogrammes dose-volume) pour la planification, 25 tableaux par localisation et fractionnement"),
+    resultat="Objectifs principaux et secondaires par organe et par fractionnement (sein, ORL, foie, poumon, prostate, rectum), avec les références de chaque valeur")),
   (r"Consensus britannique SABR 2017$", N("uk-sabr-2017", "Consensus britannique SABR 2017", "recommandation", "UK SABR Consortium", 2017, pop="Contraintes de dose en stéréotaxie")),
   (r"Consensus britannique SABR 2022$", N("uk-sabr-2022", "Consensus britannique SABR 2022", "recommandation", "UK SABR Consortium", 2022, pop="Contraintes de dose en stéréotaxie")),
   (r"DAHANCA 20$", NRG("DAHANCA 20")), (r"DAHANCA 25$", NRG("DAHANCA 25")),
@@ -154,6 +157,16 @@ REGLES = [
   (r"NRG Oncology\. Protocole type, section radiothérapie, vessie", N("nrg-vessie-2020", "NRG, protocole type vessie (section radiothérapie)", "protocole_institutionnel", "NRG Oncology", 2020, pop="Volumes de la vessie")),
   (r"Pacholke HD et al", N("pacholke2005", "Pacholke 2005 (oreille moyenne et interne)", "atlas", "Am J Clin Oncol 28:143", 2005, pop="Contourage de l'oreille moyenne et interne")),
 ]
+# Références citées par le consensus VA / ASTRO 2026 (astro-2026.json, 02/11/2026) : fiche existante (« id ») ou fiche neuve (« fiche »), avant les autres règles
+def _astro():
+  A = json.loads((pathlib.Path(__file__).resolve().parent / "astro-2026.json").read_text()); r = []
+  for x in A["references"].values():
+    if "id" in x: r.append((re.escape(x["nom"]) + "$", x["id"]))
+    elif "fiche" in x:
+      f = dict(x["fiche"]); f["id"] = "src-" + f["id"].removeprefix("src-"); r.append((re.escape(x["nom"]) + "$", f))
+  return r
+REGLES = _astro() + REGLES
+
 # Références de contourage et d'organes à risque avec DOI, absentes de essais.json : fiche faite à partir de la référence complète
 def depuis_ref(ref, doi, usage):
   m = re.match(r"(.+?) [A-Z]{1,3} et al\.|(.+?) [A-Z]{1,3}[,.] ", ref); aut = (m.group(1) or m.group(2) or ref.split()[0]) if m else ref.split()[0]
@@ -260,6 +273,12 @@ def main():
     r = resoudre(j["source"])
     if r is False: manque.append(j["source"])
     elif r: noter(r, j["source"], ("Jeu de contraintes", j["titre"]))
+    # source propre à une ligne (consensus VA / ASTRO : l'article et les références qu'il cite)
+    for l in j["lignes"]:
+      for s in [x.strip() for x in l.get("source", "").split(" ; ") if x.strip()]:
+        r = resoudre(s)
+        if r is False: manque.append(s)
+        elif r: noter(r, s, ("Jeu de contraintes", j["titre"]))
   if manque: raise SystemExit("Sources sans fiche :\n  " + "\n  ".join(sorted(set(manque))))
   E += [enrichir(neufs[k]) for k in sorted(neufs)]
   connus = {e["id"] for e in E}

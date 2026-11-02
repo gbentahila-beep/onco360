@@ -30,7 +30,7 @@ async def main():
         # En-tête et onglets
         ong = await ev("[...document.querySelectorAll('.rtr-ong button')].map(b => b.textContent.replace(/\\s*\\d+$/, ''))")
         ok(ong == ['Indication', 'Prescription', 'Centrage', 'Contourage', 'Contraintes', 'Essais et sources', "Points d'attention"], 'sept onglets, Indication en tête, dans l\'ordre de la chaîne de traitement', ong)
-        ok(int((await ev("document.querySelector('.rtr-ong button:nth-child(5) .n').textContent")) or 0) >= 15 and (await ev("document.querySelector('.rtr-ong button:nth-child(6)').textContent")).endswith('2'), 'nombres : « Contraintes » (lignes de la table unique), « Essais 2 »')
+        ok(int((await ev("document.querySelector('.rtr-ong button:nth-child(5) .n').textContent")) or 0) >= 15 and (await ev("document.querySelector('.rtr-ong button:nth-child(6)').textContent")).endswith('3'), 'nombres : « Contraintes » (lignes de la table unique), « Essais 3 » (CHHiP, PROFIT, consensus VA / ASTRO 2026)')
         ok('60 Gy / 20 fx (3 Gy/fx)' in (await ev("document.querySelector('.rtr-res').innerText")).replace('\xa0', ' ') and await ev("!!document.querySelector('.rtr-t .rtr-modb')"), 'en-tête : résumé de prescription, étoile et Modifier en haut à droite (RT.7)')
         # Indication (lot 3 RTX)
         await ev("rtrOnglet('indication')"); await pg.wait_for_timeout(500); t = await ev(OC)
@@ -61,9 +61,9 @@ async def main():
         ok('V25Gy' in await ev(OC) and await ev("!!document.querySelector('.rtr-ct td[data-l=Indicateur] sup.rtr-rv')"), 'rectum 5 × 5 Gy : contraintes du rectum pour 5 séances, source numérotée par ligne')
         # Phase RTX lot 2 (01/11/2026) : jeu propre à l'essai (RTOG 1016), base signalée pour les organes que l'essai ne cite pas ; mention sinon
         await aller(pg, 'radiotherapie/s/oro-70-35-6fx/contraintes'); t = await ev(OC)
-        ok('RTOG 1016, protocole' in t and 'PRV moelle (moelle + 5 mm)' in t and "Contraintes de l'essai : " in t and 'Autres organes : base de contraintes.' in t and "Non publié par l'essai" not in t, 'RTOG 1016 : contraintes du protocole ; une phrase au-dessus du tableau, numéros pour les sources')
-        await aller(pg, 'radiotherapie/s/cb-70-35-curie/contraintes')
-        ok('base de contraintes appliquée' in await ev("(document.querySelector('.rtr-ctm') || {}).textContent || ''"), 'schéma sans contraintes publiées : mention au-dessus des organes')
+        ok('RTOG 1016, protocole' in t and 'PRV moelle (moelle + 5 mm)' in t and "Contraintes de l'essai et du consensus VA / ASTRO 2026 : " in t and 'Consensus VA / ASTRO' in t and "Non publié par l'essai" not in t, 'RTOG 1016 : contraintes du protocole ; une phrase au-dessus du tableau, numéros pour les sources')
+        await aller(pg, 'radiotherapie/s/cb-70-30-igr/contraintes')
+        ok('base de contraintes appliqué' in await ev("(document.querySelector('.rtr-ctm') || {}).textContent || ''"), 'schéma sans contraintes publiées : mention au-dessus des organes')
         await aller(pg, 'radiotherapie/s/sein-26-5/contraintes')
         ok('V1,5Gy' in await ev(OC), 'essai suivi (FAST-Forward) : ses contraintes à la place de la base')
         await aller(pg, 'radiotherapie/s/mu-coms-85/centrage')

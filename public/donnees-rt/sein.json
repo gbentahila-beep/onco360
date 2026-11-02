@@ -73,7 +73,8 @@
    "essai_ids": [
     "startb",
     "fastforward",
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -91,10 +92,10 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-ff-15fx",
-    "ct-sein-senorif-sein"
+    "ct-sein-senorif-sein",
+    "ct-astro-t02"
    ],
-   "couverture": "PTV : V95 % > 95 %, V105 % < 5 %, V107 % < 2 %, Dmax < 110 % (FAST-Forward)",
+   "couverture": "PTV : V95 % > 95 %, V105 % < 5 %, V107 % < 2 %, Dmax < 110 %",
    "points_attention": [
     "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
     "La RT après conservation réduit le risque de récidive à 10 ans de 35,0 à 19,3 % et la mortalité par cancer à 15 ans de 25,2 à 21,4 % (EBCTCG 2011)",
@@ -134,7 +135,7 @@
      "indicateur": "Dmax",
      "ideal": "",
      "limitant": "< 110 %",
-     "note": "FAST-Forward"
+     "note": ""
     }
    ]
   },
@@ -148,7 +149,8 @@
     "startb",
     "import-high",
     "eortc22881",
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -175,8 +177,8 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-ff-15fx",
-    "ct-sein-senorif-sein"
+    "ct-sein-senorif-sein",
+    "ct-astro-t02"
    ],
    "couverture": "Comme sein-40-15 pour le premier temps",
    "points_attention": [
@@ -208,7 +210,8 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "whelan2010"
+    "whelan2010",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -225,7 +228,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t02"
+   ],
    "points_attention": [
     "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
     "La RT après conservation réduit le risque de récidive à 10 ans de 35,0 à 19,3 % et la mortalité par cancer à 15 ans de 25,2 à 21,4 % (EBCTCG 2011)",
@@ -237,8 +242,7 @@
     "Carcinome infiltrant",
     "Après chirurgie conservatrice : sein entier ± surimpression",
     "Hypofractionné"
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "sein-26-5",
@@ -248,7 +252,8 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "fastforward",
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -267,7 +272,8 @@
    "volumes_id": "vol-sein",
    "contraintes_ids": [
     "ct-sein-ff-5fx",
-    "ct-sein-senorif-sein"
+    "ct-sein-senorif-sein",
+    "ct-astro-t05"
    ],
    "couverture": "PTV : V95 % > 95 %, V105 % < 5 %, V107 % < 2 %, Dmax < 110 %",
    "points_attention": [
@@ -322,7 +328,8 @@
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
     "fastforward",
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -350,7 +357,8 @@
    "volumes_id": "vol-sein",
    "contraintes_ids": [
     "ct-sein-ff-5fx",
-    "ct-sein-senorif-sein"
+    "ct-sein-senorif-sein",
+    "ct-astro-t05"
    ],
    "couverture": "Comme sein-26-5 pour le premier temps",
    "points_attention": [
@@ -427,7 +435,8 @@
     "ebctcg2011",
     "senorif-2026",
     "es-nsabpb06",
-    "es-lyoncomplementde10gy"
+    "es-lyoncomplementde10gy",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -454,7 +463,8 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-senorif-sein"
+    "ct-sein-senorif-sein",
+    "ct-astro-t01-sein"
    ],
    "points_attention": [
     "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
@@ -479,7 +489,8 @@
    "essai_ids": [
     "imrt-mc2",
     "imrt-mc2-5ans",
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -506,7 +517,8 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-senorif-sein"
+    "ct-sein-senorif-sein",
+    "ct-astro-t01-sein"
    ],
    "points_attention": [
     "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
@@ -589,7 +601,8 @@
    "essai_ids": [
     "fastforward",
     "ebctcg2014",
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -607,8 +620,8 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-ff-15fx",
-    "ct-sein-senorif-sein"
+    "ct-sein-senorif-sein",
+    "ct-astro-t02"
    ],
    "couverture": "PTV : V95 % > 95 %, V105 % < 5 %, V107 % < 2 %, Dmax < 110 %",
    "points_attention": [
@@ -661,7 +674,8 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "ebctcg2014",
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -679,7 +693,8 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-senorif-sein"
+    "ct-sein-senorif-sein",
+    "ct-astro-t01-sein"
    ],
    "points_attention": [
     "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
@@ -705,7 +720,8 @@
     "ma20",
     "amaros",
     "amaros-10ans",
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -732,7 +748,8 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein-gg",
    "contraintes_ids": [
-    "ct-sein-senorif-gg"
+    "ct-sein-senorif-gg",
+    "ct-astro-t01"
    ],
    "points_attention": [
     "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
@@ -758,7 +775,8 @@
     "hypog01",
     "wang2019",
     "estro-acrop-sein-2022",
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -794,7 +812,8 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein-gg",
    "contraintes_ids": [
-    "ct-sein-senorif-gg"
+    "ct-sein-senorif-gg",
+    "ct-astro-t03"
    ],
    "points_attention": [
     "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
@@ -818,7 +837,8 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "import-low",
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -836,7 +856,8 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein-ipb",
    "contraintes_ids": [
-    "ct-sein-senorif-sein"
+    "ct-sein-senorif-sein",
+    "ct-astro-t02"
    ],
    "points_attention": [
     "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)"
@@ -857,7 +878,8 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "florence",
-    "florence-10ans"
+    "florence-10ans",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -875,7 +897,8 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein-ipb",
    "contraintes_ids": [
-    "ct-sein-florence"
+    "ct-sein-florence",
+    "ct-astro-t04"
    ],
    "points_attention": [
     "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)"
@@ -968,7 +991,8 @@
    "essai_ids": [
     "woodward2017",
     "katherine",
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -986,7 +1010,8 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein-gg",
    "contraintes_ids": [
-    "ct-sein-senorif-gg"
+    "ct-sein-senorif-gg",
+    "ct-astro-t01"
    ],
    "points_attention": [
     "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)"
@@ -1006,7 +1031,8 @@
    "type": "rte_normo",
    "preuve": "recommandation",
    "essai_ids": [
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -1033,7 +1059,8 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-senorif-gg"
+    "ct-sein-senorif-gg",
+    "ct-astro-t01"
    ],
    "points_attention": [
     "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)",
@@ -1054,7 +1081,8 @@
    "type": "rte_normo",
    "preuve": "recommandation",
    "essai_ids": [
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -1081,7 +1109,8 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein-gg",
    "contraintes_ids": [
-    "ct-sein-senorif-gg"
+    "ct-sein-senorif-gg",
+    "ct-astro-t01"
    ],
    "points_attention": [
     "Le risque d'événement coronarien augmente de 7,4 % par gray de dose moyenne au cœur, sans seuil (Darby 2013) : objectif Dmoy < 3 Gy pour le sein ou la paroi seuls, < 5 Gy avec les aires ganglionnaires (Sénorif 2026)"
@@ -1148,7 +1177,9 @@
    "oar_ids": [
     "oar-coeur",
     "oar-poumon-homolateral",
-    "oar-sein-controlateral"
+    "oar-sein-controlateral",
+    "oar-poumon-controlateral",
+    "oar-moelle"
    ]
   },
   {
@@ -1194,7 +1225,8 @@
     "oar-plexus-brachial-g",
     "oar-moelle",
     "oar-oesophage",
-    "oar-thyroide"
+    "oar-thyroide",
+    "oar-poumon-controlateral"
    ]
   },
   {
@@ -1217,7 +1249,8 @@
    "oar_ids": [
     "oar-coeur",
     "oar-poumon-homolateral",
-    "oar-sein-controlateral"
+    "oar-sein-controlateral",
+    "oar-poumon-controlateral"
    ]
   },
   {

@@ -38,7 +38,8 @@
     "es-nsabpb17",
     "es-rtog9804",
     "es-ukanzdcis",
-    "es-nsabpb24"
+    "es-nsabpb24",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -56,7 +57,8 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-senorif-sein"
+    "ct-sein-senorif-sein",
+    "ct-astro-t01-sein"
    ],
    "points_attention": [
     "Surimpression : 97,1 % sans récidive locale à 5 ans contre 92,7 % sans surimpression (HR 0,47), au prix de plus de douleurs et d'induration (BIG 3-07)",
@@ -79,7 +81,8 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "big307",
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -106,7 +109,8 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-senorif-sein"
+    "ct-sein-senorif-sein",
+    "ct-astro-t01-sein"
    ],
    "points_attention": [
     "Surimpression : 97,1 % sans récidive locale à 5 ans contre 92,7 % sans surimpression (HR 0,47), au prix de plus de douleurs et d'induration (BIG 3-07)",
@@ -128,7 +132,8 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "big307"
+    "big307",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -154,7 +159,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t02"
+   ],
    "points_attention": [
     "Surimpression : 97,1 % sans récidive locale à 5 ans contre 92,7 % sans surimpression (HR 0,47), au prix de plus de douleurs et d'induration (BIG 3-07)",
     "Omission de la RT seulement dans des études prospectives contrôlées ou en cas de contre-indication (Sénorif 2026)"
@@ -165,8 +172,7 @@
     "Carcinome in situ",
     "CCIS après chirurgie conservatrice à berges saines",
     "Hypofractionné"
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "ccis-40-15",
@@ -176,7 +182,8 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "dbcg-hypo",
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -194,10 +201,10 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-ff-15fx",
-    "ct-sein-senorif-sein"
+    "ct-sein-senorif-sein",
+    "ct-astro-t02"
    ],
-   "couverture": "PTV : V95 % > 95 %, V105 % < 5 %, V107 % < 2 %, Dmax < 110 % (FAST-Forward)",
+   "couverture": "PTV : V95 % > 95 %, V105 % < 5 %, V107 % < 2 %, Dmax < 110 %",
    "points_attention": [
     "Surimpression : 97,1 % sans récidive locale à 5 ans contre 92,7 % sans surimpression (HR 0,47), au prix de plus de douleurs et d'induration (BIG 3-07)",
     "Omission de la RT seulement dans des études prospectives contrôlées ou en cas de contre-indication (Sénorif 2026)",
@@ -237,7 +244,7 @@
      "indicateur": "Dmax",
      "ideal": "",
      "limitant": "< 110 %",
-     "note": "FAST-Forward"
+     "note": ""
     }
    ]
   },
@@ -248,7 +255,8 @@
    "type": "rte_normo",
    "preuve": "recommandation",
    "essai_ids": [
-    "senorif-2026"
+    "senorif-2026",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -266,7 +274,8 @@
    "simulation_id": "sim-sein",
    "volumes_id": "vol-sein",
    "contraintes_ids": [
-    "ct-sein-senorif-sein"
+    "ct-sein-senorif-sein",
+    "ct-astro-t01-sein"
    ],
    "date_verif": "2026-10-24",
    "ind": [
@@ -333,7 +342,9 @@
    "oar_ids": [
     "oar-coeur",
     "oar-poumon-homolateral",
-    "oar-sein-controlateral"
+    "oar-sein-controlateral",
+    "oar-poumon-controlateral",
+    "oar-moelle"
    ]
   }
  ],

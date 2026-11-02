@@ -351,13 +351,15 @@ function ongletContourage() {
 // Contraintes : un bloc par jeu, lignes groupées par OAR ; « ? » d'Idéal et de Limitant tirés de aide_colonnes
 function aideDe(j) { const A2 = BB.aide || []; return A2.find((a) => a.source_contient !== "defaut" && String(j.source || "").indexOf(a.source_contient) >= 0) || A2.find((a) => a.source_contient === "defaut") || {}; }
 function groupes(j) { const g = []; j.lignes.forEach((l) => { const d = g[g.length - 1]; if (d && d.oar === l.oar_id) d.l.push(l); else g.push({ oar: l.oar_id, l: [l] }); }); return g; }
+// 02/11/2026 : une ligne qui a sa propre source (consensus VA / ASTRO) porte un petit numéro, sources sous le tableau
 function tableJeu(j, i) {
-  const esc = A.esc, a = aideDe(j);
+  const esc = A.esc, a = aideDe(j), N = numeroteur();
   return '<section class="rtr-jeu" id="rtrJeu' + i + '"><div class="rtr-jt"><div><h4>' + esc(j.titre) + '</h4><p class="mesures">' + esc([j.fractionnement, j.source].filter(Boolean).join(" · ")) + "</p>" + (a.ideal || a.limitant ? '<p class="mesures rtr-aidec">' + (a.ideal ? "<b>Idéal</b> : " + esc(a.ideal) : "") + (a.ideal && a.limitant ? " · " : "") + (a.limitant ? "<b>Limitant</b> : " + esc(a.limitant) : "") + "</p>" : "") + "</div>" +
     (IMPRESSION ? "" : '<button type="button" class="mini rtr-cp" onclick="rtrCopierJeu(\'' + esc(j.id) + '\')">' + A.ic("copier") + "Copier</button>") + "</div>" +
     '<div class="rtr-tw"><table class="rtr-tab rtr-ct"><thead><tr><th>Organe</th><th>Indicateur</th><th class="n">Idéal</th><th class="n">Limitant</th><th>Note</th></tr></thead><tbody>' +
     groupes(j).map((g) => { const o = oar(g.oar); return g.l.map((l, k) => '<tr class="' + (k ? "" : "g1") + '">' + (k ? "" : '<td class="o" rowspan="' + g.l.length + '" data-l="Organe"><b>' + esc(o.nom) + "</b>" + (o.nom_tg263 ? '<br><span class="mesures">' + esc(o.nom_tg263) + "</span>" : "") + "</td>") +
-      '<td data-l="Indicateur">' + esc(l.indicateur || "") + '</td><td class="n" data-l="Idéal">' + esc(l.ideal || "") + '</td><td class="n lim" data-l="Limitant">' + esc(l.limitant || "") + '</td><td data-l="Note">' + court(l.note || "", 60) + "</td></tr>").join(""); }).join("") + "</tbody></table></div></section>";
+      '<td data-l="Indicateur">' + esc(l.indicateur || "") + supSrc(N.source(l.source)) + '</td><td class="n" data-l="Idéal">' + esc(l.ideal || "") + '</td><td class="n lim" data-l="Limitant">' + esc(l.limitant || "") + '</td><td data-l="Note">' + court(l.note || "", 60) + "</td></tr>").join(""); }).join("") + "</tbody></table></div>" +
+    (N.L.length ? '<p class="mesures">Sources</p><ol class="rtr-renv">' + N.L.map(itemSource).join("") + "</ol>" : "") + "</section>";
 }
 // Onglet Contraintes (26/10/2026) : deux tableaux de mêmes colonnes et de même largeur, « Objectifs de couverture » (Volume) puis « Organes à
 // risque » (Organe) ; l'aide d'Idéal et de Limitant derrière « ? » ; remarques (valeur à convertir, séances les plus proches…) numérotées sous le
@@ -389,9 +391,11 @@ function renvoiCalcule(g) {
 }
 // 01/11/2026 (lot 2) : une phrase au-dessus du tableau des organes : organes dont les contraintes viennent de l'essai, les autres de la base ;
 // sinon la mention du schéma (essai sans contraintes publiées) ; les petits numéros restent pour les sources
+// 02/11/2026 : jeu du consensus VA / ASTRO (ct-astro-…) nommé comme tel, seul ou avec l'essai du schéma
 function phraseCt(G, s) {
-  if ((s.contraintes_ids || []).length) { const E = G.filter((g) => g.origine === "essai").map((g) => oar(g.cle).nom.replace(/ \(.*\)$/, "").toLowerCase());
-    return E.length ? "Contraintes de l'essai : " + E.join(", ") + "." + (G.some((g) => g.origine !== "essai") ? " Autres organes : base de contraintes." : "") : ""; }
+  if ((s.contraintes_ids || []).length) { const GE = G.filter((g) => g.origine === "essai"), E = GE.map((g) => oar(g.cle).nom.replace(/ \(.*\)$/, "").toLowerCase());
+    const J = (s.contraintes_ids || []).map((x) => /^ct-astro-/.test(x)), qui = J.every(Boolean) ? "du consensus VA / ASTRO 2026" : J.some(Boolean) ? "de l'essai et du consensus VA / ASTRO 2026" : "de l'essai";
+    return E.length ? "Contraintes " + qui + " : " + E.join(", ") + "." + (G.some((g) => g.origine !== "essai") ? " Autres organes : base de contraintes." : "") : ""; }
   return s.ct_mention || "";
 }
 const renvoiDe = (g, s = FICHE.schema) => (s.renvois && g.cle in s.renvois ? s.renvois[g.cle] : renvoiCalcule(g));
@@ -1105,7 +1109,7 @@ function dessinerJeuEd(z) {
 window.rtrJeuEnr = async (revenir) => {
   if (!CTED || !CTED.jeu || !peutModif()) return;
   const ref = doc(db, "espaces", A.ESPACE, "referentielRT", "_contraintes"), id = CTED.jeu;
-  const L = CTED.L.filter((l) => l.oar_id && (txt(l.indicateur).trim() || txt(l.limitant).trim() || txt(l.ideal).trim())).map((l) => { const x = {}; ["oar_id", "indicateur", "ideal", "limitant", "note", "source"].forEach((k) => { if (txt(l[k]).trim()) x[k] = txt(l[k]).trim(); }); return x; });
+  const L = CTED.L.filter((l) => l.oar_id && (txt(l.indicateur).trim() || txt(l.limitant).trim() || txt(l.ideal).trim())).map((l) => { const x = {}; ["oar_id", "indicateur", "ideal", "limitant", "note", "source"].forEach((k) => { if (txt(l[k]).trim()) x[k] = txt(l[k]).trim(); }); ["loc", "hors"].forEach((k) => { if (Array.isArray(l[k]) && l[k].length) x[k] = l[k]; }); return x; });
   try {
     CAB_CT = await runTransaction(db, async (tx) => {
       const sn = await tx.get(ref), c = sn.exists() ? sn.data() : { lignes: [], retirees: [] };

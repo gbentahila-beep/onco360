@@ -56,7 +56,8 @@
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
     "durand-labrunie",
-    "astro-foie"
+    "astro-foie",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -73,7 +74,8 @@
    "simulation_id": "sim-foie-sbrt",
    "volumes_id": "vol-foie-sbrt",
    "contraintes_ids": [
-    "ct-dig-durand"
+    "ct-dig-durand",
+    "ct-astro-t08"
    ],
    "couverture": "Rapporter D2 %, D50 %, D98 %, D99 % du PTV et l'indice d'homogénéité",
    "date_verif": "2026-10-23",
@@ -104,7 +106,8 @@
     "rtog1112",
     "rtog1112-igrt",
     "bujold",
-    "astro-foie"
+    "astro-foie",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -120,7 +123,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-foie-sbrt",
    "volumes_id": "vol-foie-sbrt",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t09"
+   ],
    "couverture": "Rapporter D2 %, D50 %, D98 %, D99 % du PTV et l'indice d'homogénéité",
    "points_attention": [
     "RTOG 1112 : SBRT avant sorafénib, SG médiane 15,8 vs 12,3 mois (HR 0,77, NS ; 0,72 après ajustement) et SSP 9,2 vs 5,5 mois"
@@ -140,8 +145,7 @@
      "limitant": "",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "foie-50-10",
@@ -234,7 +238,8 @@
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
     "sabrcomet",
-    "sabrcomet5"
+    "sabrcomet5",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -249,7 +254,9 @@
    "systemique": "Selon le primitif",
    "simulation_id": "sim-foie-sbrt",
    "volumes_id": "vol-foie-sbrt",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t08"
+   ],
    "couverture": "Rapporter D2 %, D50 %, D98 %, D99 % du PTV et l'indice d'homogénéité",
    "points_attention": [
     "Oligométastases : décision en RCP, toutes les lésions traitables (SABR-COMET)"
@@ -269,8 +276,7 @@
      "limitant": "",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "foie-meta-60-3",
@@ -279,7 +285,8 @@
    "type": "sbrt",
    "preuve": "option",
    "essai_ids": [
-    "rusthoven"
+    "rusthoven",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -305,8 +312,9 @@
     "Métastases hépatiques : stéréotaxie",
     "Stéréotaxie"
    ],
-   "contraintes_ids": [],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   "contraintes_ids": [
+    "ct-astro-t08"
+   ]
   },
   {
    "id": "foie-cca-s0809",
@@ -363,7 +371,8 @@
    "essai_ids": [
     "hong-protons",
     "tao",
-    "astro-foie"
+    "astro-foie",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -391,7 +400,8 @@
     "Hypofractionné"
    ],
    "contraintes_ids": [
-    "ct-dig-hong"
+    "ct-dig-hong",
+    "ct-astro-t10"
    ]
   },
   {
@@ -475,7 +485,8 @@
    "type": "sbrt",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "xi2025-rfa-sbrt"
+    "xi2025-rfa-sbrt",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -502,8 +513,9 @@
     "CHC non éligible aux traitements locaux standard : stéréotaxie",
     "Stéréotaxie"
    ],
-   "contraintes_ids": [],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   "contraintes_ids": [
+    "ct-astro-t08"
+   ]
   }
  ],
  "simulations": [
@@ -565,7 +577,8 @@
     "oar-poumons",
     "oar-cotes",
     "oar-voie-biliaire",
-    "oar-gros-vaisseaux"
+    "oar-gros-vaisseaux",
+    "oar-paroi-thoracique"
    ]
   },
   {
@@ -656,7 +669,10 @@
     "oar-duodenum",
     "oar-estomac",
     "oar-grele",
-    "oar-colon"
+    "oar-colon",
+    "oar-paroi-thoracique",
+    "oar-oesophage",
+    "oar-coeur"
    ]
   }
  ],

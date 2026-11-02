@@ -32,7 +32,8 @@
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
     "guillemin2021",
-    "curie-vads-2021"
+    "curie-vads-2021",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -67,7 +68,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-postop",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "PTV : D95 % ≥ 95 % ; CTV : D98 % ≥ 98 % ; PTV66 ∪ PTV59,4 : D2 % ≤ 107 %",
    "points_attention": [
     "Œil : Dmoy ≤ 5 Gy hors tumeur des sinus ; pour les sinus, Dmoy ≤ 35 Gy et D0,035cc ≤ 50 Gy"
@@ -101,8 +104,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
+   ]
   },
   {
    "id": "sin-postop-60-54-service",
@@ -111,7 +113,8 @@
    "type": "rte_normo",
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
-    "guillemin2021"
+    "guillemin2021",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -137,7 +140,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-postop",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "points_attention": [
     "Œil : Dmoy ≤ 5 Gy hors tumeur des sinus ; pour les sinus, Dmoy ≤ 35 Gy et D0,035cc ≤ 50 Gy"
@@ -171,8 +176,7 @@
      "limitant": "≈ 105 %",
      "note": ""
     }
-   ],
-   "ct_mention": "La recommandation ne publie pas de contraintes propres : base de contraintes appliquée."
+   ]
   },
   {
    "id": "sin-70-35-curie",
@@ -181,7 +185,8 @@
    "type": "rte_normo",
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
-    "curie-vads-2021"
+    "curie-vads-2021",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -216,7 +221,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-en-place",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "PTV : D95 % ≥ 95 % ; CTV : D98 % ≥ 98 % ; PTV70 : D2 % ≤ 107 %",
    "points_attention": [
     "Œil : Dmoy ≤ 5 Gy hors tumeur des sinus ; pour les sinus, Dmoy ≤ 35 Gy et D0,035cc ≤ 50 Gy"
@@ -250,8 +257,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "Le protocole ne publie pas de contraintes propres : base de contraintes appliquée."
+   ]
   },
   {
    "id": "sin-70-30-igr",
@@ -596,7 +602,10 @@
     "oar-larynx",
     "oar-constricteurs",
     "oar-thyroide",
-    "oar-muscles-nuque"
+    "oar-muscles-nuque",
+    "oar-plexus-brachial-d",
+    "oar-plexus-brachial-g",
+    "oar-oesophage-cervical"
    ]
   }
  ],

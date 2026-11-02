@@ -14,11 +14,12 @@
    "resultat": "60 Gy / 20 fx non inférieur (sans échec à 5 ans 90,6 % vs 88,3 %) ; non-infériorité non démontrée pour 57 Gy / 19 fx",
    "alias": [
     "CHHiP",
+    "CHHiP (Wilkins 2020)",
     "Protocole CHHiP (version 9.2), tableau 4"
    ],
    "usages": [
-    "Contraintes de dose (2 lignes)",
-    "Jeu de contraintes : Prostate, 60 Gy / 20 fx (CHHiP)"
+    "Contraintes de dose (5 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : prostate, 20 fx, Prostate, 60 Gy / 20 fx (CHHiP)"
    ]
   },
   {
@@ -60,7 +61,8 @@
     "RTOG 0415"
    ],
    "usages": [
-    "Contraintes de dose (4 lignes)"
+    "Contraintes de dose (6 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : prostate, normofractionné"
    ]
   },
   {
@@ -75,10 +77,13 @@
    "bras": "SBRT 36,25 Gy / 5 fx vs 78 Gy / 39 fx ou 62 Gy / 20 fx, sans HT",
    "resultat": "Sans échec à 5 ans 95,8 % vs 94,6 % (non inférieur) ; toxicité GU tardive ≥ G2 26,9 % vs 18,3 %",
    "alias": [
-    "PACE"
+    "PACE",
+    "PACE-B (Brand 2019)",
+    "PACE-B (van As 2024)"
    ],
    "usages": [
-    "Contraintes de dose (7 lignes)"
+    "Contraintes de dose (19 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : prostate, 20 fx, Consensus VA / ASTRO 2026 : prostate, normofractionné, Consensus VA / ASTRO 2026 : prostate, stéréotaxie en 5 fx"
    ]
   },
   {
@@ -344,8 +349,8 @@
     "SPPORT"
    ],
    "usages": [
-    "Contraintes de dose (2 lignes)",
-    "Jeu de contraintes : Lit prostatique ± pelvis, 64,8 à 70,2 Gy en 1,8 Gy/fx (RTOG 0534 SPPORT)"
+    "Contraintes de dose (4 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : loge prostatique, normofractionné, Consensus VA / ASTRO 2026 : prostate, normofractionné, Lit prostatique ± pelvis, 64,8 à 70,2 Gy en 1,8 Gy/fx (RTOG 0534 SPPORT)"
    ]
   },
   {
@@ -372,10 +377,12 @@
    "bras": "Loge 62,5 Gy / 25 fx de 2,5 Gy vs 66,6 Gy / 37 fx de 1,8 Gy ; PTV = CTV + 7 à 10 mm",
    "resultat": "Toxicités GU et GI rapportées par le patient non inférieures à 2 ans",
    "alias": [
+    "NRG-GU003 (Buyyounouski 2024)",
     "Protocole NRG-GU003 (version du 26/04/2019), § 5.2.7, contraintes du bras HYPORT"
    ],
    "usages": [
-    "Jeu de contraintes : Loge prostatique, 62,5 Gy / 25 fx (NRG-GU003, HYPORT)"
+    "Contraintes de dose (1 ligne)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : loge prostatique, normofractionné, Loge prostatique, 62,5 Gy / 25 fx (NRG-GU003, HYPORT)"
    ]
   },
   {
@@ -463,6 +470,8 @@
     "NRG 2021, aires ganglionnaires prostate"
    ],
    "usages": [
+    "Contraintes de dose (6 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : prostate, 20 fx, Consensus VA / ASTRO 2026 : prostate, 28 fx, Consensus VA / ASTRO 2026 : prostate, normofractionné",
     "Volumes : Prostate"
    ]
   },
@@ -1175,7 +1184,14 @@
    "doi": "10.1200/JCO.19.01162",
    "population": "Même population, suivi médian 5,1 ans",
    "bras": "60 vs 74 Gy",
-   "resultat": "SG à 5 ans 32,1 % vs 23 % ; V5 du cœur et taille du PTV pronostiques ; 60 Gy reste le standard"
+   "resultat": "SG à 5 ans 32,1 % vs 23 % ; V5 du cœur et taille du PTV pronostiques ; 60 Gy reste le standard",
+   "alias": [
+    "RTOG 0617 (Bradley 2020)"
+   ],
+   "usages": [
+    "Contraintes de dose (4 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, normofractionné"
+   ]
   },
   {
    "id": "proclaim",
@@ -1353,10 +1369,12 @@
    "bras": "SBRT 54 Gy / 3 fx (18 Gy × 3) en 1,5 à 2 semaines",
    "resultat": "Contrôle tumoral à 3 ans 97,6 % ; SG à 3 ans 55,8 % ; G3 12,7 %, pas de G5",
    "alias": [
+    "RTOG 0236 (Timmerman 2010)",
     "RTOG 0236, tableau 2 (Timmerman 2010)"
    ],
    "usages": [
-    "Jeu de contraintes : Poumon, stéréotaxie 54 Gy / 3 fx (RTOG 0236)"
+    "Contraintes de dose (5 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : foie, stéréotaxie en 3 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 3 fx, Poumon, stéréotaxie 54 Gy / 3 fx (RTOG 0236)"
    ]
   },
   {
@@ -1386,7 +1404,8 @@
     "RTOG 0915"
    ],
    "usages": [
-    "Contraintes de dose (12 lignes)"
+    "Contraintes de dose (18 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 1 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 4 fx"
    ]
   },
   {
@@ -1405,8 +1424,8 @@
     "RTOG 0813"
    ],
    "usages": [
-    "Contraintes de dose (5 lignes)",
-    "Jeu de contraintes : Poumon central, stéréotaxie 50 à 60 Gy / 5 fx (RTOG 0813)"
+    "Contraintes de dose (13 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 5 fx, Poumon central, stéréotaxie 50 à 60 Gy / 5 fx (RTOG 0813)"
    ]
   },
   {
@@ -1485,7 +1504,14 @@
    "doi": "10.1097/JTO.0000000000000453",
    "population": "Revue d'experts",
    "bras": "SBRT des tumeurs centrales",
-   "resultat": "Définition élargie des tumeurs centrales (2 cm de toute structure médiastinale sensible), retenue par l'Institut Curie"
+   "resultat": "Définition élargie des tumeurs centrales (2 cm de toute structure médiastinale sensible), retenue par l'Institut Curie",
+   "alias": [
+    "Chang 2015 (IASLC)"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, 10 fx"
+   ]
   },
   {
    "id": "acrop-sbrt-poumon",
@@ -1667,7 +1693,13 @@
    "doi": "10.1016/j.ijrobp.2020.01.009",
    "population": "132 tumeurs à ≤ 2 cm de l'arbre bronchique proximal",
    "bras": "Validation des contraintes RTOG 0813",
-   "resultat": "D0,03 cc ≤ 50 Gy et D0,33 cc ≤ 47,1 Gy prédictifs de la toxicité non pulmonaire"
+   "resultat": "D0,03 cc ≤ 50 Gy et D0,33 cc ≤ 47,1 Gy prédictifs de la toxicité non pulmonaire",
+   "alias": [
+    "Manyam 2020"
+   ],
+   "usages": [
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 1 fx"
+   ]
   },
   {
    "id": "ma-paroi",
@@ -2490,7 +2522,8 @@
    ],
    "usages": [
     "Contourage : Digestif",
-    "Contraintes de dose (1 ligne)"
+    "Contraintes de dose (6 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : foie, stéréotaxie en 5 fx"
    ]
   },
   {
@@ -2557,7 +2590,14 @@
    "doi": "10.1016/j.prro.2021.09.004",
    "population": "Recommandation ASTRO",
    "bras": "RT externe du CHC et du cholangiocarcinome intrahépatique",
-   "resultat": "RT recommandée pour le CHC non éligible aux traitements locaux et en cas de thrombose ; consolidation pour le cholangiocarcinome intrahépatique non résécable"
+   "resultat": "RT recommandée pour le CHC non éligible aux traitements locaux et en cas de thrombose ; consolidation pour le cholangiocarcinome intrahépatique non résécable",
+   "alias": [
+    "Recommandation ASTRO, foie primitif (2022)"
+   ],
+   "usages": [
+    "Contraintes de dose (9 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : foie, 15 fx, Consensus VA / ASTRO 2026 : foie, stéréotaxie en 3 fx, Consensus VA / ASTRO 2026 : foie, stéréotaxie en 5 fx"
+   ]
   },
   {
    "id": "hytec-foie",
@@ -3820,8 +3860,8 @@
     "RTOG 1016, protocole § 6.5.3 (Gillison 2019)"
    ],
    "usages": [
-    "Contraintes de dose (8 lignes)",
-    "Jeu de contraintes : Oropharynx HPV+, RT accélérée 70 Gy / 35 fx (6 fx/sem)"
+    "Contraintes de dose (13 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : oRL (sauf larynx précoce), 70 Gy, Oropharynx HPV+, RT accélérée 70 Gy / 35 fx (6 fx/sem)"
    ]
   },
   {
@@ -4486,11 +4526,12 @@
    "bras": "40 Gy / 15 fx vs 27 Gy / 5 fx vs 26 Gy / 5 fx",
    "resultat": "Récidive à 5 ans 2,1 / 1,7 / 1,4 % ; effets tardifs : 26 Gy ≈ 40 Gy, 27 Gy plus toxique",
    "alias": [
+    "FAST-Forward (Brunt 2020)",
     "FAST-Forward (Brunt 2020), bras contrôle",
     "FAST-Forward (Brunt 2020), bras à 5 fractions"
    ],
    "usages": [
-    "Jeu de contraintes : Sein ou paroi, 26 Gy / 5 fx, Sein ou paroi, 40 Gy / 15 fx"
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : sein ou paroi, 26 Gy / 5 fx, Sein ou paroi, 26 Gy / 5 fx, Sein ou paroi, 40 Gy / 15 fx"
    ]
   },
   {
@@ -7639,7 +7680,14 @@
    "bras": "Stéréotaxie 48 Gy / 4 fx (60 Gy / 8 fx si central) vs 60 Gy / 15 fx",
    "resultat": "Contrôle local à 3 ans 88 vs 82 % (p = 0,15) ; survie identique ; toxicité de grade 3-4 des tumeurs centrales 11 vs 5 %, un décès par hémoptysie à 60 Gy / 8 fx",
    "localisation": "Poumon",
-   "bibliotheque": "Radiothérapie/Thorax/Poumon non à petites cellules/Stereotactic-vs-Hypofractionated-Radiotherapy-for-Inoperable-Stage-I-Non-Small-Cell-Lung.pdf"
+   "bibliotheque": "Radiothérapie/Thorax/Poumon non à petites cellules/Stereotactic-vs-Hypofractionated-Radiotherapy-for-Inoperable-Stage-I-Non-Small-Cell-Lung.pdf",
+   "alias": [
+    "LUSTRE (Swaminath 2024)"
+   ],
+   "usages": [
+    "Contraintes de dose (9 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, 15 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 4 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 8 fx"
+   ]
   },
   {
    "id": "es-roswellparksingh1vs3fx",
@@ -8748,6 +8796,22 @@
    ]
   },
   {
+   "id": "src-andolino2011",
+   "acronyme": "Andolino 2011 (toxicité pariétale)",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2011,
+   "pmid": "21288656",
+   "population": "Toxicité de la paroi thoracique après stéréotaxie du poumon et du foie",
+   "alias": [
+    "Andolino 2011, paroi thoracique en stéréotaxie"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : foie, stéréotaxie en 3 fx"
+   ]
+  },
+  {
    "id": "src-aren1921",
    "acronyme": "COG AREN1921",
    "type": "protocole_institutionnel",
@@ -8802,6 +8866,22 @@
    ]
   },
   {
+   "id": "src-astro-ipb-2024",
+   "acronyme": "ASTRO, irradiation partielle du sein (2024)",
+   "type": "recommandation",
+   "revue": "Pract Radiat Oncol",
+   "annee": 2024,
+   "pmid": "37977261",
+   "population": "Irradiation partielle du sein, carcinome infiltrant ou in situ de stade précoce",
+   "alias": [
+    "Recommandation ASTRO, irradiation partielle du sein (2024)"
+   ],
+   "usages": [
+    "Contraintes de dose (9 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : sein partiel, 30 Gy / 5 fx"
+   ]
+  },
+  {
    "id": "src-astro-oropharynx",
    "acronyme": "ASTRO, oropharynx HPV+",
    "type": "recommandation",
@@ -8811,7 +8891,8 @@
     "Recommandation ASTRO, oropharynx HPV+"
    ],
    "usages": [
-    "Contraintes de dose (3 lignes)"
+    "Contraintes de dose (8 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : oRL (sauf larynx précoce), 70 Gy"
    ]
   },
   {
@@ -8840,6 +8921,38 @@
    ],
    "usages": [
     "Contraintes de dose (2 lignes)"
+   ]
+  },
+  {
+   "id": "src-astro-sein-2018",
+   "acronyme": "ASTRO, irradiation du sein entier (2018)",
+   "type": "recommandation",
+   "revue": "Pract Radiat Oncol",
+   "annee": 2018,
+   "pmid": "29545124",
+   "population": "Radiothérapie du sein entier",
+   "alias": [
+    "Recommandation ASTRO, sein entier (2018)"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : sein ou paroi sans aires ganglionnaires, 40 Gy / 15 fx"
+   ]
+  },
+  {
+   "id": "src-bekelman2017",
+   "acronyme": "Bekelman 2017 (hypofractionnement prostate)",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2017,
+   "pmid": "28244406",
+   "population": "Six questions avant de raccourcir la radiothérapie de la prostate en place",
+   "alias": [
+    "Bekelman 2017, hypofractionnement de la prostate"
+   ],
+   "usages": [
+    "Contraintes de dose (8 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : prostate, 28 fx"
    ]
   },
   {
@@ -8911,6 +9024,22 @@
    ],
    "usages": [
     "Définitions des organes à risque"
+   ]
+  },
+  {
+   "id": "src-ciria2015",
+   "acronyme": "Ciria 2015 (5 × 5 Gy)",
+   "type": "essai",
+   "revue": "Rep Pract Oncol Radiother",
+   "annee": 2015,
+   "pmid": "25535578",
+   "population": "Radiothérapie préopératoire courte du cancer du rectum localement avancé",
+   "alias": [
+    "Ciria 2015, radiothérapie courte du rectum"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : rectum, 5 × 5 Gy"
    ]
   },
   {
@@ -9062,6 +9191,22 @@
    ]
   },
   {
+   "id": "src-dunlap2010",
+   "acronyme": "Dunlap 2010 (paroi thoracique V30Gy)",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2010,
+   "pmid": "19427740",
+   "population": "Douleur et fracture de côte après stéréotaxie pulmonaire selon le volume de paroi recevant plus de 30 Gy",
+   "alias": [
+    "Dunlap 2010, paroi thoracique V30Gy"
+   ],
+   "usages": [
+    "Contraintes de dose (5 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : foie, stéréotaxie en 3 fx, Consensus VA / ASTRO 2026 : foie, stéréotaxie en 5 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 3 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 4 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 5 fx"
+   ]
+  },
+  {
    "id": "src-ea2183",
    "acronyme": "EA2183",
    "type": "protocole_institutionnel",
@@ -9072,6 +9217,21 @@
    ],
    "usages": [
     "Contraintes de dose (3 lignes)"
+   ]
+  },
+  {
+   "id": "src-ea2201",
+   "acronyme": "ECOG-ACRIN EA2201",
+   "type": "essai",
+   "revue": "J Clin Oncol (résumé)",
+   "annee": 2022,
+   "population": "Cancer du rectum MSI-H / dMMR : nivolumab + ipilimumab et radiothérapie courte, phase II",
+   "alias": [
+    "EA2201"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : rectum, 5 × 5 Gy"
    ]
   },
   {
@@ -9181,7 +9341,8 @@
     "HyTEC"
    ],
    "usages": [
-    "Contraintes de dose (20 lignes)"
+    "Contraintes de dose (24 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 1 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 3 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 4 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 5 fx, Consensus VA / ASTRO 2026 : prostate, stéréotaxie en 5 fx"
    ]
   },
   {
@@ -9230,6 +9391,38 @@
    ]
   },
   {
+   "id": "src-janus",
+   "acronyme": "Alliance A022104 / NRG-GI010 (Janus)",
+   "type": "essai",
+   "revue": "BMC Cancer",
+   "annee": 2024,
+   "pmid": "39060961",
+   "population": "Cancer du rectum localement avancé : triplet contre doublet de chimiothérapie (réponse clinique complète), phase II/III",
+   "alias": [
+    "Alliance A022104 / NRG-GI010 (Janus)"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : rectum, normofractionné"
+   ]
+  },
+  {
+   "id": "src-jumeau2017",
+   "acronyme": "Jumeau 2017 (paroi thoracique)",
+   "type": "essai",
+   "revue": "Br J Radiol",
+   "annee": 2017,
+   "pmid": "28590814",
+   "population": "Paramètre dosimétrique pour limiter la toxicité pariétale en stéréotaxie du CBNPC",
+   "alias": [
+    "Jumeau 2017, paroi thoracique en stéréotaxie"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 3 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 4 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 5 fx"
+   ]
+  },
+  {
    "id": "src-khan2012",
    "acronyme": "Khan 2012 (contourage)",
    "type": "atlas",
@@ -9242,6 +9435,22 @@
    ],
    "usages": [
     "Contourage : Peau"
+   ]
+  },
+  {
+   "id": "src-krauss2023",
+   "acronyme": "Krauss 2023 (escalade de dose prostate)",
+   "type": "essai",
+   "revue": "J Clin Oncol",
+   "annee": 2023,
+   "pmid": "37104748",
+   "population": "Prostate de risque intermédiaire : radiothérapie à dose escaladée seule ou avec hormonothérapie courte, phase III",
+   "alias": [
+    "Krauss 2023, escalade de dose ± hormonothérapie courte"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : prostate, normofractionné"
    ]
   },
   {
@@ -9287,6 +9496,25 @@
    ]
   },
   {
+   "id": "src-li2014",
+   "acronyme": "Li 2014 (SABR 70 Gy / 10 fx)",
+   "type": "essai",
+   "revue": "Radiother Oncol",
+   "annee": 2014,
+   "pmid": "25108807",
+   "population": "Radiothérapie ablative 70 Gy / 10 fx du CBNPC : indications",
+   "bras": "SABR 70 Gy / 10 fx chez 82 CBNPC non éligibles à 50 Gy / 4 fx (tumeurs centrales, volumineuses ou au contact de la paroi)",
+   "resultat": "Survie à 2 ans 66,9 %, contrôle local 96,2 % ; pneumopathie de grade 3 : 2,4 % ; douleur pariétale liée à V50Gy > 60 cm³ ; un décès par hémoptysie (envahissement bronchique)",
+   "doi": "10.1016/j.radonc.2014.07.010",
+   "alias": [
+    "Li 2014, 70 Gy / 10 fx (MD Anderson)"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, 10 fx"
+   ]
+  },
+  {
    "id": "src-lukovic2020",
    "acronyme": "Lukovic 2020 (organes à risque)",
    "type": "atlas",
@@ -9325,6 +9553,38 @@
    ],
    "usages": [
     "Contraintes de dose (1 ligne)"
+   ]
+  },
+  {
+   "id": "src-matsali2022",
+   "acronyme": "Matsali 2022 (second cancer, rectum)",
+   "type": "essai",
+   "revue": "J Pers Med",
+   "annee": 2022,
+   "pmid": "36143227",
+   "population": "Risque de cancer de la vessie et de l'intestin après radiothérapie préopératoire du rectum, normo- ou hypofractionnée",
+   "alias": [
+    "Matsali 2022, risque de second cancer après RT du rectum"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : rectum, 5 × 5 Gy, Consensus VA / ASTRO 2026 : rectum, normofractionné"
+   ]
+  },
+  {
+   "id": "src-mazzola2014",
+   "acronyme": "Mazzola 2014 (constricteurs du pharynx)",
+   "type": "essai",
+   "revue": "Br J Radiol",
+   "annee": 2014,
+   "pmid": "25348370",
+   "population": "Dysphagie et dose aux muscles constricteurs en IMRT ORL",
+   "alias": [
+    "Mazzola 2014, constricteurs et dysphagie"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : larynx glottique T1–T2, épargne des carotides"
    ]
   },
   {
@@ -9395,6 +9655,38 @@
    ]
   },
   {
+   "id": "src-mutter2012",
+   "acronyme": "Mutter 2012 (douleur pariétale)",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2012,
+   "pmid": "21868173",
+   "population": "Paramètres dose-volume et douleur de la paroi thoracique après stéréotaxie pulmonaire",
+   "alias": [
+    "Mutter 2012, douleur pariétale après stéréotaxie"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : foie, stéréotaxie en 5 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 5 fx"
+   ]
+  },
+  {
+   "id": "src-myerson2014",
+   "acronyme": "Myerson 2014 (5 × 5 Gy puis FOLFOX)",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2014,
+   "pmid": "24606849",
+   "population": "Radiothérapie 5 × 5 Gy suivie de 4 cures de FOLFOX avant chirurgie du rectum",
+   "alias": [
+    "Myerson 2014, 5 × 5 Gy puis FOLFOX"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : rectum, 5 × 5 Gy"
+   ]
+  },
+  {
    "id": "src-nccn-canal-anal",
    "acronyme": "NCCN canal anal (version 1.2026)",
    "type": "recommandation",
@@ -9420,6 +9712,21 @@
    ],
    "usages": [
     "Contraintes de dose (22 lignes)"
+   ]
+  },
+  {
+   "id": "src-nccn-cbnpc-2025",
+   "acronyme": "NCCN poumon non à petites cellules (2025)",
+   "type": "recommandation",
+   "revue": "Recommandations NCCN",
+   "annee": 2025,
+   "population": "Contraintes de dose, poumon non à petites cellules",
+   "alias": [
+    "Recommandations NCCN, poumon non à petites cellules (2025)"
+   ],
+   "usages": [
+    "Contraintes de dose (13 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, normofractionné, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 1 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 3 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 4 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 5 fx"
    ]
   },
   {
@@ -9664,6 +9971,21 @@
    ]
   },
   {
+   "id": "src-nrgbr007",
+   "acronyme": "NRG-BR007 (DEBRA)",
+   "type": "essai",
+   "revue": "J Clin Oncol (résumé)",
+   "annee": 2022,
+   "population": "Désescalade de la radiothérapie après chirurgie conservatrice, cancer du sein de stade I RH+ HER2−, RS ≤ 18, phase III",
+   "alias": [
+    "NRG-BR007 (DEBRA)"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : sein ou paroi sans aires ganglionnaires, 40 Gy / 15 fx"
+   ]
+  },
+  {
    "id": "src-nrgdt001",
    "acronyme": "NRG DT001",
    "type": "protocole_institutionnel",
@@ -9686,7 +10008,23 @@
     "NRG GI002"
    ],
    "usages": [
-    "Contraintes de dose (1 ligne)"
+    "Contraintes de dose (4 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : rectum, normofractionné"
+   ]
+  },
+  {
+   "id": "src-nrggi003",
+   "acronyme": "NRG-GI003",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole NRG Oncology",
+   "annee": 2025,
+   "population": "Carcinome hépatocellulaire : protons contre photons, phase III",
+   "alias": [
+    "NRG-GI003"
+   ],
+   "usages": [
+    "Contraintes de dose (6 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : foie, 15 fx, Consensus VA / ASTRO 2026 : foie, stéréotaxie en 5 fx"
    ]
   },
   {
@@ -9715,7 +10053,53 @@
     "NRG GU005"
    ],
    "usages": [
-    "Contraintes de dose (3 lignes)"
+    "Contraintes de dose (4 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : prostate, stéréotaxie en 5 fx"
+   ]
+  },
+  {
+   "id": "src-nrggu008",
+   "acronyme": "NRG-GU008 (INNOVATE)",
+   "type": "protocole_institutionnel",
+   "revue": "J Clin Oncol (résumé)",
+   "annee": 2021,
+   "population": "Prostate N+ après prostatectomie : radiothérapie de rattrapage et hormonothérapie ± abiratérone et apalutamide, phase III",
+   "alias": [
+    "NRG-GU008 (INNOVATE)"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : loge prostatique, normofractionné"
+   ]
+  },
+  {
+   "id": "src-nrggu009",
+   "acronyme": "NRG-GU009 (PREDICT-RT)",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole NRG Oncology",
+   "annee": 2025,
+   "population": "Prostate à haut risque, hormonothérapie selon le risque génomique, phase III",
+   "alias": [
+    "NRG-GU009 (PREDICT-RT)"
+   ],
+   "usages": [
+    "Contraintes de dose (9 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : prostate, 20 fx, Consensus VA / ASTRO 2026 : prostate, 28 fx, Consensus VA / ASTRO 2026 : prostate, normofractionné"
+   ]
+  },
+  {
+   "id": "src-nrggu010",
+   "acronyme": "NRG-GU010 (GUIDANCE)",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole NRG Oncology",
+   "annee": 2025,
+   "population": "Prostate de risque intermédiaire défavorable, désescalade ou intensification selon le risque génomique, phase III",
+   "alias": [
+    "NRG-GU010 (GUIDANCE)"
+   ],
+   "usages": [
+    "Contraintes de dose (12 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : prostate, 20 fx, Consensus VA / ASTRO 2026 : prostate, 28 fx, Consensus VA / ASTRO 2026 : prostate, normofractionné"
    ]
   },
   {
@@ -9728,7 +10112,23 @@
     "NRG GU013"
    ],
    "usages": [
-    "Contraintes de dose (12 lignes)"
+    "Contraintes de dose (23 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : prostate, 20 fx, Consensus VA / ASTRO 2026 : prostate, 28 fx, Consensus VA / ASTRO 2026 : prostate, normofractionné, Consensus VA / ASTRO 2026 : prostate, stéréotaxie en 5 fx"
+   ]
+  },
+  {
+   "id": "src-nrghn001",
+   "acronyme": "NRG-HN001",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole NRG Oncology",
+   "annee": 2017,
+   "population": "Cancer du nasopharynx, traitement selon l'ADN du virus d'Epstein-Barr, phase II/III",
+   "alias": [
+    "NRG-HN001"
+   ],
+   "usages": [
+    "Contraintes de dose (1 ligne)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : oRL (sauf larynx précoce), 70 Gy"
    ]
   },
   {
@@ -9741,7 +10141,8 @@
     "NRG HN003"
    ],
    "usages": [
-    "Contraintes de dose (6 lignes)"
+    "Contraintes de dose (12 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : oRL (sauf larynx précoce), 70 Gy"
    ]
   },
   {
@@ -9761,6 +10162,21 @@
    ]
   },
   {
+   "id": "src-nrghn009",
+   "acronyme": "NRG-HN009",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole NRG Oncology",
+   "annee": 2025,
+   "population": "ORL avancé : deux schémas de cisplatine avec la radiothérapie",
+   "alias": [
+    "NRG-HN009"
+   ],
+   "usages": [
+    "Contraintes de dose (5 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : oRL (sauf larynx précoce), 70 Gy"
+   ]
+  },
+  {
    "id": "src-nrglu004",
    "acronyme": "NRG LU004",
    "type": "protocole_institutionnel",
@@ -9770,7 +10186,8 @@
     "NRG LU004"
    ],
    "usages": [
-    "Contraintes de dose (1 ligne)"
+    "Contraintes de dose (10 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, 15 fx, Consensus VA / ASTRO 2026 : poumon, normofractionné"
    ]
   },
   {
@@ -9787,6 +10204,21 @@
    ]
   },
   {
+   "id": "src-nrglu008",
+   "acronyme": "NRG LU008",
+   "type": "protocole_institutionnel",
+   "revue": "Int J Radiat Oncol Biol Phys (résumé)",
+   "annee": 2024,
+   "population": "CBNPC localement avancé : stéréotaxie de la tumeur puis radiochimiothérapie médiastinale, phase III",
+   "alias": [
+    "NRG LU008"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, normofractionné, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 4 fx"
+   ]
+  },
+  {
    "id": "src-nsabpb-51",
    "acronyme": "NSABP B-51 / RTOG 1304",
    "type": "essai",
@@ -9799,7 +10231,8 @@
     "NSABP B-51"
    ],
    "usages": [
-    "Contraintes de dose (1 ligne)"
+    "Contraintes de dose (5 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : sein ou paroi avec aires ganglionnaires, 50 Gy / 25 fx, Consensus VA / ASTRO 2026 : sein ou paroi sans les aires ganglionnaires, 50 Gy / 25 fx"
    ]
   },
   {
@@ -9857,6 +10290,22 @@
    ],
    "usages": [
     "Définitions des organes à risque"
+   ]
+  },
+  {
+   "id": "src-palma2013",
+   "acronyme": "Palma 2013 (œsophagite, méta-analyse)",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2013,
+   "pmid": "24035329",
+   "population": "Prédiction de l'œsophagite après radiochimiothérapie du CBNPC (données individuelles)",
+   "alias": [
+    "Palma 2013, œsophagite après radiochimiothérapie"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, normofractionné"
    ]
   },
   {
@@ -9942,7 +10391,8 @@
     "PROSPECT"
    ],
    "usages": [
-    "Contraintes de dose (1 ligne)"
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : rectum, normofractionné"
    ]
   },
   {
@@ -9956,7 +10406,8 @@
     "QUANTEC"
    ],
    "usages": [
-    "Contraintes de dose (30 lignes)"
+    "Contraintes de dose (35 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, normofractionné, Consensus VA / ASTRO 2026 : prostate, normofractionné, Consensus VA / ASTRO 2026 : sein ou paroi avec aires ganglionnaires, 50 Gy / 25 fx, Consensus VA / ASTRO 2026 : sein ou paroi sans les aires ganglionnaires, 50 Gy / 25 fx"
    ]
   },
   {
@@ -10184,6 +10635,38 @@
    ]
   },
   {
+   "id": "src-rice2007",
+   "acronyme": "Rice 2007 (poumon unique)",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2007,
+   "pmid": "17467922",
+   "population": "Toxicité pulmonaire après IMRT post-opératoire du mésothéliome (pneumonectomie)",
+   "alias": [
+    "Rice 2007, poumon unique après pneumonectomie"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, normofractionné"
+   ]
+  },
+  {
+   "id": "src-rosenthal2010",
+   "acronyme": "Rosenthal 2010 (IMRT avec épargne des carotides)",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2010,
+   "pmid": "19679406",
+   "population": "Cancer glottique T1–T2 : IMRT avec épargne des carotides",
+   "alias": [
+    "Rosenthal 2010, épargne des carotides (larynx T1–T2)"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : larynx glottique T1–T2, épargne des carotides"
+   ]
+  },
+  {
    "id": "src-rouers2016",
    "acronyme": "Rouers 2016 (organes à risque)",
    "type": "atlas",
@@ -10199,6 +10682,21 @@
    ]
   },
   {
+   "id": "src-rtcharm",
+   "acronyme": "RT CHARM (Alliance A221505)",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys (résumé)",
+   "annee": 2024,
+   "population": "Radiothérapie hypofractionnée après mastectomie avec reconstruction mammaire, phase III",
+   "alias": [
+    "RT CHARM (Alliance A221505)"
+   ],
+   "usages": [
+    "Contraintes de dose (7 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : sein ou paroi avec aires ganglionnaires, 40 Gy / 15 fx, Consensus VA / ASTRO 2026 : sein ou paroi avec aires ganglionnaires, 50 Gy / 25 fx, Consensus VA / ASTRO 2026 : sein ou paroi sans aires ganglionnaires, 40 Gy / 15 fx, Consensus VA / ASTRO 2026 : sein ou paroi sans les aires ganglionnaires, 50 Gy / 25 fx"
+   ]
+  },
+  {
    "id": "src-rtog0126",
    "acronyme": "RTOG 0126",
    "type": "essai",
@@ -10211,7 +10709,8 @@
     "RTOG 0126"
    ],
    "usages": [
-    "Contraintes de dose (1 ligne)"
+    "Contraintes de dose (3 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : prostate, normofractionné"
    ]
   },
   {
@@ -10254,6 +10753,21 @@
    ],
    "usages": [
     "Contraintes de dose (2 lignes)"
+   ]
+  },
+  {
+   "id": "src-rtog0619",
+   "acronyme": "RTOG 0619",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole RTOG",
+   "annee": 2025,
+   "population": "Carcinome épidermoïde ORL opéré à haut risque : radiochimiothérapie ± vandétanib, phase II",
+   "alias": [
+    "RTOG 0619"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : oRL (sauf larynx précoce), 70 Gy"
    ]
   },
   {
@@ -10301,7 +10815,23 @@
     "RTOG 0822"
    ],
    "usages": [
-    "Contraintes de dose (1 ligne)"
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : rectum, normofractionné"
+   ]
+  },
+  {
+   "id": "src-rtog0924",
+   "acronyme": "RTOG 0924",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole RTOG",
+   "annee": 2011,
+   "population": "Prostate de risque intermédiaire défavorable ou haut risque favorable : hormonothérapie et haute dose ± pelvis, phase III",
+   "alias": [
+    "RTOG 0924"
+   ],
+   "usages": [
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : prostate, normofractionné"
    ]
   },
   {
@@ -10317,7 +10847,8 @@
     "RTOG 0938"
    ],
    "usages": [
-    "Contraintes de dose (1 ligne)"
+    "Contraintes de dose (2 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : prostate, stéréotaxie en 5 fx"
    ]
   },
   {
@@ -10333,7 +10864,8 @@
     "RTOG 1005"
    ],
    "usages": [
-    "Contraintes de dose (1 ligne)"
+    "Contraintes de dose (1 ligne)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : sein ou paroi sans aires ganglionnaires, 40 Gy / 15 fx"
    ]
   },
   {
@@ -10376,7 +10908,8 @@
     "RTOG 1308"
    ],
    "usages": [
-    "Contraintes de dose (3 lignes)"
+    "Contraintes de dose (7 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, normofractionné"
    ]
   },
   {
@@ -10423,7 +10956,39 @@
     "SUNSET"
    ],
    "usages": [
-    "Contraintes de dose (3 lignes)"
+    "Contraintes de dose (6 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, 10 fx, Consensus VA / ASTRO 2026 : poumon, 15 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 5 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 8 fx"
+   ]
+  },
+  {
+   "id": "src-swanick2017",
+   "acronyme": "Swanick 2017 (paroi thoracique, 15 fx)",
+   "type": "essai",
+   "revue": "Pract Radiat Oncol",
+   "annee": 2017,
+   "pmid": "27637136",
+   "population": "Toxicité de la paroi thoracique après radiothérapie à haute dose en 15 fractions",
+   "alias": [
+    "Swanick 2017, paroi thoracique en 15 fx"
+   ],
+   "usages": [
+    "Contraintes de dose (4 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : foie, 15 fx, Consensus VA / ASTRO 2026 : poumon, 15 fx"
+   ]
+  },
+  {
+   "id": "src-swogs1914",
+   "acronyme": "SWOG S1914",
+   "type": "protocole_institutionnel",
+   "revue": "Protocole SWOG",
+   "annee": 2025,
+   "population": "CBNPC précoce à haut risque : stéréotaxie ± atézolizumab, phase III",
+   "alias": [
+    "SWOG S1914"
+   ],
+   "usages": [
+    "Contraintes de dose (22 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : foie, stéréotaxie en 5 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 3 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 4 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 5 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 8 fx"
    ]
   },
   {
@@ -10450,7 +11015,8 @@
     "TG-101"
    ],
    "usages": [
-    "Contraintes de dose (83 lignes)"
+    "Contraintes de dose (100 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : foie, stéréotaxie en 3 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 1 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 3 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 5 fx"
    ]
   },
   {
@@ -10479,6 +11045,22 @@
    ],
    "usages": [
     "Contraintes de dose (183 lignes)"
+   ]
+  },
+  {
+   "id": "src-timmerman2022",
+   "acronyme": "Timmerman 2022 (tolérances en hypofractionnement)",
+   "type": "essai",
+   "revue": "Int J Radiat Oncol Biol Phys",
+   "annee": 2022,
+   "pmid": "34919882",
+   "population": "Histoire de l'hypofractionnement et de la table des tolérances",
+   "alias": [
+    "Timmerman 2022, histoire de l'hypofractionnement"
+   ],
+   "usages": [
+    "Contraintes de dose (30 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : foie, stéréotaxie en 3 fx, Consensus VA / ASTRO 2026 : poumon, 10 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 1 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 3 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 4 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 5 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 8 fx, Consensus VA / ASTRO 2026 : sein ou paroi avec aires ganglionnaires, 40 Gy / 15 fx"
    ]
   },
   {
@@ -10567,12 +11149,40 @@
    "type": "recommandation",
    "revue": "Pract Radiat Oncol",
    "annee": 2026,
-   "population": "Contraintes de dose",
+   "doi": "10.1016/j.prro.2025.11.003",
+   "population": "Compendium des contraintes de dose (histogrammes dose-volume) pour la planification, 25 tableaux par localisation et fractionnement",
+   "resultat": "Objectifs principaux et secondaires par organe et par fractionnement (sein, ORL, foie, poumon, prostate, rectum), avec les références de chaque valeur",
    "alias": [
-    "Consensus VA / ASTRO, Practical Radiation Oncology 2026"
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 1",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 10",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 11",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 12",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 13",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 14",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 15",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 16",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 17",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 18",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 19",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 2",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 20",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 21",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 22",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 23",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 24",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 25",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 3",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 4",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 5",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 6",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 7",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 8",
+    "Consensus VA / ASTRO, Practical Radiation Oncology 2026, tableau 9"
    ],
    "usages": [
-    "Contraintes de dose (69 lignes)"
+    "Contraintes de dose (315 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : foie, 15 fx, Consensus VA / ASTRO 2026 : foie, stéréotaxie en 3 fx, Consensus VA / ASTRO 2026 : foie, stéréotaxie en 5 fx, Consensus VA / ASTRO 2026 : larynx glottique T1–T2, épargne des carotides, Consensus VA / ASTRO 2026 : loge prostatique, normofractionné, Consensus VA / ASTRO 2026 : oRL (sauf larynx précoce), 70 Gy, Consensus VA / ASTRO 2026 : poumon, 10 fx, Consensus VA / ASTRO 2026 : poumon, 15 fx, Consensus VA / ASTRO 2026 : poumon, normofractionné, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 1 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 3 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 4 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 5 fx, Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 8 fx, Consensus VA / ASTRO 2026 : prostate, 20 fx, Consensus VA / ASTRO 2026 : prostate, 28 fx, Consensus VA / ASTRO 2026 : prostate, normofractionné, Consensus VA / ASTRO 2026 : prostate, stéréotaxie en 5 fx, Consensus VA / ASTRO 2026 : rectum, 5 × 5 Gy, Consensus VA / ASTRO 2026 : rectum, normofractionné, Consensus VA / ASTRO 2026 : sein ou paroi avec aires ganglionnaires, 40 Gy / 15 fx, Consensus VA / ASTRO 2026 : sein ou paroi avec aires ganglionnaires, 50 Gy / 25 fx, Consensus VA / ASTRO 2026 : sein ou paroi sans aires ganglionnaires, 40 Gy / 15 fx, Consensus VA / ASTRO 2026 : sein ou paroi sans les aires ganglionnaires, 50 Gy / 25 fx, Consensus VA / ASTRO 2026 : sein ou paroi, 26 Gy / 5 fx, Consensus VA / ASTRO 2026 : sein partiel, 30 Gy / 5 fx"
    ]
   },
   {
@@ -10661,6 +11271,22 @@
    ]
   },
   {
+   "id": "src-yeung2018",
+   "acronyme": "Yeung 2018 (paroi thoracique, protons)",
+   "type": "essai",
+   "revue": "Pract Radiat Oncol",
+   "annee": 2018,
+   "pmid": "29452863",
+   "population": "Toxicité de la paroi thoracique après protonthérapie hypofractionnée du foie",
+   "alias": [
+    "Yeung 2018, paroi thoracique en protonthérapie hépatique"
+   ],
+   "usages": [
+    "Contraintes de dose (3 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : foie, 15 fx"
+   ]
+  },
+  {
    "id": "src-yi2012",
    "acronyme": "Yi 2012 (organes à risque)",
    "type": "atlas",
@@ -10673,6 +11299,22 @@
    ],
    "usages": [
     "Définitions des organes à risque"
+   ]
+  },
+  {
+   "id": "src-zhao2020",
+   "acronyme": "Zhao 2020 (60 Gy / 8 fx)",
+   "type": "essai",
+   "revue": "Radiat Oncol",
+   "annee": 2020,
+   "pmid": "32106868",
+   "population": "Stéréotaxie 60 Gy / 8 fx des tumeurs pulmonaires centrales et ultracentrales, priorité aux organes à risque",
+   "alias": [
+    "Zhao 2020, 60 Gy / 8 fx central et ultracentral"
+   ],
+   "usages": [
+    "Contraintes de dose (8 lignes)",
+    "Jeu de contraintes : Consensus VA / ASTRO 2026 : poumon, stéréotaxie en 8 fx"
    ]
   }
  ]

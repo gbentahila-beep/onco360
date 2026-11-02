@@ -42,7 +42,8 @@
     "eortc22931",
     "rtog9501",
     "bernier2005",
-    "curie-vads-2021"
+    "curie-vads-2021",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -77,7 +78,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-postop",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "PTV : D95 % ≥ 95 % ; CTV : D98 % ≥ 98 % (acceptable D95 % ≥ 98 %) ; PTV66 ∪ PTV59,4 : D2 % ≤ 107 %",
    "points_attention": [
     "Rupture capsulaire et marges atteintes sont les deux facteurs qui justifient le cisplatine concomitant (analyse EORTC 22931 et RTOG 9501, Bernier 2005)",
@@ -113,8 +116,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "cb-postop-66-54-service",
@@ -125,7 +127,8 @@
    "essai_ids": [
     "eortc22931",
     "rtog9501",
-    "bernier2005"
+    "bernier2005",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -151,7 +154,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-cb-postop-service",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 % de la dose prescrite",
    "points_attention": [
     "Rupture capsulaire et marges atteintes sont les deux facteurs qui justifient le cisplatine concomitant (analyse EORTC 22931 et RTOG 9501, Bernier 2005)",
@@ -188,8 +193,7 @@
      "limitant": "≈ 105 % de la dose prescrite",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "cb-postop-60-54-service",
@@ -199,7 +203,8 @@
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
     "rtog9501",
-    "bernier2005"
+    "bernier2005",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -225,7 +230,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-cb-postop-service",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "points_attention": [
     "Rupture capsulaire et marges atteintes sont les deux facteurs qui justifient le cisplatine concomitant (analyse EORTC 22931 et RTOG 9501, Bernier 2005)",
@@ -262,8 +269,7 @@
      "limitant": "≈ 105 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "cb-70-35-curie",
@@ -275,7 +281,8 @@
     "mach-nc",
     "mach-nc-2021",
     "bonner2006",
-    "curie-vads-2021"
+    "curie-vads-2021",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -310,7 +317,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-en-place",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "PTV : D95 % ≥ 95 % ; CTV : D98 % ≥ 98 % ; PTV70 : D2 % ≤ 107 %",
    "points_attention": [
     "Si un OAR chevauche un PTV, l'objectif s'applique à l'OAR moins le PTV"
@@ -344,8 +353,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "cb-6996-33-service",
@@ -355,7 +363,8 @@
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
     "rtog0225",
-    "mach-nc"
+    "mach-nc",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -391,7 +400,8 @@
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-igr",
    "contraintes_ids": [
-    "ct-orl-rtog0225"
+    "ct-orl-rtog0225",
+    "ct-astro-t06"
    ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "points_attention": [
@@ -930,7 +940,10 @@
     "oar-larynx",
     "oar-constricteurs",
     "oar-thyroide",
-    "oar-muscles-nuque"
+    "oar-muscles-nuque",
+    "oar-plexus-brachial-d",
+    "oar-plexus-brachial-g",
+    "oar-oesophage-cervical"
    ]
   },
   {

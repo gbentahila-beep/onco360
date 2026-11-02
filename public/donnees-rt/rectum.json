@@ -40,7 +40,8 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "accord12",
-    "prodige23"
+    "prodige23",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -66,7 +67,9 @@
    "systemique": "Capécitabine 800 mg/m² × 2/j les jours de RT",
    "simulation_id": "sim-rec",
    "volumes_id": "vol-rec",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t24"
+   ],
    "date_verif": "2026-10-23",
    "ind": [
     "Digestif",
@@ -74,8 +77,7 @@
     "Rectum localement avancé : radiothérapie préopératoire",
     "Normofractionné"
    ],
-   "points_attention": [],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   "points_attention": []
   },
   {
    "id": "rec-504-28",
@@ -89,7 +91,8 @@
     "es-polonaisi",
     "es-trog0104",
     "es-nsabpr03",
-    "es-caoaroaio12"
+    "es-caoaroaio12",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -113,9 +116,10 @@
     "Rectum localement avancé : radiothérapie préopératoire",
     "Normofractionné"
    ],
-   "contraintes_ids": [],
-   "points_attention": [],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   "contraintes_ids": [
+    "ct-astro-t24"
+   ],
+   "points_attention": []
   },
   {
    "id": "rec-5x5-tme",
@@ -129,7 +133,8 @@
     "es-swedishrectalcancertrial",
     "es-mrccr07ncicctgc016",
     "es-polonaisi",
-    "es-trog0104"
+    "es-trog0104",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -156,8 +161,9 @@
     "Rectum localement avancé : radiothérapie préopératoire",
     "Hypofractionné"
    ],
-   "contraintes_ids": [],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   "contraintes_ids": [
+    "ct-astro-t25"
+   ]
   },
   {
    "id": "rec-5x5-delai",
@@ -167,7 +173,8 @@
    "preuve": "essai_phase3",
    "essai_ids": [
     "stockholm3",
-    "es-startrec"
+    "es-startrec",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -194,8 +201,9 @@
     "Rectum localement avancé : radiothérapie préopératoire",
     "Hypofractionné"
    ],
-   "contraintes_ids": [],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   "contraintes_ids": [
+    "ct-astro-t25"
+   ]
   },
   {
    "id": "rec-rapido",
@@ -206,7 +214,8 @@
    "essai_ids": [
     "rapido",
     "es-stellar",
-    "es-polonaisii"
+    "es-polonaisii",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -234,8 +243,9 @@
     "Rectum à haut risque : traitement néoadjuvant total",
     "Hypofractionné"
    ],
-   "contraintes_ids": [],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   "contraintes_ids": [
+    "ct-astro-t25"
+   ]
   },
   {
    "id": "rec-prodige23",
@@ -244,7 +254,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "prodige23"
+    "prodige23",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -270,7 +281,9 @@
    "systemique": "FOLFIRINOX × 6 avant ; capécitabine pendant ; 3 mois après la chirurgie",
    "simulation_id": "sim-rec",
    "volumes_id": "vol-rec",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t24"
+   ],
    "points_attention": [
     "Choix : RAPIDO si le risque métastatique domine (CRM < 1 mm, T4, N2, EMVI+) ; PRODIGE 23 si le contrôle local domine (tumeur basse ou volumineuse, besoin de boost, préservation sphinctérienne, patient jeune en bon état général)",
     "La fiche du service indique « FOLFOX ou CAPOX » en adjuvant ; PRODIGE 23 donnait mFOLFOX6 ou capécitabine pendant 3 mois"
@@ -281,8 +294,7 @@
     "Rectum",
     "Rectum à haut risque : traitement néoadjuvant total",
     "Normofractionné"
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "rec-postop-558",
@@ -291,7 +303,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "cao-aro-94"
+    "cao-aro-94",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -324,9 +337,10 @@
     "Rectum opéré d'emblée, sans radiothérapie préopératoire",
     "Normofractionné"
    ],
-   "contraintes_ids": [],
-   "points_attention": [],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   "contraintes_ids": [
+    "ct-astro-t24"
+   ],
+   "points_attention": []
   },
   {
    "id": "rec-cap45",
@@ -335,7 +349,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "accord12"
+    "accord12",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -359,9 +374,10 @@
     "Rectum localement avancé : radiothérapie préopératoire",
     "Normofractionné"
    ],
-   "contraintes_ids": [],
-   "points_attention": [],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   "contraintes_ids": [
+    "ct-astro-t24"
+   ],
+   "points_attention": []
   }
  ],
  "simulations": [
@@ -438,7 +454,8 @@
     "oar-queue-cheval",
     "oar-sigmoide",
     "oar-oge",
-    "oar-moelle-osseuse"
+    "oar-moelle-osseuse",
+    "oar-vagin"
    ],
    "oar_notes": {
     "oar-grele": "fiche : cavité abdominale antérieure jusqu'à 1 cm au-dessus du PTV"

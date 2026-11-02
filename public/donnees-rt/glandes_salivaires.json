@@ -34,7 +34,8 @@
     "terhaard2005",
     "piram2019",
     "fredericmoreau2019",
-    "curie-vads-2021"
+    "curie-vads-2021",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -69,7 +70,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-postop",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "PTV : D95 % ≥ 95 % ; CTV : D98 % ≥ 98 % ; PTV66 ∪ PTV59,4 : D2 % ≤ 107 %",
    "points_attention": [
     "La RT post-opératoire améliore le contrôle local à 10 ans : T3–T4 84 contre 18 %, exérèse incomplète 82 contre 44 %, marges proches 95 contre 55 %, envahissement osseux 86 contre 54 %, engainements 88 contre 60 % (Terhaard 2005)"
@@ -103,8 +106,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "gs-postop-60-54-service",
@@ -113,7 +115,8 @@
    "type": "rte_normo",
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
-    "terhaard2005"
+    "terhaard2005",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -139,7 +142,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-postop",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "points_attention": [
     "La RT post-opératoire améliore le contrôle local à 10 ans : T3–T4 84 contre 18 %, exérèse incomplète 82 contre 44 %, marges proches 95 contre 55 %, envahissement osseux 86 contre 54 %, engainements 88 contre 60 % (Terhaard 2005)"
@@ -173,8 +178,7 @@
      "limitant": "≈ 105 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "gs-70-35-curie",
@@ -184,7 +188,8 @@
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
     "terhaard2005",
-    "curie-vads-2021"
+    "curie-vads-2021",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -219,7 +224,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-en-place",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "PTV : D95 % ≥ 95 % ; CTV : D98 % ≥ 98 % ; PTV70 : D2 % ≤ 107 %",
    "date_verif": "2026-10-24",
    "ind": [
@@ -251,8 +258,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   }
  ],
  "simulations": [

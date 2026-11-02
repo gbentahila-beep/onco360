@@ -39,7 +39,8 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "yamazaki2006"
+    "yamazaki2006",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -56,7 +57,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-lar-precoce",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t07"
+   ],
    "points_attention": [
     "2,25 Gy par fraction : meilleur contrôle local que 2 Gy (92 contre 77 % à 5 ans, Yamazaki 2006)"
    ],
@@ -66,8 +69,7 @@
     "Larynx",
     "Glotte T1–T2 N0 : RT exclusive",
     "Hypofractionné"
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "lar-t1-63-28",
@@ -76,7 +78,8 @@
    "type": "rte_hypo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "yamazaki2006"
+    "yamazaki2006",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -93,7 +96,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-lar-precoce",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t07"
+   ],
    "points_attention": [
     "2,25 Gy par fraction : meilleur contrôle local que 2 Gy (92 contre 77 % à 5 ans, Yamazaki 2006)"
    ],
@@ -103,8 +108,7 @@
     "Larynx",
     "Glotte T1–T2 N0 : RT exclusive",
     "Hypofractionné"
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "lar-t2-70-35",
@@ -113,7 +117,8 @@
    "type": "rte_normo",
    "preuve": "essai_phase3",
    "essai_ids": [
-    "rtog9512"
+    "rtog9512",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -130,7 +135,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-lar-precoce",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "points_attention": [
     "2,25 Gy par fraction : meilleur contrôle local que 2 Gy (92 contre 77 % à 5 ans, Yamazaki 2006)",
     "L'hyperfractionnement (79,2 Gy / 66 fx, 2 fx/j) n'a pas amélioré significativement le contrôle local en T2 (RTOG 9512) ; T2a et T2b ont un pronostic différent"
@@ -141,8 +148,7 @@
     "Larynx",
     "Glotte T1–T2 N0 : RT exclusive",
     "Normofractionné"
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "lar-rct-70-35-curie",
@@ -154,7 +160,8 @@
     "rtog9111",
     "rtog9111-lt",
     "mach-nc",
-    "curie-vads-2021"
+    "curie-vads-2021",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -189,7 +196,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-en-place",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "PTV : D95 % ≥ 95 % ; CTV : D98 % ≥ 98 % ; PTV70 : D2 % ≤ 107 %",
    "points_attention": [
     "À 10 ans, induction PF et RCT donnent la même survie sans laryngectomie ; la RCT contrôle mieux la tumeur et préserve plus souvent le larynx, mais les décès non liés au cancer sont plus fréquents (RTOG 91-11, Forastiere 2013)"
@@ -223,8 +232,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "lar-induction-rt",
@@ -235,7 +243,8 @@
    "essai_ids": [
     "gortec2000-01",
     "rtog9111-lt",
-    "curie-vads-2021"
+    "curie-vads-2021",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -271,7 +280,8 @@
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-en-place",
    "contraintes_ids": [
-    "ct-orl-gortec2000"
+    "ct-orl-gortec2000",
+    "ct-astro-t06"
    ],
    "couverture": "PTV : D95 % ≥ 95 % ; CTV : D98 % ≥ 98 % ; PTV70 : D2 % ≤ 107 %",
    "points_attention": [
@@ -316,7 +326,8 @@
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
     "rtog0225",
-    "rtog9111"
+    "rtog9111",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -352,7 +363,8 @@
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-igr",
    "contraintes_ids": [
-    "ct-orl-rtog0225"
+    "ct-orl-rtog0225",
+    "ct-astro-t06"
    ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "points_attention": [
@@ -485,7 +497,8 @@
     "eortc22931",
     "rtog9501",
     "bernier2005",
-    "curie-vads-2021"
+    "curie-vads-2021",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -520,7 +533,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-orl-curie-postop",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "PTV : D95 % ≥ 95 % ; CTV : D98 % ≥ 98 % ; PTV66 ∪ PTV59,4 : D2 % ≤ 107 %",
    "date_verif": "2026-10-24",
    "ind": [
@@ -552,8 +567,7 @@
      "limitant": "≤ 107 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "lar-postop-66-54-service",
@@ -564,7 +578,8 @@
    "essai_ids": [
     "eortc22931",
     "rtog9501",
-    "bernier2005"
+    "bernier2005",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -590,7 +605,9 @@
    "systemique": "Voir Traitement systémique",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-lar-postop-service",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "date_verif": "2026-10-24",
    "ind": [
@@ -622,8 +639,7 @@
      "limitant": "≈ 105 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   },
   {
    "id": "lar-postop-60-54-service",
@@ -633,7 +649,8 @@
    "preuve": "pratique_institutionnelle",
    "essai_ids": [
     "rtog9501",
-    "bernier2005"
+    "bernier2005",
+    "src-va-astro-2026"
    ],
    "prescriptions": [
     {
@@ -659,7 +676,9 @@
    "systemique": "Aucune",
    "simulation_id": "sim-orl-curie",
    "volumes_id": "vol-lar-postop-service",
-   "contraintes_ids": [],
+   "contraintes_ids": [
+    "ct-astro-t06"
+   ],
    "couverture": "D95 ≈ 98 %, D98 ≈ 95 %, Dmax ≈ 105 %",
    "date_verif": "2026-10-24",
    "ind": [
@@ -691,8 +710,7 @@
      "limitant": "≈ 105 %",
      "note": ""
     }
-   ],
-   "ct_mention": "L'essai ne publie pas de contraintes : base de contraintes appliquée."
+   ]
   }
  ],
  "simulations": [
@@ -750,7 +768,16 @@
     "oar-constricteurs",
     "oar-oesophage",
     "oar-plexus-brachial-d",
-    "oar-plexus-brachial-g"
+    "oar-plexus-brachial-g",
+    "oar-mandibule",
+    "oar-tronc-cerebral",
+    "oar-cavite-orale",
+    "oar-glande-sous-max-d",
+    "oar-glande-sous-max-g",
+    "oar-parotide-d",
+    "oar-parotide-g",
+    "oar-carotide-d",
+    "oar-carotide-g"
    ]
   },
   {
@@ -822,7 +849,9 @@
     "oar-tronc-cerebral",
     "oar-muscles-nuque",
     "oar-plexus-brachial-d",
-    "oar-plexus-brachial-g"
+    "oar-plexus-brachial-g",
+    "oar-oesophage-cervical",
+    "oar-constricteurs"
    ]
   },
   {
@@ -993,7 +1022,10 @@
     "oar-larynx",
     "oar-constricteurs",
     "oar-thyroide",
-    "oar-muscles-nuque"
+    "oar-muscles-nuque",
+    "oar-plexus-brachial-d",
+    "oar-plexus-brachial-g",
+    "oar-oesophage-cervical"
    ]
   },
   {
