@@ -326,7 +326,7 @@ export const SECTIONS = [
 export const FAMILLES_SECTIONS = [["cabinet", "Cabinet", ["lieux", "accueil", "rcp", "impression", "audit", "export"]], ["dossier", "Dossier patient", ["fiche", "consultation", "types", "affichage"]],
   ["agenda", "Agenda et rappels", ["horaires", "fermetures", "couleurs", "whatsapp", "alertes"]], ["listes", "Bibliothèques", ["listes", "bibliotheques", "vigilances"]], ["finances", "Finances", ["activites"]], ["laboratoires", "Laboratoires", ["laboratoires"]]]; // laboratoires : 26/10/2026
 // Bibliothèques (copiées de la bibliothèque de la spécialité dans chaque cabinet neuf)
-export const BIBLIOTHEQUES = [["protocoles", "Protocoles de chimiothérapie"], ["medicaments", "Médicaments"], ["ordostypes", "Ordonnances types"], ["analyses", "Analyses"], ["bilans", "Bilans biologiques"], ["examens", "Examens complémentaires"], ["courriers", "Courriers"], ["documentation", "Documentation (Doc.)"], ["diag", "Diagnostics"], ["mut", "Mutuelles"]];
+export const BIBLIOTHEQUES = [["protocoles", "Protocoles de traitement systémique"], ["medicaments", "Médicaments"], ["ordostypes", "Ordonnances types"], ["analyses", "Analyses"], ["bilans", "Bilans biologiques"], ["examens", "Examens complémentaires"], ["courriers", "Courriers"], ["documentation", "Documentation (Doc.)"], ["diag", "Diagnostics"], ["mut", "Mutuelles"]];
 
 // Réglage d'un cabinet (espaces/{e}.abonnement.reglage, 10/10/2026), retouché depuis l'administration sur la base de son pack (les
 // modules et les maximums restent dans l'abonnement) :

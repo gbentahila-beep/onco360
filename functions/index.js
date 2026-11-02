@@ -1186,7 +1186,7 @@ exports.modeleReprendre = onCall({ timeoutSeconds: 120, memory: "512MiB" }, asyn
   // 20/10/2026 : les protocoles font partie de la même copie (bibliothèque d'oncologie seulement)
   const avecProt = avant.bib === "bib-oncologie";
   if (avecProt) { const [rc, rb] = await Promise.all([referentielDe(C.MODELE), referentielDe(avant.bib)]), d = MOD.difference(rb, rc); diffs.unshift({ k: "referentielRT", lib: "Référentiel de radiothérapie (schémas modifiés ou créés)", n: MOD.total(d), resume: MOD.resume(d), nb: rc.length }); }
-  if (avecProt) { const [pc, pr] = await Promise.all([protocolesDe(C.MODELE), protocolesDe(avant.bib)]), d = MOD.difference(pr, pc); diffs.unshift({ k: "protocoles", lib: "Protocoles de chimiothérapie", n: MOD.total(d), resume: MOD.resume(d), nb: pc.length }); }
+  if (avecProt) { const [pc, pr] = await Promise.all([protocolesDe(C.MODELE), protocolesDe(avant.bib)]), d = MOD.difference(pr, pc); diffs.unshift({ k: "protocoles", lib: "Protocoles de traitement systémique", n: MOD.total(d), resume: MOD.resume(d), nb: pc.length }); }
   const n = diffs.reduce((t, d) => t + d.n, 0);
   if (!confirmer) return { specialite: spe, repris: avant.repris, diffs, n };
   // protocoles du modèle gardés dans la même copie (20/10/2026 : ils sont remplacés par ceux du cabinet)

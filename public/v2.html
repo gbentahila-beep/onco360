@@ -93,6 +93,7 @@ nav a.actif .i{color:#fff}
 .tr-res{position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border:1px solid var(--trait);border-radius:var(--r-m);box-shadow:var(--ombre-h);padding:6px;z-index:40;max-height:60vh;overflow:auto}
 .tr-res button{display:flex;flex-direction:column;align-items:flex-start;width:100%;text-align:left;border:0;background:none;border-radius:8px;padding:8px 10px;cursor:pointer;font:inherit;color:var(--encre)}
 .tr-res button:hover,.tr-res button.on{background:var(--prim-c)}.tr-res small{color:var(--doux);font-size:var(--t2)}.tr-res p{margin:6px 10px;color:var(--doux);font-size:var(--t3)}
+.tr-res mark{background:none;color:var(--prim);text-decoration:underline;text-underline-offset:2px}.tr-res p.tr-plus{border-top:1px solid var(--trait);margin:6px 0 0;padding:8px 10px 2px;font-size:var(--t3)}.tr-res p.tr-plus a{color:var(--prim);font-weight:500} /* IG1 */
 .tr-res p.tr-rec{margin:4px 10px 2px;font-size:var(--t2);text-transform:uppercase;letter-spacing:.04em} /* Lot A §2 : derniers dossiers ouverts */
 @media (max-width:767px){.tr-pil{display:none}}
 body.role-comptable .tr-pil{display:none}
@@ -1045,6 +1046,8 @@ details.dp>summary .dp-t:hover,details.dp>summary .dp-t:focus-visible{color:var(
 .br-n{display:inline-block;background:var(--prim-c);color:var(--prim);border-radius:20px;padding:0 6px;font-size:var(--t1);font-weight:bold;margin-left:2px}
 /* UX13 (P7, 02/11/2026) : nombre en pastille dans le coin du bouton, hors du flux : la barre ne bouge plus quand une ordonnance est faite */
 .br-g .pr>button:first-child{position:relative}.br-g .br-n{position:absolute;top:-8px;right:-5px;margin:0;min-width:20px;height:18px;line-height:18px;padding:0 5px;box-sizing:border-box;text-align:center;z-index:1;box-shadow:0 0 0 2px #fff}
+/* IG1 (02/11/2026, D4) : la pastille chiffrée n'est plus coupée par le cadre du bouton (.pr{overflow:hidden}) ; arrondis portés par les boutons */
+.br-g .pr{overflow:visible}.br-g .pr>button:first-child{border-radius:9px 0 0 9px}.br-g .pr>button:last-child{border-radius:0 9px 9px 0}.br-g .pr>button:only-child{border-radius:9px}
 .dos-barre .br-g{padding-top:10px;margin-top:-8px}
 .br-g .sm{display:none}.br-g .pi{display:none}.br-g .pr .fl{padding:7px 4px}.dos-barre .rcp-bulle .lbl .sm{display:none}
 .dos-trav .o-barre button{padding:11px 10px 9px;font-size:var(--t4)}
@@ -1784,6 +1787,19 @@ svg.i{vertical-align:calc(.36em - 10px)}svg.pi{vertical-align:calc(.36em - 7.5px
 #page select:not(.st){text-overflow:ellipsis}
 .ta-r select.st,.ta-st select.st{min-width:128px}.ta-h,.ta-r{grid-template-columns:minmax(0,2.6fr) minmax(0,1.3fr) minmax(0,1.3fr) minmax(0,1.3fr) minmax(112px,.9fr) 150px}
 .cf-main .ty-l .ty-s select{width:max-content!important;max-width:100%}#cqRep{max-width:100%!important;width:max-content}
+/* IG1 (02/11/2026, D5) : Types de consultation : chaque menu reste dans sa colonne (avant : largeur de son texte le plus long, il passait sous
+   « Durée ») ; carte étroite (à côté du menu des Paramètres) = deux lignes par type : le nom en entier, puis les trois menus avec leur titre */
+.cf-main .ty-b{container-type:inline-size}
+@container (min-width:560px){.ty-l .ty-s{min-width:0}.cf-main .ty-l .ty-s select{width:100%!important;min-width:0!important;flex:1 1 auto}}
+@container (min-width:560px) and (max-width:1099px){
+  .ty-l.ty-h{display:none}
+  .ty-l{display:grid;grid-template-columns:76px minmax(0,1.3fr) 110px minmax(0,1fr) 40px;gap:6px 12px;align-items:end}
+  .ty-l>.fl{grid-column:1;grid-row:1;align-self:center}.ty-l>input.ty-n{grid-column:2/5;grid-row:1;width:100%;flex:none}.ty-l>:nth-child(6){grid-column:5;grid-row:1;align-self:center}
+  .ty-l>:nth-child(3){grid-column:1/3;grid-row:2}.ty-l>:nth-child(4){grid-column:3;grid-row:2}.ty-l>:nth-child(5){grid-column:4;grid-row:2}
+  .ty-l>.ty-s{flex-direction:column;align-items:stretch;gap:3px}.ty-l>span.ty-s.mesures{justify-content:flex-end}
+  .ty-l .ty-lb{position:static;width:auto;height:auto;clip:auto;overflow:visible;font-size:var(--t3);color:var(--doux)}
+}
+@container (min-width:1100px){.ty-l{grid-template-columns:76px minmax(0,1.4fr) minmax(0,1.3fr) 110px minmax(0,1fr) 40px}}
 #biPay,#biCor{min-width:180px}
 /* 1.2 / 2.5 Patients : recherche élargie et « + Patient » sur la 1re ligne, menus sur la 2e */
 .pt-l1{flex-wrap:nowrap}.pt-l1 .pt-q{flex:1 1 auto;min-width:0;position:relative}.pt-l1 .bp-act{flex:none}

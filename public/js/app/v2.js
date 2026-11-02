@@ -17,6 +17,7 @@ import { auj, addJ, ecart, ouvre, age, srcImage, absentMedecin } from "../moteur
 import { changerTable, hmMaroc, jourMaroc } from "../moteur/heure.js";
 import { typeRdv, libRdv, joursH, T_RTC, nommerTypes } from "../moteur/rdv.js";
 import { TRAITEMENTS_MA } from "../donnees/traitements.js";
+import { chercherPatients, partiesTrouvees } from "../moteur/cherchepatient.js";
 import { typeCourt as typeCourtSalle } from "../moteur/salle.js"; // 26/10/2026 : nom court d'un rendez-vous (comme la salle d'attente)
 import { referentiel, nomsParCle, typesPourRdv, cleDeRdv } from "../moteur/typesconsult.js";
 import { tarif as tarifAu, net as netTarif } from "../moteur/tarifs.js";
@@ -1156,7 +1157,7 @@ function route() {
 // UX5 (02/11/2026) : haut de page = icône du menu + titre + une ligne d'explication (barre du haut ; le dossier a son propre haut)
 const EXPLI = { accueil: "Votre journée en un coup d'œil", agenda: "Rendez-vous, séances de chimiothérapie et étapes de radiothérapie", salle: "Patients du jour : arrivée, passage, encaissement",
   patients: "Dossiers du cabinet : recherche et filtres", documents: "Déposer des documents dans les dossiers", taches: "Tâches de l'équipe : échéances et suivi", rcp: "Dates des RCP et patients inscrits",
-  protocoles: "Bibliothèque des protocoles de chimiothérapie", radiotherapie: "Référentiel : schémas, contraintes, contourage, essais", outils: "Stadification TNM, toxicités CTCAE, calculs",
+  protocoles: "Bibliothèque des protocoles de traitement systémique", radiotherapie: "Référentiel : schémas, contraintes, contourage, essais", outils: "Stadification TNM, toxicités CTCAE, calculs",
   bilan: "Actes, encaissements et versements", parametres: "Réglages du cabinet et des listes", profil: "Vos informations et votre compte", tous: "Vos cabinets aujourd'hui" };
 const ICONE_PAGE = { parametres: "parametres", profil: "profil", tous: "hopital" };
 function hautDePage(nom) {
@@ -1538,23 +1539,30 @@ function pagePatients(filtre) {
   if (fx) document.querySelector("#page .filtres").insertAdjacentHTML("beforeend", fx);
   ["fst", "floc", "fstade", "fmed"].forEach((id) => { if ($(id)) $(id).onchange = listePatients; });
   if (filtre && $("flt").querySelector('option[value="' + CSS.escape(filtre) + '"]')) $("flt").value = filtre;
+  if (PT_Q) { $("q").value = PT_Q; PT_Q = ""; }
   $("q").oninput = $("flt").onchange = listePatients; if ($("fhop")) $("fhop").onchange = listePatients; listePatients();
 }
+// IG1 (02/11/2026) : champs lus par la recherche de patient (moteur/cherchepatient.js) ; plus = page Patients (localisation, protocoles, établissement)
+const champsRecherche = (x, plus) => { const id = x.doc.identite || {}, r = x.r;
+  return { nom: r.nm, num: numDossier(x), nums: [numOrig(x)].filter(Boolean), tels: [x.P.tel, id.tel2], ddn: r.ddn, cin: id.cin,
+    autres: plus ? [r.diag, (r.pr || []).join(" "), r.t ? r.t.nom : "", r.hop].join(" ") : "" }; };
+let PT_Q = ""; // recherche du haut reprise par « Voir tout dans Patients »
 function listePatients() {
-  const mots = sansAcc($("q").value).split(/\s+/).filter(Boolean), f = $("flt").value, t = D.t, hop = $("fhop") ? $("fhop").value : "";
+  const f = $("flt").value, t = D.t, hop = $("fhop") ? $("fhop").value : "";
   const fst = $("fst") ? $("fst").value : "", floc = $("floc") ? $("floc").value : "", fstade = $("fstade") ? $("fstade").value : "", fmed = $("fmed") ? $("fmed").value : "";
-  const l = D.patients.filter((x) => {
+  const l0 = D.patients.filter((x) => {
     if (hop && x.doc.etablissementId !== hop) return false;
     const cl = x.doc.clinique || {}, ext = cl.extra || {};
     if (fst && (fst === "vivant" ? cl.statut === "decede" : cl.statut !== fst)) return false;
     if (floc && cl.diag !== floc) return false;
     if (fstade && ext.xtstade !== fstade) return false;
     if (fmed && medPourPatient(x) !== fmed) return false;
-    const r = x.r, hay = sansAcc([r.nm, dfrA(r.ddn), numDossier(x), numOrig(x), r.diag, (r.pr || []).join(" "), r.t ? r.t.nom : "", r.hop].join(" "));
-    if (!mots.every((w) => hay.indexOf(w) >= 0)) return false;
+    const r = x.r;
     if (f.indexOf("p:") === 0) return (r.act || []).some((a) => a.nom.replace(/ · J\d+$/, "") === f.slice(2)) || (r.t && r.t.st === "cours" && r.t.nom === f.slice(2));
     return FILTRES[f][1](x);
   });
+  // IG1 : même recherche que la barre du haut (nom, n°, téléphone, date de naissance, CIN, puis le reste), les meilleurs d'abord
+  const l = chercherPatients(l0.map((x) => ({ x, f: champsRecherche(x, true) })), $("q").value);
   $("nbRes").textContent = ""; // 26/10/2026 (style minimaliste) : plus de compteur « 65 patients »
   // 31/10/2026 (demande de Dr Bentahila, 2.4) : tableau sur le modèle de la page Tâches : Nom Prénom, date de naissance (âge), n° de dossier, médecin,
   // établissement, cancer, dernières nouvelles (ou « Décédé »), traitement en cours ; un clic sur la rangée ouvre le dossier ; téléphone : une carte par patient
@@ -1600,16 +1608,19 @@ function rechercheTete() {
   const dessiner = () => { const m = sansAcc(q.value).split(/\s+/).filter(Boolean);
     if (!m.length) { L = document.activeElement === q ? recents() : []; sel = Math.min(sel, Math.max(0, L.length - 1));
       if (!L.length) { z.classList.add("cache"); return; } z.innerHTML = '<p class="tr-rec">Derniers dossiers ouverts</p>' + L.map(ligneRecent).join(""); z.classList.remove("cache"); return; }
-    L = D.patients.filter((x) => { const hay = sansAcc(x.r.nm + " " + (numDossier(x) || "")), tel = String((x.P.tel || "") + " " + ((x.doc.identite || {}).tel2 || "")).replace(/\D/g, "");
-      return m.every((w) => hay.indexOf(w) >= 0 || (/^\d{3,}$/.test(w) && tel.indexOf(w.replace(/^0/, "")) >= 0)); }).slice(0, 8);
+    // IG1 (02/11/2026) : dossiers classés (le bon patient en tête : Entrée ouvre le bon dossier), partie trouvée surlignée, « 8 sur 23 »
+    const tous = chercherPatients(D.patients.map((x) => ({ x, f: champsRecherche(x) })), q.value); L = tous.slice(0, 8);
     sel = Math.min(sel, Math.max(0, L.length - 1));
-    z.innerHTML = L.length ? L.map((x, i) => '<button type="button" role="option" class="' + (i === sel ? "on" : "") + '" data-id="' + esc(x.id) + '"><b>' + esc(x.r.nm) + "</b><small>" + esc([numDossier(x) ? "N° " + numDossier(x) : "", x.r.ddn ? dfrA(x.r.ddn) : "", x.doc.etablissementId || ""].filter(Boolean).join(" · ")) + "</small></button>").join("") : "<p>Aucun patient.</p>";
+    const surl = (nom) => { let h = "", i = 0; partiesTrouvees(nom, q.value).forEach(([a, b]) => { h += esc(nom.slice(i, a)) + "<mark>" + esc(nom.slice(a, b)) + "</mark>"; i = b; }); return h + esc(nom.slice(i)); };
+    z.innerHTML = L.length ? L.map((x, i) => '<button type="button" role="option" class="' + (i === sel ? "on" : "") + '" data-id="' + esc(x.id) + '"><b>' + surl(x.r.nm) + "</b><small>" + esc([numDossier(x) ? "N° " + numDossier(x) : "", x.r.ddn ? dfrA(x.r.ddn) : "", x.doc.etablissementId || ""].filter(Boolean).join(" · ")) + "</small></button>").join("") +
+      (tous.length > L.length ? '<p class="tr-plus">' + L.length + " sur " + tous.length + ' · <a href="#patients" data-voir="1">Voir tout dans Patients</a></p>' : "") : "<p>Aucun patient.</p>";
     z.classList.remove("cache"); };
   const ouvrir = (id) => { q.value = ""; z.classList.add("cache"); q.blur(); $("tete").classList.remove("rech-ouv"); ouvrirDossier(id); };
   q.oninput = () => { sel = 0; dessiner(); };
   q.onkeydown = (ev) => { if (ev.key === "ArrowDown" || ev.key === "ArrowUp") { ev.preventDefault(); sel = Math.max(0, Math.min(L.length - 1, sel + (ev.key === "ArrowDown" ? 1 : -1))); dessiner(); }
     else if (ev.key === "Enter" && L[sel]) ouvrir(L[sel].id); else if (ev.key === "Escape") { q.value = ""; z.classList.add("cache"); $("tete").classList.remove("rech-ouv"); } };
-  z.onmousedown = (ev) => { const b = ev.target.closest("[data-id]"); if (b) { ev.preventDefault(); ouvrir(b.dataset.id); } };
+  z.onmousedown = (ev) => { const v = ev.target.closest("[data-voir]"); if (v) { ev.preventDefault(); PT_Q = q.value; q.value = ""; z.classList.add("cache"); q.blur(); $("tete").classList.remove("rech-ouv"); if (location.hash === "#patients") pagePatients(); else location.hash = "#patients"; return; }
+    const b = ev.target.closest("[data-id]"); if (b) { ev.preventDefault(); ouvrir(b.dataset.id); } };
   q.onblur = () => setTimeout(() => z.classList.add("cache"), 150); q.onfocus = () => { sel = 0; dessiner(); };
 }
 

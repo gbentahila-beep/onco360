@@ -377,7 +377,7 @@ async function reinitDemo(b) {
 // ───── Bibliothèque de référence de chaque spécialité (10/10/2026) = protocoles, bibliothèques et paramètres du modèle ─────
 // Ce que reçoit un cabinet neuf, selon la spécialité de sa formule. Chacune est un espace sans patient, ouvert dans Onco360
 // (v2.html?espace=bib-…) pour tout ajouter, modifier, supprimer avec les écrans habituels ; aucun cabinet n'y est relié.
-const LIBS = [["protocoles", "Protocoles de chimiothérapie"], ["medicaments", "Médicaments"], ["ordostypes", "Ordonnances types"], ["analyses", "Analyses"], ["bilans", "Bilans biologiques"], ["examens", "Examens complémentaires"], ["courriers", "Courriers"], ["documentation", "Documentation (Doc.)"], ["referentielRT", "Schémas de radiothérapie modifiés"]];
+const LIBS = [["protocoles", "Protocoles de traitement systémique"], ["medicaments", "Médicaments"], ["ordostypes", "Ordonnances types"], ["analyses", "Analyses"], ["bilans", "Bilans biologiques"], ["examens", "Examens complémentaires"], ["courriers", "Courriers"], ["documentation", "Documentation (Doc.)"], ["referentielRT", "Schémas de radiothérapie modifiés"]];
 function brancherReference() {
   document.querySelectorAll("[data-publier]").forEach((b) => { b.onclick = async () => {
     const notes = (await saisir("Publier une nouvelle version de la bibliothèque de référence.\n\nCe qui a changé (journal des changements, lu par les cabinets) :", ""));
