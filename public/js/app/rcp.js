@@ -206,9 +206,9 @@ function dessinerListe() {
     "</div>" + // 26/10/2026 (style minimaliste) : plus de légende sous le calendrier
 
     '<div class="rcp-droite"><div class="lbl">Période</div><div class="rcp-per"><label>Du <input type="date" id="rcpDu" value="' + DU + '"></label><label>au <input type="date" id="rcpAu" value="' + AU + '"></label></div>' +
-    '<div class="puces" style="margin-top:8px">' + (prochaine ? '<button class="puce' + (DU === prochaine && AU === prochaine ? " on" : "") + '" onclick="rcpPer(\'' + prochaine + "','" + prochaine + '\')">Prochaine RCP (' + A.dfr(prochaine) + ")</button>" : "") +
-    '<button class="puce" onclick="rcpPer(\'' + lundi(t) + "','" + ajouterJours(lundi(t), 6) + '\')">Cette semaine</button><button class="puce" onclick="rcpPer(\'' + t.slice(0, 7) + "-01','" + finMois(t.slice(0, 7)) + '\')">Ce mois</button></div>' +
-    '<div class="lbl" style="margin-top:6px">Afficher</div><div class="puces">' + [["tous", "Tous"], ["afaire", "À faire"], ["fait", "Faits"]].map(([k, l]) => '<button class="puce' + (FILTRE === k ? " on" : "") + '" onclick="rcpFiltre(\'' + k + '\')">' + l + "</button>").join("") + "</div>" +
+    '<div class="puces" style="margin-top:8px"><span class="choix">' + (prochaine ? '<button class="puce' + (DU === prochaine && AU === prochaine ? " on" : "") + '" onclick="rcpPer(\'' + prochaine + "','" + prochaine + '\')">Prochaine RCP (' + A.dfr(prochaine) + ")</button>" : "") +
+    '<button class="puce" onclick="rcpPer(\'' + lundi(t) + "','" + ajouterJours(lundi(t), 6) + '\')">Cette semaine</button><button class="puce" onclick="rcpPer(\'' + t.slice(0, 7) + "-01','" + finMois(t.slice(0, 7)) + '\')">Ce mois</button></span></div>' +
+    '<div class="lbl" style="margin-top:6px">Afficher</div><div class="puces"><span class="choix">' + [["tous", "Tous"], ["afaire", "À faire"], ["fait", "Faits"]].map(([k, l]) => '<button class="puce' + (FILTRE === k ? " on" : "") + '" onclick="rcpFiltre(\'' + k + '\')">' + l + "</button>").join("") + "</span></div>" +
     (c.jours && c.jours.length || (c.plus || []).length ? "" : '<p class="mesures">Aucun jour de RCP réglé : Paramètres › RCP.</p>') + "</div></section>";
   if (retard.length) h += '<div class="rcp-alerte">' + A.ic("alerte") + "<span><b>" + retard.length + " dossier" + (retard.length > 1 ? "s" : "") + "</b> de RCP passée" + (retard.length > 1 ? "s" : "") + ' sans case « Fait » cochée.</span><button class="lien" onclick="rcpRetard()">Les afficher</button></div>';
   // Liste : par date de RCP (avec les dates de RCP de la période sans inscrit)

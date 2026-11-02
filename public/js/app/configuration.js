@@ -237,7 +237,7 @@ const RUBRIQUES = {
     const propre = HET && ED.horairesEtab[HET], H = HET ? ED.horairesEtab[HET] || ED.horaires : ED.horaires;
     const disH = HET && !propre ? " disabled" : c.disE, okH = c.okE && (!HET || propre);
     return '<section class="carte">' + titre("horloge", "Horaires") + '' +
-      '<div class="puces"><span class="tl">Horaires de</span>' + (limite ? "" : '<button class="puce' + (HET ? "" : " on") + '" onclick="cfEtab(\'\')">Par défaut (tous)</button>') + etabs.map((k) => '<button class="puce' + (HET === k ? " on" : "") + '" onclick="cfEtab(\'' + esc(k) + "')\">" + esc(k) + (ED.horairesEtab[k] ? " •" : "") + "</button>").join("") + "</div>" +
+      '<div class="puces"><span class="tl">Horaires de</span><span class="choix">' + (limite ? "" : '<button class="puce' + (HET ? "" : " on") + '" onclick="cfEtab(\'\')">Par défaut (tous)</button>') + etabs.map((k) => '<button class="puce' + (HET === k ? " on" : "") + '" onclick="cfEtab(\'' + esc(k) + "')\">" + esc(k) + (ED.horairesEtab[k] ? " •" : "") + "</button>").join("") + "</span></div>" +
       (HET ? '<label class="chk" style="margin:6px 0 10px"><input type="checkbox"' + (propre ? " checked" : "") + c.disE + ' onchange="cfPropre(this.checked)"> Horaires propres à ' + esc(HET) + "</label>" + (propre ? "" : '<p class="mesures">' + esc(HET) + " suit les horaires par défaut.</p>")
         : '') +
       '<div class="tableau" style="margin-top:12px"><table class="tcures cfh"><tr><th>Jour</th><th>Plages horaires</th></tr>' +
@@ -272,7 +272,7 @@ const RUBRIQUES = {
       (c.okE ? '<button class="bt clair petit" style="margin-top:10px" onclick="cfRcpAj(\'' + k + "')\">" + A.ic("plus") + aj + "</button>" : "") + "</section>";
     const pro = prochainesRcp(10, C);
     return '<section class="carte">' + titre("rcp", "Dates de RCP") + '<p class="sous">« + RCP » du dossier inscrit le patient à la prochaine date ; la liste est dans Tâches › RCP. Pas de RCP un jour férié, sauf date ajoutée.</p>' +
-      '<div class="puces"><span class="tl">Chaque semaine le</span>' + JOURS.map(([j, nom]) => '<button class="puce' + (C.jours.indexOf(j) >= 0 ? " on" : "") + '"' + c.disE + ' aria-pressed="' + (C.jours.indexOf(j) >= 0) + '" onclick="cfRcpJour(' + j + ')">' + nom + "</button>").join("") + "</div>" +
+      '<div class="puces"><span class="tl">Chaque semaine le</span><span class="choix">' + JOURS.map(([j, nom]) => '<button class="puce' + (C.jours.indexOf(j) >= 0 ? " on" : "") + '"' + c.disE + ' aria-pressed="' + (C.jours.indexOf(j) >= 0) + '" onclick="cfRcpJour(' + j + ')">' + nom + "</button>").join("") + "</span></div>" +
       '<div class="form" style="grid-template-columns:repeat(2,minmax(0,260px))"><div><label for="cfRh">Heure</label><input id="cfRh" type="time" step="900" value="' + esc(C.heure) + '"' + c.disE + ' onchange="cfRcp(\'heure\',this.value)"></div>' +
       '<div><label for="cfRl">Lieu</label><input id="cfRl" value="' + esc(C.lieu) + '" placeholder="Ex. salle de staff, visioconférence"' + c.disE + ' onchange="cfRcp(\'lieu\',this.value)"></div></div>' +
       '<h4 class="soustitre">Prochaines RCP</h4>' + (pro.length ? '<div class="puces">' + pro.map((d) => '<span class="puce">' + esc(A.cap(libDate(d))) + "</span>").join("") + "</div>" : '<p class="mesures">Aucune date : cochez un jour ou ajoutez des dates.</p>') + "</section>" +
@@ -351,7 +351,8 @@ const RUBRIQUES = {
     if (!lib[LS] && !autres.some((z) => z[0] === LS)) LS = Object.keys(lib)[0];
     const med = LISTES_MED.some((z) => z[0] === LS);
     const nb = (k) => (k === "taches" ? ED.ttache.length + 1 : k === "documents" ? ED.tdoc.length : ED.listes[k].length);
-    const puces = '<div class="puces">' + Object.keys(lib).map((k) => [k, lib[k]]).concat(autres.map((z) => [z[0], z[1]])).map(([k, l]) => "<button" + (k === "cor" ? ' data-fn="listes.cor"' : "") + ' class="puce' + (LS === k ? " on" : "") + '" onclick="cfLs(\'' + k + "')\">" + l + " (" + nb(k) + ")</button>").join("") + "</div>";
+    // IG3 (02/11/2026, idées 13 et 14) : groupe de choix, nombre en pastille après le mot (avant : « Mutuelles (35) »)
+    const puces = '<div class="puces"><span class="choix">' + Object.keys(lib).map((k) => [k, lib[k]]).concat(autres.map((z) => [z[0], z[1]])).map(([k, l]) => "<button" + (k === "cor" ? ' data-fn="listes.cor"' : "") + ' class="puce' + (LS === k ? " on" : "") + '" onclick="cfLs(\'' + k + "')\">" + l + ' <span class="nb">' + nb(k) + "</span></button>").join("") + "</span></div>";
     const retour = deFiche && A.peut("parametres") ? '<a class="retour" href="#parametres/fiche" onclick="event.preventDefault();cfRetourFiche()">' + A.ic("retour") + "Retour à la fiche patient</a>" : "";
     if (LS === "taches" || LS === "documents") return '<section class="carte cf-ls">' + titre("liste", "Listes") + puces + "</section>" + RUBRIQUES[LS](c);
     return retour +

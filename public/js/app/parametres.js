@@ -34,7 +34,7 @@ export function pageParametres() {
   const E = ED.etablissements[ETAB], nomE = ((D().etabsTous || D().etabs).find((e) => e.code === ETAB) || {}).nom || ETAB;
   let h = A.enteteParametres() + // onglet « Activités et rémunérations » de la page Paramètres (08/10/2026)
     '<section class="carte"><h3><span class="ic">' + A.ic("bilan") + '</span>Activités et rémunérations</h3>' +
-    '<div class="puces">' + etabs.map((c) => '<button class="puce' + (c === ETAB ? " on" : "") + '" onclick="paEtab(\'' + esc(c) + "')\">" + esc(c) + "</button>").join("") + "</div>";
+    '<div class="puces"><span class="choix">' + etabs.map((c) => '<button class="puce' + (c === ETAB ? " on" : "") + '" onclick="paEtab(\'' + esc(c) + "')\">" + esc(c) + "</button>").join("") + "</span></div>";
   const srcG = sourceGrille();
   if (!ETAB) h += '<p class="sous">Ajoutez d\'abord un lieu d\'exercice (Paramètres › Lieux d\'exercice) : chaque lieu a sa grille tarifaire.</p>';
   else if (!E) h += '<p class="sous">' + esc(nomE) + ' n\'a pas encore de grille tarifaire.</p><button class="bt clair petit" onclick="paCreer()">' + A.ic("plus") + (srcG ? "Créer la grille (copie de " + esc(srcG[0]) + ")" : "Créer la grille") + "</button>";

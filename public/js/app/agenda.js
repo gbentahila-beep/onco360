@@ -156,7 +156,7 @@ function miniCal() {
 function aVenir() {
   const t = D().t, l = evenements(t, addJ(t, 60)).filter((e) => (e.cat === "co" || e.cat === "ho") && e.st === "prevu").slice(0, 6), base = EVS.length;
   EVS = EVS.concat(l);
-  return '<div class="carte mcal"><div class="lbl">RDV À VENIR</div>' + (l.length ? l.map((e, i) => '<div class="avn" onclick="agEv(' + (base + i) + ')"><b>' + A.esc(e.nm) + "</b><span>" + A.dfr(e.d) + (e.h ? " · " + e.h : "") + " · " + A.esc(e.t) + "</span></div>").join("") : '<p class="mesures">Aucun rendez-vous à venir.</p>') + "</div>";
+  return '<div class="carte mcal"><div class="lbl">Rendez-vous à venir</div>' + (l.length ? l.map((e, i) => '<div class="avn" onclick="agEv(' + (base + i) + ')"><b>' + A.esc(e.nm) + "</b><span>" + A.dfr(e.d) + (e.h ? " · " + e.h : "") + " · " + A.esc(e.t) + "</span></div>").join("") : '<p class="mesures">Aucun rendez-vous à venir.</p>') + "</div>";
 }
 function vueGrille(du, n) {
   const jours = []; for (let k = 0; k < n; k++) jours.push(addJ(du, k));

@@ -19,6 +19,12 @@ const CLES = ["c", "o", "s", "g"];
 let CF = { c: "", o: "", s: "", g: "", q: "", fav: 0, st: "" }, ED = null, REDESSINER = null;
 const sa = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 const BIB = () => Object.values(D().ctx.bib).filter((p) => p && p.nom);
+// IG3 (02/11/2026, idée 12) : molécules des cartes en écriture normale, à l'affichage seulement (« MITOMYCINE C, 5-FLUORO-URACILE » → « Mitomycine C,
+// 5-fluoro-uracile ») ; les sigles courts (C, LV, BCG, LP, MU, 5-FU) et ce qui est entre parenthèses restent tels quels
+const PETITS = ["DE", "DU", "DES", "LA", "LE", "ET", "AU", "EN"];
+const casseMol = (t) => String(t || "").split(", ").map((m) => { let par = 0;
+  const r = m.replace(/[()]|[A-ZÀ-ÖØ-Þ][A-ZÀ-ÖØ-Þ'’-]*/g, (w) => { if (w === "(") { par++; return w; } if (w === ")") { par--; return w; } if (par > 0) return w; return w.length <= 3 && PETITS.indexOf(w) < 0 ? w : w.toLowerCase(); });
+  return r.charAt(0).toUpperCase() + r.slice(1); }).join(", ");
 const molecules = (p) => (p.dr || []).filter((d) => !premed(d) && !/Retrait|Fin du diffuseur/.test(d.p)).map((d) => d.p).join(", "); // 2.3 : même liste que le calcul
 const valide = protocoleValide;
 // Validation tracée (2.4) : qui, quand, quelle version, quelle source
@@ -50,7 +56,7 @@ function liste() {
     const ind = (p.ind || []).slice(0, 2).map((x) => x.filter(Boolean).slice(1).join(" › ")).filter(Boolean).join(" · ") + ((p.ind || []).length > 2 ? " · …" : ""), q = "'" + esc(p.id) + "'";
     return '<div class="pcarte" role="button" tabindex="0" onclick="prOuvrir(' + q + ')" onkeydown="if(event.key===\'Enter\')prOuvrir(' + q + ')" title="' + (ok ? "Ouvrir / modifier" : "Voir") + '">' +
       '<div class="pc-h"><b>' + esc(p.nom) + "</b>" + badgeSt(p) + "</div>" +
-      (molecules(p) ? '<div class="pc-m"><span class="pc-mol">' + esc(molecules(p)) + "</span>" + (p.assoc ? ' <span class="badge b-gr">associé</span>' : "") + "</div>" : "") +
+      (molecules(p) ? '<div class="pc-m"><span class="pc-mol">' + esc(casseMol(molecules(p))) + "</span>" + (p.assoc ? ' <span class="badge b-gr">associé</span>' : "") + "</div>" : "") +
       (ind ? '<div class="pc-i">' + esc(ind) + "</div>" : "") +
       '<div class="pc-p"><span>' + (p.c ? "Cycle " + p.c + " j" : "Continu") + '</span><button class="etoile" title="Favori" aria-label="Favori" onclick="event.stopPropagation();prFav(' + q + ')"' + (ok ? "" : " disabled") + ">" + (p.fav ? '<svg class="pi plein or"><use href="#i-etoile"/></svg>' : '<svg class="pi"><use href="#i-etoile"/></svg>') + "</button></div></div>";
   }).join("") + "</div>" + A.pagination(r.length, PAGE, PAR, "prPage");

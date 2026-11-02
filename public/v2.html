@@ -2148,6 +2148,51 @@ ol.rtr-pts2>li::before{content:counter(pt);position:absolute;left:10px;top:12px;
 @media (max-width:767px){.rtr-cged .rtr-tw{overflow-x:auto;max-width:100%}table.rtr-cgt{display:table!important;width:auto!important}table.rtr-cgt thead{display:table-header-group!important}
   table.rtr-cgt tbody{display:table-row-group!important}table.rtr-cgt tr{display:table-row!important}table.rtr-cgt th,table.rtr-cgt td{display:table-cell!important}table.rtr-cgt td::before{content:none!important}}
 .att-c.vert{background:var(--vert-c);color:var(--vert-f)}.att-c.orange{background:var(--orange-c);color:#9A5B00}.att-c.rouge{background:var(--rouge-c);color:var(--rouge)}
+/* ───── Phase IG, IG3 (02/11/2026, audit UX / UI, idées 3, 5, 12, 13, 14 et D2, acceptées par Dr Bentahila) : composants communs ─────
+   5 : quatre sortes de boutons (principal bleu plein, secondaire blanc à cadre gris-bleu et texte foncé, discret sans cadre, danger rouge), trois
+   hauteurs (36 px dans les listes, 40 px en haut des pages, 44 px au doigt) ; cadre fin pour la ligne ouverte ; bordure des champs plus claire
+   (3,2 pour 1), plus foncée au survol, bleue quand on écrit. 3 / D2 : ⋯ sans cadre dans le dossier. 12 : plus de majuscules. 13 : un seul groupe de
+   choix (.choix, .ag-vues sans « defile »), le choix en cours en bleu Onco360 ; les onglets soulignés ne changent pas. 14 : compteurs en pastille
+   après le mot, texte foncé (≥ 4,5 pour 1). */
+:root{--bord-ch:#8091AA;--bord-bt:#B7C6DA;--choix-f:#EEF3FA;--choix-b:#D5DFEC;--cpt-f:#E3EBF7}
+input:not([type=checkbox]):not([type=radio]):not([type=range]),select:not(.st),textarea{border-color:var(--bord-ch)!important}
+input:not([type=checkbox]):not([type=radio]):not([type=range]):not(:disabled):hover,select:not(.st):not(:disabled):hover,textarea:not(:disabled):hover{border-color:var(--d-txt2)!important}
+input:not([type=checkbox]):not([type=radio]):not([type=range]):focus,select:not(.st):focus,textarea:focus{border-color:var(--prim)!important}
+#tete .tr-pil input,#tete .tr-pil input:hover,#tete .tr-pil input:focus{border-color:transparent!important}
+#page .dos textarea#nTxt:focus{border-color:var(--prim)!important}
+.bt,.b1,.b2{min-height:40px;padding-top:0;padding-bottom:0}.bt.petit{min-height:36px}
+.bt.clair,.bt.gris,.b2{background:var(--blanc);color:var(--encre);border:1px solid var(--bord-bt)}
+.bt.clair:hover,.bt.gris:hover,.b2:hover{background:var(--prim-c);border-color:var(--prim);color:var(--encre)}
+.mini{border-color:var(--bord-bt)}.mini:hover{border-color:var(--prim)}
+.mini.rouge,.bt.rouge-t,.b2.danger{color:var(--rouge);border-color:#F2B8CB}.mini.rouge:hover,.bt.rouge-t:hover,.b2.danger:hover{background:var(--rouge-c);border-color:var(--rouge)}
+.mini.fonce{background:var(--prim);border-color:var(--prim);color:var(--blanc)}
+.acc.on{border:1px solid var(--prim);box-shadow:0 0 0 1px var(--prim-cc)}
+@media (pointer:coarse){.bt,.b1,.b2,.bt.petit{min-height:44px}}
+#dos .mpts>.sa-plus{border-color:transparent;background:transparent;box-shadow:none;width:40px;min-width:40px;height:40px;min-height:40px;padding:0;font-size:18px;color:var(--d-txt2);border-radius:8px;display:inline-flex;align-items:center;justify-content:center}
+#dos .mpts>.sa-plus:hover,#dos .mpts>.sa-plus:focus-visible{background:var(--prim-c);color:var(--prim)}
+#dos .rc{min-height:40px;align-items:center}
+.mpts>.sa-plus,.m3>summary.mini,.sa-plus>summary.b3.sa-pts{border-color:transparent!important;background:transparent!important;box-shadow:none!important;color:var(--d-txt2)}
+.mpts>.sa-plus:hover,.m3>summary.mini:hover,.m3[open]>summary.mini,.sa-plus>summary.b3.sa-pts:hover,.sa-plus[open]>summary.b3.sa-pts{background:var(--prim-c)!important;color:var(--prim)}
+.m3>summary.mini{min-width:36px;min-height:36px;display:inline-flex;align-items:center;justify-content:center;font-size:16px}
+@media (pointer:coarse),(max-width:640px){#dos .mpts>.sa-plus{width:44px;min-width:44px;height:44px;min-height:44px}#dos .rc{min-height:44px}}
+details.dp>summary .dp-t,.dp-proch .lbl,.tr-res p.tr-rec,.dos .cs-o .ck,.ta-fil-t,.oc-nav .oc-gr{text-transform:none;letter-spacing:0}
+.pc-mol{text-transform:none;letter-spacing:0;font-size:13px;font-weight:500;color:var(--d-txt2)}
+.choix,.ag-vues:not(.defile),.ag-vues.defile.rtr-sous{display:inline-flex;flex-wrap:wrap;align-items:center;gap:2px;padding:3px;background:var(--choix-f);border:1px solid var(--choix-b);border-radius:10px;box-shadow:none}
+.choix>.puce,.ag-vues:not(.defile) button,.ag-vues.defile.rtr-sous button{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 14px;background:transparent;border:0;border-radius:8px;box-shadow:none;color:var(--d-txt2);font-weight:500;font-size:var(--t4)}
+.choix>.puce:hover,.ag-vues:not(.defile) button:hover,.ag-vues.defile.rtr-sous button:hover{background:var(--blanc);color:var(--encre)}
+.choix>.puce.on,.ag-vues:not(.defile) button.on,.ag-vues.defile.rtr-sous button.on{background:var(--prim);color:var(--blanc);font-weight:600;box-shadow:none}
+.choix>.puce:disabled{opacity:.6;cursor:default}
+.sa-per{background:var(--choix-f);border:1px solid var(--choix-b);border-radius:10px;padding:3px;gap:2px;overflow:visible}.sa-per button{border-radius:8px;min-height:36px;padding:0 14px;color:var(--d-txt2);font-weight:500}.sa-per button+button{border-left:0}.sa-per button:hover{background:var(--blanc)}.sa-per button.on{background:var(--prim);color:var(--blanc);font-weight:600}
+.sa-l1 .sa-cal,.sa-l1 .sa-fl,.sa-l1 .sa-jtxt{border-color:var(--bord-bt)}.sa-l1 .sa-cal:hover,.sa-l1 .sa-fl:hover,.sa-l1 .sa-jtxt:hover{border-color:var(--prim);background:var(--prim-c)}
+.puces:has(>.choix){flex-wrap:wrap}
+@media (pointer:coarse){.choix>.puce,.ag-vues:not(.defile) button,.ag-vues.defile.rtr-sous button{min-height:40px}}
+@media (max-width:640px){.puces .choix{flex:none;flex-wrap:nowrap}.choix>.puce{padding:0 10px}}
+.choix .nb,.ag-vues .nb,.o-barre .n,.rtr-ong .n{display:inline-block;min-width:20px;padding:0 7px;border-radius:999px;background:var(--cpt-f);color:var(--d-txt2);font-size:13px;font-weight:600;line-height:20px;text-align:center;margin-left:2px}
+.choix .puce.on .nb,.ag-vues:not(.defile) button.on .nb,.ag-vues.defile.rtr-sous button.on .nb{background:rgba(255,255,255,.25);color:var(--blanc)}
+.o-barre button.on .n,.rtr-ong button.on .n{background:var(--prim-c);color:var(--prim)}
+.rtr-ong:has(.rtr-pas) button{padding-top:12px}
+.rtr-ong .rtr-pas{position:static;height:auto;margin:0 0 0 4px}
+.rtr-ong button.on .rtr-pas{background:var(--prim-c);color:var(--prim)}
 </style>
 </head>
 <body>
@@ -2242,6 +2287,7 @@ ol.rtr-pts2>li::before{content:counter(pt);position:absolute;left:10px;top:12px;
     <div id="panneauAlertes" class="cache" role="dialog" aria-label="Alertes"></div>
   </header>
   <main id="page"><div class="chargement">Chargement de vos données…</div></main>
+
 </div>
 <div id="toast" class="cache" role="status"></div>
 <script>
