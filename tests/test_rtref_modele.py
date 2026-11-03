@@ -30,7 +30,7 @@ async def main():
         ok(await ev("document.querySelectorAll('#rtrListe .rtr-l').length") == 1 and 'Modifié' not in await ev("document.getElementById('rtrListe').innerText"), 'fiche reçue du modèle (origine « modele ») : sa version, sans badge « Modifié pour le cabinet »')
         await ev("location.hash='radiotherapie/s/pro-fav-60-20/prescription'"); await pg.wait_for_timeout(2000)
         ok(await ev("!!document.querySelector('.rtr-act .rtr-modb')"), 'l\'administration a « Modifier » dans le modèle')
-        await pg.click('.rtr-act .rtr-modb'); await pg.wait_for_timeout(300)
+        await pg.click('.rtr-act .rtr-pts3 > summary'); await pg.click('.rtr-act .rtr-modb'); await pg.wait_for_timeout(300)
         await pg.fill('[data-p="prescriptions.0.rythme"]', '4 fx/sem (modèle)'); await pg.click('#rtrEnr'); await pg.wait_for_timeout(1500)
         d = await ev(f"window.__fs['{B}referentielRT/pro-fav-60-20'] || null")
         ok(d and d['origine'] == 'cabinet' and d['majPar'] == 'ADM' and d['schema']['prescriptions'][0]['rythme'] == '4 fx/sem (modèle)' and not await ev(f"!!window.__fs['{E}referentielRT/pro-fav-60-20']"), 'enregistré dans le modèle (espaces/bib-oncologie/referentielRT), pas dans un cabinet', d and {k: d[k] for k in d if k != 'schema'})

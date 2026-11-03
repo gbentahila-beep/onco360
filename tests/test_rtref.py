@@ -44,8 +44,8 @@ async def main():
         h = await ev("location.hash")
         ok(h.startswith('#radiotherapie/s/') and h.endswith('/prescription') and sel in await ev("document.querySelector('.rtr-t h2').innerText"), '↓ ↓ Entrée : le 2e schéma s\'ouvre (#radiotherapie/s/…/prescription)', [h, sel])
         ok(await ev("document.getElementById('rtr').classList.contains('seule')") and not await ev("!!document.getElementById('rtrListe')") and await ev("!!document.querySelector('.rtr-ret')"), '1 440 px : fiche en pleine page, « Retour à la liste »')
-        r = await ev("document.querySelector('.rtr-res').textContent")
-        ok('Gy' in r and 'Validé' in r and 'Vérifié le' not in r, 'en-tête : résumé de prescription, Validé ; plus « Vérifié le » (RT.7)', r)
+        r = await ev("[document.querySelector('.rtr-t h2').textContent, !!document.querySelector('.rtr-res, .rtr-ar')]")
+        ok('Validé' in r[0] and 'Vérifié le' not in r[0] and not r[1], 'en-tête (03/11/2026) : titre suivi de « Validé » ; plus de fil d\'Ariane ni de ligne de résumé', r)
         # Retour à la liste : même recherche ; un autre schéma
         await pg.click('.rtr-ret'); await pg.wait_for_timeout(1200)
         ok(await ev("location.hash") == '#radiotherapie' and await ev("document.getElementById('rtrQ').value") == 'prostate 60' and await ev(LIGNES) == L, '« Retour à la liste » : la même recherche, la même liste')
@@ -87,10 +87,11 @@ async def main():
         ok('Aucun schéma ne correspond' in await ev(TXT) and 'Chercher sans « zzz »' in await ev(TXT), 'aucun résultat : « Chercher sans « zzz » »')
         await pg.click('button:has-text("Chercher sans")'); await pg.wait_for_timeout(300)
         ok(await ev("document.getElementById('rtrQ').value") == 'prostate' and await ev(NB) == 31, '« Chercher sans » : la recherche reprend sans le mot')
-        # Fil d'Ariane
+        # Échap et « Fermer » (03/11/2026, comme une fiche de protocole) : retour à la liste
         await pg.click('#rtrListe .rtr-l >> nth=0'); await pg.wait_for_timeout(1200)
-        await pg.click('.rtr-ar a >> nth=1'); await pg.wait_for_timeout(800)
-        ok(await ev("location.hash") == '#radiotherapie' and await ev("document.getElementById('rtr_loc').value") == 'prostate', 'fil d\'Ariane : « Prostate » règle les menus de la liste')
+        ok(await ev("[...document.querySelectorAll('.rtr-bas .pg-esc, .rtr-bas button')].map(e => e.textContent.trim()).join('|')") == 'Échap pour annuler|Fermer', 'fiche : « Échap pour annuler » et « Fermer » en bas')
+        await pg.keyboard.press('Escape'); await pg.wait_for_timeout(800)
+        ok(await ev("location.hash") == '#radiotherapie', 'Échap : retour à la liste')
         ok(not await ev(DEBORDE) and not await ev(COUPE), '1 440 px : liste sans débordement, aucun titre coupé')
         ok(not pg.errs, 'aucune erreur JavaScript (1 440 px)', pg.errs[:2]); await pg.close()
         # 1 280 et 1 200 px : fiche en pleine page, Retour retrouve la liste

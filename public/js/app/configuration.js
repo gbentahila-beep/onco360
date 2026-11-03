@@ -198,6 +198,11 @@ const MOTS_RUB = { lieux: "établissements cabinet clinique adresse logo télép
   export: "export des données sauvegarde récupérer google drive importer patients fichier excel reprise logiciel", horaires: "horaires créneaux plages ouverture", fermetures: "congés absences jours fériés fermetures", couleurs: "google agenda couleurs synchronisation lier", whatsapp: "whatsapp rappels messages sms",
   rcp: "rcp réunion de concertation dates", alertes: "alertes délais notifications", listes: "listes diagnostics mutuelles correspondants stades types de documents types de tâches", bibliotheques: "bibliothèques médicaments ordonnances types analyses examens courriers modèles reçu note d'honoraires",
   vigilances: "vigilance des molécules toxicité cumul", activites: "finances activités rémunérations tarifs taux rétrocession impôt séance radiothérapie", laboratoires: "laboratoires délégués produits carnets" };
+// IG5 (03/11/2026, audit UX, idée 10) : mots en plus, et ce qui est dans « Mon compte » (mot de passe, INPE, droits de l'équipe) trouvé d'ici aussi
+const MOTS_PLUS = { lieux: "hôpital hopital centre", impression: "imprimante police taille feuille de rendez-vous à savoir", whatsapp: "texto rappel patient arabe", horaires: "consultation agenda heures",
+  listes: "allergies antécédents traitements localisations", bibliotheques: "médicaments ordonnance type bilans", activites: "prix honoraires consultation bilan", audit: "traçabilité modifications", export: "copie sauvegarde zip" };
+const COMPTE = [["infos", "profil", "Informations", "mot de passe inpe signature photo nom profil adresse e-mail email téléphone"], ["acces", "patients", "Accès", "droits de l'équipe accès membres secrétaire infirmière remplaçant utilisateurs comptes inviter"],
+  ["abonnement", "banque", "Abonnement", "abonnement formule paiement payer"], ["factures", "document", "Factures", "factures facture reçu de paiement"]];
 const ILL_PARAM = '<svg class="cf-acc-ill" viewBox="0 0 260 170" aria-hidden="true"><circle cx="130" cy="88" r="78" fill="#EAF0FA"/>' +
   '<rect x="70" y="46" width="120" height="86" rx="12" fill="#fff" stroke="#C9D5EA" stroke-width="2"/>' +
   [0, 1, 2].map((i) => '<rect x="88" y="' + (66 + i * 22) + '" width="84" height="4" rx="2" fill="#D5DFEE"/><rect x="88" y="' + (66 + i * 22) + '" width="' + [52, 30, 64][i] + '" height="4" rx="2" fill="#3563B0"/>' +
@@ -215,8 +220,10 @@ function resultatsParam(q, L) {
   const esc = A.esc, m = A.sansAcc(q).split(/\s+/).filter(Boolean), lib = (k) => (FAMILLES.find((f) => f[0] === famDe(k)) || [])[2] || "";
   if (!m.length) return '<div class="cf-qf">' + FAMILLES.filter((f) => L.some((o) => famDe(o[0]) === f[0])).map(([k, ico, l]) => '<div class="cf-qc"><button type="button" class="cf-qct" onclick="cfFamille(\'' + k + "')\">" + A.ic(ico) + "<span>" + esc(l) + "</span></button>" +
     '<div class="cf-ql">' + L.filter((o) => famDe(o[0]) === k).map(([o, , l2]) => '<button type="button" class="lien" onclick="cfOnglet(\'' + o + "')\">" + esc(l2) + "</button>").join("") + "</div></div>").join("") + "</div>";
-  const r = L.filter(([o, , l2]) => { const h = A.sansAcc(l2 + " " + lib(o) + " " + (MOTS_RUB[o] || "")); return m.every((w) => h.indexOf(w) >= 0); });
-  return r.length ? '<div class="cf-qres">' + r.map(([o, ico, l2]) => '<button type="button" class="cf-qi" onclick="cfOnglet(\'' + o + "')\">" + A.ic(ico) + '<span><b>' + esc(l2) + "</b><span>" + esc(lib(o)) + "</span></span></button>").join("") + "</div>"
+  const r = L.filter(([o, , l2]) => { const h = A.sansAcc(l2 + " " + lib(o) + " " + (MOTS_RUB[o] || "") + " " + (MOTS_PLUS[o] || "")); return m.every((w) => h.indexOf(w) >= 0); });
+  const c = A.D().bib ? [] : COMPTE.filter(([, , l2, mots]) => { const h = A.sansAcc(l2 + " mon compte " + mots); return m.every((w) => h.indexOf(w) >= 0); });
+  return r.length || c.length ? '<div class="cf-qres">' + r.map(([o, ico, l2]) => '<button type="button" class="cf-qi" onclick="cfOnglet(\'' + o + "')\">" + A.ic(ico) + '<span><b>' + esc(l2) + "</b><span>" + esc(lib(o)) + "</span></span></button>").join("") +
+    c.map(([o, ico, l2]) => '<button type="button" class="cf-qi" onclick="location.hash=\'profil/' + o + "'\">" + A.ic(ico) + '<span><b>' + esc(l2) + "</b><span>Mon compte</span></span></button>").join("") + "</div>"
     : '<p class="sous cf-qv">Aucun paramètre ne correspond à « ' + esc(q) + " ».</p>";
 }
 // Bouton de retrait discret (gris, rouge au survol) à la place de la croix rouge sur chaque ligne
@@ -621,18 +628,21 @@ window.cfAgenda = async (cb) => {
   } catch (e) { cb.checked = !cb.checked; A.toast("Enregistrement impossible : " + ((e && e.message) || e)); }
 };
 // Onglet Listes : affichage filtré (la recherche garde le curseur), nombre de dossiers qui utilisent chaque nom
-let LS = "mut", LQ = "", FICHE_LS = false; // 3.11 : localisations, stades, grades ouverts depuis leur champ de la fiche (FICHE_LS : « Retour à la fiche »)
+let LS = "mut", LQ = "", FICHE_LS = false, LED = -1; // 3.11 : localisations, stades, grades ouverts depuis leur champ de la fiche (FICHE_LS : « Retour à la fiche »)
 function listeL() {
   const z = A.$("cfLl"); if (!z) return;
   const champ = { diag: "diag", mut: "mut", cor: "cor" }[LS], n = {}, ok = (A.peut("parametres") || secretariat()) && diagModifiable(), esc = A.esc, med = LISTES_MED.some((z) => z[0] === LS);
   if (med) D().patients.forEach((x) => { new Set(elementsMed(((x.doc.clinique || {})[LS]) || "", LS).map((e) => e.lib.trim().toLowerCase())).forEach((v) => { if (v) n[v] = (n[v] || 0) + 1; }); }); // lot A : une ligne par élément
   else D().patients.forEach((x) => { const v = String((champ ? x.P && x.P[champ] : (((x.doc.clinique || {}).extra) || {})["xt" + LS]) || "").trim().toLowerCase(); if (v) n[v] = (n[v] || 0) + 1; });
   const mots = A.sansAcc(LQ).split(/\s+/).filter(Boolean), L = ED.listes[LS].map((t, i) => ({ t, i })).filter(({ t }) => !t || mots.every((w) => A.sansAcc(t).indexOf(w) >= 0));
-  z.innerHTML = L.length ? L.map(({ t, i }) => { const c = n[String(t).trim().toLowerCase()] || 0;
-    return '<div class="it"><input value="' + esc(t) + '"' + (ok ? "" : " disabled") + ' aria-label="Nom" onchange="cfL(' + i + ',this.value)"><span class="mesures nb">' + (c ? c + " dossier" + (c > 1 ? "s" : "") : "") + "</span>" + (ok ? sup("cfLSup(" + i + ")", "Retirer « " + esc(t) + " »") : "") + "</div>"; }).join("")
+  // IG5 (03/11/2026, audit UX, idée 19) : la liste se lit ; ✎ ouvre la ligne en modification (même enregistrement, même recopie dans les dossiers) ;
+  // ⋯ pour retirer ; une ligne ajoutée (vide) s'ouvre directement en modification
+  z.innerHTML = L.length ? L.map(({ t, i }) => { const c = n[String(t).trim().toLowerCase()] || 0, edit = ok && (i === LED || !t);
+    return '<div class="it' + (edit ? " ed" : "") + '">' + (edit ? '<input value="' + esc(t) + '" aria-label="Nom" onchange="cfL(' + i + ',this.value)" onblur="cfLFin(' + i + ')" onkeydown="if(event.key===\'Enter\')this.blur()">' : '<span class="it-n">' + esc(t) + "</span>") +
+      '<span class="mesures nb">' + (c ? c + " dossier" + (c > 1 ? "s" : "") : "") + "</span>" + (ok ? (edit ? "" : '<button type="button" class="ico it-ed" title="Modifier" aria-label="Modifier « ' + esc(t) + ' »" onclick="cfLEd(' + i + ')">' + A.ic("crayon") + "</button>") + sup("cfLSup(" + i + ")", "Retirer « " + esc(t) + " »") : "") + "</div>"; }).join("")
     : '<p class="sous">Rien ne correspond.</p>';
 }
-window.cfLs = (k) => { LS = k; LQ = ""; FICHE_LS = false; pageConfiguration(); };
+window.cfLs = (k) => { LS = k; LQ = ""; FICHE_LS = false; LED = -1; pageConfiguration(); };
 window.cfRetourFiche = () => { LS = "mut"; LQ = ""; FICHE_LS = false; window.cfOnglet("fiche"); };
 window.cfExporter = async () => {
   const b = A.$("cfExp"), msg = (t) => { const z = A.$("cfExpMsg"); if (z) z.textContent = t; };
@@ -655,7 +665,9 @@ const diagModifiable = () => ["diag", "stade", "grade"].indexOf(LS) < 0 || !!A.D
 // Stades et grades de la fiche tumeur (3.1 bis) : liste du cabinet (parametres/listes), sinon celle du catalogue
 const listeTum = (k) => { const L = D().listes || {}; return (Array.isArray(L[k]) && L[k].length ? L[k] : k === "stade" ? STADES : GRADES).slice(); };
 window.cfL = (i, v) => { ED.listes[LS][i] = String(v || "").trim(); modif(); };
-window.cfLSup = (i) => { ED.listes[LS].splice(i, 1); ED.listesOrig[LS].splice(i, 1); modif(); listeL(); };
+window.cfLSup = (i) => { ED.listes[LS].splice(i, 1); ED.listesOrig[LS].splice(i, 1); LED = -1; modif(); listeL(); };
+window.cfLEd = (i) => { LED = i; listeL(); const e = document.querySelector("#cfLl .it.ed input"); if (e) { e.focus(); e.select(); } };
+window.cfLFin = (i) => { setTimeout(() => { if (LED === i && !(document.activeElement && document.activeElement.closest && document.activeElement.closest("#cfLl .it.ed"))) { LED = -1; listeL(); } }, 120); };
 window.cfLAj = () => { LQ = ""; ED.listes[LS].push(""); ED.listesOrig[LS].push(""); modif(true); setTimeout(() => { const l = document.querySelectorAll("#cfLl input"); if (l.length) { l[l.length - 1].scrollIntoView({ block: "center" }); l[l.length - 1].focus(); } }, 30); };
 window.cfBib = (n) => gererListe(n);
 window.cfRegB = (g, k, v) => { ED.reg[g][k] = !!v; modif(); };

@@ -992,7 +992,7 @@ details.dp>summary .dp-t:hover,details.dp>summary .dp-t:focus-visible{color:var(
 @media (max-width:640px){.im-r,.im-r:has(.im-dz){grid-template-columns:minmax(0,1fr) 36px}.im-r .im-lib{grid-column:1}.im-r .im-dz,.im-r .im-no{grid-column:1}.im-r .im-x{grid-column:2;grid-row:1}}
 .dp-f{display:grid;grid-template-columns:1fr;gap:8px}.dp-f label{display:block;font-size:var(--t2);color:var(--doux)}.dp-f b{font-weight:bold;white-space:pre-wrap;overflow-wrap:anywhere}
 .dp-f .allergie{background:#FFF1F1;border:1px solid #F3C4C4;border-radius:8px;padding:6px 10px}.dp-f .allergie b{color:#A1232B}
-@container dos (min-width:600px) and (max-width:939px){.dp-f{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container dos (min-width:600px) and (max-width:719px){.dp-f{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* Colonne de droite à deux onglets (2 colonnes) */
 .dos-sw{display:none;gap:2px;border-bottom:1px solid var(--trait);margin:-4px 0 4px}
 .dos-sw button{border:0;border-bottom:3px solid transparent;background:none;padding:8px 12px;font-weight:bold;font-size:var(--t4);color:var(--doux);display:inline-flex;align-items:center;gap:6px}
@@ -1167,8 +1167,8 @@ details.vig-b>summary::-webkit-details-marker{display:none}.vig-d{font-size:var(
   .dos-fab{display:inline-flex;align-items:center;gap:6px;margin-left:auto;min-height:48px;padding:0 18px;border:0;border-radius:24px;background:var(--prim);color:var(--carte);font:inherit;font-weight:bold;font-size:var(--t5);box-shadow:0 6px 18px rgba(30,42,68,.25);pointer-events:auto;flex:none;order:9}
   .dos-fab .i{width:18px;height:18px;transition:transform .15s ease}
   .dos-barre .br-g,.dos-barre .br-sep{display:none!important}
-  .dos:not(.barre-ouv) .dos-barre:not(:has(#barreDroite > *)){background:transparent;border:0;box-shadow:none;pointer-events:none;justify-content:flex-end}
-  .dos.barre-ouv .dos-barre,.dos .dos-barre:has(#barreDroite > *){flex-wrap:wrap}
+  .dos:not(.barre-ouv) .dos-barre:not(:has(#barreDroite > :not(.br-fermer))){background:transparent;border:0;box-shadow:none;pointer-events:none;justify-content:flex-end}
+  .dos.barre-ouv .dos-barre,.dos .dos-barre:has(#barreDroite > :not(.br-fermer)){flex-wrap:wrap}
   .dos.barre-ouv .dos-barre .br-g{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%;overflow:visible;order:0;padding:4px 0 6px}
   .dos.barre-ouv .dos-barre .br-g .pr{display:flex;width:100%}.dos.barre-ouv .dos-barre .br-g .pr>button:first-child{flex:1;justify-content:flex-start;min-height:44px}
 }
@@ -1176,8 +1176,10 @@ details.vig-b>summary::-webkit-details-marker{display:none}.vig-d{font-size:var(
 .dos-pn{display:none}
 /* Ordinateur : grille qui tient dans l'écran, chaque colonne défile seule */
 @media (min-height:640px){
-  @container dos (min-width:940px){
-    .dos{--dpx:12px;display:grid;height:calc(100dvh - var(--tete-h,64px));padding:10px 12px 0;gap:10px 12px;grid-template-columns:minmax(0,1fr) minmax(340px,38%);grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:"ban ban" "trav droite" "barre barre"}
+  /* IG7 (03/11/2026, idée 15) : deux colonnes dès 720 px de dossier (tablette, écran de 768 px et plus) : colonne Patient de 290 px à gauche,
+     onglets et contenu à droite (avant : une seule colonne jusqu'à 940 px, puis Patient à droite) ; au-dessus de 1 280 px, rien ne change */
+  @container dos (min-width:720px){
+    .dos{--dpx:12px;display:grid;height:calc(100dvh - var(--tete-h,64px));padding:10px 12px 0;gap:10px 12px;grid-template-columns:290px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:"ban ban" "droite trav" "barre barre"}
     .dos-ban{grid-area:ban;padding:10px 14px}
     .dos-trav{grid-area:trav}.dos-pat,.dos-docs{grid-area:droite}
     .dos-barre{grid-area:barre;position:static}
@@ -1800,7 +1802,7 @@ svg.i{vertical-align:calc(.36em - 10px)}svg.pi{vertical-align:calc(.36em - 7.5px
   .ty-l .ty-lb{position:static;width:auto;height:auto;clip:auto;overflow:visible;font-size:var(--t3);color:var(--doux)}
 }
 @container (min-width:1100px){.ty-l{grid-template-columns:76px minmax(0,1.4fr) minmax(0,1.3fr) 110px minmax(0,1fr) 40px}}
-#biPay,#biCor{min-width:180px}
+#biPay,#biCor{min-width:0}
 /* 1.2 / 2.5 Patients : recherche élargie et « + Patient » sur la 1re ligne, menus sur la 2e */
 .pt-l1{flex-wrap:nowrap}.pt-l1 .pt-q{flex:1 1 auto;min-width:0;position:relative}.pt-l1 .bp-act{flex:none}
 .pt-f{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}.pt-f select{width:100%;min-width:0}
@@ -2220,6 +2222,87 @@ body.demarrage nav a,body.demarrage #nomMenu,body.demarrage #specMenu,body.demar
 .pr-dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px 18px;margin:0}
 .pr-dl div{min-width:0}.pr-dl dt{font-size:13px;color:var(--d-txt2);margin:0 0 2px}.pr-dl dd{margin:0;font-size:15px;color:var(--encre);overflow-wrap:anywhere}
 .pr-dl .large{grid-column:1/-1}
+/* 03/11/2026 (demande de Dr Bentahila) : fiches de protocole (traitement systémique, radiothérapie) avec le même en-tête et le même pied */
+.rtr-t h2 .badge{vertical-align:middle;margin-left:6px;font-size:13px;font-weight:600}.rtr-t h2 .badge+.badge{margin-left:4px}
+.rtr-ft>.pg-ret{margin:0 0 8px -8px}.pr-lect>.pg-ret{margin:0 0 8px -8px}.pr-t{margin:0 0 14px}
+.pr-fiche .avert-ind{background:var(--blanc);border:1px solid var(--trait)}
+.rtr-bas{position:sticky;bottom:0;z-index:3;display:flex;align-items:center;justify-content:flex-end;gap:10px;margin:18px -22px -18px;padding:14px 22px;background:var(--blanc);border-top:1px solid var(--trait);border-radius:0 0 var(--r-l) var(--r-l)}
+.rtr-bas .pg-esc{margin-right:auto;font-size:13px;color:var(--doux)}
+/* ⋯ discret (IG3, D2) aussi dans l'en-tête des fiches : sans cadre ni fond, 40 × 40 px, fond léger au survol */
+.rtr-act .rtr-pts3>summary.bt{width:40px;min-width:40px;height:40px;padding:0;border:0!important;background:transparent!important;box-shadow:none!important;color:var(--d-txt2);font-size:20px;border-radius:8px}
+.rtr-act .rtr-pts3>summary.bt:hover,.rtr-act .rtr-pts3[open]>summary.bt{background:var(--prim-c)!important;color:var(--prim)}
+@media (pointer:coarse),(max-width:640px){.rtr-act .rtr-pts3>summary.bt{width:44px;min-width:44px;height:44px}}
+@media (max-width:767px){.rtr-bas .pg-esc{display:none}}
+@media (max-width:640px){.rtr-bas{margin:14px -14px -14px;padding:12px 14px}}
+/* IG5 (03/11/2026, idée 11) : titres de colonnes cliquables pour trier ; ↕ discrète, ▲ / ▼ en bleu sur la colonne choisie */
+.th-tri{display:inline-flex;align-items:center;gap:4px;min-height:32px;margin:-6px -6px;padding:4px 6px;border:0;border-radius:6px;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer}
+.th-tri:hover{background:var(--prim-c);color:var(--encre)}.th-tri:focus-visible{outline:2px solid var(--prim);outline-offset:1px}
+.th-f{font-size:11px;color:var(--gris-m,#9AAAC4);opacity:.7}.th-tri:hover .th-f{opacity:1}.th-tri.on{color:var(--prim)}.th-tri.on .th-f{color:var(--prim);opacity:1}
+th.n .th-tri{flex-direction:row-reverse}
+.ch-aussi{color:var(--prim)}
+/* IG5 (idée 17) : « Payé » du journal du Bilan en case à cocher (même clic, même enregistrement) */
+.bi-pc{display:inline-flex;align-items:center;gap:8px;min-height:36px;margin:0;font-weight:normal;cursor:pointer;white-space:nowrap}.bi-pc input{width:18px;height:18px;margin:0;accent-color:var(--vert);cursor:pointer}
+.bi-pc.ok span{color:var(--vert);font-weight:600}
+/* IG5 (idée 19) : Paramètres › Listes en lecture ; ✎ ouvre la ligne */
+.cf-td .it-n{flex:1;min-width:0;padding:8px 10px;border:1px solid transparent;overflow-wrap:anywhere}.cf-td .it:hover{background:var(--fond-doux);border-radius:8px}
+.cf-td .it-ed{flex:none;width:36px;height:36px;color:var(--d-txt2);background:none;border:0;border-radius:8px}.cf-td .it-ed:hover{background:var(--prim-c);color:var(--prim)}
+@media (pointer:coarse),(max-width:640px){.cf-td .it-ed{width:44px;height:44px}}
+/* IG6 (03/11/2026, idée 20) : « Fermer » à droite de la barre du dossier, pour tous les rôles ; caché quand la salle d'attente ou la RCP montre déjà le sien ;
+   au téléphone, la barre reste repliée derrière « + Prescrire » (retour par le menu, comme avant) */
+.br-fermer{min-height:40px;white-space:nowrap}.br-d:has(.sa-bulles,.rcp-bulle) .br-fermer{display:none}
+@media (max-width:767px){.br-fermer{display:none!important}}
+/* IG7 (03/11/2026, idée 16) : téléphone : « Filtres » + résumé du choix (Bilan, Protocoles, RCP ; v2.js enteteFiltres), comme la Salle */
+.ftel-t{display:none}.pr-ftel{display:contents}
+@media (max-width:640px){
+  .ftel-t{display:flex;align-items:center;gap:10px;min-width:0}
+  .ftel-b{min-height:44px;flex:none}.ftel-b .n:not(:empty){background:var(--prim);color:#fff;border-radius:10px;padding:0 7px;font-size:var(--t2);margin-left:4px}
+  .ftel-r{flex:1;min-width:0;font-size:var(--t3);color:var(--doux);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ftel:not(.ouv) .ftel-z{display:none!important}
+  .ftel.ouv .ftel-b{background:var(--prim-c);color:var(--prim)}
+  .carte.ftel:not(.ouv) .bi-ligne{margin-top:8px}
+  .rcp-haut.ftel:not(.ouv){gap:0}
+}
+/* IG7 : Salle à 390 px : « à jour à … » sous « Actualiser », dans la ligne (ne touche plus « + Rendez-vous ») */
+@media (max-width:640px){.sa-pg .sa-etab{align-items:flex-start}.sa-pg .sa-etab>.b2,.sa-pg .sa-etab .bp-maj>.b2,.sa-pg .sa-etab .sa-pts{min-height:44px;margin:0}
+  .sa-pg .bp-maj{flex-direction:column;align-items:stretch}.sa-pg .bp-maj>.mesures{position:static;transform:none;text-align:center;margin-top:4px}}
+/* IG7 (03/11/2026, demande de Dr Bentahila) : Protocoles au téléphone : haut de page en lignes régulières : recherche sur toute la largeur ;
+   « Filtres », « Favoris » (même largeur) et « ⋯ » (44 px) ; résumé des filtres ; statut (filtres ouverts) ; « Créer un protocole » sur toute la largeur */
+@media (max-width:640px){
+  .pr-ftel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 44px;gap:10px;align-items:stretch}
+  .pr-ftel>.pr-barre,.pr-ftel .pr-rech,.pr-ftel .pr-act,.pr-ftel>.ftel-t{display:contents}
+  .pr-ftel #prQ{grid-column:1/-1;grid-row:1;min-height:44px;min-width:0!important;width:100%}
+  .pr-ftel .ftel-b{grid-column:1;grid-row:2;width:100%;justify-content:center;margin:0}
+  .pr-ftel .pr-rech>.bt{grid-column:2;grid-row:2;min-height:44px;width:100%;justify-content:center;margin:0}
+  .pr-ftel .pr-act .mpts{grid-column:3;grid-row:2;display:flex}
+  .pr-ftel .pr-act .mpts>.sa-plus{width:44px;height:44px;min-width:44px;padding:0}
+  .pr-ftel .ftel-r{grid-column:1/-1;grid-row:3;margin-top:-4px}
+  .pr-ftel .pr-rech>select{grid-column:1/-1;grid-row:4;min-height:44px;width:100%}
+  .pr-ftel .pr-act .b1{grid-column:1/-1;grid-row:5;min-height:44px;width:100%;justify-content:center;margin:0}
+  .pr-ftel>#prMaj{grid-column:1/-1;grid-row:6}.pr-ftel>section{grid-column:1/-1;grid-row:7;margin:0}
+}
+/* IG7 (03/11/2026, demande de Dr Bentahila) : Bilan et Salle au téléphone : « Filtres » et « Actualiser » de même largeur, « ⋯ » carré de 44 px,
+   sur une ligne ; résumé des filtres dessous (Bilan) ; « à jour à … » sous « Actualiser » (Salle) */
+@media (max-width:640px){
+  .carte.ftel[data-fn="bilan.filtres"]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 44px;gap:10px;align-items:start}
+  .carte.ftel[data-fn="bilan.filtres"]>.ftel-t,.carte.ftel[data-fn="bilan.filtres"]>.bi-ligne,.carte.ftel[data-fn="bilan.filtres"] .bi-act{display:contents!important}
+  .carte.ftel[data-fn="bilan.filtres"] .ftel-b{grid-column:1;grid-row:1;width:100%;justify-content:center;margin:0}
+  .carte.ftel[data-fn="bilan.filtres"] .bi-act .bp-maj{grid-column:2;grid-row:1;display:flex;flex-direction:column;align-items:stretch;min-width:0}
+  .carte.ftel[data-fn="bilan.filtres"] .bi-act .bp-maj>.bt{min-height:44px;width:100%;justify-content:center;margin:0}
+  .carte.ftel[data-fn="bilan.filtres"] .bi-act .bp-maj>.mesures{position:static;transform:none;white-space:normal;text-align:center;margin-top:4px}
+  .carte.ftel[data-fn="bilan.filtres"] .bi-act .mpts{grid-column:3;grid-row:1;display:flex}
+  .carte.ftel[data-fn="bilan.filtres"] .bi-act .mpts>.sa-plus{width:44px;height:44px;min-width:44px;padding:0}
+  .carte.ftel[data-fn="bilan.filtres"] .ftel-r{grid-column:1/-1;grid-row:2}
+  .carte.ftel[data-fn="bilan.filtres"]>.bi-ligne>.form{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px var(--ecart-champs,12px);align-items:end}
+  .carte.ftel[data-fn="bilan.filtres"]>.bi-q,.carte.ftel[data-fn="bilan.filtres"]>p,.carte.ftel[data-fn="bilan.filtres"]>div:not(.ftel-t):not(.bi-ligne){grid-column:1/-1;margin:0}
+  .sa-pg .sa-etab .sa-ftr,.sa-pg .sa-etab .bp-maj{flex:1 1 40%;min-width:0}.sa-pg .sa-etab .bp-maj>.b2{width:100%;justify-content:center}
+  .sa-pg .sa-etab .sa-plus{flex:none}.sa-pg .sa-etab .sa-pts{width:44px;min-width:44px;height:44px;padding:0;display:inline-flex;align-items:center;justify-content:center}
+}
+/* IG7 (03/11/2026, demande de Dr Bentahila) : Bilan sur ordinateur : un menu long (« Payés et à recevoir ») ne déborde plus sur le suivant ;
+   même écart de 12 px entre toutes les cases, « Actualiser » et « ⋯ » */
+.bi-ligne>.form>div{min-width:0}.bi-ligne>.form select,.bi-ligne>.form input{width:100%;min-width:0;max-width:100%;text-overflow:ellipsis}
+@media (min-width:900px) and (max-width:1365px){.bi-ligne>.bi-act .bp-maj>.bt{font-size:0;gap:0;width:44px;padding:0;justify-content:center}.bi-ligne>.bi-act .bp-maj>.bt .pi{width:18px;height:18px;margin:0}}
+@media (min-width:900px){.bi-ligne>.form{grid-template-columns:none!important;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}.bi-ligne{flex-wrap:nowrap!important}.bi-ligne>.bi-act{width:auto!important;flex:none}}
+.bi-ligne>.bi-act{gap:12px}.bi-ligne>.bi-act .bp-maj>.bt{min-height:44px}.bi-ligne>.bi-act .mpts>.sa-plus{height:44px;min-width:44px}
 </style>
 </head>
 <body class="demarrage">

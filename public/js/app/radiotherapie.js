@@ -192,6 +192,14 @@ let BIBS = null, FICHE = null, IMPRESSION = false;
 const ongletDe = (o) => (ONGLETS.some((x) => x[0] === o) ? o : "prescription");
 window.rtrOuvrir = (id) => { RF.y = window.scrollY; location.hash = "radiotherapie/s/" + encodeURIComponent(id) + "/" + ongletDe(profil().rtOnglet); };
 window.rtrRetour = () => { location.hash = "radiotherapie"; };
+// 03/11/2026 (demande de Dr Bentahila) : Échap ferme la fiche, comme une fiche de protocole ; rien pendant une modification, une fenêtre, un menu
+// ouvert ou une saisie
+document.addEventListener("keydown", (ev) => {
+  if (ev.key !== "Escape" || ED || !FICHE || !$("rtrFiche") || !/^#radiotherapie\/s\//.test(location.hash)) return;
+  const f = $("fenetre"), al = $("panneauAlertes");
+  if ((f && !f.classList.contains("cache")) || (al && !al.classList.contains("cache")) || document.querySelector(".dlg-f, #rtrFiche details[open]") || (ev.target && ev.target.closest && ev.target.closest("input, textarea, select"))) return;
+  window.rtrRetour();
+}, true);
 window.rtrOnglet = (o) => { if (ED) { FICHE.onglet = o; dessinerFiche(); return; } if (profil().rtOnglet !== o) noter({ rtOnglet: o }); location.hash = "radiotherapie/s/" + encodeURIComponent(RF.ouvert) + "/" + o; };
 // BB : bibliothèques lues (OAR, jeux de contraintes et aide des colonnes, essais), communes à la fiche et aux sous-pages
 let ESSAIS = null, BB = null;
@@ -486,24 +494,24 @@ function nombres() { return { indication: 1, prescription: (FICHE.schema.prescri
 // « Pratique institutionnelle » n'est plus affichée (demande du 26/10/2026) ; la preuve sert encore à l'ordre des schémas
 const preuveVue = (k) => (k === "pratique_institutionnelle" ? "" : libPreuve(k));
 function enteteHtml() {
-  const esc = A.esc, { e, schema } = FICHE, s = sit(e.situation_id) || {}, l = loc(e.localisation_id) || {}, r = INDEX.regions.find((x) => x.id === l.region_id) || {}, fav = favoris().indexOf(e.id) >= 0;
+  const esc = A.esc, { e, schema } = FICHE, fav = favoris().indexOf(e.id) >= 0;
   const etoile = '<button class="rtr-et' + (fav ? " on" : "") + '" title="' + (fav ? "Retirer des favoris" : "Ajouter aux favoris") + '" aria-pressed="' + fav + '" onclick="rtrEtoile(\'' + esc(e.id) + "')\">" + A.ic("etoile") + "</button>";
-  return '<div class="rtr-ft"><button class="mini rtr-ret" onclick="rtrRetour()">' + A.ic("retour") + "Retour à la liste</button>" +
-    '<div class="rtr-ar" role="navigation" aria-label="Fil d\'Ariane"><a href="#radiotherapie" onclick="rtrSommaire(\'' + r.id + "','');return true\">" + esc(r.nom || "") + '</a> › <a href="#radiotherapie" onclick="rtrSommaire(\'' + r.id + "','" + l.id + "');return true\">" + esc(l.nom || "") + "</a> › <span>" + esc(s.titre || "") + "</span></div>" +
-    (ED ? '<div class="rtr-t rtr-ted"><label class="rtr-lab">Titre du schéma' + inp("titre", ED.schema.titre, "Titre du schéma") + "</label>" + err("titre") + "</div>" : '<div class="rtr-t"><h2>' + esc(e.titre) + '</h2><div class="rtr-act">' + etoile + actions() + "</div></div>") +
-    '<div class="rtr-res">' + esc(resumePrescription(schema)) + ' <span class="badge b-ch"><svg class="pi"><use href="#i-check"/></svg>Validé</span>' + (preuveVue(schema.preuve || e.preuve) ? ' <span class="badge b-gr">' + esc(preuveVue(schema.preuve || e.preuve)) + "</span>" : "") + "" + "</div>" +
+  // 03/11/2026 (demande de Dr Bentahila) : même en-tête que la fiche d'un protocole de traitement systémique : « Retour à la liste » du même style,
+  // titre suivi de « Validé » et du niveau de preuve, étoile à côté de « ⋯ » (Modifier y passe) ; plus de fil d'Ariane ni de ligne de résumé
+  const badges = ' <span class="badge b-ch"><svg class="pi"><use href="#i-check"/></svg>Validé</span>' + (preuveVue(schema.preuve || e.preuve) ? ' <span class="badge b-gr">' + esc(preuveVue(schema.preuve || e.preuve)) + "</span>" : "");
+  return '<div class="rtr-ft"><button type="button" class="pg-ret rtr-ret" onclick="rtrRetour()">' + A.ic("retour") + "Retour à la liste</button>" +
+    (ED ? '<div class="rtr-t rtr-ted"><label class="rtr-lab">Titre du schéma' + inp("titre", ED.schema.titre, "Titre du schéma") + "</label>" + err("titre") + "</div>" : '<div class="rtr-t"><h2>' + esc(e.titre) + badges + '</h2><div class="rtr-act">' + etoile + actions() + "</div></div>") +
     (e.modifie && !ED ? '<p class="mesures rtr-mod"><span class="badge b-or">Modifié</span>' + (e.cab && e.cab.majParNom ? " · par " + esc(e.cab.majParNom) + (e.cab.majLe ? " le " + esc(dfr(String(e.cab.majLe).slice(0, 10))) : "") : "") +
       (e.nouveau ? "" : e.refChangee ? ' · La référence a changé depuis · <a href="#" class="rtr-lien" onclick="rtrComparer();return false">Voir la comparaison</a>' : ' · <a href="#" class="rtr-lien" onclick="rtrComparer();return false">Voir la référence</a>') + "</p>" : "") + "</div>";
 }
-// Actions de la fiche (RT.7, 31/10/2026) : étoile, « Modifier », puis « ⋯ » : Imprimer, Dupliquer, Copier, Voir la référence, Revenir à la référence,
+// Actions de la fiche (RT.7, 31/10/2026 ; « Modifier » dans « ⋯ » le 03/11/2026) : étoile, puis « ⋯ » : Modifier, Imprimer, Dupliquer, Copier, Voir la référence, Revenir à la référence,
 // Supprimer (en rouge, en dernier) ; sans le droit de modifier : étoile, Imprimer, « ⋯ » (Copier) ; tous de la même hauteur, alignés
 function actions() {
   const mod = peutModif(), c = FICHE.cab, ic = A.ic, fm = "this.closest('details').open=false;";
-  const b = (f, i, t, rouge) => '<button class="mini' + (rouge ? " rouge-t" : "") + '" onclick="' + fm + f + '">' + ic(i) + t + "</button>";
-  const menu = (mod ? b("rtrImprimer()", "imprimer", "Imprimer") + b("rtrDupliquer()", "copier", "Dupliquer") : '<button class="mini rtr-tel" onclick="' + fm + 'rtrImprimer()">' + ic("imprimer") + "Imprimer</button>") + b("rtrCopierFiche()", "copier", "Copier") +
+  const b = (f, i, t, rouge, cl) => '<button class="mini' + (rouge ? " rouge-t" : "") + (cl ? " " + cl : "") + '" onclick="' + fm + f + '">' + ic(i) + t + "</button>";
+  const menu = (mod ? b("rtrModifier()", "crayon", "Modifier", false, "rtr-modb") : "") + b("rtrImprimer()", "imprimer", "Imprimer") + (mod ? b("rtrDupliquer()", "copier", "Dupliquer") : "") + b("rtrCopierFiche()", "copier", "Copier") +
     (c && c.schema && !c.nouveau ? b("rtrComparer()", "liste", "Voir la référence") + (mod ? b("rtrRevenir()", "retour", "Revenir à la référence") : "") : "") + (mod ? b("rtrSupprimer()", "corbeille", "Supprimer", true) : "");
-  return (mod ? '<button class="bt clair petit rtr-modb" onclick="rtrModifier()">' + ic("crayon") + "Modifier</button>" : '<button class="bt clair petit rtr-imp" onclick="rtrImprimer()">' + ic("imprimer") + "Imprimer</button>") +
-    '<details class="m3 rtr-pts3"><summary class="bt clair petit" title="Autres actions" aria-label="Autres actions">⋯</summary><div class="m3-l">' + menu + "</div></details>";
+  return '<details class="m3 rtr-pts3"><summary class="bt clair petit" title="Autres actions" aria-label="Autres actions">⋯</summary><div class="m3-l">' + menu + "</div></details>";
 }
 // Copier : la fiche en texte (prescription, volumes, objectifs de couverture et contraintes), à coller dans un dossier ou un logiciel de planification
 window.rtrCopierFiche = () => {
@@ -538,7 +546,7 @@ function dessinerFiche() {
   const z = $("rtrFiche"); if (!z || !FICHE) return;
   const n = nombres(), o = FICHE.onglet, R = ED ? EDITS : RENDUS;
   z.innerHTML = enteteHtml() + '<div class="ag-vues defile rtr-ong" role="tablist">' + ONGLETS.map(([k, lib]) => '<button role="tab" aria-selected="' + (k === o) + '" class="' + (k === o ? "on" : "") + (n[k] ? "" : " vide") + '" onclick="rtrOnglet(\'' + k + "')\">" + lib + (n[k] && ["contraintes", "essais", "attention"].indexOf(k) >= 0 ? ' <span class="n rtr-pas" aria-label="' + n[k] + '">' + n[k] + "</span>" : "") + "</button>").join("") + "</div>" +
-    '<div class="rtr-oc" role="tabpanel">' + R[o]() + "</div>" + (ED ? "" : AVERT_RT) +
+    '<div class="rtr-oc" role="tabpanel">' + R[o]() + "</div>" + (ED ? "" : AVERT_RT + '<div class="boutons rtr-bas"><span class="pg-esc">Échap pour annuler</span><button class="bt gris" onclick="rtrRetour()">Fermer</button></div>') +
     (ED ? '<div class="barre-enr rtr-barre"><button class="bt gris" onclick="rtrAnnulerEd()">Annuler</button><span class="mesures" id="rtrBmsg" aria-live="polite"></span><button class="bt plein" id="rtrEnr" onclick="rtrEnregistrer()">' + A.ic("enregistrer") + "Enregistrer</button></div>" : "");
   const on = z.querySelector(".rtr-ong .on"); if (on && on.scrollIntoView) on.scrollIntoView({ block: "nearest", inline: "nearest" });
   if (ED) { majEtat(); if (ED.choisir) { ED.choisir = false; const t = z.querySelector('[data-p="titre"]'); if (t) { t.focus(); t.select(); } } }

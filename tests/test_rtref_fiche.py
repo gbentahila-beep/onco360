@@ -31,7 +31,7 @@ async def main():
         ong = await ev("[...document.querySelectorAll('.rtr-ong button')].map(b => b.textContent.replace(/\\s*\\d+$/, ''))")
         ok(ong == ['Indication', 'Prescription', 'Centrage', 'Contourage', 'Contraintes', 'Essais et sources', "Points d'attention"], 'sept onglets, Indication en tête, dans l\'ordre de la chaîne de traitement', ong)
         ok(int((await ev("document.querySelector('.rtr-ong button:nth-child(5) .n').textContent")) or 0) >= 15 and (await ev("document.querySelector('.rtr-ong button:nth-child(6)').textContent")).endswith('3'), 'nombres : « Contraintes » (lignes de la table unique), « Essais 3 » (CHHiP, PROFIT, consensus VA / ASTRO 2026)')
-        ok('60 Gy / 20 fx (3 Gy/fx)' in (await ev("document.querySelector('.rtr-res').innerText")).replace('\xa0', ' ') and await ev("!!document.querySelector('.rtr-t .rtr-modb')"), 'en-tête : résumé de prescription, étoile et Modifier en haut à droite (RT.7)')
+        ok(await ev("!document.querySelector('.rtr-res, .rtr-ar') && !!document.querySelector('.rtr-t .rtr-et') && !!document.querySelector('.rtr-t .rtr-pts3 .rtr-modb') && /Validé/.test(document.querySelector('.rtr-t h2').textContent)"), 'en-tête (03/11/2026) : titre et « Validé », étoile et ⋯ (Modifier dedans) en haut à droite ; plus de résumé ni de fil d\'Ariane')
         # Indication (lot 3 RTX)
         await ev("rtrOnglet('indication')"); await pg.wait_for_timeout(500); t = await ev(OC)
         ok('Critères' in t and 'ISUP' in t and 'Essai pivot' in t and 'CHHiP' in t and await ev("!!document.querySelector('.rtr-oc table.rtr-tab.rtr-ind')") and '60 Gy / 20 fx non inférieur' in t and 'Alternatives' in t and await ev("document.querySelectorAll('.rtr-ind a').length") >= 1, 'Indication : critères de la situation, essai pivot (CHHiP), autres schémas de la situation', t[:300])
@@ -143,7 +143,7 @@ async def main():
                 if await ev(DEBORDE) or await ev(COUPE): ok(False, f'{w} px : {o} déborde'); break
             else: ok(True, f'{w} px : les sept onglets sans débordement ni titre coupé')
             if w == 390:
-                ok(await ev("document.querySelector('.rtr-modb').offsetParent !== null && document.querySelector('.rtr-pts3').offsetParent !== null && [...document.querySelectorAll('.rtr-pts3 .m3-l button')].some(b => /Imprimer/.test(b.textContent))"), '390 px : Modifier visible, Imprimer dans ⋯ (RT.7)')
+                ok(await ev("document.querySelector('.rtr-pts3').offsetParent !== null && ['Modifier', 'Imprimer'].every(t => [...document.querySelectorAll('.rtr-pts3 .m3-l button')].some(b => b.textContent.includes(t)))"), '390 px : ⋯ visible, Modifier et Imprimer dedans')
                 await pg.goto(f'http://localhost:{PORT}/v2.html#radiotherapie/s/pro-fav-60-20/contraintes'); await pg.wait_for_timeout(1800)
                 ok(await ev("document.querySelector('.rtr-ct thead').offsetParent === null") and not await ev(DEBORDE), '390 px : contraintes en lignes empilées, sans défilement horizontal')
             ok(not pg.errs, f'{w} px : aucune erreur JavaScript', pg.errs[:2]); await pg.close()

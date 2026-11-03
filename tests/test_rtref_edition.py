@@ -19,7 +19,7 @@ async def main():
         pg = await ouvrir(b, S); ev = pg.evaluate
         await pg.add_init_script("window.__copie=[];Object.defineProperty(navigator,'clipboard',{value:{writeText:(t)=>{window.__copie.push(t);return Promise.resolve();}}});")
         await pg.goto(f'http://localhost:{PORT}/v2.html#radiotherapie/s/pro-fav-60-20/prescription'); await pg.wait_for_timeout(2500)
-        await pg.click('.rtr-act .rtr-modb'); await pg.wait_for_timeout(300)
+        await pg.click('.rtr-act .rtr-pts3 > summary'); await pg.click('.rtr-act .rtr-modb'); await pg.wait_for_timeout(300)
         # Centrage
         await onglet(pg, 'Centrage')
         ok(await ev("document.querySelectorAll('.rtr-oc textarea[data-p^=\"sim.\"]').length") == 6 and not await ev("!!document.querySelector('.rtr-oc select[data-p=simulation_id]')"), 'Centrage : six rubriques modifiables, plus de fiche à choisir')
@@ -69,7 +69,7 @@ async def main():
         await pg.goto(f'http://localhost:{PORT}/v2.html#radiotherapie/s/pro-fav-60-20/centrage'); await pg.wait_for_timeout(1500)
         ok('Pleine (500 ml 1 h avant)' in await ev("document.querySelector('.rtr-oc').innerText"), 'la fiche affiche la ligne de centrage ajoutée')
         # Revenir aux contraintes de la base
-        await pg.click('.rtr-act .rtr-modb'); await pg.wait_for_timeout(300); await onglet(pg, 'Contraintes')
+        await pg.click('.rtr-act .rtr-pts3 > summary'); await pg.click('.rtr-act .rtr-modb'); await pg.wait_for_timeout(300); await onglet(pg, 'Contraintes')
         await pg.click('.rtr-oc a:has-text("Revenir aux contraintes de la base")'); await pg.wait_for_timeout(300)
         await pg.click('#rtrEnr'); await pg.wait_for_timeout(1500)
         await pg.click('.rtr-ong button:has-text("Contraintes")'); await pg.wait_for_timeout(400)

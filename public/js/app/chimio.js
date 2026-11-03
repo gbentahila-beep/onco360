@@ -11,6 +11,7 @@ import { addJ, ecart, num, age, rythme } from "../moteur/outils.js";
 import { tarif } from "../moteur/tarifs.js";
 import { consJours, associeVrai } from "../moteur/finances.js";
 import { trierRecherche, curesProposees, filtreLocalisation, filtreValide } from "../moteur/recherche.js";
+import { recherche, chercheAussi } from "../moteur/souple.js";
 import { typeRdv, T_RTC } from "../moteur/rdv.js";
 import { DIAG, MUT0, DICT } from "../donnees/listes.js";
 import { poso, doseTxt, ficheHTML, imprimerFiche } from "./fiche.js";
@@ -1102,12 +1103,14 @@ export function menusCascade(liste, F, fn) {
   return h + "</div>";
 }
 function valeurs(n) { return valeursCascade(BIB(), CF, n); }
+// IG5 (03/11/2026, audit UX, idée 10) : même recherche souple que la page Protocoles (synonymes, tirets et accents ignorés)
+let AUSSI = "";
 function resultats() {
-  const q = sansAccents(CF.q).split(/\s+/).filter(Boolean);
+  const R = recherche(CF.q); AUSSI = chercheAussi(R);
   return trierRecherche(BIB().filter((p) => {
     if (CF.fav && !p.fav) return false;
     if (CF.c && !(p.ind || []).some((x) => x[0] === CF.c && (!CF.o || x[1] === CF.o) && (!CF.s || x[2] === CF.s) && (!CF.g || x[3] === CF.g))) return false;
-    if (q.length) { const h = sansAccents(p.nom + " " + molecules(p) + " " + (p.ind || []).map((x) => x.join(" ")).join(" ")); if (!q.every((w) => h.indexOf(w) >= 0)) return false; }
+    if (!R.vide && !R.test(p.nom + " " + (p.dr || []).map((d) => d.p).join(" ") + " " + (p.ind || []).map((x) => x.join(" ")).join(" "))) return false;
     return true;
   }), CF.q); // T1 (24/10/2026, U2) : le nom qui commence par le mot cherché d'abord
 }
@@ -1117,8 +1120,8 @@ function puces(n, lbl) {
 }
 function listeProtos() {
   const r = resultats(), esc = A.esc;
-  if (!r.length) return '<p class="sous">Aucun protocole.</p>';
-  return '<p class="mesures" style="margin:6px 0">' + r.length + " protocole" + (r.length > 1 ? "s" : "") + "</p>" + r.map((p) => {
+  if (!r.length) return '<p class="sous">Aucun protocole.' + (AUSSI ? " " + esc(AUSSI) + "." : "") + "</p>";
+  return '<p class="mesures" style="margin:6px 0">' + r.length + " protocole" + (r.length > 1 ? "s" : "") + (AUSSI ? ' · <span class="ch-aussi">' + esc(AUSSI) + "</span>" : "") + "</p>" + r.map((p) => {
     const ok = protocoleValide(p);
     return '<div class="proto' + (ok ? "" : " off") + '"' + (ok ? ' onclick="nlProto(\'' + esc(p.id) + "')\"" : "") + '><span class="etoile">' + (p.fav ? '<svg class="pi plein or"><use href="#i-etoile"/></svg>' : "") + '</span><div><b>' + esc(p.nom) + "</b> " + (ok ? '<span class="badge b-ch"><svg class="pi"><use href="#i-check"/></svg>Validé</span>' : '<span class="badge b-or"><i class="dot j"></i>Non validé</span>') + (p.assoc ? ' <span class="badge b-gr">associé</span>' : "") + '<div class="mesures">' + esc(molecules(p)) + (p.c ? " – cycle " + p.c + " j" : "") + "</div></div></div>";
   }).join("");

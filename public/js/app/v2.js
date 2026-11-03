@@ -18,6 +18,7 @@ import { changerTable, hmMaroc, jourMaroc } from "../moteur/heure.js";
 import { typeRdv, libRdv, joursH, T_RTC, nommerTypes } from "../moteur/rdv.js";
 import { TRAITEMENTS_MA } from "../donnees/traitements.js";
 import { chercherPatients, partiesTrouvees } from "../moteur/cherchepatient.js";
+import { trierPar, triSuivant } from "../moteur/tri.js";
 import { typeCourt as typeCourtSalle } from "../moteur/salle.js"; // 26/10/2026 : nom court d'un rendez-vous (comme la salle d'attente)
 import { referentiel, nomsParCle, typesPourRdv, cleDeRdv } from "../moteur/typesconsult.js";
 import { tarif as tarifAu, net as netTarif } from "../moteur/tarifs.js";
@@ -1139,12 +1140,17 @@ function rafraichirPage(ids) {
 window.__majDossiers = () => appliquerDossiers(); // tests
 const PAGES_TOUS = () => ({ tous: ["Mes cabinets aujourd'hui", () => pageTous()] });
 const PAGES = { accueil: ["Tableau de bord", pageAccueil], rcp: ["RCP", () => pageRcpMenu()], agenda: ["Agenda / Rendez-vous", () => pageAgenda()], configuration: ["Paramètres", () => { location.replace("#parametres"); }], profil: ["Mon compte", (a) => pageProfil(a)], protocoles: ["Protocoles", (a) => pageProtocoles(a)], radiotherapie: ["Radiothérapie", (a) => pageRadiotherapie(a)], outils: ["Outils cliniques", (a) => pageOutils(a)], parametres: ["Paramètres", (a) => pageConfiguration(a || "@")], bilan: ["Bilan", () => pagePageBilan()], salle: ["Salle d'attente", () => pageSalle()], patients: ["Patients", pagePatients], documents: ["Documents", () => pageDepot()], taches: ["Tâches", (a) => pageTaches(a)], dossier: ["Dossier patient", pageDossier] };
+// IG6 : page d'où le dossier a été ouvert (« Fermer » de la barre du dossier y revient ; sinon Patients)
+let PAGE_AVANT = "";
+const nomPageAvant = () => { const p = PAGE_AVANT.split("/")[0]; return p && PAGES[p] ? PAGES[p][0] : PAGES.patients ? PAGES.patients[0] : "Patients"; };
+window.dosFermer = () => { location.hash = PAGE_AVANT && PAGES[PAGE_AVANT.split("/")[0]] ? PAGE_AVANT : "patients"; };
 function route() {
   if (CABINETS.length > 1 && !PAGES.tous) Object.assign(PAGES, PAGES_TOUS()); // secrétaire de plusieurs cabinets (19.7)
   const h0 = location.hash.replace("#", ""), so = /^dossier\/[^/]+\/([a-z]+)$/.exec(h0), h = so ? h0.slice(0, h0.length - so[1].length - 1) : h0; // UX9 : onglet du dossier dans l'adresse
   const i = h.indexOf("/"), p = i < 0 ? h : h.slice(0, i), arg = i < 0 ? null : decodeURIComponent(h.slice(i + 1)), nom = PAGES[p] && module(PAGE_MODULE[p] || "") && !(p === "protocoles" && D.reg && D.reg.fonctions["chimio.protocoles"] === false) && (p !== "radiotherapie" || voitRefRT()) && (!estComptable() || PAGES_COMPTABLE.indexOf(p) >= 0) && (!D.bib || PAGES_BIB.indexOf(p) >= 0) ? p : estComptable() ? "bilan" : D.bib ? "protocoles" : "accueil";
   if (!$("fenetre").classList.contains("cache")) window.fermerFenetre();
   quitterCentre(); fermerPanneau(true); $("page").classList.toggle("p-dos", nom === "dossier"); menuDossier(nom === "dossier"); // R-G : panneau fermé, menu replié dans le dossier seulement
+  if (nom === "dossier" && !/^dossier(\/|$)/.test(D.page || "") && D.page) PAGE_AVANT = D.page;
   D.page = nom + (arg ? "/" + encodeURIComponent(arg) : ""); { const tp = nom === "parametres" && D.bib ? "Paramètres du modèle" : PAGES[nom][0], co = { "Agenda / Rendez-vous": "Agenda", "Paramètres du modèle": "Paramètres" }[tp]; // 1.11 : nom court sur téléphone
     $("titrePage").innerHTML = co ? '<span class="tp-lg">' + esc(tp) + '</span><span class="tp-sm">' + esc(co) + "</span>" : esc(tp); hautDePage(nom); } $("page").classList.toggle("large", nom === "agenda");
   document.querySelectorAll("nav a").forEach((a) => a.classList.toggle("actif", a.dataset.p === (nom === "dossier" ? "patients" : nom)));
@@ -1168,6 +1174,29 @@ function hautDePage(nom) {
 // UX5 : bandeau bleu en tête d'une liste ou d'un tableau : icône, titre, nombre, actions à droite
 const bandeau = (icone, titre, n, actions) => '<div class="bd-o">' + ic(icone) + '<span class="bd-t">' + esc(titre) + "</span>" + (n != null ? '<span class="bd-n">' + n + "</span>" : "") + (actions ? '<span class="bd-a">' + actions + "</span>" : "") + "</div>";
 API.bandeau = bandeau;
+// IG5 (03/11/2026, audit UX, idée 11) : tri au clic sur le titre d'une colonne (Patients, Tâches, RCP, journal du Bilan) : ▲ / ▼, flèche ↕ discrète ;
+// 3e clic = ordre par défaut (inchangé) ; gardé par personne dans utilisateurs/{uid}.tris { page: { k, s } } ; REDESSINER_TRI[page] redessine
+const REDESSINER_TRI = {};
+const triDe = (p) => { const t = ((D.profil && D.profil.tris) || {})[p]; return t && t.k ? t : null; };
+const enteteTri = (p, k, lib, cls) => { const t = triDe(p), on = !!(t && t.k === k);
+  return '<span role="columnheader"' + (cls ? ' class="' + cls + '"' : "") + ' aria-sort="' + (on ? (t.s < 0 ? "descending" : "ascending") : "none") + '"><button type="button" class="th-tri' + (on ? " on" : "") + '" onclick="event.stopPropagation();trierCol(\'' + p + "','" + k + "')\" title=\"Trier par " + esc(lib.toLowerCase()) + '">' + esc(lib) + '<span class="th-f" aria-hidden="true">' + (on ? (t.s < 0 ? "▼" : "▲") : "↕") + "</span></button></span>"; };
+window.trierCol = (p, k) => {
+  const n = triSuivant(triDe(p), k); D.profil.tris = Object.assign({}, D.profil.tris || {}, { [p]: n });
+  setDoc(doc(db, "utilisateurs", D.u.uid), { tris: { [p]: n } }, { merge: true }).catch((e) => console.warn("tri", e));
+  if (REDESSINER_TRI[p]) REDESSINER_TRI[p]();
+};
+// liste triée selon le choix de la personne (vals = { clé: (x) => valeur }) ; sans choix : liste inchangée
+const selonTri = (p, liste, vals) => { const t = triDe(p); return t && vals[t.k] ? trierPar(liste, vals[t.k], t.s) : liste; };
+const thTri = (p, k, lib, cls) => enteteTri(p, k, lib, cls).replace(/^<span role="columnheader"/, "<th").replace(/<\/span>$/, "</th>");
+API.thTri = thTri; API.enteteTri = enteteTri; API.selonTri = selonTri; API.surTri = (p, f) => { REDESSINER_TRI[p] = f; };
+// IG7 (03/11/2026, audit UX idée 16) : téléphone (≤ 640 px) : filtres repliés derrière « Filtres » + résumé du choix, sur le modèle de la Salle
+// (saFiltres) ; zone = élément .ftel (classe ouv quand ouvert), filtres repliés = .ftel-z, bouton et résumé = .ftel-t (cachés sur ordinateur)
+const FTEL = {};
+const enteteFiltres = (k, resume, n) => '<div class="ftel-t"><button type="button" class="b2 ftel-b" onclick="ftelOuvrir(\'' + k + '\',this)" aria-expanded="' + !!FTEL[k] + '">' + ic("loupe") + "Filtres" +
+  '<span class="n">' + (n ? n : "") + '</span></button><span class="ftel-r" id="ftelR-' + k + '">' + esc(resume || "") + "</span></div>";
+window.ftelOuvrir = (k, b) => { FTEL[k] = !FTEL[k]; const z = b.closest(".ftel"); if (z) z.classList.toggle("ouv", FTEL[k]); b.setAttribute("aria-expanded", String(FTEL[k])); };
+API.enteteFiltres = enteteFiltres; API.ftelCls = (k) => "ftel" + (FTEL[k] ? " ouv" : "");
+API.ftelResume = (k, resume, n) => { const r = $("ftelR-" + k); if (r) r.textContent = resume || ""; const b = r && r.parentNode.querySelector(".ftel-b .n"); if (b) b.textContent = n ? String(n) : ""; };
 // Changer de page : le résumé en cours d'écriture est d'abord enregistré ; s'il ne peut pas l'être, on reste sur le dossier
 // Garde d'une page en modification (RTR, RT5 du 25/10/2026, API.garde) : on reste sur la page, qui demande « Quitter sans enregistrer ? » ;
 // si l'on quitte, la garde est retirée et l'adresse demandée est rouverte
@@ -1547,7 +1576,7 @@ function pagePatients(filtre) {
   ["fst", "floc", "fstade", "fmed"].forEach((id) => { if ($(id)) $(id).onchange = listePatients; });
   if (filtre && $("flt").querySelector('option[value="' + CSS.escape(filtre) + '"]')) $("flt").value = filtre;
   if (PT_Q) { $("q").value = PT_Q; PT_Q = ""; }
-  $("q").oninput = $("flt").onchange = listePatients; if ($("fhop")) $("fhop").onchange = listePatients; listePatients();
+  $("q").oninput = $("flt").onchange = listePatients; if ($("fhop")) $("fhop").onchange = listePatients; REDESSINER_TRI.patients = () => { if ($("lst")) listePatients(); }; listePatients();
 }
 // IG1 (02/11/2026) : champs lus par la recherche de patient (moteur/cherchepatient.js) ; plus = page Patients (localisation, protocoles, établissement)
 const champsRecherche = (x, plus) => { const id = x.doc.identite || {}, r = x.r;
@@ -1569,12 +1598,15 @@ function listePatients() {
     return FILTRES[f][1](x);
   });
   // IG1 : même recherche que la barre du haut (nom, n°, téléphone, date de naissance, CIN, puis le reste), les meilleurs d'abord
-  const l = chercherPatients(l0.map((x) => ({ x, f: champsRecherche(x, true) })), $("q").value);
+  // IG5 (idée 11) : tri choisi par la personne (titre de colonne) ; sans choix, l'ordre d'avant (classement de la recherche)
+  const dnDe = (x) => { const cl = x.doc.clinique || {}; return cl.statut === "decede" ? "" : dernieresNouvelles(x.P, datesConsultations(x.id), t) || ""; };
+  const l = selonTri("patients", chercherPatients(l0.map((x) => ({ x, f: champsRecherche(x, true) })), $("q").value), { nom: (x) => x.r.nm, ddn: (x) => x.r.ddn || "", num: (x) => numDossier(x), med: (x) => nomMed(medPourPatient(x)) || "",
+    hop: (x) => x.r.hop || "", diag: (x) => x.r.diag || "", dn: dnDe, tr: (x) => (x.r.t && x.r.t.st === "cours" ? x.r.t.nom : "") });
   $("nbRes").textContent = ""; // 26/10/2026 (style minimaliste) : plus de compteur « 65 patients »
   // 31/10/2026 (demande de Dr Bentahila, 2.4) : tableau sur le modèle de la page Tâches : Nom Prénom, date de naissance (âge), n° de dossier, médecin,
   // établissement, cancer, dernières nouvelles (ou « Décédé »), traitement en cours ; un clic sur la rangée ouvre le dossier ; téléphone : une carte par patient
   const vide = '<span class="mesures nd">—</span>';
-  $("lst").innerHTML = l.length ? '<div class="pt-tab' + (multiMed() ? " m" : "") + '" role="table" aria-label="Patients">' + bandeau("patients", "Patients", l.length) + '<div class="pt-h" role="row"><span role="columnheader">Nom Prénom</span><span role="columnheader">Date de naissance</span><span role="columnheader" class="c-num">N° de dossier</span><span role="columnheader" class="c-med">Médecin</span><span role="columnheader">Établissement</span><span role="columnheader">Cancer</span><span role="columnheader">Dernières nouvelles</span><span role="columnheader">Traitement en cours</span></div>' + l.map((xp) => { const { id, r } = xp;
+  $("lst").innerHTML = l.length ? '<div class="pt-tab' + (multiMed() ? " m" : "") + '" role="table" aria-label="Patients">' + bandeau("patients", "Patients", l.length) + '<div class="pt-h" role="row">' + enteteTri("patients", "nom", "Nom Prénom") + enteteTri("patients", "ddn", "Date de naissance") + enteteTri("patients", "num", "N° de dossier", "c-num") + enteteTri("patients", "med", "Médecin", "c-med") + enteteTri("patients", "hop", "Établissement") + enteteTri("patients", "diag", "Cancer") + enteteTri("patients", "dn", "Dernières nouvelles") + enteteTri("patients", "tr", "Traitement en cours") + '</div>' + l.map((xp) => { const { id, r } = xp;
     const a = age(r.ddn, t), rtC = (r.rtS || []).find((s) => s.st === "cours"), rtP = (r.rtS || []).find((s) => s.st === "prev"), cl = xp.doc.clinique || {}, num = numDossier(xp);
     const tr = [r.t && r.t.st === "cours" ? ic("seringue") + esc(r.t.nom + (r.t.c && r.t.k ? " · C" + r.t.k + "/" + r.t.nb : "")) : "", rtC ? ic("radiation") + esc("RT " + rtC.a + " jusqu'au " + dfr(rtC.fin)) : rtP ? ic("radiation") + esc("RT prévue le " + dfr(rtP.deb)) : ""].filter(Boolean);
     const dn = cl.statut === "decede" ? '<span class="badge b-dc">Décédé' + (cl.decesLe ? " le " + esc(dfrA(cl.decesLe)) : "") + "</span>" : (() => { const d = dernieresNouvelles(xp.P, datesConsultations(id), t); return (d ? esc(dfrA(d)) : vide) + (cl.statut === "perdu" ? ' <span class="badge b-or">' + esc(libStatut("perdu")) + "</span>" : ""); })();
@@ -1927,7 +1959,9 @@ function pageDossier(id) {
     // « Nouvelle consultation » : la barre tient sur une ligne
     boutonsPrescription(x) + '<span class="br-sep"></span>' +
     (okR ? bb("agenda", "+ Rendez-vous", "+ RDV", "ouvrirRdv(" + qx + ")") : "") + bb("taches", "+ Tâche", "+ Tâche", "taNouvelle(" + qx + ")", ' data-mod="taches"') +
-    '</div><div class="br-d" id="barreDroite">' + bullesDossier(x) + bulleRcp(x) + "</div>";
+    '</div><div class="br-d" id="barreDroite">' + bullesDossier(x) + bulleRcp(x) +
+    // IG6 (03/11/2026, idée 20) : « Fermer » pour tous les rôles, retour à la page d'où le dossier a été ouvert (caché quand la salle ou la RCP a déjà le sien)
+    '<button type="button" class="bt clair br-fermer" onclick="dosFermer()" title="Fermer le dossier : retour à ' + esc(nomPageAvant()) + '">' + ic("retour") + "Fermer</button></div>";
 
   const Z = { bandeau: ban, patient: (okDoc ? sw : "") + pat, travail: trav, documents: docs, barre };
   const cls = "dos" + (okDoc ? "" : " sans-docs") + (ONGLET[x.id] === "pat" ? " t-pat" : "") + (DOS.agrandi ? " agrandi" : "") + (DOS.droite === "docs" && okDoc ? " d-docs" : "") + (visionneuseGrande() ? " docs-grand" : "");

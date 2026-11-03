@@ -29,7 +29,7 @@ async def main():
         ok(nT == len(json.loads(S[E + 'finances/paiements']['data'])), 'aucune case perdue ni en double (' + str(nT) + ')')
         # Cocher puis décocher « Payé » : dans le document de l'année de l'acte
         await pg.select_option('#biPay', 'att'); await pg.wait_for_timeout(400)
-        i0 = await pg.evaluate("[...document.querySelectorAll('[onclick^=biPaye]')].findIndex(b=>b.textContent==='Payé')")
+        i0 = await pg.evaluate("[...document.querySelectorAll('[onclick^=biPaye]')].findIndex(b=>b.closest('label').textContent==='Payé')")
         cle = await pg.evaluate(f"(()=>{{const b=[...document.querySelectorAll('[onclick^=biPaye]')][{i0}];return b.closest('tr').children[0].textContent}})()")
         await pg.evaluate(f"[...document.querySelectorAll('[onclick^=biPaye]')][{i0}].click()"); await pg.wait_for_timeout(600)
         fs = await pg.evaluate("window.__fs")

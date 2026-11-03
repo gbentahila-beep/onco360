@@ -181,8 +181,10 @@ export function pageRcpMenu() {
 const majBadgeRcp = () => { const e = $("nbRcp"), n = nbRcpAFaire(); if (e) { e.textContent = n; e.classList.toggle("cache", !n); e.title = n + " inscription" + (n > 1 ? "s" : "") + " en RCP sans décision"; } };
 export function htmlOngletRcp() { return '<div id="rcpZone"><p class="sous">Chargement des RCP…</p></div>'; }
 export function pageRcp() { if (R && CFG) { if (!DU) periodeDefaut(); dessinerListe(); } } // sinon : dessinée à la fin de la lecture
+// IG5 (03/11/2026, audit UX, idée 11) : tri au clic sur le titre d'une colonne, dans chaque date de RCP (ordre par défaut inchangé)
+const VALS_TRI = { pat: (r) => nomDe(r), ddn: (r) => { const x = patient(r.patientId); return (x && x.P.ddn) || ""; }, q: (r) => r.q || "", dec: (r) => r.decisionTxt || (r.decision ? "Saisie" : ""), ins: (r) => r.ins || "", st: (r) => (r.fait ? 1 : 0) };
 function dessinerListe() {
-  const z = $("rcpZone"); if (!z) return;
+  const z = $("rcpZone"); if (!z) return; A.surTri("rcp", dessinerListe);
   const esc = A.esc, t = D().t, c = CFG || CFG0();
   const dansPer = (R || []).filter((r) => r.d >= DU && r.d <= AU);
   const retard = (R || []).filter((r) => !r.fait && r.d < t);
@@ -202,10 +204,12 @@ function dessinerListe() {
   cal += "</div>";
   const moisLib = A.cap(MS[+MOIS.slice(5, 7) - 1]) + " " + MOIS.slice(0, 4);
   const prochaine = prochainesRcp(1)[0];
-  let h = '<section class="carte rcp-haut"><div class="rcp-gauche"><div class="rcp-nav"><button class="sa-fl" onclick="rcpMois(-1)" aria-label="Mois précédent">‹</button><b>' + moisLib + '</b><button class="sa-fl" onclick="rcpMois(1)" aria-label="Mois suivant">›</button></div>' + cal +
+  // IG7 : téléphone : calendrier, période et « Afficher » derrière « Filtres », résumé du choix à côté
+  const resF = (DU === AU ? A.dfrA(DU) : A.dfrA(DU) + " – " + A.dfrA(AU)) + " · " + { tous: "Tous", afaire: "À faire", fait: "Faits" }[FILTRE];
+  let h = '<section class="carte rcp-haut ' + A.ftelCls("rcp") + '">' + A.enteteFiltres("rcp", resF, FILTRE !== "tous" ? 1 : 0) + '<div class="rcp-gauche ftel-z"><div class="rcp-nav"><button class="sa-fl" onclick="rcpMois(-1)" aria-label="Mois précédent">‹</button><b>' + moisLib + '</b><button class="sa-fl" onclick="rcpMois(1)" aria-label="Mois suivant">›</button></div>' + cal +
     "</div>" + // 26/10/2026 (style minimaliste) : plus de légende sous le calendrier
 
-    '<div class="rcp-droite"><div class="lbl">Période</div><div class="rcp-per"><label>Du <input type="date" id="rcpDu" value="' + DU + '"></label><label>au <input type="date" id="rcpAu" value="' + AU + '"></label></div>' +
+    '<div class="rcp-droite ftel-z"><div class="lbl">Période</div><div class="rcp-per"><label>Du <input type="date" id="rcpDu" value="' + DU + '"></label><label>au <input type="date" id="rcpAu" value="' + AU + '"></label></div>' +
     '<div class="puces" style="margin-top:8px"><span class="choix">' + (prochaine ? '<button class="puce' + (DU === prochaine && AU === prochaine ? " on" : "") + '" onclick="rcpPer(\'' + prochaine + "','" + prochaine + '\')">Prochaine RCP (' + A.dfr(prochaine) + ")</button>" : "") +
     '<button class="puce" onclick="rcpPer(\'' + lundi(t) + "','" + ajouterJours(lundi(t), 6) + '\')">Cette semaine</button><button class="puce" onclick="rcpPer(\'' + t.slice(0, 7) + "-01','" + finMois(t.slice(0, 7)) + '\')">Ce mois</button></span></div>' +
     '<div class="lbl" style="margin-top:6px">Afficher</div><div class="puces"><span class="choix">' + [["tous", "Tous"], ["afaire", "À faire"], ["fait", "Faits"]].map(([k, l]) => '<button class="puce' + (FILTRE === k ? " on" : "") + '" onclick="rcpFiltre(\'' + k + '\')">' + l + "</button>").join("") + "</span></div>" +
@@ -222,7 +226,7 @@ function dessinerListe() {
     const l = L.filter((r) => r.d === d), nf = l.filter((r) => r.fait).length;
     h += '<div class="rcp-j"><h4>' + esc(A.cap(libDate(d))) + (estRcp(d, c) && c.heure ? " · " + esc(c.heure.replace(":", "h")) : "") + '<span class="mesures">' + (l.length ? l.length + " dossier" + (l.length > 1 ? "s" : "") + (nf ? " · " + nf + " fait" + (nf > 1 ? "s" : "") : "") : "aucun dossier inscrit") + "</span></h4>";
     // 31/10/2026 (lot 5.1, demande de Dr Bentahila) : tableau au modèle des Tâches
-    if (l.length) h += '<div class="ta-tab rcp-tab">' + A.bandeau("rcp", "Patients inscrits", l.length) + '<div class="ta-h rcp-g" aria-hidden="true"><span>Patient</span><span>Né(e) le</span><span>Question</span><span>Décision</span><span>Inscrit</span><span>Statut</span><span>Actions</span></div>' + l.map(ligneListe).join("") + "</div>";
+    if (l.length) h += '<div class="ta-tab rcp-tab">' + A.bandeau("rcp", "Patients inscrits", l.length) + '<div class="ta-h rcp-g" role="row">' + [["pat", "Patient"], ["ddn", "Né(e) le"], ["q", "Question"], ["dec", "Décision"], ["ins", "Inscrit"], ["st", "Statut"]].map(([k, lb]) => A.enteteTri("rcp", k, lb)).join("") + '<span role="columnheader">Actions</span></div>' + A.selonTri("rcp", l, VALS_TRI).map(ligneListe).join("") + "</div>";
     h += "</div>";
   });
   z.innerHTML = h + "</section>";

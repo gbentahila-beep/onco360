@@ -14,7 +14,7 @@ MSG = "document.getElementById('rtrBmsg').textContent"
 async def fiche(pg, i, o='prescription', uid=None):
     await pg.goto(f'http://localhost:{PORT}/v2.html#radiotherapie/s/{i}/{o}'); await pg.wait_for_timeout(2500)
 async def menu3(pg, txt):
-    if txt == 'Modifier': await pg.click('.rtr-act .rtr-modb'); await pg.wait_for_timeout(400); return  # RT.7 (31/10/2026) : « Modifier » à côté de « ⋯ »
+    if txt == 'Modifier': await pg.click('.rtr-act .rtr-pts3 > summary'); await pg.click('.rtr-act .rtr-modb'); await pg.wait_for_timeout(400); return  # RT.7 (31/10/2026) : « Modifier » à côté de « ⋯ »
     await pg.click('.rtr-act details.rtr-pts3 > summary'); await pg.wait_for_timeout(150)
     if not await pg.evaluate("document.querySelector('.rtr-act details.rtr-pts3').open"): print('    (menu ⋯ fermé :', await pg.evaluate("[location.hash, document.activeElement && document.activeElement.outerHTML.slice(0, 80), !!document.querySelector('.or-dlg'), !!document.querySelector('#fenetre:not(.cache)')]"), ')')
     await pg.click(f'.rtr-act .m3-l button:has-text("{txt}")', timeout=5000); await pg.wait_for_timeout(400)
@@ -27,8 +27,8 @@ async def main():
         b = await p.chromium.launch()
         pg = await ouvrir(b, S); ev = pg.evaluate
         await fiche(pg, 'pro-fav-60-20')
-        ok((await ev("[...document.querySelectorAll('.rtr-pts3 .m3-l button')].map(b => b.textContent.trim()).join('|')")).startswith('Imprimer|Dupliquer|Copier') and await ev("!!document.querySelector('.rtr-act .rtr-modb')") and await ev("[...document.querySelectorAll('.rtr-pts3 .m3-l button')].pop().textContent.trim()") == 'Supprimer' and await ev("document.querySelectorAll('#page .bt.plein').length") == 0, 'lecture : « Modifier » à côté de « ⋯ » ; sous « ⋯ » Imprimer, Dupliquer, Copier… et Supprimer en dernier ; aucun bouton plein (RT.7)', await ev("[!!document.querySelector('.rtr-mbt'), [...document.querySelectorAll('#page .bt.plein')].map(b => b.outerHTML.slice(0, 80))]"))
-        await pg.click('.rtr-act .rtr-modb'); await pg.wait_for_timeout(300)
+        ok((await ev("[...document.querySelectorAll('.rtr-pts3 .m3-l button')].map(b => b.textContent.trim()).join('|')")).startswith('Modifier|Imprimer|Dupliquer|Copier') and await ev("!!document.querySelector('.rtr-act .rtr-pts3 .rtr-modb')") and await ev("[...document.querySelectorAll('.rtr-pts3 .m3-l button')].pop().textContent.trim()") == 'Supprimer' and await ev("document.querySelectorAll('#page .bt.plein').length") == 0, 'lecture (03/11/2026) : sous « ⋯ » Modifier, Imprimer, Dupliquer, Copier… et Supprimer en dernier ; aucun bouton plein (RT.7)', await ev("[!!document.querySelector('.rtr-mbt'), [...document.querySelectorAll('#page .bt.plein')].map(b => b.outerHTML.slice(0, 80))]"))
+        await pg.click('.rtr-act .rtr-pts3 > summary'); await pg.click('.rtr-act .rtr-modb'); await pg.wait_for_timeout(300)
         ok(await ev("!!document.querySelector('[data-p=\"titre\"]')") and await ev("document.querySelectorAll('.rtr-ong button').length") == 7 and await ev(MSG) == 'Aucun changement' and await ev("document.getElementById('rtrEnr').disabled"), 'modification sur place : titre en champ, mêmes onglets, barre du bas « Aucun changement »')
         await pg.fill('[data-p="prescriptions.0.dose_fx_Gy"]', '2,9'); await pg.wait_for_timeout(150)
         ok('Dose par séance différente' in await ev("document.querySelector('[data-err=\"prescriptions.0\"]').textContent") and await ev("document.getElementById('rtrEnr').disabled") and await ev("document.querySelectorAll('.rtr-err:not([hidden])').length") == 1, 'contrôle sous la ligne pendant la saisie ; « Enregistrer » inactif, avec la raison', await ev(MSG))
@@ -58,7 +58,7 @@ async def main():
         ok(await ev("document.querySelectorAll('.rtr-cmp tr.diff').length") == 2 and 'Version du cabinet' in await ev("document.getElementById('fenetre').innerText"), 'Voir la référence : deux colonnes, 2 différences surlignées (prescription, note)', await ev("document.querySelectorAll('.rtr-cmp tr.diff').length"))
         await ev("window.fermerFenetre()")
         # Collègue entre-temps : rien n'est écrasé
-        await pg.click('.rtr-act .rtr-modb'); await pg.wait_for_timeout(300); await pg.fill('[data-p="technique"]', 'Changement de moi'); await pg.wait_for_timeout(100)
+        await pg.click('.rtr-act .rtr-pts3 > summary'); await pg.click('.rtr-act .rtr-modb'); await pg.wait_for_timeout(300); await pg.fill('[data-p="technique"]', 'Changement de moi'); await pg.wait_for_timeout(100)
         await ev(f"window.__fs['{K}pro-fav-60-20'] = Object.assign({{}}, window.__fs['{K}pro-fav-60-20'], {{ majPar: 'UIDAUTRE', majParNom: 'Dr Collègue', majLe: '2026-10-25T11:00:00Z', note: 'Changement du collègue' }})")
         await pg.click('#rtrEnr'); await pg.wait_for_timeout(1500)
         d = await ev(DOC('pro-fav-60-20'))

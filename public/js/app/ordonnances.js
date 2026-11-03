@@ -15,6 +15,7 @@ import { MEDICAMENTS0 } from "../donnees/medicaments.js";
 import { ORDOS_TYPES0, appliquerOrdosAudit3 } from "../donnees/ordostypes.js";
 import { MAJ_BIB, VERSION_BIB } from "../donnees/majbib.js"; // R-E3 / R-E4 (19/10/2026)
 import { fusionnerListe, fusionnerOrdos, ajouterManquantes, retiresEntre } from "../moteur/bibmaj.js";
+import { recherche, chercheAussi } from "../moteur/souple.js";
 import { ANALYSES0, BILANS0 } from "../donnees/analyses.js";
 import { EXAMENS0 } from "../donnees/examens.js";
 import { COURRIERS0, CHAMPS_COURRIER } from "../donnees/courriers.js";
@@ -295,20 +296,21 @@ function vueListe() {
   setTimeout(() => { const q = $("mdQ"); if (q) q.focus(); }, 60);
 }
 function liste() {
-  const mots = sansAcc(S.q).split(/\s+/).filter(Boolean);
-  const L = BIB.filter((m) => { const t = sansAcc(m.nom + " " + m.poso + " " + m.classe); return mots.every((w) => t.indexOf(w) >= 0); });
+  // IG5 (03/11/2026, audit UX, idée 10) : recherche souple (Zophren = ondansétron, tirets et accents ignorés) ; « Cherché aussi : … »
+  const mots = sansAcc(S.q).split(/\s+/).filter(Boolean), R = recherche(S.q), aussi = chercheAussi(R);
+  const L = BIB.filter((m) => R.test(m.nom + " " + m.poso + " " + m.classe));
   // UX13 (P9, 02/11/2026) : correspondance exacte d'abord (« paracétamol » → Paracétamol 1 g avant les marques qui en contiennent), puis nom qui
   // commence par la recherche, puis le reste (posologie, classe) ; ordre de la liste gardé dans chaque groupe
   if (mots.length) {
     const q = mots.join(" "), rang = (m) => { const n = sansAcc(m.nom).replace(/\s+/g, " ").trim(); return n === q || n.startsWith(q + " ") ? 0 : n.startsWith(q) ? 1 : mots.every((w) => n.indexOf(w) >= 0) ? 2 : 3; };
     L.sort((a, b) => rang(a) - rang(b));
   }
-  $("mdListe").innerHTML = L.length ? '<table class="md-t"><tr><th>Médicament</th><th>Posologie</th><th></th></tr>' + L.map((m) => {
+  $("mdListe").innerHTML = (aussi ? '<p class="mesures ch-aussi" style="margin:4px 8px">' + A.esc(aussi) + "</p>" : "") + (L.length ? '<table class="md-t"><tr><th>Médicament</th><th>Posologie</th><th></th></tr>' + L.map((m) => {
     const q = "'" + m.id + "'";
     return '<tr class="m" ondblclick="mdAjouter(' + q + ')"><td><b>' + A.esc(m.nom) + "</b>" + (m.classe ? '<div class="cl">' + A.esc(m.classe) + "</div>" : "") + "</td><td>" + A.esc(m.poso) + '</td><td class="act">' + etoile(m, "mdFavori") +
       (S && S.gestion ? "" : '<button class="ico vert" title="Ajouter à l\'ordonnance" aria-label="Ajouter ' + A.esc(m.nom) + ' à l\'ordonnance" onclick="mdAjouter(' + q + ')">' + ico("plus") + "</button>") +
       actions(GEST(), [["Modifier", "mdFiche(" + q + ")", "crayon"], ["Supprimer de la liste", "mdSupprimer(" + q + ")", "croix", 1]], m.nom) + "</td></tr>";
-  }).join("") + "</table>" : '<p class="sous" style="padding:12px">Aucun médicament ne correspond.' + (ajouteMedic() ? " « Nouveau médicament » pour l'ajouter à la liste" + (S && !S.gestion ? ", ou « Ligne libre » pour l'écrire seulement dans cette ordonnance." : ".") : "") + "</p>";
+  }).join("") + "</table>" : '<p class="sous" style="padding:12px">Aucun médicament ne correspond.' + (ajouteMedic() ? " « Nouveau médicament » pour l'ajouter à la liste" + (S && !S.gestion ? ", ou « Ligne libre » pour l'écrire seulement dans cette ordonnance." : ".") : "") + "</p>");
 }
 // Médicaments de l'ordonnance en préparation : modifier ✎ (nom, posologie), monter, descendre, retirer
 function ordo() {

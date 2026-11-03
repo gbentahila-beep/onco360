@@ -8,20 +8,32 @@
 <link rel="icon" type="image/png" href="onco360-icone.png">
 <title>Onco360 – Connexion</title>
 <style>
-:root{--n:#3563B0}*{box-sizing:border-box}
-body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#F5F7FB;color:#262838;font-size:15px}
-header{background:#fff;border-bottom:1px solid #E3E7F0;display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;padding-top:max(14px,env(safe-area-inset-top))}
-header img{height:44px}header b{font-size:26px;color:#1D3F94;letter-spacing:-.5px}header b span{color:#1B9AAA}
-main{max-width:420px;margin:28px auto;padding:0 12px}
-.card{background:#fff;border-radius:16px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-h2{font-size:18px;margin:0 0 12px;color:var(--n)}
-label{font-size:13px;color:#555;display:block;margin:10px 0 4px}
-input{font-size:16px;padding:10px;border:1px solid #c9cbd8;border-radius:8px;width:100%}
-button{background:var(--n);color:#fff;border:0;border-radius:8px;padding:12px 16px;font-size:16px;cursor:pointer;margin-top:16px;width:100%}
+/* IG6 (03/11/2026, audit UX idée 18) : polices et champs d'Onco360 (Montserrat pour le titre, Roboto pour le texte, champs de 44 px),
+   message de réussite en vert avec ✓, erreurs en rouge, « Afficher » dans le champ du mot de passe */
+@font-face{font-family:Montserrat;font-weight:700;font-display:swap;src:url(vendor/polices/montserrat-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Roboto;font-weight:400;font-display:swap;src:url(vendor/polices/roboto-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Roboto;font-weight:500;font-display:swap;src:url(vendor/polices/roboto-latin-500-normal.woff2) format("woff2")}
+:root{--n:#3563B0;--encre:#00264C;--doux:#294056;--trait:#C9D9E8;--fond:#F1F5FB;--rouge:#B8003D;--rouge-c:#FDE6EE;--vert:#00806A;--vert-c:#E0F2EE;--anneau:0 0 0 2px #fff,0 0 0 4px #3A5978}*{box-sizing:border-box}
+body{font-family:Roboto,Arial,Helvetica,sans-serif;margin:0;background:var(--fond);color:var(--encre);font-size:15px;line-height:1.45}
+header{background:#fff;border-bottom:1px solid var(--trait);display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;padding-top:max(14px,env(safe-area-inset-top))}
+header img{height:44px}header b{font-family:Montserrat,Arial,sans-serif;font-size:26px;color:var(--encre);letter-spacing:-.5px}header b span{color:#107ACA}
+main{max-width:420px;margin:28px auto;padding:0 16px}
+.card{background:#fff;border-radius:16px;padding:22px 20px;box-shadow:0 1px 3px rgba(5,43,71,.12),0 4px 12px rgba(5,43,71,.08)}
+h2{font-family:Montserrat,Arial,sans-serif;font-weight:700;font-size:20px;margin:0 0 14px;color:var(--encre)}
+label{font-size:14px;font-weight:500;color:var(--doux);display:block;margin:14px 0 6px}
+input{font-family:inherit;font-size:16px;min-height:44px;padding:10px 12px;border:1px solid var(--doux);border-radius:8px;width:100%;color:var(--encre);background:#fff}
+:focus-visible{outline:0;box-shadow:var(--anneau)}
+.mdp{position:relative}.mdp input{padding-right:92px}
+.mdp .voir{position:absolute;right:4px;top:4px;bottom:4px;width:auto;min-height:0;margin:0;padding:0 12px;background:none;color:var(--n);font-size:14px;font-weight:500;border-radius:6px}
+.mdp .voir:hover{background:#F1F7FE}
+button{font-family:inherit;font-weight:500;background:var(--n);color:#fff;border:0;border-radius:8px;min-height:44px;padding:12px 16px;font-size:16px;cursor:pointer;margin-top:18px;width:100%}
 button:disabled{opacity:.6}
-.err{color:#a3243b;font-size:14px;margin-top:10px;min-height:18px}
-.partage{display:flex;gap:10px;align-items:center;margin:14px 0 0;font-size:14px;color:#262838;cursor:pointer;min-height:44px}.partage input{width:20px;height:20px;flex:none;padding:0}
-.pied{max-width:420px;margin:0 auto 24px;padding:0 12px;text-align:center;font-size:13px;color:#666}.st{font-size:13px;color:#666}a{color:var(--n)}
+.msg{font-size:14px;margin-top:12px;min-height:0;border-radius:8px}.msg:empty{margin-top:0}
+.msg.err:not(:empty){color:var(--rouge);background:var(--rouge-c);padding:10px 12px}
+.msg.ok:not(:empty){color:var(--vert);background:var(--vert-c);padding:10px 12px;font-weight:500}.msg.ok:not(:empty)::before{content:"✓ ";font-weight:700}
+.partage{display:flex;gap:10px;align-items:center;margin:14px 0 0;font-size:14px;font-weight:400;color:var(--encre);cursor:pointer;min-height:44px}.partage input{width:20px;height:20px;min-height:0;flex:none;padding:0}
+.st{font-size:14px;color:var(--doux)}.st a{display:inline-flex;align-items:center;min-height:44px}
+.pied{max-width:420px;margin:0 auto 24px;padding:0 16px;text-align:center;font-size:13px;color:var(--doux)}.pied a{display:inline-flex;align-items:center;min-height:44px}a{color:var(--n)}
 </style></head>
 <body>
 <header><img src="onco360-icone.png" alt=""><b>Onco<span>360</span></b></header>
@@ -31,11 +43,11 @@ button:disabled{opacity:.6}
     <label for="email">Adresse e-mail</label>
     <input id="email" type="email" autocomplete="username" inputmode="email">
     <label for="mdp">Mot de passe</label>
-    <input id="mdp" type="password" autocomplete="current-password">
+    <div class="mdp"><input id="mdp" type="password" autocomplete="current-password"><button type="button" class="voir" id="voirMdp" aria-controls="mdp" aria-pressed="false">Afficher</button></div>
     <label class="partage" for="partage"><input id="partage" type="checkbox"> Poste partagé (se déconnecter à la fermeture du navigateur)</label>
     <button id="btnConnexion">Se connecter</button>
-    <div class="err" id="erreur"></div>
-    <div class="st" style="margin-top:6px"><a href="#" id="lienOubli">Mot de passe oublié ?</a></div>
+    <div class="msg err" id="erreur" role="alert"></div>
+    <div class="st" style="margin-top:4px"><a href="#" id="lienOubli">Mot de passe oublié ?</a></div>
   </div>
   <div class="card" id="vueChargement"><div class="st">Chargement…</div></div>
 </main>
@@ -51,24 +63,27 @@ const MESSAGES = {
   "auth/too-many-requests": "Trop d’essais. Réessayez dans quelques minutes.",
   "auth/network-request-failed": "Pas de connexion Internet."
 };
+// IG6 : un seul endroit pour les messages : ok = réussite (vert, ✓), sinon erreur (rouge)
+const dire = (t, ok) => { const m = $("erreur"); m.className = "msg " + (ok ? "ok" : "err"); m.setAttribute("role", ok ? "status" : "alert"); m.textContent = t || ""; };
+$("voirMdp").onclick = () => { const v = $("mdp").type === "password"; $("mdp").type = v ? "text" : "password"; $("voirMdp").textContent = v ? "Masquer" : "Afficher"; $("voirMdp").setAttribute("aria-pressed", String(v)); $("mdp").focus(); };
 const message = (e) => MESSAGES[e && e.code] || ("Erreur : " + ((e && e.message) || e));
 await setPersistence(auth, browserLocalPersistence);
 $("btnConnexion").onclick = async () => {
-  $("erreur").textContent = "";
+  dire("");
   const email = $("email").value.trim(), mdp = $("mdp").value;
-  if (!email || !mdp) { $("erreur").textContent = "Saisissez l’e-mail et le mot de passe."; return; }
+  if (!email || !mdp) { dire("Saisissez l’e-mail et le mot de passe."); return; }
   $("btnConnexion").disabled = true;
   // L7 (31/10/2026) : poste partagé = session fermée avec le navigateur ; sinon la connexion reste sur cet appareil
-  try { await setPersistence(auth, $("partage").checked ? browserSessionPersistence : browserLocalPersistence); await signInWithEmailAndPassword(auth, email, mdp); }
-  catch (e) { $("erreur").textContent = message(e); $("btnConnexion").disabled = false; }
+  try { await setPersistence(auth, $("partage").checked ? browserSessionPersistence : browserLocalPersistence); await signInWithEmailAndPassword(auth, email, mdp); dire("Connexion réussie : ouverture d’Onco360…", true); }
+  catch (e) { dire(message(e)); $("btnConnexion").disabled = false; }
 };
 $("mdp").addEventListener("keydown", (e) => { if (e.key === "Enter") $("btnConnexion").click(); });
 $("lienOubli").onclick = async (ev) => {
   ev.preventDefault();
   const email = $("email").value.trim();
-  if (!email) { $("erreur").textContent = "Saisissez d’abord votre adresse e-mail."; return; }
-  try { await sendPasswordResetEmail(auth, email); $("erreur").textContent = "Un e-mail de réinitialisation vient d’être envoyé (vérifiez aussi les indésirables)."; }
-  catch (e) { $("erreur").textContent = message(e); }
+  if (!email) { dire("Saisissez d’abord votre adresse e-mail."); return; }
+  try { await sendPasswordResetEmail(auth, email); dire("Un e-mail de réinitialisation vient d’être envoyé (vérifiez aussi les indésirables).", true); }
+  catch (e) { dire(message(e)); }
 };
 // Déjà connecté (ou connexion réussie) : on entre directement dans l'application
 // index.html?sortie=1 (page de secours d'Onco360) : on termine la déconnexion au lieu de renvoyer vers Onco360
@@ -77,7 +92,7 @@ if (sortie) history.replaceState(null, "", "index.html");
 onAuthStateChanged(auth, async (u) => {
   const aSortir = sortie; sortie = false; // seulement au premier passage : une connexion ensuite entre normalement
   if (u && aSortir) { await signOut(auth).catch(() => {}); return; } // relance onAuthStateChanged sans utilisateur
-  if (u) { location.replace("v2.html"); return; } // Onco360 (ancienne application retirée du site le 11/10/2026)
+  if (u) { if (!aSortir && $("vueConnexion").style.display !== "none") dire("Connexion réussie : ouverture d’Onco360…", true); location.replace("v2.html"); return; } // Onco360 (ancienne application retirée du site le 11/10/2026)
   $("vueChargement").style.display = "none"; $("vueConnexion").style.display = "";
 });
 </script>

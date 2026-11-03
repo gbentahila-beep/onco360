@@ -190,8 +190,11 @@ const nbCom = (t) => (t.fil || []).filter((f) => f.c).length;
 // 31/10/2026 (1.10) : ce qui est entre parenthèses ne compte pas (« Onco360 (automatique) » → « O », plus « O( ») ; seulement les mots qui commencent par une lettre
 const initiales = (nom) => String(nom || "?").replace(/\([^)]*\)/g, " ").replace(/^\s*(Dr|Pr)\.?\s+/i, "").split(/\s+/).filter((m) => /^\p{L}/u.test(m)).slice(0, 2).map((m) => m[0]).join("").toUpperCase() || "?";
 const avatar = (nom, moi) => '<span class="ta-av">' + A.esc(initiales(nom)) + "</span><span class=\"ta-nm\">" + A.esc(moi ? "Moi" : nom || "?") + "</span>";
-const ENTETE = '<div class="ta-h" aria-hidden="true"><span>Tâche</span><span>Patient</span><span>Assignée à</span><span>Créée par</span><span>Échéance</span><span>Statut</span></div>';
-const tableau = (l) => (l.length ? '<div class="ta-tab">' + A.bandeau("taches", VUE === "mes" ? "Mes tâches" : "Toutes les tâches", l.length) + ENTETE + l.map(ligne).join("") + "</div>" : ""); // UX5 : bandeau
+// IG5 (03/11/2026, audit UX, idée 11) : tri au clic sur le titre d'une colonne (ordre par défaut inchangé)
+const ENTETE = () => '<div class="ta-h" role="row">' + [["titre", "Tâche"], ["patient", "Patient"], ["pour", "Assignée à"], ["de", "Créée par"], ["ech", "Échéance"], ["statut", "Statut"]].map(([k, l]) => A.enteteTri("taches", k, l)).join("") + "</div>";
+const ORDRE_ST = { afaire: 0, encours: 1, fait: 2 };
+const VALS_TRI = { titre: (t) => t.titre || "", patient: (t) => t.patientNom || "", pour: (t) => t.pourNom || "", de: (t) => t.deNom || "", ech: (t) => t.ech || "", statut: (t) => ORDRE_ST[t.statut] };
+const tableau = (l) => (l.length ? '<div class="ta-tab">' + A.bandeau("taches", VUE === "mes" ? "Mes tâches" : "Toutes les tâches", l.length) + ENTETE() + A.selonTri("taches", l, VALS_TRI).map(ligne).join("") + "</div>" : ""); // UX5 : bandeau
 function ligne(t) {
   const esc = A.esc, q = "'" + t.id + "'", moi = D().u.uid;
   const ech = !t.ech ? '<span class="mesures">—</span>' : t.debut && t.debut < t.ech && !t.h ? esc(A.dfr(t.debut) + " → " + A.dfrA(t.ech)) : esc(A.dfrA(t.ech) + (t.h ? " · " + t.h : ""));
@@ -268,7 +271,7 @@ function dessiner() {
   $("page").innerHTML = '<div class="p-ta">' + h + "</div>";
   $("taQ").oninput = () => { F.q = $("taQ").value; liste(); };
   [["taFqui", "qui"], ["taFst", "st"], ["taFech", "ech"], ["taFtype", "type"], ["taFlieu", "lieu"]].forEach(([i, k]) => { if ($(i)) $(i).onchange = () => { F[k] = $(i).value; liste(); }; });
-  liste();
+  A.surTri("taches", () => { if ($("taL")) liste(); }); liste();
   if (A_OUVRIR) { const id = A_OUVRIR; A_OUVRIR = null; window.taOuvrir(id); }
 }
 const nbOuv = (x) => x.filter((t) => t.statut !== "fait").length;

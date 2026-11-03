@@ -152,7 +152,7 @@ async def main():
         pl = await ev("[...document.querySelectorAll('#page .puces .puce')].map(b=>b.textContent.trim())")
         ok([re.sub(r'\s*\(?\d+\)?$', '', x) for x in pl][:8] == ['Mutuelles', 'Correspondants', 'Allergies', 'Antécédents médicaux', 'Antécédents chirurgicaux', 'Antécédents familiaux', 'Traitements en cours', 'Localisations'] and 'Allergies 30' in pl, 'Listes : mutuelles, correspondants, informations médicales, localisations (départ : 30 allergies)', pl)
         await ev("cfLs('allergies')"); await pg.wait_for_timeout(500)
-        ok(await ev("document.querySelectorAll('#cfLl input').length") == 30, 'liste des allergies affichée et modifiable')
+        ok(await ev("[document.querySelectorAll('#cfLl .it').length, document.querySelectorAll('#cfLl .it-ed').length]") == [30, 30], 'liste des allergies affichée et modifiable (✎, IG5)')
         ok(not pg.errs, 'aucune erreur JavaScript', pg.errs[:2]); await pg.close()
 
         print('Consultations en cartes (§9), menu du dossier (§10)')

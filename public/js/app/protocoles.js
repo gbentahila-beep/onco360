@@ -7,6 +7,7 @@ import { tableMol, edValide, editerAvec, menusCascade, valeursCascade } from "./
 import { correctionsAudit3 } from "../moteur/audit3.js";
 import { RISQUES, risqueEmetique, libRisque } from "../moteur/seuils.js";
 import { trierRecherche, curesProposees, filtreLocalisation, filtreValide } from "../moteur/recherche.js";
+import { recherche, chercheAussi } from "../moteur/souple.js";
 import { confirmer } from "./dialogues.js"; // UX3 (02/11/2026) : fenêtres d'avertissement dans l'application
 import { rythme } from "../moteur/outils.js"; // UX11 C3 (02/11/2026)
 // P9 : fonctions serveur (europe-west1), chargées seulement quand on s'en sert
@@ -17,7 +18,6 @@ export function installer(api) { A = api; }
 const D = () => A.D();
 const CLES = ["c", "o", "s", "g"];
 let CF = { c: "", o: "", s: "", g: "", q: "", fav: 0, st: "" }, ED = null, REDESSINER = null;
-const sa = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 const BIB = () => Object.values(D().ctx.bib).filter((p) => p && p.nom);
 // IG3 (02/11/2026, idée 12) : molécules des cartes en écriture normale, à l'affichage seulement (« MITOMYCINE C, 5-FLUORO-URACILE » → « Mitomycine C,
 // 5-fluoro-uracile ») ; les sigles courts (C, LV, BCG, LP, MU, 5-FU) et ce qui est entre parenthèses restent tels quels
@@ -32,13 +32,15 @@ const traceVal = (p) => { const v = p.valide; if (!v) return ""; return (v.retro
 const badgeSt = (p) => (valide(p) ? '<span class="badge b-ch" title="' + A.esc(traceVal(p)) + '"><svg class="pi"><use href="#i-check"/></svg>Validé</span>' : '<span class="badge b-or"><i class="dot j"></i>Non validé</span>');
 
 const valeurs = (n) => valeursCascade(BIB(), CF, n);
+// IG5 (03/11/2026, audit UX, idée 10) : recherche souple (tirets, espaces, accents ignorés ; synonymes : Taxol, CDDP, 5FU…), « Cherché aussi : … »
+let AUSSI = "";
 function resultats() {
-  const q = sa(CF.q).split(/\s+/).filter(Boolean);
+  const R = recherche(CF.q); AUSSI = chercheAussi(R);
   return trierRecherche(BIB().filter((p) => {
     if (CF.fav && !p.fav) return false;
     if (CF.st === "ok" && !valide(p)) return false; if (CF.st === "todo" && valide(p)) return false;
     if (CF.c && !(p.ind || []).some((x) => x[0] === CF.c && (!CF.o || x[1] === CF.o) && (!CF.s || x[2] === CF.s) && (!CF.g || x[3] === CF.g))) return false;
-    if (q.length) { const h = sa(p.nom + " " + molecules(p) + " " + (p.ind || []).map((x) => x.join(" ")).join(" ")); if (!q.every((w) => h.indexOf(w) >= 0)) return false; }
+    if (!R.vide && !R.test(p.nom + " " + (p.dr || []).map((d) => d.p).join(" ") + " " + (p.ind || []).map((x) => x.join(" ")).join(" "))) return false;
     return true;
   }), CF.q); // T1 (24/10/2026) : le nom qui commence par le mot cherché d'abord, puis l'ordre alphabétique
 }
@@ -50,9 +52,9 @@ window.prPage = (p) => { PAGE = Math.max(0, p); A.$("prL").innerHTML = liste(); 
 function liste() {
   const r = resultats(), esc = A.esc, ok = A.peut("parametres");
   const cle = JSON.stringify([CF.c, CF.o, CF.s, CF.g, CF.q, CF.fav, CF.st]); if (cle !== CLE) { CLE = cle; PAGE = 0; }
-  if (!r.length) return '<p class="sous">Aucun protocole.</p>';
+  if (!r.length) return '<p class="sous">Aucun protocole.' + (AUSSI ? " " + esc(AUSSI) + "." : "") + "</p>";
   PAGE = Math.min(PAGE, Math.ceil(r.length / PAR) - 1);
-  return '<p class="mesures" style="margin:6px 0">' + r.length + " protocole" + (r.length > 1 ? "s" : "") + '</p><div class="pgrille">' + r.slice(PAGE * PAR, PAGE * PAR + PAR).map((p) => {
+  return '<p class="mesures" style="margin:6px 0">' + r.length + " protocole" + (r.length > 1 ? "s" : "") + (AUSSI ? ' · <span class="ch-aussi">' + esc(AUSSI) + "</span>" : "") + '</p><div class="pgrille">' + r.slice(PAGE * PAR, PAGE * PAR + PAR).map((p) => {
     const ind = (p.ind || []).slice(0, 2).map((x) => x.filter(Boolean).slice(1).join(" › ")).filter(Boolean).join(" · ") + ((p.ind || []).length > 2 ? " · …" : ""), q = "'" + esc(p.id) + "'";
     return '<div class="pcarte" role="button" tabindex="0" onclick="prOuvrir(' + q + ')" onkeydown="if(event.key===\'Enter\')prOuvrir(' + q + ')" title="Ouvrir">' +
       '<div class="pc-h"><b>' + esc(p.nom) + "</b>" + badgeSt(p) + "</div>" +
@@ -72,21 +74,24 @@ export function pageProtocoles(arg) {
   pageProtocoles0();
   if (arg && !arg.startsWith("loc/") && D().ctx.bib[arg]) setTimeout(() => window.prOuvrir(arg), 0);
 }
+// IG7 : téléphone : résumé des menus (type › localisation › situation › sous-groupe, statut) à côté de « Filtres » ; [résumé, nombre de choix]
+const resumeFiltres = () => { const l = [CF.c, CF.o, CF.s, CF.g].filter(Boolean), st = CF.st === "ok" ? "Validés" : CF.st === "todo" ? "Non validés" : "";
+  return [(l.length ? l.join(" › ") : "Tous les cancers") + (st ? " · " + st : ""), l.length + (st ? 1 : 0)]; };
 function pageProtocoles0() {
   const esc = A.esc, ok = A.peut("parametres");
   // Lot B (25/10/2026) : plus de titre ni de compteurs ; ligne 1 = recherche, Favoris, statut à gauche, « ⋯ » et « + Créer un protocole »
   // à droite ; dessous, la carte avec les menus en cascade et la liste
-  let h = '<div class="barre-page pr-barre"><div class="bp-vue pr-rech"><input id="prQ" class="champ" style="flex:1;min-width:220px" placeholder="Molécule, protocole, situation…" title="Rechercher : molécule, protocole ou situation (ex. pertuzumab, sein adjuvant)" aria-label="Rechercher un protocole" value="' + esc(CF.q) + '">' +
-    '<button class="bt ' + (CF.fav ? "plein" : "clair") + ' petit" onclick="prFiltre(\'fav\')"><svg class="pi"><use href="#i-etoile"/></svg>Favoris</button><select class="champ" style="font-size:14px;padding:8px" onchange="const v=this.value;this.blur();setTimeout(()=>prFiltre(\'st\',v),30)"><option value="">Tous les statuts</option><option value="ok"' + (CF.st === "ok" ? " selected" : "") + '>Validés</option><option value="todo"' + (CF.st === "todo" ? " selected" : "") + ">Non validés</option></select>" +
+  let h = '<div class="' + A.ftelCls("protocoles") + ' pr-ftel"><div class="barre-page pr-barre"><div class="bp-vue pr-rech"><input id="prQ" class="champ" style="flex:1;min-width:220px" placeholder="Molécule, protocole, situation…" title="Rechercher : molécule, protocole ou situation (ex. pertuzumab, sein adjuvant)" aria-label="Rechercher un protocole" value="' + esc(CF.q) + '">' +
+    '<button class="bt ' + (CF.fav ? "plein" : "clair") + ' petit" onclick="prFiltre(\'fav\')"><svg class="pi"><use href="#i-etoile"/></svg>Favoris</button><select class="champ ftel-z" style="font-size:14px;padding:8px" aria-label="Statut" onchange="const v=this.value;this.blur();setTimeout(()=>prFiltre(\'st\',v),30)"><option value="">Tous les statuts</option><option value="ok"' + (CF.st === "ok" ? " selected" : "") + '>Validés</option><option value="todo"' + (CF.st === "todo" ? " selected" : "") + ">Non validés</option></select>" +
     "</div>" +
     // 26/10/2026 (demande de Dr Bentahila) : Réinitialiser, Excel et Livret PDF sous « ⋯ », centré sur la hauteur de la ligne
     '<div class="bp-act pr-act">' + A.menuPts(['<button class="mini" onclick="prFiltre(\'reinit\')">Réinitialiser</button>', '<button class="mini" onclick="prExporter(\'xlsx\')" title="Toute la bibliothèque dans un tableau Excel">Excel</button>', '<button class="mini" onclick="prExporter(\'pdf\')" title="Livret imprimable, par localisation">Livret PDF</button>']) +
-    (ok ? '<button class="b1" onclick="prOuvrir()">' + A.ic("plus") + "Créer un protocole</button>" : "") + "</div></div>" + '<div id="prMaj"></div><section class="carte">';
+    (ok ? '<button class="b1" onclick="prOuvrir()">' + A.ic("plus") + "Créer un protocole</button>" : "") + "</div></div>" + A.enteteFiltres("protocoles", ...resumeFiltres()) + '<div id="prMaj"></div><section class="carte">';
   // Menus déroulants en cascade : Type de cancer › Localisation › Situation › Sous-groupe
   if (CF.c && !CF.o) { const o = valeurs(1); if (o.length === 1) CF.o = o[0]; }
   // 26/10/2026 : menus en cascade fixés en haut quand on fait défiler la liste (la ligne de recherche et de boutons, elle, défile)
-  h += '<div class="pr-casc">' + menusCascade(BIB(), CF, "prChoixV") + "</div>";
-  h += '<div id="prL" style="margin-top:6px">' + liste() + "</div>" + AVERT + "</section>";
+  h += '<div class="pr-casc ftel-z">' + menusCascade(BIB(), CF, "prChoixV") + "</div>";
+  h += '<div id="prL" style="margin-top:6px">' + liste() + "</div>" + AVERT + "</section></div>";
   A.$("page").innerHTML = h;
   const q = A.$("prQ"); q.oninput = () => { CF.q = q.value; A.$("prL").innerHTML = liste(); };
   bandeauMaj();
@@ -96,7 +101,7 @@ function pageProtocoles0() {
 function majCascade() {
   const zc = document.querySelector("#page .cascade"), zl = A.$("prL"); if (!zc || !zl) { pageProtocoles(); return; }
   if (CF.c && !CF.o) { const o = valeurs(1); if (o.length === 1) CF.o = o[0]; }
-  zc.outerHTML = menusCascade(BIB(), CF, "prChoixV"); zl.innerHTML = liste();
+  zc.outerHTML = menusCascade(BIB(), CF, "prChoixV"); zl.innerHTML = liste(); A.ftelResume("protocoles", ...resumeFiltres());
 }
 window.prChoixV = (n, v) => { CF[CLES[n]] = v || ""; for (let k = n + 1; k < 4; k++) CF[CLES[k]] = ""; majCascade(); };
 window.prChoix = (n, i) => { CF[CLES[n]] = i < 0 ? "" : valeurs(n)[i]; for (let k = n + 1; k < 4; k++) CF[CLES[k]] = ""; majCascade(); };
@@ -459,10 +464,14 @@ window.prIndAj = () => { ED.ind.push(["", "", "", ""]); REDESSINER(); };
 window.prIndSup = (i) => { ED.ind.splice(i, 1); REDESSINER(); };
 function voir() {
   const esc = A.esc, ok = A.peut("parametres"), q = "'" + esc(ED.id) + "'", dd = (lib, v, large) => (v ? "<div" + (large ? ' class="large"' : "") + "><dt>" + esc(lib) + "</dt><dd>" + esc(v) + "</dd></div>" : "");
-  const pts = A.menuPts(['<button class="mini" onclick="prSignaler(' + q + ')">Signaler une erreur</button>'].concat(ok ? ['<button class="mini rouge" onclick="prSuppr(' + q + ')">Supprimer le protocole</button>'] : []));
-  const haut = '<div class="pr-haut">' + (ok ? '<button class="b1" onclick="prModifier(' + q + ')">' + A.ic("crayon") + 'Modifier</button><button class="b2" onclick="prDupliquer(' + q + ')">Dupliquer</button>' : "") + pts + "</div>";
+  // 03/11/2026 (demande de Dr Bentahila) : même en-tête que la fiche d'un schéma de radiothérapie : « Retour à la liste », titre et statut, étoile
+  // des favoris à côté de « ⋯ » (Modifier, Dupliquer, Signaler une erreur, Supprimer) ; en bas, avertissement encadré, « Échap pour annuler » et Fermer
+  const fm = "this.closest('details').open=false;", m = (f, i, t, rouge) => '<button class="mini' + (rouge ? " rouge-t" : "") + '" onclick="' + fm + f + '">' + A.ic(i) + t + "</button>";
+  const fav = !!ED.fav, etoile = '<button class="rtr-et' + (fav ? " on" : "") + '" title="' + (fav ? "Retirer des favoris" : "Ajouter aux favoris") + '" aria-pressed="' + fav + '"' + (ok ? ' onclick="prFavFiche(' + q + ',this)"' : " disabled") + ">" + A.ic("etoile") + "</button>";
+  const menu = (ok ? m("prModifier(" + q + ")", "crayon", "Modifier") + m("prDupliquer(" + q + ")", "copier", "Dupliquer") : "") + m("prSignaler(" + q + ")", "alerte", "Signaler une erreur") + (ok ? m("prSuppr(" + q + ")", "corbeille", "Supprimer le protocole", true) : "");
+  const haut = '<div class="rtr-t pr-t"><h2>' + esc(ED.nom) + " " + badgeSt(ED) + '</h2><div class="rtr-act">' + etoile + '<details class="m3 rtr-pts3"><summary class="bt clair petit" title="Autres actions" aria-label="Autres actions">⋯</summary><div class="m3-l">' + menu + "</div></details></div></div>";
   const pres = [dd("Risque émétique", libRisque(ED.re || risqueEmetique(ED, premed))), dd("Ordonnances liées", (ED.ordos || []).join(" ; "), true), dd("Seuils du jour", (ED.seuils || []).join(" · "), true)].join("");
-  A.fenetre('<div class="pg-form pr-fiche pr-lect"><h3>' + esc(ED.nom) + " " + badgeSt(ED) + "</h3>" + haut +
+  A.fenetre('<div class="pg-form pr-fiche pr-lect">' + haut +
     cadre("Protocole", '<dl class="pr-dl">' + dd("Cycle", ED.c ? ED.c + " jours" : "Continu") + dd("Nombre de cures proposé", String(curesProposees(ED))) + dd("Rythme", rythme(ED.r) || ED.r || "") + dd("Source", ED.src || "", true) + "</dl>" + (traceVal(ED) || ED.version ? '<p class="mesures" style="margin:8px 0 0">' + esc(traceVal(ED) || "Version " + ED.version) + (ED.majParNom ? " · modifié par " + esc(ED.majParNom) : "") + "</p>" : "")) +
     ((ED.ind || []).length ? cadre("Indication", '<div class="tableau"><table class="tcures"><tr><th>Cancer</th><th>Localisation</th><th>Situation</th><th>Sous-groupe</th></tr>' + ED.ind.map((x) => "<tr>" + [0, 1, 2, 3].map((k) => "<td>" + esc(x[k] || "") + "</td>").join("") + "</tr>").join("") + "</table></div>" + (ED.assoc ? '<p class="mesures" style="margin:8px 0 0">Traitement associé (castration, os, support…)</p>' : "")) : "") +
     cadre("Molécules", '<div class="tableau"><table class="tcures"><tr><th>Produit</th><th>Dose</th><th>Unité</th><th>Jours</th><th>Voie</th><th>Durée</th></tr>' +
@@ -470,4 +479,7 @@ function voir() {
     cadre("Prescription", '<dl class="pr-dl">' + pres + "</dl>") +
     ((ED.no || []).length ? cadre("Remarques", '<p class="mesures" style="margin:0">' + ED.no.map(esc).join("<br>") + "</p>") : "") +
     AVERT + '<div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Fermer</button></div></div>', "page");
+  const r = document.querySelector("#fenetreCorps .pg-ret"); if (r && r.lastChild) r.lastChild.textContent = "Retour à la liste";
 }
+window.prFavFiche = async (id, b) => { await window.prFav(id); const on = !!(D().ctx.bib[id] || {}).fav; if (ED && ED.id === id) ED.fav = on ? 1 : 0;
+  b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); b.title = on ? "Retirer des favoris" : "Ajouter aux favoris"; };
