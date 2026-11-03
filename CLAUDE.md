@@ -520,7 +520,7 @@ temporaire si le cache npm du Mac refuse) — à relancer avant chaque mise en l
   table à relire par Dr Bentahila), ligne `{ t: "fs" }` dans la consultation du jour (`libLigne` → « Feuille de soins ») ; nouveau rendez-vous : aujourd'hui s'il
   reste un créneau, sinon `prochainJour`. Test : `tests/test_ux11_13.py`.
 
-## Phase IG, IG1 à IG4 (02/11/2026 ; audit UX / UI, « identité gardée » ; pas encore en ligne)
+## Phase IG, IG1 à IG4 (02/11/2026 ; audit UX / UI, « identité gardée » ; en ligne le 03/11/2026)
 - IG1 : recherche de patient `js/moteur/cherchepatient.js` (`chercherPatients`, `motsRecherche`, `telNormal` ; test `node tests/moteur/test-cherchepatient.mjs`) pour la recherche
   du haut (v2.js `rechercheTete`, `champsRecherche`, `<mark>`, `.tr-plus` « Voir tout dans Patients » → `PT_Q`) et la page Patients (aussi un ancien n° avec des lettres, « ANC-003 ») ; pastille `.br-n` entière
   (`.br-g .pr{overflow:visible}`) ; Types de consultation en requête de conteneur (`.cf-main .ty-b`) ; « Protocoles de traitement systémique ».
@@ -533,6 +533,22 @@ temporaire si le cache npm du Mac refuse) — à relancer avant chaque mise en l
 - IG4 : `<body class="demarrage">` + script en bas de v2.html (forme de la page `.chargement.sq-page`, titre d'après l'adresse) ; v2.js retire `demarrage` après
   la 1re page ; tableau de bord : 5 lignes puis « Voir les N … › » (`tbVoir`, `AF_OUV`, `.af-sup`, `.sept-sup`), carte `.tb-fx` aussi haute que son contenu ; protocoles.js : `prOuvrir(id)` = lecture (`voir`),
   `prModifier(id)` / `prDupliquer(id)` = formulaire (`editer`), `prOuvrir()` = nouveau. Test `tests/test_ig4.py`.
+
+## Phase IG, IG5 à IG9 (03/11/2026) et fiches de protocole unifiées
+- Fiches : protocoles.js `voir()` et radiotherapie.js `enteteHtml()` / `actions()` / `dessinerFiche()` au même modèle : `.pg-ret` « Retour à la liste », titre + badges
+  (`.rtr-t h2 .badge`), `.rtr-act` = étoile `.rtr-et` (`prFavFiche`) + ⋯ `details.rtr-pts3` (Modifier `.rtr-modb`, Dupliquer…) ; fiche RT : pied `.rtr-bas` (« Échap pour
+  annuler », Fermer), Échap → `rtrRetour` ; `.pr-fiche .avert-ind` encadré.
+- IG5 : synonymes `js/donnees/synonymes.js` (1er nom = « Cherché aussi »), recherche souple `js/moteur/souple.js` (`recherche(q)` → `{ test, aussi }`, `chercheAussi` ;
+  test `node tests/moteur/test-souple.mjs`) dans Protocoles, Nouvelle ligne (chimio.js), Médic. (ordonnances.js) ; Paramètres : `MOTS_PLUS`, `COMPTE` (→ Mon compte) ;
+  tri des colonnes `js/moteur/tri.js` (`trierPar`, `triSuivant`, test `test-tri.mjs`), v2.js `enteteTri` / `thTri` / `selonTri` / `surTri` (`API.*`), `utilisateurs/{uid}.tris`
+  { page: { k, s } } (Patients, Tâches, RCP, Bilan) ; Bilan : « Payé » = `label.bi-pc` + case ; Listes : `LED`, `.it-n` + ✎ `.it-ed` (`cfLEd`, `cfLFin`). Test `tests/test_ig5.py`.
+- IG6 : v2.js `PAGE_AVANT` (page d'où le dossier est ouvert), `dosFermer()`, bouton `.br-fermer` de `#barreDroite` (caché si `.sa-bulles` / `.rcp-bulle`, et ≤ 767 px) ;
+  index.html : polices du site, champs 44 px, `dire(texte, ok)` (`.msg.ok` vert ✓, `.msg.err` rouge), « Afficher » `#voirMdp`. Test `tests/test_ig6.py`.
+- IG7 : dossier en deux colonnes dès 720 px de conteneur (`@container dos (min-width:720px)`, colonne Patient 290 px) ; téléphone : v2.js `enteteFiltres(k, résumé, n)`,
+  `ftelOuvrir`, `API.ftelCls` / `API.ftelResume` (zone `.ftel`, filtres `.ftel-z`, bouton `.ftel-b`, résumé `#ftelR-<k>`) dans Bilan, Protocoles (`.pr-ftel`, `resumeFiltres`),
+  RCP ; blocs CSS « IG7 » de v2.html (grilles du haut de Protocoles et du Bilan au téléphone, Bilan sur une ligne dès 900 px, `#biPay,#biCor{min-width:0}`). Test `tests/test_ig7.py`.
+- IG8 : `docs/guide-de-style.md` (règles pour tout nouvel écran) ; démonstration `python3 outils/guide-style-demo.py` → `docs/guide-de-style-demo.html` (non versionné).
+- IG9 : `outils/mesures-ui.py` (14 pages, 4 largeurs, Chrome et Safari, rôles ; variantes de boutons, badges, cartes, ombres, arrondis) ; rapport `archives/controle-ig9-2026-11-03.md`.
 
 ## Méthode de travail souhaitée
 - **Règles du travail par lots (31/10/2026)** : voir `FEUILLE-DE-ROUTE.md`, « Comment on travaille » (patch unique sans pousser ni mettre en ligne quand un autre Claude

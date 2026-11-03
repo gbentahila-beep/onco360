@@ -27,7 +27,7 @@ async def main():
         print('Lot 5 – RCP, salle d\'attente, Documents (1 440 px)')
         pg = await ouvrir(b, s, w=1440, h=900); ev = pg.evaluate
         await pg.goto(f'http://localhost:{PORT}/v2.html#rcp'); await pg.wait_for_timeout(2500); await ev("rcpPer('2026-10-05','2026-10-11')"); await pg.wait_for_timeout(300)
-        r = await ev("[[...document.querySelectorAll('.rcp-tab .ta-h span')].map(e => e.textContent), document.querySelectorAll('.rcp-tab .rcp-r').length, [...document.querySelectorAll('.rcp-tab .rcp-r select.st')].map(e => e.value)]")
+        r = await ev("[[...document.querySelectorAll('.rcp-tab .ta-h span')].map(e => e.textContent.replace(/[↕▲▼]/g, '')).filter(x => x), document.querySelectorAll('.rcp-tab .rcp-r').length, [...document.querySelectorAll('.rcp-tab .rcp-r select.st')].map(e => e.value)]")
         ok(r[0] == ['Patient', 'Né(e) le', 'Question', 'Décision', 'Inscrit', 'Statut', 'Actions'] and r[1] == 3 and r[2] == ['afaire', 'afaire', 'fait'], '5.1 : RCP en tableau (Patient, Né(e) le, Question, Décision, Inscrit, Statut, Actions)', r)
         r = await ev("(() => { const l = document.querySelector('.rcp-tab .rcp-r'); return [l.querySelector('.c-n').textContent, l.querySelector('.ins').textContent, [...l.querySelectorAll('.c-a button')].map(e => e.title)]; })()")
         ok('ans' in r[0] and 'Dr Rita TEST' in r[1] and r[2] == ['Valider (passé en RCP)', "Modifier l'inscription", "Supprimer l'inscription"], '5.1 : date de naissance (âge), inscrit (date et par qui), actions Valider / Modifier / Supprimer', r)
@@ -147,10 +147,11 @@ async def main():
         ok(not pg.errs, 'aucune erreur JavaScript', pg.errs[:2]); await pg.close()
         pg = await ouvrir(b, s, w=390, h=844); ev = pg.evaluate
         await pg.goto(f'http://localhost:{PORT}/v2.html#bilan'); await pg.wait_for_timeout(4000); await ev("biF('per','perso')"); await pg.wait_for_timeout(800)
+        await pg.click('.ftel-b'); await pg.wait_for_timeout(300)
         R = "(e) => { const r = e.getBoundingClientRect(); return [Math.round(r.left), Math.round(r.top), Math.round(r.right), Math.round(r.bottom)]; }"
-        r = await ev("(() => { const R = " + R + ", c = R(document.getElementById('biCor')), a = R(document.querySelector('.bi-act .bt')), m = R(document.querySelector('.bi-act .mpts')), du = R(document.querySelector('.bi-ligne input[type=date]')), au = R([...document.querySelectorAll('.bi-ligne input[type=date]')][1]); return [c, a, m, du, au]; })()")
+        r = await ev("(() => { const R = " + R + ", c = R(document.querySelector('.ftel-b')), a = R(document.querySelector('.bi-act .bt')), m = R(document.querySelector('.bi-act .mpts')), du = R(document.querySelector('.bi-ligne input[type=date]')), au = R([...document.querySelectorAll('.bi-ligne input[type=date]')][1]); return [c, a, m, du, au]; })()")
         c, a_, m, du, au = r
-        ok(abs(c[1] - a_[1]) <= 2 and abs(c[3] - a_[3]) <= 2 and a_[0] >= c[2] + 6 and m[2] <= 390 - 12, '7.5 : téléphone : Actualiser et « ⋯ » sur la ligne du menu Référent, alignés avec lui', r)
+        ok(abs(c[1] - a_[1]) <= 2 and abs(c[3] - a_[3]) <= 2 and a_[0] >= c[2] + 4 and m[2] <= 390 - 12, '7.5 (IG7) : téléphone : Filtres, Actualiser et « ⋯ » sur une ligne, alignés', r)
         ok(abs(du[1] - au[1]) <= 1 and au[0] >= du[2] + 6, '7.5 : Période personnalisée : Du et Au côte à côte, sans se chevaucher', r)
         ok(await ev("document.documentElement.scrollWidth") <= 390, 'rien ne déborde')
         ok(not pg.errs, 'aucune erreur JavaScript', pg.errs[:2]); await pg.close()

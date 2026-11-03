@@ -56,7 +56,7 @@ async def main():
         rd = {v['id']: v for v in json.loads(fs[E + 'patients/PTA1']['rdvsJson'])}
         ok(rd['rN1'].get('st') == 'fait', 'rendez-vous « Venu »')
         await pg.goto(f'http://localhost:{PORT}/v2.html#bilan'); await pg.wait_for_timeout(2500)
-        r = await ev("[...document.querySelectorAll('table.bilan tr')].filter(t => t.innerText.indexOf('06/10/2026') === 0 && /PATIENT TEST REF 1/.test(t.innerText)).map(t => [t.querySelector('td:last-child button') && t.querySelector('td:last-child button').textContent, t.querySelector('td:last-child button') && t.querySelector('td:last-child button').title])")
+        r = await ev("[...document.querySelectorAll('table.bilan tr')].filter(t => t.innerText.indexOf('06/10/2026') === 0 && /PATIENT TEST REF 1/.test(t.innerText)).map(t => { const l = t.querySelector('td:last-child label.bi-pc'); return [l && l.querySelector('span').textContent, l && l.title]; })")
         ok(any(x[0] == 'À payer' and 'virement' in x[1] for x in r), 'Bilan : « À payer » (cliquer quand le virement est reçu)', r)
         ok('à payer par les établissements' in await ev("document.getElementById('page').innerText"), 'Bilan : « À recevoir » détaillé (à payer par les établissements)')
         ok(not pg.errs, 'aucune erreur JavaScript', pg.errs[:2]); await pg.close()
@@ -88,7 +88,7 @@ async def main():
         ok(o.get('mode') == 'esp' and o.get('rem') == 20, 'encaissé : mode espèces, remise gardée', o)
         ok('remise 20,00 DH' in t and 'Espèces' in t and 'REÇU' in t, 'facture (reçu) imprimée : prix, remise, total, mode', t[t.find('Encaissement'):][:160])
         await pg.goto(f'http://localhost:{PORT}/v2.html#bilan'); await pg.wait_for_timeout(2500)
-        r = await ev("[...document.querySelectorAll('table.bilan tr')].filter(t => t.innerText.indexOf('06/10/2026') === 0 && /PATIENT TEST REF 1/.test(t.innerText)).map(t => (t.querySelector('td:last-child button') || {}).textContent)")
+        r = await ev("[...document.querySelectorAll('table.bilan tr')].filter(t => t.innerText.indexOf('06/10/2026') === 0 && /PATIENT TEST REF 1/.test(t.innerText)).map(t => { const l = t.querySelector('td:last-child label.bi-pc'); return l && l.classList.contains('ok') && l.querySelector('input').checked ? '✓ ' + l.querySelector('span').textContent : ''; })")
         ok(r.count('✓ Encaissé') == 2, 'Bilan : les deux consultations « ✓ Encaissé »', r)
         ok(not pg.errs, 'aucune erreur JavaScript', pg.errs[:2]); await pg.close()
 

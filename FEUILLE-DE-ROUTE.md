@@ -157,7 +157,7 @@ semaines de sessions, puis une recopie des données (l'export complet sert déj�
 | **C** Conformité | Juriste, société, projet et domaine, hébergement | 0.5, 6.1 à 6.6 | plus tard (décidé le 20/10) ; société, projet et domaine avant le 1er client **payant** |
 | **V** Vente et cession | Abonnement d'abord, preuves d'usage, dossier de cession préparé en avance | V-a à V-d, 7.1 à 7.4 | en avance, sans projet de vente immédiat |
 | **RTR** Référentiel de radiothérapie | Guide de consultation (schémas, centrage, contourage, OAR, contraintes, essais, BED / EQD2) ; `docs/radiotherapie/SPEC.md` | RT0 à RT8 | un lot par session, dans l'ordre (décidé en octobre 2026) |
-| **IG** Refonte de l'interface, identité gardée | Audit UX / UI du 02/11/2026 : 20 idées acceptées (recherche fiable, rendez-vous imprimés, composants communs, chargement, tri, synonymes, rôles, tablette, téléphone) | IG1 à IG9 | plan validé le 02/11/2026 ; **IG1 à IG4 faits le 02/11** (GitHub, pas en ligne) ; IG5 à IG9 ensuite, mise en ligne à la fin de la phase |
+| **IG** Refonte de l'interface, identité gardée | Audit UX / UI du 02/11/2026 : 20 idées acceptées (recherche fiable, rendez-vous imprimés, composants communs, chargement, tri, synonymes, rôles, tablette, téléphone) | IG1 à IG9 | plan validé le 02/11/2026 ; **IG1 à IG4 faits le 02/11, IG5 à IG9 le 03/11** ; phase **terminée et mise en ligne le 03/11/2026** |
 
 **Premier cabinet** (d. 16, 17, 20, O1) : le gel 0.5 est **levé pour des confrères amis qui testent** (pilote gratuit d'un mois, peut-être gratuit
 pour toujours, un point chaque semaine) ; juriste **après** l'essai chez 2 ou 3 médecins. **Date pas fixée** : Dr Bentahila pense devoir d'abord
@@ -1210,6 +1210,16 @@ Avant chaque lot : maquette ou captures avant / après montrées à Dr Bentahila
   avec la mise à jour de la radiothérapie (consensus VA / ASTRO 2026, enregistrement 846dd48, sur GitHub, pas encore en ligne).
 - Table des synonymes (IG5) : Dr Bentahila fait confiance à Claude, **pas de relecture** avant le lot.
 - Captures avant / après de chaque lot : **plus nécessaires** (« je te fais confiance ») ; les tests et le contrôle complet restent obligatoires.
+**Décisions du 03/11/2026 (Dr Bentahila)** :
+- « go IG5 à IG9 », puis tests complets et **mise en ligne de tout** (IG1 à IG9 et le consensus VA / ASTRO 2026, 846dd48).
+- Fiches de protocole (traitement systémique et radiothérapie) **au même style** : « Retour à la liste » en haut, badges « Validé » / niveau de preuve à
+  côté du titre, étoile de favori à côté du ⋯ (discret), « Modifier » et « Dupliquer » dans le ⋯ ; fiche RT sans le fil « Sein › … » ni la ligne de dose
+  sous le titre, « Échap pour annuler » et « Fermer » en bas comme la fiche systémique ; cadre autour de « Contenus indicatifs… » de la fiche systémique.
+- Téléphone : boutons d'une même ligne **de même largeur et même hauteur** (Salle : « Filtres » | « Actualiser » | ⋯ ; Bilan : idem ; Protocoles :
+  recherche sur toute la largeur, « Filtres » | « Favoris » | ⋯, « Créer un protocole » sur toute la largeur) ; « à jour à … » sous « Actualiser », quitte à
+  descendre « + Rendez-vous ».
+- Bilan sur ordinateur : **tous les filtres sur une ligne**, cases de même largeur et même écart (12 px) ; premier choix de chaque menu = « Tous » (le titre
+  dit lequel) ; « Actualiser » en icône seule sous 1 366 px.
 **Source** : audit UX, UI et fonctionnalités du 02/11/2026 et fiches IDÉE, lots 1 et 2 (`archives/audit-ux-ui-2026-11-02/` : inventaire, constats,
 fiches et réponses ; pages privées avec captures avant / après : lot 1 https://claude.ai/artifact/5kuQDn8gjMgimsCHWfFMZP, lot 2
 https://claude.ai/artifact/XqLEhDL3Y5wBF4itTu71dj). **20 idées acceptées le 02/11/2026** (lot 1 : 1 à 8, idée 2 modifiée, idée 7 choix A ; lot 2 :
@@ -1260,7 +1270,7 @@ presque tous `v2.html` / `v2.js` : jamais deux lots en même temps. Ensuite : gu
   - Protocole ouvert **en lecture** (idée 8 ; P1, P2) : `prOuvrir` (protocoles.js:385) ouvre la fiche ; « Modifier » et « Dupliquer » en haut ; « Signaler
     une erreur » et « Supprimer » dans le ⋯ ; rien ne change pour le formulaire de modification.
   - Test `tests/test_ig4.py`.
-- [ ] **IG5 – Recherches et tableaux** (idées 10, 11, 17, 19) — Moyenne, faible à moyenne
+- [x] **IG5 – Recherches et tableaux** (fait le 03/11/2026) (idées 10, 11, 17, 19) — Moyenne, faible à moyenne
   - Table des synonymes préparée par Claude (DCI, noms commerciaux, abréviations : 5-FU, CDDP, Taxol, Herceptin…), `js/donnees/synonymes.js` ;
     **pas de relecture** par Dr Bentahila (décision du 02/11/2026 : « je te fais confiance »).
   - Recherches (idée 10 ; FN3, FN4) : tirets, espaces et accents ignorés (5FU = 5-FU = 5 FU), synonymes, ligne « Cherché aussi : … » ; même règle pour
@@ -1273,22 +1283,22 @@ presque tous `v2.html` / `v2.js` : jamais deux lots en même temps. Ensuite : gu
   - Paramètres › Listes en lecture, ✎ pour modifier, ⋯ pour retirer (idée 19 ; PA1) : `#cfLl` (configuration.js:361, 619) ; même enregistrement et même
     recopie dans les dossiers (`corrigerListes`).
   - Test `tests/test_ig5.py` + `node tests/moteur/test-recherche.mjs`.
-- [ ] **IG6 – Rôles et page de connexion** (idées 18, 20) — Moyenne, faible
+- [x] **IG6 – Rôles et page de connexion** (fait le 03/11/2026) (idées 18, 20) — Moyenne, faible
   - « Fermer » à droite de la barre du bas du dossier pour tous les rôles (secrétaire, infirmière, remplaçant), retour à la page d'origine (idée 20, R1).
   - Connexion (idée 18 ; CO1, CO2) : message de réussite en vert avec ✓ (erreurs en rouge), polices et champs d'Onco360 (`vendor/polices`, champs 44 px,
     titre Montserrat), « Afficher » dans le champ du mot de passe ; logo, « Poste partagé » et CGU inchangés ; Content-Security-Policy vérifiée.
   - Test `tests/test_ig6.py` (secrétaire, infirmière : « Fermer » présent ; connexion à 390 et 1 440 px).
-- [ ] **IG7 – Tablette et téléphone** (idées 15, 16) — Moyenne / Haute (téléphone), moyenne ; **après l'ordinateur** (décision du 20/10)
+- [x] **IG7 – Tablette et téléphone** (fait le 03/11/2026) (idées 15, 16) — Moyenne / Haute (téléphone), moyenne ; **après l'ordinateur** (décision du 20/10)
   - Dossier en deux colonnes dès 900 px (idée 15, U14) : colonne Patient 290 px à gauche, onglets et contenu à droite ; rien ne change au-dessus de
     1 280 px ni au téléphone (`@container dos`, bloc « Lot R-G » de v2.html).
   - Téléphone : bouton « Filtres » + résumé du choix (Bilan, Protocoles, RCP), sur le modèle de la Salle (`saFiltres`, salle.js:520) ; marge sous le
     contenu du dossier à la hauteur de « + Prescrire » (`.dos-fab`, v2.html:1164) (idée 16 ; T8, F1).
   - Test `tests/test_ig7.py` (900 px : onglets visibles sans défiler ; 390 px : 1re carte du Bilan visible, rien sous « + Prescrire »).
   - Vu pendant IG3 (02/11/2026), déjà là avant : Salle à 390 px, « à jour à 09 h 00 » sous « Actualiser » touche le haut du bouton « + Rendez-vous ».
-- [ ] **IG8 – Guide de style** (étape 7 de l'audit) : document `docs/guide-de-style.md` (+ page de démonstration hors du site) qui fixe ce que IG3 a mis
+- [x] **IG8 – Guide de style** (fait le 03/11/2026) (étape 7 de l'audit) : document `docs/guide-de-style.md` (+ page de démonstration hors du site) qui fixe ce que IG3 a mis
   en place : couleurs par sens (une teinte par sens, variables de `:root`, U1), 3 bordures, tailles de texte `--t1`…`--t8` ramenées à 5 + 3 titres (U6, U7),
   4 boutons × 3 hauteurs, 2 onglets, 2 badges, 2 cartes, 3 ombres, 3 arrondis, 1 anneau de focus (U11 à U13) ; règles pour tout nouvel écran.
-- [ ] **IG9 – Contrôle avant / après** (étape 8 de l'audit) : mêmes 14 pages et mêmes mesures que l'audit du 02/11 (390 / 900 / 1 280 / 1 600 px,
+- [x] **IG9 – Contrôle avant / après** (fait le 03/11/2026, `archives/controle-ig9-2026-11-03.md`) (étape 8 de l'audit) : mêmes 14 pages et mêmes mesures que l'audit du 02/11 (390 / 900 / 1 280 / 1 600 px,
   Chrome et Safari, chaque rôle) ; nombre de variantes de boutons, badges, ombres comparé aux chiffres de départ ; rapport avec captures pour Dr Bentahila.
 
 Constats de l'audit **sans fiche** (pas proposés, à placer si Dr Bentahila le demande) : FN6 (molécules repliées à la création d'une ligne : trop proche de U6,

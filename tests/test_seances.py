@@ -34,7 +34,7 @@ async def main():
         print('C3 J8 produits :', await ev("[...document.querySelectorAll(':is(#fenetreCorps,#panneauCorps):not(:empty) table.doses tr')].map(r=>r.cells[1]&&r.cells[1].innerText).filter(Boolean)"), '| badges :', await ev("[...document.querySelectorAll(':is(#fenetreCorps,#panneauCorps):not(:empty) .badge.b-gr')].map(b=>b.innerText)"))
         await pg.click('text=‹ Séances de la C'); await clic_menu(pg, JOUR(0)+' >> text=Ouvrir'); await pg.wait_for_timeout(300)
         print('C3 J1 produits :', await ev("[...document.querySelectorAll(':is(#fenetreCorps,#panneauCorps):not(:empty) table.doses tr')].map(r=>r.cells[1]&&r.cells[1].innerText).filter(Boolean)"))
-        await pg.click('text=‹ Séances de la C'); await pg.click('text=Fermer'); await pg.wait_for_timeout(300)
+        await pg.click('text=‹ Séances de la C'); await pg.click(':is(#fenetreCorps,#panneauCorps):not(:empty) >> text=Fermer'); await pg.wait_for_timeout(300)
         await clic_menu(pg, CURE('C4')); await pg.wait_for_timeout(300)
         print('C4 jours :', await ev("[...document.querySelectorAll(':is(#fenetreCorps,#panneauCorps):not(:empty) table.tsea td[data-l=Jour] b')].map(b=>b.textContent)"))
         await clic_menu(pg, JOUR(0)+' >> text=Ouvrir'); await pg.wait_for_timeout(300)

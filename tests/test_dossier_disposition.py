@@ -153,13 +153,13 @@ async def main():
         # ── 1440 × 900, menu ouvert : deux colonnes ──
         pg = await page(b, 1440, 900, False); ev = pg.evaluate
         trav, pat, docs = [await ev(R(s)) for s in ['.dos-trav', '.dos-pat', '.dos-docs']]
-        ok(trav[0] < pat[0] and docs[4] == 'none' and await ev("getComputedStyle(document.querySelector('.dos-sw')).display") == 'flex', '1440 menu ouvert : Travail · colonne de droite (onglets Patient / Documents)', (trav, pat, docs))
+        ok(pat[0] < trav[0] and pat[2] == 290 and docs[4] == 'none' and await ev("getComputedStyle(document.querySelector('.dos-sw')).display") == 'flex', '1440 menu ouvert (IG7) : colonne Patient de 290 px à gauche (onglets Patient / Documents) · Travail', (trav, pat, docs))
         await ev("document.querySelector('.dos-pat .dos-sw [data-k=docs]').click()"); await pg.wait_for_timeout(400)
         ok((await ev(R('.dos-docs')))[4] != 'none' and (await ev(R('.dos-pat')))[4] == 'none', 'onglet « Documents » : la visionneuse à droite')
         ok(await ev("document.documentElement.scrollHeight <= innerHeight + 1"), 'la page ne défile pas')
         await pg.close()
         # ── 1280 × 800 (zone de 1 028 px) et 1920 × 1080 ──
-        for w, hh, rep, ncol in [(1280, 800, False, 2), (1920, 1080, False, 3), (1024, 768, False, 1)]:
+        for w, hh, rep, ncol in [(1280, 800, False, 2), (1920, 1080, False, 3), (1024, 768, False, 2)]:
             pg = await page(b, w, hh, rep); ev = pg.evaluate
             g = await ev("getComputedStyle(document.getElementById('dos')).display")
             n = await ev("['.dos-pat','.dos-trav','.dos-docs'].filter(s => { const e = document.querySelector(s); return getComputedStyle(e).display !== 'none'; }).map(s => Math.round(document.querySelector(s).getBoundingClientRect().top)).reduce((a, t, i, l) => a + (l.indexOf(t) === i ? 1 : 0), 0)")
