@@ -84,7 +84,7 @@ async def main():
         if rid:
             await ev(f"imprimerRdv('{pid}','{rid}')"); await pg.wait_for_timeout(500)
             w = await ev("window.__win[window.__win.length - 1].w.document._h")
-            ok('<h1>Rendez-vous</h1>' in w and 'PATIENT TEST REF 1' in w and 'A5' in w, '3.10 : un rendez-vous imprimé (A5)', w[:120])
+            ok('PATIENT TEST REF 1' in w and 'size:A5' in w and 'Imprimé le' in w, '3.10 : un rendez-vous imprimé (A5, feuille d\'IG2)', w[:120])
         # 3.4 états vides
         await pg.goto(f'http://localhost:{PORT}/v2.html#dossier/{VIDE}'); await pg.wait_for_timeout(2400)
         v = {}
@@ -115,7 +115,7 @@ async def main():
         o = await ev("(() => { const h = (t) => [...document.querySelectorAll('#page section h3')].find(e => e.textContent.indexOf(t) >= 0); const a = h('Conflits'), s2 = h('Statistiques'), r = [...document.querySelectorAll('.tb-rang')].pop(); return [!!a && !!s2 && a.getBoundingClientRect().top > r.getBoundingClientRect().bottom && s2.getBoundingClientRect().top > a.getBoundingClientRect().top, a ? Math.round(a.closest('section').getBoundingClientRect().width) : 0]; })()")
         ok(o[0] and o[1] > 1000, '4.1 : puis Conflits sur toute la largeur, puis Statistiques', o)
         fx = await ev("(() => { const z = document.querySelector('[data-carte=afaire] > section'); return [getComputedStyle(z).overflowY, z.scrollHeight > z.clientHeight]; })()")
-        ok(fx[0] == 'auto', '4.1 : « À valider » défile dans sa hauteur', fx)
+        ok(fx[0] == 'visible' and not fx[1], '4.1 (IG4, 02/11/2026) : « À valider » sans défilement dans la carte (5 lignes, puis « Voir les N »)', fx)
         a = await ev("[...document.querySelectorAll('.ac-r .ac-b')].map(e => e.textContent.trim())")
         ok(a == ['+ Consultation', 'Ordonnances', '+ Document', 'Feuille de soins', '+ Radiothérapie', '+ Chimiothérapie'], '4.2 : Actions rapides (et « Feuille de soins », lot 9)', a)
         act = await ev("[...document.querySelectorAll('#accAct .act-i b')].map(e => e.textContent)")

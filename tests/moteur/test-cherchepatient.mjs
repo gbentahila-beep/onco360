@@ -17,7 +17,8 @@ cas("sans recherche : tous, ordre d'origine", chercherPatients(L, "").length ===
 cas("rangs : début du nom 0, début d'un mot 1, milieu 3", rangMot({ nom: "PATIENT TEST" }, "pat") === 0 && rangMot({ nom: "PATIENT TEST" }, "tes") === 1 && rangMot({ nom: "PATIENT TEST" }, "ien") === 3);
 cas("accents ignorés", chercherPatients([P("Élodie Bénani", "1")], "elodie benani").length === 1);
 cas("mots : un numéro avec espaces = un seul mot", JSON.stringify(motsRecherche("06 00 00 00 01")) === '["0600000001"]' && motsRecherche("test 80").length === 2);
-cas("téléphone normalisé", telNormal("+212 6 12 34 56 78") === "0612345678" && telNormal("00212612345678") === "0612345678");
+cas("téléphone normalisé", telNormal("+212 6 00 00 12 34") === "0600001234" && telNormal("00212600001234") === "0600001234");
+cas("ancien numéro avec des lettres (import) : « ANC-003 », « anc-00 »", chercherPatients([P("FICTIF-TROIS", "202611001", { nums: ["ANC-003"] })].concat(L), "ANC-003")[0] === "FICTIF-TROIS" && chercherPatients([P("FICTIF-TROIS", "202611001", { nums: ["ANC-003"] })].concat(L), "anc-00").length === 1);
 cas("parties surlignées du nom", JSON.stringify(partiesTrouvees("PATIENT TEST 80", "test 80")) === "[[8,12],[13,15]]", partiesTrouvees("PATIENT TEST 80", "test 80"));
 console.log(ko ? `\n❌ ${ko} échec(s), ${ok} réussi(s)` : `\n✅ ${ok} réussis`);
 process.exit(ko ? 1 : 0);

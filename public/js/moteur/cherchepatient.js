@@ -39,6 +39,9 @@ export function rangMot(f, w) {
   }
   const cin = sansAcc(f.cin).replace(/\s/g, "");
   if (cin && w.length >= 2) { if (cin === w) r.push(0); else if (cin.startsWith(w)) r.push(1); }
+  // n° avec des lettres (ancien numéro d'un autre logiciel : « ANC-003 »)
+  const numsT = [f.num].concat(f.nums || []).map((n) => sansAcc(n).replace(/\s/g, "")).filter(Boolean);
+  if (numsT.some((n) => n === w)) r.push(0); else if (numsT.some((n) => n.startsWith(w))) r.push(1); else if (w.length >= 3 && numsT.some((n) => n.includes(w))) r.push(4);
   if (f.autres && sansAcc(f.autres).includes(w)) r.push(3);
   return r.length ? Math.min(...r) : null;
 }

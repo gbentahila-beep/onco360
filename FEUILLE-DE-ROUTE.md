@@ -157,7 +157,7 @@ semaines de sessions, puis une recopie des données (l'export complet sert déj�
 | **C** Conformité | Juriste, société, projet et domaine, hébergement | 0.5, 6.1 à 6.6 | plus tard (décidé le 20/10) ; société, projet et domaine avant le 1er client **payant** |
 | **V** Vente et cession | Abonnement d'abord, preuves d'usage, dossier de cession préparé en avance | V-a à V-d, 7.1 à 7.4 | en avance, sans projet de vente immédiat |
 | **RTR** Référentiel de radiothérapie | Guide de consultation (schémas, centrage, contourage, OAR, contraintes, essais, BED / EQD2) ; `docs/radiotherapie/SPEC.md` | RT0 à RT8 | un lot par session, dans l'ordre (décidé en octobre 2026) |
-| **IG** Refonte de l'interface, identité gardée | Audit UX / UI du 02/11/2026 : 20 idées acceptées (recherche fiable, rendez-vous imprimés, composants communs, chargement, tri, synonymes, rôles, tablette, téléphone) | IG1 à IG9 | après validation du plan par Dr Bentahila ; un lot par session, ordinateur d'abord |
+| **IG** Refonte de l'interface, identité gardée | Audit UX / UI du 02/11/2026 : 20 idées acceptées (recherche fiable, rendez-vous imprimés, composants communs, chargement, tri, synonymes, rôles, tablette, téléphone) | IG1 à IG9 | plan validé le 02/11/2026 ; **IG1 à IG4 faits le 02/11** (GitHub, pas en ligne) ; IG5 à IG9 ensuite, mise en ligne à la fin de la phase |
 
 **Premier cabinet** (d. 16, 17, 20, O1) : le gel 0.5 est **levé pour des confrères amis qui testent** (pilote gratuit d'un mois, peut-être gratuit
 pour toujours, un point chaque semaine) ; juriste **après** l'essai chez 2 ou 3 médecins. **Date pas fixée** : Dr Bentahila pense devoir d'abord
@@ -1204,7 +1204,12 @@ Traitement en cours ; Tâches : Tâche, Patient, Assignée à, Créée par, Éch
   Refusé aussi : P13 (« Renseignements cliniques » sur les demandes d'imagerie, note interne non imprimée).
 Avant chaque lot : maquette ou captures avant / après montrées à Dr Bentahila ; un lot = une session, test sur ordinateur et à 390 px.
 
-## Phase IG – Refonte de l'interface, « identité gardée » (audit UX / UI du 02/11/2026 ; plan proposé le 02/11/2026, **à valider par Dr Bentahila**)
+## Phase IG – Refonte de l'interface, « identité gardée » (audit UX / UI du 02/11/2026 ; plan **validé par Dr Bentahila le 02/11/2026**)
+**Décisions du 02/11/2026 (Dr Bentahila)** :
+- « Oui, le plan » ; IG1 à IG4 faits le même jour, enregistrés sur GitHub, **pas mis en ligne** : la mise en ligne se fera une fois toute la phase faite,
+  avec la mise à jour de la radiothérapie (consensus VA / ASTRO 2026, enregistrement 846dd48, sur GitHub, pas encore en ligne).
+- Table des synonymes (IG5) : Dr Bentahila fait confiance à Claude, **pas de relecture** avant le lot.
+- Captures avant / après de chaque lot : **plus nécessaires** (« je te fais confiance ») ; les tests et le contrôle complet restent obligatoires.
 **Source** : audit UX, UI et fonctionnalités du 02/11/2026 et fiches IDÉE, lots 1 et 2 (`archives/audit-ux-ui-2026-11-02/` : inventaire, constats,
 fiches et réponses ; pages privées avec captures avant / après : lot 1 https://claude.ai/artifact/5kuQDn8gjMgimsCHWfFMZP, lot 2
 https://claude.ai/artifact/XqLEhDL3Y5wBF4itTu71dj). **20 idées acceptées le 02/11/2026** (lot 1 : 1 à 8, idée 2 modifiée, idée 7 choix A ; lot 2 :
@@ -1215,7 +1220,7 @@ finition, sans nouvelle couleur ni police. Les règles de la phase UX (01/11) et
 **Ordre** : IG1 → IG7, un lot = une session ; l'ordinateur d'abord (décision du 20/10), tablette et téléphone en dernier (IG7). Les lots touchent
 presque tous `v2.html` / `v2.js` : jamais deux lots en même temps. Ensuite : guide de style (IG8, étape 7 de l'audit) et contrôle avant / après (IG9, étape 8).
 
-- [ ] **IG1 – Sécurité et vos demandes rapides** (idées 1, 4, 9 ; D3) — priorité Critique / Haute, complexité faible
+- [x] **IG1 – Sécurité et vos demandes rapides** (fait le 02/11/2026 : `js/moteur/cherchepatient.js` + `tests/moteur/test-cherchepatient.mjs`, `tests/test_ig1.py`) (idées 1, 4, 9 ; D3) — priorité Critique / Haute, complexité faible
   - Recherche de patient fiable (idée 1 ; FN1, FN2) : classement (nom qui commence par le mot, mot entier, n° qui commence par les chiffres, puis le reste),
     partie trouvée surlignée, « 6 sur 23 » + lien vers Patients, une seule règle pour la recherche du haut et la page Patients (nom, prénom, n°, téléphone
     avec espaces ou +212, date de naissance, CIN). `rechercheTete` (v2.js:1591, filtre ~1603, `.slice(0, 8)`), `pagePatients` (v2.js:1520) ; logique pure à
@@ -1226,7 +1231,7 @@ presque tous `v2.html` / `v2.js` : jamais deux lots en même temps. Ensuite : gu
   - D3 : « traitement systémique » dans le sous-titre de Protocoles (v2.js:1159) et la liste des bibliothèques (catalogue.js:329, admin.js:380).
   - Test `tests/test_ig1.py` (« test 80 » → TEST 80 en tête ; téléphone et CIN trouvés ; pastille entière ; aucune case des Types de consultation qui en
     chevauche une autre à 1 280, 1 440, 1 600 px).
-- [ ] **IG2 – Imprimer chaque rendez-vous** (idée 2 modifiée ; D1) — Haute, moyenne
+- [x] **IG2 – Imprimer chaque rendez-vous** (fait le 02/11/2026 : v2.js `feuilleRdv`, réglages `impression.rdvA4` / `rdvSavoir`, `tests/test_ig2.py` ; une séance de chimio en retard n'a pas de feuille) (idée 2 modifiée ; D1) — Haute, moyenne
   - « Imprimer le rendez-vous » dans le ⋯ de **chaque** ligne de « Rendez-vous et tâches à venir » et « Historique des RDV » : consultations (déjà là,
     v2.js:1752), séances de chimio, scanner, étapes de RT, fin de RT.
   - Une seule feuille (`window.imprimerRdv`, v2.js:2032) : en-tête « Dr … » + spécialité seulement (ni cabinet, ni adresse, ni téléphone) ; nom du patient
@@ -1236,7 +1241,7 @@ presque tous `v2.html` / `v2.js` : jamais deux lots en même temps. Ensuite : gu
   - Paramètres › Impression : **format A4 ou A5** de la feuille de rendez-vous et texte « À savoir » modifiable (`reglages.impression`, reglages.js) ;
     droit « secrétariat » comme les autres réglages d'impression. Impression de la liste entière (`dosImprimerListe`) inchangée.
   - Test `tests/test_ig2.py` (chaque type de ligne a « Imprimer le rendez-vous » ; feuille A5 et A4 ; aucun n° de dossier ; texte réglé repris).
-- [ ] **IG3 – Composants communs (base du guide de style)** (idées 3, 5, 12, 13, 14 ; D2) — Haute / Moyenne, moyenne
+- [x] **IG3 – Composants communs (base du guide de style)** (fait le 02/11/2026 : bloc « Phase IG, IG3 » de v2.html, `.choix`, `casseMol` de protocoles.js, `tests/test_ig3.py` ; captures non montrées, décision du 02/11) (idées 3, 5, 12, 13, 14 ; D2) — Haute / Moyenne, moyenne
   - Boutons (idée 5 ; T2, U8, U3, F6) : 4 sortes (principal bleu plein, secondaire contour, discret sans cadre, danger rouge) × 3 hauteurs (36 / 40 /
     44 px), à partir de `b1` / `b2` / `b3` (lot E) ; cadre fin de la ligne ouverte ; bordure des champs moyenne (~3:1), plus foncée au survol, bleue au clic.
   - ⋯ discret dans les listes du dossier (idée 3, D2) : sans cadre, fond bleu clair au survol, lignes de 40 px (44 px au téléphone).
@@ -1248,7 +1253,7 @@ presque tous `v2.html` / `v2.js` : jamais deux lots en même temps. Ensuite : gu
     (configuration.js:354), exposants de la fiche RT ; texte du compteur gris ≥ 4,5:1 ; rouge seulement pour « en retard ».
   - Contrôle de **toutes les pages** à 390 / 900 / 1 280 / 1 600 px, Chrome et Safari ; captures avant / après montrées à Dr Bentahila.
     Test `tests/test_ig3.py` (variantes de boutons et de hauteurs comptées, plus de `text-transform: uppercase` sur ces titres, compteurs sans parenthèses).
-- [ ] **IG4 – Pages : chargement, tableau de bord, protocoles** (idées 6, 7, 8) — Haute, moyenne à élevée
+- [x] **IG4 – Pages : chargement, tableau de bord, protocoles** (fait le 02/11/2026 : script de chargement en bas de v2.html, `body.demarrage`, `tbVoir` / `AF_OUV`, protocoles.js `voir` / `editer` / `prModifier` / `prDupliquer`, `tests/test_ig4.py` ; « Aujourd'hui » garde ses listes qui défilent, hors du champ de l'idée 7 et refus U24 du 20/10) (idées 6, 7, 8) — Haute, moyenne à élevée
   - Squelette de la page demandée dès le clic, avec le bon titre ; menu affiché après la lecture des droits (idée 6, T1 ; `route`, v2.js:1141).
   - Tableau de bord, un seul défilement (idée 7, choix A ; T5) : 5 lignes dans chaque carte longue (À valider, Les 7 prochains jours…) + « Voir les N … › »
     qui déplie la carte ; plus de défilement dans une carte (`.tb-rang`, `.tb-in`, v2.html:1867).
@@ -1256,8 +1261,8 @@ presque tous `v2.html` / `v2.js` : jamais deux lots en même temps. Ensuite : gu
     une erreur » et « Supprimer » dans le ⋯ ; rien ne change pour le formulaire de modification.
   - Test `tests/test_ig4.py`.
 - [ ] **IG5 – Recherches et tableaux** (idées 10, 11, 17, 19) — Moyenne, faible à moyenne
-  - **Avant le lot** : table des synonymes préparée par Claude (DCI, noms commerciaux, abréviations : 5-FU, CDDP, Taxol, Herceptin…) et **relue par
-    Dr Bentahila** (`js/donnees/synonymes.js`).
+  - Table des synonymes préparée par Claude (DCI, noms commerciaux, abréviations : 5-FU, CDDP, Taxol, Herceptin…), `js/donnees/synonymes.js` ;
+    **pas de relecture** par Dr Bentahila (décision du 02/11/2026 : « je te fais confiance »).
   - Recherches (idée 10 ; FN3, FN4) : tirets, espaces et accents ignorés (5FU = 5-FU = 5 FU), synonymes, ligne « Cherché aussi : … » ; même règle pour
     Protocoles (`prQ`, protocoles.js:85), Nouvelle ligne (chimio.js) et Médic. (ordonnances.js) ; Paramètres : mots en plus (`MOTS_RUB`, configuration.js:196)
     et renvoi vers Mon compte (mot de passe, INPE, droits de l'équipe).
@@ -1279,6 +1284,7 @@ presque tous `v2.html` / `v2.js` : jamais deux lots en même temps. Ensuite : gu
   - Téléphone : bouton « Filtres » + résumé du choix (Bilan, Protocoles, RCP), sur le modèle de la Salle (`saFiltres`, salle.js:520) ; marge sous le
     contenu du dossier à la hauteur de « + Prescrire » (`.dos-fab`, v2.html:1164) (idée 16 ; T8, F1).
   - Test `tests/test_ig7.py` (900 px : onglets visibles sans défiler ; 390 px : 1re carte du Bilan visible, rien sous « + Prescrire »).
+  - Vu pendant IG3 (02/11/2026), déjà là avant : Salle à 390 px, « à jour à 09 h 00 » sous « Actualiser » touche le haut du bouton « + Rendez-vous ».
 - [ ] **IG8 – Guide de style** (étape 7 de l'audit) : document `docs/guide-de-style.md` (+ page de démonstration hors du site) qui fixe ce que IG3 a mis
   en place : couleurs par sens (une teinte par sens, variables de `:root`, U1), 3 bordures, tailles de texte `--t1`…`--t8` ramenées à 5 + 3 titres (U6, U7),
   4 boutons × 3 hauteurs, 2 onglets, 2 badges, 2 cartes, 3 ombres, 3 arrondis, 1 anneau de focus (U11 à U13) ; règles pour tout nouvel écran.

@@ -2160,7 +2160,7 @@ input:not([type=checkbox]):not([type=radio]):not([type=range]):not(:disabled):ho
 input:not([type=checkbox]):not([type=radio]):not([type=range]):focus,select:not(.st):focus,textarea:focus{border-color:var(--prim)!important}
 #tete .tr-pil input,#tete .tr-pil input:hover,#tete .tr-pil input:focus{border-color:transparent!important}
 #page .dos textarea#nTxt:focus{border-color:var(--prim)!important}
-.bt,.b1,.b2{min-height:40px;padding-top:0;padding-bottom:0}.bt.petit{min-height:36px}
+.bt,.b1,.b2{min-height:40px;padding-top:0;padding-bottom:0}
 .bt.clair,.bt.gris,.b2{background:var(--blanc);color:var(--encre);border:1px solid var(--bord-bt)}
 .bt.clair:hover,.bt.gris:hover,.b2:hover{background:var(--prim-c);border-color:var(--prim);color:var(--encre)}
 .mini{border-color:var(--bord-bt)}.mini:hover{border-color:var(--prim)}
@@ -2178,6 +2178,7 @@ input:not([type=checkbox]):not([type=radio]):not([type=range]):focus,select:not(
 details.dp>summary .dp-t,.dp-proch .lbl,.tr-res p.tr-rec,.dos .cs-o .ck,.ta-fil-t,.oc-nav .oc-gr{text-transform:none;letter-spacing:0}
 .pc-mol{text-transform:none;letter-spacing:0;font-size:13px;font-weight:500;color:var(--d-txt2)}
 .choix,.ag-vues:not(.defile),.ag-vues.defile.rtr-sous{display:inline-flex;flex-wrap:wrap;align-items:center;gap:2px;padding:3px;background:var(--choix-f);border:1px solid var(--choix-b);border-radius:10px;box-shadow:none}
+.ag-vues.defile.rtr-sous{flex-wrap:nowrap}
 .choix>.puce,.ag-vues:not(.defile) button,.ag-vues.defile.rtr-sous button{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 14px;background:transparent;border:0;border-radius:8px;box-shadow:none;color:var(--d-txt2);font-weight:500;font-size:var(--t4)}
 .choix>.puce:hover,.ag-vues:not(.defile) button:hover,.ag-vues.defile.rtr-sous button:hover{background:var(--blanc);color:var(--encre)}
 .choix>.puce.on,.ag-vues:not(.defile) button.on,.ag-vues.defile.rtr-sous button.on{background:var(--prim);color:var(--blanc);font-weight:600;box-shadow:none}
@@ -2210,6 +2211,7 @@ body.demarrage nav a,body.demarrage #nomMenu,body.demarrage #specMenu,body.demar
 @media (max-width:899px){.sq-dos,.sq-2{grid-template-columns:minmax(0,1fr)}}
 .tb-fx>section,.tb-rang .tb-fx>section{max-height:none!important;overflow:visible!important}
 .tb-rang.ajuste-d>.tb-d>.tb-in,.tb-rang.ajuste-g>.tb-g>.tb-in{position:static}
+.tb-rang .tb-in>.tb-c.tb-fx{flex:1 0 auto!important;min-height:auto!important}.tb-rang .tb-in>.tb-c.tb-fx>section{flex:1 0 auto}
 .af-g:not(.ouv) .af-l.af-sup,.sept-l:not(.ouv) .sept-sup{display:none}
 .tb-voir{display:flex;align-items:center;width:100%;min-height:40px;padding:8px 12px;margin-top:4px;border:0;border-top:1px solid var(--trait);background:none;color:var(--prim);font:inherit;font-size:14px;font-weight:500;text-align:left;cursor:pointer}
 .tb-voir:hover{background:var(--prim-c)}

@@ -520,6 +520,20 @@ temporaire si le cache npm du Mac refuse) — à relancer avant chaque mise en l
   table à relire par Dr Bentahila), ligne `{ t: "fs" }` dans la consultation du jour (`libLigne` → « Feuille de soins ») ; nouveau rendez-vous : aujourd'hui s'il
   reste un créneau, sinon `prochainJour`. Test : `tests/test_ux11_13.py`.
 
+## Phase IG, IG1 à IG4 (02/11/2026 ; audit UX / UI, « identité gardée » ; pas encore en ligne)
+- IG1 : recherche de patient `js/moteur/cherchepatient.js` (`chercherPatients`, `motsRecherche`, `telNormal` ; test `node tests/moteur/test-cherchepatient.mjs`) pour la recherche
+  du haut (v2.js `rechercheTete`, `champsRecherche`, `<mark>`, `.tr-plus` « Voir tout dans Patients » → `PT_Q`) et la page Patients (aussi un ancien n° avec des lettres, « ANC-003 ») ; pastille `.br-n` entière
+  (`.br-g .pr{overflow:visible}`) ; Types de consultation en requête de conteneur (`.cf-main .ty-b`) ; « Protocoles de traitement systémique ».
+- IG2 : « Imprimer le rendez-vous » sur chaque ligne à venir et de l'historique (pas une séance de chimio en retard) : v2.js `FRDV`, `feuilleRdv(o)`,
+  `window.imprimerFicheRdv(k)`, `imprimerRdv(pid, rid)` ; réglages `impression.rdvA4` (sinon A5), `impression.rdvSavoir` (vide = `SAVOIR_RDV0` de reglages.js) ;
+  Paramètres › Impression « Feuille de rendez-vous » (`cfRegTx`). Test `tests/test_ig2.py`.
+- IG3 : bloc « Phase IG, IG3 » de v2.html (variables `--bord-ch`, `--bord-bt`, `--choix-f`, `--choix-b`, `--cpt-f` ; boutons 40 px, secondaire blanc ; ⋯ sans cadre ;
+  `text-transform: none`) ; groupe de choix `<span class="choix">` (Horaires, RCP, Listes, Activités) ; compteurs `.nb` en pastille ; protocoles.js `casseMol`
+  (affichage seulement). Test `tests/test_ig3.py`.
+- IG4 : `<body class="demarrage">` + script en bas de v2.html (forme de la page `.chargement.sq-page`, titre d'après l'adresse) ; v2.js retire `demarrage` après
+  la 1re page ; tableau de bord : 5 lignes puis « Voir les N … › » (`tbVoir`, `AF_OUV`, `.af-sup`, `.sept-sup`), carte `.tb-fx` aussi haute que son contenu ; protocoles.js : `prOuvrir(id)` = lecture (`voir`),
+  `prModifier(id)` / `prDupliquer(id)` = formulaire (`editer`), `prOuvrir()` = nouveau. Test `tests/test_ig4.py`.
+
 ## Méthode de travail souhaitée
 - **Règles du travail par lots (31/10/2026)** : voir `FEUILLE-DE-ROUTE.md`, « Comment on travaille » (patch unique sans pousser ni mettre en ligne quand un autre Claude
   applique ; auteur Rita Bentahila ; mise en page seulement si demandé ; texte ≥ 13 px, zones ≥ 40 / 44 px, 390 / 900 / 1 280 / 1 600 px ; pas de commentaire au milieu

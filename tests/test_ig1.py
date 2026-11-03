@@ -11,7 +11,7 @@ PID = 'P20260928029'
 import copy
 S = copy.deepcopy(S)
 _i = S[E + 'patients/' + PID]['identite']
-_i.update({'tel': '06 61 23 45 87', 'cin': 'BK778899', 'ddn': '1961-03-27'})
+_i.update({'tel': '06 00 00 08 87', 'cin': 'BK778899', 'ddn': '1961-03-27'})
 CHEV = """() => { const L = [...document.querySelectorAll('.ty-l:not(.ty-h)')]; const bad = [];
   L.forEach((l) => { const c = [...l.querySelectorAll('.ty-s, input.ty-n')].map((e) => e.getBoundingClientRect()).filter((r) => r.width > 0);
     for (let i = 0; i < c.length; i++) for (let j = i + 1; j < c.length; j++) { const a = c[i], b = c[j];
@@ -38,7 +38,7 @@ async def main():
         t = await ev("(document.querySelector('#trRes .tr-plus') || {}).textContent || ''")
         ok('8 sur' in t and 'Voir tout dans Patients' in t, '« 8 sur N · Voir tout dans Patients »', t)
         # le jeu fictif donne le même téléphone, CIN et date de naissance à TEST 8, 16, 80… (n° différents)
-        for q, lib in (('0661234587', 'téléphone'), ('06 61 23 45 87', 'téléphone avec espaces'), ('+212661234587', 'téléphone +212'), ('27/03/1961', 'date de naissance'), ('bk778899', 'CIN'), ('202610080', 'n° de dossier')):
+        for q, lib in (('0600000887', 'téléphone'), ('06 00 00 08 87', 'téléphone avec espaces'), ('+212600000887', 'téléphone +212'), ('27/03/1961', 'date de naissance'), ('bk778899', 'CIN'), ('202610080', 'n° de dossier')):
             r = await tete(pg, q)
             ok(r and r[0] == 'PATIENT TEST 80', f'recherche du haut : {lib} « {q} » → PATIENT TEST 80 en tête', r[:4])
         # « Voir tout dans Patients » : la page Patients reprend la recherche, même classement
@@ -47,7 +47,7 @@ async def main():
         r = await ev("[location.hash, document.getElementById('q') && document.getElementById('q').value, [...document.querySelectorAll('.pt-r b')].slice(0, 2).map(b => b.textContent)]")
         ok(r[0] == '#patients' and r[1] == 'test 8' and r[2][0] == 'PATIENT TEST 8', '« Voir tout » : page Patients avec la même recherche, TEST 8 en tête', r)
         # page Patients : mêmes règles (téléphone, CIN), et la localisation en plus
-        for q, att in (('0661234587', 'PATIENT TEST 80'), ('BK77', 'PATIENT TEST 80'), ('test 80', 'PATIENT TEST 80')):
+        for q, att in (('0600000887', 'PATIENT TEST 80'), ('BK77', 'PATIENT TEST 80'), ('test 80', 'PATIENT TEST 80')):
             await pg.fill('#q', q); await ev("document.getElementById('q').dispatchEvent(new Event('input'))"); await pg.wait_for_timeout(300)
             r = await ev("[...document.querySelectorAll('.pt-r b')].map(b => b.textContent)")
             ok(r and r[0] == att, f'page Patients : « {q} » → {att} en tête', r[:4])

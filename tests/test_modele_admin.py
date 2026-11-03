@@ -29,7 +29,7 @@ async def main():
         ok('Modèle des cabinets neufs' in t and 'Copier le cabinet du Dr Bentahila dans le modèle' in t and 'Ajuster le modèle' in t and 'Ce que reçoivent les cabinets' in t, 'trois étapes : copier, ajuster, ce que reçoivent les cabinets', t[:300])
         ok('Ensuite le modèle et son cabinet sont indépendants' in t and 'ne touche jamais son cabinet' in t, '« indépendants » dit en clair')
         ok(not await ev("!!document.querySelector('[data-copie]')") and await ev("document.querySelectorAll('[data-publier]').length") == 1, 'un seul bouton de copie (plus de « Recopier depuis le cabinet Bentahila » à part) ; « Publier une version » dans l\'étape 3')
-        ok('316 protocoles de chimiothérapie' in t and 'Ouvrir le modèle' in t and 'la même page Paramètres qu\'un médecin' in t and await ev("document.querySelectorAll('[data-fsouvrir]').length") == 0, 'étape 2 : un seul bouton « Ouvrir le modèle » (même page Paramètres qu\'un médecin), plus d\'éditeurs à part')
+        ok('316 protocoles de traitement systémique' in t and 'Ouvrir le modèle' in t and 'la même page Paramètres qu\'un médecin' in t and await ev("document.querySelectorAll('[data-fsouvrir]').length") == 0, 'étape 2 : un seul bouton « Ouvrir le modèle » (même page Paramètres qu\'un médecin), plus d\'éditeurs à part')
         ok('Dernière copie : le 18/10/2026. 3 différences' in await ev("document.getElementById('modEtat').textContent"), '« Dernière copie : le 18/10/2026. 3 différences… »', await ev("document.getElementById('modEtat').textContent"))
         # 20/10/2026 : fiche et formulaire du modèle : dans le modèle ouvert dans Onco360 (test_modele_parametres.py)
         await ev("document.getElementById('modVoir').click()"); await pa.wait_for_timeout(800)

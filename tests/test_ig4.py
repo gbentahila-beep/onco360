@@ -32,8 +32,8 @@ async def main():
         for w in (1440, 1280, 900, 390):
             pg = await ouvrir(b, S, w=w, h=900 if w > 500 else 844); ev = pg.evaluate
             await pg.goto(U + 'accueil'); await pg.wait_for_timeout(2600)
-            r = await ev("""[...document.querySelectorAll('.tb-fx > section, .tb-fx .af-g, .sept-l')].filter(e => { const s = getComputedStyle(e); return /(auto|scroll)/.test(s.overflowY) && e.scrollHeight > e.clientHeight + 1; }).map(e => e.className)""")
-            ok(not r, f'idée 7 : {w} px : « À valider » et « Les 7 prochains jours » sans défilement dans la carte', r)
+            r = await ev("""[...document.querySelectorAll('.tb-fx > section, .tb-fx .af-g, .sept-l')].filter(e => e.scrollHeight > e.clientHeight + 2).map(e => e.className)""")
+            ok(not r, f'idée 7 : {w} px : « À valider » et « Les 7 prochains jours » sans défilement dans la carte, contenu jamais plus haut que la carte', r)
             g = await ev("""[...document.querySelectorAll('.af-g')].map(g => { const L = [...g.querySelectorAll('.af-l')]; const v = g.querySelector('.tb-voir');
               return [g.querySelector('.af-t span').textContent, L.length, L.filter(l => l.offsetParent !== null).length, v ? v.textContent : ''] })""")
             gros = [x for x in g if x[1] > 5]

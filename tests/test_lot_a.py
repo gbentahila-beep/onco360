@@ -1,4 +1,5 @@
 import pathlib; __file__=str(pathlib.Path(__file__).resolve()); exec(open(pathlib.Path(__file__).parent/'base.py').read())
+import re
 # Lot A (25/10/2026, demande de Dr Bentahila) : dossier patient retouché. Bloc patient en haut de la colonne Patient (plus de bandeau) ; recherche
 # du haut = 8 derniers dossiers ouverts (utilisateurs/{uid}.recents, jamais hors périmètre) ; rubriques : « Historique des RDV » en dernier, titre =
 # rubrique ouverte au centre, plus de « Modifier » ; rendez-vous en cartes d'une ou deux lignes, actions sous « ⋯ », 3 puis « Voir plus » ;
@@ -149,7 +150,7 @@ async def main():
         ok('En-tête du dossier' not in t and not await ev("!!document.querySelector('[data-ren]')"), 'Fiche patient : plus de réglage « En-tête du dossier (bandeau) » ni de case « en-tête »')
         await pg.goto(f'http://localhost:{PORT}/v2.html#parametres/listes'); await pg.wait_for_timeout(1500)
         pl = await ev("[...document.querySelectorAll('#page .puces .puce')].map(b=>b.textContent.trim())")
-        ok([x.split(' (')[0] for x in pl][:8] == ['Mutuelles', 'Correspondants', 'Allergies', 'Antécédents médicaux', 'Antécédents chirurgicaux', 'Antécédents familiaux', 'Traitements en cours', 'Localisations'] and 'Allergies (30)' in pl, 'Listes : mutuelles, correspondants, informations médicales, localisations (départ : 30 allergies)', pl)
+        ok([re.sub(r'\s*\(?\d+\)?$', '', x) for x in pl][:8] == ['Mutuelles', 'Correspondants', 'Allergies', 'Antécédents médicaux', 'Antécédents chirurgicaux', 'Antécédents familiaux', 'Traitements en cours', 'Localisations'] and 'Allergies 30' in pl, 'Listes : mutuelles, correspondants, informations médicales, localisations (départ : 30 allergies)', pl)
         await ev("cfLs('allergies')"); await pg.wait_for_timeout(500)
         ok(await ev("document.querySelectorAll('#cfLl input').length") == 30, 'liste des allergies affichée et modifiable')
         ok(not pg.errs, 'aucune erreur JavaScript', pg.errs[:2]); await pg.close()
