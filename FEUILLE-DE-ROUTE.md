@@ -1307,7 +1307,7 @@ U15 (« + Chimiothérapie » sur deux lignes) ; U16 (week-ends hachurés de l'Ag
 cabinet) ; R2 (« Assistante » / « secrétaire ») ; PA2 (« Bonjour Dr … » répété) ; F2 à F4 (onglets du téléphone, minuteur sans libellé, auteur des
 consultations) ; B4 (« Tous les centres », statuts mélangés du Bilan). Détail : `archives/audit-ux-ui-2026-11-02/`.
 
-## Demandes du 04/11/2026, lot DM : dossier (onglets fixés, « mis de côté ») et bugs du téléphone (testé, **pas en ligne**)
+## Demandes du 04/11/2026, lot DM : dossier (onglets fixés, « mis de côté ») et bugs du téléphone (testé, **en ligne le 04/11/2026**, site seulement)
 Maquette validée par Dr Bentahila le 04/11 (captures : bandeau « Séance en cours » sous les onglets). Document « bugs sur mobile » (21 pages, photos d'iPhone).
 Test : `tests/test_lot_dm.py` (1 440, 1 280, 1 600, tablette 820 et 1 024, téléphone 390 px), ajouté à `outils/avant-mise-en-ligne.sh`. **Champs date et heure de l'iPhone : règle propre à Safari
 (`@supports (-webkit-touch-callout:none)`), pas testable ici : à vérifier sur l'iPhone** (Nouvelle consultation, Nouveau patient, rendez-vous, tâche, RCP, Finances, Journal d'audit).
