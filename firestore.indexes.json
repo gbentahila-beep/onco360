@@ -15,6 +15,20 @@
       ]
     },
     {
+      "collectionGroup": "patients",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "lieuxTraitement",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "maj",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "historique",
       "queryScope": "COLLECTION",
       "fields": [

@@ -1307,6 +1307,36 @@ U15 (« + Chimiothérapie » sur deux lignes) ; U16 (week-ends hachurés de l'Ag
 cabinet) ; R2 (« Assistante » / « secrétaire ») ; PA2 (« Bonjour Dr … » répété) ; F2 à F4 (onglets du téléphone, minuteur sans libellé, auteur des
 consultations) ; B4 (« Tous les centres », statuts mélangés du Bilan). Détail : `archives/audit-ux-ui-2026-11-02/`.
 
+## Demandes du 04/11/2026, lot LT : lieu de traitement de la chimio, équipe d'une clinique, taux commun de la RT (testé, **à mettre en ligne : site, règles, index, fonctions**)
+Demande de Dr Bentahila (04/11) : un médecin qui consulte au cabinet et traite en clinique. Règle validée par elle : les **séances** (chimio, radiothérapie)
+suivent le **lieu de traitement** choisi à la prescription ; **toutes les consultations** (dont la consultation du jour de chimio et pendant la RT) suivent
+**l'établissement du patient** et le mode de paiement habituel de ce lieu (Lieux d'exercice). Le cabinet est un lieu d'exercice comme une clinique.
+Test : `tests/test_lot_lt.py` (1 440 et 390 px, cas 1 et 2, Bilan, infirmière), `tests/moteur/test-lieu-traitement.mjs`, cas ajoutés à
+`functions/test-logique.js` et `functions/test-cabinets.js` ; règles : `tests/regles/test-lieux-traitement.mjs` (**à lancer sur le Mac**, émulateur non joignable ici).
+- [x] LT.1 Nouvelle ligne de chimio : menu « Lieu de traitement » sur toute la ligne, en premier (sous « Liste filtrée… », au-dessus de Type de cancer ;
+  recherche, Favoris et Réinitialiser dessous, comme avant) ; tous les lieux d'exercice, l'établissement du patient en premier et choisi d'office ; après le
+  choix du protocole, repris (modifiable) avant l'intention ; noté dans la ligne (`lignes[].hop`). Téléphone : recherche sur toute la largeur, Favoris et
+  Réinitialiser dessous (placement revu par Dr Bentahila le 04/11 sur les captures).
+- [x] LT.2 Ligne du dossier : bouton « Lieu : HGC » (médecin) → fenêtre « Lieu de traitement » (aussi pour les lignes d'avant, sans lieu = lieu du patient).
+- [x] LT.3 Séances de chimio comptées au lieu de la ligne (tarif de la séance, Bilan, « Par établissement ») ; consultation de chimio au lieu du patient
+  (inchangé) ; lignes sans lieu : comme avant (chiffre du Bilan inchangé). Radiothérapie : lieu de la RT (inchangé), lieu du patient en premier dans le menu.
+- [x] LT.4 Agenda (filtre par lieu), salle d'attente (filtre, liste pour la pharmacie, document de la salle), Google Agenda (titre « (HGC) ») et WhatsApp ({lieu}) :
+  la séance à son lieu de traitement.
+- [x] LT.5 Équipe d'une clinique (membre limité à certains lieux) : voit aussi les patients d'un autre lieu qui ont une chimio ou une RT dans son lieu
+  (`patients/{p}.lieuxTraitement`, tenu à jour à chaque enregistrement ; migration `lieuxTrait1104` une fois par le titulaire), **seulement leurs séances et
+  leurs étapes de RT de ce lieu** (agenda, salle d'attente, rappels, Google Agenda) ; ni leurs rendez-vous, ni leurs consultations, ni leurs documents.
+  Règles : `traiteIci()` (lecture et écriture du dossier), champ `lieuxTraitement` réservé aux droits « traitements » / « radiothérapie : modifier » ;
+  index `lieuxTraitement` + `maj` (firestore.indexes.json).
+- [x] LT.6 Paramètres › Activités et rémunérations : « Actes de radiothérapie » en tableau comme la séance de chimiothérapie (Tarif commun | Tarif « selon
+  le catalogue des actes » | Rétrocession % | Impôt % | Net « 36 % de l'acte » | En vigueur depuis), daté (date d'effet, historique ; `tauxRT.historique`),
+  colonne Net aussi par lieu. Séance et radiothérapie : « Tarif commun » en 1re ligne du tableau des lieux, colonnes alignées (demande du 04/11). Ordinateur et téléphone.
+- [x] LT.7 Modèle des cabinets neufs (Administration › Ouvrir le modèle) : la carte « Séance de chimiothérapie » (tarif commun) s'affiche aussi sans lieu ;
+  les cabinets neufs reçoivent ce tarif commun (`tarifsDepart`, functions/cabinets.js) et la dernière valeur du taux commun de la RT.
+- [ ] LT.8 Sur le Mac avant la mise en ligne : `cd tests/regles && npm test` (dont `test-lieux-traitement.mjs`) ; déployer les règles et l'index
+  (`firebase deploy --only firestore:rules,firestore:indexes`) **avant** le site ; puis les fonctions (`agendaPatient`, remise à plat de l'agenda, cabinets neufs).
+- [ ] LT.9 Non fait (à demander si besoin) : documents de RT (pli, compte rendu) écrits par l'équipe de la clinique pour un patient du cabinet (rangés au lieu du
+  patient) ; lieu sur la fiche chimio imprimée.
+
 ## Demandes du 04/11/2026, lot DM : dossier (onglets fixés, « mis de côté ») et bugs du téléphone (testé, **en ligne le 04/11/2026**, site seulement)
 Maquette validée par Dr Bentahila le 04/11 (captures : bandeau « Séance en cours » sous les onglets). Document « bugs sur mobile » (21 pages, photos d'iPhone).
 Test : `tests/test_lot_dm.py` (1 440, 1 280, 1 600, tablette 820 et 1 024, téléphone 390 px), ajouté à `outils/avant-mise-en-ligne.sh`. **Champs date et heure de l'iPhone : règle propre à Safari

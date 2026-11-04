@@ -327,6 +327,8 @@ function vueLigne(x, i) {
   const auc = (p.dr || []).some((d) => /AUC/.test(d.u)), ql = "'" + x.id + "'," + i;
   // 3.7 : plus de titre « Ligne 1 — protocole » (déjà dans l'en-tête de la ligne) ; « Arrêter la ligne » et « Supprimer » dans le menu ⋯
   let h = '<div class="acc-c"><div class="actr" style="justify-content:flex-start;margin-bottom:8px">' + b("Voir / modifier le protocole", "chProto(" + ql + ")") + (okT ? b(L.intent ? "Intention : " + esc(libIntention(L)) : "Intention de la ligne", "chIntention(" + ql + ")") : "") +
+    // Lot LT (04/11/2026) : lieu de traitement de la ligne (sans lieu noté : celui du patient)
+    ((D().etabsTous || D().etabs || []).length > 1 || L.hop ? (okT ? b("Lieu : " + esc(lieuLigne(x, L)), "chLieu(" + ql + ")").replace('class="mini ', 'class="mini ch-lieu ') : '<span class="mesures ch-lieu">Lieu : ' + esc(lieuLigne(x, L)) + "</span>") : "") +
     (okT ? (p.c && !L.arret ? b("+ 1 cure", "chAjouterCure(" + ql + ")") : "") + menu3([L.arret ? b("Reprendre la ligne", "chReprendre(" + ql + ")") : b("Arrêter la ligne", "chArreter(" + ql + ")", "rouge"), b("Supprimer la ligne", "chSupprLigne(" + ql + ")", "rouge")]) : "") + "</div>" + // 3.9 (demande de Dr Bentahila) : plus de « ? » ; « ⋯ » aligné sur les boutons (v2.html)
     (L.arret ? '<p class="st" style="color:var(--rouge);margin:0 0 6px">Arrêtée le ' + A.dfrA(L.arret.date) + " – " + esc(L.arret.raison || "") + (L.arret.com ? " (" + esc(L.arret.com) + ")" : "") + "</p>" : "") +
     '<div class="tableau"><table class="tcures tsea t-lig"><tr><th>Cure</th><th>Prévue</th><th>Réalisée</th><th>Statut</th><th>Poids · ' + (auc ? "Cl · " : "") + "SC</th><th></th></tr>";
@@ -1126,12 +1128,25 @@ function listeProtos() {
     return '<div class="proto' + (ok ? "" : " off") + '"' + (ok ? ' onclick="nlProto(\'' + esc(p.id) + "')\"" : "") + '><span class="etoile">' + (p.fav ? '<svg class="pi plein or"><use href="#i-etoile"/></svg>' : "") + '</span><div><b>' + esc(p.nom) + "</b> " + (ok ? '<span class="badge b-ch"><svg class="pi"><use href="#i-check"/></svg>Validé</span>' : '<span class="badge b-or"><i class="dot j"></i>Non validé</span>') + (p.assoc ? ' <span class="badge b-gr">associé</span>' : "") + '<div class="mesures">' + esc(molecules(p)) + (p.c ? " – cycle " + p.c + " j" : "") + "</div></div></div>";
   }).join("");
 }
+// Lot LT (04/11/2026, demande de Dr Bentahila) : lieu de traitement de la ligne (L.hop) = un des lieux d'exercice (cliniques et cabinet), le lieu du
+// patient en premier (choisi d'office) ; les séances de la ligne sont comptées à ce lieu (tarif, mode de paiement, Bilan) ; la consultation du jour
+// de chimio suit toujours le lieu du patient (moteur/finances.js)
+const lieuxTraitement = (x) => { const l = (D().etabsTous || D().etabs || []).slice(), p = (x && x.doc.etablissementId) || ""; const i = l.findIndex((e) => e.code === p); if (i > 0) l.unshift(l.splice(i, 1)[0]); return l; };
+const lieuDefaut = (x) => { const l = lieuxTraitement(x); return l.length ? l[0].code : (x && x.doc.etablissementId) || ""; };
+export const lieuLigne = (x, L) => (L && L.hop) || (x && x.doc.etablissementId) || "";
+const optsLieu = (x, v) => { const l = lieuxTraitement(x), p = (x && x.doc.etablissementId) || ""; if (v && !l.some((e) => e.code === v)) l.push({ code: v, nom: "" });
+  return l.map((e) => '<option value="' + A.esc(e.code) + '"' + (e.code === v ? " selected" : "") + ">" + A.esc(e.code + (e.nom ? " – " + e.nom : "") + (e.code === p ? " (lieu du patient)" : "")) + "</option>").join(""); };
+const selLieu = (x, v, fn, id) => '<label class="nl-lieu"' + (id ? ' for="' + id + '"' : "") + '><span>Lieu de traitement</span><select' + (id ? ' id="' + id + '"' : "") + ' onchange="' + fn + '(this.value)">' + optsLieu(x, v) + "</select></label>";
+window.nlLieu = (v) => { if (NL) NL.hop = v; };
 function dessinerNL() {
   const x = trouver(NL.pid), esc = A.esc;
   if (!NL.p) {
     if (CF.c && !CF.o) { const o = valeurs(1); if (o.length === 1) CF.o = o[0]; }
-    let h = "<h3>Nouvelle ligne de traitement</h3>" + (NL.loc && CF.c ? '<p class="mesures" style="margin:0 0 6px">Liste filtrée sur la localisation du dossier (' + esc(NL.loc) + ") : choisissez « Tous les cancers » pour tout voir.</p>" : "") + menusCascade(BIB(), CF, "nlChoixV");
-    h += '<div class="actr" style="justify-content:flex-start;margin-top:8px;flex-wrap:nowrap"><input id="nlQ" class="champ" style="flex:1;min-width:0" placeholder="Rechercher : molécule, protocole ou situation (ex. pertuzumab, sein adjuvant)…" value="' + esc(CF.q) + '">' +
+    if (NL.hop == null) NL.hop = lieuDefaut(x);
+    // lot LT (demande de Dr Bentahila du 04/11) : lieu de traitement sur toute la ligne, en premier, avant les menus Type de cancer…
+    let h = "<h3>Nouvelle ligne de traitement</h3>" + (NL.loc && CF.c ? '<p class="mesures" style="margin:0 0 6px">Liste filtrée sur la localisation du dossier (' + esc(NL.loc) + ") : choisissez « Tous les cancers » pour tout voir.</p>" : "") +
+      '<div class="nl-lieu1">' + selLieu(x, NL.hop, "nlLieu", "nlLieu") + "</div>" + menusCascade(BIB(), CF, "nlChoixV");
+    h += '<div class="actr nl-barre" style="justify-content:flex-start;margin-top:8px;flex-wrap:nowrap"><input id="nlQ" class="champ" style="flex:1;min-width:0" placeholder="Rechercher : molécule, protocole ou situation (ex. pertuzumab, sein adjuvant)…" value="' + esc(CF.q) + '">' +
       '<button class="bt ' + (CF.fav ? "plein" : "clair") + ' petit" onclick="nlFav()"><svg class="pi"><use href="#i-etoile"/></svg>Favoris</button><button class="bt gris petit" onclick="nlReinit()">Réinitialiser</button></div>' +
       '<div id="nlL" class="liste-protos">' + listeProtos() + '</div><div class="boutons"><button class="bt gris" onclick="fermerFenetre()">Annuler</button></div>';
     A.panneau(h);
@@ -1145,6 +1160,7 @@ function dessinerNL() {
   A.panneau("<h3>Nouvelle ligne de traitement</h3>" +
     '<div class="bloc gris"><b>' + esc(p.nom) + '</b><br><span class="mesures">' + esc(rythme(p.r)) + '</span> <button class="mini" onclick="nlChanger()">Changer de protocole</button>' +
       // T1 (24/10/2026, U3) : intention choisie ici, dans le même écran que le nombre de cures et la date (plus de fenêtre à part)
+      '<div class="nl-lieu2" style="margin-top:8px">' + selLieu(x, NL.hop || lieuDefaut(x), "nlLieu", "nlLieuB") + "</div>" + // lot LT : avant l'intention
       '<div class="nl-int" style="margin-top:8px"><span class="mesures">Intention :</span> <span class="puces" style="display:inline-flex;flex-wrap:wrap;gap:4px">' + INTENTIONS.map(([k, l]) => '<button type="button" class="puce' + (NL.intent === k ? " on" : "") + '" onclick="nlIntent(\'' + k + '\')">' + l + "</button>").join("") + "</span>" +
       (NL.intent === "meta" ? ' <label class="mesures" style="font-weight:normal;margin-left:6px">Ligne n° <select onchange="nlRang(this.value)">' + [1, 2, 3, 4, 5, 6, 7, 8].map((n) => '<option value="' + n + '"' + (n === +(NL.rang || 1) ? " selected" : "") + ">" + rangLib(n) + "</option>").join("") + "</select></label>" : "") + "</div></div>" +
     '<div class="form grille-nl" style="margin-top:12px">' + (ED.c ? ch("Nombre de cures *", "nb", NL.nb) : "") + ch("Date J1 *", "j1", NL.j1, "date") + ch("Poids (kg) *", "po", NL.po) +
@@ -1161,7 +1177,7 @@ function dessinerNL() {
     edValide(); dedupIds(ED);
     const cures = []; for (let n = 0; n < nb; n++) cures.push({});
     if (num(NL.pct) != null && num(NL.pct) !== 100) cures[0].pctAll = String(num(NL.pct));
-    const lignes = lignesDe(x); lignes.push({ id: "L" + Date.now() + Math.floor(Math.random() * 1000), protoId: p.id, pr: ED, assoc: associeVrai(p, ED) ? 1 : 0, ...(NL.intent ? { intent: NL.intent } : {}), ...(NL.rang ? { rang: NL.rang } : {}), ...(A.medPourPatient(x) ? { med: A.medPourPatient(x) } : {}) /* R-C3 : médecin de la ligne */, j1: NL.j1, poids: String(num(NL.po)), creat: NL.cr ? String(num(NL.cr)) : "", crU: "mgL", cures });
+    const lignes = lignesDe(x); lignes.push({ id: "L" + Date.now() + Math.floor(Math.random() * 1000), protoId: p.id, pr: ED, assoc: associeVrai(p, ED) ? 1 : 0, ...(NL.intent ? { intent: NL.intent } : {}), ...(NL.rang ? { rang: NL.rang } : {}), ...(A.medPourPatient(x) ? { med: A.medPourPatient(x) } : {}) /* R-C3 : médecin de la ligne */, ...(NL.hop ? { hop: NL.hop } : {}) /* lot LT : lieu de traitement */, j1: NL.j1, poids: String(num(NL.po)), creat: NL.cr ? String(num(NL.cr)) : "", crU: "mgL", cures });
     await sauverLignes(x, lignes, "Nouvelle ligne : " + ED.nom, { poids: String(num(NL.po)) });
     SEL.pid = x.id; SEL.l = lignes.length - 1; SEL.c = null;
   }).then((ok) => { if (ok) suiteLigne(x.id, ED.nom); });
@@ -1211,6 +1227,17 @@ function fenetreIntention(titre, o, ok, passer) {
   document.getElementById("itNon").onclick = () => (passer ? passer() : A.fermerFenetre());
   document.getElementById("fOk").onclick = () => { if (!k0) { A.erreur("Choisissez l'intention (ou « Passer »)."); return; } ok({ intent: k0, rang: k0 === "meta" ? +A.val("itRang") || 1 : null }); };
 }
+// Lot LT : changer le lieu de traitement d'une ligne (séances déjà validées comprises : le Bilan les range sous le nouveau lieu)
+window.chLieu = (id, i) => {
+  const x = trouver(id), L = lignesDe(x)[i]; if (!L) return; const esc = A.esc;
+  A.fenetre("<h3>Lieu de traitement</h3><p class=\"sous\">Ligne " + (i + 1) + " — " + esc((protocoleDe(L, D().ctx.bib) || {}).nom || "") + '</p><div class="form"><div class="large"><label for="chLieuS">Lieu des séances de chimiothérapie</label><select id="chLieuS">' + optsLieu(x, lieuLigne(x, L)) + "</select></div></div>" +
+    '<p class="mesures">Les séances de cette ligne sont comptées à ce lieu (tarif de la séance, Bilan), aussi celles déjà validées. Les consultations restent au lieu du patient (' + esc(x.doc.etablissementId || "—") + ").</p>" + boutons("Enregistrer", "plein"));
+  document.getElementById("fOk").onclick = () => executer(x, async () => {
+    const v = A.val("chLieuS"), lignes = lignesDe(x), L2 = lignes[i]; if ((L2.hop || "") === v) return;
+    if (v) L2.hop = v; else delete L2.hop;
+    await sauverLignes(x, lignes, "Lieu de traitement de la ligne : " + v);
+  });
+};
 const rangSuivant = (x) => (lignesDe(x).filter((L) => L.intent === "meta").reduce((m, L) => Math.max(m, +L.rang || 0), 0) || 0) + 1;
 window.chIntention = (id, i) => {
   const x = trouver(id), L = lignesDe(x)[i]; if (!L) return;

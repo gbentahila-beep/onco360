@@ -2346,6 +2346,16 @@ th.n .th-tri{flex-direction:row-reverse}
 @media (min-width:900px) and (max-width:1365px){.bi-ligne>.bi-act .bp-maj>.bt{font-size:0;gap:0;width:44px;padding:0;justify-content:center}.bi-ligne>.bi-act .bp-maj>.bt .pi{width:18px;height:18px;margin:0}}
 @media (min-width:900px){.bi-ligne>.form{grid-template-columns:none!important;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}.bi-ligne{flex-wrap:nowrap!important}.bi-ligne>.bi-act{width:auto!important;flex:none}}
 .bi-ligne>.bi-act{gap:12px}.bi-ligne>.bi-act .bp-maj>.bt{min-height:44px}.bi-ligne>.bi-act .mpts>.sa-plus{height:44px;min-width:44px}
+/* Lot LT (04/11/2026, demande de Dr Bentahila) : lieu de traitement de la ligne de chimio, sur toute la ligne avant les menus (1er écran), avant l'intention (2e écran) */
+.nl-lieu{display:flex;align-items:center;gap:10px;margin:0;font-weight:bold;color:var(--doux);font-size:13px;min-width:0}
+.nl-lieu select{min-height:44px;min-width:0;text-overflow:ellipsis;font-weight:normal}
+.nl-lieu1{margin:0 0 10px}.nl-lieu1 .nl-lieu{flex-direction:column;align-items:stretch;gap:4px}.nl-lieu1 .nl-lieu select{width:100%}
+.nl-lieu2 .nl-lieu select{flex:0 1 420px}
+.ch-lieu{white-space:nowrap}span.ch-lieu{align-self:center}
+/* Lot LT : Activités et rémunérations : « Tarif commun » en première ligne du tableau des lieux (mêmes colonnes) */
+.pa-lieux tr.pa-tc td{background:#F7F9FD;border-bottom:2px solid var(--trait)}
+@media (max-width:640px){.nl-barre{flex-wrap:wrap!important}.nl-barre>#nlQ{flex:1 1 100%!important}.nl-barre>.bt{flex:1 1 0;justify-content:center;min-height:44px}
+  .nl-lieu2 .nl-lieu{flex-direction:column;align-items:stretch;gap:4px}.nl-lieu2 .nl-lieu select{flex:none;width:100%}}
 </style>
 </head>
 <body class="demarrage">
@@ -2471,6 +2481,6 @@ function onco360Deconnecter() {
 }
 </script>
 
-<script type="module" src="./js/app/v2.js?v=20261104a"></script>
+<script type="module" src="./js/app/v2.js?v=20261104b"></script>
 </body>
 </html>

@@ -130,6 +130,7 @@ export function oublierDocs(pid) { delete DOCS[pid]; }
 export function docsDe(x, quandLu) {
   if (x.id in DOCS) return DOCS[x.id];
   DOCS[x.id] = {};
+  if (A.horsLieu && A.horsLieu(x)) return DOCS[x.id]; // lot LT : patient d'un autre lieu (traité ici)
   const f = [where("patientId", "==", x.id)]; if (!D().membre.tousEtablissements) f.push(where("etablissementId", "==", x.doc.etablissementId || ""));
   getDocs(query(col(), ...f)).then((s) => { const o = {}; s.docs.forEach((d) => { o[d.id] = { majLe: d.data().majLe || "", majParNom: d.data().majParNom || "" }; }); DOCS[x.id] = o; if (s.docs.length && quandLu) quandLu(); }).catch((e) => console.warn("documentsRT", e));
   return DOCS[x.id];

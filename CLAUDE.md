@@ -557,6 +557,16 @@ temporaire si le cache npm du Mac refuse) — à relancer avant chaque mise en l
 - Téléphone : règle Safari `@supports (-webkit-touch-callout:none)` pour les champs date et heure ; `ajuster` des menus déroulants plafonné à sa case ; liste des champs reliés en
   position absolue (visualViewport) ; `.oc-telz` (Outils cliniques) ; Mon compte `ag-vues defile rtr-sous`. Test : `tests/test_lot_dm.py`.
 
+## Lot LT du 04/11/2026 (lieu de traitement, équipe d'une clinique)
+- Ligne de chimio `lignes[].hop` = lieu de traitement (chimio.js `lieuxTraitement` / `lieuDefaut` / `lieuLigne` / `selLieu`, `nlLieu`, `chLieu`) ; moteur/finances.js : séances
+  au lieu de la ligne (`hS`), consultation de chimio et rendez-vous au lieu du patient (`hopAu`) ; moteur/agenda.js : `l` = lieu de chaque événement (rendez-vous, cure, RT).
+- `patients/{p}.lieuxTraitement` (lieux des lignes et des RT ; `lieuxTraitementDe` / `enregistrer` de v2.js, migration `lieuxTrait1104`) ; règles `traiteIci()` ; chargement
+  `patientsDuLieu` (+ `filtreTraites`, écoute en direct) ; `horsLieu(x)` / `lieuVu` / `monLieu` (API) : patient d'un autre lieu = seulement ses séances et RT du lieu
+  (`evtVisible`, agenda.js `evtsDossier`, salle.js `lignes` / `lieuL`) ; consultations, fichiers, documents RT non lus pour lui. Serveur : logique.js `traiteIci`, `evtsPatient`.
+- Taux commun de la RT daté : `finances/tarifs.tauxRT` { retro, impot (valeur du jour), historique [{ depuis, retro, impot }] } ; `tauxRT(tab, d)` ; parametres.js
+  `cadreTauxRT`, `tauxCom`, `pctRT`, `paTauxRT`, `paHistRT`. Cabinets neufs : `tarifsDepart` copie aussi `seanceCommune`. Tests : `tests/test_lot_lt.py`,
+  `tests/moteur/test-lieu-traitement.mjs`, `tests/regles/test-lieux-traitement.mjs`.
+
 ## Méthode de travail souhaitée
 - **Règles du travail par lots (31/10/2026)** : voir `FEUILLE-DE-ROUTE.md`, « Comment on travaille » (patch unique sans pousser ni mettre en ligne quand un autre Claude
   applique ; auteur Rita Bentahila ; mise en page seulement si demandé ; texte ≥ 13 px, zones ≥ 40 / 44 px, 390 / 900 / 1 280 / 1 600 px ; pas de commentaire au milieu

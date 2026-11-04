@@ -42,11 +42,16 @@ const dansFenetre = (e, auj) => e && e.k && DATE_OK.test(e.d || "") && (e.f && D
 // Heure « HH:MM » quel que soit l'écrit (« 9:30 », « 13h00 », « 08:30:00 ») ; illisible → "" (journée entière) (08/10/2026)
 const heure = (h) => { const m = String(h || "").trim().match(/^(\d{1,2})\s*[:hH.]\s*(\d{2})/); return m && +m[1] < 24 && +m[2] < 60 ? m[1].padStart(2, "0") + ":" + m[2] : ""; };
 
+// Lot LT (04/11/2026) : patient d'un autre lieu traité dans un lieu du membre (lieuxTraitement : lieux des lignes de chimio et des
+// radiothérapies) : seulement ses séances et ses étapes de radiothérapie faites dans ce lieu (« l » de l'événement), aucun rendez-vous
+const traiteIci = (m, d) => !!m && m.actif !== false && m.tousEtablissements !== true && (d.lieuxTraitement || []).some((c) => (m.etablissements || []).indexOf(c) >= 0);
 function evtsPatient(docData, membre, auj, qui) { // qui = { uid, titulaire } (AG4)
-  if (!docData || !voitPatient(membre, docData.etablissementId)) return [];
+  if (!docData) return [];
+  const ici = voitPatient(membre, docData.etablissementId); if (!ici && !traiteIci(membre, docData)) return [];
   let r = {};
   try { r = JSON.parse(docData.resume || "{}"); } catch (e) { return []; }
-  return (r.ag || []).filter((e) => dansFenetre(e, auj) && permis(membre, e, r, qui) && !/\|dosi$/.test(String(e.k))); // dosimétrie : une tâche (08/10/2026)
+  return (r.ag || []).filter((e) => dansFenetre(e, auj) && permis(membre, e, r, qui) && !/\|dosi$/.test(String(e.k)) // dosimétrie : une tâche (08/10/2026)
+    && (ici || (/^[^|]+\|(c|s|rt)\|/.test(String(e.k)) && (membre.etablissements || []).indexOf(e.l || "") >= 0)));
 }
 // Absences du cabinet (Configuration › Fermetures) : dans l'agenda du médecin titulaire seulement
 function evtsAbsences(cal, auj) {
@@ -323,4 +328,4 @@ function appliquerPrix(dossier, M, E, q) {
   return "Chimiothérapie C" + n + " J" + j + (m == null ? " : statut annulé" : " : venu (" + m + " DH)");
 }
 
-module.exports = { MODES_PAIEMENT, TZ, jourCasa, addJ, voitPatient, permis, evtsPatient, evtsAbsences, evtsTaches, heure, REGLES_FIXES, EVENEMENTS_AUTO, reglesAuto, tachesAutoPatient, finRT, addMois, idAuto, COULEURS0, categorie, colorer, cleFiltre, filtrer, idEv, corps, appliquer, creerApi, timeMin, groupe, peutPrix, appliquerPrix };
+module.exports = { MODES_PAIEMENT, TZ, jourCasa, addJ, voitPatient, traiteIci, permis, evtsPatient, evtsAbsences, evtsTaches, heure, REGLES_FIXES, EVENEMENTS_AUTO, reglesAuto, tachesAutoPatient, finRT, addMois, idAuto, COULEURS0, categorie, colorer, cleFiltre, filtrer, idEv, corps, appliquer, creerApi, timeMin, groupe, peutPrix, appliquerPrix };

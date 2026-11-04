@@ -66,6 +66,7 @@ function htmlSignature(c) {
 }
 // Lecture des consultations d'un patient (filtre d'établissement pour un membre limité à certains établissements)
 function charger(x) {
+  if (A.horsLieu && A.horsLieu(x)) { CS[x.id] = []; return Promise.resolve(); } // lot LT : patient d'un autre lieu (traité ici) : ses consultations restent à son lieu
   const f = [where("patientId", "==", x.id)];
   if (!D().membre.tousEtablissements) f.push(where("etablissementId", "==", x.doc.etablissementId || ""));
   return getDocs(query(col(), ...f))

@@ -75,6 +75,8 @@ service cloud.firestore {
       // Comptable (étape 9 S2, 09/10/2026) : volet financier seulement ; aucun dossier ni donnée médicale (le périmètre lui est fermé)
       function comptable() { return estMembre() && m().role == 'comptable'; }
       function dansPerimetre(etab) { return estMembre() && m().role != 'comptable' && (m().tousEtablissements == true || etab in m().etablissements); }
+      // Lot LT (04/11/2026) : patient d'un autre lieu traité dans un lieu du membre (lieuxTraitement : lieux des lignes de chimio et des radiothérapies)
+      function traiteIci(d) { return estMembre() && m().role != 'comptable' && d.lieuxTraitement.hasAny(m().etablissements); }
       // Champs d'un dossier patient que ce membre a le droit de modifier
       // 12/10/2026 : fiche du membre lue une seule fois (limite du nombre d'expressions évaluées par écriture) ; droit absent = non
       function champsAutorises() { return estMembre() ? champsDe(m().droits, m().tousEtablissements == true) : ['resume', 'version', 'maj', 'majPar']; }
@@ -87,6 +89,7 @@ service cloud.firestore {
           .concat(d.get('planningChimio', false) == true || d.get('traitements', '') == 'modifier' ? ['planningJson', 'heures'] : d.get('administrer', false) == true ? ['heures'] : [])
           .concat(d.get('traitements', '') == 'modifier' ? ['lignesJson', 'clinique'] : [])
           .concat(d.get('radiotherapie', '') == 'modifier' ? ['rtsJson'] : [])
+          .concat(d.get('traitements', '') == 'modifier' || d.get('radiotherapie', '') == 'modifier' ? ['lieuxTraitement'] : []) // lot LT
           .concat(tous ? ['etablissementId', 'hopHist'] : []); // hopHist : hôpital des actes faits avant un changement (15 bis)
       }
       // Fiche du patient (droit « fichePatient », secrétaire) : poids, taille, allergies… mais pas le résumé médical (clinique.notes)
@@ -126,11 +129,11 @@ service cloud.firestore {
       }
       // Dossiers patients (sans aucun montant)
       match /patients/{p} {
-        allow read: if dansPerimetre(resource.data.etablissementId);
+        allow read: if dansPerimetre(resource.data.etablissementId) || traiteIci(resource.data);
         allow create: if droit('creerPatient') && dansPerimetre(request.resource.data.etablissementId)
           && request.resource.data.version == 1 && request.resource.data.majPar == request.auth.uid && request.resource.data.maj == request.time
           && request.resource.data.keys().hasOnly(champsAutorises().concat(['etablissementId'])) && notesVides();
-        allow update: if dansPerimetre(resource.data.etablissementId) && versionSuivante()
+        allow update: if (dansPerimetre(resource.data.etablissementId) || traiteIci(resource.data)) && versionSuivante()
           && request.resource.data.diff(resource.data).affectedKeys().hasOnly(champsAutorises()) && notesInchangees();
         allow delete: if droit('supprimerPatient') && dansPerimetre(resource.data.etablissementId);
       }

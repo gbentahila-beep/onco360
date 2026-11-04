@@ -47,6 +47,12 @@ const infirmiere = { actif: true, etablissements: ["HGC", "CIOC"], droits: { tra
   ok(L.evtsPatient(P1, secretaireHGC, AUJ).map((e) => e.k).join() === "P1|r|r1", "secrétaire sans droit traitements/RT : seulement la consultation");
   ok(L.evtsPatient(P2, secretaireHGC, AUJ).length === 0 && L.evtsPatient(P2, infirmiere, AUJ).length === 1, "périmètre : CIOC invisible pour la secrétaire HGC, visible pour l'infirmière");
   ok(L.evtsPatient(P1, Object.assign({}, medecin, { actif: false }), AUJ).length === 0, "membre désactivé : rien");
+  // Lot LT (04/11/2026) : patient du cabinet traité à HGC : l'infirmière de HGC reçoit ses séances de HGC (l = HGC), rien d'autre
+  { const PC = { etablissementId: "CAB", lieuxTraitement: ["HGC"], resume: resume([{ k: "PC|r|r1", t: "consult", d: "2026-10-08", l: "CAB" }, { k: "PC|c|0|1", t: "C1", d: "2026-10-09", l: "HGC" }, { k: "PC|s|0|1|8", t: "J8", d: "2026-10-16", l: "HGC" }, { k: "PC|c|1|1", t: "C1 autre lieu", d: "2026-10-10", l: "CIOC" }, { k: "PC|rt|x|deb", t: "RT", d: "2026-10-11", l: "HGC" }]) };
+    const infHGC = { actif: true, etablissements: ["HGC"], droits: { traitements: "voir", radiotherapie: "voir" } };
+    ok(L.evtsPatient(PC, infHGC, AUJ).map((e) => e.k).sort().join() === "PC|c|0|1,PC|rt|x|deb,PC|s|0|1|8", "lot LT : infirmière HGC, patient du cabinet traité à HGC : ses séances et sa RT de HGC, sans consultation ni séance de CIOC");
+    ok(L.evtsPatient(Object.assign({}, PC, { lieuxTraitement: ["CIOC"] }), infHGC, AUJ).length === 0, "lot LT : traité ailleurs : rien");
+    ok(L.evtsPatient(PC, medecin, AUJ).length === 5, "lot LT : médecin (tous les lieux) : tout"); }
   // Infirmière (06/10) : pas de consultations ; radiothérapie seulement si le patient est sous chimio en même temps
   const inf2 = { actif: true, tousEtablissements: true, droits: { traitements: "voir", radiotherapie: "chimio", consultations: false } };
   const avecR = (doc, r) => Object.assign({}, doc, { resume: JSON.stringify(Object.assign(JSON.parse(doc.resume), r)) });

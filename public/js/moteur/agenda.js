@@ -10,22 +10,24 @@ export function evtsAgenda(P, ctx) {
   const t = ctx.aujourdhui, out = [], nm = P.nom || (P.nomF || "").toUpperCase() + " " + (P.prenom || ""), pid = P.id, hop = P.hop ? " (" + P.hop + ")" : "";
   (P.rdvs || []).forEach((r) => {
     if ((r.st || "prevu") !== "prevu" || !r.d) return; const hs = typeRdv(r.type) === "hospit"; if ((hs && r.f ? r.f : r.d) < t) return;
-    out.push({ k: pid + "|r|" + (r.id || r.d), t: (hs ? "" : "🩺 ") + nm + " – " + (hs ? "Hospitalisation" : libRdv(r)) + (r.lieu ? " (" + r.lieu + ")" : hop), x: [P.diag, P.tel ? "Tél. " + P.tel : "", r.n].filter(Boolean).join("\n"), d: r.d, h: hs ? "" : r.h || "", f: hs ? r.f || "" : "", ...(!hs && +r.du ? { dur: +r.du } : {}), ...(r.med ? { m: r.med } : {}), tk: r.type === "En cours de RT" ? "rtc" : r.type === "Fin de radiothérapie" ? "rtf" : r.act ? "act" : typeRdv(r.type) }); // dur : durée notée (AG2) ; m : médecin (AG4) ; tk : type (3.13, filtre et couleur sans dépendre du nom)
+    out.push({ k: pid + "|r|" + (r.id || r.d), t: (hs ? "" : "🩺 ") + nm + " – " + (hs ? "Hospitalisation" : libRdv(r)) + (r.lieu ? " (" + r.lieu + ")" : hop), x: [P.diag, P.tel ? "Tél. " + P.tel : "", r.n].filter(Boolean).join("\n"), d: r.d, h: hs ? "" : r.h || "", f: hs ? r.f || "" : "", ...(!hs && +r.du ? { dur: +r.du } : {}), ...(r.med ? { m: r.med } : {}), ...(r.lieu || P.hop ? { l: r.lieu || P.hop } : {}), tk: r.type === "En cours de RT" ? "rtc" : r.type === "Fin de radiothérapie" ? "rtf" : r.act ? "act" : typeRdv(r.type) }); // dur : durée notée (AG2) ; m : médecin (AG4) ; tk : type (3.13, filtre et couleur sans dépendre du nom)
   });
   // R-C3 (19/10/2026) : médecin de chaque événement (`m`) : celui de la ligne de chimio ou de la radiothérapie, sinon le médecin du patient
   // (identite.med) ; sans les deux : rien (= le titulaire, functions/logique.js permis)
   const medDe = (o) => (o && o.med) || P.med || "", avecM = (o, ev) => { const m = medDe(o); if (m) ev.m = m; return ev; };
   (P.lignes || []).forEach((L, i) => {
     if (L.arret) return; const p = protocoleDe(L, ctx.bib);
+    // Lot LT (04/11/2026) : lieu de traitement de la ligne (L.hop) dans le titre ; « l » = lieu de l'événement (agenda de l'équipe d'un lieu)
+    const hL = L.hop ? " (" + L.hop + ")" : hop, lL = (ev) => { if (L.hop || P.hop) ev.l = L.hop || P.hop; return ev; };
     etatLigne(L, P, ctx).forEach((e) => {
       const multi = seancesDe(protocoleCure(L, e.n - 1, ctx.bib)).length > 1;
-      if (e.st === "prevue" && e.date && e.date >= t) out.push(avecM(L, Object.assign({ k: pid + "|c|" + i + "|" + e.n, t: "💉 " + nm + " – C" + e.n + "/" + L.cures.length + (multi ? " J1" : "") + " · " + p.nom + hop, x: P.diag || "", d: e.date }, heureDe(e.c.hc))));
-      if (e.st !== "annulee" && e.date) seancesCure(L, e, ctx.bib).forEach((s) => { if (s.st === "prevue" && s.prevue && s.prevue >= t) out.push(avecM(L, Object.assign({ k: pid + "|s|" + i + "|" + e.n + "|" + s.j, t: "💉 " + nm + " – C" + e.n + " J" + s.j + " · " + p.nom + hop, x: P.diag || "", d: s.prevue }, heureDe(((e.c.sea || {})[s.j] || {}).hc)))); });
+      if (e.st === "prevue" && e.date && e.date >= t) out.push(lL(avecM(L, Object.assign({ k: pid + "|c|" + i + "|" + e.n, t: "💉 " + nm + " – C" + e.n + "/" + L.cures.length + (multi ? " J1" : "") + " · " + p.nom + hL, x: P.diag || "", d: e.date }, heureDe(e.c.hc)))));
+      if (e.st !== "annulee" && e.date) seancesCure(L, e, ctx.bib).forEach((s) => { if (s.st === "prevue" && s.prevue && s.prevue >= t) out.push(lL(avecM(L, Object.assign({ k: pid + "|s|" + i + "|" + e.n + "|" + s.j, t: "💉 " + nm + " – C" + e.n + " J" + s.j + " · " + p.nom + hL, x: P.diag || "", d: s.prevue }, heureDe(((e.c.sea || {})[s.j] || {}).hc))))); });
     });
   });
   (P.rts || []).forEach((r, j) => {
     if (r.fin) return; const f = finRT(r, ctx.feries), id = r.id || j, a = r.acte || "Radiothérapie", hr = r.hop ? " (" + r.hop + ")" : hop;
-    [[r.scan, "scan", "Scanner de centrage"], [r.deb, "deb", "1re séance de radiothérapie"], [f, "fin", "Fin de radiothérapie prévue"]].forEach((z) => { if (z[0] && z[0] >= t) out.push(avecM(r, Object.assign({ k: pid + "|rt|" + id + "|" + z[1], t: "☢️ " + nm + " – " + z[2] + " · " + a + hr, x: P.diag || "", d: z[0] }, z[1] === "scan" ? heureDe(r.scanH) : z[1] === "deb" ? heureDe(r.debH) : z[1] === "fin" ? heureDe(r.finH) : {}))); });
+    [[r.scan, "scan", "Scanner de centrage"], [r.deb, "deb", "1re séance de radiothérapie"], [f, "fin", "Fin de radiothérapie prévue"]].forEach((z) => { if (z[0] && z[0] >= t) out.push(avecM(r, Object.assign({ k: pid + "|rt|" + id + "|" + z[1], t: "☢️ " + nm + " – " + z[2] + " · " + a + hr, x: P.diag || "", d: z[0] }, r.hop || P.hop ? { l: r.hop || P.hop } : {}, z[1] === "scan" ? heureDe(r.scanH) : z[1] === "deb" ? heureDe(r.debH) : z[1] === "fin" ? heureDe(r.finH) : {}))); });
     // Dosimétrie à valider : plus un événement d'agenda depuis le 08/10/2026 (c'est une tâche pour le médecin, P4)
   });
   return out;

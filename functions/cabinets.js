@@ -47,10 +47,16 @@ function listesDepart(L) {
 const calendrierDepart = (C) => ({ feries: ((C && C.feries) || []).slice(), abs: [] });
 // Tarifs : actes de radiothérapie, VMAT et taux commun de la radiothérapie (R-D3, 20/10/2026 : celui de la référence, sinon 60 % de
 // rétrocession et 10 % d'impôt, visibles et modifiables dans Paramètres) ; aucun établissement (le médecin crée ses grilles dans Paramètres)
+// Lot LT (04/11/2026) : aussi le tarif commun de la séance de chimiothérapie (seanceCommune) ; valeurs du jour seulement (un cabinet neuf n'a pas
+// d'historique : « Origine ») ; taux commun de la radiothérapie daté : sa dernière valeur
+const derniere = (o) => { const h = ((o && o.historique) || []).slice().sort((a, b) => String(a.depuis).localeCompare(String(b.depuis))); return h.length ? h[h.length - 1] : o; };
 function tarifsDepart(T) {
   T = T || {};
-  const t = T.tauxRT && T.tauxRT.retro != null && T.tauxRT.impot != null ? { retro: T.tauxRT.retro, impot: T.tauxRT.impot } : { retro: 60, impot: 10 };
-  return { repli: "", etablissements: {}, actesRT: (T.actesRT || []).map((a) => ({ nom: a.nom, prix: a.prix })), vmat: T.vmat != null ? T.vmat : 10000, tauxRT: t };
+  const r = derniere(T.tauxRT), t = r && r.retro != null && r.impot != null ? { retro: r.retro, impot: r.impot } : { retro: 60, impot: 10 };
+  const out = { repli: "", etablissements: {}, actesRT: (T.actesRT || []).map((a) => ({ nom: a.nom, prix: a.prix })), vmat: T.vmat != null ? T.vmat : 10000, tauxRT: t };
+  const s = T.seanceCommune && (T.seanceCommune.historique || []).length ? derniere(T.seanceCommune) : null;
+  if (s) out.seanceCommune = { type: "seance", libelle: T.seanceCommune.libelle || "Séance de chimiothérapie", historique: [{ depuis: "2000-01-01", brut: s.brut != null ? s.brut : 0, retro: s.retro || 0, impot: s.impot || 0 }] };
+  return out;
 }
 const migrationsFaites = (jour) => MIGRATIONS.reduce((o, k) => { o[k] = jour; return o; }, { cabinetNeuf: jour });
 // Fiche de membre du médecin titulaire

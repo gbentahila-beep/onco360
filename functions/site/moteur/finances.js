@@ -49,9 +49,13 @@ export function consJours(c) {
 // (hop = l'ancien hôpital, avant = date du changement) ; un acte daté avant le changement reste à l'ancien hôpital.
 // Taux commun de la radiothérapie (Paramètres › Activités et rémunérations, finances/tarifs.tauxRT = { retro, impot }), pour un lieu
 // sans ligne « Radiothérapie » ; null s'il n'est pas réglé (les deux vides), une case vide seule = 0 % (R-D3, C5)
-export function tauxRT(tab) {
-  const t = tab && tab.tauxRT; if (!t || (num(t.retro) == null && num(t.impot) == null)) return null;
-  return { retro: num(t.retro) || 0, impot: num(t.impot) || 0 };
+// Lot LT (04/11/2026) : taux commun daté comme la séance (tauxRT.historique [{ depuis, retro, impot }], « En vigueur depuis ») ; sans historique :
+// retro / impot comme avant (copie à jour de la dernière valeur, gardée pour les cabinets neufs : functions/cabinets.js tarifsDepart)
+export function tauxRT(tab, d) {
+  const t = tab && tab.tauxRT; if (!t) return null;
+  const v = (t.historique || []).length ? valeurAu(t, d) : t;
+  if (!v || (num(v.retro) == null && num(v.impot) == null)) return null;
+  return { retro: num(v.retro) || 0, impot: num(v.impot) || 0 };
 }
 // 31/10/2026 (lots 7.1 à 7.3, accord de Dr Bentahila du 29/10) : séance de chimiothérapie et radiothérapie : taux propres du lieu (sa ligne),
 // sinon le tarif commun des Paramètres (séance : finances/tarifs.seanceCommune, daté comme une ligne ; radiothérapie : tauxRT), sinon, comme
@@ -64,7 +68,7 @@ export function seanceAu(tab, etab, d) {
 }
 export function rtAu(tab, etab, d) {
   const e = tab && tab.etablissements && tab.etablissements[etab], a = e && (e.activites || []).find((x) => x.type === "rt");
-  return (a && valeurAu(a, d)) || tauxRT(tab) || (tab ? tarif(tab, etab, "rt", d) : null);
+  return (a && valeurAu(a, d)) || tauxRT(tab, d) || (tab ? tarif(tab, etab, "rt", d) : null);
 }
 export function hopAu(P, d) {
   const h = (P.hopHist || []).filter((x) => x && x.avant).sort((a, b) => String(a.avant).localeCompare(String(b.avant))).find((x) => d && d < x.avant);
@@ -78,11 +82,12 @@ export function evtsFin(P, M, ctx) {
     const p = protocoleDe(L, ctx.bib); if (!ligneHon(L, p)) return;
     etatLigne(L, P, ctx).forEach((e) => {
       if (e.st !== "recue") return; const c = e.c, x = cm(L, e.n), lib = p.nom + " · C" + e.n;
-      const vS = (d) => seanceAu(tab, hopA(d), d), hon = x.hon || {}, cle = L.id + "|" + e.n;
+      // Lot LT (04/11/2026) : séance comptée au lieu de traitement de la ligne (L.hop, choisi à la prescription) ; sans lieu : lieu du patient
+      const hS = (d) => L.hop || hopA(d), vS = (d) => seanceAu(tab, hS(d), d), hon = x.hon || {}, cle = L.id + "|" + e.n;
       const m1 = hon[1] && hon[1].m != null ? hon[1].m : (vS(c.reelle) || {}).brut;
       const sansT = (j, d) => (hon[j] && hon[j].m != null) || vS(d) ? 0 : 1;
-      ev.push([c.reelle, "seance", hopA(c.reelle), "Séance chimio J1 – " + lib, m1, 100, r2(net(num(m1) || 0, vS(c.reelle))), "Validée", null, "s|" + cle + "|1", sansT(1, c.reelle)]);
-      if (c.sea) Object.keys(c.sea).forEach((j) => { const s = c.sea[j]; if (s.st === "recue") { const m = hon[j] && hon[j].m != null ? hon[j].m : (vS(s.d) || {}).brut; ev.push([s.d, "seance", hopA(s.d), "Séance chimio J" + j + " – " + lib, m, 100, r2(net(num(m) || 0, vS(s.d))), "Validée", null, "s|" + cle + "|" + j, sansT(j, s.d)]); } });
+      ev.push([c.reelle, "seance", hS(c.reelle), "Séance chimio J1 – " + lib, m1, 100, r2(net(num(m1) || 0, vS(c.reelle))), "Validée", null, "s|" + cle + "|1", sansT(1, c.reelle)]);
+      if (c.sea) Object.keys(c.sea).forEach((j) => { const s = c.sea[j]; if (s.st === "recue") { const m = hon[j] && hon[j].m != null ? hon[j].m : (vS(s.d) || {}).brut; ev.push([s.d, "seance", hS(s.d), "Séance chimio J" + j + " – " + lib, m, 100, r2(net(num(m) || 0, vS(s.d))), "Validée", null, "s|" + cle + "|" + j, sansT(j, s.d)]); } });
       // R-D1 : une consultation par jour payé (0 DH = rien à compter), à sa date (J8, J15… : date de la séance, sinon date prévue), avec son mode
       const J = consJours(x), jours = Object.keys(J).sort((a, b) => a - b); let sea = null, prem = true;
       jours.forEach((j) => {

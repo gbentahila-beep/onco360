@@ -40,6 +40,10 @@ const echoue = (f) => { try { f(); return false; } catch (e) { return true; } };
   const T = C.tarifsDepart({ repli: "HGC", etablissements: { HGC: { activites: [{ type: "suivi" }] } }, actesRT: [{ nom: "Stéréotaxie", prix: 15000, x: 1 }], vmat: 12000 });
   ok(Object.keys(T.etablissements).length === 0 && T.repli === "" && T.vmat === 12000 && JSON.stringify(T.actesRT) === '[{"nom":"Stéréotaxie","prix":15000}]', "tarifs : actes RT et VMAT seulement, aucun établissement");
   ok(T.tauxRT.retro === 60 && T.tauxRT.impot === 10 && C.tarifsDepart({ tauxRT: { retro: 50, impot: 0 } }).tauxRT.retro === 50, "tarifs : taux commun de la radiothérapie (référence, sinon 60 % / 10 %)");
+  { const T2 = C.tarifsDepart({ tauxRT: { retro: 60, impot: 10, historique: [{ depuis: "2000-01-01", retro: 60, impot: 10 }, { depuis: "2026-11-01", retro: 55, impot: 5 }] }, seanceCommune: { type: "seance", libelle: "Séance de chimiothérapie", historique: [{ depuis: "2000-01-01", brut: 500, retro: 0, impot: 10 }, { depuis: "2026-11-01", brut: 1000, retro: 50, impot: 10 }] } });
+    ok(T2.tauxRT.retro === 55 && T2.tauxRT.impot === 5 && !T2.tauxRT.historique, "lot LT : taux commun de la radiothérapie daté → sa dernière valeur");
+    ok(T2.seanceCommune && T2.seanceCommune.historique.length === 1 && T2.seanceCommune.historique[0].brut === 1000 && T2.seanceCommune.historique[0].depuis === "2000-01-01", "lot LT : tarif commun de la séance de chimiothérapie copié (valeur du jour, « Origine »)");
+    ok(!C.tarifsDepart({}).seanceCommune, "lot LT : sans tarif commun de la séance dans le modèle : rien"); }
 
   const M = C.migrationsFaites("2026-10-09");
   ok(C.MIGRATIONS.every((k) => M[k] === "2026-10-09") && M.cabinetNeuf === "2026-10-09", "mises à niveau des anciens dossiers marquées faites");

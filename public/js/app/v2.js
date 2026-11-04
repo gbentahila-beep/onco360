@@ -224,6 +224,15 @@ window.allerCabinet = (e, page) => (e === ESPACE ? (location.hash = page || "acc
 // Fiche de membre de la personne dans un autre cabinet, et filtre de ses lieux (règles : périmètre)
 async function membreDans(e) { const s = await getDoc(doc(db, "espaces", e, "membres", D.u.uid)); const m = s.exists() ? s.data() : null; return m && m.actif !== false ? m : null; }
 const filtreLieux = (m) => (m.tousEtablissements ? [] : [where("etablissementId", "in", (m.etablissements || []).length ? m.etablissements.slice(0, 30) : ["—"])]);
+// Lot LT (04/11/2026) : patients d'un autre lieu traités dans un lieu du membre (lieuxTraitement : lieux des lignes de chimio et des radiothérapies,
+// tenu à jour par `enregistrer`) ; lecture en échec (index ou règle pas encore en ligne) : rien de plus, comme avant
+const filtreTraites = (m) => [where("lieuxTraitement", "array-contains-any", (m.etablissements || []).length ? m.etablissements.slice(0, 30) : ["—"])];
+async function patientsDuLieu(col, m, extra) {
+  const f = extra || [];
+  if (m.tousEtablissements) return getDocs(f.length ? query(col, ...f) : col);
+  const [a, b] = await Promise.all([getDocs(query(col, ...filtreLieux(m), ...f)), getDocs(query(col, ...filtreTraites(m), ...f)).catch((e) => { console.warn("patients traités dans le lieu", e); return { docs: [] }; })]);
+  const vus = new Set(a.docs.map((d) => d.id)); return { docs: a.docs.concat(b.docs.filter((d) => !vus.has(d.id))) };
+}
 async function activiteCabinet(e) {
   const m = await membreDans(e); if (!m) return null;
   const [ss, st] = await Promise.all([getDocs(query(collection(db, "espaces", e, "salle"), where("jour", "==", D.t), ...filtreLieux(m))).catch(() => null), getDocs(query(collection(db, "espaces", e, "taches"), where("qui", "array-contains", D.u.uid))).catch(() => null)]);
@@ -291,7 +300,7 @@ async function charger(u) {
     getDocs(collection(db, "espaces", ESPACE, "protocoles")),
     getDoc(E("parametres", "calendrier")),
     // Comptable (étape 9 S2) : aucun dossier patient (les règles le lui ferment) ; il travaille sur le relevé financier
-    membre.role === "comptable" ? Promise.resolve({ docs: [] }) : membre.tousEtablissements ? getDocs(col) : getDocs(query(col, where("etablissementId", "in", membre.etablissements || ["—"]))),
+    membre.role === "comptable" ? Promise.resolve({ docs: [] }) : patientsDuLieu(col, membre), // lot LT : + patients traités dans ses lieux
     getDoc(E("parametres", "listes")).catch(() => null),
     getDocs(collection(db, "espaces", ESPACE, "etablissements")).catch(() => null),
     membre.droits && membre.droits.finances === true ? getDoc(E("finances", "tarifs")).catch(() => null) : Promise.resolve(null),
@@ -569,6 +578,16 @@ async function migrations() {
       }
       await setDoc(doc(db, "espaces", ESPACE, "parametres", "migrations"), { dosimetriePeriode: D.t }, { merge: true }).catch(() => {});
     }
+    // Lot LT (04/11/2026) : lieux de traitement notés une fois sur les dossiers dont une radiothérapie (ou une ligne) a un lieu (équipe de ce lieu)
+    if (!fait.lieuxTrait1104) {
+      let erreurs = 0;
+      for (const x of D.patients) {
+        const lt = lieuxTraitementDe(x.doc); if (!lt || !lt.length || JSON.stringify(lt) === JSON.stringify(x.doc.lieuxTraitement || [])) continue;
+        const v = x.doc.version || 1;
+        await updateDoc(doc(db, "espaces", ESPACE, "patients", x.id), { lieuxTraitement: lt, version: v + 1, maj: serverTimestamp(), majPar: D.u.uid }).then(() => { x.doc.version = v + 1; x.doc.lieuxTraitement = lt; }).catch((er) => { erreurs++; console.warn("lieux de traitement", x.id, er); });
+      }
+      if (!erreurs) await setDoc(doc(db, "espaces", ESPACE, "parametres", "migrations"), { lieuxTrait1104: D.t }, { merge: true }).catch(() => {});
+    }
     // (1.7, 11-12/10/2026 : listes du cabinet d'origine écrites en entier une fois, « listesCompletes » ; COR0 retiré ensuite)
     // 2.2 (12/10/2026) : cures et séances déjà validées figées une fois, telles qu'elles s'affichent (décision de Dr Bentahila)
     if (!fait.curesFigees) {
@@ -669,7 +688,14 @@ const radiochimio = (x) => !!(x.r && x.r.t && x.r.t.st === "cours") && (x.r.rtS 
 const voitRT = (x) => module("rt") && (D.membre.droits.radiotherapie !== "chimio" || radiochimio(x));
 const voitRTdossier = (x) => module("rt") && (voit("radiotherapie") || (D.membre.droits.radiotherapie === "chimio" && radiochimio(x)) || peut("documents"));
 // Un événement du résumé (clé « PID|r|… », « PID|rt|… »…) est-il visible pour la personne connectée ?
-const evtVisible = (x, k) => { const p = String(k || "").split("|"); return p[1] === "r" ? voitRdv() : p[1] === "rt" ? voitRT(x) : true; };
+// Lot LT (04/11/2026) : lieux du membre ; un patient d'un autre lieu (chargé parce qu'il est traité dans un de ses lieux) : seulement ses séances de
+// chimio et ses radiothérapies faites dans ce lieu (ni rendez-vous, ni traitements d'ailleurs)
+const monLieu = (c) => !!(D.membre.tousEtablissements || (D.membre.etablissements || []).indexOf(c || "") >= 0);
+const horsLieu = (x) => !!x && !monLieu(x.doc.etablissementId || "");
+const lieuVu = (x, c) => !horsLieu(x) || monLieu(c || x.doc.etablissementId || "");
+const lieuEvt = (x, p) => { if (p[1] === "c" || p[1] === "s") { const L = (x.P.lignes || [])[+p[2]]; return (L && L.hop) || x.doc.etablissementId || ""; }
+  if (p[1] === "rt") { const r = (x.P.rts || []).find((v, j) => String(v.id || j) === p[2]); return (r && r.hop) || x.doc.etablissementId || ""; } return x.doc.etablissementId || ""; };
+const evtVisible = (x, k) => { const p = String(k || "").split("|"); if (horsLieu(x) && (p[1] === "r" || !monLieu(lieuEvt(x, p)))) return false; return p[1] === "r" ? voitRdv() : p[1] === "rt" ? voitRT(x) : true; };
 const traitMod = () => !!(D.membre.droits && D.membre.droits.traitements === "modifier");
 const traitModRT = () => !!(D.membre.droits && D.membre.droits.radiotherapie === "modifier");
 // « Dr NOM Prénom » (fiche chimio, modèles Word) à partir d'un profil
@@ -681,7 +707,18 @@ const signatureWA = () => { if (D.membre.role === "medecin") return (D.profil.ti
 const nomMedecin = () => ["Dr", D.profil.prenom, (D.profil.nom || D.membre.nom || "").replace(/^Dr\.?\s*/i, "").toUpperCase()].filter(Boolean).join(" ");
 
 // Enregistrement d'un dossier : version suivante (protection contre les écrasements), résumé recalculé, historique
+// Lot LT (04/11/2026) : lieux de traitement du dossier (lignes de chimio et radiothérapies avec un lieu, autre que celui du patient compris) : lus par
+// les règles et les requêtes (équipe d'une clinique qui traite un patient du cabinet)
+function lieuxTraitementDe(d) {
+  const l = []; const aj = (c) => { if (c && l.indexOf(c) < 0) l.push(c); };
+  try { JSON.parse(d.lignesJson || "[]").forEach((L) => aj(L && L.hop)); JSON.parse(d.rtsJson || "[]").forEach((r) => aj(r && r.hop)); } catch (e) { return null; }
+  return l.sort();
+}
 async function enregistrer(x, changes, quoi) {
+  if (("lignesJson" in changes || "rtsJson" in changes) && (traitMod() || traitModRT())) {
+    const lt = lieuxTraitementDe(Object.assign({}, x.doc, changes));
+    if (lt && JSON.stringify(lt) !== JSON.stringify(x.doc.lieuxTraitement || []) && (lt.length || x.doc.lieuxTraitement)) changes = Object.assign({}, changes, { lieuxTraitement: lt });
+  }
   const v = x.doc.version || 1, nouveau = Object.assign({}, x.doc, changes), tmp = { id: x.id };
   recalculer(tmp, nouveau);
   const ref = doc(db, "espaces", ESPACE, "patients", x.id);
@@ -845,6 +882,7 @@ API.heureRT = async (pid, rid, hr, z) => { // z : "scan" (défaut) ou "deb" (1re
 };
 API.multiMed = () => multiMed(); API.medecins = () => D.medecins || []; API.medRdv = (r) => medRdv(r); API.nomMed = (u) => nomMed(u); API.medDefaut = () => medDefaut(); API.medPourPatient = (x) => medPourPatient(x); // AG4, R-C3
 API.listeMut = () => listeMut(); API.listeCor = () => listeCor(); // fiche réglable (3.11)
+API.monLieu = monLieu; API.horsLieu = horsLieu; API.lieuVu = lieuVu; // lot LT
 API.absenceLe = (d) => absenceLe(d); API.encaisseIci = () => encaisseIci(); API.payeCabinet = (x) => payeCabinet(x); API.htmlMode = (c) => htmlMode(c); API.libMode = (k) => libMode(k); API.fenetreRecu = (o) => fenetreRecu(o); API.modeHabituel = (c) => modeHabituel(c); API.estRegle = (m) => estRegle(m); API.imprimerRecu = (w, x, o) => imprimerRecu(w, x, o); API.sansAcc = sansAcc; API.question = (h, b, av) => question(h, b, av); API.garde = (f) => { GARDE = f || null; }; API.fn = (k) => fnOn(k); API.voitRefRT = () => voitRefRT(); API.modifRefRT = () => modifRefRT(); API.module = (k) => module(k); API.planifierReleve = (d) => planifierReleve(d || 120000); API.attribuerNumero = (x) => attribuerNumero(x); API.numDossier = (x) => numDossier(x); API.medecinFiche = () => medecinFiche(); API.nomCompte = () => API.nomAgissant(); API.publierCarte = () => publierCarte(); API.signataires = () => D.signataires || {}; API.medecins = () => D.medecins || []; API.medDefaut = () => medDefaut(); API.etabDe = (code) => (D.etabsTous || D.etabs || []).find((e) => e.code === code) || null; API.entete = () => entete(); API.voitRdv = () => voitRdv(); API.voitRT = (x) => voitRT(x); API.fmtMil = (n) => fmtMil(n); API.ferieLe = (d) => ferieLe(d); API.salleVenuChimio = (x, lid, n, j, oui) => apresVenuChimio(x, lid, n, j, oui); API.serveur = appelServeur; API.prixPrevu = (p, c, j) => prixPrevu(p, c, j); API.badgeSalle = (p, c) => badgeSalle(p, c); API.tarifsVus = () => tarifsVus(); API.publierTarifsC = () => publierTarifsC(); API.encaissementsDe = (x, f) => encaissementsDe(x, f); API.peutPrix = () => peut("finances") || prixParServeur();
 installerChimio(API); installerAudit(API); aboP.installer(API); ficheP.installer(API); infosMed.installer(API); installerAgenda(API); installerConfig(API); installerProfil(API); installerProtocoles(API); installerParametres(API); installerBilan(API); installerConsultations(API); installerOrdonnances(API); installerDocuments(API); installerFichiers(API); API.tacheSysteme = tacheSysteme; installerTaches(API); installerReglages(API); installerSalle(API); installerRcp(API); installerVigilances(API); installerRadiotherapie(API); installerFeuilles(API); installerOutils(API);
 
@@ -951,6 +989,8 @@ const JOURS_L = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", 
 function lieuWA(x, cat, d) {
   const P = x.P || {};
   if (cat === "rt") { const r = (P.rts || []).find((v) => v.hop && (v.scan === d || v.deb === d)); if (r) return r.hop; }
+  // lot LT (04/11/2026) : séance de chimio à son lieu de traitement (« l » de l'événement du résumé : lieu de la ligne)
+  else if (cat === "chimio") { const e = ((x.r && x.r.ag) || []).find((v) => v.d === d && /^[^|]+\|[cs]\|/.test(String(v.k)) && v.l); if (e) return e.l; }
   else if (cat !== "chimio") { const r = (P.rdvs || []).find((v) => v.d === d && v.lieu && (cat === "confirm" || catRdv(v) === cat)); if (r) return r.lieu; }
   return x.doc.etablissementId;
 }
@@ -1102,10 +1142,10 @@ function ecouterDossiers() {
   if (ECOUTE_D || estComptable() || D.bib) return;
   const m = D.membre, depuis = new Date(Date.now() - 5 * 60000), c = collection(db, "espaces", ESPACE, "patients");
   const q = m.tousEtablissements ? query(c, where("maj", ">", depuis)) : query(c, where("etablissementId", "in", (m.etablissements || []).length ? m.etablissements.slice(0, 30) : ["—"]), where("maj", ">", depuis));
-  ECOUTE_D = onSnapshot(q, (s) => {
-    s.docChanges().forEach((ch) => { if (ch.type !== "removed" && !(ch.doc.metadata || {}).hasPendingWrites) ATTENTE_D.set(ch.doc.id, ch.doc.data()); });
-    appliquerDossiers();
-  }, (e) => { console.warn("dossiers (écoute en direct)", e); ECOUTE_D = null; });
+  const recu = (s) => { s.docChanges().forEach((ch) => { if (ch.type !== "removed" && !(ch.doc.metadata || {}).hasPendingWrites) ATTENTE_D.set(ch.doc.id, ch.doc.data()); }); appliquerDossiers(); };
+  ECOUTE_D = onSnapshot(q, recu, (e) => { console.warn("dossiers (écoute en direct)", e); ECOUTE_D = null; });
+  // lot LT : patients d'un autre lieu traités dans ses lieux (deuxième écoute ; en échec : sans effet sur la première)
+  if (!m.tousEtablissements) onSnapshot(query(c, ...filtreTraites(m), where("maj", ">", depuis)), recu, (e) => console.warn("dossiers traités dans le lieu (écoute)", e));
   setInterval(appliquerDossiers, 2000);
 }
 function appliquerDossiers() {
@@ -1127,8 +1167,7 @@ const OUVERT = Date.now();
 API.relireModifies = async (depuisMs) => {
   if (estComptable() || D.bib) return 0;
   const m = D.membre, depuis = new Date((depuisMs || OUVERT) - 5 * 60000), c = collection(db, "espaces", ESPACE, "patients");
-  const q = m.tousEtablissements ? query(c, where("maj", ">", depuis)) : query(c, where("etablissementId", "in", (m.etablissements || []).length ? m.etablissements.slice(0, 30) : ["—"]), where("maj", ">", depuis));
-  const s = await getDocs(q); s.docs.forEach((d) => ATTENTE_D.set(d.id, d.data()));
+  const s = await patientsDuLieu(c, m, [where("maj", ">", depuis)]); s.docs.forEach((d) => ATTENTE_D.set(d.id, d.data())); // lot LT : + patients traités dans ses lieux
   const n = ATTENTE_D.size; appliquerDossiers(); return n;
 };
 // Page ouverte redessinée après un changement venu d'ailleurs, défilement gardé (la salle d'attente se redessine elle-même)
@@ -2781,7 +2820,7 @@ window.ouvrirRT = (id, rid) => {
   panneau("<h3>" + (r0 ? "Modifier la prescription" : "Nouvelle prescription de radiothérapie") + " – " + esc(x.r.nm) + '</h3><div class="form rt-f">' +
     // R-C3 (19/10/2026) : lieu de la RT (pré-rempli avec celui du patient, modifiable : vu au cabinet, traité en clinique) et médecin (à partir de
     // 2 médecins ; défaut : celui du patient, sinon le médecin connecté) : étapes, consultations automatiques, agenda, WhatsApp, bilan (r.hop)
-    sel("rHop", "Lieu de la radiothérapie", R.hop || "", [["", "—"]].concat(D.etabs.map((e) => [e.code, e.code + " – " + e.nom + (e.code === x.doc.etablissementId ? " (lieu du patient)" : "")])), {}) +
+    sel("rHop", "Lieu de la radiothérapie", R.hop || "", [["", "—"]].concat(D.etabs.slice().sort((a, z) => (z.code === x.doc.etablissementId) - (a.code === x.doc.etablissementId)).map((e) => [e.code, e.code + " – " + e.nom + (e.code === x.doc.etablissementId ? " (lieu du patient)" : "")])), {}) +
     (multiMed() ? sel("rMed", "Médecin", R.med || medPourPatient(x), D.medecins.map((m) => [m.uid, m.nom]).concat(R.med && !D.medecins.some((m) => m.uid === R.med) ? [[R.med, "Médecin retiré de l'équipe"]] : []), {}) : "<div></div>") +
     sel("rTech", "Technique", R.tech || "", [["", "—"], ["stereo", "Stéréotaxie"], ["vmat", "VMAT"], ["imrt", "IMRT"], ["3d", "3D"]], {}) + sel("rInt", "Intention", R.intent || "", [["", "—"], ["curative", "Curative"], ["palliative", "Palliative"]], {}) +
     // 3.5 (12/10/2026) : volumes [{ nom, dose, nb, ty }] : le principal (rDose / rNb), puis des compléments séquentiels (à la suite) ou

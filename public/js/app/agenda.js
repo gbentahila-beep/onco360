@@ -54,13 +54,15 @@ const medDe = (o, x) => (o && o.med) || x.P.med || A.medRdv({});
 const filtre = (etab, med) => (!AG.etab || etab === AG.etab) && !(AG.med && A.multiMed() && med !== AG.med);
 function evtsDossier(x, du, au, out) {
   const P = x.P, nm = x.r.nm, ctx = D().ctx;
-  if (A.voitRdv()) (P.rdvs || []).forEach((r) => {
+  // lot LT (04/11/2026) : patient d'un autre lieu traité dans un lieu du membre : ni ses rendez-vous, ni ses traitements d'ailleurs
+  const hors = A.horsLieu ? A.horsLieu(x) : false, vu = (c) => !hors || A.lieuVu(x, c);
+  if (A.voitRdv() && !hors) (P.rdvs || []).forEach((r) => {
     if (!r.d || !filtre(lieuDe(r, x), A.medRdv(r))) return; const hs = typeRdv(r.type) === "hospit", f = hs && r.f && r.f >= r.d ? r.f : r.d;
     if (f < du || r.d > au) return;
     out.push({ pid: x.id, rid: r.id, cat: hs ? "ho" : "co", d: r.d, f, h: hs ? "" : r.h || "", du: hs ? 0 : dureeDe(r, lieuDe(r, x)), nm, t: (hs ? "Hospitalisation" : libRdv(r)) + (A.multiMed() && !AG.med ? " · " + A.nomMed(A.medRdv(r)) : ""), st: r.st || "prevu", n: r.n || "" });
   });
   (P.lignes || []).forEach((L) => {
-    if (!filtre(x.doc.etablissementId || "", medDe(L, x))) return;
+    if (!filtre(lieuDe(L, x), medDe(L, x)) || !vu(lieuDe(L, x))) return; // lot LT : lieu de traitement de la ligne (L.hop)
     let p; try { p = protocoleDe(L, ctx.bib); } catch (e) { return; } if (!p) return;
     const stop = L.arret ? L.arret.date || D().t : null, garde = (d, st) => !stop || st === "fait" || d < stop; // ligne arrêtée : passé seulement
     etatLigne(L, P, ctx).forEach((e) => {
@@ -71,7 +73,7 @@ function evtsDossier(x, du, au, out) {
     });
   });
   if (A.voitRT(x)) (P.rts || []).forEach((r) => {
-    if (!filtre(lieuDe(r, x), medDe(r, x))) return;
+    if (!filtre(lieuDe(r, x), medDe(r, x)) || !vu(lieuDe(r, x))) return;
     const fin = r.fin || finRT(r, ctx.feries), a = r.acte || "Radiothérapie";
     // « Dosimétrie à valider » : une tâche pour le médecin (P4, 08/10/2026), plus un rendez-vous de l'agenda
     [[r.scan, "Scanner de centrage", "scan"], [r.dosi, "Dosimétrie validée"], [r.deb, "1re séance", "deb"], [fin, r.fin ? "Fin de radiothérapie" : "Fin de radiothérapie prévue"].concat(r.fin ? [] : ["fin"])].forEach((z) => { if (z[0] && z[0] >= du && z[0] <= au) out.push(Object.assign({ pid: x.id, cat: "rt", d: z[0], f: z[0], nm, t: z[1] + " · " + a + (r.hop && r.hop !== x.doc.etablissementId ? " (" + r.hop + ")" : ""), st: r.fin && z[0] <= r.fin ? "fait" : "prevu" }, z[2] ? Object.assign({ rtid: r.id, z: z[2] }, hrDe(z[2] === "deb" ? r.debH : z[2] === "fin" ? r.finH : r.scanH, DU_SCAN)) : { h: "" })); });

@@ -189,7 +189,8 @@ const empreinte = () => { let v = 0; D().patients.forEach((x) => { v += (x.doc &
 export function lignes(jours) {
   const J = jours || [jourVu()], k = J.join(","), e = empreinte(), c = CACHE.get(k);
   if (c && c.e === e) return c.out;
-  const out = calculerLignes(J); CACHE.set(k, { e: empreinte(), out });
+  // lot LT (04/11/2026) : patient d'un autre lieu traité dans un lieu du membre : seulement ses séances de chimio de ce lieu (aucun rendez-vous)
+  const out = calculerLignes(J).filter((l) => !A.horsLieu || !A.horsLieu(l.x) || (l.chimio && A.monLieu(lieuL(l)))); CACHE.set(k, { e: empreinte(), out });
   if (CACHE.size > 12) CACHE.delete(CACHE.keys().next().value);
   return out;
 }
@@ -199,7 +200,9 @@ function calculerLignes(jours) {
 }
 // Médecin d'une ligne : rendez-vous = son médecin (sinon le titulaire) ; séance de chimio = médecin de la ligne, sinon du patient, sinon le titulaire
 const medLigneSalle = (l) => { if (l.rdv) return A.medRdv(l.rdv); const L = l.chimio && (l.x.P.lignes || []).find((z) => z.id === l.chimio.lid); return (L && L.med) || ((l.x.doc.identite || {}).med) || A.medRdv({}); };
-const dansFiltre = (l) => (!ETAB || (l.x.doc.etablissementId || "") === ETAB) && !(MED && A.multiMed() && medLigneSalle(l) !== MED);
+// Lot LT : lieu d'une ligne de la salle = lieu de traitement de la ligne de chimio (L.hop) pour une séance, sinon le lieu du patient
+const lieuL = (l) => { const L = l.chimio && (l.x.P.lignes || []).find((z) => z.id === l.chimio.lid); return (L && L.hop) || l.x.doc.etablissementId || ""; };
+const dansFiltre = (l) => (!ETAB || lieuL(l) === ETAB) && !(MED && A.multiMed() && medLigneSalle(l) !== MED);
 
 // ───── Prix : validé (consultation vue) ou prévu (tarif de l'établissement à cette date) ─────
 const CHARGE = {}; // prix à encaisser demandés (une lecture par patient)
@@ -250,7 +253,7 @@ const LIB_ETAT = { "": "à venir", salle: "en salle d'attente", consult: "en con
 const propre = (o) => { Object.keys(o).forEach((k) => { if (o[k] === undefined || o[k] === null) delete o[k]; }); return o; };
 async function ecrire(l, maj, opts) {
   opts = opts || {};
-  const id = idDoc(l.jour, l.pid, l.cle), etab = l.x.doc.etablissementId || "", ref = doc(col(), id), base = { jour: l.jour, patientId: l.pid, etablissementId: etab, cle: l.cle, majPar: D().u.uid };
+  const id = idDoc(l.jour, l.pid, l.cle), etab = lieuL(l), ref = doc(col(), id), base = { jour: l.jour, patientId: l.pid, etablissementId: etab, cle: l.cle, majPar: D().u.uid };
   const avant = SA.get(id); SA.set(id, propre(Object.assign({ etat: "" }, avant || {}, maj, base))); apresChangement(); // affichage immédiat
   ECRIT = Date.now();
   try {
@@ -689,7 +692,7 @@ function ligneHtml(l, cv) {
   const q = "'" + l.pid + "','" + l.cle + "'", { prin } = actionsDe(l);
   const voitMo = !!l.chimio || A.voitRdv(), P = l.x.P, civ = P.sexe === "F" ? "Mme " : P.sexe === "H" ? "M. " : "";
   const p = prixDe(l), px = !p ? "" : p.charge ? '<span class="mesures">…</span>' : p.nonValide ? (l.derive ? "—" : '<span class="mesures" title="Prix non fixé">?</span>') : p.m == null ? "—" : '<span class="' + (p.ok ? "px-ok" : p.convenu ? "px-conv" : "px-prev") + '" title="' + (p.ok ? "Prix validé" : p.convenu ? "Prix payé d'avance (proposé à la validation)" : "Prix prévu (tarif)") + '">' + A.fmtMil(p.m) + "</span>";
-  const etab = !ETAB && $("saEtab") && l.x.doc.etablissementId ? ' <span class="sa-etb">' + A.esc(l.x.doc.etablissementId) + "</span>" : "";
+  const etab = !ETAB && $("saEtab") && lieuL(l) ? ' <span class="sa-etb">' + A.esc(lieuL(l)) + "</span>" : "";
   // colonne Commentaire cachée : bulle à côté du nom (texte au survol, clic = modifier)
   const cm = l.doc.com && !cv.some((c) => c[0] === "com") ? '<button class="sa-cm" onclick="saCom(' + q + ')" title="' + A.esc(l.doc.com + (l.doc.comNom ? " — " + l.doc.comNom : "")) + '" aria-label="Commentaire : ' + A.esc(l.doc.com) + '"><svg class="pi"><use href="#i-bulle"/></svg></button>' : "";
   const cel = {
@@ -743,8 +746,8 @@ function majBulles() {
 // défaut), par établissement : patient, protocole, cure et jour, anticancéreux, dose, flacons ; imprimable
 window.saPharmacie = (jour) => {
   const j = jour || addJ(D().t, 1), etabs = D().etabsTous || D().etabs || [], nomE = (c) => (etabs.find((z) => z.code === c) || {}).nom || c || "Sans établissement";
-  const L = lignes([j]).filter((l) => l.chimio && l.etat !== "absent" && !l.orphelin && (!ETAB || (l.x.doc.etablissementId || "") === ETAB));
-  const par = {}; L.forEach((l) => { const c = l.x.doc.etablissementId || ""; (par[c] = par[c] || []).push(l); });
+  const L = lignes([j]).filter((l) => l.chimio && l.etat !== "absent" && !l.orphelin && (!ETAB || lieuL(l) === ETAB));
+  const par = {}; L.forEach((l) => { const c = lieuL(l); (par[c] = par[c] || []).push(l); });
   const esc = A.esc, corps = Object.keys(par).sort().map((c) => "<h2>" + esc(nomE(c)) + " (" + par[c].length + ")</h2><table><tr><th>Patient</th><th>Protocole · cure</th><th>Anticancéreux</th><th>Dose</th><th>Flacons</th></tr>" +
     par[c].sort((a, b) => a.x.r.nm.localeCompare(b.x.r.nm)).map((l) => { const d = window.chDosesSeance ? window.chDosesSeance(l.pid, l.chimio.lid, l.chimio.n, l.chimio.j) : [], n = Math.max(1, d.length);
       return d.length ? d.map((z, i) => "<tr>" + (i === 0 ? '<td rowspan="' + n + '"><b>' + esc(l.x.r.nm) + "</b>" + (l.h ? "<br>" + esc(l.h) : "") + '</td><td rowspan="' + n + '">' + esc((l.chimio.lib || "") + " · C" + l.chimio.n + " J" + l.chimio.j) + "</td>" : "") + "<td>" + esc(z.p) + "</td><td>" + (z.dose != null ? esc(String(z.dose).replace(".", ",")) + " mg" : "à calculer") + "</td><td>" + esc(z.fl) + "</td></tr>").join("")

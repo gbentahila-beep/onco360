@@ -115,7 +115,7 @@ async function syncComplet(uid, J, extra) {
   const auj = L.jourCasa(), api = await apiPour(J), P = await profilAgenda(uid), plus = cabs.length > 1;
   let voulus = [];
   for (const { e, m, nom, titulaire: tit } of cabs) {
-    const pats = await db.collection("espaces/" + e + "/patients").select("resume", "etablissementId").get();
+    const pats = await db.collection("espaces/" + e + "/patients").select("resume", "etablissementId", "lieuxTraitement").get(); // lieuxTraitement : lot LT
     let v = [];
     pats.forEach((d) => { v = v.concat(L.evtsPatient(d.data(), m, auj, { uid, titulaire: tit })); });
     // Tâches dont la personne est responsable (nom actuel du patient lu dans son dossier)

@@ -41,6 +41,7 @@ const FI = {}; // pid → tableau ; null si la lecture a échoué ; absent = à 
 const FQ = {}; // pid → { q, t } (recherche, type choisi)
 const tri = (a, b) => (b.d || "").localeCompare(a.d || "") || String(b.o || "").localeCompare(String(a.o || ""));
 function charger(x) {
+  if (A.horsLieu && A.horsLieu(x)) { FI[x.id] = []; return Promise.resolve(); } // lot LT : patient d'un autre lieu (traité ici) : documents gardés à son lieu
   const f = [where("patientId", "==", x.id)];
   if (!D().membre.tousEtablissements) f.push(where("etablissementId", "==", x.doc.etablissementId || ""));
   return Promise.all([getDocs(query(col(), ...f)), typesDocuments()])
