@@ -419,7 +419,7 @@ const RUBRIQUES = {
         '<p class="mesures">Les alertes médicales sont dans la cloche du médecin.</p></section>';
     } else {
       const RA = ED.reg.alertes, sel = (k, l, lib, suff) => '<div><label for="cfA' + k + '">' + lib + '</label><select id="cfA' + k + '"' + c.disE + ' onchange="cfReg(\'alertes\',\'' + k + "',this.value)\">" + l.map((n) => '<option value="' + n + '"' + (RA[k] === n ? " selected" : "") + ">" + n + " " + suff + "</option>").join("") + "</select></div>";
-      h += '<section class="carte">' + titre("alerte", "Alertes de la cloche") + '<div class="form" style="grid-template-columns:repeat(2,minmax(0,280px))">' +
+      h += '<section class="carte">' + titre("alerte", "Alertes de la cloche") + '<div class="form" style="grid-template-columns:repeat(2,minmax(0,280px));align-items:end">' +
         sel("cure", [1, 2, 3, 4, 5, 7, 10, 14], "Cure prévue : prévenir", "jour(s) avant") + sel("finTrait", [7, 15, 30, 45, 60, 90], "Traitement terminé : signaler pendant", "jours") + "</div>" +
         '</section>';
     }

@@ -55,8 +55,8 @@ async def main():
         await ev(f"chOuvrir('{pid}', {i}, {k}, 1)"); await pg.wait_for_timeout(1200)
         t = await pg.inner_text(':is(#fenetreCorps,#panneauCorps):not(:empty)')
         ok('2,1 G/L' in t and '7,5 g/dL' in t and 'Séance validée' in t, 'cure validée rouverte : bilan affiché (suivi de l\'évolution)', t[t.find('Bilan'):t.find('Bilan') + 160])
-        dis = await ev("(()=>{const f=document.querySelector(':is(:is(#fenetreCorps,#panneauCorps):not(:empty),#panneauCorps):not(:empty)');return {poids:f.querySelector('#chPoids').disabled, actifs:[...f.querySelectorAll('input:not([disabled]):not([type=date]):not([type=radio])')].length, ajout:/Ajouter une molécule/.test(f.innerText), annuler:/annuler la validation/.test(f.innerText)}})()")
-        ok(dis['poids'] and dis['actifs'] == 0 and not dis['ajout'] and dis['annuler'], 'cure validée verrouillée : aucun champ modifiable, pas d\'ajout de molécule, lien « annuler la validation »', dis)
+        dis = await ev("(()=>{const f=document.querySelector(':is(:is(#fenetreCorps,#panneauCorps):not(:empty),#panneauCorps):not(:empty)');return {poids:f.querySelector('#chPoids').disabled, actifs:[...f.querySelectorAll('input:not([disabled]):not([type=date]):not([type=radio])')].length, ajout:/Ajouter une molécule/.test(f.innerText), annuler:/annuler la validation/i.test(f.innerText)}})()")
+        ok(dis['poids'] and dis['actifs'] == 0 and not dis['ajout'] and dis['annuler'], 'cure validée verrouillée : aucun champ modifiable, pas d\'ajout de molécule, « Annuler la validation » (bouton depuis le lot DM)', dis)
         avant = lignes_de(await ev("window.__fs"))[pid][i]['cures'][k]
         await ev(f"chChamp('{pid}', {i}, {k}, 'pctAll', '50', 1)"); await pg.wait_for_timeout(1000)
         apres = lignes_de(await ev("window.__fs"))[pid][i]['cures'][k]

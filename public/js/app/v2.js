@@ -717,9 +717,9 @@ const CROIX = '<button type="button" class="b3 fen-x" onclick="fermerFenetre()" 
 // comprise ; le bloc patient, la colonne Patient et la barre restent visibles. CENTRE est posé par un clic dans la barre, retiré à la fermeture.
 let CENTRE = false;
 const zonesCentre = () => { const d = $("dos"); if (!d || !grilleDossier()) return null; const R = [...d.querySelectorAll(":scope > [data-zone=travail], :scope > [data-zone=documents]")].filter((z) => z.getClientRects().length).map((z) => z.getBoundingClientRect()).filter((r) => r.width > 0 && r.height > 0);
-  if (!R.length) return null; const g = Math.min(...R.map((r) => r.left)), h = Math.min(...R.map((r) => r.top)); return { left: g, top: h, width: Math.max(...R.map((r) => r.right)) - g, height: Math.max(...R.map((r) => r.bottom)) - h }; };
+  if (!R.length) return null; const g = Math.min(...R.map((r) => r.left)), h0 = Math.min(...R.map((r) => r.top)), ob = d.querySelector(":scope > [data-zone=travail] .o-barre"), h = ob && ob.getClientRects().length ? ob.getBoundingClientRect().bottom + 8 : h0; return { left: g, top: h, width: Math.max(...R.map((r) => r.right)) - g, height: Math.max(...R.map((r) => r.bottom)) - h }; };
 function placerCentre() { const f = $("fenetre"); if (!f.classList.contains("centre")) return; const z = zonesCentre(); if (!z) return; Object.assign(f.style, { left: z.left + "px", top: z.top + "px", width: z.width + "px", height: z.height + "px" }); }
-function quitterCentre() { CENTRE = false; const f = $("fenetre"); f.classList.remove("centre"); ["left", "top", "width", "height"].forEach((k) => { f.style[k] = ""; }); }
+function quitterCentre() { CENTRE = false; const f = $("fenetre"); f.classList.remove("centre", "de-cote"); setTimeout(bandeDeCote, 0); ["left", "top", "width", "height"].forEach((k) => { f.style[k] = ""; }); }
 document.addEventListener("click", (ev) => { if (ev.target.closest && ev.target.closest('#dos > [data-zone="barre"] .br-g button')) CENTRE = true; }, true);
 window.addEventListener("resize", placerCentre); window.addEventListener("scroll", placerCentre, true);
 // UX4 : FEN_SALE = quelque chose a été tapé dans la fenêtre ouverte (Échap demande alors avant de fermer)
@@ -731,10 +731,10 @@ function origineFenetre() {
   if (nom === "dossier") { const x = D.patients.find((z) => z.id === decodeURIComponent(p.slice(i + 1))); return "Dossier" + (x ? " de " + x.r.nm : ""); }
   return PAGES[nom] ? PAGES[nom][0] : "Retour";
 }
-function fenetre(html, taille) { FEN_SALE = false; $("fenetreCorps").innerHTML = html; if (!$("fenetreCorps").querySelector(".fen-x")) $("fenetreCorps").insertAdjacentHTML("afterbegin", CROIX); const auC = CENTRE && !!zonesCentre();
+function fenetre(html, taille) { FEN_SALE = false; $("fenetre").classList.remove("de-cote"); $("fenetreCorps").innerHTML = html; if (!$("fenetreCorps").querySelector(".fen-x")) $("fenetreCorps").insertAdjacentHTML("afterbegin", CROIX); const auC = CENTRE && !!zonesCentre();
   $("fenetreCorps").classList.toggle("large", taille === "large" && !auC); $("fenetre").classList.toggle("pleine", taille === "page" && !auC); $("fenetre").classList.toggle("centre", auC); if (auC) placerCentre(); else quitterCentre();
   if (taille === "page" && !auC) { const pf = $("fenetreCorps").querySelector(".pg-form"); if (pf && !pf.querySelector(".pg-ret")) { pf.insertAdjacentHTML("afterbegin", '<button type="button" class="pg-ret" onclick="fermerFenetre()">' + ic("retour") + esc(origineFenetre()) + "</button>"); const bt = pf.querySelector(":scope > .boutons"); if (bt) bt.insertAdjacentHTML("afterbegin", '<span class="pg-esc">Échap pour annuler</span>'); } }
-  $("fenetreCorps").scrollTop = 0; $("fenetre").classList.remove("cache"); const f = $("fenetreCorps").querySelector("input,select,textarea"); if (f) setTimeout(() => f.focus(), 50); }
+  $("fenetreCorps").scrollTop = 0; $("fenetre").classList.remove("cache"); bandeDeCote(); const f = $("fenetreCorps").querySelector("input,select,textarea"); if (f) setTimeout(() => f.focus(), 50); }
 // R-G e : la petite fenêtre se ferme d'abord ; sans petite fenêtre, c'est le panneau de chimio / RT qui se ferme
 // 25/10/2026 : apresFenetre(f) = f appelée une fois, à la prochaine fermeture de la petite fenêtre (ex. « Ligne créée » qui revient après chaque action)
 let APRES_FEN = null;
@@ -1970,7 +1970,7 @@ function pageDossier(id) {
     // Même dossier redessiné : chaque zone remplacée seule ; défilement de chaque zone, de la page et curseur gardés ; la visionneuse n'est
     // rechargée que si la liste des documents a changé
     const act = document.activeElement, aid = act && act.id && d0.contains(act) ? act.id : null, sel = aid && act.selectionStart != null ? [act.selectionStart, act.selectionEnd] : null, y = window.scrollY;
-    d0.className = cls + (panneauOuvert() ? " pn-ouv" : "");
+    d0.className = cls + (panneauOuvert() ? " pn-ouv" : "") + (pnDeCote() ? " pn-min" : ""); setTimeout(() => { bandeDeCote(); posPanneau(); }, 0); // Lot DM : ce qui était mis de côté le reste
     d0.querySelectorAll(":scope > [data-zone]").forEach((z) => {
       const k = z.dataset.zone; if (!(k in Z)) return;
       if (k === "documents" && z.dataset.sig === sigVisionneuse(x) && z.innerHTML) { const s = z.querySelector(".dos-sw"); if (s && sw) s.outerHTML = sw; return; }
@@ -2060,8 +2060,52 @@ function panneau(html) {
   if (petiteOuverte()) fermerPetite();
   const p = $("panneau"), deja = panneauOuvert();
   $("panneauCorps").innerHTML = html; p.hidden = false; $("dos").classList.add("pn-ouv"); PN.sale = false; // le corps reste le même élément : défilement gardé
+  PN.ong = ONGLET[pidAdresse()] || PN.ong || "ch"; PN.min = false; posPanneau(); bandeDeCote();
   if (!deja) { const f = p.querySelector("input:not([type=date]),select,textarea"); if (f) setTimeout(() => f.focus({ preventScroll: true }), 50); }
 }
+// Lot DM (04/11/2026, demande de Dr Bentahila) : sur ordinateur, la barre des onglets du dossier (Consultation, Chimiothérapie, Radiothérapie,
+// Documents) reste en haut ; le panneau (chimio, RT) et les fenêtres de la barre du bas s'ouvrent dessous. Un clic sur un onglet met de côté ce
+// qui est ouvert (rien n'est perdu : PN.min, #fenetre.de-cote) ; le bandeau « … en cours » sous les onglets et l'onglet d'origine (point orange)
+// le rouvrent tel quel (dosReprendre). Téléphone et tablette (sans grille) : inchangé.
+function posPanneau() { const d = $("dos"), ob = d && d.querySelector("[data-zone=travail] .o-barre"), t = d && d.querySelector("[data-zone=travail]"); if (!ob || !t || !grilleDossier()) return; d.style.setProperty("--pn-haut", Math.round(ob.getBoundingClientRect().bottom - t.getBoundingClientRect().top + 8) + "px"); }
+const fenDeCote = () => { const f = $("fenetre"); return f.classList.contains("de-cote") && !f.classList.contains("cache"); };
+const pnDeCote = () => panneauOuvert() && PN.min === true;
+function bandeDeCote() {
+  const d = $("dos"), ob = d && d.querySelector("[data-zone=travail] .o-barre");
+  if (d) d.classList.toggle("pn-min", pnDeCote());
+  if (!ob) return;
+  const fen = fenDeCote(), pn = pnDeCote();
+  ob.querySelectorAll("[role=tab]").forEach((t) => t.classList.toggle("pn-garde", pn && t.id === "og-" + PN.ong));
+  let b = $("pnBande"); if (!fen && !pn) { if (b) b.remove(); return; }
+  let quoi, lib, icone, bouton, k;
+  if (fen) {
+    const t = $("fenetreCorps").querySelector("h2, h3"); k = "fen"; icone = "document"; bouton = "Reprendre";
+    quoi = "En cours"; lib = ((t && t.textContent) || "").trim().split(" — ")[0];
+  } else {
+    const C = $("panneauCorps"), h3 = C && C.querySelector("h3"), titre = ((h3 && h3.textContent) || "").trim(), cure = /^C\d/.test(titre), rt = PN.ong === "rt";
+    const sous = C && C.querySelector(".cure-ent .sous, h3 + .sous"), date = ((sous && sous.textContent) || "").match(/\d{2}\/\d{2}\/\d{4}/);
+    const etat = !C ? "" : C.querySelector(".vj-ok") ? "validée" : cure && C.querySelector("#fOk") ? "pas encore validée" : "", t2 = titre.replace(/ – .*$/, "");
+    k = "pn"; icone = rt ? "radiation" : "seringue"; bouton = cure ? "Reprendre la séance" : "Reprendre";
+    quoi = cure ? "Séance en cours" : rt ? "Radiothérapie en cours" : "En cours";
+    lib = [t2.split(" — ")[0], t2.split(" — ")[1] || "", date ? date[0] : "", etat].filter(Boolean).join(" · ");
+  }
+  if (!b) { b = document.createElement("div"); b.id = "pnBande"; b.className = "pn-bande"; b.setAttribute("role", "status"); ob.after(b); }
+  b.innerHTML = '<span class="pn-b-ic">' + ic(icone) + '</span><span class="pn-b-tx"><b>' + esc(quoi) + "</b><span>" + esc(lib) + "</span></span>" +
+    '<button type="button" class="b1 pn-b-bt" onclick="dosReprendre(\'' + k + "')\">" + bouton + "</button>";
+}
+window.dosReprendre = (k) => {
+  if (k === "fen" || (!k && fenDeCote())) { $("fenetre").classList.remove("de-cote"); placerCentre(); bandeDeCote(); return; }
+  PN.min = false; const pid = pidAdresse(); if (PN.ong && pid && ONGLET[pid] !== PN.ong) window.ongletDossier(pid, PN.ong); bandeDeCote(); posPanneau();
+};
+document.addEventListener("click", (ev) => {
+  const t = ev.target.closest && ev.target.closest("#dos [data-zone=travail] .o-barre [role=tab]"); if (!t || !grilleDossier()) return;
+  const k = t.id.replace(/^og-/, ""), f = $("fenetre"), fenOuv = f.classList.contains("centre") && !f.classList.contains("cache") && !f.classList.contains("de-cote"), pnOuv = panneauOuvert() && !PN.min;
+  if (!fenOuv && !pnOuv) { if (pnDeCote() && !fenDeCote() && k === PN.ong) setTimeout(() => window.dosReprendre("pn"), 0); return; }
+  if (fenOuv) f.classList.add("de-cote");
+  if (pnOuv && (fenOuv || k !== PN.ong)) PN.min = true;
+  setTimeout(bandeDeCote, 0);
+}, true);
+window.addEventListener("resize", posPanneau);
 // Lot A §3 (25/10/2026, demande de Dr Bentahila) : une rubrique de la colonne Patient s'ouvre en grand à la place du centre (le même panneau) :
 // « à venir » et « Historique des RDV » : la liste complète (Fermer, aucun ajout) ; Identité, Informations médicales, Fiche tumeur : le formulaire
 // entier, rempli sur place (Annuler / Enregistrer) ; sans le droit de modifier : la partie en lecture (Fermer)
@@ -2127,7 +2171,7 @@ function majRubriqueOuverte(pid) {
 function fermerPanneau(force, apres) {
   const p = $("panneau"); if (!p || p.hidden) return true;
   if (PN.sale && !force) { confirmer("Quitter sans enregistrer ?", { oui: "Quitter", non: "Rester" }).then((ok) => { if (ok && fermerPanneau(true) && apres) apres(); }); return false; }
-  p.hidden = true; $("panneauCorps").innerHTML = ""; PN.sale = false; const d = $("dos"); if (d) d.classList.remove("pn-ouv");
+  p.hidden = true; $("panneauCorps").innerHTML = ""; PN.sale = false; const d = $("dos"); PN.min = false; if (d) d.classList.remove("pn-ouv", "pn-min"); bandeDeCote();
   PN.apres.forEach((f) => { try { f(); } catch (e) { console.warn("panneau", e); } });
   return true;
 }
@@ -2943,9 +2987,12 @@ document.querySelectorAll("nav a").forEach((a) => a.addEventListener("click", fe
   let IN = null, S = null;
   const fermer = () => { if (S) S.remove(); S = null; };
   const options = (inp) => { const dl = document.getElementById(inp.dataset.liste); return dl ? [...new Set([...dl.options].map((o) => o.value).filter(Boolean))] : []; };
+  // Lot DM (04/11/2026) : sur iPhone, clavier ouvert, la liste partait en haut de la fenêtre : elle est posée dans la page (position absolue) et la place
+  // libre se mesure sur la partie visible de l'écran (visualViewport)
   const placer = () => { if (!S) return; if (!IN || !IN.isConnected) { fermer(); IN = null; return; } const r = IN.getBoundingClientRect(), w = Math.min(420, Math.max(r.width, 220)), h = S.offsetHeight;
-    S.style.left = Math.max(4, Math.min(r.left, window.innerWidth - w - 4)) + "px"; S.style.width = w + "px";
-    S.style.top = (window.innerHeight - r.bottom < h + 8 && r.top > h + 8 ? r.top - h - 2 : r.bottom + 2) + "px"; };
+    const vv = window.visualViewport, haut = vv ? vv.offsetTop : 0, bas = vv ? vv.offsetTop + vv.height : window.innerHeight, dessus = bas - r.bottom < h + 8 && r.top - haut > h + 8;
+    S.style.position = "absolute"; S.style.left = (Math.max(4, Math.min(r.left, window.innerWidth - w - 4)) + window.scrollX) + "px"; S.style.width = w + "px";
+    S.style.top = ((dessus ? r.top - h - 2 : r.bottom + 2) + window.scrollY) + "px"; };
   // 31/10/2026 (demande de Dr Bentahila, 1.9) : un champ déjà rempli n'ouvre pas sa liste à l'ouverture du formulaire ni au clic : seulement après
   // 2 lettres tapées depuis l'arrivée dans le champ (TAPE, remis à zéro à chaque entrée dans le champ)
   let TAPE = 0;
@@ -2973,6 +3020,7 @@ document.querySelectorAll("nav a").forEach((a) => a.addEventListener("click", fe
     else if (ev.key === "Escape") { ev.stopPropagation(); fermer(); } }, true);
   window.addEventListener("scroll", (ev) => { if (S && ev.target !== S) placer(); }, true);
   window.addEventListener("resize", placer);
+  if (window.visualViewport) { window.visualViewport.addEventListener("resize", placer); window.visualViewport.addEventListener("scroll", placer); }
 }
 // 31/10/2026 (demande de Dr Bentahila, 1.8) : tous les « ? » (classe q-aide) : la bulle entière au survol de la souris, au toucher sur téléphone ; posée
 // au-dessus quand elle ne tient pas sous le « ? », jamais coupée par le bas ou le bord de l'écran (elle défile si elle est plus haute que l'écran) ;
@@ -3010,10 +3058,11 @@ document.querySelectorAll("nav a").forEach((a) => a.addEventListener("click", fe
 // UX1 (01/11/2026) : dans un formulaire en grille, le cadre est la case du champ (« Lieu de la radiothérapie » chevauchait « Technique »)
 {
   const C = document.createElement("canvas").getContext("2d");
+  // Lot DM (04/11/2026) : jamais plus large que la case qui le contient (au téléphone, il sortait de la fenêtre)
   const ajuster = (sl) => { if (!sl.getClientRects().length || sl.multiple || sl.size > 1) return; const o = sl.options[sl.selectedIndex]; if (!o) return;
     const cs = getComputedStyle(sl); C.font = cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
     const w = Math.ceil(C.measureText(o.text).width + parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight) + parseFloat(cs.borderLeftWidth) + parseFloat(cs.borderRightWidth) + 2);
-    if (sl.clientWidth + parseFloat(cs.borderLeftWidth) * 2 >= w) return; const f = sl.closest(".form > div"), p = sl.closest(".carte, .boite, .pn-corps, #page"), max = f ? f.clientWidth : p ? p.clientWidth - 32 : w; sl.style.minWidth = Math.max(0, Math.min(w, max > 0 ? max : w)) + "px"; };
+    if (sl.clientWidth + parseFloat(cs.borderLeftWidth) * 2 >= w) return; const f = sl.closest(".form > div"), p = sl.closest(".carte, .boite, .pn-corps, #page"), cand = [f && f.clientWidth, sl.parentElement && sl.parentElement.clientWidth, p ? p.clientWidth - 32 : 0].filter((v) => v > 0), max = cand.length ? Math.min(...cand) : w; sl.style.minWidth = Math.max(0, Math.min(w, max > 0 ? max : w)) + "px"; };
   let att = 0; const tout = () => { att = 0; document.querySelectorAll("#page select, #fenetreCorps select").forEach(ajuster); };
   const plus_tard = () => { if (!att) att = requestAnimationFrame(tout); };
   new MutationObserver(plus_tard).observe(document.body, { childList: true, subtree: true });
@@ -3082,7 +3131,7 @@ document.addEventListener("keydown", (ev) => {
   document.querySelectorAll("details.m3[open]").forEach((d) => d.removeAttribute("open")); // Échap ferme aussi un menu ⋯ ouvert
   // Lot E : Échap ferme une fenêtre marquée data-echap ; 26/10/2026 (étapes 2 à 4) : aussi toute fenêtre sans zone de saisie (rien ne peut être perdu) ;
   // UX4 (02/11/2026) : toute fenêtre ; si quelque chose a été tapé, « Quitter sans enregistrer ? » d'abord (une liste ouverte se ferme seule d'abord)
-  if ($("fenetre").classList.contains("cache") || $("ptsMenuF") || ev.defaultPrevented) return;
+  if ($("fenetre").classList.contains("cache") || $("fenetre").classList.contains("de-cote") || $("ptsMenuF") || ev.defaultPrevented) return; // Lot DM : une fenêtre mise de côté ne se ferme pas à l'aveugle
   const fc = $("fenetreCorps"); if ([...fc.querySelectorAll("[role=listbox], .tape-l, .ls-l")].some((l) => l.offsetParent && !l.classList.contains("cache"))) return;
   if (!FEN_SALE || fc.querySelector("[data-echap]")) { window.fermerFenetre(); return; }
   confirmer("Quitter sans enregistrer ?", { oui: "Quitter", non: "Rester" }).then((ok) => { if (ok) window.fermerFenetre(); });

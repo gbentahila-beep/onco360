@@ -409,8 +409,8 @@ function vueJour(x, i, k, j) {
   const figeJ = j === 1 ? e.st === "recue" : !!(sea && sea.st === "recue"), F = j === 1 ? c.fige : ((c.sea || {})[j] || {}).fige;
   if (figeJ) dis = " disabled";
   // bouton « Retour à la cure » en bas, à côté de Reporter / Valider (12/10/2026, demande de Dr Bentahila)
-  const RET = (unSeulJour(L, k) ? '<button class="bt gris" style="margin-right:auto" onclick="chFermerCure()">Fermer</button>' // cure d'un seul jour : pas de tableau des jours (3.7)
-    : '<button class="bt gris" style="margin-right:auto" onclick="chRetourCure()">‹ Séances de la C' + e.n + "</button>") +
+  const RET = (unSeulJour(L, k) ? '<button class="bt gris" onclick="chFermerCure()">Fermer</button>' // cure d'un seul jour : pas de tableau des jours (3.7)
+    : '<button class="bt gris" onclick="chRetourCure()">‹ Séances de la C' + e.n + "</button>") +
     (A.peut("ecrireConsultations") ? '<button class="bt clair" data-fn="prescriptions" onclick="chOrdos(' + qc + "," + j + ')">' + A.ic("imprimer") + "Ordonnances</button>" : ""); // P6 (18/10/2026)
   let h = '<div class="cure-ent"><div><h3 style="margin:0">C' + e.n + " · " + etiquette(gr) + " — " + esc(q.nom) + '</h3><p class="sous" style="margin:4px 0 0">' + esc(x.r.nm) + (dJ ? " · " + A.dfrA(dJ) : "") + (dJ && !figeJ && (j === 1 ? e.st === "prevue" : sea && sea.st === "prevue") ? boutonHeure(x, i, k, gr.j, j === 1 ? c : (c.sea || {})[j] || {}) : "") + "</p></div>" + // heure de la consultation, à côté de la date (3.7)
     (j === 1 ? '<button class="bt clair petit" data-fn="chimio.fiche" onclick="chFiche(' + qc + ')"><svg class="pi"><use href="#i-imprimer"/></svg>Fiche chimio</button>' : "") + "</div>";
@@ -446,7 +446,7 @@ function vueJour(x, i, k, j) {
   // Validation du jour
   h += '<div class="valj">';
   if (j === 1) {
-    if (e.st === "recue") h += '<span class="badge b-ch"><svg class="pi"><use href="#i-check"/></svg>' + (multi ? "J1 reçue" : "C" + e.n + " terminée") + " le " + A.dfrA(c.reelle) + "</span>" + (okT ? ' <a href="#" class="lienr" onclick="chRetablir(' + qc + ');return false">annuler la validation</a>' : "");
+    if (e.st === "recue") h += '<div class="boutons vj-ok"><span class="badge b-ch vj-b"><svg class="pi"><use href="#i-check"/></svg>' + (multi ? "J1 reçue" : "C" + e.n + " terminée") + " le " + A.dfrA(c.reelle) + "</span>" + (okT ? '<button class="bt rouge-t" onclick="chRetablir(' + qc + ')">Annuler la validation</button>' : "") + RET + "</div>";
     else if (e.st === "annulee") h += '<span class="badge b-al">✖ Cure annulée</span>';
     else if (okT) h += '<div class="form" style="grid-template-columns:minmax(0,220px) 1fr;align-items:end"><div><label for="vD">Date de réalisation</label>' + dateInput("vD", D().t) + "</div>" +
       (e.date ? '<div class="mesures" id="vSz">' + choixSuite("vS", "Si la date diffère de la date prévue (" + A.dfrA(e.date) + ")") + "</div>" : "<div></div>") + "</div>" +
@@ -456,7 +456,7 @@ function vueJour(x, i, k, j) {
     if (rp.length) h += '<p class="mesures" style="margin:0 0 8px">' + rp.map((r) => "↪ Reportée du " + A.dfrA(r.de) + " au " + A.dfrA(r.a) + " (" + esc(r.raison) + (r.com ? " – " + esc(r.com) : "") + ")").join("<br>") + "</p>";
     if (e.st !== "recue") h += '<p class="mesures">Ce jour se valide après la validation de J1.</p>';
     else if (sea.st === "annulee") h += '<span class="badge b-al">✖ ' + etiquette(gr) + " annulée</span>" + (sea.ann ? ' <span class="mesures">' + esc(sea.ann.raison || "") + (sea.ann.com ? " – " + esc(sea.ann.com) : "") + "</span>" : "") + (okT ? ' <a href="#" class="lienr" onclick="chRetablirJ(' + qc + "," + j + ');return false">rétablir</a>' : "");
-    else if (sea.st === "recue") h += '<span class="badge b-ch"><svg class="pi"><use href="#i-check"/></svg>' + etiquette(gr) + " reçue le " + A.dfrA(sea.d) + "</span>" + (okT ? ' <a href="#" class="lienr" onclick="chAnnulerSeance(' + qc + "," + j + ');return false">annuler la validation</a>' : "");
+    else if (sea.st === "recue") h += '<div class="boutons vj-ok"><span class="badge b-ch vj-b"><svg class="pi"><use href="#i-check"/></svg>' + etiquette(gr) + " reçue le " + A.dfrA(sea.d) + "</span>" + (okT ? '<button class="bt rouge-t" onclick="chAnnulerSeance(' + qc + "," + j + ')">Annuler la validation</button>' : "") + RET + "</div>";
     else if (okT) h += '<div class="form" style="grid-template-columns:minmax(0,220px) 1fr;align-items:end"><div><label for="sD">Date de réalisation</label>' + dateInput("sD", sea.prevue && ecart(sea.prevue, D().t) <= 0 ? sea.prevue : D().t) + "</div>" +
       (sea.prevue ? "<div>" + choixSuite("sS", "Si la date diffère de la date prévue (" + A.dfrA(sea.prevue) + ")") + "</div>" : "<div></div>") + "</div>" +
       '<div class="err" id="fErr"></div><div class="boutons" style="margin-top:8px">' + RET + '<button class="bt clair" onclick="chReporterJ(' + qc + "," + j + ')">↪ Reporter ' + etiquette(gr) + '</button><button class="bt vert" id="fOk" onclick="chValiderJ(' + qc + "," + j + ')"><svg class="pi"><use href="#i-check"/></svg>Valider ' + etiquette(gr) + "</button></div>";

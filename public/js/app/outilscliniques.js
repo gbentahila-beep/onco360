@@ -26,7 +26,9 @@ const FAMS = [["tnm", "liste", "Stadification"], ["ctcae", "alerte", "Échelles 
 function menu() {
   const sous = ST.sec === "calc" ? GROUPES_CALC.map(([g, lg]) => '<div class="oc-gr">' + esc(lg) + "</div>" + CALCS.filter((c) => c[2] === g).map((c) => '<button class="' + (ST.arg === c[0] ? "on" : "") + '"' + (ST.arg === c[0] ? ' aria-current="page"' : "") + ' onclick="location.hash=\'outils/calc/' + c[0] + "'\">" + esc(c[1]) + "</button>").join("")).join("")
     : ST.sec === "tnm" ? TNM_LOCS.map((l) => '<button class="' + (ST.arg === l.id ? "on" : "") + '" onclick="location.hash=\'outils/tnm/' + l.id + "'\">" + esc(l.nom) + "</button>").join("") : "";
-  return '<aside class="cf-nav oc-nav" aria-label="Outils cliniques"><div class="cf-nav-t">Outils cliniques</div><div class="cf-fam" role="tablist">' +
+  // Lot DM (04/11/2026, demande de Dr Bentahila) : au téléphone, les trois familles dans un groupe de choix encadré (comme les familles des Paramètres)
+  const tel = '<div class="oc-telz"><div class="ag-vues defile rtr-sous" role="tablist" aria-label="Outils cliniques">' + FAMS.map(([k, ico, lib]) => '<button type="button" role="tab" aria-selected="' + (ST.sec === k) + '" class="' + (ST.sec === k ? "on" : "") + '" onclick="location.hash=\'outils/' + k + "'\">" + A.ic(ico) + "<span>" + lib + "</span></button>").join("") + "</div></div>";
+  return '<aside class="cf-nav oc-nav" aria-label="Outils cliniques"><div class="cf-nav-t">Outils cliniques</div>' + tel + '<div class="cf-fam" role="tablist">' +
     FAMS.map(([k, ico, lib]) => '<div class="cf-g' + (ST.sec === k ? " ouv" : "") + '"><button role="tab" aria-selected="' + (ST.sec === k) + '" class="cf-gt' + (ST.sec === k ? " on" : "") + '" onclick="location.hash=\'outils/' + k + "'\">" + A.ic(ico) + "<span>" + lib + "</span></button>" +
       (ST.sec === k && sous ? '<nav class="cf-sous oc-sous" aria-label="' + lib + '">' + sous + "</nav>" : "") + "</div>").join("") + "</div></aside>";
 }

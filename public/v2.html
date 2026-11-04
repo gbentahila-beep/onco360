@@ -1865,7 +1865,7 @@ svg.i{vertical-align:calc(.36em - 10px)}svg.pi{vertical-align:calc(.36em - 7.5px
 /* ───── Lots 3 et 4 (31/10/2026, demandes de Dr Bentahila) ───── */
 /* 3.1 boutons d'ajout à gauche dans les quatre onglets du dossier ; « ⋯ » à droite */
 .o-pan .entete{justify-content:flex-start}.o-pan .entete.cs-outils{gap:8px}
-@media (max-width:600px){.cs-outils .cs-esp{flex:1 0 100%;height:0}.cs-outils .cs-ns{margin-left:auto}}
+@media (max-width:600px){.cs-outils{flex-wrap:nowrap}.cs-outils .cs-esp{flex:1;height:auto}.cs-outils .cs-ns{white-space:nowrap}} /* Lot DM (04/11/2026) : « Notes seulement » et ⋯ sur la ligne du bouton, à droite */
 .fi-barre>.bt{order:-1}
 /* 3.2 barre du bas : ce qu'elle ouvre prend la place du centre et de la colonne de droite (placé par v2.js), pas de voile */
 #fenetre.centre{inset:auto;padding:0;background:transparent!important;display:block;z-index:29}
@@ -2081,6 +2081,49 @@ ol.rtr-pts2>li::before{content:counter(pt);position:absolute;left:10px;top:12px;
 .ip-tab{width:100%;border-collapse:collapse}.ip-tab th,.ip-tab td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--trait);font-size:var(--t4);vertical-align:top}.ip-tab th{color:var(--doux);font-weight:bold}.ip-tab .ip-et{font-weight:bold}.ip-tab tr.ip-r-err .ip-et{color:var(--rouge)}.ip-tab tr.ip-r-dbl .ip-et{color:var(--orange-t)}.ip-tab tr.ip-r-ok .ip-et{color:var(--vert-t)}
 .pt-num-o{display:block;font-size:13px;color:var(--doux)}
 .al-band.ctl{background:var(--orange-c);color:var(--orange-t);border-color:var(--orange-c)}
+/* Lot DM (04/11/2026) : sur ordinateur, onglets du dossier fixés en haut, panneau et fenêtres de la barre du bas dessous ; « mis de côté » + bandeau */
+@container dos (min-width:720px){
+  .dos.pn-ouv .dos-trav{visibility:visible}
+  .dos-pn{margin-top:var(--pn-haut,0)}
+  .dos.pn-min .dos-pn{display:none}
+  .dos.pn-min .dos-trav,.dos.pn-min .dos-docs,.dos.pn-min .dos-pat{visibility:visible}
+}
+/* tablette et petit ordinateur (dossier de 720 à 1 279 px) : comme l'ordinateur, la séance dans la colonne des onglets, la colonne Patient reste visible */
+@container dos (min-width:720px) and (max-width:1279.98px){
+  .dos-pn{grid-column:2;grid-row:2}
+  .dos.pn-ouv .dos-pat,.dos.pn-ouv.d-docs .dos-docs{visibility:visible}
+}
+.pn-bande{display:flex;align-items:center;gap:14px;margin:-4px 0 18px;padding:12px 14px 12px 12px;border-radius:var(--r-m);background:var(--prim-c);border:1px solid var(--prim-cc);border-left:4px solid var(--prim)}
+#fenetre.de-cote{display:none!important}
+.pn-b-ic{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--carte);color:var(--prim);flex:none}.pn-b-ic .i{width:20px;height:20px}
+.pn-b-tx{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;font-size:var(--t4);color:var(--encre)}.pn-b-tx b{color:var(--titre)}.pn-b-tx span{color:var(--doux);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pn-b-bt{flex:none}
+.o-barre [role=tab].pn-garde{position:relative}.o-barre [role=tab].pn-garde::after{content:"";position:absolute;top:9px;right:4px;width:8px;height:8px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 2px var(--carte)}
+.vj-ok{margin-top:0;align-items:center;flex-wrap:wrap}.vj-ok .vj-b{margin-right:auto}
+/* Lot DM (04/11/2026, document de Dr Bentahila « bugs sur mobile ») */
+/* Champs date et heure de l'iPhone (Safari) : même hauteur que les autres champs, jamais plus larges que leur case (ils sortaient de la fenêtre) */
+@supports (-webkit-touch-callout:none){
+  input[type=date],input[type=time],input[type=datetime-local],input[type=month]{-webkit-appearance:none;appearance:none;display:block;min-width:0;max-width:100%;height:44px;min-height:44px;line-height:normal;box-sizing:border-box;background-color:var(--carte);text-align:left}
+  input[type=date]::-webkit-date-and-time-value,input[type=time]::-webkit-date-and-time-value,input[type=datetime-local]::-webkit-date-and-time-value,input[type=month]::-webkit-date-and-time-value{text-align:left;margin:0;min-height:1.2em}
+}
+input[type=date],input[type=time],select{max-width:100%}
+.form>*,.form>.fp-p>*,.fp-g>*,.pg-sec>*{min-width:0}
+@media (max-width:640px){
+  #fenetreCorps{overflow-x:hidden}
+  /* onglets du dossier : pictogramme au-dessus du nom, le nombre posé sur son pictogramme (il débordait sur l'onglet voisin) */
+  .dos-trav .o-barre button[role=tab]{flex-direction:column;gap:2px;padding:9px 2px 7px;position:relative}
+  .dos-trav .o-barre button[role=tab] .pi,.dos-trav .o-barre button[role=tab]>.i{display:block;width:18px;height:18px}
+  .dos-trav .o-barre .n{position:absolute;top:3px;left:calc(50% + 4px);margin:0;min-width:17px;padding:0 4px;line-height:16px;font-size:11px}
+  /* Mon compte › Accès : plus d'en-tête de tableau sur téléphone (les titres se superposaient) */
+  .ac-tab .ta-h{display:none!important}
+  /* Référentiel de radiothérapie › Indication et Centrage : le texte sur toute la largeur */
+  .rtr-cent,.rtr-cent tbody,.rtr-cent tr{display:block;width:100%}
+  .rtr-cent th[scope=row],.rtr-cent td{display:block;width:auto!important;max-width:none!important;box-sizing:border-box}
+  /* Référentiel › Contourage : la définition (texte long) sur toute la largeur de la carte */
+  .rtr-tab td[data-l="Définition"]{grid-column:1/-1}
+}
+.oc-telz{display:none}
+@media (max-width:899px){.oc-telz{display:block;margin:0 0 8px}.oc-nav .cf-gt{display:none}}
 /* 5.1 : inscrits en RCP en tableau, au modèle des Tâches */
 .rcp-tab{margin-top:6px}
 .rcp-tab .rcp-g{grid-template-columns:minmax(0,1.4fr) minmax(108px,.8fr) minmax(0,1.8fr) minmax(0,1.6fr) minmax(118px,.9fr) 164px 132px}
@@ -2428,6 +2471,6 @@ function onco360Deconnecter() {
 }
 </script>
 
-<script type="module" src="./js/app/v2.js?v=20261103a"></script>
+<script type="module" src="./js/app/v2.js?v=20261104a"></script>
 </body>
 </html>

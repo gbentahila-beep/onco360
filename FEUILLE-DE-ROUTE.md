@@ -1307,6 +1307,32 @@ U15 (« + Chimiothérapie » sur deux lignes) ; U16 (week-ends hachurés de l'Ag
 cabinet) ; R2 (« Assistante » / « secrétaire ») ; PA2 (« Bonjour Dr … » répété) ; F2 à F4 (onglets du téléphone, minuteur sans libellé, auteur des
 consultations) ; B4 (« Tous les centres », statuts mélangés du Bilan). Détail : `archives/audit-ux-ui-2026-11-02/`.
 
+## Demandes du 04/11/2026, lot DM : dossier (onglets fixés, « mis de côté ») et bugs du téléphone (testé, **pas en ligne**)
+Maquette validée par Dr Bentahila le 04/11 (captures : bandeau « Séance en cours » sous les onglets). Document « bugs sur mobile » (21 pages, photos d'iPhone).
+Test : `tests/test_lot_dm.py` (1 440, 1 280, 1 600, tablette 820 et 1 024, téléphone 390 px), ajouté à `outils/avant-mise-en-ligne.sh`. **Champs date et heure de l'iPhone : règle propre à Safari
+(`@supports (-webkit-touch-callout:none)`), pas testable ici : à vérifier sur l'iPhone** (Nouvelle consultation, Nouveau patient, rendez-vous, tâche, RCP, Finances, Journal d'audit).
+- [x] DM.1 Dossier, ordinateur : la barre Consultation · Chimiothérapie · Radiothérapie · Documents reste en haut ; séance, cure, prescription de chimio et de RT
+  (panneau) et toutes les fenêtres de la barre du bas (Médic., Ordo. type, Analyses, Examens, Courriers, Doc., Feuille de soins, + RCP, + Rendez-vous, + Tâche)
+  s'ouvrent dessous.
+- [x] DM.2 Un clic sur un onglet met de côté ce qui est ouvert (rien n'est perdu) ; bandeau sous les onglets (« Séance en cours · C2 · J1-J3 · mFOLFOX6 · date ·
+  pas encore validée », « Radiothérapie en cours », « En cours · Médicaments »…) avec « Reprendre la séance » / « Reprendre » ; point orange sur l'onglet d'origine,
+  qui rouvre aussi ; Échap ne ferme pas une fenêtre mise de côté ; une nouvelle fenêtre de la barre remplace celle mise de côté.
+- [x] DM.3 Séance : « ‹ Séances de la C… » à droite, à côté d'Ordonnances, Reporter, Valider. Séance validée : « J1 reçue le … » à gauche ; « Annuler la validation »
+  (bouton de danger, plus un lien), « ‹ Séances de la C… », Ordonnances à droite, sur une ligne.
+- [x] DM.4 Téléphone : champs date et heure de l'iPhone à la hauteur des autres champs, jamais plus larges que leur case (ils sortaient de la fenêtre et
+  chevauchaient le champ voisin : Heure / Lieu de la RCP, Échéance / Heure de la tâche, Du / Au du journal d'audit, dates d'effet des Finances).
+- [x] DM.5 Téléphone : menus déroulants jamais plus larges que leur case (Établissement au nom long, qui élargissait aussi Correspondant, Mutuelle, n° d'immatriculation,
+  ALD) ; fenêtres sans décalage sur le côté (Nouvelle tâche).
+- [x] DM.6 Téléphone : le nombre d'un onglet du dossier posé sur son pictogramme (il débordait sur l'onglet voisin) ; « ⋯ » sur la ligne de « + Nouvelle
+  radiothérapie » ; « Notes seulement » et « ⋯ » sur la ligne de « + Nouvelle consultation ».
+- [x] DM.7 Téléphone : Alertes de la cloche, les deux menus alignés ; Mon compte › Accès, plus de titres de colonnes superposés ; Référentiel › Indication et
+  Centrage, texte sur toute la largeur (Contourage : la définition aussi).
+- [x] DM.8 Groupe de choix encadré (comme les familles des Paramètres) : Mon compte (Informations, Accès, Abonnement, Factures) ; Outils cliniques au téléphone
+  (Stadification, Échelles de toxicité, Calculateurs). Noté comme exception dans `docs/guide-de-style.md`.
+- [x] DM.9 Liste d'un champ relié (mutuelle, correspondant…) : contre son champ, même clavier de l'iPhone ouvert (avant : en haut de la fenêtre).
+- [x] DM.10 Tablette (dossier de 720 à 1 279 px, demande de Dr Bentahila du 04/11) : comme l'ordinateur : onglets en haut, séance et fenêtres de la barre du bas dessous,
+  dans la colonne des onglets, la colonne Patient reste visible ; « mis de côté » et bandeau. Téléphone : inchangé (version mobile).
+
 ## À placer (nouveau plan)
 - (21/10, S5) **Vigilance des molécules, flacons et interactions ne sont pas dans le modèle des cabinets neufs** (`PARAMS_SPE` de functions/cabinets.js :
   ils reçoivent les listes de départ du code). La d. 12 dit « chaque autre cabinet reçoit tout le modèle, sauf correspondants et tarifs des

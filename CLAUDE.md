@@ -550,6 +550,13 @@ temporaire si le cache npm du Mac refuse) — à relancer avant chaque mise en l
 - IG8 : `docs/guide-de-style.md` (règles pour tout nouvel écran) ; démonstration `python3 outils/guide-style-demo.py` → `docs/guide-de-style-demo.html` (non versionné).
 - IG9 : `outils/mesures-ui.py` (14 pages, 4 largeurs, Chrome et Safari, rôles ; variantes de boutons, badges, cartes, ombres, arrondis) ; rapport `archives/controle-ig9-2026-11-03.md`.
 
+## Lot DM du 04/11/2026 (dossier et téléphone)
+- Dossier, ordinateur et tablette (grille, dossier ≥ 720 px ; de 720 à 1 279 px le panneau est dans la colonne des onglets) : `.dos-pn` sous la barre des onglets (`--pn-haut`, `posPanneau`), fenêtre de la barre du bas sous les onglets (`zonesCentre` part du bas de `.o-barre`).
+  Mis de côté : `PN.min` (panneau, classe `pn-min` de `#dos`, onglet d'origine `PN.ong`, point `.pn-garde`) et `#fenetre.de-cote` ; bandeau `#pnBande` (`bandeDeCote`),
+  `dosReprendre("pn" | "fen")` ; écoute des clics sur `.o-barre [role=tab]` (phase de capture). Séance : `.vj-ok` (séance validée), « Annuler la validation » `bt rouge-t`.
+- Téléphone : règle Safari `@supports (-webkit-touch-callout:none)` pour les champs date et heure ; `ajuster` des menus déroulants plafonné à sa case ; liste des champs reliés en
+  position absolue (visualViewport) ; `.oc-telz` (Outils cliniques) ; Mon compte `ag-vues defile rtr-sous`. Test : `tests/test_lot_dm.py`.
+
 ## Méthode de travail souhaitée
 - **Règles du travail par lots (31/10/2026)** : voir `FEUILLE-DE-ROUTE.md`, « Comment on travaille » (patch unique sans pousser ni mettre en ligne quand un autre Claude
   applique ; auteur Rita Bentahila ; mise en page seulement si demandé ; texte ≥ 13 px, zones ≥ 40 / 44 px, 390 / 900 / 1 280 / 1 600 px ; pas de commentaire au milieu

@@ -68,7 +68,7 @@ export async function pageProfil(arg) {
   await chargerEspace();
   if (arg) PF_ONG = arg;
   if (!ONGLETS_PF().some((o) => o[0] === PF_ONG)) PF_ONG = "infos";
-  const barre = ONGLETS_PF().length > 1 ? '<div class="ag-vues defile" style="align-self:flex-start">' + ONGLETS_PF().map(([k, ico, lib]) => '<button class="' + (PF_ONG === k ? "on" : "") + '" onclick="location.hash=\'profil/' + k + '\'">' + A.ic(ico) + lib + "</button>").join("") + "</div>" : "";
+  const barre = ONGLETS_PF().length > 1 ? '<div class="ag-vues defile rtr-sous" style="align-self:flex-start">' + ONGLETS_PF().map(([k, ico, lib]) => '<button class="' + (PF_ONG === k ? "on" : "") + '" onclick="location.hash=\'profil/' + k + '\'">' + A.ic(ico) + lib + "</button>").join("") + "</div>" : "";
   const tete = barre; // Lot B (25/10/2026) : plus de titre « Mon compte » ; les onglets du compte en haut (un seul onglet : directement le contenu)
   if (PF_ONG === "acces") { A.$("page").innerHTML = tete + '<div id="cfProfil">' + (await vueAcces()) + "</div>"; return; }
   if (PF_ONG === "abonnement" || PF_ONG === "factures") {

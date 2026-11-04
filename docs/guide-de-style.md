@@ -59,7 +59,8 @@ Sur une même ligne, des boutons voisins ont **la même hauteur et, au télépho
 
 ## 6. Choix, onglets, badges, compteurs
 
-- **Un seul groupe de choix** (`.choix`, `.ag-vues`) : fond `--choix-f`, choix en cours en bleu plein. **Onglets soulignés** (`.o-barre`, `.rtr-ong`) pour
+- **Un seul groupe de choix** (`.choix`, `.ag-vues`) : fond `--choix-f`, choix en cours en bleu plein. Exception décidée par Dr Bentahila le 04/11/2026 (lot DM) :
+  les parties de Mon compte et, au téléphone, les familles des Outils cliniques prennent le groupe de choix encadré des familles des Paramètres (`ag-vues defile rtr-sous`). **Onglets soulignés** (`.o-barre`, `.rtr-ong`) pour
   changer de partie d'une même page ; rien d'autre.
 - **Deux badges** : badge d'état (`.badge` + sens : vert validé, orange à vérifier, rouge danger, bleu information) et étiquette grise (`.pc-mol`, molécules,
   établissement). Badges d'un titre : juste après le titre, sur la même ligne (fiches de protocole).
