@@ -1332,6 +1332,14 @@ Test : `tests/test_lot_dm.py` (1 440, 1 280, 1 600, tablette 820 et 1 024, tél�
 - [x] DM.9 Liste d'un champ relié (mutuelle, correspondant…) : contre son champ, même clavier de l'iPhone ouvert (avant : en haut de la fenêtre).
 - [x] DM.10 Tablette (dossier de 720 à 1 279 px, demande de Dr Bentahila du 04/11) : comme l'ordinateur : onglets en haut, séance et fenêtres de la barre du bas dessous,
   dans la colonne des onglets, la colonne Patient reste visible ; « mis de côté » et bandeau. Téléphone : inchangé (version mobile).
+- [ ] DM.11 À vérifier par Dr Bentahila sur l'iPhone, après la mise en ligne : champs date et heure (Nouvelle consultation, Nouveau patient, rendez-vous, tâche,
+  RCP, Finances, Journal d'audit) et liste de la mutuelle clavier ouvert.
+- [ ] `test_ig3` sous Safari / WebKit échoue déjà sur cabba83, sans le lot DM (04/11/2026) : « RCP, même groupe de choix » lu avant que la page soit dessinée, et
+  lectures de `donnees-rt/*.json` annulées au changement de page (« access control checks ») comptées comme erreurs. À corriger dans le test (attendre la page,
+  ignorer ces annulations). Tout le reste du contrôle est vert, Chrome et Safari, `test_lot_dm` compris.
+- [x] Tri du dépôt (04/11/2026) : captures d'écran des lots passés, journaux de l'émulateur, outils de la migration v1 (`archives/import.html`, `conversion-v2.html`,
+  `test-droits.html`, `js/`), ancien script Apps Script `firebase-v7-deja-installe.gs`, copies de travail et branches déjà fusionnées (`ux-1-2`, `claude/elegant-jang…`)
+  retirés ; anciens audits de la racine rangés dans `archives/audits-1-2/`. Gardés : `listes/` (tableurs d'origine des listes de départ), `modeles/` (modèles Word de référence).
 
 ## À placer (nouveau plan)
 - (21/10, S5) **Vigilance des molécules, flacons et interactions ne sont pas dans le modèle des cabinets neufs** (`PARAMS_SPE` de functions/cabinets.js :
