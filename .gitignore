@@ -19,3 +19,4 @@ tests/.venv/
 # Secrets factices des émulateurs (tests)
 functions/.secret.local
 docs/guide-de-style-demo.html
+docs/etats-vides-demo.html

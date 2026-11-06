@@ -30,7 +30,7 @@ async def main():
         ok(B[P1].get('majPar') and B[P1].get('majLe'), 'auteur et date de la modification enregistrés (12/10/2026 : étaient avalés par un commentaire)', (B[P1].get('majPar'), B[P1].get('majLe')))
         await ev(f"prModifier('{P1}')"); await pg.wait_for_timeout(600)
         t = await pg.inner_text('#fenetreCorps')
-        ok('Validé par' in t and 'version' in t and 'Supprimer le protocole' in t, 'fiche : trace de validation et « Supprimer le protocole »', t[:300])
+        ok('Validé par' not in t and 'modifié par' not in t and 'Supprimer le protocole' in t, 'fiche : aucun nom de médecin (06/11/2026) et « Supprimer le protocole »', t[:300])
         await ev("prProp('st','todo')"); await ev("document.getElementById('fOk').click()"); await pg.wait_for_timeout(1500)
         B = bib(await ev("window.__fs"))
         ok(B[P1].get('st') == 'todo' and 'valide' not in B[P1], 'repassé « Non validé » : trace de validation retirée', B[P1].get('st'))

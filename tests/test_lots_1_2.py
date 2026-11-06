@@ -122,8 +122,10 @@ async def main():
         await pg.goto(f'http://localhost:{PORT}/v2.html#accueil'); await pg.wait_for_timeout(2300)
         ok(await ev("!document.querySelector('.ev-rond') && document.querySelectorAll('.ev-mini').length > 0"), '1.7 : « Aucune consultation prévue aujourd\'hui » : plus d\'icône répétée avant la phrase')
         p2 = await ouvrir(b, s2, w=1440, h=900); await p2.goto(f'http://localhost:{PORT}/v2.html#taches'); await p2.wait_for_timeout(2300)
-        f = await p2.evaluate("(() => { const z = document.querySelector('#taL .ev-vide'); return z ? [z.querySelector('h4').textContent, !!z.querySelector('svg.ev-ill rect[x=\"110\"][y=\"25\"]'), !z.querySelector('path[d^=\"M74 92l36-30\"]')] : null; })()")
-        ok(f and f[0] == 'Toutes les tâches sont terminées' and f[1] and f[2], '1.7 : « Toutes les tâches sont terminées » : dessin d\'Onco360 (presse-papiers coché), plus le cône de fête', f); await p2.close()
+        try: await p2.wait_for_selector('#taL .ev-vide', timeout=6000)
+        except Exception: pass
+        f = await p2.evaluate("(() => { const z = document.querySelector('#taL .ev-vide'); return z ? [z.querySelector('h4').textContent, !!z.querySelector('svg.ev-ill rect[x=\"150\"][y=\"22\"]'), !z.querySelector('path[d^=\"M74 92l36-30\"]')] : null; })()")
+        ok(f and f[0] == 'Toutes les tâches sont terminées' and f[1] and f[2], '1.7 : « Toutes les tâches sont terminées » : dessin d\'Onco360 (presse-papiers coché, redessiné le 06/11/2026), plus le cône de fête', f); await p2.close()
         # 1.8 bulles « ? »
         await pg.goto(f'http://localhost:{PORT}/v2.html#dossier/{pid}'); await pg.wait_for_timeout(2500)
         await ev("document.querySelector('.dos-tabs [data-o=chimio], [data-onglet=chimio], button[onclick*=\"chimio\"]')?.click()"); await pg.wait_for_timeout(600)

@@ -17,6 +17,7 @@ import { auj, addJ, ecart, ouvre, age, srcImage, absentMedecin } from "../moteur
 import { changerTable, hmMaroc, jourMaroc } from "../moteur/heure.js";
 import { typeRdv, libRdv, joursH, T_RTC, nommerTypes } from "../moteur/rdv.js";
 import { TRAITEMENTS_MA } from "../donnees/traitements.js";
+import { ILL_VIDE } from "../donnees/illustrations.js";
 import { chercherPatients, partiesTrouvees } from "../moteur/cherchepatient.js";
 import { trierPar, triSuivant } from "../moteur/tri.js";
 import { typeCourt as typeCourtSalle } from "../moteur/salle.js"; // 26/10/2026 : nom court d'un rendez-vous (comme la salle d'attente)
@@ -797,65 +798,7 @@ const PN = { sale: false, apres: [] }; // panneau de chimio / RT (R-G e) : chang
 const API = { D: () => D, get ESPACE() { return ESPACE; }, apresFenetre: (f) => { APRES_FEN = f || null; }, ecouteDossiers: () => !!ECOUTE_D, $, esc, ic, dfr, dfrA, cap, jourLong, val, occupe, erreur, toast, fenetre, fermerFenetre: () => window.fermerFenetre(), panneau: (h) => panneau(h), fermerPanneau: (f, apres) => fermerPanneau(f, apres), panneauOuvert: () => panneauOuvert(), petiteSurPanneau: () => panneauOuvert() && petiteOuverte(), surFermerPanneau: (f) => PN.apres.push(f), fermerPetite: () => fermerPetite(), corpsLarge: () => (grilleDossier() && $("panneauCorps") ? $("panneauCorps") : $("fenetreCorps")), peut, voit, traitMod, enregistrer, pageDossier: (id) => reafficher(id), recalculer, journal };
 API.typesRdv = (e) => typesRdv(e); API.typesC = () => D.typesC || []; API.actsDe = () => actsDe(D.tarifs, D.activites); // Paramètres › Horaires : durée par type de consultation (AG2)
 // Heure facultative du scanner de centrage (AG5, 11/10/2026) : r.scanH = { h, du } ou retirée (droit « radiothérapie : modifier »)
-// 26/10/2026 (demande de Dr Bentahila) : états vides harmonisés = petite illustration au trait aux couleurs d'Onco360, titre, texte court, bouton
-const ILL_VIDE = {
-  taches: '<svg class="ev-ill" viewBox="0 0 260 170" aria-hidden="true"><circle cx="130" cy="88" r="78" fill="#EAF0FA"/><rect x="40" y="28" width="180" height="118" rx="8" fill="#fff" stroke="#C9D5EA"/>' +
-    '<path d="M48 28h164a8 8 0 0 1 8 8v6H40v-6a8 8 0 0 1 8-8z" fill="#F1F5FB"/><circle cx="50" cy="35" r="2" fill="#C9D5EA"/><circle cx="57" cy="35" r="2" fill="#C9D5EA"/><circle cx="64" cy="35" r="2" fill="#C9D5EA"/>' +
-    '<path d="M40 42h26v104H48a8 8 0 0 1-8-8z" fill="#3563B0"/><circle cx="53" cy="56" r="3" fill="#fff" opacity=".85"/><circle cx="53" cy="70" r="3" fill="#fff" opacity=".85"/><circle cx="53" cy="84" r="3" fill="#fff" opacity=".85"/><circle cx="53" cy="98" r="3" fill="#fff" opacity=".85"/>' +
-    [0, 1, 2, 3, 4].map((i) => '<rect x="74" y="' + (52 + i * 17) + '" width="136" height="12" rx="3" fill="#F1F5FB"/><rect x="78" y="' + (55 + i * 17) + '" width="6" height="6" rx="1.5" fill="#fff" stroke="#C9D5EA"/>' +
-      (i < 3 ? '<path d="M78.5 ' + (58 + i * 17) + 'l2 2 4-4.5" fill="none" stroke="#2FA37A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' : "") +
-      '<rect x="90" y="' + (57 + i * 17) + '" width="' + [62, 46, 54, 40, 50][i] + '" height="3" rx="1.5" fill="#9AAAC4"/><rect x="170" y="' + (57 + i * 17) + '" width="30" height="3" rx="1.5" fill="#D5DDEB"/>').join("") +
-    '<path d="M150 112l14 14 32-38" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M150 112l14 14 32-38" fill="none" stroke="#2FA37A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  salle: '<svg class="ev-ill" viewBox="0 0 260 170" aria-hidden="true"><circle cx="130" cy="88" r="78" fill="#EAF0FA"/><circle cx="130" cy="54" r="22" fill="#fff" stroke="#3563B0" stroke-width="3"/>' +
-    '<path d="M130 41v13l9 6" fill="none" stroke="#3563B0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 146h160" stroke="#C9D5EA" stroke-width="2" stroke-linecap="round"/>' +
-    [62, 112, 162].map((x, i) => '<rect x="' + x + '" y="92" width="36" height="28" rx="6" fill="#fff" stroke="#9AAAC4" stroke-width="2"/><rect x="' + (x - 3) + '" y="118" width="42" height="9" rx="4" fill="' + (i === 1 ? "#3563B0" : "#fff") + '" stroke="' + (i === 1 ? "#3563B0" : "#9AAAC4") + '" stroke-width="2"/>' +
-      '<path d="M' + (x + 3) + ' 127v18M' + (x + 33) + ' 127v18" stroke="#9AAAC4" stroke-width="2" stroke-linecap="round"/>').join("") + "</svg>",
-};
-// 26/10/2026 (2e série) : tâches toutes terminées (fête), jour sans patient (calendrier), tous passés (calendrier coché), personne vu (dossier),
-// RCP (table de réunion)
-const CAL_VIDE = (coche) => '<svg class="ev-ill" viewBox="0 0 260 170" aria-hidden="true"><circle cx="130" cy="88" r="78" fill="#EAF0FA"/><rect x="76" y="40" width="108" height="100" rx="10" fill="#fff" stroke="#C9D5EA" stroke-width="2"/>' +
-  '<path d="M86 40h88a10 10 0 0 1 10 10v12H76V50a10 10 0 0 1 10-10z" fill="#3563B0"/><path d="M100 32v16M160 32v16" stroke="#3563B0" stroke-width="5" stroke-linecap="round"/>' +
-  [0, 1, 2].map((r) => [0, 1, 2, 3].map((c) => '<rect x="' + (88 + c * 22) + '" y="' + (72 + r * 20) + '" width="14" height="12" rx="3" fill="' + (r === 1 && c === 2 && !coche ? "#C9D5EA" : "#F1F5FB") + '"/>').join("")).join("") +
-  (coche ? '<circle cx="176" cy="126" r="20" fill="#fff"/><circle cx="176" cy="126" r="16" fill="#2FA37A"/><path d="M168 126l6 6 10-11" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>' : "") + "</svg>";
-Object.assign(ILL_VIDE, {
-  // 31/10/2026 (demande de Dr Bentahila, 1.7) : « Toutes les tâches sont terminées » redessiné dans le style d'Onco360 (presse-papiers coché, pastille
-  // verte, petites étoiles aux couleurs d'Onco360) ; l'ancien dessin (cône de fête et confettis) ressemblait trop à celui de Doctolib
-  fete: '<svg class="ev-ill" viewBox="0 0 260 170" aria-hidden="true"><circle cx="130" cy="88" r="78" fill="#EAF0FA"/>' +
-    '<rect x="88" y="34" width="84" height="110" rx="10" fill="#fff" stroke="#C9D5EA" stroke-width="2"/><rect x="110" y="25" width="40" height="17" rx="5" fill="#3563B0"/><circle cx="130" cy="31" r="3" fill="#fff"/>' +
-    [0, 1, 2, 3].map((i) => '<rect x="102" y="' + (58 + i * 19) + '" width="13" height="13" rx="3.5" fill="#E8F6F0" stroke="#BFE5D4"/><path d="M105 ' + (64.5 + i * 19) + 'l2.6 2.6 5-5.6" fill="none" stroke="#2FA37A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>' +
-      '<rect x="122" y="' + (61 + i * 19) + '" width="' + [38, 30, 34, 24][i] + '" height="4" rx="2" fill="' + (i ? "#D5DDEB" : "#9AAAC4") + '"/>').join("") +
-    '<circle cx="172" cy="126" r="22" fill="#fff"/><circle cx="172" cy="126" r="18" fill="#2FA37A"/><path d="M163 126l6 6 12-13" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' +
-    [[66, 58, 7, "#3563B0"], [198, 50, 6, "#2FA37A"], [60, 112, 5, "#9AAAC4"], [208, 94, 4.5, "#3563B0"]].map(([x, y, r, c]) => '<path d="M' + x + " " + (y - r) + "L" + (x + r * 0.28) + " " + (y - r * 0.28) + "L" + (x + r) + " " + y + "L" + (x + r * 0.28) + " " + (y + r * 0.28) + "L" + x + " " + (y + r) + "L" + (x - r * 0.28) + " " + (y + r * 0.28) + "L" + (x - r) + " " + y + "L" + (x - r * 0.28) + " " + (y - r * 0.28) + 'Z" fill="' + c + '"/>').join("") + "</svg>",
-  // 31/10/2026 (lot 3.4) : onglets vides du dossier (consultation, chimiothérapie, radiothérapie), même style que Documents
-  consult: '<svg class="ev-ill" viewBox="0 0 260 170" aria-hidden="true"><circle cx="130" cy="88" r="78" fill="#EAF0FA"/><rect x="84" y="34" width="84" height="108" rx="10" fill="#fff" stroke="#C9D5EA" stroke-width="2"/><rect x="108" y="26" width="36" height="16" rx="5" fill="#3563B0"/>' +
-    [0, 1, 2, 3].map((i) => '<rect x="98" y="' + (58 + i * 16) + '" width="' + [52, 40, 46, 30][i] + '" height="4" rx="2" fill="' + (i ? "#D5DDEB" : "#9AAAC4") + '"/>').join("") +
-    '<path d="M176 70v26a20 20 0 0 1-40 0" fill="none" stroke="#3563B0" stroke-width="5" stroke-linecap="round"/><circle cx="176" cy="66" r="7" fill="#fff" stroke="#3563B0" stroke-width="4"/><path d="M156 116v12" stroke="#3563B0" stroke-width="5" stroke-linecap="round"/><circle cx="156" cy="134" r="8" fill="#2FA37A"/></svg>',
-  chimio: '<svg class="ev-ill" viewBox="0 0 260 170" aria-hidden="true"><circle cx="130" cy="88" r="78" fill="#EAF0FA"/><path d="M130 22v12" stroke="#9AAAC4" stroke-width="3" stroke-linecap="round"/>' +
-    '<rect x="98" y="34" width="64" height="78" rx="14" fill="#fff" stroke="#C9D5EA" stroke-width="2"/><path d="M100 76h60v22a12 12 0 0 1-12 12h-36a12 12 0 0 1-12-12z" fill="#C9D9F2"/>' +
-    [0, 1, 2].map((i) => '<rect x="110" y="' + (46 + i * 9) + '" width="' + [22, 30, 16][i] + '" height="3" rx="1.5" fill="#D5DDEB"/>').join("") +
-    '<rect x="124" y="112" width="12" height="14" rx="3" fill="#fff" stroke="#9AAAC4" stroke-width="2"/><path d="M130 120c0 0-3 3-3 5a3 3 0 0 0 6 0c0-2-3-5-3-5z" fill="#3563B0"/><path d="M130 126v10c0 8 20 8 26 2" fill="none" stroke="#9AAAC4" stroke-width="3" stroke-linecap="round"/>' +
-    '<circle cx="174" cy="132" r="16" fill="#fff"/><circle cx="174" cy="132" r="12" fill="#2FA37A"/><path d="M174 125v14M167 132h14" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>',
-  rt: '<svg class="ev-ill" viewBox="0 0 260 170" aria-hidden="true"><circle cx="130" cy="88" r="78" fill="#EAF0FA"/><path d="M78 102a52 52 0 0 1 104 0" fill="none" stroke="#3563B0" stroke-width="16" stroke-linecap="round"/>' +
-    '<rect x="114" y="34" width="32" height="18" rx="5" fill="#fff" stroke="#3563B0" stroke-width="3"/><path d="M122 56l-8 40M138 56l8 40" stroke="#9AAAC4" stroke-width="2" stroke-dasharray="4 4"/>' +
-    '<rect x="70" y="104" width="120" height="10" rx="5" fill="#fff" stroke="#C9D5EA" stroke-width="2"/><path d="M96 114v22M164 114v22" stroke="#C9D5EA" stroke-width="3" stroke-linecap="round"/><path d="M84 138h92" stroke="#C9D5EA" stroke-width="3" stroke-linecap="round"/>' +
-    '<circle cx="130" cy="98" r="5" fill="#2FA37A"/></svg>',
-  agenda: CAL_VIDE(false),
-  agendaOk: CAL_VIDE(true),
-  dossier: '<svg class="ev-ill" viewBox="0 0 260 170" aria-hidden="true"><circle cx="130" cy="88" r="78" fill="#EAF0FA"/><rect x="92" y="36" width="76" height="104" rx="8" fill="#fff" stroke="#C9D5EA" stroke-width="2"/><rect x="112" y="28" width="36" height="16" rx="5" fill="#3563B0"/>' +
-    [0, 1, 2, 3].map((i) => '<rect x="106" y="' + (62 + i * 16) + '" width="' + [48, 40, 44, 30][i] + '" height="4" rx="2" fill="' + (i ? "#D5DDEB" : "#9AAAC4") + '"/>').join("") +
-    '<path d="M168 96c14 0 18 10 18 20s-8 16-18 16" fill="none" stroke="#3563B0" stroke-width="4" stroke-linecap="round"/><circle cx="168" cy="132" r="6" fill="#fff" stroke="#3563B0" stroke-width="4"/></svg>',
-  patients: '<svg class="ev-ill" viewBox="0 0 260 170" aria-hidden="true"><circle cx="130" cy="88" r="78" fill="#EAF0FA"/><path d="M74 58a8 8 0 0 1 8-8h30l10 10h56a8 8 0 0 1 8 8v66a8 8 0 0 1-8 8H82a8 8 0 0 1-8-8z" fill="#C9D5EA"/>' +
-    '<rect x="74" y="66" width="112" height="76" rx="8" fill="#fff" stroke="#C9D5EA" stroke-width="2"/><circle cx="110" cy="96" r="12" fill="#3563B0"/><path d="M92 128c0-11 8-17 18-17s18 6 18 17" fill="#3563B0"/>' +
-    '<rect x="138" y="88" width="34" height="4" rx="2" fill="#9AAAC4"/><rect x="138" y="98" width="26" height="4" rx="2" fill="#D5DDEB"/><rect x="138" y="108" width="30" height="4" rx="2" fill="#D5DDEB"/>' +
-    '<circle cx="182" cy="134" r="16" fill="#fff"/><circle cx="182" cy="134" r="13" fill="#2FA37A"/><path d="M182 127v14M175 134h14" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>',
-  document: '<svg class="ev-ill" viewBox="0 0 260 170" aria-hidden="true"><circle cx="130" cy="88" r="78" fill="#EAF0FA"/><rect x="88" y="44" width="70" height="92" rx="8" fill="#C9D5EA" transform="rotate(-10 123 90)"/>' +
-    '<path d="M108 34h44l22 22v78a8 8 0 0 1-8 8h-58a8 8 0 0 1-8-8V42a8 8 0 0 1 8-8z" fill="#fff" stroke="#C9D5EA" stroke-width="2"/><path d="M152 34v14a8 8 0 0 0 8 8h14z" fill="#3563B0"/>' +
-    '<rect x="126" y="62" width="12" height="32" rx="3" fill="#E5566F"/><rect x="116" y="72" width="32" height="12" rx="3" fill="#E5566F"/>' +
-    '<rect x="114" y="106" width="44" height="4" rx="2" fill="#9AAAC4"/><rect x="114" y="116" width="34" height="4" rx="2" fill="#D5DDEB"/></svg>',
-  rcp: '<svg class="ev-ill" viewBox="0 0 260 170" aria-hidden="true"><circle cx="130" cy="88" r="78" fill="#EAF0FA"/><ellipse cx="130" cy="112" rx="62" ry="20" fill="#fff" stroke="#C9D5EA" stroke-width="2"/>' +
-    [[84, 78], [130, 66], [176, 78]].map(([x, y], i) => '<circle cx="' + x + '" cy="' + y + '" r="11" fill="' + (i === 1 ? "#3563B0" : "#9AAAC4") + '"/><path d="M' + (x - 17) + " " + (y + 30) + "c0-12 8-18 17-18s17 6 17 18" + '" fill="' + (i === 1 ? "#3563B0" : "#9AAAC4") + '"/>').join("") +
-    '<rect x="112" y="102" width="36" height="22" rx="3" fill="#F1F5FB" stroke="#C9D5EA"/><rect x="118" y="108" width="24" height="2.5" rx="1.2" fill="#9AAAC4"/><rect x="118" y="114" width="18" height="2.5" rx="1.2" fill="#C9D5EA"/></svg>',
-});
+// 26/10/2026 (demande de Dr Bentahila) : états vides harmonisés = illustration, titre, texte court, bouton ; images redessinées le 06/11/2026 : donnees/illustrations.js
 const etatVide = (o) => '<div class="ev-vide' + (o.petit ? " petit" : "") + '"' + (o.k ? ' data-k="' + o.k + '"' : "") + ">" + (ILL_VIDE[o.ill] || "") + "<h4>" + esc(o.titre) + "</h4>" + (o.txt ? "<p>" + o.txt.split("\n").map(esc).join("<br>") + "</p>" : "") + (o.bouton || "") + "</div>";
 API.etatVide = (o) => etatVide(o);
 // Variante d'une ligne (tableau de bord : catégorie ou carte sans rien) : pastille ronde avec l'icône, puis la phrase
@@ -926,7 +869,7 @@ function entete() {
     [/téléphone/, "Numéro manquant", "alerte"], [/WhatsApp/, "Rappel WhatsApp", "whatsapp"], [/ni « Venu »/, "Journée à clôturer", "salle"]].find(([re]) => re.test(h)) || [null, "Alerte", "alerte"];
   $("panneauAlertes").innerHTML = '<div class="al-tete"><h3>Notifications</h3>' + (al.length ? '<span class="n">' + al.length + "</span>" : "") + "</div>" + (al.length ? al.map((a) => { const [, cat, ico] = nature(a.h), q = (a.h.replace(/<[^>]*>/g, "").match(/\b\d{2}\/\d{2}\b/) || [""])[0];
     return '<button type="button" class="al2" onclick="ouvrirDossier(\'' + a.id + '\')"><span class="al-ic" style="--c:' + a.c + '">' + ic(ico) + '</span><span class="al-tx"><span class="al-h">' + a.h + '</span><span class="al-cat">' + cat + "</span></span>" + (q ? '<span class="al-q">' + q + "</span>" : "") + "</button>"; }).join("")
-    : etatVide({ petit: 1, ill: "agendaOk", titre: "Aucune notification" }));
+    : etatVide({ petit: 1, ill: "notif", titre: "Aucune notification" }));
 }
 
 // ───── Calculs ─────
@@ -1334,7 +1277,7 @@ function blocAFaire(pj) {
   const ligne = (o) => '<div class="af-l' + (o.retard ? " ret" : "") + '"' + (o.cure ? ' onclick="' + o.cure + '"' : o.id ? ' onclick="ouvrirDossier(\'' + o.id + '\')"' : "") + '><div class="tx"><b>' + esc(o.nm) + "</b>" + (o.de ? '<span class="de">' + esc(o.de) + "</span>" : "") + "</div>" + (o.badge || "") + (o.bt || "") + "</div>";
   const groupe = (icone, titre, l) => { if (l.length) G.push('<div class="af-g' + (AF_OUV.has(titre) ? " ouv" : "") + '"><div class="af-t">' + ic(icone) + "<span>" + titre + '</span><span class="n">' + l.length + "</span></div>" + l.map((o, i) => ligne(o).replace('<div class="af-l', '<div class="af-l' + (i >= NB_AF ? " af-sup" : ""))).join("") + plus(l, titre) + "</div>"); };
   const btn = (lib, js) => '<button class="bt petit vert" onclick="event.stopPropagation();' + js + '">' + ic("check") + lib + "</button>";
-  const resume = (icone, html, lien, lib) => G.push('<div class="af-g"><div class="af-r">' + ic(icone) + "<span>" + html + "</span>" + (lien ? '<button class="lien" onclick="' + lien + '">' + lib + " ›</button>" : "") + "</div></div>");
+  const resume = (icone, html, lien, lib) => G.push('<div class="af-g' + (icone === "check" ? " af-info" : "") + '"><div class="af-r">' + ic(icone) + "<span>" + html + "</span>" + (lien ? '<button class="lien" onclick="' + lien + '">' + lib + " ›</button>" : "") + "</div></div>");
   let titre;
   if (estMed(role)) {
     titre = "À valider par le médecin";
@@ -1345,7 +1288,7 @@ function blocAFaire(pj) {
     cures.sort((p, q) => p.d.localeCompare(q.d) || p.nm.localeCompare(q.nm)); groupe("seringue", "Cures à valider", cures, 8);
     { const A = partagerAlertes(alertesCliniques(), vuesNettoyees(D.profil.alertesVues, D.t)); // R-B2 : « Vu » (coche) sur chaque alerte ; celles déjà vues à part
       groupe("alerte", "Alertes cliniques", A.aVoir.map((o) => Object.assign({}, o, { bt: '<button class="ico af-vu" title="Vu : ne plus afficher cette alerte" aria-label="Vu : ne plus afficher cette alerte" onclick="event.stopPropagation();alerteVue(\'' + o.cle + '\')">' + ic("check") + "</button>" })), 6);
-      if (A.vues.length) G.push('<div class="af-g af-g-vues"><button type="button" class="af-vues" onclick="alertesVuesVoir()" title="Revoir les alertes déjà vues">' + ic("check") + A.vues.length + " alerte" + (A.vues.length > 1 ? "s" : "") + " vue" + (A.vues.length > 1 ? "s" : "") + '<span class="fl">›</span></button></div>'); }
+      if (A.vues.length) G.push('<div class="af-g af-g-vues af-info"><button type="button" class="af-vues" onclick="alertesVuesVoir()" title="Revoir les alertes déjà vues">' + ic("check") + A.vues.length + " alerte" + (A.vues.length > 1 ? "s" : "") + " vue" + (A.vues.length > 1 ? "s" : "") + '<span class="fl">›</span></button></div>'); }
     const cont = [], dosi = [], fin = [], okV = peutDosi();
     D.patients.forEach((x) => { if (!voitRT(x)) return; let l = []; try { l = JSON.parse(x.doc.rtsJson || "[]"); } catch (e) { /* illisible */ }
       l.forEach((r) => { const q = "'" + x.id + "','" + r.id + "'", ap = "function(){route()}", acte = r.acte || "Radiothérapie";
@@ -1380,7 +1323,9 @@ function blocAFaire(pj) {
     titre = "À faire par l'infirmière";
     groupe("seringue", "Chimiothérapies du jour", pj.ch.filter((o) => !o.vu).map((o) => ({ id: o.id, nm: o.nm, de: o.lib + " · " + o.de, badge: badgeSalle(o.id, "chimio") })), 10);
   } else return "";
-  return '<section class="carte afaire"><h3><span class="ic">' + ic("check") + "</span>" + titre + "</h3>" + (G.length ? G.join("") : etatVide({ petit: 1, ill: "agendaOk", titre: estMed(role) ? "Rien à valider" : "Rien à faire pour le moment", txt: estMed(role) ? "Cures, contourages, dosimétries et fins de radiothérapie sont à jour." : "" })) + "</section>"; // 26/10/2026 : plus de phrase sous le titre
+  // EV.1 (06/11/2026) : une ligne seulement informative (« N alertes vues », « tous envoyés ») ne cache plus l'image « Rien à valider » (af-info)
+  const aFaire = G.filter((h) => h.indexOf(" af-info") < 0).length;
+  return '<section class="carte afaire"><h3><span class="ic">' + ic("check") + "</span>" + titre + "</h3>" + (aFaire ? G.join("") : etatVide({ petit: 1, ill: "agendaOk", titre: estMed(role) ? "Rien à valider" : "Rien à faire pour le moment", txt: estMed(role) ? "Cures, contourages, dosimétries et fins de radiothérapie sont à jour." : "" }) + G.join("")) + "</section>"; // 26/10/2026 : plus de phrase sous le titre
 }
 
 // 19/10/2026 (demande de Dr Bentahila) : tableau de bord, chaque explication sous un titre de carte va dans un petit rond « ? » à côté du titre

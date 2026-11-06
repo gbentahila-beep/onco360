@@ -7,6 +7,7 @@
 import { doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { db, app } from "../config.js";
 import { FERIES0 } from "../donnees/listes.js";
+import { ILL_PARAM } from "../donnees/illustrations.js";
 import { dureeRdv } from "../moteur/rdv.js";
 import { typesDocuments, enregistrerTypes, TYPES_DOCUMENTS0 } from "./fichiers.js";
 import { typesTaches, enregistrerTypesTaches, TYPES_TACHES0, TYPE_RT, listeMembres } from "./taches.js";
@@ -203,13 +204,7 @@ const MOTS_PLUS = { lieux: "hôpital hopital centre", impression: "imprimante po
   listes: "allergies antécédents traitements localisations", bibliotheques: "médicaments ordonnance type bilans", activites: "prix honoraires consultation bilan", audit: "traçabilité modifications", export: "copie sauvegarde zip" };
 const COMPTE = [["infos", "profil", "Informations", "mot de passe inpe signature photo nom profil adresse e-mail email téléphone"], ["acces", "patients", "Accès", "droits de l'équipe accès membres secrétaire infirmière remplaçant utilisateurs comptes inviter"],
   ["abonnement", "banque", "Abonnement", "abonnement formule paiement payer"], ["factures", "document", "Factures", "factures facture reçu de paiement"]];
-const ILL_PARAM = '<svg class="cf-acc-ill" viewBox="0 0 260 170" aria-hidden="true"><circle cx="130" cy="88" r="78" fill="#EAF0FA"/>' +
-  '<rect x="70" y="46" width="120" height="86" rx="12" fill="#fff" stroke="#C9D5EA" stroke-width="2"/>' +
-  [0, 1, 2].map((i) => '<rect x="88" y="' + (66 + i * 22) + '" width="84" height="4" rx="2" fill="#D5DFEE"/><rect x="88" y="' + (66 + i * 22) + '" width="' + [52, 30, 64][i] + '" height="4" rx="2" fill="#3563B0"/>' +
-    '<circle cx="' + (88 + [52, 30, 64][i]) + '" cy="' + (68 + i * 22) + '" r="7" fill="#fff" stroke="#3563B0" stroke-width="2.5"/>').join("") +
-  '<circle cx="186" cy="124" r="20" fill="#fff"/><circle cx="186" cy="124" r="16" fill="#3563B0"/><circle cx="186" cy="124" r="5.5" fill="none" stroke="#fff" stroke-width="2.4"/>' +
-  [0, 45, 90, 135, 180, 225, 270, 315].map((d) => '<rect x="184.6" y="113" width="2.8" height="4.5" rx="1" fill="#fff" transform="rotate(' + d + ' 186 124)"/>').join("") +
-  '<circle cx="62" cy="58" r="6" fill="#2FA37A"/><circle cx="206" cy="52" r="4.5" fill="#9AAAC4"/></svg>';
+// Image de l'accueil des Paramètres : donnees/illustrations.js (redessinée le 06/11/2026)
 function accueilParam() {
   const L = ONGLETS(), esc = A.esc, d = A.D(), nom = [d.titre, d.nomAff].filter(Boolean).join(" ");
   return '<section class="carte cf-acc"><div class="cf-acc-t"><div><h2>Bonjour' + (nom ? " " + esc(nom) : "") + '</h2><p class="sous">Adaptez Onco360 à vos besoins.</p>' +
