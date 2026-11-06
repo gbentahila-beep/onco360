@@ -1307,7 +1307,7 @@ U15 (« + Chimiothérapie » sur deux lignes) ; U16 (week-ends hachurés de l'Ag
 cabinet) ; R2 (« Assistante » / « secrétaire ») ; PA2 (« Bonjour Dr … » répété) ; F2 à F4 (onglets du téléphone, minuteur sans libellé, auteur des
 consultations) ; B4 (« Tous les centres », statuts mélangés du Bilan). Détail : `archives/audit-ux-ui-2026-11-02/`.
 
-## Demandes du 06/11/2026, lot EV : images des états vides, « Rien à valider », protocoles sans nom (testé ; **à mettre en ligne avec le lot LT**, version 20261106a)
+## Demandes du 06/11/2026, lot EV : images des états vides, « Rien à valider », protocoles sans nom (testé ; **en ligne le 06/11/2026** avec le lot LT, version 20261106a)
 Test : `tests/test_lot_ev.py` (1 440 et 390 px), ajouté à `outils/avant-mise-en-ligne.sh` ; `tests/test_protocoles_trace.py` adapté. Planche avant / après :
 `docs/etats-vides-demo.html` (non versionnée).
 - [x] EV.1 Tableau de bord, carte « À valider par le médecin » : l'image et « Rien à valider » manquaient quand la carte n'avait plus que « N alertes vues ».
@@ -1320,7 +1320,7 @@ Test : `tests/test_lot_ev.py` (1 440 et 390 px), ajouté à `outils/avant-mise-e
   et du formulaire ; bulle du badge « Validé » = « Validé le … (version …) » ; la source reste dans « Source ». Qui / quand restent enregistrés (`valide`, `majParNom`).
 - [x] EV.4 Menu : RCP avait la même icône que Patients ; nouvelle icône « table ronde » (trois personnes autour d'une table, symbole `i-rcp` de v2.html, aussi dans le dossier).
 
-## Demandes du 04/11/2026, lot LT : lieu de traitement de la chimio, équipe d'une clinique, taux commun de la RT (testé, **à mettre en ligne : site, règles, index, fonctions**)
+## Demandes du 04/11/2026, lot LT : lieu de traitement de la chimio, équipe d'une clinique, taux commun de la RT (testé, **en ligne le 06/11/2026** : règles, index, site, fonctions ; version 20261106a)
 Demande de Dr Bentahila (04/11) : un médecin qui consulte au cabinet et traite en clinique. Règle validée par elle : les **séances** (chimio, radiothérapie)
 suivent le **lieu de traitement** choisi à la prescription ; **toutes les consultations** (dont la consultation du jour de chimio et pendant la RT) suivent
 **l'établissement du patient** et le mode de paiement habituel de ce lieu (Lieux d'exercice). Le cabinet est un lieu d'exercice comme une clinique.
@@ -1345,7 +1345,7 @@ Test : `tests/test_lot_lt.py` (1 440 et 390 px, cas 1 et 2, Bilan, infirmière),
   colonne Net aussi par lieu. Séance et radiothérapie : « Tarif commun » en 1re ligne du tableau des lieux, colonnes alignées (demande du 04/11). Ordinateur et téléphone.
 - [x] LT.7 Modèle des cabinets neufs (Administration › Ouvrir le modèle) : la carte « Séance de chimiothérapie » (tarif commun) s'affiche aussi sans lieu ;
   les cabinets neufs reçoivent ce tarif commun (`tarifsDepart`, functions/cabinets.js) et la dernière valeur du taux commun de la RT.
-- [ ] LT.8 Sur le Mac avant la mise en ligne : ~~`cd tests/regles && npm test` (dont `test-lieux-traitement.mjs`)~~ (fait le 06/11/2026 : tout réussi, 14 cas du lot LT) ; déployer les règles et l'index
+- [x] LT.8 Sur le Mac avant la mise en ligne : ~~`cd tests/regles && npm test` (dont `test-lieux-traitement.mjs`)~~ (fait le 06/11/2026 : tout réussi, 14 cas du lot LT) ; déployer les règles et l'index
   (`firebase deploy --only firestore:rules,firestore:indexes`) **avant** le site ; puis les fonctions (`agendaPatient`, remise à plat de l'agenda, cabinets neufs).
 - [ ] LT.9 Non fait (à demander si besoin) : documents de RT (pli, compte rendu) écrits par l'équipe de la clinique pour un patient du cabinet (rangés au lieu du
   patient) ; lieu sur la fiche chimio imprimée.
