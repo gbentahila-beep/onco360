@@ -2,8 +2,8 @@
 
 But : mettre Onco360 en ligne depuis Claude Code sur le web ou le téléphone, sans le Mac.
 L'action `.github/workflows/mise-en-ligne.yml` lance le contrôle complet (`avant-mise-en-ligne.sh --navigateur`, et `--regles` pour les règles)
-sur la branche **main**, puis met en ligne **seulement si tout est bon**. Elle met en ligne le site et / ou les règles Firestore ; les fonctions
-serveur restent mises en ligne depuis le Mac (`firebase deploy --only functions`).
+sur la branche **main**, puis met en ligne **seulement si tout est bon** : site, règles Firestore, et (depuis le 11/11/2026) fonctions serveur
+et index, avec une seconde clé et l'approbation de Dr Bentahila (plus besoin du Mac).
 
 ## À faire une fois (Dr Bentahila, environ 10 minutes)
 
@@ -23,11 +23,23 @@ serveur restent mises en ligne depuis le Mac (`firebase deploy --only functions`
 2. « New repository secret » : nom **`FIREBASE_CLE`**, valeur = tout le contenu du fichier JSON (l'ouvrir avec TextEdit, tout copier).
 3. « Add secret », puis **supprimer le fichier JSON** de l'ordinateur (et de la corbeille).
 
-### 3. Mettre l'action sur main
+### 3. Fonctions serveur : seconde clé, avec approbation
+Les fonctions serveur tournent avec tous les droits sur la base : une clé qui les met en ligne vaut un accès complet. D'où une clé à part,
+utilisable seulement après un clic d'approbation de Dr Bentahila (site GitHub ou application GitHub du téléphone).
+1. GitHub : https://github.com/gbentahila-beep/onco360/settings/environments › « New environment » : nom **`fonctions`** › « Configure environment ».
+2. Cocher **« Required reviewers »**, ajouter son propre compte GitHub, « Save protection rules ».
+3. Plus bas, « Environment secrets » › « Add environment secret » : nom **`FIREBASE_CLE_FONCTIONS`** (valeur : voir 4 et 5).
+4. Google Cloud (même page qu'au 1.) : compte de service `deploiement-fonctions`, rôles **Éditeur** (Editor) et **Utilisateur du compte de
+   service** (Service Account User) ; onglet Clés › clé JSON.
+5. Coller tout le fichier dans le secret du 3., puis supprimer le fichier de l'ordinateur et de la corbeille.
+6. Conseillé : double authentification activée sur le compte GitHub (Settings › Password and authentication).
+
+### 4. Mettre l'action sur main
 L'action n'apparaît dans GitHub qu'une fois sur la branche main (demander à Claude d'ouvrir la demande de fusion, puis la fusionner).
 
 ## Ensuite
-- Dire à Claude « mets en ligne le site » (ou « les règles », « le site et les règles ») : Claude pousse le code sur main et lance l'action.
+- Dire à Claude « mets en ligne le site » (ou « les règles », « le site et les règles », « les fonctions », « tout ») : Claude pousse le code
+  sur main et lance l'action. Pour les fonctions, GitHub envoie une demande d'approbation : « Review deployments » › cocher `fonctions` › « Approve ».
 - Ou à la main : GitHub › Actions › « Mise en ligne » › « Run workflow » › choisir › « Run workflow ».
 - Durée : 30 à 90 minutes (parcours dans Chrome et Safari). En rouge : rien n'est mis en ligne, le détail est dans « Détail des erreurs ».
 - Après : recharger sans cache (Cmd + Maj + R) et faire les 3 vérifications habituelles.
